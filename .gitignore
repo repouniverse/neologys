@@ -41,3 +41,21 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+
+#ignorando archivos no deseados
+*.bmp*
+*.jpg*
+*.pdf*
+*.xls*
+*.xlsx*
+*.docx*
+*.doc*
+*.ppt*
+*.pptx*
+*.jpeg*
+*.gif*
+*.log*
+*.sql*
+
+
+
