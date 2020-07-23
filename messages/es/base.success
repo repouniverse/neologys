@@ -1,0 +1,6 @@
+<?php
+
+return [
+   'The record was saved successfully'=>'El registro se grabó sin problemas',
+    
+];

@@ -67,24 +67,29 @@ return [
          'i18n' => [
             'translations' => [
               
+                'base.errors'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                          
+                                            ], 
                 'base.labels'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                          
                                             ], 
-                'base.forms'=>[
-                                 'class' => 'yii\i18n\PhpMessageSource',
-                                 'basePath' => '@root/messages',                                          
-                                            ], 
                 
-               'base.actions'=>[
+               'base.names'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                          
                                   ], 
-                 'base.errors'=>[
+                 'base.success'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' =>'@root/messages',                                         
                        ], 
                      'base.verbs'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                        
+               
+                                  ],
+                'base.warnings'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                        
                

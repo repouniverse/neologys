@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\masters\CombovaloresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = m::t('labels', 'Transactions');
+$this->title = m::t('labels', 'Field Settings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="combovalores-index">
@@ -18,15 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(['id'=>'migrillaPjax','timeout'=>false]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <p>
+        <?= Html::a('<span class="fa fa-file"></span>    '.m::t('verbs', 'Create'), ['create-campo-valores'], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?= GridView::widget([
         'id'=>'mi-grilla',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'grupo',
-            'name',
-            'description',
-            'transaccion',
+            'nombreModelo',
+            'nombreCampo',
+            'parametro',
             
             //'valor1',
             //'valor2',

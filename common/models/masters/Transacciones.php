@@ -21,7 +21,7 @@ class Transacciones extends \common\models\base\modelBase
 {
   
     const SCENARIO_BASE='base';
-    
+    public $booleanFields=['isauditable'];
     /**
      * {@inheritdoc}
      */
@@ -43,8 +43,8 @@ class Transacciones extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['name','transaccion','esruta','description','grupo'], 'safe'],
-            [['codigo'], 'match', 'pattern' => '/^[A-Z0-9]/'],
+            [['name','transaccion','esruta','description','grupo','isauditable'], 'safe'],
+            [['transaccion'], 'match', 'pattern' => '/^[A-Z0-9]/'],
             //[['codcen'], 'string', 'max' => 5],
             //[['nombretabla', 'codigo'], 'unique', 'targetAttribute' => ['nombretabla', 'codigo']],
            // [['codigo', 'valor1', 'valor2'], 'string', 'max' => 3],
@@ -55,7 +55,7 @@ class Transacciones extends \common\models\base\modelBase
  public function scenarios()
     {
         $scenarios = parent::scenarios(); 
-        $scenarios[self::SCENARIO_BASE] = ['name','transaccion','esruta','description','grupo'];
+        $scenarios[self::SCENARIO_BASE] = ['name','transaccion','esruta','description','grupo','isauditable'];
         return $scenarios;
     }
     /**
@@ -66,11 +66,15 @@ class Transacciones extends \common\models\base\modelBase
         return [
             'name' => Yii::t('base.labels', 'Name'),
             'transaccion' => Yii::t('base.labels', 'Transaction'),
+            'isauditable' => Yii::t('base.labels', 'Is Audit'),
             'description' => Yii::t('base.labels', 'Description'),
             'esruta' => Yii::t('base.labels', 'Is Route'),
             'group' => Yii::t('base.labels', 'Group'),
         ];
     }
 
-    
+   public static function find()
+    {
+        return new TransaccionesQuery(get_called_class());
+    }  
 }

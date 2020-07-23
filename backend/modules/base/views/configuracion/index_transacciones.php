@@ -1,6 +1,8 @@
 <?php
 use backend\modules\base\Module as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+use yii2mod\editable\EditableColumn; 
+use yii2mod\editable\Editable; 
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -27,8 +29,70 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-           'name','transaccion','esruta','description','grupo',
-            
+             [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'grupo',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                        return $model::comboValueFieldStatic('grupo');
+                    },
+                    'type' => 'select',
+                     'editableOptions' => function ($model) {
+                        return [
+                            'source' => $model::comboDataField('grupo'),
+                            'value' => $model->grupo,
+                        ];
+                    },       
+                ],           
+           'name',
+            [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'description',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                        return $model->description;
+                    },
+                    'type' => 'textarea',
+                     
+                         
+                ], 
+            [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'transaccion',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                        return $model->transaccion;
+                    },
+                    //'type' => 'select',
+                   /* 'editableOptions' => function ($model) {
+                        return [
+                            'source' => SettingStatus::listData(),
+                            'value' => $model->status,
+                        ];
+                    },*/
+                    //'filter' => SettingStatus::listData(),
+                    'filterInputOptions' => ['prompt' => m::t('labels', 'Transaction code'), 'class' => 'form-control'],
+                ],
+                            
+                            [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'esruta',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                        return $model->esruta;
+                    },
+                    'type' => 'select',
+                     'editableOptions' => function ($model) {
+                        return [
+                            'source' => [
+                        '1'=>yii::t('base.labels','Yes'),
+                         '0'=>yii::t('base.labels','Not'),
+                        ],
+                            'value' => $model->esruta,
+                        ];
+                    },       
+                ],            
+                   
             //'valor1',
             //'valor2',
 

@@ -283,6 +283,25 @@ class ConfiguracionController extends baseController
             'dataProvider' => $dataProvider,
         ]);
  }   
-    
+ 
+
+public function actionAjaxEditTransaccion(){
+   if( h::request()->isAjax)
+     h::response()->format = Response::FORMAT_JSON;
+   $campo=Yii::$app->request->post('name');
+   $valor=Yii::$app->request->post('value');
+   $pk = unserialize(base64_decode(Yii::$app->request->post('pk')));
+  // var_dump(Yii::$app->request->post('pk'),$pk,$campo,$valor);die();
+     $model= \common\models\masters\Transacciones::findOne(['name'=>$pk]);  
+   $model->{$campo}=$valor;
+   if( $model->save()){
+      return ['success',yii::t('base.success','The record was saved successfully')];
+    }else{
+        return ['error'=>yii::t('base.errors','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
+    }
+               
+} 
+ 
+ 
     
 }

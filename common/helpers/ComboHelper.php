@@ -161,6 +161,7 @@ class ComboHelper  {
      * @codcentro: Opcional para filtrar un parametro que depende del centro 
      */
     public static function getTablesValues($key,$codcentro=null){
+       // echo \common\models\masters\Combovalores::find()->where(['[[nombretabla]]'=> strtolower($key)])->createCommand()->getRawSql();die();
         if(is_null($codcentro))
         return ArrayHelper::map(
        \common\models\masters\Combovalores::find()->where(['[[nombretabla]]'=> strtolower($key)])->all(),

@@ -71,8 +71,12 @@ class ModelCombo extends \common\models\base\modelBase
     
     public function beforeSave($insert) {
        
-            $this->parametro= \common\helpers\FileHelper::getShortName($this->nombreModelo).'.'.$this->nombreCampo;
-           //var_dump($this->parametro,$this->nombreModelo,$this->nombreCampo);die();
+            //$this->parametro= \common\helpers\FileHelper::getShortName($this->nombreModelo).'.'.$this->nombreCampo;
+           $nombreModelo=$this->nombreModelo;
+           
+        $this->parametro= $nombreModelo::RawTableName().'.'.$this->nombreCampo;
+           
+//var_dump($this->parametro,$this->nombreModelo,$this->nombreCampo);die();
        
         return parent::beforeSave($insert);
     }
