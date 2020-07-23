@@ -13,8 +13,10 @@ use yii\filters\VerbFilter;
  */
 class baseController extends Controller
 {
-   public $nameSpaces=[];
    
+    
+    public $nameSpaces=[];
+    //public $importantActions=[];
     /*
      * Estas constante son predefinidas en 
      * los widgets edit-xxx

@@ -92,7 +92,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         ];
                     },       
                 ],            
-                   
+                 [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'isauditable',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                       return ($model->isauditable)?yii::t('base.labels','Yes'):yii::t('base.labels','Not');
+                    },
+                    'type' => 'select',
+                     'editableOptions' => function ($model) {
+                        return [
+                            'source' => [
+                        '1'=>yii::t('base.labels','Yes'),
+                         '0'=>yii::t('base.labels','Not'),
+                        ],
+                            'value' => ($model->isauditable)?'1':'0',
+                        ];
+                    },       
+                ],   
             //'valor1',
             //'valor2',
 
