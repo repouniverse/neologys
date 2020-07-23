@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-class ConfiguracionController extends \yii\web\Controller
+class ConfiguracionController extends \common\controllers\baseController
 {
     
     

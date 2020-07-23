@@ -2,6 +2,7 @@
 namespace common\controllers;
 use Yii;
 use common\helpers\h;
+use common\filters\ActionAuditFilter;
 use yii\web\Controller;
 use yii\helpers\Html;
 use yii\web\Response;
@@ -38,6 +39,11 @@ class baseController extends Controller
                     'delete-model' => ['post'],
                 ],
             ],
+            /*Filtro para detectar actions registrados como auditables*/
+           'auditoria'=>[
+                'class' => ActionAuditFilter::className(),
+           ] 
+            
         ];
     }
 

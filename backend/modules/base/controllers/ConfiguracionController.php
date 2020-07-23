@@ -3,6 +3,7 @@
 namespace backend\modules\base\controllers;
 use backend\modules\base\Module as m;
 use Yii;
+//use common\filters\ActionAuditFilter;
 use common\models\masters\GrupoParametros;
 use common\models\masters\Combovalores;
 use common\models\masters\CombovaloresSearch;
@@ -22,17 +23,7 @@ class ConfiguracionController extends baseController
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+    
 
     /**
      * Lists all GrupoParametros models.
