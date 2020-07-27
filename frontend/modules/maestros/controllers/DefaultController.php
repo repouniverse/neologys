@@ -50,7 +50,7 @@ class DefaultController extends \common\controllers\baseController
         $model = new Periodos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view-periodo', 'id' => $model->codperiodo]);
+            return $this->redirect(['index-periodo', 'id' => $model->codperiodo]);
         }
 
         return $this->render('create_periodo', [
@@ -67,10 +67,10 @@ class DefaultController extends \common\controllers\baseController
      */
     public function actionUpdatePeriodo($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModelPeriodo($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view-periodo', 'id' => $model->codperiodo]);
+            return $this->redirect(['index-periodo', 'id' => $model->codperiodo]);
         }
 
         return $this->render('update_periodo', [
