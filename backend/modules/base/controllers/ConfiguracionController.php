@@ -23,7 +23,43 @@ class ConfiguracionController extends baseController
     /**
      * {@inheritdoc}
      */
-    
+     public function actions()
+    {
+        return [
+            'parametros-basicos' => [
+                'class' => \common\actions\ActionSettingList::class,
+               'seccion'=>'general',
+                'nameView' => 'admin-settings',
+            ],
+            
+            'crear-settings' => [
+                'class' => \yii2mod\settings\actions\SettingsAction::class,
+                // also you can use events as follows:
+                'on beforeSave' => function ($event) {
+                    // your custom code
+                },
+                'on afterSave' => function ($event) {
+                    // your custom code
+                },
+                'modelClass' => \backend\modules\base\models\ConfiguracionForm::class,
+                'sectionName'=>'general',
+                        //'view'=>'general',
+            ],
+             'update-setting' => [
+                'class' => \yii2mod\settings\actions\ActionSettingUpdate::class,
+                // also you can use events as follows:
+                'on beforeSave' => function ($event) {
+                    // your custom code
+                },
+                'on afterSave' => function ($event) {
+                    // your custom code
+                },
+                'modelClass' => \yii2mod\settings\models\SettingModel::class,
+                'sectionName'=>'general',
+                        //'view'=>'general',
+            ],
+        ];
+    }
 
     /**
      * Lists all GrupoParametros models.

@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-use backend\modules\base\Module AS m;
+
 use Yii;
 
 /**
@@ -47,15 +47,15 @@ class SettingsGen extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => m::t('labels', 'ID'),
-            'type' => m::t('labels', 'Type'),
-            'section' => m::t('labels', 'Section'),
-            'key' => m::t('labels', 'Key'),
-            'value' => m::t('labels', 'Value'),
-            'status' => m::t('labels', 'Status'),
-            'description' => m::t('labels', 'Description'),
-            'created_at' => m::t('labels', 'Created At'),
-            'updated_at' => m::t('labels', 'Updated At'),
+            'id' => yii::t('base.labels', 'ID'),
+            'type' => yii::t('base.labels', 'Type'),
+            'section' => yii::t('base.labels', 'Section'),
+            'key' => yii::t('base.labels', 'Key'),
+            'value' => yii::t('base.labels', 'Value'),
+            'status' => yii::t('base.labels', 'Status'),
+            'description' => yii::t('base.labels', 'Description'),
+            'created_at' => yii::t('base.labels', 'Created At'),
+            'updated_at' => yii::t('base.labels', 'Updated At'),
         ];
     }
 

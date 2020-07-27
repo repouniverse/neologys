@@ -12,6 +12,35 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        
+          'assetManager'=>[
+               'bundles'=>[
+                   //'dmstr\web\AdminLteAsset'=>['skin'=>'skin-red-light'],
+                   'backend\views\skins\apariencia_1\AdminLteAsset'=>['skin'=>'skin-purple'],
+                   /*'yii\web\JqueryAsset' => [
+                                        'js' => [YII_DEBUG ? 'https://code.jquery.com/jquery-3.2.1.js' : 'https://code.jquery.com/jquery-3.2.1.min.js'],
+                                        'jsOptions' => ['type' => 'text/javascript'],
+                                            ],*/
+                             ],
+                        ],
+        'view' => [
+                    'theme' => [
+                            'pathMap' => [
+                                             '@app/views' => '@backend/views/skins/apariencia_1/',
+                                           // '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                                            
+                                            ],
+                                ],
+                    ],
+        
+        
+        
+        
+        
+        
+        
+        
+        
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -45,5 +74,12 @@ return [
         ],
         */
     ],
+    'modules' => [
+        'maestros' => [
+            'class' => 'frontend\modules\maestros\MaestrosModule',
+        ],
+    ],
+    
+    
     'params' => $params,
 ];

@@ -37,7 +37,8 @@ class Combovalores extends \common\models\base\modelBase
             [['codigo'], 'match', 'pattern' => '/[1-9A-Z]{1}[0-9A-Z]{0,2}/'],
             [['codcen'], 'string', 'max' => 5],
             [['nombretabla', 'codigo'], 'unique', 'targetAttribute' => ['nombretabla', 'codigo']],
-            [['codigo', 'valor1', 'valor2'], 'string', 'max' => 3],
+            [['codigo'], 'string', 'max' => 6],
+            [[ 'valor1', 'valor2'], 'string', 'max' => 3],
             [['valor'], 'string', 'max' => 60],
             //[['codcen'], 'exist', 'skipOnError' => true, 'targetClass' => Centros::className(), 'targetAttribute' => ['codcen' => 'codcen']],
         ];

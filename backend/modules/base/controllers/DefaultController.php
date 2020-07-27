@@ -10,6 +10,26 @@ use yii2mod\settings\models\SettingModel;
  */
 class DefaultController extends Controller
 {
+   
+     public function actions()
+    {
+        return [
+            'manage-settings' => [
+                'class' => \yii2mod\settings\actions\SettingsAction::class,
+                // also you can use events as follows:
+                'on beforeSave' => function ($event) {
+                    // your custom code
+                },
+                'on afterSave' => function ($event) {
+                    // your custom code
+                },
+               // 'seccion'=>'base.base',
+                'modelClass' => \common\models\settings\ConfigurationForm::class,
+            ],
+        ];
+    }
+    
+    
     /**
      * Renders the index view for the module
      * @return string
