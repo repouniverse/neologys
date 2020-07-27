@@ -26,8 +26,8 @@ class Installer
   /*Defdiniendo las constates para almacenar las 
     * rutas a los archivos config de cada aplicacion
     */
-    const PATH_FILE_ENV=__dir__.'/../web/.env';
-    const PATH_FILE_ENV_EXAMPLE=__dir__.'/../web/.env.example';
+    const PATH_FILE_ENV=__dir__.'/../../.env';
+    const PATH_FILE_ENV_EXAMPLE=__dir__.'/../../.env.example';
     const CONFIG_COMMON_LOCAL=__dir__.'/../../common/config/main-local.php';
     const CONFIG_COMMON_MAIN=__dir__.'/../../common/config/main.php';
     const CONFIG_BACKEND_MAIN=__dir__.'/../../backend/config/main_copy.php';
