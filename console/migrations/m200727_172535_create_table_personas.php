@@ -5,10 +5,10 @@ use console\migrations\baseMigration;
 /**
  * Class m200727_172535_create_table_trabajadores
  */
-class m200727_172535_create_table_trabajadores extends baseMigration
+class m200727_172535_create_table_personas extends baseMigration
 {
 
-    const NAME_TABLE='{{%trabajadores}}';
+    const NAME_TABLE='{{%personas}}';
     //const NAME_TABLE_SOCIEDADES='{{%sociedades}}';
     /**
      * {@inheritdoc}
@@ -20,13 +20,13 @@ $table=static::NAME_TABLE;
 if(!$this->existsTable($table)){
         $this->createTable($table, [
              'id'=>$this->primaryKey(),
-            'codigotra' => $this->string(8)->notNull()->append($this->collateColumn()),
+            'codigoper' => $this->string(8)->notNull()->append($this->collateColumn()),
             'user_id' => $this->integer(11),  
              'tipodoc' => $this->char(2)->append($this->collateColumn()),  
             'ap' => $this->string(40)->notNull()->append($this->collateColumn()), 
             'am'=>$this->string(40)->notNull()->append($this->collateColumn()), 
             'nombres'=>$this->string(40)->notNull()->append($this->collateColumn()),
-            'dni' => $this->string(20)->append($this->collateColumn()),
+            'numerodoc' => $this->string(20)->append($this->collateColumn()),
             // 'ppt' => $this->string(10)->append($this->collateColumn()),
               //'pasaporte' => $this->string(10)->append($this->collateColumn()),
            //'codpuesto'=>$this->string(3)->notNull()->append($this->collateColumn()),
@@ -38,7 +38,7 @@ if(!$this->existsTable($table)){
             'referencia'=>$this->string(30)->append($this->collateColumn()),
              ], $this->collateTable());
       
-         $this->createIndex(uniqid('k_codigotra'), static::NAME_TABLE, 'codigotra',true);
+         $this->createIndex(uniqid('k_codigoper'), static::NAME_TABLE, 'codigoper',true);
        // $this->createIndex(uniqid('k_dni'), static::NAME_TABLE, 'dni');
         $this->createIndex(uniqid('k_ap'), static::NAME_TABLE, 'ap');
         $this->createIndex(uniqid('k_am'), static::NAME_TABLE, 'am');
