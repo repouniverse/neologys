@@ -7,6 +7,14 @@ $params = array_merge(
 );
 
 return [
+    
+    /*
+     * Ojo : para cambiar dináimcamente el lenguaje
+     * se debe de hacer lo siguiente
+     * // change target language to Chinese
+        \Yii::$app->language = 'zh-CN';
+     */
+     'language' => 'es-PE',
     'name'=>'Internacional',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
