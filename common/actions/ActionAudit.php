@@ -33,7 +33,7 @@ class ActionAudit extends \yii\base\Action
          $provider=(New AuditDataSearch())->searchByModel($model); 
         
         //return '';
-            return $this->controller->render('/comunes/audit', [
+            return $this->controller->render('@common/views/audit', [
                         'model' => $model,
                         'provider'=>$provider,
                 // 'allowedExtensions' => $allowedExtensions,

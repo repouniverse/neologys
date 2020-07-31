@@ -13,6 +13,8 @@ use common\models\masters\Facultades;
 use common\models\masters\FacultadesSearch;
 use common\models\masters\Personas;
 use common\models\masters\PersonasSearch;
+use common\models\masters\Universidades;
+use common\models\masters\UniversidadesSearch;
 use common\models\masters\PeriodosSearch;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
@@ -290,7 +292,7 @@ class DefaultController extends \common\controllers\baseController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDeleteDocu($id)
+    public function actionDeleteFacul($id)
     {
         $this->findModelFacul($id)->delete();
 
@@ -384,7 +386,7 @@ class DefaultController extends \common\controllers\baseController
         
         
         if ($model->load(h::request()->post()) && $model->save()) {
-            return $this->redirect(['view_personas', 'id' => $model->id]);
+            return $this->redirect(['view-persona', 'id' => $model->id]);
         }
 
         return $this->render('create_personas', [
@@ -457,6 +459,159 @@ class DefaultController extends \common\controllers\baseController
 
         throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        /**
+     * Lists all Trabajadores models.
+     * @return mixed
+     */
+    public function actionIndexUniver()
+    { 
+        $searchModel = new UniversidadesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+   return $this->render('index_univer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]); 
+//}
+        
+    }
+
+    /**
+     * Displays a single Trabajadores model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewUniver($id)
+    {
+         $model=$this->findModelUniver($id);
+        // var_dump(h::request()->isAjax,$model->load(h::request()->post()));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'El registro se ha grabado');
+            // Multiple alerts can be set like below
+           // Yii::$app->session->setFlash('kv-detail-warning', 'A last warning for completing all data.');
+            //Yii::$app->session->setFlash('kv-detail-info', '<b>Note:</b> You can proceed by clicking <a href="#">this link</a>.');
+            return $this->redirect(['view-univer', 'id'=>$model->id]);
+        } else {
+            return $this->render('view_univer', ['model'=>$model]);
+        }
+        
+        
+        
+        
+        
+       
+    }
+
+    /**
+     * Creates a new Trabajadores model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateUniver()
+    {
+        $model = new Universidades();
+        
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            return $this->redirect(['view-univer', 'id' => $model->id]);
+        }
+
+        return $this->render('create_univer', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Trabajadores model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdateUniver($id)
+    {
+        $model = $this->findModelUniver($id);
+     
+       /* $modito=\frontend\modules\import\models\ImportCargamasivaUser::find(31)->one();
+        $modito->setScenario('fechita');
+        $modito->fechacarga=date('Y-m-d H:i:s');
+        $modito->fechacarga=$modito->swichtDate('fechacarga',true);*/
+        //var_dump(Carbon::now());die();
+        //var_dump($modito->fechacarga,$modito->save(),$modito->getFirstError());die();
+        // var_dump(date('d/m/Y H:i:s'));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           return $this->redirect(['view-univer', 'id' => $model->id]);
+        }
+
+        
+        
+        return $this->render('update_univer', [
+          'model'=>$model
+        ]);
+    }
+
+    /**
+     * Deletes an existing Trabajadores model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteUniver($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index-univer']);
+    }
+
+    /**
+     * Finds the Trabajadores model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Trabajadores the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelUniver($id)
+    {
+        if (($model = Universidades::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+    }
+    
     
     
     

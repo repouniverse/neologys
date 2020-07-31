@@ -80,6 +80,10 @@ return [
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                          
                                   ], 
+                 'base.paises'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                          
+                                  ], 
                  'base.success'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' =>'@root/messages',                                         

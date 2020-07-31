@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\masters\TrabajadoresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base.labels', 'Persons');
+$this->title = Yii::t('base.labels', 'Universities');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Create person'), ['create-persona'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('base.verbs', 'Create university'), ['create-univer'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -33,28 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
          'summary' => '',
         'columns' => [
-           
-
-            'codigoper',
-            'ap',
-            'am',
-            'nombres',
-                     
-            //'ppt',
-            //'pasaporte',
-            //'codpuesto',
-            //'cumple',
-            'fecingreso',
-            //'domicilio',
-            //'telfijo',
-            //'telmoviles',
-            //'referencia',
-
-            ['class' => 'yii\grid\ActionColumn',
+            'nombre',
+            'codpais',
+            'acronimo',
+            'estado',
+           ['class' => 'yii\grid\ActionColumn',
                 'template'=>'{update}{view}{delete}',
                 'buttons'=>[
                     'update'=>function($url,$model){
-                        $url=\yii\helpers\Url::toRoute(['update-persona','id'=>$model->id]);
+                        $url=\yii\helpers\Url::toRoute(['update-univer','id'=>$model->id]);
                         return \yii\helpers\Html::a(
                                 '<span class="btn btn-success glyphicon glyphicon-pencil"></span>',
                                 $url,
@@ -62,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 );
                      },
                      'view'=>function($url,$model){
-                        $url=\yii\helpers\Url::toRoute(['view-persona','id'=>$model->id]);
+                        $url=\yii\helpers\Url::toRoute(['view-univer','id'=>$model->id]);
                         return \yii\helpers\Html::a(
                                 '<span class="btn btn-success glyphicon glyphicon-search"></span>',
                                 $url,

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Trabajadores */
 
-$this->title = yii::t('base.actions','Visualizar {name}',['name'=>$model->nombrecompleto]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.actions', 'Trabajadores'), 'url' => ['index']];
+$this->title = yii::t('base.verbs','View {name}',['name'=>$model->nombrecompleto]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Persons'), 'url' => ['index-persona']];
 $this->params['breadcrumbs'][] = $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -18,14 +18,8 @@ $this->params['breadcrumbs'][] = $model->id;
 <div class="box box-success">
     <div class="box-body">
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Editar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('base.verbs', 'Eliminar'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('control.errors', '¿Desea eliminar este registro?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a(Yii::t('base.verbs', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        
     </p>
 
     <?php 
@@ -40,33 +34,33 @@ echo DetailView::widget([
     'hover'=>true,
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
-        'heading'=>yii::t('base.names','Trabajador' ).'  '. $model->codigotra,
+        'heading'=>yii::t('base.names','Person' ).'  '. $model->codigoper,
         'type'=>DetailView::TYPE_WARNING,
     ],
     'attributes'=>[
         [
         'group'=>true,
-        'label'=>yii::t('base.forms','Información Personal'),
+        'label'=>yii::t('base.labels','Personal information'),
         //'rowOptions'=>['class'=>'alert alert-danger'],
         'groupOptions'=>['class'=>'alert alert-warning']
           ],
-        //'codigotra',
+        //'codigoper',
         'nombres',        
         'ap',
             'am',
-            'nombres',
-            'dni',
-            'ppt',
-            'pasaporte',
+            //'nombres',
+            'numerodoc',
+            //'ppt',
+            //'pasaporte',
         
          [
         'group'=>true,
-         'label'=>yii::t('base.forms','Información Laboral'),
+         'label'=>yii::t('base.labels','Work data'),
         //'rowOptions'=>['class'=>'alert alert-danger'],
         'groupOptions'=>['class'=>'alert alert-warning']
         //'groupOptions'=>['class'=>'text-center']
           ],
-            'codpuesto',
+           // 'codpuesto',
             ['attribute'=>'cumple', 'type'=>DetailView::INPUT_DATE],
             ['attribute'=>'fecingreso', 'type'=>DetailView::INPUT_DATE],
             'domicilio',

@@ -151,7 +151,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     
     public function beforeSave($insert) {
         if($insert)
-        $this->codigotra=$this->correlativo('codigotra');
+        $this->codigoper=$this->correlativo('codigoper');
         
        return parent::beforeSave($insert);
     }

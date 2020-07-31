@@ -24,7 +24,11 @@
         "shifrin/yii2-noty": "dev-master",
         "loveorigami/yii2-modal-ajax": "@dev",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "kartik-v/yii2-widget-datepicker": "dev-master"
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "nesbot/carbon": "^2.36",
+        "kartik-v/yii2-detail-view": "dev-master",
+        "sjaakp/yii2-timeline": "*",
+        "sjaakp/yii2-dateline": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
