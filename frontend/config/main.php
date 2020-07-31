@@ -87,6 +87,10 @@ return [
         'maestros' => [
             'class' => 'frontend\modules\maestros\MaestrosModule',
         ],
+        
+        'import' => [
+            'class' => 'frontend\modules\import\ModuleImport',
+        ],
     ],
     
     
