@@ -23,6 +23,7 @@ use common\models\masters\GrupoPersonas;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 /**
  * Default controller for the `maestros` module
  */
@@ -919,4 +920,81 @@ class DefaultController extends \common\controllers\baseController
      
     
     
+    
+    public function actionModalNewFacultad($id){
+     $this->layout = "install";
+        $model = New Facultades();
+        $datos=[];
+        $modelUniversidad= Universidades::findOne($id);
+        if(is_null($modelUniversidad)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->universidad_id=$modelUniversidad->id;
+      
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_facultades', [
+                        'model' => $model,
+                        'universidad_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+    
+    
+     public function actionModalUpdateFacultad($id){
+     $this->layout = "install";
+        $model = Facultades::findOne($id);
+        $datos=[];
+        //$modelUniversidad= Universidades::findOne($id);
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        //$model->universidad_id=$modelUniversidad->id;
+      
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_facultades', [
+                        'model' => $model,
+                        'universidad_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+   } 
 }
