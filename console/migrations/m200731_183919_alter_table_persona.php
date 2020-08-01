@@ -45,7 +45,7 @@ class m200731_183919_alter_table_persona extends baseMigration
     {
         
         if($this->existsColumn(self::NAME_TABLE,self::NAME_COLUMN_CODIGO_GRUPO)){
-            $this->dropColumn(self::NAME_TABLE,self::NAME_COLUMN_CODIGO_GRUPO);
+            //$this->dropColumn(self::NAME_TABLE,self::NAME_COLUMN_CODIGO_GRUPO);
         }
         /*$this->dropColumn(self::NAME_TABLE,
             self::NAME_COLUMN_CODIGO_GRUPO);*/

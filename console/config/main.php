@@ -31,7 +31,7 @@ return [
                            //  'console\migrations',
                           'nemmo\attachments\migrations', 
                         //'backend\database\migrations', 
-                          'frontend\modules\import\database\migrations', 
+                          //'frontend\modules\import\database\migrations', 
                           /*   'yii2mod\settings\migrations',  
                           'backend\database\migrations', 
                            'frontend\database\migrations',  
