@@ -16,10 +16,10 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     
- 'fixture' => [
+ /*'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
-          ],
+          ],*/
     
     
     
