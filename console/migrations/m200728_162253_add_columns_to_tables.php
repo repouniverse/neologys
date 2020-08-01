@@ -15,36 +15,46 @@ class m200728_162253_add_columns_to_tables extends baseMigration
      const NAME_COLUMN_CODIGO_FAC='codfac';
     public function safeUp()
     {
-        $this->addColumn(self::NAME_TABLE_FACULTADES,
+        if(!$this->existsColumn(self::NAME_TABLE_FACULTADES,
+                self::NAME_COLUMN_UNIVERSIDAD_ID)){
+            $this->addColumn(self::NAME_TABLE_FACULTADES,
                 self::NAME_COLUMN_UNIVERSIDAD_ID,
                 'integer(11)');
         
-         $this->addForeignKey(
+                $this->addForeignKey(
             $this->generateNameFk(self::NAME_TABLE_FACULTADES),
             self::NAME_TABLE_FACULTADES,
             self::NAME_COLUMN_UNIVERSIDAD_ID, 
             static::NAME_TABLE_UNIVERSIDADES,'id');
-    
+            }
+        
+        if(!$this->existsColumn(self::NAME_TABLE_ALUMNOS,self::NAME_COLUMN_UNIVERSIDAD_ID)){
         $this->addColumn(self::NAME_TABLE_ALUMNOS, 
                 self::NAME_COLUMN_UNIVERSIDAD_ID,
                 'integer(11)');
         
          $this->addForeignKey(
-            $this->generateNameFk(self::NAME_TABLE_FACULTADES),
+            $this->generateNameFk(self::NAME_TABLE_ALUMNOS),
             self::NAME_TABLE_FACULTADES,
             self::NAME_COLUMN_UNIVERSIDAD_ID, 
             static::NAME_TABLE_UNIVERSIDADES,'id');
+        }
+        
+        if(!$this->existsColumn(self::NAME_TABLE_DEPARTAMENTOS,
+                self::NAME_COLUMN_UNIVERSIDAD_ID)){
         
         $this->addColumn(self::NAME_TABLE_DEPARTAMENTOS, 
                 self::NAME_COLUMN_UNIVERSIDAD_ID,
                 'integer(11)');
         
+        }
         
-        
+        if(!$this->existsColumn(self::NAME_TABLE_DEPARTAMENTOS,
+                self::NAME_COLUMN_CODIGO_FAC)){
         $this->addColumn(self::NAME_TABLE_DEPARTAMENTOS, 
                 self::NAME_COLUMN_CODIGO_FAC,
                 'string(10)');
-   
+                }
     }
 
     /**
@@ -52,10 +62,34 @@ class m200728_162253_add_columns_to_tables extends baseMigration
      */
     public function safeDown()
     {
-        $this->alterColumn(self::NAME_TABLE, self::NAME_COLUMN, $this->string(6));
-   
-    }
+        if($this->existsColumn(self::NAME_TABLE_FACULTADES,
+                self::NAME_COLUMN_UNIVERSIDAD_ID)){
+            $this->dropColumn(self::NAME_TABLE_FACULTADES,
+                    self::NAME_COLUMN_UNIVERSIDAD_ID);
+            }
+            
 
+   /* if($this->existsColumn(self::NAME_TABLE_ALUMNOS,self::NAME_COLUMN_UNIVERSIDAD_ID)){
+        $this->dropColumn(self::NAME_TABLE_ALUMNOS, 
+                self::NAME_COLUMN_UNIVERSIDAD_ID);
+        }*/
+    
+            if($this->existsColumn(self::NAME_TABLE_DEPARTAMENTOS,
+                self::NAME_COLUMN_UNIVERSIDAD_ID)){
+        
+          $this->dropColumn(self::NAME_TABLE_DEPARTAMENTOS, 
+                self::NAME_COLUMN_UNIVERSIDAD_ID);
+        
+        }
+        
+        if($this->existsColumn(self::NAME_TABLE_DEPARTAMENTOS,
+                self::NAME_COLUMN_CODIGO_FAC)){
+        $this->dropColumn(self::NAME_TABLE_DEPARTAMENTOS, 
+                self::NAME_COLUMN_CODIGO_FAC);
+                }
+            
+    }
+}
     /*
     // Use up()/down() to run migration code without a transaction.
     public function up()
@@ -70,4 +104,4 @@ class m200728_162253_add_columns_to_tables extends baseMigration
         return false;
     }
     */
-}
+

@@ -1,5 +1,7 @@
 <?php
 namespace backend\modules\base;
+USE yii2mod\settings\models\enumerables\SettingType;
+use common\helpers\h;
 use yii;
 /**
  * base module definition class
@@ -18,7 +20,20 @@ class Module extends \yii\base\Module
     {
        parent::init();
         $this->registerTranslations();
+        static::putSettingsModule();
     }
+    
+    
+    
+    private static function putSettingsModule(){
+        h::getIfNotPutSetting('timeUser','date',"dd/mm/yyyy", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('timeUser','datetime','dd/mm/yyyy hh:ii:ss', SettingType::STRING_TYPE);
+         h::getIfNotPutSetting('timeBD','date',"Y-m-d", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('timeBD','datetime','Y-m-d h:i:s', SettingType::STRING_TYPE);
+        
+        }
+    
+    
     
     public function registerTranslations()
     {

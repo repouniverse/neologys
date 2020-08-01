@@ -19,7 +19,7 @@ return [
         'migrate' => [
                         'class' =>
                     'yii\console\controllers\MigrateController',
-                     // 'migrationPath'=>null,
+                      //'migrationPath'=>'console\migrations',
                         'migrationNamespaces' => [
                             /*Ojo:
                              * Al aplicar estos namespaces
@@ -30,7 +30,8 @@ return [
                              */
                            //  'console\migrations',
                           'nemmo\attachments\migrations', 
-                        'backend\database\migrations', 
+                        //'backend\database\migrations', 
+                          'frontend\modules\import\database\migrations', 
                           /*   'yii2mod\settings\migrations',  
                           'backend\database\migrations', 
                            'frontend\database\migrations',  

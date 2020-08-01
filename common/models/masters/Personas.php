@@ -125,6 +125,15 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         */return $scenarios;
     }
     
+    public function getGrupo() {
+        /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
+          ->getRawSql();die(); */
+        return $this->hasOne(GrupoPersonas::className(), ['codgrupo' => 'codgrupo']);
+    }
+    
+    public function getIdentidad() {
+         return $this->hasOne($this->grupo->modelo::className(), ['persona_id' => 'id']);
+    }
     
     
     public function validateFechas($attribute, $params)
@@ -213,5 +222,14 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     {
         return new PersonasQuery(get_called_class());
     } 
+    
+    public function afterSave($insert, $changedAttributes) {
+        if($this->insert){
+            $this->grupo->
+            modelo::UpdateAll(['persona_id'=>$this->id],
+                    ['persona_id'=>$this->id]);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
      
 }
