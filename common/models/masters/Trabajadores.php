@@ -4,7 +4,8 @@ namespace common\models\masters;
 use common\interfaces\identidadesInterface;
 use common\interfaces\PersonInterface;
 use Yii;
-
+use common\traits\identidadTrait;
+use common\traits\nameTrait;
 /**
  * This is the model class for table "{{%trabajadores}}".
  *
@@ -23,11 +24,12 @@ use Yii;
  * @property string|null $codcargo
  */
 class Trabajadores extends \common\models\base\modelBase
-implements identidadesInterface, PersonInterface
+
 {
-    
-   public $persona=null;
-    
+    use nameTrait;
+    use identidadTrait;
+  // public $persona=null;
+    public $prefijo='76';
     
     /**
      * {@inheritdoc}
@@ -46,6 +48,7 @@ implements identidadesInterface, PersonInterface
             [['ap', 'am', 'nombres'], 'required'],
             [['detalles'], 'string'],
             [['persona_id'], 'integer'],
+             [['persona_id'], 'safe'],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['numerodoc'], 'string', 'max' => 20],
             [['tipodoc'], 'string', 'max' => 2],
@@ -87,65 +90,28 @@ implements identidadesInterface, PersonInterface
     }
     
     
-    /*
-     * Crea un registro de persona 
-     */
-    private function createPersonFromThis(){
+     public function fullName($asc=TRUE,$ucase=true,$delimiter=' '){       
+         $strname=($asc)?$this->nombres.' '.$this->ap.' '.$this->am:$strname= $this->ap.' '.$this->am.' '.$this->nombres;
+         $strname= ($ucase)?\yii\helpers\StringHelper::mb_ucwords($strname):$strname;
+       return str_replace(' ',$delimiter, $strname);
+     }
+   
+     public function beforeSave($insert) {
+        if($insert){            
+           $this->codtra=$this->correlativo('codtra',8);           
+        }
         
+        
+       return parent::beforeSave($insert);
     }
  
+    public function afterSave($insert, $changedAttributes) {
+        if($insert){
+            $this->refresh();
+            $this->createPersonFromThis();
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
     
- public function getPersona(){
-     
-    return ($this->persona_id>0)? Personas::findOne($this->persona_id):null;
- }
- public function setPersona(PersonInterface $persona){
-     $this->persona=$persona;
- }  
     
-  
-public function sincronizeCommonFields(){
-    
-  }
-    
-private function existsPerson($numerodocu){
-    
-  $query=Personas::find()->andWhere([
-      'numerodoc'=>$numerodocu
-          ]);
-  if($query->exists()){
-      
-  }else{
-      
-  }
-}
-
-private function hasHomonimo(){
-    
-  $query=Personas::find()->andWhere([
-      'numerodoc'=>$numerodocu
-          ]);
-  if($query->exists()){
-      
-  }else{
-      
-  }
-}
-
-public function findByDoc($codocu,$numdoc){
-    
-   }
-
- 
- public function fullName($asc=TRUE,$ucase=true){
-     
- }
- 
-    public function lastName();
-    public function age();
-    public function docsIdentity();  
-    public function address();
-    public function fenac();
-    public function IsBirthDay();
-    public function name(); 
 }

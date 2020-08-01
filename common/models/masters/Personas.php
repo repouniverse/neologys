@@ -69,7 +69,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     {
         return [
             [['ap', 'am', 'nombres','tipodoc','numerodoc'], 'required'],
-             //[['tipo', 'am', 'nombres'], 'required'],
+            [['identidad_id'], 'safe'],
             [['cumple', 'fecingreso'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
@@ -78,7 +78,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             [['domicilio'], 'string', 'max' => 73],
             [['telfijo'], 'string', 'max' => 13],
             [['telmoviles', 'referencia'], 'string', 'max' => 30],
-            [['numerodoc','tipodoc'], 'unique'],
+            //[['numerodoc','tipodoc'], 'unique'],
              //[['dni'], 'unique'],
             /*['dni','match',
                  'pattern'=>h::settings()->get('general','formatoDNI'),
@@ -116,7 +116,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
             'ap', 'am',
-            'nombres', 'tipodoc', 'numerodoc'
+            'nombres', 'tipodoc', 'numerodoc','identidad_id','codgrupo'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -132,6 +132,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     }
     
     public function getIdentidad() {
+        if($this->isNewRecord)return null;
          return $this->hasOne($this->grupo->modelo::className(), ['persona_id' => 'id']);
     }
     
@@ -224,10 +225,12 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     } 
     
     public function afterSave($insert, $changedAttributes) {
-        if($this->insert){
+        if($insert){
+            $this->refresh();
+            //VAR_DUMP($this->id);DIE();
             $this->grupo->
             modelo::UpdateAll(['persona_id'=>$this->id],
-                    ['persona_id'=>$this->id]);
+                    ['id'=>$this->identidad_id]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }
