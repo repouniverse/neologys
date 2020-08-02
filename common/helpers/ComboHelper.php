@@ -476,4 +476,12 @@ class ComboHelper  {
 
 ];
     }
+    
+  public static function getCboFacultades(){
+        return ArrayHelper::map(
+                        \common\models\masters\Facultades::find()->all(),
+                'codfac','desfac');
+    }  
+    
+    
 }

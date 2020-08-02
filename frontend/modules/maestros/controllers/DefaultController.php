@@ -20,6 +20,8 @@ use common\models\masters\TrabajadoresSearch;
 use common\models\masters\PeriodosSearch;
 use common\models\masters\GrupoPersonasSearch;
 use common\models\masters\GrupoPersonas;
+use common\models\masters\AlumnosSearch;
+use common\models\masters\Alumnos;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -997,4 +999,160 @@ class DefaultController extends \common\controllers\baseController
         }
        
    } 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   public function actionIndexAlumnos()
+    { 
+        $searchModel = new AlumnosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+   return $this->render('index_alumno', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]); 
+//}
+        
+    }
+
+    /**
+     * Displays a single Trabajadores model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewAlumnos($id)
+    {
+         $model=$this->findModelAlumnos($id);
+        // var_dump(h::request()->isAjax,$model->load(h::request()->post()));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'El registro se ha grabado');
+            // Multiple alerts can be set like below
+           // Yii::$app->session->setFlash('kv-detail-warning', 'A last warning for completing all data.');
+            //Yii::$app->session->setFlash('kv-detail-info', '<b>Note:</b> You can proceed by clicking <a href="#">this link</a>.');
+            return $this->redirect(['view-alumnos', 'id'=>$model->id]);
+        } else {
+            return $this->render('view_alumno', ['model'=>$model]);
+        }
+        
+        
+        
+        
+        
+       
+    }
+
+    /**
+     * Creates a new Trabajadores model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateAlumnos()
+    {
+        $model = new Alumnos();
+        
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            return $this->redirect(['view-alumnos', 'id' => $model->id]);
+        }else{
+           // print_r($model->getErrors());die();
+        }
+
+        return $this->render('create_alumno', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Trabajadores model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdateAlumnos($id)
+    {
+        $model = $this->findModelAlumnos($id);
+     
+       /* $modito=\frontend\modules\import\models\ImportCargamasivaUser::find(31)->one();
+        $modito->setScenario('fechita');
+        $modito->fechacarga=date('Y-m-d H:i:s');
+        $modito->fechacarga=$modito->swichtDate('fechacarga',true);*/
+        //var_dump(Carbon::now());die();
+        //var_dump($modito->fechacarga,$modito->save(),$modito->getFirstError());die();
+        // var_dump(date('d/m/Y H:i:s'));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           return $this->redirect(['view-alumnos', 'id' => $model->id]);
+        }
+
+        
+        
+        return $this->render('update_alumno', [
+          'model'=>$model
+        ]);
+    }
+
+    /**
+     * Deletes an existing Trabajadores model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteAlumnos($id)
+    {
+        $this->findModelTrabajadores($id)->delete();
+
+        return $this->redirect(['index-alumno']);
+    }
+
+    /**
+     * Finds the Trabajadores model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Trabajadores the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelAlumnos($id)
+    {
+        if (($model = Alumnos::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+    }
+    
+     
+    
+    
+    
+    
+   
 }

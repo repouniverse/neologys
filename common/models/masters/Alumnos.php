@@ -2,26 +2,22 @@
 
 namespace common\models\masters;
 use common\interfaces\identidadesInterface;
+USE common\traits\nameTrait;
+USE common\traits\identidadTrait;
 use Yii;
 
 /**
- * This is the model class for table "{{%alumnos}}".
+ * POR FAOVR REVISE LAS FUNCIONES DE LOS TRAITS
  *
- * @property int $id
- * @property string $codalu
- * @property string|null $codalu1
- * @property string|null $codalu2
- * @property string|null $codper
- * @property string|null $ap
- * @property string|null $am
- * @property string|null $nombres
- * @property string $codpering
- * @property string $codfac
+ * 
  * @property string|null $codesp
  */
 class Alumnos extends \common\models\base\modelBase 
-implements identidadesInterface
+
 {
+     use nameTrait;
+    use identidadTrait;
+    
     /*
      * porpeidades privadas
      * 
@@ -48,12 +44,11 @@ implements identidadesInterface
     public function rules()
     {
         return [
-            [['codalu', 'codpering', 'codfac'], 'required'],
+            [['codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'], 'required'],
             
             /* PARA ESCENARIOBASICO*/
             [[
-            'ap', 'am',
-            'nombres',  'codalu'
+            'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
             
@@ -68,8 +63,7 @@ implements identidadesInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
-            'ap', 'am',
-            'nombres', 'tipodoc', 'codalu'
+           'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -109,11 +103,12 @@ implements identidadesInterface
     }
     
     
+   public function afterSave($insert, $changedAttributes) {
+        if($insert){
+            $this->refresh();
+            $this->createPersonFromThis();
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    } 
     
-    /*
-     * Permite crear una persosna a partir de estos datos 
-     */
-    public function createPersonFromThis() {
-        ;
-    }
 }
