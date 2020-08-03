@@ -234,5 +234,13 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         }
         return parent::afterSave($insert, $changedAttributes);
     }
+    
+    /*
+     * Crea un usuario con un ROl determinado
+     *
+     */
+    public function createUser($role){
+        
+    }
      
 }

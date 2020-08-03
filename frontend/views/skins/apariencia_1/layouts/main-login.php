@@ -1,11 +1,11 @@
 <?php
-use backend\assets\AppAsset;
+use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-backend\views\skins\apariencia_1\AdminLteAsset::register($this);
+frontend\views\skins\apariencia_1\AdminLteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

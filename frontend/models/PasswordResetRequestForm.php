@@ -4,7 +4,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
-
+use common\helpers\h;
 /**
  * Password reset request form
  */
@@ -53,14 +53,22 @@ class PasswordResetRequestForm extends Model
                 return false;
             }
         }
+        h::settings()->invalidateCache();
+ /*var_dump(h::gsetting('mail', 'userservermail'),
+h::gsetting('mail', 'passworduserservermail'),
+         h::gsetting('mail', 'servermail'),
+      h::gsetting('mail', 'portservermail')    
+         
+);die();*/
 
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
+                ['html' => 'passwordResetToken-html',
+                 'text' => 'passwordResetToken-text'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([h::gsetting('mail', 'userservermail') => Yii::$app->name . ' robot'])
             ->setTo($this->email)
             ->setSubject('Password reset for ' . Yii::$app->name)
             ->send();

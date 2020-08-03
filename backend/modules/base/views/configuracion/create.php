@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\GrupoParametros */
 
-$this->title = Yii::t('backend.base', 'Create Grupo Parametros');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend.base', 'Grupo Parametros'), 'url' => ['index']];
+$this->title = Yii::t('base.labels', 'Create Grupo Parametros');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Grupo Parametros'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupo-parametros-create">

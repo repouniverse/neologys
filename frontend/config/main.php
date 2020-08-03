@@ -4,6 +4,7 @@ $params = array_merge(
     require __DIR__ . '/../../common/config/params-local.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
+    
 );
 
 return [
@@ -22,10 +23,14 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         
+         'mailer' =>['class'=>'common\components\Mailer',
+                'viewPath'=>'@frontend/mail',
+            ],
+        
           'assetManager'=>[
                'bundles'=>[
                    //'dmstr\web\AdminLteAsset'=>['skin'=>'skin-red-light'],
-                   'backend\views\skins\apariencia_1\AdminLteAsset'=>['skin'=>'skin-purple'],
+                   'frontend\views\skins\apariencia_1\AdminLteAsset'=>['skin'=>'skin-purple'],
                    /*'yii\web\JqueryAsset' => [
                                         'js' => [YII_DEBUG ? 'https://code.jquery.com/jquery-3.2.1.js' : 'https://code.jquery.com/jquery-3.2.1.min.js'],
                                         'jsOptions' => ['type' => 'text/javascript'],
@@ -33,22 +38,13 @@ return [
                              ],
                         ],
         'view' => [
-                    'theme' => [
-                            'pathMap' => [
-                                             '@app/views' => '@backend/views/skins/apariencia_1/',
-                                           // '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
-                                            
-                                            ],
-                                ],
-                    ],
-        
-        
-        
-        
-        
-        
-        
-        
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@frontend/views/skins/apariencia_1/',
+                     // '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                               ],
+                        ],
+                 ],
         
         'request' => [
             'csrfParam' => '_csrf-frontend',

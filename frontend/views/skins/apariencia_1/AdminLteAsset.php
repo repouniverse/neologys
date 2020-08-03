@@ -1,5 +1,5 @@
 <?php
-namespace backend\views\skins\apariencia_1;
+namespace frontend\views\skins\apariencia_1;
 
 use yii\base\Exception;
 use yii\web\AssetBundle as BaseAdminLteAsset;
@@ -10,9 +10,11 @@ use yii\web\AssetBundle as BaseAdminLteAsset;
  */
 class AdminLteAsset extends BaseAdminLteAsset
 {
-    public $sourcePath = '@vendor/almasaeed2010/adminlte/dist';
+    public $sourcePath = __DIR__;
     public $css = [
         'css/AdminLTE.min.css',
+         'css/joder.css',
+        //'css/skins/_all-skins.css'
     ];
     public $js = [
         'js/adminlte.min.js'

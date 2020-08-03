@@ -104,6 +104,11 @@ return [
                 ],
     ],
     'modules' => [
+        
+                  'inter' => [
+            'class' => 'frontend\modules\inter\Module',
+                    ],
+        
                 'settings' => [
                         'class' => 'yii2mod\settings\Module',
                     ],

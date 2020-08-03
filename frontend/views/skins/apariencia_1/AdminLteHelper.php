@@ -1,5 +1,5 @@
 <?php
-namespace backend\views\skins\apariencia_1;
+namespace frontend\views\skins\apariencia_1;
 
 use Yii;
 
@@ -16,7 +16,7 @@ class AdminLteHelper
     public static function skinClass()
     {
         /** @var \dmstr\web\AdminLteAsset $bundle */
-        $bundle = Yii::$app->assetManager->getBundle('backend\views\skins\apariencia_1\AdminLteAsset');
+        $bundle = Yii::$app->assetManager->getBundle('frontend\views\skins\apariencia_1\AdminLteAsset');
 
         return $bundle->skin;
     }

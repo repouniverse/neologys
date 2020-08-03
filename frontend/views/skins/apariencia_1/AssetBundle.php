@@ -5,7 +5,7 @@
  * @link https://rmrevin.ru
  */
 
-namespace backend\views\skins\apariencia_1;
+namespace frontend\views\skins\apariencia_1;
 
 /**
  * Class AssetBundle

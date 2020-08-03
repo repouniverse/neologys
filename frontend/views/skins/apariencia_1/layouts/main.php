@@ -4,8 +4,9 @@ use lo\widgets\modal\ModalAjax;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-
-if (Yii::$app->controller->action->id === 'login') { 
+$accion=Yii::$app->controller->action->id ;
+if ($accion=== 'login') { 
+   
 /**
  * Do not use this code in your template. Remove it. 
  * Instead, use the code  $this->layout = '//main-login'; in your controller.
@@ -14,17 +15,34 @@ if (Yii::$app->controller->action->id === 'login') {
         'main-login',
         ['content' => $content]
     );
-} else {
+}
+elseif($accion=='request-password-reset'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+}
+elseif($accion=='reset-password'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+}else{
 
-    if (class_exists('backend\assets\AppAsset')) {
-        backend\assets\AppAsset::register($this);
+
+    if (class_exists('frontend\assets\AppAsset')) {
+        
+        frontend\assets\AppAsset::register($this);
     } else {
         app\assets\AppAsset::register($this);
     }
 
-    backend\views\skins\apariencia_1\AdminLteAsset::register($this);
+    \frontend\views\skins\apariencia_1\AdminLteAsset::register($this);
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+    //$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@frontend/views/skins/apariencia_1/');
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -36,7 +54,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-     <body class="hold-transition <?= \backend\views\skins\apariencia_1\AdminLteHelper::skinClass() ?>" sidebar-mini">
+     <body class="hold-transition <?= \frontend\views\skins\apariencia_1\AdminLteHelper::skinClass() ?>" sidebar-mini">
 
     <?php $this->beginBody() ?>
     <div class="wrapper">

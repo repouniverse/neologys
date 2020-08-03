@@ -1,6 +1,6 @@
 <?php
 namespace frontend\controllers;
-
+use common\models\masters\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -74,6 +74,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest)
+       return  $this->redirect(['login']);
         return $this->render('index');
     }
 
@@ -170,6 +172,8 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        
+        
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -195,6 +199,7 @@ class SiteController extends Controller
      */
     public function actionResetPassword($token)
     {
+        // $this->layout="install";
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidArgumentException $e) {
@@ -268,5 +273,25 @@ class SiteController extends Controller
    } finally{
        unset($db);
    }   
-  }  
+  }
+
+
+public function actionAuthWithQuestions(){
+    $model = new AuthWithQuestionForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+
+                return $this->goHome();
+            } else {
+                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+            }
+        }
+
+        return $this->render('auth_with_question', [
+            'model' => $model,
+        ]);
+}
+
+  
 }
