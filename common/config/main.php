@@ -14,16 +14,15 @@ return [
                     'class' => 'yii\log\DbTarget',
                     'levels' => ['error'/*, 'warning','info','debug'*/],
                 ],
-                [
+                /*[
                     'class' => 'yii\log\EmailTarget',
                     'levels' => ['error'],
-                   // 'categories' => ['yii\db\*'],  todos los errores
-                    'message' => [
+                   'message' => [
                        'from' => ['log@example.com'],
-                       'to' => ['hipogea@hotmail.com',/* 'developer@example.com'*/],
+                       'to' => ['hipogea@hotmail.com'],
                        'subject' => 'Database errors at example.com',
                     ],
-                ],
+                ],*/
             ],
         ],
         

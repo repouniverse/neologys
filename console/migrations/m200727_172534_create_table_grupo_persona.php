@@ -6,7 +6,7 @@ use console\migrations\baseMigration;
 /**
  * Class m200731_183904_create_table_grupo_persona
  */
-class m200731_183904_create_table_grupo_persona extends baseMigration
+class m200727_172534_create_table_grupo_persona extends baseMigration
 {
     
     const NAME_TABLE='{{%grupo_personas}}';
@@ -43,7 +43,7 @@ if(!$this->existsTable($table)){
     public function safeDown()
     {
         
-        if (!$this->existsTable(static::NAME_TABLE)) {
+        if ($this->existsTable(static::NAME_TABLE)) {
             $this->dropTable(static::NAME_TABLE);
         }
     }

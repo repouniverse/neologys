@@ -29,9 +29,10 @@ class Facultades extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['codfac', 'desfac'], 'required'],
+            [['codfac', 'desfac','universidad_id'], 'required'],
             [['codfac'], 'string', 'max' => 10],
             [['desfac'], 'string', 'max' => 60],
+            [['universidad_id'], 'safe'],
             [['code1', 'code2'], 'string', 'max' => 2],
             [['code3'], 'string', 'max' => 3],
             [['codfac'], 'unique'],

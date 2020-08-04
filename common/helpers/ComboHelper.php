@@ -477,11 +477,41 @@ class ComboHelper  {
 ];
     }
     
-  public static function getCboFacultades(){
+  public static function getCboFacultades($universidad_id=null){
+      $query= \common\models\masters\Facultades::find();
+      if(is_null($universidad_id)){
+          $query->andWhere(['universidad_id'=>$universidad_id]);
+      }
         return ArrayHelper::map(
-                        \common\models\masters\Facultades::find()->all(),
+                       $query->all(),
                 'codfac','desfac');
     }  
+  public static function getCboUniversidades(){
+      
+        return ArrayHelper::map(
+                        \common\models\masters\Universidades::find()->all(),
+                'id','nombre');
+    } 
     
+    public static function getCboDepartamentosFacu($codfac=null){
+         //$iduser=is_null($iduser)?static::userId():$iduser;  
+          $query= \common\models\masters\Departamentos::find();
+          if(!is_null($codfac)){
+              $query->andWhere(['codfac'=>$codfac]);
+          }
+                
+        return ArrayHelper::map(
+                        $query->all(),
+            'coddepa','nombredepa');
+      } 
+    
+   public static function getCboPeriodos(){
+        return ArrayHelper::map(
+                        \common\models\masters\Periodos::find()->all(),
+                'codperiodo','periodo');
+    }  
+    
+  
+   
     
 }

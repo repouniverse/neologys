@@ -9,7 +9,7 @@ class m200727_172535_create_table_personas extends baseMigration
 {
 
     const NAME_TABLE='{{%personas}}';
-    //const NAME_TABLE_SOCIEDADES='{{%sociedades}}';
+    const NAME_TABLE_GRUPO_PERSONAS='{{%grupo_personas}}';
     /**
      * {@inheritdoc}
      */
@@ -36,7 +36,8 @@ if(!$this->existsTable($table)){
              'telfijo'=>$this->string(13)->append($this->collateColumn()),
             'telmoviles'=>$this->string(30)->append($this->collateColumn()),
             'referencia'=>$this->string(30)->append($this->collateColumn()),
-             ], $this->collateTable());
+              'codgrupo'=>$this->string(3)->notNull()->append($this->collateColumn()),
+            ], $this->collateTable());
       
          $this->createIndex(uniqid('k_codigoper'), static::NAME_TABLE, 'codigoper',true);
        // $this->createIndex(uniqid('k_dni'), static::NAME_TABLE, 'dni');
@@ -44,7 +45,8 @@ if(!$this->existsTable($table)){
         $this->createIndex(uniqid('k_am'), static::NAME_TABLE, 'am');
         $this->createIndex(uniqid('k_nombres'), static::NAME_TABLE, 'nombres');
           $this->createIndex(uniqid('k_nombrescompletos'), static::NAME_TABLE, ['nombres','ap','am']);
-    
+               $this->addForeignKey($this->generateNameFk($table), $table,
+              'codgrupo', static::NAME_TABLE_GRUPO_PERSONAS,'codgrupo');
     $this->putCombo($table, 'tipodoc',
             [
                 'DNI',

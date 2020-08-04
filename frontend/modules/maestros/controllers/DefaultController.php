@@ -21,6 +21,8 @@ use common\models\masters\PeriodosSearch;
 use common\models\masters\GrupoPersonasSearch;
 use common\models\masters\GrupoPersonas;
 use common\models\masters\AlumnosSearch;
+use common\models\masters\Departamentos;
+use common\models\masters\DepartamentosSearch;
 use common\models\masters\Alumnos;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
@@ -1153,6 +1155,224 @@ class DefaultController extends \common\controllers\baseController
     
     
     
+    
+    
+    
+    
+    
+    
+    
+   
+   
+   
+   public function actionIndexDepartamentos()
+    { 
+        $searchModel = new DepartamentosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+   return $this->render('index_departamento', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]); 
+//}
+        
+    }
+
+    /**
+     * Displays a single Trabajadores model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewDepartamento($id)
+    {
+         $model=$this->findModelDepartamentos($id);
+          return $this->render('view_departamento', ['model'=>$model]);
+        }
+        
+        
+        
+        
+        
+       
+    
+
+    /**
+     * Creates a new Trabajadores model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateDepartamento()
+    {
+        $model = new Departamentos();
+        
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            return $this->redirect(['view-departamento', 'id' => $model->coddepa]);
+        }else{
+           // print_r($model->getErrors());die();
+        }
+
+        return $this->render('create_departamento', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Trabajadores model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdateDepartamento($id)
+    {
+        $model = $this->findModelDepartamentos($id);
+     
+       /* $modito=\frontend\modules\import\models\ImportCargamasivaUser::find(31)->one();
+        $modito->setScenario('fechita');
+        $modito->fechacarga=date('Y-m-d H:i:s');
+        $modito->fechacarga=$modito->swichtDate('fechacarga',true);*/
+        //var_dump(Carbon::now());die();
+        //var_dump($modito->fechacarga,$modito->save(),$modito->getFirstError());die();
+        // var_dump(date('d/m/Y H:i:s'));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           return $this->redirect(['view-departamento', 'id' => $model->coddepa]);
+        }
+
+        
+        
+        return $this->render('update_departamento', [
+          'model'=>$model
+        ]);
+    }
+
+    /**
+     * Deletes an existing Trabajadores model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteDepartamento($id)
+    {
+        $this->findModelDepartamentos($id)->delete();
+
+        return $this->redirect(['index-alumno']);
+    }
+
+    /**
+     * Finds the Trabajadores model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Trabajadores the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelDepartamentos($id)
+    {
+        if (($model = Departamentos::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+    }
+    
+    
+    
+    
+    
+      public function actionModalNewDepa($id){
+     $this->layout = "install";
+        $model = New Departamentos();
+        $datos=[];
+        $modelFacultad= Facultades::findOne($id);
+        if(is_null($modelFacultad)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->codfac=$modelFacultad->codfac;
+      
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_depa', [
+                        'model' => $model,
+                        'codigo_fac'=> $model->codfac,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+    
+    
+     public function actionModalUpdateDepa($id){
+     $this->layout = "install";
+        $model = Departamentos::findOne($id);
+        $datos=[];
+        //$modelUniversidad= Universidades::findOne($id);
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            echo yii::t('warnings','Record not found');die();
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        //$model->universidad_id=$modelUniversidad->id;
+      
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_depa', [
+                        'model' => $model,
+                        'codigo_fac'=> $model->codfac,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+   } 
+   
     
    
 }

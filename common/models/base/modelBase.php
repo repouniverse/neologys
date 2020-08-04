@@ -930,6 +930,7 @@ class modelBase extends \yii\db\ActiveRecord
            if(!is_null($this->prefijo)){
                
                             $diferenciatamano=$tamano-strlen(trim($this->prefijo));
+                            
                           if($diferenciatamano < 4){
                               //si es menor que 4 o es negativa, dejar el taaño com es y no aplicar el prefijo
                          $this->prefijo="1";
@@ -944,7 +945,7 @@ class modelBase extends \yii\db\ActiveRecord
                   //ECHO "PREFIJO NULL";DIE();
                           $this->prefijo="";
              }
-            //var_dum($tamano);die();      
+              
                                 
         $maximus=self::maxValue($field,$campocriterio);
         if(is_null($maximus) or empty($maximus)){           

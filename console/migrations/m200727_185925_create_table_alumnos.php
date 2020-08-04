@@ -31,7 +31,7 @@ if(!$this->existsTable($table)){
               'codesp'=>$this->string(8)->append($this->collateColumn()),
             
             ], $this->collateTable());
-      
+       $this->createIndex(uniqid('codalu'), static::NAME_TABLE, 'codalu');
          $this->createIndex(uniqid('k_ap'), static::NAME_TABLE, 'ap');
         $this->createIndex(uniqid('k_am'), static::NAME_TABLE, 'am');
         $this->createIndex(uniqid('k_nombres'), static::NAME_TABLE, 'nombres');
