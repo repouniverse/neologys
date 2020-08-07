@@ -565,7 +565,7 @@ public static function createBasicRole($idUser){
 public static function createSettings(){
      h::getIfNotPutSetting('mail','servermail',"smtp.googlemail.com", SettingType::STRING_TYPE);
         h::getIfNotPutSetting('mail','userservermail',"neotegnia@gmail.com", SettingType::STRING_TYPE);
-        h::getIfNotPutSetting('mail','passworduserservermail',"tomasgrecia_1", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('mail','passworduserservermail',"mipass", SettingType::STRING_TYPE);
         h::getIfNotPutSetting('mail','portservermail',465, SettingType::STRING_TYPE);
        h::getIfNotPutSetting('timeUser','datetime','dd/mm/yyyy hh:ii:ss', SettingType::STRING_TYPE);
         h::getIfNotPutSetting('timeUser','date',"dd/mm/yyyy", SettingType::STRING_TYPE);

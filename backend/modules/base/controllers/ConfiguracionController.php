@@ -35,6 +35,7 @@ class ConfiguracionController extends baseController
             'parametros-mail' => [
                 'class' => \common\actions\ActionSettingList::class,
                'seccion'=>'mail',
+                'searchClass' => 'common\models\masters\SettingsGenSearch',
                 'nameView' => 'admin-settings',
             ],
             
@@ -335,6 +336,27 @@ public function actionAjaxEditTransaccion(){
                
 } 
  
- 
+ public function actionAjaxEditSettingValue(){
+   if( h::request()->isAjax)
+     h::response()->format = Response::FORMAT_JSON;
+  // $campo=Yii::$app->request->post('name');
+   //$key=Yii::$app->request->post('value');
+   //$model= \yii2mod\settings\models\SettingModel();
+   $campo=Yii::$app->request->post('name');
+    $valor=Yii::$app->request->post('value');
+   $pk = unserialize(base64_decode(Yii::$app->request->post('pk')));
+   $model=\yii2mod\settings\models\SettingModel::findOne($pk);
+  // h::settings()->set()
+  // var_dump(Yii::$app->request->post('pk'),$pk,$campo,$valor);die();
+     
+     
+   $model->{$campo}=$valor;
+   if( $model->save()){
+      return ['success',yii::t('base.success','The record was saved successfully')];
+    }else{
+        return ['error'=>yii::t('base.errors','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
+    }
+               
+}
     
 }

@@ -65,6 +65,6 @@ class SettingsGen extends \common\models\base\modelBase
      */
     public static function find()
     {
-        return new SettingGenQuery(get_called_class());
+        return new SettingsGenQuery(get_called_class());
     }
 }

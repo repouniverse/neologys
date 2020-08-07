@@ -38,8 +38,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterInputOptions' => ['prompt' => Yii::t('yii2mod.settings', 'Select Section'), 'class' => 'form-control'],
                 ],*/
                 'key',
-                'value:ntext',
+               // 'value:ntext',
                 [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'value',
+                    'url' => ['ajax-edit-setting-value'],
+                    'value' => function ($model) {
+                        return $model->value;
+                    },
+                    //'type' => 'select',
+                   /* 'editableOptions' => function ($model) {
+                        return [
+                            'source' => SettingStatus::listData(),
+                            'value' => $model->status,
+                        ];
+                    },*/
+                    //'filter' => SettingStatus::listData(),
+                    //'filterInputOptions' => ['prompt' => Yii::t('yii2mod.settings', 'Select Status'), 'class' => 'form-control'],
+                ],
+               /* [
                     'class' => EditableColumn::class,
                     'attribute' => 'status',
                     'url' => ['edit-setting'],
@@ -55,13 +72,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'filter' => SettingStatus::listData(),
                     'filterInputOptions' => ['prompt' => Yii::t('yii2mod.settings', 'Select Status'), 'class' => 'form-control'],
-                ],
-                'description:ntext',
+                ],*/
                 [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'description',
+                    'url' => ['ajax-edit-setting-value'],
+                    'value' => function ($model) {
+                        return $model->description;
+                    },
+                    'type' => 'textarea',
+                   /* 'editableOptions' => function ($model) {
+                        return [
+                            'source' => SettingStatus::listData(),
+                            'value' => $model->status,
+                        ];
+                    },*/
+                    //'filter' => SettingStatus::listData(),
+                    //'filterInputOptions' => ['prompt' => Yii::t('yii2mod.settings', 'Select Status'), 'class' => 'form-control'],
+                ],
+                /*[
                     'header' => Yii::t('yii2mod.settings', 'Actions'),
                     'class' => 'yii\grid\ActionColumn',
                     'template' => '{update}{delete}',
-                ],
+                ],*/
             ],
         ]
     ); ?>

@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see SettingsGen
  */
-class SettingGenQuery extends \yii\db\ActiveQuery
+class SettingsGenQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
