@@ -2,7 +2,7 @@
 return [
    'servermail'=>'smtp.googlemail.com',
    'userservermail'=>'neotegnia@gmail.com',
-   'passworduserservermail'=>'tomasgrecia_1',
+   'passworduserservermail'=>'sdsdsd',
    'portservermail'=>'465',// '25',
                   
 ];
