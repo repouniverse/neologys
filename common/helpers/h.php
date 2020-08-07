@@ -254,5 +254,10 @@ class h {
      return new \yii\db\Query();
  } 
   
+ 
+ public static function hasParametersSettings(){
+    $cuantos= \yii2mod\settings\models\SettingModel::find()->count();
+     return ($cuantos > 0)?true:false;
+ }
 }
 ?>

@@ -21,7 +21,8 @@ if(!$this->existsTable($table)){
         $this->createTable($table, [
              'id'=>$this->primaryKey(),
             'codigoper' => $this->string(8)->notNull()->append($this->collateColumn()),
-            'user_id' => $this->integer(11),  
+            'user_id' => $this->integer(11), 
+             'identidad_id' => $this->integer(11), 
              'tipodoc' => $this->char(2)->append($this->collateColumn()),  
             'ap' => $this->string(40)->notNull()->append($this->collateColumn()), 
             'am'=>$this->string(40)->notNull()->append($this->collateColumn()), 
@@ -42,6 +43,7 @@ if(!$this->existsTable($table)){
          $this->createIndex(uniqid('k_codigoper'), static::NAME_TABLE, 'codigoper',true);
        // $this->createIndex(uniqid('k_dni'), static::NAME_TABLE, 'dni');
         $this->createIndex(uniqid('k_ap'), static::NAME_TABLE, 'ap');
+        $this->createIndex(uniqid('identidad_'), static::NAME_TABLE, 'identidad_id');
         $this->createIndex(uniqid('k_am'), static::NAME_TABLE, 'am');
         $this->createIndex(uniqid('k_nombres'), static::NAME_TABLE, 'nombres');
           $this->createIndex(uniqid('k_nombrescompletos'), static::NAME_TABLE, ['nombres','ap','am']);

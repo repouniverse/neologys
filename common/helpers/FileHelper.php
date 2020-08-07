@@ -146,7 +146,7 @@ class FileHelper extends FileHelperOriginal {
    }
    
    public function getUrlImageUserGuest(){
-       $directorio=yii::getAlias('@frontend/web/img').DIRECTORY_SEPARATOR;
+       $directorio=yii::getAlias('@common/web/img').DIRECTORY_SEPARATOR;
        if(!is_dir($directorio))
          throw new \yii\base\Exception(Yii::t('base.errors', 'The  \''.$directorio.'\' Directory doesn\'t exists '));
         if(!is_file($directorio.'anonimus.png'))
@@ -158,7 +158,7 @@ class FileHelper extends FileHelperOriginal {
     * Arroja la imagen anonima
     */
    public static function UrlEmptyImage(){
-       $alias=yii::getAlias('@frontend/web/img/nophoto.png');
+       $alias=yii::getAlias('@common/web/img/nophoto.png');
        if(!is_file($alias))
        throw new \yii\base\Exception(Yii::t('base.errors', 'The  file {archivo} doesn\'t exists ',['archivo'=>$alias])); 
        return self::normalizePath(\yii\helpers\Url::base().'/img/nophoto.png',DIRECTORY_SEPARATOR);

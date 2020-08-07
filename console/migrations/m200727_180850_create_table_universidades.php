@@ -5,7 +5,7 @@ use console\migrations\baseMigration;
 /**
  * Class m200728_143246_create_table_universidades
  */
-class m200728_143246_create_table_universidades extends baseMigration
+class m200727_180850_create_table_universidades extends baseMigration
 {
     
     const NAME_TABLE='{{%universidades}}';

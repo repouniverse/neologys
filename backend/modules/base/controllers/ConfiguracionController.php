@@ -32,6 +32,12 @@ class ConfiguracionController extends baseController
                 'nameView' => 'admin-settings',
             ],
             
+            'parametros-mail' => [
+                'class' => \common\actions\ActionSettingList::class,
+               'seccion'=>'mail',
+                'nameView' => 'admin-settings',
+            ],
+            
             'crear-settings' => [
                 'class' => \yii2mod\settings\actions\SettingsAction::class,
                 // also you can use events as follows:

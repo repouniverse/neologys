@@ -27,6 +27,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+     const SCENARIO_MAIL='mail';
 
 
     /**
@@ -46,14 +47,20 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
-
+public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_MAIL] = ['email'];
+        //$scenarios[self::SCENARIO_REGISTER] = ['id', 'username', 'email','auth_key','password_hash', 'password','status'];
+        return $scenarios;
+    }
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
@@ -209,4 +216,51 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+     public function getProfile($id=null){
+      // var_dump($this->id);
+       Profile::firstOrCreateStatic(['user_id'=>(!is_null($id))?$id:$this->id]);
+       return Profile::find()->where(['user_id'=>(!is_null($id))?$id:$this->id])->one();
+       
+   }
+   
+    public function lastLogin(){
+         return Useraudit::lastLogin($this->id);
+     }       
+
+    public function lastLoginForHumans(){
+         return \Carbon\Carbon::createFromTimeStamp(
+                 strtotime($this->lastLogin()))->diffForHumans();
+     }  
+     
+     public function getSince(){
+      return date('d/m/Y H:i:s',$this->created_at);
+      //return \Carbon\Carbon::createFromTimeStamp(
+                // strtotime($this->lastLogin()))->diffForHumans(); 
+       //Profile::firstOrCreateStatic(['user_id'=>$this->id]);
+      // return Profile::find()->where(['user_id'=>$this->id])->one();
+       
+   }  
+ 
+   public  function isActive(){
+    if(is_bool($this->status))
+      return $this->status;
+    return $this->status == self::STATUS_ACTIVE;
+}
+
+public static function dataComboStatus(){
+    return [static::STATUS_DELETED => yii::t('base.labels','Disabled'),
+            static::STATUS_ACTIVE => yii::t('base.labels','Active')];
+    
+}
+ /* public function afterFind() {
+      parent::afterFind();
+      $this->status=($this->status == '10')?'1':'0';
+  }
+  
+  public function beforeSave($insert) {
+      parent::beforeSave($insert);
+      $this->status=($this->status=='1')?'10':'20';
+  }
+   */
 }

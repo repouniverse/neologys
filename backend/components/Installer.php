@@ -12,6 +12,7 @@ use console\components\Command;
 use yii\helpers\Json;
 use yii\web\session;
 use common\helpers\h;
+USE yii2mod\settings\models\enumerables\SettingType;
 
 /**
  * Class Installer
@@ -49,41 +50,48 @@ class Installer
      public static function getRutas() {
          return [
              'RBAC'=>[
-        '/admin/permission/index'=>Yii::t('base.names', 'Permisos'),
+        '/admin/permission/index'=>Yii::t('base.labels', 'Permisos'),
        // '/admin/permission/create'=>Yii::t('base.actions', 'Crear Permiso'),
-         '/admin/role/index'=>Yii::t('base.names', 'Roles'),
-        '/admin'=>Yii::t('base.actions', 'Asignaciones'),
+         '/admin/role/index'=>Yii::t('base.labels', 'Roles'),
+        '/admin'=>Yii::t('base.verbs', 'Asignaciones'),
                  
-         '/admin/rule/index'=>Yii::t('base.names', 'Reglas'),
+         '/admin/rule/index'=>Yii::t('base.labels', 'Reglas'),
        // '/admin/rule/create'=>Yii::t('base.actions', 'Crear Regla'),
            ],
              'User'=>[
                         //'/admin/user/logout'=>Yii::t('base.actions', 'Salir'),
-                        '/admin/user/signup'=>Yii::t('base.actions', 'Registrarse'),
+                        '/admin/user/signup'=>Yii::t('base.verbs', 'Registrarse'),
                         //'/admin/user/request-password-reset'=>Yii::t('base.actions', 'Solicitar'),
                         //'/admin/user/reset-password'=>Yii::t('base.actions', 'Reset Pwd'),
-                        '/admin/user/change-password'=>Yii::t('base.actions', 'Cambiar Pass'),
+                        '/admin/user/change-password'=>Yii::t('base.verbs', 'Cambiar Pass'),
                   ],
              
              'Menu'=>[
                         //'/admin/menu/create'=>Yii::t('base.actions', 'Crear Menu'),
-                        '/admin/menu/index'=>Yii::t('base.names', 'Menu'),
-                        '/admin/route/index'=>Yii::t('base.names', 'Rutas'),
+                        '/admin/menu/index'=>Yii::t('base.labels', 'Menu'),
+                        '/admin/route/index'=>Yii::t('base.labels', 'Rutas'),
                        // '/admin/route/create'=>Yii::t('base.actions', 'Crear Ruta'),
                        
                   ],
-             'Masters'=>[
-                        '/masters/trabajadores/index'=>Yii::t('base.names', 'Colaboradores'),
-                        '/masters/clipro/index'=>Yii::t('base.names', 'Proveedores'),
-                        '/masters/bancos/index'=>Yii::t('base.actions', 'Bancos'),
-                        '/documentos/index'=>Yii::t('base.names', 'Documentos'), 
+             'Basic Settings'=>[
+                        '/base/configuracion/index'=>Yii::t('base.labels', 'Parameters Group'),
+                        '/base/configuracion/parametros-mail'=>Yii::t('base.labels', 'Settings Mail'),
+                        '/base/configuracion/index-campos-valores'=>Yii::t('base.labels', 'Masters Fields'),
+                        '/base/configuracion/index-combo-valores'=>Yii::t('base.labels', 'Masters Fields Values'),
+                         '/base/configuracion/index-transacciones'=>Yii::t('base.labels', 'Transactions'),
+                        
                   ],
-                 'Gestion'=>[
-                        '/sigi/edificios/index'=>Yii::t('base.names', 'Edificios'),
-                        '/sigi/cargos/index'=>Yii::t('base.names', 'Cargos'),
-                        '/sigi/unidades/index'=>Yii::t('base.actions', 'Unidades'),
-                      
-                  ],
+                 'Masters Values'=>[
+                        '/maestros/default/index-alumnos'=>Yii::t('base.labels', 'Students'),
+                         '/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
+                         '/maestros/default/index-docu'=>Yii::t('base.labels', 'Documents'),
+                         '/maestros/default/index-facul'=>Yii::t('base.labels', 'Faculties'),
+                        '/maestros/default/index-grupo-personas'=>Yii::t('base.labels', 'People Group'),
+                     '/maestros/default/index-periodo'=>Yii::t('base.labels', 'Periods'),
+                      '/maestros/default/index-persona'=>Yii::t('base.labels', 'People'),
+                  '/maestros/default/index-trabajadores'=>Yii::t('base.labels', 'Workers'),
+                      '/maestros/default/index-univer'=>Yii::t('base.labels', 'Universities'),
+             ],
              //'parameters'=>[
                         //'/parameteres/createmaster'=>Yii::t('base.actions', 'Crear Parametro'),
                         //'/parameters/createparamdocu'=>Yii::t('base.actions', 'Crear Paramaeters Documents'),
@@ -501,15 +509,15 @@ private static function createRoutes(){
     
 }
 
-public static function createBasicRole(){
+public static function createBasicRole($idUser){
     if(yii::$app->hasModule('admin')){
         static::createRoutes(); 
         
          //Recuerde que ya se almaceno el id del pirmer usuario 
         //en sesion , aqui solo se consulta la sesion
-        $idUser=yii::$app->session->get('newUser');
-        if(is_null($idUser))
-         $idUser= \mdm\admin\models\User::findOne()->id;
+       // $idUser=yii::$app->session->get('newUser');
+        //if(is_null($idUser))
+         
         
         foreach(static::getRutas() as $clave=>$arreglo){
                 $model = new \mdm\admin\models\AuthItem(null);
@@ -555,7 +563,17 @@ public static function createBasicRole(){
  * 
  */
 public static function createSettings(){
-    //Expresion regular para validar RUC
+     h::getIfNotPutSetting('mail','servermail',"smtp.googlemail.com", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('mail','userservermail',"neotegnia@gmail.com", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('mail','passworduserservermail',"tomasgrecia_1", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('mail','portservermail',465, SettingType::STRING_TYPE);
+       h::getIfNotPutSetting('timeUser','datetime','dd/mm/yyyy hh:ii:ss', SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('timeUser','date',"dd/mm/yyyy", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('timeUser','datetime','dd/mm/yyyy hh:ii:ss', SettingType::STRING_TYPE);
+         h::getIfNotPutSetting('timeBD','date',"Y-m-d", SettingType::STRING_TYPE);
+        h::getIfNotPutSetting('timeBD','datetime','Y-m-d h:i:s', SettingType::STRING_TYPE);
+    /* 
+//Expresion regular para validar RUC
     h::settings()->set('general','formatoRUC','/[1-9]{1}[0-9]{10}/');    
     //Expresion regular para validar DNI
     h::settings()->set('general','formatoDNI','/[0-9]{8}/');    
@@ -582,7 +600,7 @@ public static function createSettings(){
         h::settings()->set('timeBD','hour', 'H:i');
       ///Valores para el modulo sta
       h::settings()->set('sta','regexcodalu','/[1-9]{1}[0-9]{3}[0-9]{1}[0-9]{3}[A-Z]{1}/');
-     
+     */
 }
 
 

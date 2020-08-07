@@ -9,6 +9,10 @@ class m200727_192359_create_table_departamentos extends baseMigration
 {
     
     const NAME_TABLE='{{%departamentos}}';
+  
+    const NAME_TABLE_FACULTADES='{{%facultades}}';
+    const NAME_TABLE_UNIVERSIDADES='{{%universidades}}';
+    const NAME_TABLE_CARRERAS='{{%carreras}}';
     const NAME_TABLE_PERSONAS='{{%personas}}';
     /**
      * {@inheritdoc}
@@ -19,6 +23,9 @@ class m200727_192359_create_table_departamentos extends baseMigration
 $table=static::NAME_TABLE;
 if(!$this->existsTable($table)){
         $this->createTable($table, [
+            'id'=>$this->primaryKey(),
+             'universidad_id'=>$this->integer(11),
+            'facultad_id'=>$this->integer(11),
             'coddepa' => $this->string(10)->append($this->collateColumn()),
             'nombredepa' => $this->string(40)->notNull()->append($this->collateColumn()),
             'detalles'=>$this->text()->append($this->collateColumn()),
@@ -27,10 +34,13 @@ if(!$this->existsTable($table)){
             'codigoper' => $this->string(8)->append($this->collateColumn()),
             ], $this->collateTable());
       
-        $this->addPrimaryKey('pk_facu',$table, 'coddepa');
+        $this->createIndex($this->generateNameFk($table),$table, 'coddepa');
            $this->addForeignKey($this->generateNameFk($table), $table,
               'codigoper', static::NAME_TABLE_PERSONAS,'codigoper');
-   
+               $this->addForeignKey($this->generateNameFk($table), $table,
+              'facultad_id', static::NAME_TABLE_FACULTADES,'id');
+           $this->addForeignKey($this->generateNameFk($table), $table,
+              'universidad_id', static::NAME_TABLE_UNIVERSIDADES,'id');
   }
     
     

@@ -25,11 +25,15 @@ if(!$this->existsTable($table)){
             'id'=>$this->primaryKey(),
             
             /*CAMPOS SCOPE*/
-            'universidad_id'=>$this->integer(11),
-            'codfac'=>$this->string(10)->notNull()->append($this->collateColumn()),
+            'universidad_id'=>$this->integer(11),            
+            'facultad_id'=>$this->integer(11),
             'codperiodo'=>$this->string(10)->notNull()->append($this->collateColumn()),
-            'coddepa' => $this->string(10)->notNull()->append($this->collateColumn()),
-             'clase' => $this->char(1)->append($this->collateColumn()),
+            'depa_id' => $this->integer(11),
+            
+            'clase'=>$this->char(1)->notNull()->append($this->collateColumn()),
+             'status'=>$this->char(1)->notNull()->append($this->collateColumn()),
+             'codocu'=>$this->char(3)->notNull()->append($this->collateColumn()),
+           
             /*FIN DE LOS CAMPOS SCOPE*/
             
              'codigoper' => $this->string(8)->notNull()->append($this->collateColumn()),
@@ -45,11 +49,11 @@ if(!$this->existsTable($table)){
        $this->addForeignKey($this->generateNameFk($table), $table,
               'universidad_id', static::NAME_TABLE_UNIVERSIDADES,'id');
            $this->addForeignKey($this->generateNameFk($table), $table,
-              'codfac', static::NAME_TABLE_FACULTADES,'codfac');
+              'facultad_id', static::NAME_TABLE_FACULTADES,'id');
            $this->addForeignKey($this->generateNameFk($table), $table,
               'codperiodo', static::NAME_TABLE_PERIODOS,'codperiodo');
            $this->addForeignKey($this->generateNameFk($table), $table,
-              'coddepa', static::NAME_TABLE_DEPARTAMENTOS,'coddepa');
+              'depa_id', static::NAME_TABLE_DEPARTAMENTOS,'id');
           $this->addForeignKey($this->generateNameFk($table), $table,
               'codigoper', static::NAME_TABLE_PERSONAS,'codigoper');
     }

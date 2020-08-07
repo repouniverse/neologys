@@ -1,5 +1,5 @@
 <?php
-//namespace frontend\modules\import\database\migrations;
+namespace frontend\modules\import\database\migrations;
 
 use console\migrations\baseMigration;
 class m200728_162260_create_import_table extends baseMigration

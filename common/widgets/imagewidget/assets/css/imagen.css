@@ -1,0 +1,45 @@
+
+.cuadrito{
+    display: inline-block;
+}
+
+.cuadrazo{
+    width:100%;
+    margin-top:20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 140px;
+    background-color: #ccc;
+}
+
+.cuaizquierdo{
+     display: inline-block;
+    float:left;
+}
+
+.cuaderecho{
+     display: inline-block;
+     float:right;
+     padding-right:20px;
+     width: 50%;
+     /* background-color: #eee; */
+     padding-left: 1px;
+     margin-left: 1px;
+     text-align: justify;
+}
+
+div.absolute {
+    position: absolute;
+    border-radius: 10px;
+    top: 60%;
+    padding: 1px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 18px;
+}

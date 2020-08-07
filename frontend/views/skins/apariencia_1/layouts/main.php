@@ -29,6 +29,13 @@ elseif($accion=='reset-password'){
         'main-login',
         ['content' => $content]
     );
+}
+elseif($accion=='signup'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
 }else{
 
 

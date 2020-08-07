@@ -231,9 +231,9 @@ class Mailer extends Correo
     public function getOptionsTransport(){
       if(is_null($this->_opcionesTransport)){
          $cantidad=self::nOpcionesMail();
-         
+         $options=[];
         if($cantidad==0){
-            RETURN [
+            $options[]= [
             'class' => 'Swift_SmtpTransport',
               'host' =>Yii::$app->params['servermail'],
                'username' =>Yii::$app->params['userservermail'],
@@ -243,7 +243,7 @@ class Mailer extends Correo
                   'streamOptions'=>['ssl' =>['allow_self_signed' => true,'verify_peer_name' => false, 'verify_peer' => false]],
               ]; 
         }
-        $options=[];
+        
          for ($i = 0; $i < $cantidad; $i++) {
             // yii::error('Recorriendo '.$i);
              $cad=($i==0)?'':$i.'';
