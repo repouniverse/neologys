@@ -46,7 +46,7 @@ class Periodos extends \common\models\base\modelBase
             'codperiodo' => Yii::t('base.labels', 'Codperiodo'),
             'periodo' => Yii::t('base.labels', 'Periodo'),
             'activa' => Yii::t('base.labels', 'Activa'),
-            'tolerancia' => Yii::t('base.labels', 'Tolerancia'),
+            'tolerancia' => Yii::t('base.labels', 'Tolerance'),
         ];
     }
 

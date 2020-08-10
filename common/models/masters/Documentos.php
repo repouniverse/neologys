@@ -62,7 +62,7 @@ class Documentos extends modelBase
         return [
             'codocu' => 'Codocu',
             'desdocu' => 'Desdocu',
-            'clase' => 'Clase',
+            'clase' => yii::t('base.labels','Class'),
             'tipo' => 'Tipo',
             'tabla' => 'Tabla',
             'abreviatura' => 'Abreviatura',

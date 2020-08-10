@@ -62,18 +62,34 @@ class AuthWithQuestionForm extends Model
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+    protected function sendEmailToken($id)
     {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
+         //\common\components\token\Token::deleteAll(['name'=>'token_'.$alumno->id]);
+        $token=  \common\components\token\Token::create('auten', 'token_'.$id, null, time());
+      // $replyTo=$examen->cita->taller->correo;
+        $link= Url::to(['/site/verify-email-token-auth','id'=>$id,'token'=>$token->token],true);
+        $mailer = new \common\components\Mailer();
+        $message =new  \yii\swiftmailer\Message();
+            $message->setSubject('Notificacion de Examen')
+            ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
+            ->setTo($alumno->correo)
+            ->SetHtmlBody("Buenas Tardes <br>"
+                    . "La presente es para verificar tu correo  "
+                    . " <br> Presiona el siguiente link "
+                    . "para confirmar: <br>"
+                    . "    <a  href=\"".$link."\" >Presiona aquí </a>");
+           if(!empty($replyTo)){
+              $message->setReplyTo($replyTo); 
+           }
+    try {
+        
+           $result = $mailer->send($message);
+           $mensajes['success']='Se envió el correo, invitando al examen, el Alumno tiene que responder ';
+    } catch (\Swift_TransportException $Ste) {      
+         $mensajes['error']=$Ste->getMessage();
+    }
+    return $mensajes;
+    
     }
     
    public function validateRespuesta1($attribute, $params)

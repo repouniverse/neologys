@@ -2,9 +2,10 @@
 return[
     'Universities'=>'Universidades',
     'Departaments'=>'departamentos',
-    
-    
-    
+    'Class'=>'Clase',
+    'Is Audit'=>'Es auditable',
+    'name'=>'Nombre'
+    'Tolerance'=>'Tolerancia',
 ]
 /* 
  * To change this license header, choose License Headers in Project Properties.

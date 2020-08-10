@@ -74,6 +74,8 @@ class ConfiguracionController extends baseController
      */
     public function actionIndex()
     {
+        //echo \backend\components\Installer::readEnv('DB_COLLATE', 'utf8_unicode_ci'); die();
+        
         $searchModel = new GrupoParametrosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -174,7 +176,7 @@ class ConfiguracionController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     /*
@@ -241,7 +243,7 @@ class ConfiguracionController extends baseController
             'model' => $model,
         ]);
        }else{
-         throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+         throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
      
        }
     }
@@ -303,13 +305,15 @@ class ConfiguracionController extends baseController
             'model' => $model,
         ]);
        }else{
-         throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+         throw new NotFoundHttpException(m::t('base.errors', 'The requested page does not exist.'));
      
        }
     }
    
     
  public function actionIndexTransacciones(){
+    
+     
       $searchModel = new \common\models\masters\TransaccionesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
           return $this->render('index_transacciones', [
@@ -329,9 +333,9 @@ public function actionAjaxEditTransaccion(){
      $model= \common\models\masters\Transacciones::findOne(['name'=>$pk]);  
    $model->{$campo}=$valor;
    if( $model->save()){
-      return ['success',yii::t('base.success','The record was saved successfully')];
+      return ['success',m::t('labels','The record was saved successfully')];
     }else{
-        return ['error'=>yii::t('base.errors','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
+        return ['error'=>m::t('labels','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
     }
                
 } 

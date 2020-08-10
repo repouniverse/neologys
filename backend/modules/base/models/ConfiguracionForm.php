@@ -1,7 +1,7 @@
 <?php
 
 namespace backend\modules\base\models;
-
+use backend\modules\base\Module as m;
 use Yii;
 use yii\base\Model;
 
@@ -33,8 +33,8 @@ class ConfiguracionForm extends Model
     public function attributeLabels(): array
     {
         return [
-            'appName' => Yii::t('app', 'Application Name'),
-            'adminEmail' => Yii::t('app', 'Admin Email'),
+            'appName' => m::t('labels', 'Application Name'),
+            'adminEmail' => m::t('labels', 'Admin Email'),
         ];
     }
 }

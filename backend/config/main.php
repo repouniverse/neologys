@@ -36,7 +36,11 @@ return [
                                             //'sourceLanguage' => 'en-US',
                                             'basePath' => '@root/messages'
                                             ],
-                        
+                                'base.labels' => [
+                                            'class' => 'yii\i18n\PhpMessageSource',
+                                            //'sourceLanguage' => 'en-US',
+                                            'basePath' => '@root/messages'
+                                            ],
                         
                 'yii2mod.settings' => [
                                             'class' => 'yii\i18n\PhpMessageSource',

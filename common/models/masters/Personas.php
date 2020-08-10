@@ -96,7 +96,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function attributeLabels()
     {
         return [
-            'codigoper' => Yii::t('base.labels', 'Código'),
+            'codigoper' => Yii::t('base.labels', 'Code'),
             'ap' => Yii::t('base.labels', 'A Pat'),
             'am' => Yii::t('base.labels', "A Mat"),
             'nombres' => Yii::t('base.labels', 'Nombres'),

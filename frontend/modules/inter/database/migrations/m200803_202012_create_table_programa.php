@@ -39,7 +39,7 @@ if(!$this->existsTable($table)){
              'codigoper' => $this->string(8)->notNull()->append($this->collateColumn()),
            
             
-            'programa_id'=>$this->integer(11),
+            //'programa_id'=>$this->integer(11),
             'fopen' => $this->char(10)->notNull()->append($this->collateColumn()),
             'descripcion' => $this->string(40)->notNull()->append($this->collateColumn()),
             'detalles'=>$this->text()->append($this->collateColumn()),
