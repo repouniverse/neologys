@@ -276,7 +276,9 @@ class SiteController extends Controller
    }   
   }
 
-
+/*
+ * Esta acccion para auterntica ro cpreguntas 
+ */
 public function actionAuthWithQuestions(){
     $model = new AuthWithQuestionForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
