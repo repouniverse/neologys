@@ -133,6 +133,17 @@ class Installer
     }
     
     
+    public static function createFirstUser(){
+        $model = new \mdm\admin\models\User();
+            $model->username='admin';
+             $model->email='micorreoxyz@hotmail.com';   
+             $model->password='123456'; 
+             //$model->retypePassword='123456'; 
+               $model->status=\mdm\admin\models\User::STATUS_ACTIVE;
+             $model->save(); 
+             $model->refresh();
+             return $model->id;
+    }
     
     /*Se encarga de idrecionar a los controlladores de los instaladores 
      * si no se ha instalado la applicacion
@@ -509,6 +520,21 @@ private static function createRoutes(){
     
 }
 
+private static function revertCreateRoutes(){
+        $model = new \mdm\admin\models\Route();
+        $model->remove(static::getPureRutas());
+        unset($model);
+}
+
+public static function revertCreateBasicRole(){
+  \Yii::$app->db->createCommand("delete from {{%auth_assignment}}")->execute();
+  \Yii::$app->db->createCommand("delete from {{%auth_item}}")->execute();    
+   \Yii::$app->db->createCommand("delete from {{%auth_item_child}}")->execute(); 
+    \Yii::$app->db->createCommand("delete from {{%menu}}")->execute();  
+     \Yii::$app->db->createCommand("delete from {{%profile}}")->execute();
+      \Yii::$app->db->createCommand("delete from {{%useraudit}}")->execute();
+    \Yii::$app->db->createCommand("delete from {{%user}}")->execute(); 
+}
 public static function createBasicRole($idUser){
     if(yii::$app->hasModule('admin')){
         static::createRoutes(); 

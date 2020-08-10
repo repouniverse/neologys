@@ -18,21 +18,8 @@ class m290806_193731_fillData extends Migration
      */
     public function safeUp()
     {
-        Installer::createSettings();
-            $model = new \mdm\admin\models\User();
-            $model->username='admin';
-             $model->email='micorreoxyz@hotmail.com';   
-             $model->password='123456'; 
-             //$model->retypePassword='123456'; 
-               $model->status=\mdm\admin\models\User::STATUS_ACTIVE;
-            $model->save(); 
-                 $model->refresh();
-                 
-                 Installer::createBasicRole($model->id);
-            
-                
-                  
-                 
+        Installer::createSettings();         
+        Installer::createBasicRole(Installer::createFirstUser());
                  
     }
 
@@ -60,9 +47,7 @@ class m290806_193731_fillData extends Migration
      */
     public function safeDown()
     {
-       /// echo "m200806_193731_fillData cannot be reverted.\n";
-
-        return true;
+       Installer::revertCreateBasicRole();
     }
 
     /*
