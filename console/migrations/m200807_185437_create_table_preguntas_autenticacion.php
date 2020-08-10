@@ -9,7 +9,7 @@ class m200807_185437_create_table_preguntas_autenticacion extends baseMigration
 {
     
     const NAME_TABLE='{{%preguntas_aut}}';
-    const NAME_TABLE_MODOS='{{%inter_modos}}';
+    const NAME_TABLE_UNIVERSIDADES='{{%universidades}}';
     /**
      * {@inheritdoc}
      */
@@ -28,12 +28,11 @@ if(!$this->existsTable($table)){
             'activequerystring'=>$this->text()->notNull()->append($this->collateColumn()),
             'modo_id'=>$this->integer(11),
             ], $this->collateTable());
-      $this->addForeignKey($this->generateNameFk($table), $table,
-              'universidad_id', static::NAME_TABLE_UNIVERSIDADES,'id');
-            }
+      
     
     
     
+    }
     }
 	
 
