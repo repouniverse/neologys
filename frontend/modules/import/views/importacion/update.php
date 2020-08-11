@@ -1,16 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-
+use frontend\modules\import\ModuleImport as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\import\models\ImportCargamasiva */
 
-$this->title = Yii::t('import.labels', 'Editar importación : {name}', [
+$this->title = m::t('labels', 'Editar importación : {name}', [
     'name' => $model->descripcion,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('import.labels', 'Importaciones'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Importaciones'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('import.labels', 'Editar');
+$this->params['breadcrumbs'][] = m::t('labels', 'Editar');
 ?>
 <div class="import-cargamasiva-update">
 

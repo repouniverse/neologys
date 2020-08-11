@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\import\models;
-
+use frontend\modules\import\ModuleImport as m;
 use Yii;
 
 /**
@@ -62,20 +62,20 @@ class ImportCargamasivadet extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('import.labels', 'ID'),
-            'cargamasiva_id' => Yii::t('import.labels', 'Cargamasiva ID'),
-            'nombrecampo' => Yii::t('import.labels', 'Campo'),
-            'aliascampo' => Yii::t('import.labels', 'Alias'),
-            'sizecampo' => Yii::t('import.labels', 'Ancho'),
-            'activa' => Yii::t('import.labels', 'Activo'),
-            'requerida' => Yii::t('import.labels', 'Oblig.'),
-            'tipo' => Yii::t('import.labels', 'Tipo Dato'),
-            'esclave' => Yii::t('import.labels', 'Clave'),
-            'detalle' => Yii::t('import.labels', 'Detalle'),
-            'esforeign' => Yii::t('import.labels', 'Relacionado'),
-            'parent_id' => Yii::t('import.labels', 'Parent ID'),
-            'modelo' => Yii::t('import.labels', 'Tabla'),
-            'nveces' => Yii::t('import.labels', 'N repetic'),
+            'id' => m::t('labels', 'ID'),
+            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
+            'nombrecampo' => m::t('labels', 'Campo'),
+            'aliascampo' => m::t('labels', 'Alias'),
+            'sizecampo' => m::t('labels', 'Ancho'),
+            'activa' => m::t('labels', 'Activo'),
+            'requerida' => m::t('labels', 'Oblig.'),
+            'tipo' => m::t('labels', 'Tipo Dato'),
+            'esclave' => m::t('labels', 'Clave'),
+            'detalle' => m::t('labels', 'Detalle'),
+            'esforeign' => m::t('labels', 'Relacionado'),
+            'parent_id' => m::t('labels', 'Parent ID'),
+            'modelo' => m::t('labels', 'Tabla'),
+            'nveces' => m::t('labels', 'N repetic'),
         ];
     }
 

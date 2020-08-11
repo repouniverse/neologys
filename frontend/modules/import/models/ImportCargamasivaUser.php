@@ -2,7 +2,7 @@
 
 namespace frontend\modules\import\models;
 use frontend\modules\import\models\ImportCargamasiva;
-
+use frontend\modules\import\ModuleImport as m;
 use frontend\modules\import\components\CSVReader as MyCSVReader;
 use common\behaviors\FileBehavior;
 //use frontend\modules\import\behaviors\FileBehavior;
@@ -90,16 +90,16 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('import.labels', 'ID'),
-            'cargamasiva_id' => Yii::t('import.labels', 'Cargamasiva ID'),
-            'fechacarga' => Yii::t('import.labels', 'Fecha'),
-            'user_id' => Yii::t('import.labels', 'Iduser'),
-            'descripcion' => Yii::t('import.labels', 'Descripción'),
-            'current_linea' => Yii::t('import.labels', 'Linea'),
-            'total_linea' => Yii::t('import.labels', 'Total Linea'),
-            'tienecabecera' => Yii::t('import.labels', 'Cabecera'),
-            'duracion' => Yii::t('import.labels', 'Duración'),
-             'hasFile' => Yii::t('import.labels', 'Adjunto'),
+            'id' => m::t('m_import', 'ID'),
+            'cargamasiva_id' => m::t('m_import', 'Cargamasiva ID'),
+            'fechacarga' => m::t('m_import', 'Fecha'),
+            'user_id' => m::t('m_import', 'Iduser'),
+            'descripcion' => m::t('m_import', 'Descripción'),
+            'current_linea' => m::t('m_import', 'Linea'),
+            'total_linea' => m::t('m_import', 'Total Linea'),
+            'tienecabecera' => m::t('m_import', 'Cabecera'),
+            'duracion' => m::t('m_import', 'Duración'),
+             'hasFile' => m::t('m_import', 'Adjunto'),
         ];
     }
 
@@ -181,8 +181,8 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
     if(count($registros)>0){
         return $registros[0]->getPath();
     }else{
-        $this->addError('activo',yii::t('import.errors','No hay ningún archivo adjunto para efectuar la importación'));
-         //throw new \yii\base\Exception(Yii::t('import.errors', 'No hay ningún archivo csv adjunto'));
+        $this->addError('activo',m::t('import.errors','No hay ningún archivo adjunto para efectuar la importación'));
+         //throw new \yii\base\Exception(m::t('import.errors', 'No hay ningún archivo csv adjunto'));
      
     } 
        
@@ -204,13 +204,13 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
     yii::error($row,__METHOD__);
      if(is_null($row) or $row===false)
      {
-         $this->addError('activo',Yii::t('import.errors', 'Error; la primera fila  del archivo de carga no se ha encontrado, esto porque pued eque el archivo no tenga filas  o la propiedad firstLineToBegin(): {primera} llego al final del archivo ',['primera'=>$this->firstLineTobegin()]));
+         $this->addError('activo',m::t('import.errors', 'Error; la primera fila  del archivo de carga no se ha encontrado, esto porque pued eque el archivo no tenga filas  o la propiedad firstLineToBegin(): {primera} llego al final del archivo ',['primera'=>$this->firstLineTobegin()]));
          return false;  
      }
      $carga=$this->cargamasiva;
       if($carga->countChilds() <> count($row)){
-         //throw new \yii\base\Exception(Yii::t('import.errors', 'The csv file has not the same number columns ({ncolscsv}) than number fields ({ncolsload}) in this load data',['ncolscsv'=>count($row),'ncolsload'=>$this->cargamasiva->countChilds()]));
-       $this->addError('activo',Yii::t('import.errors', 'El archivo  csv de carga adjunto, tiene ({ncolscsv}) columnas y la plantilla de carga tiene  ({ncolsload}) columnas; no coinciden, revise el archivo adjunto',['ncolscsv'=>count($row),'ncolsload'=>$this->cargamasiva->countChilds()]));
+         //throw new \yii\base\Exception(m::t('import.errors', 'The csv file has not the same number columns ({ncolscsv}) than number fields ({ncolsload}) in this load data',['ncolscsv'=>count($row),'ncolsload'=>$this->cargamasiva->countChilds()]));
+       $this->addError('activo',m::t('import.errors', 'El archivo  csv de carga adjunto, tiene ({ncolscsv}) columnas y la plantilla de carga tiene  ({ncolsload}) columnas; no coinciden, revise el archivo adjunto',['ncolscsv'=>count($row),'ncolsload'=>$this->cargamasiva->countChilds()]));
       return false;       
       }
        /*  las Filas hijas*/
@@ -245,23 +245,23 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
          //yii::error(var_dump($tipo,$valor));
           /*Detectando inconsistencias*/
           
-          $msgAdicional=yii::t('import.errors','Verifique que la fila validada no sea el encabezado del archivo');
+          $msgAdicional=m::t('import.errors','Verifique que la fila validada no sea el encabezado del archivo');
            
           if($carga->isTypeChar($tipo)&&($longitud < strlen($valor))  && $requerida){
               yii::error('char: NO coindieorn las longitudes',__METHOD__);
-            $this->addError('activo',Yii::t('import.errors', 'Longitud ({longitud}) de la columna fija "{columna}", no coincide con la longitud del valor {valor}'.$msgAdicional,['valor'=>$valor,'longitud'=>$longitud,'columna'=>$nombrecampo]));   
+            $this->addError('activo',m::t('import.errors', 'Longitud ({longitud}) de la columna fija "{columna}", no coincide con la longitud del valor {valor}'.$msgAdicional,['valor'=>$valor,'longitud'=>$longitud,'columna'=>$nombrecampo]));   
            $validacion=false;
             
            }
            if ($carga->isTypeVarChar($tipo) &&($longitud < strlen($valor)) && $requerida){
                 yii::error('varchar: NO coindieorn las longitudes',__METHOD__);
-            $this->addError('activo',Yii::t('import.errors', 'Longitud máxima ({longitud}) de la columna  "{columna}",es menor que la longitud del valor {valor}'.$msgAdicional,['valor'=>$valor,'longitud'=>$longitud,'columna'=>$nombrecampo]));   
+            $this->addError('activo',m::t('import.errors', 'Longitud máxima ({longitud}) de la columna  "{columna}",es menor que la longitud del valor {valor}'.$msgAdicional,['valor'=>$valor,'longitud'=>$longitud,'columna'=>$nombrecampo]));   
            $validacion=false;
             
            }
            if($carga->isNumeric($tipo)&& (!is_numeric($valor)) && $requerida){
                 yii::error('numerico : NO es el tipo',__METHOD__);
-            $this->addError('activo',Yii::t('import.errors', 'Columna  "{columna}" es un valor numérico y  "{valor}" no lo es '.$msgAdicional,['valor'=>$valor,'columna'=>$nombrecampo]));   
+            $this->addError('activo',m::t('import.errors', 'Columna  "{columna}" es un valor numérico y  "{valor}" no lo es '.$msgAdicional,['valor'=>$valor,'columna'=>$nombrecampo]));   
            
             $validacion=false;
            }
@@ -273,7 +273,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
                              (strpos($valor,".")===false) 
                           )
           ){
-          $this->addError('activo',Yii::t('import.errors', 'Columna  "{columna}" no tiene el formato fecha, observe el valor {valor}'.$msgAdicional,['valor'=>$valor,'columna'=>$nombrecampo]));   
+          $this->addError('activo',m::t('import.errors', 'Columna  "{columna}" no tiene el formato fecha, observe el valor {valor}'.$msgAdicional,['valor'=>$valor,'columna'=>$nombrecampo]));   
           $validacion=false;    
           }
             
@@ -282,8 +282,8 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
          }
       }
       /*if(!$validacion){
-          $this->addError('activo',Yii::t('import.errors', 'Error en el formato de la columna  "{columna}", los tipos no coinciden, revise el archivo de carga',['columna'=>$nombrecampo]));
-        // throw new \yii\base\Exception(Yii::t('import.errors', 'The csv file has not the same type columns "{columna}" than type fields in this load data',['columna'=>$nombrecampo]));
+          $this->addError('activo',m::t('import.errors', 'Error en el formato de la columna  "{columna}", los tipos no coinciden, revise el archivo de carga',['columna'=>$nombrecampo]));
+        // throw new \yii\base\Exception(m::t('import.errors', 'The csv file has not the same type columns "{columna}" than type fields in this load data',['columna'=>$nombrecampo]));
            return false; 
               }*/
       
@@ -396,7 +396,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
     $registros=$this->getFilesByExtension(ImportCargamasiva::EXTENSION_CSV);
       $tiene= (count($registros)>0)?true:false; 
        if(!$tiene){
-           $this->addError('activo',yii::t('import.errors','Este registro no tiene adjuntado ningun archivo '.ImportCargamasiva::EXTENSION_CSV));
+           $this->addError('activo',m::t('import.errors','Este registro no tiene adjuntado ningun archivo '.ImportCargamasiva::EXTENSION_CSV));
            return false;   
        }
        return true;
@@ -408,7 +408,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
    private function NotHasErrorsInLogAndIsCarga($verdadero){
        //Solo es imposible si hay errores en el log  y ademas es una carga 
       $imposible= ($this->nerrores()>0 and $verdadero)?true:false;
-      if($imposible)$this->addError ('activo',yii::t('import.errors','Se han detectado errores en el registro al momento de probar, corrija los errores, puede visulizarlos en el log'));
+      if($imposible)$this->addError ('activo',m::t('import.errors','Se han detectado errores en el registro al momento de probar, corrija los errores, puede visulizarlos en el log'));
      return !$imposible;
       
    }
@@ -534,7 +534,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
                         ) ;
                     die();*/
             $interrumpido=false;
-           $this->addError('activo',Yii::t('import.errors', 'No ha pasado la validación general '));
+           $this->addError('activo',m::t('import.errors', 'No ha pasado la validación general '));
         
            return -1;
            
@@ -592,23 +592,23 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
    private function canLoadForStatus($verdadero){
        $estado=$this->activo;  
        /* if(!$verdadero && ($estado==self::STATUS_PROBADO)){
-          $this->addError('activo',yii::t('import.errors','Este registro ya está probado, revise el log de prueba'));
+          $this->addError('activo',m::t('import.errors','Este registro ya está probado, revise el log de prueba'));
           return false;  
         }*/
          if(!$verdadero && ($estado==self::STATUS_CARGADO_INCOMPLETO)){
-           $this->addError('activo',yii::t('import.errors','Este registro tiene carga incompleta'));
+           $this->addError('activo',m::t('import.errors','Este registro tiene carga incompleta'));
           return false;  
          }
           if(!$verdadero && ($estado==self::STATUS_CARGADO)){
-              $this->addError('activo',yii::t('import.errors','Este registro ya está cargado'));
+              $this->addError('activo',m::t('import.errors','Este registro ya está cargado'));
             return false;
           }
           if($verdadero && ($estado==self::STATUS_ABIERTO)){
-               $this->addError('activo',yii::t('import.errors','Este registro no puede cargarse, aun no se ha probado, y no debe tener errores'));
+               $this->addError('activo',m::t('import.errors','Este registro no puede cargarse, aun no se ha probado, y no debe tener errores'));
            return false;
           }
          if($verdadero && ($estado==self::STATUS_CARGADO)){
-            $this->addError('activo',yii::t('import.errors','Este registro ya está cargado'));
+            $this->addError('activo',m::t('import.errors','Este registro ya está cargado'));
             return false;
          }
          return true;
@@ -623,7 +623,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
             ($verdadero && ($estado==self::STATUS_PROBADO)) or 
             ($verdadero && ($estado==self::STATUS_CARGADO_INCOMPLETO))             
            )?true:false;
-         if(!$isReady)$this->addError ('activo',yii::t('import.errors','El estado del registro no permite efectuar la operacion'));
+         if(!$isReady)$this->addError ('activo',m::t('import.errors','El estado del registro no permite efectuar la operacion'));
          return $isReady;
     } 
 

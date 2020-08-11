@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'universidad_id',
-            'codfac',
+            'facultad_id',
             'codperiodo',
-            'coddepa',
+            'depa_id',
             'clase',
             'programa_id',
             'fopen',

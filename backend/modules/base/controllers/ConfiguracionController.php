@@ -74,8 +74,9 @@ class ConfiguracionController extends baseController
      */
     public function actionIndex()
     {
-        //echo \backend\components\Installer::readEnv('DB_COLLATE', 'utf8_unicode_ci'); die();
-        
+        echo \backend\modules\base\Module::t('labels','Hello');
+        die();
+       
         $searchModel = new GrupoParametrosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -48,7 +48,8 @@ class Alumnos extends \common\models\base\modelBase
             
             /* PARA ESCENARIOBASICO*/
             [[
-            'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'
+            'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
+            'universidad_id', 'facultad_id','carrera_id','codigoper'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
             
@@ -63,7 +64,8 @@ class Alumnos extends \common\models\base\modelBase
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
-           'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'
+           'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
+            'universidad_id', 'facultad_id','carrera_id','codigoper'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -111,4 +113,16 @@ class Alumnos extends \common\models\base\modelBase
         return parent::afterSave($insert, $changedAttributes);
     } 
     
+    public function getUniversidad(){
+         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
+      }
+    public function getFacultad(){
+         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
+      }
+    public function getCarrera(){
+         return $this->hasOne(Carreras::className(), ['id' => 'carrera_id']);
+      }
+   public function getPersona(){
+         return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
+      }
 }

@@ -947,7 +947,7 @@ class DefaultController extends \common\controllers\baseController
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
             }
         }else{
             //var_dump($model->attributes);die();
@@ -986,7 +986,7 @@ class DefaultController extends \common\controllers\baseController
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
             }
         }else{
             //var_dump($model->attributes);die();
@@ -1303,9 +1303,9 @@ class DefaultController extends \common\controllers\baseController
         if(is_null($modelFacultad)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
-            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
         }
-        $model->codfac=$modelFacultad->codfac;
+        $model->facultad_id=$modelFacultad->id;
       
         if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);
@@ -1317,13 +1317,13 @@ class DefaultController extends \common\controllers\baseController
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
             }
         }else{
             //var_dump($model->attributes);die();
            return $this->renderAjax('_modal_depa', [
                         'model' => $model,
-                        'codigo_fac'=> $model->codfac,
+                        'codigo_fac'=> $model->facultad_id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,
@@ -1357,13 +1357,13 @@ class DefaultController extends \common\controllers\baseController
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->codfac];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
             }
         }else{
             //var_dump($model->attributes);die();
            return $this->renderAjax('_modal_depa', [
                         'model' => $model,
-                        'codigo_fac'=> $model->codfac,
+                        'codigo_fac'=> $model->facultad_id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,

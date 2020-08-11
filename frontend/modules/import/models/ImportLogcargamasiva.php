@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\import\models;
-
+use frontend\modules\import\ModuleImport as m;
 use Yii;
 
 /**
@@ -50,14 +50,14 @@ class ImportLogcargamasiva extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('import.labels', 'ID'),
-            'cargamasiva_id' => Yii::t('import.labels', 'Cargamasiva ID'),
-            'nombrecampo' => Yii::t('import.labels', 'Campo'),
-            'mensaje' => Yii::t('import.labels', 'Mensaje del error'),
-            'level' => Yii::t('import.labels', 'Nivel'),
-            'fecha' => Yii::t('import.labels', 'Fecha'),
-            'user_id' => Yii::t('import.labels', 'User ID'),
-            'numerolinea' => Yii::t('import.labels', 'Número de fila'),
+            'id' => m::t('labels', 'ID'),
+            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
+            'nombrecampo' => m::t('labels', 'Campo'),
+            'mensaje' => m::t('labels', 'Mensaje del error'),
+            'level' => m::t('labels', 'Nivel'),
+            'fecha' => m::t('labels', 'Fecha'),
+            'user_id' => m::t('labels', 'User ID'),
+            'numerolinea' => m::t('labels', 'Número de fila'),
         ];
     }
 

@@ -32,6 +32,7 @@ class ModuleImport extends \yii\base\Module
     public function init()
     {
         parent::init();
+         $this->registerTranslations();
         static::putSettingsModule();
         static::pustCsvDirectory();
     }
@@ -44,6 +45,7 @@ class ModuleImport extends \yii\base\Module
     }
     private static function pustCsvDirectory(){
        $path=yii::getAlias('@app').h::gsetting('import','pathToCsvExamples');
+      
        if(!is_dir($path)){
            \common\helpers\FileHelper::createDirectory ($path);
     }}
@@ -52,5 +54,25 @@ class ModuleImport extends \yii\base\Module
        return yii::getAlias('@app').h::gsetting('import','pathToCsvExamples'); 
     }
     
-       
+   public function registerTranslations()
+    {
+        yii::$app->i18n->translations['modules/import/*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@frontend/modules/import/messages',
+            'fileMap' => [
+                'modules/import/m_import' => 'm_import.php',
+                
+               
+                
+            ],
+        ];
+    }
+
+    public static function t($category, $message, $params = [], $language = null)
+    {
+        
+        return Yii::t('modules/import/' . $category, $message, $params, $language);
+    }
+      
 }

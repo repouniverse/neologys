@@ -1,12 +1,7 @@
 <?php
-return[
-    'Universities'=>'Universidades',
-    'Departaments'=>'departamentos',
-    'Class'=>'Clase',
-    'Is Audit'=>'Es auditable',
-    'name'=>'Nombre'
-    'Tolerance'=>'Tolerancia',
-]
+return [
+    'Name'=>'Nombre',
+];
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

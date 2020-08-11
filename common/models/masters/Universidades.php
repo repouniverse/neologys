@@ -13,6 +13,17 @@ use Yii;
  * @property string $acronimo
  * @property string|null $estado
  * @property string|null $detalle
+ *
+ * @property Alumnos[] $alumnos
+ * @property Carreras[] $carreras
+ * @property Departamentos[] $departamentos
+ * @property Facultades[] $facultades
+ * @property InterConvocados[] $interConvocados
+ * @property InterEvaluadores[] $interEvaluadores
+ * @property InterExpedientes[] $interExpedientes
+ * @property InterModos[] $interModos
+ * @property InterPlan[] $interPlans
+ * @property InterPrograma[] $interProgramas
  */
 class Universidades extends \common\models\base\modelBase
 {
@@ -45,13 +56,113 @@ class Universidades extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.labels', 'ID'),
-            'codpais' => Yii::t('base.labels', 'Country'),
-            'nombre' => Yii::t('base.labels', 'Name'),
-            'acronimo' => Yii::t('base.labels', 'Acronym'),
-            'estado' => Yii::t('base.labels', 'State'),
-            'detalle' => Yii::t('base.labels', 'Details'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'codpais' => Yii::t('base_labels', 'Codpais'),
+            'nombre' => Yii::t('base_labels', 'Nombre'),
+            'acronimo' => Yii::t('base_labels', 'Acronimo'),
+            'estado' => Yii::t('base_labels', 'Estado'),
+            'detalle' => Yii::t('base_labels', 'Detalle'),
         ];
+    }
+
+    /**
+     * Gets query for [[Alumnos]].
+     *
+     * @return \yii\db\ActiveQuery|AlumnosQuery
+     */
+    public function getAlumnos()
+    {
+        return $this->hasMany(Alumnos::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Carreras]].
+     *
+     * @return \yii\db\ActiveQuery|CarrerasQuery
+     */
+    public function getCarreras()
+    {
+        //return $this->hasMany(Carreras::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Departamentos]].
+     *
+     * @return \yii\db\ActiveQuery|DepartamentosQuery
+     */
+    public function getDepartamentos()
+    {
+       // return $this->hasMany(Departamentos::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Facultades]].
+     *
+     * @return \yii\db\ActiveQuery|FacultadesQuery
+     */
+    public function getFacultades()
+    {
+        //return $this->hasMany(Facultades::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterConvocados]].
+     *
+     * @return \yii\db\ActiveQuery|InterConvocadosQuery
+     */
+    public function getInterConvocados()
+    {
+        //return $this->hasMany(InterConvocados::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterEvaluadores]].
+     *
+     * @return \yii\db\ActiveQuery|InterEvaluadoresQuery
+     */
+    public function getInterEvaluadores()
+    {
+        //return $this->hasMany(InterEvaluadores::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterExpedientes]].
+     *
+     * @return \yii\db\ActiveQuery|InterExpedientesQuery
+     */
+    public function getInterExpedientes()
+    {
+        //return $this->hasMany(InterExpedientes::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterModos]].
+     *
+     * @return \yii\db\ActiveQuery|InterModosQuery
+     */
+    public function getInterModos()
+    {
+        //return $this->hasMany(InterModos::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterPlans]].
+     *
+     * @return \yii\db\ActiveQuery|InterPlanQuery
+     */
+    public function getInterPlans()
+    {
+       // return $this->hasMany(InterPlan::className(), ['universidad_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterProgramas]].
+     *
+     * @return \yii\db\ActiveQuery|InterProgramaQuery
+     */
+    public function getInterProgramas()
+    {
+        //return $this->hasMany(InterPrograma::className(), ['universidad_id' => 'id']);
     }
 
     /**

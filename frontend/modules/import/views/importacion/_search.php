@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use frontend\modules\import\ModuleImport as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\import\models\ImportCargamasivaSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -35,8 +35,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'modelo') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('import.labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('import.labels', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('labels', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('labels', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

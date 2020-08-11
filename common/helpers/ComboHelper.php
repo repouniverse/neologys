@@ -93,6 +93,7 @@ class ComboHelper  {
      */
     public static function getCboGeneral($valorfiltro,$clase,$campofiltro,$campokey,$camporef){
          //$iduser=is_null($iduser)?static::userId():$iduser;   
+           //$iduser=is_null($iduser)?static::userId():$iduser;   
         if(empty($campofiltro))
             return ArrayHelper::map(
                         $clase::find()->all(),

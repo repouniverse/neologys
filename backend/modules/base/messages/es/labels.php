@@ -1,5 +1,6 @@
 <?php
 return [
+    'Hello'=>'Hola',
     //'Edit : {name}'=>'Editar : {name}',
     'Field Settings'=>'Campos configurables',
     'Application Name'=>'Nombre de la aplicación',

@@ -39,10 +39,10 @@ use yii\widgets\ActiveForm;
                'form'=>$form,
                'data'=> ComboHelper::getCboUniversidades(),
                'campo'=>'universidad_id',
-               'idcombodep'=>'departamentos-codfac',               
+               'idcombodep'=>'departamentos-facultad_id',               
                    'source'=>[\common\models\masters\Facultades::className()=>
                                 [
-                                  'campoclave'=>'codfac' , //columna clave del modelo ; se almacena en el value del option del select 
+                                  'campoclave'=>'facultad_id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'desfac',//columna a mostrar 
                                         'campofiltro'=>'universidad_id'  
                                 ]
@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
  </div>       
   
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
- <?= $form->field($model, 'codfac')->
+ <?= $form->field($model, 'facultad_id')->
             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
                   ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',

@@ -7,7 +7,7 @@ use console\migrations\baseMigration;
 /**
  * Class m190719_142455_create_table_carga_user
  */
-class m200728_162270_create_table_carga_user extends baseMigration
+class m190719_142455_create_table_carga_user extends baseMigration
 {
      const NAME_TABLE='{{%import_carga_user}}';
  

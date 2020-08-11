@@ -1,4 +1,5 @@
 <?php use yii\grid\GridView;
+use frontend\modules\import\ModuleImport as m;
 use yii\widgets\Pjax;
 use yii\widgets\DetailView;
 use yii\helpers\Html;
@@ -13,12 +14,12 @@ use yii\web\View;
 </div>
 <?php }elseif($nerrores>0){  ?>
 <div class="alert alert-danger" role="alert">       
-       <?= yii::t('import.labels','El proceso ha concluido con {nerrores} errores',['nerrores'=>$nerrores]);?>        
+       <?= m::t('labels','El proceso ha concluido con {nerrores} errores',['nerrores'=>$nerrores]);?>        
 </div>
 <?php 
 }else{ ?>
   <div class="alert alert-success" role="alert">       
-       <?= yii::t('import.labels','El proceso ha concluido sin errores');?>        
+       <?= m::t('labels','El proceso ha concluido sin errores');?>        
 </div>
 <?php
 }

@@ -71,11 +71,25 @@ return [
                     'sourceLanguage' => 'en',
                 ],
               
-                'base.errors'=>[
+               
+                
+                'base_labels'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                          
+                                            ], 
+                 'base_verbs'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                          
                                             ], 
                 'base.labels'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                          
+                                            ],
+                'base.errors'=>[
+                                 'class' => 'yii\i18n\PhpMessageSource',
+                                 'basePath' => '@root/messages',                                          
+                                            ], 
+                 'julian'=>[
                                  'class' => 'yii\i18n\PhpMessageSource',
                                  'basePath' => '@root/messages',                                          
                                             ], 
@@ -102,6 +116,10 @@ return [
                                  'basePath' => '@root/messages',                                        
                
                                   ],
+                 'yii2mod.settings' => [
+                                            'class' => 'yii\i18n\PhpMessageSource',
+                                            'basePath' => '@yii2mod/settings/messages',
+                                            ],
                   ], 
         
         

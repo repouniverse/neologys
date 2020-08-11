@@ -2,7 +2,7 @@
 namespace frontend\modules\import\database\migrations;
 
 use console\migrations\baseMigration;
-class m200728_162260_create_import_table extends baseMigration
+class m190707_181801_create_import_table extends baseMigration
 {
      const NAME_TABLE='{{%import_cargamasiva}}';
  

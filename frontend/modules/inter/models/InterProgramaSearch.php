@@ -17,8 +17,8 @@ class InterProgramaSearch extends InterPrograma
     public function rules()
     {
         return [
-            [['id', 'universidad_id', 'programa_id'], 'integer'],
-            [['codfac', 'codperiodo', 'coddepa', 'clase', 'fopen', 'descripcion', 'detalles'], 'safe'],
+            [['id', 'universidad_id'], 'integer'],
+            [['facultad_id', 'codperiodo', 'depa_id', 'clase', 'fopen', 'descripcion', 'detalles'], 'safe'],
         ];
     }
 
@@ -60,12 +60,12 @@ class InterProgramaSearch extends InterPrograma
         $query->andFilterWhere([
             'id' => $this->id,
             'universidad_id' => $this->universidad_id,
-            'programa_id' => $this->programa_id,
+            //'programa_id' => $this->programa_id,
         ]);
 
-        $query->andFilterWhere(['like', 'codfac', $this->codfac])
+        $query->andFilterWhere(['like', 'facultad_id', $this->facultad_id])
             ->andFilterWhere(['like', 'codperiodo', $this->codperiodo])
-            ->andFilterWhere(['like', 'coddepa', $this->coddepa])
+            ->andFilterWhere(['like', 'depa_id', $this->depa_id])
             ->andFilterWhere(['like', 'clase', $this->clase])
             ->andFilterWhere(['like', 'fopen', $this->fopen])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])

@@ -3,6 +3,7 @@ namespace frontend\controllers;
 use common\models\masters\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+use common\helpers\h;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -296,5 +297,62 @@ public function actionAuthWithQuestions(){
         ]);
 }
 
-  
+ public function actionClearCache(){
+       
+       $datos=[];
+       if(h::request()->isAjax){           
+              h::settings()->invalidateCache();
+              //if(h::session()->has('psico_por_dia'))
+               h::session()->remove('psico_por_dia');
+              //\console\components\Command::execute('cache/flush-all', ['interactive' => false]);
+              //\console\components\Command::execute('cache/flush-schema', ['interactive' => false]);
+           $datos['success']=yii::t('base_verbs','
+Datos de sesión y de caché se han actualizado');
+           
+           h::response()->format = \yii\web\Response::FORMAT_JSON;
+           return $datos;
+        }
+    }
+
+public function actionRutas(){
+    $valorfiltro=14;
+    $campoclave='facultad_id';
+    $camporef='desfac';
+    $campofiltro='universidad_id';
+    $clase='\common\models\masters\Facultades';
+    $campokey='universidad_id';
+    $camporef='desfac';
+    $datos=\yii\helpers\ArrayHelper::map(
+                        $clase::find()->where([$campofiltro=>$valorfiltro])->all(),
+                $campokey,$camporef);
+    
+    //var_dump($datos);
+     $valores=\common\helpers\ComboHelper::getCboGeneral(
+               $valorfiltro, 
+                 $clase,
+                $campofiltro,
+                $campokey,
+                $camporef);
+    var_dump($valores);
+    
+     $valores2=\common\helpers\ComboHelper::getCboGeneral(
+               14, 
+                 '\common\models\masters\Facultades',
+                'universidad_id',
+                'facultad_id',
+                'desfac');
+       // var_dump($valores);
+    
+    var_dump($valores2); 
+    
+    
+    $valores3=\yii\helpers\ArrayHelper::map(
+                        $clase::find()->where([$campofiltro=>$valorfiltro])->all(),
+                $campokey,$camporef);
+    var_dump($valores3);die();
+    
+    
+    
+
+    }
 }

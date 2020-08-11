@@ -36,10 +36,6 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
         </div>
   
     
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-       <?= $form->field($model, 'codfac')->textInput(['maxlength' => true]) ?>
-         
-    </div>
     
     
     
@@ -63,7 +59,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
         'id'=>'mi-grilla',
         'dataProvider' => new \yii\data\ActiveDataProvider(
                 [
-                    'query'=> \common\models\masters\Departamentos::find()->andWhere(['codfac'=>$model->codfac])
+                    'query'=> \common\models\masters\Departamentos::find()->andWhere(['facultad_id'=>$model->id])
                 ]
                 ),
         //'filterModel' => $searchModel,
@@ -111,7 +107,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     
     <?php Pjax::end(); ?>
       <p>
-         <?php $url= Url::to(['modal-new-depa','id'=>$model->codfac,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
+         <?php $url= Url::to(['modal-new-depa','id'=>$model->id,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
                              //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
                             echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>', $url, ['class'=>'botonAbre']);
                               ?>           

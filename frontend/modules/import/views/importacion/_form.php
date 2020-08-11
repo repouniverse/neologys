@@ -1,5 +1,6 @@
 <?php
 use common\helpers\ComboHelper;
+use frontend\modules\import\ModuleImport as m;
 use frontend\modules\bigitems\models\Docbotellas;
 use common\widgets\spinnerWidget\spinnerWidget;
 use yii\helpers\Html;
@@ -25,13 +26,13 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
   <div class="box-footer">
         <div class="col-md-12">
             <div class="form-group no-margin">
-        <?= Html::submitButton('<span class="fa fa-save"></span>    '.Yii::t('import.labels', 'Grabar'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>    '.m::t('labels', 'Grabar'), ['class' => 'btn btn-success']) ?>
            
             <?php 
                if(!$model->isNewRecord){
                   $url=Url::to(['example-csv','id'=>$model->id]);
                 echo Html::a(
-                        '<span class="fa fa-download"></span>    '.yii::t('import.labels','Descargar plantilla'),
+                        '<span class="fa fa-download"></span>    '.m::t('labels','Descargar plantilla'),
                         $url,
                         [
                           
@@ -97,7 +98,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">   
    <?= $form->field($model, 'escenario')->
             dropDownList(($model->isNewRecord)?[]:[$model->escenario=>$model->escenario],
-                    ['prompt'=>'--'.yii::t('base.verbs','--Seleccione un valor')."--",
+                    ['prompt'=>'--'.m::t('base.verbs','--Seleccione un valor')."--",
                      'disabled'=>(!$model->isNewRecord)?true:false
                        ]
                     ) ?>
@@ -121,7 +122,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">   
    <?= $form->field($model, 'format')->
             dropDownList(['csv'=>'csv'],
-                    ['prompt'=>'--'.yii::t('base.verbs','Seleccione un valor')."--",
+                    ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
                      'disabled'=>(!$model->isNewRecord)?true:false
                        ]
                     ) ?>
@@ -147,21 +148,21 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     'align' => TabsX::ALIGN_LEFT,
     'items' => [
         [
-            'label' => yii::t('base.names','Columnas'), //$this->context->countDetail() obtiene el contador del detalle
+            'label' => m::t('base.names','Columnas'), //$this->context->countDetail() obtiene el contador del detalle
             'content'=> $this->render('_campos',[ 'form' => $form, 'dataProvider' => $itemsFields]),
 //'content' => $this->render('detalle',['form'=>$form,'orden'=>$this->context->countDetail(),'modelDetail'=>$modelDetail]),
             'active' => true,
              'options' => ['id' => 'myveryownID3'],
         ],
         [
-            'label' => yii::t('base.names','Cargas'), //$this->context->countDetail() obtiene el contador del detalle
+            'label' => m::t('base.names','Cargas'), //$this->context->countDetail() obtiene el contador del detalle
             'content'=> $this->render('_loads',[  'model' => $model,'form' => $form, 'dataProvider' => $itemsLoads]),
 //'content' => $this->render('detalle',['form'=>$form,'orden'=>$this->context->countDetail(),'modelDetail'=>$modelDetail]),
             'active' => false,
              'options' => ['id' => 'myveryownID4'],
         ],
        [
-            'label' => yii::t('base.names','Errores'), //$this->context->countDetail() obtiene el contador del detalle
+            'label' => m::t('base.names','Errores'), //$this->context->countDetail() obtiene el contador del detalle
             'content'=> $this->render('_emptyresult',[ ]),
 //'content' => $this->render('detalle',['form'=>$form,'orden'=>$this->context->countDetail(),'modelDetail'=>$modelDetail]),
             'active' => false,

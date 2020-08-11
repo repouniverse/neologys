@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\import\models;
+use frontend\modules\import\ModuleImport as m;
 use frontend\modules\import\components\CSVReader as MyCSVReader;
 use common\helpers\h;
 use common\helpers\FileHelper;
@@ -63,14 +64,14 @@ class ImportCargamasiva extends modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('import.labels', 'ID'),
-            'user_id' => Yii::t('import.labels', 'Usuario'),
-            'insercion' => Yii::t('import.labels', 'Insercion'),
-            'escenario' => Yii::t('import.labels', 'Escenario'),
-            'lastimport' => Yii::t('import.labels', 'Ultima Carga'),
-            'descripcion' => Yii::t('import.labels', 'Descripcion'),
-            'format' => Yii::t('import.labels', 'Formato'),
-            'modelo' => Yii::t('import.labels', 'Tabla'),
+            'id' => m::t('m_import', 'ID'),
+            'user_id' => m::t('m_import', 'Usuario'),
+            'insercion' => m::t('m_import', 'Insercion'),
+            'escenario' => m::t('m_import', 'Escenario'),
+            'lastimport' => m::t('m_import', 'Ultima Carga'),
+            'descripcion' => m::t('m_import', 'Descripcion'),
+            'format' => m::t('m_import', 'Formato'),
+            'modelo' => m::t('m_import', 'Tabla'),
         ];
     }
     
@@ -163,6 +164,9 @@ class ImportCargamasiva extends modelBase
                      ){
                           //yii::error($nameField,__METHOD__);   
                         yii::error($oBCol->dbType,__METHOD__);
+                        //yii::error('CALVES ORANEAS');
+                        //yii::error($modeloatratar->fieldsLink(false));
+                         
                         if(ImportCargamasivadet::firstOrCreateStatic(
                                         [
                                            'cargamasiva_id'=>$this->id,
@@ -223,17 +227,17 @@ class ImportCargamasiva extends modelBase
        $sinorden=$query->
        andFilterWhere(['orden'=>0])->asArray()->all();
       if(count($sinorden)>0)       
-        throw new \yii\base\Exception(Yii::t('import.errors', 'The import records has a field {field} with  \'order\' = 0 ',['field'=>$sinorden[0]['nombrecampo']]));
+        throw new \yii\base\Exception(m::t('m_import', 'The import records has a field {field} with  \'order\' = 0 ',['field'=>$sinorden[0]['nombrecampo']]));
    
       $sinlongitud=$query->
        andFilterWhere(['sizecampo'=>0])->asArray()->all();
       if(count($sinlongitud)>0)       
-        throw new \yii\base\Exception(Yii::t('import.errors', 'The import records has a field {field} with  \'size\' = 0 ',['field'=>$sinlongitud[0]['nombrecampo']]));
+        throw new \yii\base\Exception(m::t('m_import', 'The import records has a field {field} with  \'size\' = 0 ',['field'=>$sinlongitud[0]['nombrecampo']]));
    
      /* $sinprimercampo=$query->
        andFilterWhere(['esclave'=>'1'])->asArray()->all();
       if(count($sinprimercampo)==0)       
-        throw new \yii\base\Exception(Yii::t('import.errors', 'The import records has not a field key'));
+        throw new \yii\base\Exception(m::t('m_import', 'The import records has not a field key'));
    */
    }
    
@@ -335,7 +339,7 @@ public function isDateorTime($tipo,$nombrecampo,$longitud){
  public function activeRecordLoad(){
     $registro= ImportCargamasivaUser::childQueryLoads()->where(['activo'=>'1'])->andFilterWhere(['not',['activo'=>ImportCargamasivaUser::STATUS_CARGADO]])->one();
     if(is_null($registro)){
-        throw new \yii\base\Exception(Yii::t('import.errors', 'Verifique que exista un registro de carga pendiente, todos están terminados o no existe ninguno abierto'));
+        throw new \yii\base\Exception(m::t('m_import', 'Verifique que exista un registro de carga pendiente, todos están terminados o no existe ninguno abierto'));
     }else{
         return $registro;
     }
@@ -386,7 +390,7 @@ public function ordenCampos(){
               $this->AttributesPkForFindModel($fila,$this->camposClave())
               )->one();
       if(is_null($registro)) 
-      throw new NotFoundHttpException(Yii::t('sta.errors', 'El registro no existe'));
+      throw new NotFoundHttpException(m::t('sta.errors', 'El registro no existe'));
       return $registro;
   }
  public function beforeSave($insert) {
@@ -450,7 +454,7 @@ public function ordenCampos(){
          //var_dump(in_array($campo,array_keys($model->attributes)),$campo,array_keys($model->attributes));
          yii::error('El campo '.$campo);
          if(!(in_array($campo,array_keys($model->attributes))))
-         throw new \yii\base\Exception(Yii::t('import.errors', 'No existe el campo \'{campo}\' para la tabla \'{tabla}\'',['campo'=>$campo,'tabla'=>$model->tableName()]));
+         throw new \yii\base\Exception(m::t('m_import', 'No existe el campo \'{campo}\' para la tabla \'{tabla}\'',['campo'=>$campo,'tabla'=>$model->tableName()]));
             $arr=[];
          $safeFields=$model->getSafeFields();
          if(!in_array($campo,$safeFields)){

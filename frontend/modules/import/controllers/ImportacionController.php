@@ -11,6 +11,7 @@ use ruskid\csvimporter\ARImportStrategy;*/
 
 use Yii;
 use frontend\modules\import\models\ImportCargamasiva;
+use frontend\modules\import\ModuleImport AS m;
 use frontend\modules\import\models\ImportCargamasivaSearch;
 use frontend\modules\import\models\ImportLogcargamasivaSearch;
 use frontend\modules\import\models\ImportCargamasivadet;
@@ -18,7 +19,7 @@ use frontend\modules\import\models\ImportCargamasivadetSearch;
 use frontend\modules\import\models\ImportCargamasivaUser;
 use frontend\modules\import\models\ImportCargamasivaUserSearch;
 //use frontend\modules\import\models\ImportLogcargamasivaSearch;
-use common\controllers\base\baseController;
+use common\controllers\baseController;
 use common\helpers\timeHelper;
 use common\helpers\h;
 use common\helpers\FileHelper;
@@ -171,7 +172,7 @@ class ImportacionController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('import.labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('m_import', 'The requested page does not exist.'));
     }
     
     
@@ -199,7 +200,7 @@ class ImportacionController extends baseController
          //'Porcentaje de registros Procesados'=>($numeroregistros*100/($carga->total_linea-$carga->firstLineTobegin()+1 )). ' % ',
          'Numero de registros encontrados con errores'=>$nerrores,
          'Numero de registros Totales en el Archivo'=>$carga->total_linea,
-         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.yii::t('base.names','Segundos'),
+         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.m::t('base.names','Segundos'),
          'Numero de errores de carga'=>$nerrores,
      ];
     $resultado=$this->renderAjax('_resultados',[
@@ -311,7 +312,7 @@ class ImportacionController extends baseController
     
     
     private function error($mensaje){
-        throw new \yii\base\Exception(Yii::t('import.errors',$mensaje));
+        throw new \yii\base\Exception(m::t('import.errors',$mensaje));
     }
   
       
@@ -384,9 +385,9 @@ public function actionNewCarga(){
             ];
         $errores=[];
         if(ImportCargamasivaUser::firstOrCreateStatic($attributes,'minimo')){
-            $errores['success']=yii::t('sta.messages','Se creó la carga exitosamente');
+            $errores['success']=m::t('sta.messages','Se creó la carga exitosamente');
         }else{
-             $errores['error']=yii::t('sta.messages','No se pudo crear la carga');
+             $errores['error']=ym::t('sta.messages','No se pudo crear la carga');
         }
        return $errores;
      }
@@ -468,7 +469,7 @@ public function actionLoadCarga($idcarga){
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('sta.errors', 'El registro no existe'));
+        throw new NotFoundHttpException(m::t('sta.errors', 'El registro no existe'));
     
      
  }
@@ -476,7 +477,7 @@ public function actionLoadCarga($idcarga){
  /*VERIFICA QUE EL ARCHIVO DE CARGA TENGA YA EL ADJUNTO */
  public function  VerifyHasAttachment($carga){
      if (!$carga->hasFileCsv()) { 
-         throw new NotFoundHttpException(Yii::t('sta.errors', 'No hay archivo adjunto'));
+         throw new NotFoundHttpException(m::t('sta.errors', 'No hay archivo adjunto'));
         }
  }
  

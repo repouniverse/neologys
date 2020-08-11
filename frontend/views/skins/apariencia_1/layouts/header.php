@@ -18,6 +18,8 @@ use common\helpers\h;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
+              <?php require('notificaciones.php');   ?>   
+                
              <li class="dropdown user user-menu">
                     <a href="#" class="linkajustado" data-toggle="dropdown">
                         <i class="fa fa-user" aria-hidden="true"></i><?php  echo (h::UserIsGuest())?'':h::userName() /* \frontend\widgets\userwidget\userWidget::widget(['size'=>30,'longName'=>true])*/  ?>
@@ -47,7 +49,7 @@ use common\helpers\h;
                         </li>
                     </ul>
                 </li>
-
+               
                 <!-- User Account: style can be found in dropdown.less -->
                 <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>

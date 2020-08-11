@@ -15,7 +15,7 @@ use Yii;
  * @property string|null $webdepa
  * @property string|null $codigoper
  * @property int|null $universidad_id
- * @property string|null $codfac
+ * @property string|null $facultad_id
  *
  * @property Personas $codigoper0
  * @property InterConvocadosAlu[] $interConvocadosAlus
@@ -41,7 +41,7 @@ class Departamentos extends \common\models\base\modelBase
             [[ 'nombredepa'], 'required'],
             [['detalles'], 'string'],
             [['universidad_id'], 'integer'],
-            [['coddepa', 'codfac'], 'string', 'max' => 10],
+            [['coddepa', 'facultad_id'], 'string', 'max' => 10],
             [['nombredepa'], 'string', 'max' => 40],
             [['correodepa'], 'string', 'max' => 80],
             [['webdepa'], 'string', 'max' => 100],
@@ -64,7 +64,7 @@ class Departamentos extends \common\models\base\modelBase
             'webdepa' => Yii::t('base.labels', 'Webdepa'),
             'codigoper' => Yii::t('base.labels', 'Codigoper'),
             'universidad_id' => Yii::t('base.labels', 'Universidad ID'),
-            'codfac' => Yii::t('base.labels', 'Codfac'),
+            'facultad_id' => Yii::t('base.labels', 'Codfac'),
         ];
     }
 
@@ -84,7 +84,7 @@ class Departamentos extends \common\models\base\modelBase
     }
     public function getFacultad()
     {
-        return $this->hasOne(Facultades::className(), ['codfac' => 'codfac']);
+        return $this->hasOne(Facultades::className(), ['facultad_id' => 'facultad_id']);
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
 namespace frontend\modules\inter\models;
-use common\models\masters\Periodos;
-use common\models\masters\Alumnos;
-use common\models\masters\Facultades;
 use common\models\masters\Universidades;
+use common\models\masters\Facultades;
+use common\models\masters\Departamentos;
+use common\models\masters\Periodos;
+use common\models\masters\Carreras;
 use common\models\masters\Personas;
-use frontend\modules\inter\Module as InterModule;
 use Yii;
 
 /**
@@ -14,21 +14,23 @@ use Yii;
  *
  * @property int $id
  * @property int|null $universidad_id
- * @property string $codfac
+ * @property int|null $facultad_id
  * @property string $codperiodo
- * @property string $coddepa
- * @property string|null $clase
- * @property int|null $programa_id
+ * @property int|null $depa_id
+ * @property string $clase
+ * @property string $status
+ * @property string $codocu
+ * @property string $codigoper
  * @property string $fopen
  * @property string $descripcion
  * @property string|null $detalles
  *
- * @property InterConvocadosAlu[] $interConvocadosAlus
- * @property InterConvocatorium[] $interConvocatoria
- * @property Periodo $codperiodo0
- * @property Departamento $coddepa0
- * @property Facultade $codfac0
- * @property Universidade $universidad
+ * @property InterModos[] $interModos
+ * @property Facultades $facultad
+ * @property Periodos $codperiodo0
+ * @property Departamentos $depa
+ * @property Personas $codigoper0
+ * @property Universidades $universidad
  */
 class InterPrograma extends \common\models\base\modelBase
 {
@@ -46,16 +48,18 @@ class InterPrograma extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['universidad_id'], 'integer'],
-            [['codfac', 'codperiodo', 'coddepa', 'fopen', 'descripcion'], 'required'],
+            [['universidad_id', 'facultad_id', 'depa_id'], 'integer'],
+            [['codperiodo', 'clase', 'status', 'codocu', 'codigoper', 'fopen', 'descripcion'], 'required'],
             [['detalles'], 'string'],
-             [['codigoper'], 'safe'],
-            [['codfac', 'codperiodo', 'coddepa', 'fopen'], 'string', 'max' => 10],
-            [['clase'], 'string', 'max' => 1],
+            [['codperiodo', 'fopen'], 'string', 'max' => 10],
+            [['clase', 'status'], 'string', 'max' => 1],
+            [['codocu'], 'string', 'max' => 3],
+            [['codigoper'], 'string', 'max' => 8],
             [['descripcion'], 'string', 'max' => 40],
+            [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
             [['codperiodo'], 'exist', 'skipOnError' => true, 'targetClass' => Periodos::className(), 'targetAttribute' => ['codperiodo' => 'codperiodo']],
-            //[['coddepa'], 'exist', 'skipOnError' => true, 'targetClass' => Departamento::className(), 'targetAttribute' => ['coddepa' => 'coddepa']],
-            [['codfac'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['codfac' => 'codfac']],
+            [['depa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['depa_id' => 'id']],
+            [['codigoper'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
         ];
     }
@@ -66,82 +70,79 @@ class InterPrograma extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.labels', 'ID'),
-            'universidad_id' => Yii::t('base.labels', 'Universidad ID'),
-            'codfac' => Yii::t('base.labels', 'Codfac'),
-            'codperiodo' => Yii::t('base.labels', 'Codperiodo'),
-            'coddepa' => Yii::t('base.labels', 'Coddepa'),
-            'clase' => Yii::t('base.labels', 'Clase'),
-            'programa_id' => Yii::t('base.labels', 'Programa ID'),
-            'fopen' => Yii::t('base.labels', 'Fopen'),
-            'descripcion' => Yii::t('base.labels', 'Descripcion'),
-            'detalles' => Yii::t('base.labels', 'Detalles'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
+            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
+            'codperiodo' => Yii::t('base_labels', 'Codperiodo'),
+            'depa_id' => Yii::t('base_labels', 'Depa ID'),
+            'clase' => Yii::t('base_labels', 'Clase'),
+            'status' => Yii::t('base_labels', 'Status'),
+            'codocu' => Yii::t('base_labels', 'Codocu'),
+            'codigoper' => Yii::t('base_labels', 'Codigoper'),
+            'fopen' => Yii::t('base_labels', 'Fopen'),
+            'descripcion' => Yii::t('base_labels', 'Descripcion'),
+            'detalles' => Yii::t('base_labels', 'Detalles'),
         ];
     }
 
     /**
-     * Gets query for [[InterConvocadosAlus]].
+     * Gets query for [[InterModos]].
      *
-     * @return \yii\db\ActiveQuery|InterConvocadosAluQuery
+     * @return \yii\db\ActiveQuery|InterModosQuery
      */
-    public function getInterConvocadosAlus()
+    public function getInterModos()
     {
-        //return $this->hasMany(InterConvocadosAlu::className(), ['programa_id' => 'id']);
+        return $this->hasMany(InterModos::className(), ['programa_id' => 'id']);
     }
 
     /**
-     * Gets query for [[InterConvocatoria]].
+     * Gets query for [[Facultad]].
      *
-     * @return \yii\db\ActiveQuery|InterConvocatoriumQuery
+     * @return \yii\db\ActiveQuery|FacultadesQuery
      */
-    public function getInterConvocatoria()
+    public function getFacultad()
     {
-       // return $this->hasMany(InterConvocatorium::className(), ['programa_id' => 'id']);
+        return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
 
     /**
      * Gets query for [[Codperiodo0]].
      *
-     * @return \yii\db\ActiveQuery|PeriodoQuery
+     * @return \yii\db\ActiveQuery|PeriodosQuery
      */
-    public function getPeriodo()
+    public function getCodperiodo0()
     {
         return $this->hasOne(Periodos::className(), ['codperiodo' => 'codperiodo']);
     }
 
     /**
-     * Gets query for [[Coddepa0]].
+     * Gets query for [[Depa]].
      *
-     * @return \yii\db\ActiveQuery|DepartamentoQuery
+     * @return \yii\db\ActiveQuery|DepartamentosQuery
      */
-    /*public function getCoddepa0()
+    public function getDepa()
     {
-        return $this->hasOne(Departamento::className(), ['coddepa' => 'coddepa']);
-    }*/
+        return $this->hasOne(Departamentos::className(), ['id' => 'depa_id']);
+    }
 
     /**
-     * Gets query for [[Codfac0]].
+     * Gets query for [[Codigoper0]].
      *
-     * @return \yii\db\ActiveQuery|FacultadeQuery
+     * @return \yii\db\ActiveQuery|PersonasQuery
      */
-    public function getFacultad()
+    public function getCodigoper0()
     {
-        return $this->hasOne(Facultades::className(), ['codfac' => 'codfac']);
+        return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
     }
 
     /**
      * Gets query for [[Universidad]].
      *
-     * @return \yii\db\ActiveQuery|UniversidadeQuery
+     * @return \yii\db\ActiveQuery|UniversidadesQuery
      */
     public function getUniversidad()
     {
         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
-    }
-    
-    public function getPersona()
-    {
-        return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
     }
 
     /**
@@ -151,10 +152,5 @@ class InterPrograma extends \common\models\base\modelBase
     public static function find()
     {
         return new InterProgramaQuery(get_called_class());
-    }
-    
-    public function beforeSave($insert) {
-        $this->clase=InterModule::CLASE_GENERAL;
-        return parent::beforeSave($insert);
     }
 }

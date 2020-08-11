@@ -2,6 +2,12 @@
 
 namespace frontend\modules\inter\models;
 use frontend\modules\inter\Module as m;
+use common\models\masters\Universidades;
+use common\models\masters\Facultades;
+use common\models\masters\Departamentos;
+use common\models\masters\Periodos;
+use common\models\masters\Carreras;
+use common\models\masters\Personas;
 use Yii;
 
 /**

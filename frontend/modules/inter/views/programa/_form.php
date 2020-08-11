@@ -37,10 +37,10 @@ use common\widgets\selectwidget\selectWidget;
                'form'=>$form,
                'data'=> ComboHelper::getCboUniversidades(),
                'campo'=>'universidad_id',
-               'idcombodep'=>'interprograma-codfac',               
+               'idcombodep'=>'interprograma-facultad_id',               
                    'source'=>[\common\models\masters\Facultades::className()=>
                                 [
-                                  'campoclave'=>'codfac' , //columna clave del modelo ; se almacena en el value del option del select 
+                                         'campoclave'=>'facultad_id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'desfac',//columna a mostrar 
                                         'campofiltro'=>'universidad_id'  
                                 ]
@@ -55,14 +55,14 @@ use common\widgets\selectwidget\selectWidget;
                'model'=>$model,               
                'form'=>$form,
                'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
-               'campo'=>'codfac',
-               'idcombodep'=>'interprograma-coddepa',
+               'campo'=>'facultad_id',
+               'idcombodep'=>'interprograma-depa_id',
                
                    'source'=>[\common\models\masters\Departamentos::className()=>
                                 [
-                                  'campoclave'=>'coddepa' , //columna clave del modelo ; se almacena en el value del option del select 
+                                  'campoclave'=>'depa_id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombredepa',//columna a mostrar 
-                                        'campofiltro'=>'codfac'  
+                                        'campofiltro'=>'facultad_id'  
                                 ]
                                 ],
                             ]
@@ -72,8 +72,8 @@ use common\widgets\selectwidget\selectWidget;
 
  </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
- <?= $form->field($model, 'coddepa')->
-            dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDepartamentosFacu($model->codfac),
+ <?= $form->field($model, 'depa_id')->
+            dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDepartamentosFacu($model->facultad_id),
                   ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,

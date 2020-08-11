@@ -92,6 +92,17 @@ class Installer
                   '/maestros/default/index-trabajadores'=>Yii::t('base.labels', 'Workers'),
                       '/maestros/default/index-univer'=>Yii::t('base.labels', 'Universities'),
              ],
+             
+             'Herramientas'=>[
+                        '/import/importacion'=>Yii::t('base.labels', 'Importación'),
+                         //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
+                         ],
+             
+              'Internacional'=>[
+                        '/inter/programa'=>Yii::t('base.labels', 'Programas'),
+                         //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
+                         ],
+             
              //'parameters'=>[
                         //'/parameteres/createmaster'=>Yii::t('base.actions', 'Crear Parametro'),
                         //'/parameters/createparamdocu'=>Yii::t('base.actions', 'Crear Paramaeters Documents'),
@@ -102,13 +113,29 @@ class Installer
              
              ];
         }
-    public static function  getPurerutas(){
+        
+     
+        
+        
+        
+    public static function  getPurerutas($rutasP=[]){
+       if(count($rutasP)>0){
+           $proc=$rutasP;
+       }else{
+          $proc=static::getRutas(); 
+       }
+        
         $rutas=[];
-        foreach(static::getRutas() as $clave=>$matriz){
+        foreach($proc as $clave=>$matriz){
             $rutas=array_merge($rutas,array_keys($matriz));
         }
         return $rutas;
     }  
+    
+    
+    public static function  registerRuta(){
+        
+    }
         
         
     public static function isFileEnv(){
@@ -511,7 +538,7 @@ public static function testMail($serverMail,$userMail,$passwordMail,$portMail){
     
 }
 
-private static function createRoutes(){
+private static function createRoutes($rutas=[]){
     
         $model = new \mdm\admin\models\Route();
         $model->addNew(static::getPureRutas());
@@ -535,6 +562,71 @@ public static function revertCreateBasicRole(){
       \Yii::$app->db->createCommand("delete from {{%useraudit}}")->execute();
     \Yii::$app->db->createCommand("delete from {{%user}}")->execute(); 
 }
+
+public static function addMenu($rutas){
+    /*Obteniendo el rol primero 
+     * 
+     */
+    $rol=array_keys(Yii::$app->authManager->getRolesByUser(14))[0];
+    yii::error($rol);
+  $modelRol=\mdm\admin\models\AuthItem::find($rol);
+    
+  //yii::error($modelRol);die();
+  yii::error('********iniciando el bucle de rutas***');
+       foreach($rutas as $clave=>$arreglo){
+           yii::error('********CLAVE ***'.$clave);
+           $modelRol->addChildren(array_keys($arreglo));
+           yii::error('********a colocar ***');
+           yii::error($arreglo);
+           yii::error('********creando el menu padre ***'.$clave);
+            $modelMenu=new \mdm\admin\models\Menu();
+        $modelMenu->setAttributes(['name'=>$clave,'route'=>'','parent'=>'','orden'=>'','data'=>'']);
+        $modelMenu->save();$modelMenu->refresh();
+        $idmMenu=$modelMenu->id;
+        unset($modelMenu);
+        yii::error('********INICIANDO  el bucle de  ***'.$clave);  
+       foreach($arreglo as $ruta=>$nombre){
+           yii::error('********NOMBRE RUTA ***'.$ruta.'***');
+             $modelMenu=new \mdm\admin\models\Menu();
+             $modelMenu->setAttributes([
+                 'name'=> $nombre/*FileHelper::getShortName($accion) /*  str_replace('/admin/user/','',$accion)*/,
+                 'route'=>$ruta,
+                 'parent'=>$idmMenu,'orden'=>'',
+                 'data'=>'']
+                     );
+            yii::error($modelMenu->attributes,__FUNCTION__);
+            yii::error($modelMenu->save(),__FUNCTION__);
+            yii::error($modelMenu->getErrors(),__FUNCTION__);
+            //$idmMenu=$modelMenu->id;
+             unset($modelMenu);
+        
+       }
+        yii::error('********fINALIZANDO  el bucle de ***'.$clave);  
+   }
+    yii::error('********fINALIZANDO  el bucle de rutas***');  
+}
+
+public static function deleteMenu($ruta){
+    
+    $rol=array_keys(Yii::$app->authManager->getRolesByUser(14))[0];
+    yii::error($rol);
+  $modelRol=\mdm\admin\models\AuthItem::find($rol);
+    
+  //yii::error($modelRol);die();
+  yii::error('********iniciando el bucle de rutas***');
+       foreach($ruta as $clave=>$arreglo){
+           yii::error('********CLAVE ***'.$clave);
+           $modelRol->removeChildren(array_keys($arreglo));
+          foreach($arreglo as $rutax=>$nombre){
+              \mdm\admin\models\Menu::deleteAll(['route'=>$rutax]); 
+               \mdm\admin\models\Menu::deleteAll(['name'=>$clave]); 
+             }
+        yii::error('********fINALIZANDO  el bucle de ***'.$clave);  
+   }
+    yii::error('********fINALIZANDO  el bucle de rutas***');  
+    
+    
+}
 public static function createBasicRole($idUser){
     if(yii::$app->hasModule('admin')){
         static::createRoutes(); 
@@ -552,7 +644,8 @@ public static function createBasicRole($idUser){
                                 'description'=>'Rol base '.$clave,
                                 ]);        
                     if($model->save()){ 
-                                $model->addChildren(array_keys($arreglo));                
+                                $model->addChildren(array_keys($arreglo));
+                                
                             }
                 $modelo = new \mdm\admin\models\Assignment($idUser);
                 $success = $modelo->assign(['r_base'.$clave]);

@@ -22,11 +22,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'universidad_id') ?>
 
-    <?= $form->field($model, 'codfac') ?>
+    <?= $form->field($model, 'facultad_id') ?>
 
     <?= $form->field($model, 'codperiodo') ?>
 
-    <?= $form->field($model, 'coddepa') ?>
+    <?= $form->field($model, 'depa_id') ?>
 
     <?php // echo $form->field($model, 'clase') ?>
 

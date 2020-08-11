@@ -29,6 +29,11 @@ class ActionCombodependiente extends \yii\base\Action
                  $funcion=$source[$modelo]['campofiltro'];
                 $datos=$modelo::{$funcion}($valorfiltro);
              }else{
+                 var_dump( $valorfiltro,
+                     $modelo,
+                     $source[$modelo]['campofiltro'],
+                     $source[$modelo]['campoclave'],
+                      $source[$modelo]['camporef']);
                   $datos=ComboHelper::getCboGeneral(
                      $valorfiltro,
                      $modelo,
@@ -38,7 +43,7 @@ class ActionCombodependiente extends \yii\base\Action
              }
            
             
-            $datos=[''=>yii::t('base.verbs','--Seleccione un Valor--')]+$datos;
+            //$datos=[''=>yii::t('base.verbs','--Seleccione un Valor--')]+$datos;
            }else{/*Se traa de datos directametne */
                $datos=$source;
              
