@@ -37,6 +37,16 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
     <?= $form->field($model, 'codigoper')->textInput(['disabled'=>'disabled','maxlength' => true]) ?>
   </div>
+     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+   <?=$form->field($model, 'codgrupo')->
+            dropDownList($model->comboDataField('codgrupo') ,
+                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    )  ?>
+</div>   
+        
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
     
     <?= $form->field($model, 'ap')->textInput() ?>

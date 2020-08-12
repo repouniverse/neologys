@@ -70,14 +70,14 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                 'buttons' => [
                    
                          'update' => function ($url,$model) {
-			    $url= Url::to(['modal-update-depa','id'=>$model->coddepa,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
+			    $url= Url::to(['modal-update-depa','id'=>$model->id,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
                              //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
                             return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, ['class'=>'botonAbre']);
                             },
                           
                          'delete' => function ($url,$model) {
 			    $url = Url::toRoute($this->context->id.'/ajax-detach-psico',['id'=>$model->coddepa]);
-                             return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-trash"></span>', '#', ['title'=>$url,/*'id'=>$model->codparam,*/'family'=>'holas','id'=> \yii\helpers\Json::encode(['id'=>$model->codfac,'modelito'=> str_replace('@','\\',get_class($model))]),/*'title' => 'Borrar'*/]);
+                             return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-trash"></span>', '#', ['title'=>$url,/*'id'=>$model->codparam,*/'family'=>'holas','id'=> \yii\helpers\Json::encode(['id'=>$model->id,'modelito'=> str_replace('@','\\',get_class($model))]),/*'title' => 'Borrar'*/]);
                             }
                     ]
                 ],

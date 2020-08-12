@@ -40,7 +40,7 @@ use common\widgets\selectwidget\selectWidget;
                'idcombodep'=>'interprograma-facultad_id',               
                    'source'=>[\common\models\masters\Facultades::className()=>
                                 [
-                                         'campoclave'=>'facultad_id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                         'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'desfac',//columna a mostrar 
                                         'campofiltro'=>'universidad_id'  
                                 ]
@@ -60,7 +60,7 @@ use common\widgets\selectwidget\selectWidget;
                
                    'source'=>[\common\models\masters\Departamentos::className()=>
                                 [
-                                  'campoclave'=>'depa_id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                  'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombredepa',//columna a mostrar 
                                         'campofiltro'=>'facultad_id'  
                                 ]
@@ -99,8 +99,8 @@ use common\widgets\selectwidget\selectWidget;
             'model'=>$model,
             'form'=>$form,
             'campo'=>'codigoper',
-         'ordenCampo'=>4,
-         'addCampos'=>[5,6],
+         'ordenCampo'=>5,
+         'addCampos'=>[6,7],
         ]);  ?>
 
  </div>         

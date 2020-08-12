@@ -1,6 +1,5 @@
 <?php
 
-
 namespace common\models\masters;
 
 use Yii;
@@ -8,18 +7,24 @@ use Yii;
 /**
  * This is the model class for table "{{%departamentos}}".
  *
- * @property string $coddepa
+ * @property int $id
+ * @property int|null $universidad_id
+ * @property int|null $facultad_id
+ * @property string|null $coddepa
  * @property string $nombredepa
  * @property string|null $detalles
  * @property string|null $correodepa
  * @property string|null $webdepa
  * @property string|null $codigoper
- * @property int|null $universidad_id
- * @property string|null $facultad_id
  *
+ * @property Universidades $universidad
  * @property Personas $codigoper0
- * @property InterConvocadosAlu[] $interConvocadosAlus
- * @property InterConvocatoria[] $interConvocatorias
+ * @property Facultades $facultad
+ * @property InterConvocados[] $interConvocados
+ * @property InterEvaluadores[] $interEvaluadores
+ * @property InterExpedientes[] $interExpedientes
+ * @property InterModos[] $interModos
+ * @property InterPlan[] $interPlans
  * @property InterPrograma[] $interProgramas
  */
 class Departamentos extends \common\models\base\modelBase
@@ -38,16 +43,17 @@ class Departamentos extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [[ 'nombredepa'], 'required'],
+            [['universidad_id', 'facultad_id'], 'integer'],
+            [['nombredepa'], 'required'],
             [['detalles'], 'string'],
-            [['universidad_id'], 'integer'],
-            [['coddepa', 'facultad_id'], 'string', 'max' => 10],
+            [['coddepa'], 'string', 'max' => 10],
             [['nombredepa'], 'string', 'max' => 40],
             [['correodepa'], 'string', 'max' => 80],
             [['webdepa'], 'string', 'max' => 100],
             [['codigoper'], 'string', 'max' => 8],
-            [['coddepa'], 'unique'],
+            [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
             [['codigoper'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
+            [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
         ];
     }
 
@@ -57,15 +63,26 @@ class Departamentos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'coddepa' => Yii::t('base.labels', 'Coddepa'),
-            'nombredepa' => Yii::t('base.labels', 'Nombredepa'),
-            'detalles' => Yii::t('base.labels', 'Detalles'),
-            'correodepa' => Yii::t('base.labels', 'Correodepa'),
-            'webdepa' => Yii::t('base.labels', 'Webdepa'),
-            'codigoper' => Yii::t('base.labels', 'Codigoper'),
-            'universidad_id' => Yii::t('base.labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base.labels', 'Codfac'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
+            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
+            'coddepa' => Yii::t('base_labels', 'Coddepa'),
+            'nombredepa' => Yii::t('base_labels', 'Nombredepa'),
+            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'correodepa' => Yii::t('base_labels', 'Correodepa'),
+            'webdepa' => Yii::t('base_labels', 'Webdepa'),
+            'codigoper' => Yii::t('base_labels', 'Codigoper'),
         ];
+    }
+
+    /**
+     * Gets query for [[Universidad]].
+     *
+     * @return \yii\db\ActiveQuery|UniversidadesQuery
+     */
+    public function getUniversidad()
+    {
+        return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
     }
 
     /**
@@ -77,34 +94,65 @@ class Departamentos extends \common\models\base\modelBase
     {
         return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
     }
-    
-    public function getUniversidad()
-    {
-        return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
-    }
+
+    /**
+     * Gets query for [[Facultad]].
+     *
+     * @return \yii\db\ActiveQuery|FacultadesQuery
+     */
     public function getFacultad()
     {
-        return $this->hasOne(Facultades::className(), ['facultad_id' => 'facultad_id']);
+        return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
 
     /**
-     * Gets query for [[InterConvocadosAlus]].
+     * Gets query for [[InterConvocados]].
      *
-     * @return \yii\db\ActiveQuery|InterConvocadosAluQuery
+     * @return \yii\db\ActiveQuery|InterConvocadosQuery
      */
-    public function getInterConvocadosAlus()
+    public function getInterConvocados()
     {
-        ///return $this->hasMany(InterConvocadosAlu::className(), ['coddepa' => 'coddepa']);
+       // return $this->hasMany(InterConvocados::className(), ['depa_id' => 'id']);
     }
 
     /**
-     * Gets query for [[InterConvocatorias]].
+     * Gets query for [[InterEvaluadores]].
      *
-     * @return \yii\db\ActiveQuery|InterConvocatoriaQuery
+     * @return \yii\db\ActiveQuery|InterEvaluadoresQuery
      */
-    public function getInterConvocatorias()
+    public function getInterEvaluadores()
     {
-       // return $this->hasMany(InterConvocatoria::className(), ['coddepa' => 'coddepa']);
+        //return $this->hasMany(InterEvaluadores::className(), ['depa_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterExpedientes]].
+     *
+     * @return \yii\db\ActiveQuery|InterExpedientesQuery
+     */
+    public function getInterExpedientes()
+    {
+        //return $this->hasMany(InterExpedientes::className(), ['depa_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterModos]].
+     *
+     * @return \yii\db\ActiveQuery|InterModosQuery
+     */
+    public function getInterModos()
+    {
+        //return $this->hasMany(InterModos::className(), ['depa_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[InterPlans]].
+     *
+     * @return \yii\db\ActiveQuery|InterPlanQuery
+     */
+    public function getInterPlans()
+    {
+        //return $this->hasMany(InterPlan::className(), ['depa_id' => 'id']);
     }
 
     /**
@@ -114,7 +162,7 @@ class Departamentos extends \common\models\base\modelBase
      */
     public function getInterProgramas()
     {
-        //return $this->hasMany(InterPrograma::className(), ['coddepa' => 'coddepa']);
+       // return $this->hasMany(InterPrograma::className(), ['depa_id' => 'id']);
     }
 
     /**
@@ -124,15 +172,5 @@ class Departamentos extends \common\models\base\modelBase
     public static function find()
     {
         return new DepartamentosQuery(get_called_class());
-    }
-    
-    public function beforeSave($insert) {
-        if($insert){
-          $this->prefijo='45';
-          $this->coddepa=$this->correlativo('coddepa',7);
-         
-          
-        }
-       RETURN parent::beforeSave($insert);
     }
 }

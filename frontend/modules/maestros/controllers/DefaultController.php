@@ -1300,13 +1300,15 @@ class DefaultController extends \common\controllers\baseController
         $model = New Departamentos();
         $datos=[];
         $modelFacultad= Facultades::findOne($id);
+        
         if(is_null($modelFacultad)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
             return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
         }
+        
+        $model->universidad_id=$modelFacultad->universidad_id;
         $model->facultad_id=$modelFacultad->id;
-      
         if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);
             $model->load(h::request()->post());

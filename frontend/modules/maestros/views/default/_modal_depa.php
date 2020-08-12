@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 use backend\modules\base\Module as m;
-
+use common\widgets\selectwidget\selectWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
@@ -42,51 +42,26 @@ use backend\modules\base\Module as m;
         
         
     </div>
-    
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <?php if($model->isNewRecord){ ?>
-       <?= $form->field($model, 'coddepa')->textInput(['maxlength' => true,'disabled'=>true]) ?>
-          <?php } ?>
-    </div>
-    
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
-    <?= ComboDep::widget([
-               'model'=>$model,               
-               'form'=>$form,
-               'data'=> ComboHelper::getCboUniversidades(),
-               'campo'=>'universidad_id',
-               'idcombodep'=>'departamentos-facultad_id',               
-                   'source'=>[\common\models\masters\Facultades::className()=>
-                                [
-                                  'campoclave'=>'facultad_id' , //columna clave del modelo ; se almacena en el value del option del select 
-                                        'camporef'=>'desfac',//columna a mostrar 
-                                        'campofiltro'=>'universidad_id'  
-                                ]
-                                ],
-                            ]
-               
-               
-        )  ?>
- </div>       
-  
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
- <?= $form->field($model, 'facultad_id')->
-            dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
-                    // 'class'=>'probandoSelect2',
-                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
-                        ]
-                    ) ?>
- </div>  
-    
-    
-    
-    
-    
-    
-    
-    
    
+     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+             <?= $form->field($model, 'universidad_id')->textInput(['maxlength' => true,
+                 'value'=>$model->universidad->nombre,'disabled'=>'disabled'
+                 ]) ?>
+     </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+     <?php 
+  // $necesi=new Parametros;
+    echo selectWidget::widget([
+           // 'id'=>'mipapa',
+            'model'=>$model,
+            'form'=>$form,
+            'campo'=>'codigoper',
+         'ordenCampo'=>5,
+         'addCampos'=>[6,7],
+        ]);  ?>
+
+ </div>    
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
     <?= $form->field($model, 'nombredepa')->textInput(['maxlength' => true]) ?>
   </div>

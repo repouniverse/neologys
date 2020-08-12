@@ -485,7 +485,7 @@ class ComboHelper  {
       }
         return ArrayHelper::map(
                        $query->all(),
-                'codfac','desfac');
+                'id','desfac');
     }  
   public static function getCboUniversidades(){
       
@@ -494,16 +494,16 @@ class ComboHelper  {
                 'id','nombre');
     } 
     
-    public static function getCboDepartamentosFacu($codfac=null){
+    public static function getCboDepartamentosFacu($idfac=null){
          //$iduser=is_null($iduser)?static::userId():$iduser;  
           $query= \common\models\masters\Departamentos::find();
-          if(!is_null($codfac)){
-              $query->andWhere(['codfac'=>$codfac]);
+          if(!is_null($idfac)){
+              $query->andWhere(['facultad_id'=>$idfac]);
           }
                 
         return ArrayHelper::map(
                         $query->all(),
-            'coddepa','nombredepa');
+            'id','nombredepa');
       } 
     
    public static function getCboPeriodos(){

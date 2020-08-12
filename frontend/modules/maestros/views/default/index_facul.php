@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ];
                        // return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          
-                         $url= \yii\helpers\Url::toRoute(['update-facul','id'=>$model->codfac]);
+                         $url= \yii\helpers\Url::toRoute(['update-facul','id'=>$model->id]);
                         $options = [
                             'data-pjax'=>'0',
                             //'target'=>'_blank',

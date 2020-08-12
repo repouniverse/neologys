@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
+use frontend\modules\inter\Module as m;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
@@ -34,6 +35,7 @@ use Yii;
  */
 class InterPrograma extends \common\models\base\modelBase
 {
+   
     /**
      * {@inheritdoc}
      */
@@ -49,7 +51,7 @@ class InterPrograma extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id', 'depa_id'], 'integer'],
-            [['codperiodo', 'clase', 'status', 'codocu', 'codigoper', 'fopen', 'descripcion'], 'required'],
+            [['codperiodo',  'codigoper', 'fopen', 'descripcion'], 'required'],
             [['detalles'], 'string'],
             [['codperiodo', 'fopen'], 'string', 'max' => 10],
             [['clase', 'status'], 'string', 'max' => 1],
@@ -90,7 +92,7 @@ class InterPrograma extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|InterModosQuery
      */
-    public function getInterModos()
+    public function getModo()
     {
         return $this->hasMany(InterModos::className(), ['programa_id' => 'id']);
     }
@@ -110,7 +112,7 @@ class InterPrograma extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|PeriodosQuery
      */
-    public function getCodperiodo0()
+    public function getPeriodo()
     {
         return $this->hasOne(Periodos::className(), ['codperiodo' => 'codperiodo']);
     }
@@ -130,7 +132,7 @@ class InterPrograma extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|PersonasQuery
      */
-    public function getCodigoper0()
+    public function getPersona()
     {
         return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
     }
@@ -152,5 +154,14 @@ class InterPrograma extends \common\models\base\modelBase
     public static function find()
     {
         return new InterProgramaQuery(get_called_class());
+    }
+    
+    public function beforeSave($insert) {
+        if($insert){
+            $this->clase=m::CLASE_GENERAL;
+            $this->status=m::STATUS_GENERAL;
+            $this->codocu='112';
+            }
+        return parent::beforeSave($insert);
     }
 }

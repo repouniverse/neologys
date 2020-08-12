@@ -79,6 +79,8 @@ class ProgramaController extends baseController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        }ELSE{
+           PRINT_R($model->getErrors());DIE();
         }
 
         return $this->render('create', [

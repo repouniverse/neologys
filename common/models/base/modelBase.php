@@ -1608,7 +1608,23 @@ public function firstMessage($category=null){
       }
   }
   
+  /*
+   * Copia los valores de lso campos relacionados
+   * del modelo 
+   * un modelo padre al modelo actual
+   */
+  public function putValuesFromParent ($model){
+     
+      $camposLink=$this->fieldsLink(false); //sOLO PADRE SO UNO A UNO
+      //var_dump($camposLink,$model::className());die();
+      foreach($camposLink as $nombrecampo=>$nombreClase){
+          $campoForaneo=$this->obtenerForeignField($nombrecampo);
+          
+          IF($model->hasProperty($campoForaneo)) {
+         $this->{$nombrecampo}=$model->{$campoForaneo};
+      }
+  } 
   
-    
+  }   
 }   
 
