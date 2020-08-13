@@ -1,11 +1,18 @@
 <?php
 return[
-    'Universities'=>'Universidades',
-    'Departaments'=>'departamentos',
-    'Class'=>'Clase',
-    'Is Audit'=>'Es auditable',
-    'Name'=>'Nombre',
-    'Tolerance'=>'Tolerancia',
-]
-
-        ?>
+    'Attach'=>'Adjuntar',
+    'Attachment'=>'Adjuntar archivo',
+    'Update'=>'Actualizar',
+    'View'=>'Vista',
+    'Delete'=>'Eliminar',
+    'Save'=>'Grabar',
+    'Enabled'=>'Habilitar',
+    
+    'Edit'=>'Modificar',
+    'Edit: {name}'=>'Modificar :{name}',
+    'Create'=>'Crear',
+    'Choose a value'=>'Seleccione un valor',
+    'Search'=>'Buscar',
+    'Reset'=>'Reiniciar',
+    'Go Back'=>'Atrás',
+];

@@ -22,7 +22,7 @@ use backend\modules\base\Module AS m;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton(m::t('verbs', 'Safdve'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
           
 
             </div>
@@ -213,7 +213,7 @@ use backend\modules\base\Module AS m;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'codist')->
             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDistritos($model->codprov),
-                  ['prompt'=>'--'.yii::t('base.verbs','Seleccione un Valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -227,7 +227,7 @@ use backend\modules\base\Module AS m;
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'sexo')->
             dropDownList(ComboHelper::getCboSex(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Seleccione un Valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii2mod\settings\models\enumerables\SettingStatus;
 use yii2mod\settings\models\enumerables\SettingType;
-
+use backend\modules\base\Module as m;
 /* @var $this \yii\web\View */
 /* @var $model \yii2mod\settings\models\SettingModel */
 ?>
@@ -21,8 +21,8 @@ use yii2mod\settings\models\enumerables\SettingType;
     <?php echo $form->field($model, 'type')->dropDownList(SettingType::listData()); ?>
 
     <div class="form-group">
-        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('yii2mod.settings', 'Create') : Yii::t('yii2mod.settings', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
-        <?php echo Html::a(Yii::t('yii2mod.settings', 'Go Back'), ['index'], ['class' => 'btn btn-default']); ?>
+        <?php echo Html::submitButton($model->isNewRecord ? m::t('verbs', 'Create') : m::t('verbs', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
+        <?php echo Html::a(m::t('verbs', 'Go Back'), ['index'], ['class' => 'btn btn-default']); ?>
     </div>
 
     <?php ActiveForm::end(); ?>

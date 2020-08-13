@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\GrupoParametros */
 /* @var $form yii\widgets\ActiveForm */
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.Yii::t('base.labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>

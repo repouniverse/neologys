@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\masters\GrupoParametrosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = m::t('labels', 'Settings Group');
+$this->title = m::t('labels', 'Parameters Group');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="grupo-parametros-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(m::t('labels', 'Create Grupo Parametros'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Parameters Group'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div style='overflow:auto;'>
     <?= GridView::widget([
@@ -36,20 +36,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => m::t('labels', 'Update'),                            
+                            'title' => m::t('verbs', 'Update'),                            
                         ];
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => m::t('labels', 'View'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },
                          'delete' => function($url, $model) {                        
                         $options = [
-                            'data-confirm' => m::t('labels', 'Are you sure you want to activate this user?'),
-                            'title' => m::t('labels', 'Delete'),                            
+                            'data-confirm' => m::t('validaciones', 'Are you sure you want to activate this user?'),
+                            'title' => m::t('verbs', 'Delete'),                            
                         ];
                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);
                          }

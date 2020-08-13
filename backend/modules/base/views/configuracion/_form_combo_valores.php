@@ -19,7 +19,7 @@ use backend\modules\base\Module as m;
      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
        <?= $form->field($model, 'nombretabla')->
             dropDownList(h::getCboTables(),
-                    ['prompt'=>'--'.yii::t('base.labels','Choose a value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                         ]
                     ) ?>

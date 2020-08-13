@@ -85,8 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
                      'editableOptions' => function ($model) {
                         return [
                             'source' => [
-                        '1'=>yii::t('base.labels','Yes'),
-                         '0'=>yii::t('base.labels','Not'),
+                        '1'=>m::t('labels','Yes'),
+                         '0'=>m::t('labels','Not'),
                         ],
                             'value' => $model->esruta,
                         ];
@@ -97,14 +97,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'isauditable',
                     'url' => ['ajax-edit-transaccion'],
                     'value' => function ($model) {
-                       return ($model->isauditable)?yii::t('base.labels','Yes'):yii::t('base.labels','Not');
+                       return ($model->isauditable)?m::t('labels','Yes'):m::t('labels','Not');
                     },
                     'type' => 'select',
                      'editableOptions' => function ($model) {
                         return [
                             'source' => [
-                        '1'=>yii::t('base.labels','Yes'),
-                         '0'=>yii::t('base.labels','Not'),
+                        '1'=>m::t('labels','Yes'),
+                         '0'=>m::t('labels','Not'),
                         ],
                             'value' => ($model->isauditable)?'1':'0',
                         ];

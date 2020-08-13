@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use common\helpers\h;
 use yii\bootstrap\ActiveForm;
 
-$this->title = '   '.yii::t('base.labels','Datos de usuario');
+$this->title = '   '.yii::t('base_labels','User Data');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -29,7 +29,7 @@ $this->title = '   '.yii::t('base.labels','Datos de usuario');
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton(Yii::t('base.labels', 'Guardar'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('base_verbs', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>
@@ -43,24 +43,24 @@ $this->title = '   '.yii::t('base.labels','Datos de usuario');
    </div>
     
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-               <?= Html::label(yii::t('base.names','Usuario'),'45545ret',['class' => 'control-label']) ?>
+               <?= Html::label(yii::t('base_names','User'),'45545ret',['class' => 'control-label']) ?>
                 <?=  Html::input('text', 'username', h::userName(),['disabled'=>'disabled','class' => 'form-control']) ?>
              </diV>
             
              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-               <?= Html::label(yii::t('base.names','Ultimo acceso'),'fd5656',['class' => 'control-label']) ?>
+               <?= Html::label(yii::t('base_names','Last Access'),'fd5656',['class' => 'control-label']) ?>
                 <?=  Html::input('text', 'username', h::user()->lastLoginForHumans(),['disabled'=>'disabled','class' => 'form-control']) ?>
              </diV>
             
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-               <?= Html::label(yii::t('base.names','Creado'),'fdtt5656',['class' => 'control-label']) ?>
+               <?= Html::label(yii::t('base_names','Created'),'fdtt5656',['class' => 'control-label']) ?>
                 <?=  Html::input('text', 'username', h::user()->getSince(),['disabled'=>'disabled','class' => 'form-control']) ?>
              </diV>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                <?=$form->field($identidad,'email')->textInput() ?>
              </diV>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <?= Html::checkbox('agreeff',h::user()->isActive(), [ 'disabled'=>'disabled', 'label' =>yii::t('base.labels','Enabled')]) ?>
+                <?= Html::checkbox('agreeff',h::user()->isActive(), [ 'disabled'=>'disabled', 'label' =>yii::t('base_verbs','Enabled')]) ?>
              </diV>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                  <?=$form->field($model,'recexternos')->checkBox() ?>

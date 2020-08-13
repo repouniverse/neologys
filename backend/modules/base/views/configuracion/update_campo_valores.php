@@ -5,7 +5,7 @@ use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 
-$this->title = m::t('verbs', 'Edit : {name}', [
+$this->title = m::t('verbs', 'Edit: {name}', [
     'name' => $model->parametro,
 ]);
 $this->params['breadcrumbs'][] =['label' => m::t('labels', 'Field Settings'), 'url' => ['index-campos-valores']];

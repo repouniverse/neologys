@@ -1,16 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-
+use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\GrupoParametros */
 
-$this->title = Yii::t('base.labels', 'Update Grupo Parametros: {name}', [
+$this->title = m::t('labels', 'Update Parameters Group: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Grupo Parametros'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Parameters Group'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base.labels', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="grupo-parametros-update">
 
