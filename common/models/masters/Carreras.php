@@ -102,7 +102,7 @@ class Carreras extends \common\models\base\modelBase
      */
     public function getInterEvaluadores()
     {
-        return $this->hasMany(InterEvaluadores::className(), ['carrera_id' => 'id']);
+       // return $this->hasMany(InterEvaluadores::className(), ['carrera_id' => 'id']);
     }
 
     /**

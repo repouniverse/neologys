@@ -18,6 +18,7 @@ use common\models\masters\UniversidadesSearch;
 use common\models\masters\Trabajadores;
 use common\models\masters\TrabajadoresSearch;
 use common\models\masters\PeriodosSearch;
+use common\models\masters\Carreras;
 use common\models\masters\GrupoPersonasSearch;
 use common\models\masters\GrupoPersonas;
 use common\models\masters\AlumnosSearch;
@@ -1325,7 +1326,7 @@ class DefaultController extends \common\controllers\baseController
             //var_dump($model->attributes);die();
            return $this->renderAjax('_modal_depa', [
                         'model' => $model,
-                        'codigo_fac'=> $model->facultad_id,
+                        'facultad_id'=> $model->facultad_id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,
@@ -1365,7 +1366,7 @@ class DefaultController extends \common\controllers\baseController
             //var_dump($model->attributes);die();
            return $this->renderAjax('_modal_depa', [
                         'model' => $model,
-                        'codigo_fac'=> $model->facultad_id,
+                        'facultad_id'=> $model->facultad_id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,
@@ -1375,6 +1376,81 @@ class DefaultController extends \common\controllers\baseController
        
    } 
    
-    
-   
+    public function actionModalNewCarrera($id){
+     $this->layout = "install";
+        $model = New Carreras();
+        $datos=[];
+        $modelFacultad= Facultades::findOne($id);
+        
+        if(is_null($modelFacultad)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        $model->universidad_id=$modelFacultad->universidad_id;
+        $model->facultad_id=$modelFacultad->id;
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_carrera', [
+                        'model' => $model,
+                        'facultad_id'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }    
+    public function actionModalEditCarrera($id){
+     $this->layout = "install";
+        $model = Carreras::findOne($id);
+        $datos=[];
+       
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_carrera', [
+                        'model' => $model,
+                        'facultad_id'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
 }

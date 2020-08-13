@@ -4,6 +4,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\masters\CombovaloresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

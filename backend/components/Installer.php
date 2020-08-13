@@ -567,7 +567,9 @@ public static function addMenu($rutas){
     /*Obteniendo el rol primero 
      * 
      */
-    $rol=array_keys(Yii::$app->authManager->getRolesByUser(14))[0];
+    $clase=h::user()->identityClass;
+    $user=$clase::find()->andWhere(['username'=>'admin'])->one();
+    $rol=array_keys(Yii::$app->authManager->getRolesByUser($user->id))[0];
     yii::error($rol);
   $modelRol=\mdm\admin\models\AuthItem::find($rol);
     
@@ -607,8 +609,10 @@ public static function addMenu($rutas){
 }
 
 public static function deleteMenu($ruta){
-    
-    $rol=array_keys(Yii::$app->authManager->getRolesByUser(14))[0];
+   $clase=h::user()->identityClass;
+    $user=$clase::find()->andWhere(['username'=>'admin'])->one();
+    if(!is_null($user)){
+           $rol=array_keys(Yii::$app->authManager->getRolesByUser($user->id))[0];
     yii::error($rol);
   $modelRol=\mdm\admin\models\AuthItem::find($rol);
     
@@ -621,10 +625,12 @@ public static function deleteMenu($ruta){
               \mdm\admin\models\Menu::deleteAll(['route'=>$rutax]); 
                \mdm\admin\models\Menu::deleteAll(['name'=>$clave]); 
              }
-        yii::error('********fINALIZANDO  el bucle de ***'.$clave);  
-   }
-    yii::error('********fINALIZANDO  el bucle de rutas***');  
+                yii::error('********fINALIZANDO  el bucle de ***'.$clave);  
+            }
+            yii::error('********fINALIZANDO  el bucle de rutas***');  
     
+    }
+   
     
 }
 public static function createBasicRole($idUser){

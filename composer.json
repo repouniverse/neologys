@@ -28,7 +28,8 @@
         "nesbot/carbon": "^2.36",
         "kartik-v/yii2-detail-view": "dev-master",
         "sjaakp/yii2-timeline": "*",
-        "sjaakp/yii2-dateline": "*"
+        "sjaakp/yii2-dateline": "*",
+        "kartik-v/yii2-grid": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

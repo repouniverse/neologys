@@ -480,7 +480,7 @@ class ComboHelper  {
     
   public static function getCboFacultades($universidad_id=null){
       $query= \common\models\masters\Facultades::find();
-      if(is_null($universidad_id)){
+      if(!is_null($universidad_id)){
           $query->andWhere(['universidad_id'=>$universidad_id]);
       }
         return ArrayHelper::map(
@@ -513,6 +513,22 @@ class ComboHelper  {
     }  
     
   
-   
+   public static function getCboCarreras($facultad_id=null){
+      $query= \common\models\masters\Carreras::find();
+      if(!is_null($facultad_id)){
+          $query->andWhere(['facultad_id'=>$facultad_id]);
+      }
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','nombre');
+    } 
+    
+     public static function getCboCardinales($entero){
+         $valores=[];
+            for ($i = 1; $i <= $entero; $i++) {
+                $valores[$i]=$i;
+            }
+            return $valores;
+      } 
     
 }

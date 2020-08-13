@@ -142,4 +142,249 @@ class ProgramaController extends baseController
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+    
+    
+    
+     public function actionModalNewModo($id){
+     $this->layout = "install";
+        $model = New \frontend\modules\inter\models\InterModos();
+        $datos=[];
+        $modelPrograma= InterPrograma::findOne($id);
+        
+        
+        if(is_null( $modelPrograma)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'universidad_id'=>$modelPrograma->universidad_id,
+             'facultad_id'=>$modelPrograma->facultad_id,
+             'depa_id'=>$modelPrograma->depa_id,
+            'programa_id'=>$modelPrograma->id,
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_modo', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+  
+  
+   public function actionModalEditModo($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterModos::findOne($id);
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_modo', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+     }  
+     
+     
+      public function actionModalNewEval($id){
+     $this->layout = "install";
+        $model = New \frontend\modules\inter\models\InterEvaluadores();
+        $datos=[];
+        $modelPrograma= InterPrograma::findOne($id);        
+        
+        if(is_null( $modelPrograma)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'universidad_id'=>$modelPrograma->universidad_id,
+             'facultad_id'=>$modelPrograma->facultad_id,
+             'depa_id'=>$modelPrograma->depa_id,
+            'programa_id'=>$modelPrograma->id,
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_eval', [
+                        'model' => $model,
+                        'facultad_id'=> $modelPrograma->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+   public function actionModalEditEval($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterEvaluadores::findOne($id);
+        $datos=[];
+              
+        
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+       
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_eval', [
+                        'model' => $model,
+                        'facultad_id'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
+  
+  
+   public function actionModalNewPlan($id){
+     $this->layout = "install";
+        $model = New \frontend\modules\inter\models\InterPlan();
+        $datos=[];
+        $modelEval= InterPrograma::findOne($id);        
+        
+        if(is_null(  $modelEval)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'universidad_id'=>$modelEval->universidad_id,
+             'facultad_id'=>$modelEval->facultad_id,
+             'depa_id'=>$modelEval->depa_id,
+            'eval_id'=>$modelEval->id,
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_eval_plan', [
+                        'model' => $model,
+                        'eval_id'=> $modelEval->id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+   public function actionModalEditPlan($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterPlan::findOne($id);
+        $datos=[];
+              
+        
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+       
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_eval_plan', [
+                        'model' => $model,
+                        'eval_id'=> $model->eval_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
+  
 }

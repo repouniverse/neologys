@@ -106,7 +106,7 @@ class InterPrograma extends \common\models\base\modelBase
     {
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
-
+     
     /**
      * Gets query for [[Codperiodo0]].
      *

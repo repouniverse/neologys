@@ -1,9 +1,13 @@
 <?php
 
-use yii\helpers\Html;
+ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use kartik\tabs\TabsX;
 use frontend\modules\inter\Module as m;
-
+use yii\widgets\Pjax;
+ //USE yii\widgets\Pjax;
+ use yii\grid\GridView;
+ use yii\helpers\Url;
+  use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Talleres */
 ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
@@ -36,13 +40,22 @@ $this->params['breadcrumbs'][] = m::t('labels', 'Update');
         ],
         [
           'label'=>'<i class="fa fa-users"></i> '.m::t('labels','Types'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('_segunda',[ 'model' => $model]),
+            'content'=> $this->render('_modos',[ 'model' => $model]),
             'active' => false,
-             'options' => ['id' => 'myveryownID4'],
+             'options' => ['id' => 'myveryovrwnID4'],
         ],
        
-        
+        [
+          'label'=>'<i class="fa fa-users"></i> '.m::t('labels','Evaluators'), //$this->context->countDetail() obtiene el contador del detalle
+            'content'=> $this->render('_evaluadores',[ 'model' => $model]),
+            'active' => false,
+             'options' => ['id' => 'myveryggvrwnID68'],
+        ],
        
     ],
 ]);  
+  ?>
+</div>
+</div>
+
 

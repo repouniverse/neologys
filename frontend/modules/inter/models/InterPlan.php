@@ -5,6 +5,7 @@ use common\models\masters\Departamentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
+
 namespace frontend\modules\inter\models;
 
 use Yii;
@@ -49,16 +50,18 @@ class InterPlan extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id', 'depa_id', 'eval_id', 'modo_id', 'programa_id'], 'integer'],
-            [['clase', 'status', 'codocu', 'acronimo', 'descripcion'], 'required'],
+            [['acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
+             [['orden','requisito_id'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
             [['acronimo', 'descripcion'], 'string', 'max' => 40],
             [['eval_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterEvaluadores::className(), 'targetAttribute' => ['eval_id' => 'id']],
-            [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
+            [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\masters\Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
             [['modo_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterModos::className(), 'targetAttribute' => ['modo_id' => 'id']],
-            [['depa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['depa_id' => 'id']],
-            [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
+            [['depa_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\masters\Departamentos::className(), 'targetAttribute' => ['depa_id' => 'id']],
+            [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\masters\Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
+            //[['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
         ];
     }
 
@@ -94,6 +97,11 @@ class InterPlan extends \common\models\base\modelBase
         return $this->hasOne(InterEvaluadores::className(), ['id' => 'eval_id']);
     }
 
+    
+    public function getDocumento()
+    {
+        return $this->hasOne(\common\models\masters\Documentos::className(), ['codocu' => 'codocu']);
+    }
     /**
      * Gets query for [[Facultad]].
      *
@@ -101,7 +109,7 @@ class InterPlan extends \common\models\base\modelBase
      */
     public function getFacultad()
     {
-        return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
+        return $this->hasOne(\common\models\masters\Facultades::className(), ['id' => 'facultad_id']);
     }
 
     /**
@@ -121,7 +129,7 @@ class InterPlan extends \common\models\base\modelBase
      */
     public function getDepa()
     {
-        return $this->hasOne(Departamentos::className(), ['id' => 'depa_id']);
+        return $this->hasOne(\common\models\masters\Departamentos::className(), ['id' => 'depa_id']);
     }
 
     /**
@@ -131,7 +139,7 @@ class InterPlan extends \common\models\base\modelBase
      */
     public function getUniversidad()
     {
-        return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
+        return $this->hasOne(\common\models\masters\Universidades::className(), ['id' => 'universidad_id']);
     }
 
     /**
@@ -141,5 +149,13 @@ class InterPlan extends \common\models\base\modelBase
     public static function find()
     {
         return new InterPlanQuery(get_called_class());
+    }
+    
+    public function requisitosPosibles(){
+       Return \yii\helpers\ArrayHelper::map(self::find()->select(['id','descripcion'])->andWhere([
+            'programa_id'=>$this->programa_id,
+            'modo_id'=>$this->modo_id,
+        ])->andWhere(['<>','id',$this->id])->asArray(),
+             'id','descripcion');
     }
 }

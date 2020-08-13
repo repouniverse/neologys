@@ -48,7 +48,7 @@ class InterEvaluadores extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id', 'depa_id', 'carrera_id', 'programa_id'], 'integer'],
-            [['clase', 'status', 'codocu', 'acronimo', 'descripcion'], 'required'],
+            [[ 'acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
@@ -91,6 +91,11 @@ class InterEvaluadores extends \common\models\base\modelBase
     {
         return $this->hasOne(Departamentos::className(), ['id' => 'depa_id']);
     }
+    
+     public function getUniversidad()
+    {
+        return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
+    }
 
     /**
      * Gets query for [[Facultad]].
@@ -113,24 +118,19 @@ class InterEvaluadores extends \common\models\base\modelBase
     }
 
     /**
-     * Gets query for [[Universidad]].
-     *
-     * @return \yii\db\ActiveQuery|UniversidadesQuery
-     */
-    public function getUniversidad()
-    {
-        return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
-    }
+  
 
     /**
      * Gets query for [[InterPlans]].
      *
      * @return \yii\db\ActiveQuery|InterPlanQuery
      */
-    public function getInterPlans()
+    public function getInterPlan()
     {
         return $this->hasMany(InterPlan::className(), ['eval_id' => 'id']);
     }
+    
+   
 
     /**
      * {@inheritdoc}

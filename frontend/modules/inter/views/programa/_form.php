@@ -8,6 +8,13 @@ use frontend\modules\inter\Module as m;
 use common\helpers\ComboHelper;
 use common\widgets\selectwidget\selectWidget;
  use kartik\date\DatePicker;
+ 
+ use yii\helpers\Url;
+
+
+ USE yii\widgets\Pjax;
+ use yii\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterPrograma */
 /* @var $form yii\widgets\ActiveForm */

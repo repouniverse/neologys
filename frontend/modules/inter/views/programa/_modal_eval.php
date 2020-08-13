@@ -1,4 +1,5 @@
 <?php
+
 use common\helpers\h;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -25,8 +26,8 @@ use common\widgets\selectwidget\selectWidget;
        <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'form-pico',
-                      'url'=> ($model->isNewRecord)?\yii\helpers\Url::to(['/maestros/default/modal-new-depa','id'=>$facultad_id]):
-                     \yii\helpers\Url::to(['/maestros/default/modal-update-depa','id'=>$model->id]),
+                      'url'=> ($model->isNewRecord)?\yii\helpers\Url::to(['/inter/programa/modal-new-eval','id'=>$model->programa_id]):
+                     \yii\helpers\Url::to(['/inter/programa/modal-edit-eval','id'=>$model->id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
@@ -43,32 +44,26 @@ use common\widgets\selectwidget\selectWidget;
         
     </div>
    
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-             <?= $form->field($model, 'universidad_id')->textInput(['maxlength' => true,
-                 'value'=>$model->universidad->nombre,'disabled'=>'disabled'
-                 ]) ?>
-     </div>
-    
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?php 
-  // $necesi=new Parametros;
-    echo selectWidget::widget([
-           // 'id'=>'mipapa',
-            'model'=>$model,
-            'form'=>$form,
-            'campo'=>'codigoper',
-         'ordenCampo'=>5,
-         'addCampos'=>[6,7],
-        ]);  ?>
-
- </div>    
+     
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-    <?= $form->field($model, 'nombredepa')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'acronimo')->textInput(['maxlength' => true]) ?>
   </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
     
-    <?= $form->field($model, 'correodepa')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 </div>
+    
+     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <?=$form->field($model, 'carrera_id')->
+            dropDownList(ComboHelper::getCboCarreras($facultad_id) ,
+                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    )  ?>
+        </div>   
+    
+    
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     
     <?= $form->field($model, 'detalles')->textArea([]) ?>

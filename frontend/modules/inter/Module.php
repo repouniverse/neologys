@@ -36,14 +36,14 @@ class Module extends \yii\base\Module
     
     public function registerTranslations()
     {
-        Yii::$app->i18n->translations['modules/base/*'] = [
+        Yii::$app->i18n->translations['modules/inter/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
             'basePath' => '@frontend/modules/inter/messages',
             'fileMap' => [
-                'modules/base/verbs' => 'verbs.php',
-                'modules/base/validaciones' => 'validaciones.php',
-                'modules/base/labels' => 'labels.php',
+                'modules/inter/verbs' => 'verbs.php',
+                'modules/inter/validaciones' => 'validaciones.php',
+                'modules/inter/labels' => 'labels.php',
                
                 
             ],
@@ -53,6 +53,6 @@ class Module extends \yii\base\Module
     public static function t($category, $message, $params = [], $language = null)
     {
         
-        return Yii::t('modules/base/' . $category, $message, $params, $language);
+        return Yii::t('modules/inter/' . $category, $message, $params, $language);
     }
 }
