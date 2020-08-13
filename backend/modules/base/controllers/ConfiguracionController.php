@@ -73,10 +73,7 @@ class ConfiguracionController extends baseController
      * @return mixed
      */
     public function actionIndex()
-    {
-        echo \backend\modules\base\Module::t('labels','Hello');
-        die();
-       
+    {       
         $searchModel = new GrupoParametrosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
