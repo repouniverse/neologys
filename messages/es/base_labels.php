@@ -1,11 +1,7 @@
 <?php
-return[
-    'Universities'=>'Universidades',
-    'Departaments'=>'departamentos',
-    'Class'=>'Clase',
-    'Is Audit'=>'Es auditable',
-    'Name'=>'Nombre',
-    'Tolerance'=>'Tolerancia',
-]
-
-        ?>
+return[    
+    'I forgot my password'=>'Olvidé mi contraseña',
+    'Register'=>'Registrarse',
+    'User Data'=>'Datos de usuario',
+    'Profile'=>'Perfil',
+];

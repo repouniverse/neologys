@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\GrupoParametros */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend.base', 'Grupo Parametros'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Parameters Group'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4><?= Html::encode($this->title) ?></h4>
 
     <p>
-        <?= Html::a(Yii::t('backend.base', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('backend.base', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(m::t('verbs', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(m::t('verbs', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('backend.base', 'Are you sure you want to delete this item?'),
+                'confirm' => m::t('validaciones', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>

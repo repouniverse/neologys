@@ -7,18 +7,18 @@ use yii2mod\editable\EditableColumn;
 use yii2mod\settings\models\enumerables\SettingStatus;
 use yii2mod\settings\models\enumerables\SettingType;
 use yii2mod\settings\models\SettingModel;
-
+use backend\modules\base\Module as m;
 /* @var $dataProvider \yii\data\ActiveDataProvider */
 /* @var $searchModel \yii2mod\settings\models\search\SettingSearch */
 
-$this->title = Yii::t('yii2mod.settings', 'Settings').'-'.$seccion;
+$this->title = m::t('labels', 'Settings').'-'.$seccion;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="setting-index">
     <h4><?php echo Html::encode($this->title); ?></h4>
 <div class="box box-success">
    <div class="box-body">
-    <p><?php echo Html::a(Yii::t('yii2mod.settings', 'Create Setting'), ['create'], ['class' => 'btn btn-success']); ?></p>
+    <p><?php echo Html::a(m::t('labels', 'Create Setting'), ['create'], ['class' => 'btn btn-success']); ?></p>
     <?php Pjax::begin(['timeout' => 10000, 'enablePushState' => false]); ?>
     <?php echo GridView::widget([
             'dataProvider' => $dataProvider,
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'type',
                     'filter' => SettingType::listData(),
-                    'filterInputOptions' => ['prompt' => Yii::t('yii2mod.settings', 'Select Type'), 'class' => 'form-control'],
+                    'filterInputOptions' => ['prompt' => m::t('labels', 'Select Type'), 'class' => 'form-control'],
                 ],
                /* [
                     'attribute' => 'section',

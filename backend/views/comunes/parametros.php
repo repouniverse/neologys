@@ -31,20 +31,20 @@ use yii\widgets\Pjax;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'Update'),                            
+                            'title' => Yii::t('base_verbs', 'Update'),                            
                         ];
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'View'),                            
+                            'title' => Yii::t('base_verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },
                          'delete' => function($url, $model) {                        
                         $options = [
-                            'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
-                            'title' => Yii::t('base.verbs', 'Delete'),                            
+                            'data-confirm' => Yii::t('base_questions', 'Are you sure you want to activate this user?'),
+                            'title' => Yii::t('base_verbs', 'Delete'),                            
                         ];
                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);
                          }

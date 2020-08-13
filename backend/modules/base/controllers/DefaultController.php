@@ -1,7 +1,7 @@
 <?php
 
 namespace backend\modules\base\controllers;
-use backend\modules\base\Module;
+use backend\modules\base\Module as m;
 use yii\web\Controller;
 use common\models\masters\Combovalores;
 use yii2mod\settings\models\SettingModel;

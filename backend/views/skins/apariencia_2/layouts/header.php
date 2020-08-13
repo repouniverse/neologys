@@ -36,7 +36,7 @@ use common\helpers\h;
                         <li class="user-footer">
                             <div class="pull-left">
                                 <?= Html::a(
-                                    yii::t('base.labels','Profile'),
+                                    yii::t('base_labels','Profile'),
                                     ['/site/profile'],
                                     ['class' => 'btn btn-default btn-flat']
                                 ) ?>

@@ -1,12 +1,26 @@
 <?php
 return [
     'Hello'=>'Hola',
-    //'Edit : {name}'=>'Editar : {name}',
     'Field Settings'=>'Campos configurables',
-    'Application Name'=>'Nombre de la aplicación',
-    'The record was saved...!'=>'El registro fue guardado...!',
-     'Settings Group'=>'Grupo Parametros',
-    'The record was saved successfully'=>'El registro fué grabado sin problemas',
-    'There were problems when recording:{problem}'=>'Se presentaron problemas mientras cuandi se graba {problem}'
-
+    'Application Name'=>'Nombre de la aplicación',    
+    'Settings Group'=>'Grupo de configuración',
+    'Admin Email'=>'Correo Administrador',
+    'Settings'=>'Configuración',
+    'Create Settings'=>'Crear Configuración',
+    'Create Settings Group'=>'Crear grupo de configuración',
+    'Select Type'=>'Seleccionar Tipo',
+    'Create Dropdown Field'=>'Crear campo desplegable',
+    'Dropdown Field'=>'Campo desplegable',
+    'Dropdown Values Table'=>'Tabla de valores desplegable',
+    'Dropdown Values'=>'Valores desplegable',
+    'Transaction code'=>'Código de transacción',
+    'Yes'=>'Si',
+    'Not'=>'No',
+    'Manage Application Settings'=>'Control de la configuración de la aplicación',
+    'Parameters Group'=>'Grupo de parámetros',
+    'Create Parameters Group'=>'Crear grupo de parámetros',
+    'Update Parameters Group: {name}'=>'Actualizar grupo de parámetros: {name}',
+    'Student'=>'Alumno',
+    'Students'=>'Alumnos',
+    'Create Student'=>'Crear Alumno',
 ];

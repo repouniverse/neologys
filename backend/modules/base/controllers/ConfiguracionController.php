@@ -73,10 +73,7 @@ class ConfiguracionController extends baseController
      * @return mixed
      */
     public function actionIndex()
-    {
-        echo \backend\modules\base\Module::t('labels','Hello');
-        die();
-       
+    {       
         $searchModel = new GrupoParametrosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -232,7 +229,7 @@ class ConfiguracionController extends baseController
             //$model->nombreModelo= \common\helpers\FileHelper::getShortName(h::request()->post()['ModelCombo']['nombreModelo']);
           
             if($model->save()){
-                 h::session()->setFlash('success',m::t('labels','The record was saved...!'));
+                 h::session()->setFlash('success',m::t('validaciones','The record was saved...!'));
             return $this->redirect(['index-combo-valores']);
             }  else{
                 //print_r($model->getErrors());die();
@@ -306,7 +303,7 @@ class ConfiguracionController extends baseController
             'model' => $model,
         ]);
        }else{
-         throw new NotFoundHttpException(m::t('base.errors', 'The requested page does not exist.'));
+         throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
      
        }
     }
@@ -334,9 +331,9 @@ public function actionAjaxEditTransaccion(){
      $model= \common\models\masters\Transacciones::findOne(['name'=>$pk]);  
    $model->{$campo}=$valor;
    if( $model->save()){
-      return ['success',m::t('labels','The record was saved successfully')];
+      return ['success',m::t('validaciones','The record was saved successfully')];
     }else{
-        return ['error'=>m::t('labels','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
+        return ['error'=>m::t('validaciones','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
     }
                
 } 
@@ -357,9 +354,9 @@ public function actionAjaxEditTransaccion(){
      
    $model->{$campo}=$valor;
    if( $model->save()){
-      return ['success',yii::t('base.success','The record was saved successfully')];
+      return ['success',m::t('validaciones','The record was saved successfully')];
     }else{
-        return ['error'=>yii::t('base.errors','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
+        return ['error'=>m::t('validaciones','There were problems when recording:{problem}',['problem'=>$model->getFirstError()])];
     }
                
 }

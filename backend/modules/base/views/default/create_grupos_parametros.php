@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
-$this->title = Yii::t('sta.labels', 'Create Alumnos');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('sta.labels', 'Alumnos'), 'url' => ['index']];
+use backend\modules\base\Module as m;
+
+$this->title = m::t('labels', 'Create Student');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Students'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="alumnos-create">

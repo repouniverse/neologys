@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\CombovaloresSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -33,8 +33,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'valor2') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('verbs', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

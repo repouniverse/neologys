@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use backend\modules\base\Module AS m;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\sta\models\AlumnosController */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend.base', 'create');
+$this->title = m::t('verbs', 'Create');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('backend.base', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('verbs', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div style='overflow:auto;'>
    
