@@ -409,6 +409,7 @@ public function ordenCampos(){
               $campo.'_';
       //$prefijo='';
        $pathComplete= ModuleImport::getPathCsv().DIRECTORY_SEPARATOR.$prefijo.FileHelper::randomNameFile('.csv');
+       //ECHO FileHelper::randomNameFile('.csv');DIE();
        if (!$file_handle = fopen($pathComplete, "w")) {  
         echo "El archivo no se puede crear";
         exit;  

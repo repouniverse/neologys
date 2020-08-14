@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ea13a5c74dc8d98249b878209b2558f",
+    "content-hash": "59079ec5c8bc7b8303a6ac4d7b346b4f",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1332,6 +1332,48 @@
                 "yii"
             ],
             "time": "2017-01-11T14:05:47+00:00"
+        },
+        {
+            "name": "ruskid/yii2-csv-importer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ruskid/yii2-csv-importer.git",
+                "reference": "2c9a55bc31a643773c4000a6f4457081fbaccb72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ruskid/yii2-csv-importer/zipball/2c9a55bc31a643773c4000a6f4457081fbaccb72",
+                "reference": "2c9a55bc31a643773c4000a6f4457081fbaccb72",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "ruskid\\csvimporter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Victor Demin",
+                    "email": "demin@trabeja.com"
+                }
+            ],
+            "description": "Helper to import csv files into database",
+            "keywords": [
+                "csv",
+                "excel",
+                "importer",
+                "yii2"
+            ],
+            "time": "2019-05-23T12:13:42+00:00"
         },
         {
             "name": "shifrin/yii2-noty",
@@ -6553,6 +6595,7 @@
         "kartik-v/yii2-widget-datepicker": 20,
         "kartik-v/yii2-detail-view": 20,
         "kartik-v/yii2-grid": 20,
+        "ruskid/yii2-csv-importer": 20,
         "nemmo/yii2-attachments": 10
     },
     "prefer-stable": false,

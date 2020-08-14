@@ -1,5 +1,5 @@
 <?php
-
+use common\widgets\spinnerWidget\spinnerWidget;
 use yii\helpers\Html;
 use frontend\modules\import\ModuleImport as m;
 /* @var $this yii\web\View */
@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
 $this->params['breadcrumbs'][] = m::t('labels', 'Editar');
 ?>
 <div class="import-cargamasiva-update">
-
+ <?php ECHO spinnerWidget::widget();?>
     <h4><?= Html::encode($this->title) ?></h4>
 
     <?= $this->render('_form', [

@@ -7,9 +7,9 @@ use backend\components\Installer;
 class m200811_164445_add_Menu_import extends Migration
 {
        const MENU=[
-           'Internacional'=>[
-                        '/inter/programa'=>'Programas',
-                       '/inter/convocados'=>'Convocados',
+           'Import'=>[
+                        '/import/importacion'=>'importaciones',
+                       //'/inter/convocados'=>'Convocados',
                          //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
                          ],
             

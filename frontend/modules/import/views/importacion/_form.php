@@ -2,7 +2,7 @@
 use common\helpers\ComboHelper;
 use frontend\modules\import\ModuleImport as m;
 use frontend\modules\bigitems\models\Docbotellas;
-use common\widgets\spinnerWidget\spinnerWidget;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -17,7 +17,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 <div class="import-cargamasiva-form">
 <div class="box box-success">
        <?php
-       ECHO spinnerWidget::widget();
+      
        $form = ActiveForm::begin([
            'id'=>'form-cargamasiva',
     'fieldClass'=>'\common\components\MyActiveField'

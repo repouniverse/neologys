@@ -19,7 +19,7 @@ use frontend\modules\import\models\ImportCargamasivadetSearch;
 use frontend\modules\import\models\ImportCargamasivaUser;
 use frontend\modules\import\models\ImportCargamasivaUserSearch;
 //use frontend\modules\import\models\ImportLogcargamasivaSearch;
-use common\controllers\baseController;
+use common\controllers\base\baseController;
 use common\helpers\timeHelper;
 use common\helpers\h;
 use common\helpers\FileHelper;

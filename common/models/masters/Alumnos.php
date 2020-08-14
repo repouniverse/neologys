@@ -45,11 +45,11 @@ class Alumnos extends \common\models\base\modelBase
     {
         return [
             [['codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'], 'required'],
-            
+             [['mail'], 'safe'],
             /* PARA ESCENARIOBASICO*/
             [[
-            'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
-            'universidad_id', 'facultad_id','carrera_id','codigoper'
+            'codalu','mail', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
+            'universidad_id', 'facultad_id','carrera_id',
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
             
@@ -65,7 +65,7 @@ class Alumnos extends \common\models\base\modelBase
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
            'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
-            'universidad_id', 'facultad_id','carrera_id','codigoper'
+            'universidad_id', 'facultad_id','carrera_id','mail'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
