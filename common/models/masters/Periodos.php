@@ -58,4 +58,10 @@ class Periodos extends \common\models\base\modelBase
     {
         return new PeriodosQuery(get_called_class());
     }
+    
+   
+    public function arrayPeriodos(){
+        return  static::find()->select(['codperiodo', 'periodo', 'activa'])->asArray()->all();
+        
+    }
 }

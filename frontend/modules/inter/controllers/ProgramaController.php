@@ -5,7 +5,7 @@ namespace frontend\modules\inter\controllers;
 use Yii;
 use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
-use common\controllers\baseController;
+use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;

@@ -27,7 +27,7 @@ interface identidadesInterface {
     
 
 
-public function findByDoc($codocu,$numdoc);
+//public function findByDoc($codocu,$numdoc);
 
 
 

@@ -8,7 +8,7 @@ use common\models\masters\GrupoParametros;
 use common\models\masters\Combovalores;
 use common\models\masters\CombovaloresSearch;
 use common\models\masters\GrupoParametrosSearch;
-use common\controllers\baseController;
+use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;

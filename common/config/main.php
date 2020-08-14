@@ -37,6 +37,11 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'periodo' => [
+            'class' => 'common\components\PeriodCompo',
+            'cache' => ['class' => 'yii\caching\FileCache'],
+        ],
+        
         'settings' => [
             'class' => 'yii2mod\settings\components\Settings',
             'cache' => ['class' => 'yii\caching\FileCache'],

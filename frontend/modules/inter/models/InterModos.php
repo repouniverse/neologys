@@ -7,6 +7,7 @@ use common\models\masters\Departamentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
+use common\interfaces\postulantesInterface;
 use Yii;
 
 /**
@@ -151,4 +152,45 @@ class InterModos extends \common\models\base\modelBase
     {
         return new InterModosQuery(get_called_class());
     }
+    
+     /*
+    * Inserta un registro de convocado
+    * en referencia a este alumno
+    */
+   public function convocaPersona(postulantesInterface $postulante){
+       
+      if(!$postulante->isNewRecord && $postulante->esconvocable()){
+          $model=new \frontend\modules\inter\models\InterConvocados();
+          $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
+           $model->setAttributes(
+                   [
+                       'universidad_id'=>$this->universidad_id,
+                       'facultad_id'=>$this->facultad_id,
+                       'depa_id'=>$this->depa_id,
+                       'modo_id'=>$this->id,
+                       //'docente_id'=>$postulante->id,
+                       'programa_id'=>$this->programa_id,
+                       'codperiodo'=>$this->programa->codperiodo,
+                       'codocu'=>$model::CODIGO_DOCUMENTO,
+                       
+                       
+                    ]);
+           $model->attributes=$postulante->pushAttributeInterModo(
+                   $model->attributes);
+           
+          if( !$model->save()){
+              print_r($model->getErrors());DIE();
+          }
+           
+           
+      }else{
+          return false;
+      }
+         
+           
+           
+      
+   }
+    
+    
 }

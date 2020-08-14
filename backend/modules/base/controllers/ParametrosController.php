@@ -3,7 +3,7 @@
 namespace backend\modules\base\controllers;
 use backend\modules\base\Module as m;
 use Yii;
-use common\controllers\baseController;
+use common\controllers\base\baseController;
 //use common\models\masters\GrupoParametros;
 
 use yii\web\NotFoundHttpException;

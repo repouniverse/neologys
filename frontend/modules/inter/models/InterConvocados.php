@@ -4,6 +4,7 @@ namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
+use common\models\masters\Documentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
@@ -41,6 +42,8 @@ use Yii;
  */
 class InterConvocados extends \common\models\base\modelBase
 {
+    const SCENARIO_CONVOCATORIAMINIMA='convocatoriamin';
+     const CODIGO_DOCUMENTO='115';
     /**
      * {@inheritdoc}
      */
@@ -56,7 +59,7 @@ class InterConvocados extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['codocu', 'clase', 'status'], 'required'],
+            //[['codocu', 'clase', 'status'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
             [['clase', 'status'], 'string', 'max' => 1],
@@ -97,6 +100,21 @@ class InterConvocados extends \common\models\base\modelBase
         ];
     }
 
+    
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CONVOCATORIAMINIMA] = [
+                        'universidad_id',
+                       'facultad_id',
+                       'depa_id',
+                       'modo_id',
+                       'alumno_id',
+                       'programa_id',
+                       'codperiodo',
+                       'codocu',
+            ];
+        return $scenarios;
+    }
     /**
      * Gets query for [[Codperiodo0]].
      *

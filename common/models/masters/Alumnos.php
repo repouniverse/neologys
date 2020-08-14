@@ -2,6 +2,7 @@
 
 namespace common\models\masters;
 use common\interfaces\identidadesInterface;
+
 USE common\traits\nameTrait;
 USE common\traits\identidadTrait;
 use Yii;
@@ -13,9 +14,9 @@ use Yii;
  * @property string|null $codesp
  */
 class Alumnos extends \common\models\base\modelBase 
-
+implements \common\interfaces\postulantesInterface 
 {
-     use nameTrait;
+    use nameTrait;
     use identidadTrait;
     
     /*
@@ -125,4 +126,32 @@ class Alumnos extends \common\models\base\modelBase
    public function getPersona(){
          return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
       }
+      
+      
+    /*
+     * funcion q ue me permite 
+     * saber si ese alumno cumple con los requisitos 
+     * para postular al aproerma de internacionala
+     */
+   public function esConvocable(){
+      
+       return true;
+       
+   }
+   
+  
+   public function pushAttributeInterModo($attributesModo) {
+       $attributesModo['alumno_id']=$this->id;
+       return $attributesModo;
+   }
+   
+   
+   
+      
+      /*
+       * Registra un alumno en la lista de convocados
+       * @codperiodo
+       * 
+       */
+      
 }

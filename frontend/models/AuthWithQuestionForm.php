@@ -67,7 +67,7 @@ class AuthWithQuestionForm extends Model
          //\common\components\token\Token::deleteAll(['name'=>'token_'.$alumno->id]);
         $token=  \common\components\token\Token::create('auten', 'token_'.$id, null, time());
       // $replyTo=$examen->cita->taller->correo;
-        $link= Url::to(['/site/verify-email-token-auth','id'=>$id,'token'=>$token->token],true);
+        $link= Url::to(['/profile/verify-email-token-auth','id'=>$id,'token'=>$token->token],true);
         $mailer = new \common\components\Mailer();
         $message =new  \yii\swiftmailer\Message();
             $message->setSubject('Notificacion de Examen')

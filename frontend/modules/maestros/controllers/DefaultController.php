@@ -32,7 +32,7 @@ use yii\filters\VerbFilter;
 /**
  * Default controller for the `maestros` module
  */
-class DefaultController extends \common\controllers\baseController
+class DefaultController extends \common\controllers\base\baseController
 
 {
      public function actionIndexPeriodo()

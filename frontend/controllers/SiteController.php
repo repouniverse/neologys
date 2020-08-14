@@ -1,6 +1,6 @@
 <?php
 namespace frontend\controllers;
-use common\models\masters\AuthWithQuestionForm;
+use frontend\models\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use common\helpers\h;
@@ -315,6 +315,16 @@ Datos de sesión y de caché se han actualizado');
     }
 
 public function actionRutas(){
+    
+    $modelo= \frontend\modules\inter\models\InterModos::findOne(1);
+    $modeloAlumno= \common\models\masters\Alumnos::findOne(17);
+    $modelo->convocaPersona($modeloAlumno);
+    
+    
+    die();
+    
+    echo yii::$app->periodo->currentPeriod;
+    die();
     $valorfiltro=14;
     $campoclave='facultad_id';
     $camporef='desfac';

@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-class ConfiguracionController extends \common\controllers\baseController
+class ConfiguracionController extends \common\controllers\base\baseController
 {
     
     

@@ -40,6 +40,10 @@ class h {
         return yii::$app->db;
     }
     
+    public static function  periodos(){
+        return yii::$app->periodo;
+    }
+    
     public static function  session(){
         return yii::$app->session;
     }
