@@ -32,6 +32,10 @@ use Yii;
  */
 class InterModos extends \common\models\base\modelBase
 {
+    
+    
+    //public $claseModeloFuente='common\models\masters\Alumnos';
+    protected $modelFuente;
     /**
      * {@inheritdoc}
      */
@@ -48,7 +52,8 @@ class InterModos extends \common\models\base\modelBase
         return [
             [['universidad_id', 'facultad_id', 'depa_id', 'programa_id'], 'integer'],
             [['acronimo', 'descripcion'], 'required'],
-            [['detalles'], 'string'],
+            [['detalles','modelofuente'], 'string'],
+            [['modelofuente'], 'safe'],
             [['acronimo', 'descripcion'], 'string', 'max' => 40],
             [['programa_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterPrograma::className(), 'targetAttribute' => ['programa_id' => 'id']],
             [['depa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['depa_id' => 'id']],
@@ -93,6 +98,8 @@ class InterModos extends \common\models\base\modelBase
     {
         return $this->hasMany(InterExpedientes::className(), ['modo_id' => 'id']);
     }
+    
+    
 
     /**
      * Gets query for [[Programa]].
@@ -177,11 +184,8 @@ class InterModos extends \common\models\base\modelBase
                     ]);
            $model->attributes=$postulante->pushAttributeInterModo(
                    $model->attributes);
-           
-          if( !$model->save()){
-              print_r($model->getErrors());DIE();
-          }
-           
+           yii::error($model->firstOrCreate($model->attributes,
+                   $model::SCENARIO_CONVOCATORIAMINIMA));
            
       }else{
           return false;
@@ -193,4 +197,24 @@ class InterModos extends \common\models\base\modelBase
    }
     
     
+   public function convocaMasivamente(){
+       $this->modelFuente = Yii::createObject($this->modelofuente);
+       if($this->modelFuente instanceof postulantesInterface) {
+           $providerPersons=$this->modelFuente->providerPersonsToConvocar();
+             foreach($providerPersons->batch(10) as $persons){
+                 foreach($persons as $person){
+                     yii::error('siguiendo a '.$person->id);
+                    $this->convocaPersona($person);  
+                 }
+                
+             }
+           
+       } else{
+           throw new \yii\base\InvalidConfigException(Yii::t('base_errors', 'Class {clase} is not Instance of postulanteInterface ',['clase'=>$this->claseModeloFuente])); 
+       
+       }   
+   }
+   
+  
+   
 }

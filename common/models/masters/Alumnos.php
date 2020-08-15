@@ -56,7 +56,7 @@ implements \common\interfaces\postulantesInterface
             
             /*****/
             [['codalu', 'codalu1', 'codalu2'], 'string', 'max' => 16],
-            [['codper', 'codesp'], 'string', 'max' => 8],
+            [[ 'codesp'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['codpering', 'codfac'], 'string', 'max' => 10],
         ];
@@ -82,17 +82,17 @@ implements \common\interfaces\postulantesInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.labels', 'ID'),
-            'codalu' => Yii::t('base.labels', 'Codalu'),
-            'codalu1' => Yii::t('base.labels', 'Codalu1'),
-            'codalu2' => Yii::t('base.labels', 'Codalu2'),
-            'codper' => Yii::t('base.labels', 'Codper'),
-            'ap' => Yii::t('base.labels', 'Ap'),
-            'am' => Yii::t('base.labels', 'Am'),
-            'nombres' => Yii::t('base.labels', 'Nombres'),
-            'codpering' => Yii::t('base.labels', 'Codpering'),
-            'codfac' => Yii::t('base.labels', 'Codfac'),
-            'codesp' => Yii::t('base.labels', 'Codesp'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'codalu' => Yii::t('base_labels', 'Codalu'),
+            'codalu1' => Yii::t('base_labels', 'Codalu1'),
+            'codalu2' => Yii::t('base_labels', 'Codalu2'),
+            //'codper' => Yii::t('base_labels', 'Codper'),
+            'ap' => Yii::t('base_labels', 'Ap'),
+            'am' => Yii::t('base_labels', 'Am'),
+            'nombres' => Yii::t('base_labels', 'Nombres'),
+            'codpering' => Yii::t('base_labels', 'Codpering'),
+            'codfac' => Yii::t('base_labels', 'Codfac'),
+            'codesp' => Yii::t('base_labels', 'Codesp'),
         ];
     }
 
@@ -145,13 +145,39 @@ implements \common\interfaces\postulantesInterface
        return $attributesModo;
    }
    
-   
+   /*
+    * Devuelve un activeQuery con nc roteior especifico
+    */
+   public function providerPersonsToConvocar() {
+       /*Aqui debe de aparecerun filtro de validacion
+        * estos filtro debe de sacare de una tabla
+        * que mas adelante denemos de crear sefun lso datos que entregue Crispin de SAP*/
+        //por ahora sacar todos los registros 
+       return static::find()->limit(30);
+       return static::find()/*->andWhere([])*/;
+   }
    
       
       /*
-       * Registra un alumno en la lista de convocados
-       * @codperiodo
-       * 
+       
+       * Reporta un array de elementos ActiveQuery 
+       * auteunticar 
+       * [preguna (string) => respuesta(ActiveQuery||mixed)]
        */
-      
+  public function questionsForAutenticate() {
+      return [
+             'codigo'=>$this->codalu,
+             'email'=>$this->mail,
+             'questions'=>[
+                 'pregunta1'=>[yii::t('base_labels','Document Identity')=>$this->numerodoc],
+                 'pregunta2'=>[yii::t('base_labels','Last Name')=>$this->ap],
+         
+              ]
+          ];
+  }   
+  
+  
+  public function modelByCode($code) {
+      return static::find()->andWhere(['codalu'=>$code])->one();
+  }   
 }

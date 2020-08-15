@@ -315,11 +315,16 @@ Datos de sesión y de caché se han actualizado');
     }
 
 public function actionRutas(){
+     $session=h::session();
+            /*$session['login.codigo'] = 'abds33';
+            $session['login.email'] = 'hipore@hotmail.com';*/
     
+     var_dump($session->has('login.codigo'), $session['login.codigo']);die();
+            
     $modelo= \frontend\modules\inter\models\InterModos::findOne(1);
-    $modeloAlumno= \common\models\masters\Alumnos::findOne(17);
-    $modelo->convocaPersona($modeloAlumno);
-    
+    //$modeloAlumno= \common\models\masters\Alumnos::findOne(17);
+    //$modelo->convocaPersona($modeloAlumno);
+    $modelo->convocaMasivamente();
     
     die();
     

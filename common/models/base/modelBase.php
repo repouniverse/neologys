@@ -868,28 +868,40 @@ class modelBase extends \yii\db\ActiveRecord
         public  function  firstOrCreate($attributes,$scenario=null,$verifyAttributes=null){  
             //print_r($attributes);
             $myAttributesVerify=(is_null($verifyAttributes))?$attributes:$verifyAttributes;
-            if(self::find()->where($myAttributesVerify)->exists()){
-              
-           
+              if(!(self::find()->andWhere($myAttributesVerify)->exists())){
+                         //yii::error($myAttributesVerify);       
+
                 try{
+                   // $clase= static::class;
+                   // $model=new $clase;
                     if(!is_null($scenario))
                         $this->setScenario($scenario);
+                    //$model->oldAttributes=[];
+                   // echo $model->getScenario();die();
                        $this->attributes=$attributes;
-                    if($this->insert()){
-                        
-                        return false;
-                    }
+                       //print_r($model->attributes);die();
+                       
+                 IF(!$this->save()){
+                     //echo "fallo";die();
+                    // print_r($model->getErrors());die();
+                     yii::error($this->getErrors(),__METHOD__);
+                     // print_r($model->getErrors());die();
+                     return false;
+                 }
+                   // print_r($model->getErrors());die();
+                    unset($model);
                     //echo "ok  ----->";
                         return true;
                 } catch (\yii\db\Exception $exception) {
-                     //echo "error  :". $exception->getMessage();
+                    yii::error($exception->getMessage());
+                  //  echo "    --->  error  :    ". $exception->getMessage();
                      return false;
              } 
                 
             } else{
+               yii::error('ya  existe');
                 return false;
             }
-            
         }
         
    

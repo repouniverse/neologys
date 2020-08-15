@@ -21,8 +21,7 @@ use common\widgets\selectwidget\selectWidget;
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         
-        <div class="col-md-12">
-            <div class="form-group no-margin">
+        
        <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'form-pico',
@@ -34,14 +33,23 @@ use common\widgets\selectwidget\selectWidget;
                <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
         
                 
-            </div>
-        </div>
+            
+       
         
         
         
         
         
         
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+         <?=$form->field($model, 'modelofuente')->
+            dropDownList(ComboHelper::getCboModels() ,
+                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    )  ?>
     </div>
    
      

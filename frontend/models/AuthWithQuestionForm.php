@@ -5,6 +5,7 @@ use Yii;
 use yii\base\Model;
 use common\models\User;
 
+use common\interfaces\postulantesInterface;
 /**
  * Signup form
  */
@@ -15,10 +16,14 @@ class AuthWithQuestionForm extends Model
     public $respuesta1;
     public $respuesta2;
      public $respuesta3;
-    
+    public $npreguntasMinimo=3;
+    //public $claseFuente='common/models/masters/Alumnos';
     /**
      * {@inheritdoc}
      */
+    
+    
+    
     public function rules()
     {
         return [
@@ -56,13 +61,15 @@ class AuthWithQuestionForm extends Model
         return true;
 
     }
+    
+    
 
     /**
      * Sends confirmation email to user
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmailToken($id)
+    protected function sendEmailToken()
     {
          //\common\components\token\Token::deleteAll(['name'=>'token_'.$alumno->id]);
         $token=  \common\components\token\Token::create('auten', 'token_'.$id, null, time());
@@ -72,7 +79,7 @@ class AuthWithQuestionForm extends Model
         $message =new  \yii\swiftmailer\Message();
             $message->setSubject('Notificacion de Examen')
             ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
-            ->setTo($alumno->correo)
+            ->setTo($this->email)
             ->SetHtmlBody("Buenas Tardes <br>"
                     . "La presente es para verificar tu correo  "
                     . " <br> Presiona el siguiente link "
@@ -92,24 +99,9 @@ class AuthWithQuestionForm extends Model
     
     }
     
-   public function validateRespuesta1($attribute, $params)
-    {
-       
-    }  
-   
-    public function validateRespuesta2($attribute, $params)
-    {
-       
-    }  
-    
-    public function validateRespuesta3($attribute, $params)
-    {
-       
-    }  
-    
-    
-    
-    
+    public function validaPreguntas(){
+        
+    }
     
     
 }
