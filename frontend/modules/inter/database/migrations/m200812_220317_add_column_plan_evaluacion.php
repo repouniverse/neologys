@@ -26,7 +26,7 @@ if(!$this->existsColumn($table,'requisito_id'))
      
   
   
-  Installer::addMenu(self::RUTA); 
+  //Installer::addMenu(self::RUTA); 
     
     
     }
