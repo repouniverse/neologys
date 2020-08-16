@@ -8,7 +8,10 @@ use frontend\modules\inter\models\InterConvocadosSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\helpers\h;
+use yii\helpers\Url;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
  */
@@ -65,6 +68,14 @@ class ConvocadosController extends baseController
     public function actionCreate()
     {
         $model = new InterConvocados();
+        
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,6 +97,11 @@ class ConvocadosController extends baseController
     {
         $model = $this->findModel($id);
 
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
