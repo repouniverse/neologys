@@ -314,6 +314,7 @@ Datos de sesión y de caché se han actualizado');
         }
     }
 
+<<<<<<< HEAD
 public function actionRutas(){
     
     $modelo= \common\models\masters\Personas::findOne(14);
@@ -329,10 +330,14 @@ public function actionRutas(){
     
      //var_dump($session->has('login.codigo'), $session['login.codigo']);die();
             
+=======
+public function actionRutas(){    
+           
+>>>>>>> 81677bc45778e0584d1d670b9ec7952847303155
     $modelo= \frontend\modules\inter\models\InterModos::findOne(1);
-    //$modeloAlumno= \common\models\masters\Alumnos::findOne(17);
-    //$modelo->convocaPersona($modeloAlumno);
-    $modelo->convocaMasivamente();
+    $modeloAlumno= \common\models\masters\Alumnos::findOne(1);
+    $modelo->convocaPersona($modeloAlumno);
+    //$modelo->convocaMasivamente();
     
     die();
     

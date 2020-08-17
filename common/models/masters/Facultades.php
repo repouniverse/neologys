@@ -85,7 +85,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getCarreras()
     {
-        return $this->hasMany(Carreras::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(Carreras::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -95,7 +95,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getDepartamentos()
     {
-        return $this->hasMany(Departamentos::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(Departamentos::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -115,7 +115,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterConvocados()
     {
-        return $this->hasMany(InterConvocados::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterConvocados::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -125,7 +125,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterEvaluadores()
     {
-        return $this->hasMany(InterEvaluadores::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterEvaluadores::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -135,7 +135,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterExpedientes()
     {
-        return $this->hasMany(InterExpedientes::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterExpedientes::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -145,7 +145,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterModos()
     {
-        return $this->hasMany(InterModos::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterModos::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -155,7 +155,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterPlans()
     {
-        return $this->hasMany(InterPlan::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterPlan::className(), ['facultad_id' => 'id']);
     }
 
     /**
@@ -165,7 +165,7 @@ class Facultades extends \common\models\base\modelBase
      */
     public function getInterProgramas()
     {
-        return $this->hasMany(InterPrograma::className(), ['facultad_id' => 'id']);
+        //return $this->hasMany(InterPrograma::className(), ['facultad_id' => 'id']);
     }
 
     /**

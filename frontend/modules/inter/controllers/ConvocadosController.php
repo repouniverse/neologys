@@ -8,7 +8,10 @@ use frontend\modules\inter\models\InterConvocadosSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\helpers\h;
+use yii\helpers\Url;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
  */
@@ -65,6 +68,14 @@ class ConvocadosController extends baseController
     public function actionCreate()
     {
         $model = new InterConvocados();
+        
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,6 +97,11 @@ class ConvocadosController extends baseController
     {
         $model = $this->findModel($id);
 
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -109,6 +125,83 @@ class ConvocadosController extends baseController
         return $this->redirect(['index']);
     }
 
+    public function actionModalNewOpuniv($id){
+     $this->layout = "install";
+        $model = New \frontend\modules\inter\models\InterOpuniv();
+        $datos=[];
+        $modelUniv= InterConvocados::findOne($id);
+        
+        
+        if(is_null( $modelUniv)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'universidad_id'=>$modelUniv->universidad_id,
+            'facultad_id'=>$modelUniv->facultad_id,
+            'convocatoria_id'=>$modelUniv->id,
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->convocatoria_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_opuniv', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+    }
+    
+    public function actionModalEditOpuniv($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterOpuniv::findOne($id);
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->convocatoria_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_opuniv', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+     } 
+    
     /**
      * Finds the InterConvocados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

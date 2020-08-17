@@ -8,6 +8,7 @@ use common\models\masters\Documentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
+use common\models\masters\Alumnos;
 use Yii;
 
 /**
@@ -170,7 +171,7 @@ class InterConvocados extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|DocumentosQuery
      */
-    public function getCodocu0()
+    public function getDocumento()
     {
         return $this->hasOne(Documentos::className(), ['codocu' => 'codocu']);
     }
@@ -185,6 +186,15 @@ class InterConvocados extends \common\models\base\modelBase
         return $this->hasMany(InterExpedientes::className(), ['convocado_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[Codocu0]].
+     *
+     * @return \yii\db\ActiveQuery|DocumentosQuery
+     */
+    public function getAlumno()
+    {
+        return $this->hasOne(Alumnos::className(), ['id' => 'alumno_id']);
+    }
     /**
      * {@inheritdoc}
      * @return InterConvocadosQuery the active query used by this AR class.

@@ -948,7 +948,7 @@ class DefaultController extends \common\controllers\base\baseController
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
             }
         }else{
             //var_dump($model->attributes);die();
