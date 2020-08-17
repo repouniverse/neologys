@@ -2,6 +2,8 @@
 
 namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
+use common\models\masters\Facultades;
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -47,13 +49,13 @@ class InterOpuniv extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('labels', 'ID'),
-            'universidad_id' => Yii::t('labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('labels', 'Facultad ID'),
-            'convocatoria_id' => Yii::t('labels', 'Convocatoria ID'),
-            'univop_id' => Yii::t('labels', 'Univop ID'),
-            'prioridad' => Yii::t('labels', 'Prioridad'),
-            'comentarios' => Yii::t('labels', 'Comentarios'),
+            'ID' => m::t('labels', 'ID'),
+            'University Id' => m::t('labels', 'Universidad ID'),
+            'Facultaty Id' => m::t('labels', 'Facultad ID'),
+            'Announcement Id' => m::t('labels', 'Convocatoria ID'),
+            'UnivOp Id' => m::t('labels', 'Univop ID'),
+            'Priority' => m::t('labels', 'Prioridad'),
+            'Comments' => m::t('labels', 'Comentarios'),
         ];
     }
 
