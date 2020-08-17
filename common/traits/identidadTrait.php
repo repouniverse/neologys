@@ -68,6 +68,8 @@ trait identidadTrait
         /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
           ->getRawSql();die(); */
         return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+        //echo Personas::find()->andWhere(['id' => 'persona_id','codgrupo'=>$this->obtenerGrupo()])->createCommand()->rawSql;die();
+        //return Personas::find()->andWhere(['id' => $this->persona_id,'codgrupo'=>$this->obtenerGrupo()])->one();
     }
     
     

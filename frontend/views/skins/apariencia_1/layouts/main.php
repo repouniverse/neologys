@@ -5,6 +5,7 @@ use lo\widgets\modal\ModalAjax;
 /* @var $content string */
 
 $accion=Yii::$app->controller->action->id ;
+
 if ($accion=== 'login') { 
    
 /**
@@ -36,6 +37,28 @@ elseif($accion=='signup'){
         'main-login',
         ['content' => $content]
     );
+
+}elseif($accion=='base-auth'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+
+}elseif($accion=='aditional-auth'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+
+}elseif($accion=='auth-end-first'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+
 }else{
 
 

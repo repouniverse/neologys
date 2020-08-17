@@ -123,9 +123,7 @@ implements \common\interfaces\postulantesInterface
     public function getCarrera(){
          return $this->hasOne(Carreras::className(), ['id' => 'carrera_id']);
       }
-   public function getPersona(){
-         return $this->hasOne(Personas::className(), ['codigoper' => 'codigoper']);
-      }
+  
       
       
     /*
@@ -180,4 +178,35 @@ implements \common\interfaces\postulantesInterface
   public function modelByCode($code) {
       return static::find()->andWhere(['codalu'=>$code])->one();
   }   
+  
+  
+  public function sinceraCorreo($mail){
+      
+      if($this->isAttributeSafe('mail')){
+          $this->mail=$mail;
+      if( $this->save()){
+         // ECHO "GRABO"; die();
+      }else{
+          //print_r($this->getErrors()); die();
+      }
+      }ELSE{
+         // ECHO "MAIL NO STRA "; DIE();
+      }
+          
+      return false;
+  }
+  
+  
+  public function createUser(){
+       $user = new \mdm\admin\models\User();
+            $user->username= strtoupper($this->codigo);
+             $user->mail=$this->email;   
+             $user->password= uniqid(); 
+             //$model->retypePassword='123456'; 
+               $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
+            if (!$user->save()) {
+                                return false;
+             }
+  }
+  
 }

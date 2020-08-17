@@ -38,16 +38,25 @@ $fieldOptions2 = [
          //var_dump(array_keys($questions['questions']['pregunta1'])[0]);die();
          ?>
         
-        
         <?= $form
-            ->field($model, 'pregunta1', $fieldOptions1)
+            ->field($model, 'codigo', [])
+            //->label(array_keys($questions['questions']['pregunta2'])[0])
+            ->textInput(['disabled'=>true]) ?>   
+        <?= $form
+            ->field($model, 'email', [])
+            //->label(array_keys($questions['questions']['pregunta2'])[0])
+            ->textInput(['disabled'=>true]) ?>   
+        <?= $form
+            ->field($model, 'pregunta1', [])
            ->label(array_keys($questions['questions']['pregunta1'])[0])
             ->textInput() ?>
 
         <?= $form
-            ->field($model, 'pregunta2', $fieldOptions2)
+            ->field($model, 'pregunta2', [])
             ->label(array_keys($questions['questions']['pregunta2'])[0])
             ->textInput() ?>
+        
+        
 
         <div class="row">
             

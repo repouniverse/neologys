@@ -18,8 +18,8 @@ class m290806_193731_fillData extends Migration
      */
     public function safeUp()
     {
-        Installer::createSettings();         
-        Installer::createBasicRole(Installer::createFirstUser());
+       // Installer::createSettings();         
+        //Installer::createBasicRole(Installer::createFirstUser());
                  
     }
 
@@ -47,7 +47,7 @@ class m290806_193731_fillData extends Migration
      */
     public function safeDown()
     {
-       Installer::revertCreateBasicRole();
+       //Installer::revertCreateBasicRole();
     }
 
     /*

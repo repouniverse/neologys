@@ -39,6 +39,7 @@ use common\widgets\selectwidget\selectWidget;
     
 
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+          
     <?= ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
