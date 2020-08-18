@@ -1,5 +1,5 @@
 <?php
-namespace backend\modules\base\database\migrations;
+
 use yii\db\Migration;
 use mdm\admin\models\User;
 use backend\components\Installer;
