@@ -3,6 +3,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 use common\models\masters\Departamentos;
 use common\helpers\h;
 use yii\helpers\Html;
+
 use yii\widgets\ActiveForm;
 use frontend\modules\inter\Module as m;
 use common\helpers\ComboHelper;
@@ -30,7 +31,8 @@ use common\widgets\selectwidget\selectWidget;
             <div class="form-group no-margin">
                 
         <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('base.labels', 'Save'), ['class' => 'btn btn-success']) ?>
-            
+        <?php  $url=Url::to(['/inter/convocados/index','id'=>$model->id]);  ?>
+         <?= Html::a('<span class="btn btn-danger btn-sm" ><span class="fa fa-users"></span>  '.m::t('labels','Convocados').'</span></span>', $url); ?>  
 
             </div>
         </div>

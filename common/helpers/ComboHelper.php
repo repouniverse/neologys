@@ -530,5 +530,15 @@ class ComboHelper  {
             }
             return $valores;
       } 
-    
+   
+      
+          public function getCboIdiomas(){
+  return [
+'es'	=>	yii::t('base_labels','Spanih'),
+'en'	=>	yii::t('base_labels','English'),
+'fr'	=>	yii::t('base_labels','French'),
+'it'	=>	yii::t('base_labels','Italian'),
+'de'	=>	yii::t('base_labels','German'),
+];
+    }
 }

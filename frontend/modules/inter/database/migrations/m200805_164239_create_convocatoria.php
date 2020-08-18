@@ -14,8 +14,8 @@ class m200805_164239_create_convocatoria extends baseMigration
     const NAME_TABLE_PERIODOS='{{%periodos}}';
     const NAME_TABLE_DEPARTAMENTOS='{{%departamentos}}';
     const NAME_TABLE_FACULTADES='{{%facultades}}';
-    const NAME_TABLE_PROGRAMAS='{{%inter_programas}}';
-        const NAME_TABLE_CONVOCATORIAS='{{%inter_convocatoria}}';
+    const NAME_TABLE_PROGRAMAS='{{%inter_programa}}';
+        const NAME_TABLE_CONVOCATORIAS='{{%inter_convocados}}';
         const NAME_TABLE_DOCUMENTOS='{{%documentos}}';
   const NAME_TABLE_ALUMNOS='{{%alumnos}}';
     /**

@@ -175,6 +175,7 @@ class InterModos extends \common\models\base\modelBase
                        'facultad_id'=>$this->facultad_id,
                        'depa_id'=>$this->depa_id,
                        'modo_id'=>$this->id,
+                       'persona_id'=>$postulante->persona->id,
                        //'docente_id'=>$postulante->id,
                        'programa_id'=>$this->programa_id,
                        'codperiodo'=>$this->programa->codperiodo,

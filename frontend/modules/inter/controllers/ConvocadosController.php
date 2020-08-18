@@ -36,15 +36,22 @@ class ConvocadosController extends baseController
      * Lists all InterConvocados models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $searchModel = new InterConvocadosSearch();
+        $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne($id);
+        if(is_null($modelPrograma))
+            throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+  
+        $searchModel = new \frontend\modules\inter\models\VwInterConvocadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'id'=>$modelPrograma->id,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        
+           
     }
 
     /**
@@ -217,4 +224,8 @@ class ConvocadosController extends baseController
 
         throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
     }
+    
+    
+    
+    
 }

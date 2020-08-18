@@ -1,13 +1,15 @@
 <?php
-
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\inter\models\InterConvocadosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 $this->title = Yii::t('base_labels', 'Inter Convocados');
+
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Programa'), 'url' => ['/inter/programa/update','id'=>$id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-convocados-index">
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-success">
      <div class="box-body">
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('base_labels', 'Create Inter Convocados'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -32,13 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
          
          [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}{delete}{view}',
+                'template' => '{update}',//{delete}{view}',
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'Update'),                            
+                            'title' => Yii::t('base.verbs', 'Update'), 
+                            'data-pjax'=>'0'
                         ];
-                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                        $url=Url::to(['update','id'=>$model->id]);
+                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
@@ -56,16 +60,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
          
-         
-         
-         
-         
+         'am','ap','nombres',
+                            'codigoper','tipodoc',
+                            'numerodoc','codgrupo',
 
             'id',
             'universidad_id',
             'facultad_id',
             'depa_id',
             'modo_id',
+                                
             //'codperiodo',
             //'codocu',
             //'programa_id',

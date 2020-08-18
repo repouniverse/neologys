@@ -108,6 +108,7 @@ class InterConvocados extends \common\models\base\modelBase
                         'universidad_id',
                        'facultad_id',
                        'depa_id',
+                       'persona_id',
                        'modo_id',
                        'alumno_id',
                        'programa_id',

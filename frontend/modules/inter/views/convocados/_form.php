@@ -75,7 +75,8 @@ use yii\widgets\Pjax;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => m::t('verbs', 'Update'),                            
+                            'title' => m::t('verbs', 'Update'),  
+                            'data-pjax'=>'0'
                         ];
                         $url= Url::to(['modal-edit-opuniv','id'=>$model->id,'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);

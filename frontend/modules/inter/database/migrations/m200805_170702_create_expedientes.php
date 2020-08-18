@@ -15,7 +15,7 @@ class m200805_170702_create_expedientes extends baseMigration
     const NAME_TABLE_DEPARTAMENTOS='{{%departamentos}}';
     const NAME_TABLE_FACULTADES='{{%facultades}}';
     const NAME_TABLE_PROGRAMAS='{{%inter_programas}}';
-        const NAME_TABLE_CONVOCATORIAS='{{%inter_convocatoria}}';
+        const NAME_TABLE_CONVOCATORIAS='{{%inter_convocados}}';
         const NAME_TABLE_DOCUMENTOS='{{%documentos}}';
   const NAME_TABLE_ALUMNOS='{{%alumnos}}';
    const NAME_TABLE_CONVOCADOS='{{%inter_convocados}}';
