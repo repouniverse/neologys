@@ -1,5 +1,5 @@
 <?php
-
+namespace frontend\modules\inter\database\migrations;
 use console\migrations\baseMigration;
 
 /**
