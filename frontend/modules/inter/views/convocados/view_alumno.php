@@ -5,6 +5,7 @@ use frontend\modules\inter\Module as m;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\editable\Editable;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterConvocados */
 /* @var $form yii\widgets\ActiveForm */
@@ -45,6 +46,17 @@ use yii\widgets\Pjax;
       
  </div>
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <?php
+            echo Editable::widget([
+          'model'=>$model,
+          'attribute'=>'mail',
+          'asPopover' => false,
+          //'value' => 'Kartik Visweswaran',
+          'header' => 'Name',
+          'size'=>'md',
+          'options' => ['class'=>'form-control', 'placeholder'=>'Enter person name...']
+      ]);
+      ?> 
      <?= $form->field($model, 'mail')->label(m::t('labels','Mail'))->textInput(['disabled'=>false]) ?>
       
  </div>
@@ -61,3 +73,6 @@ use yii\widgets\Pjax;
       
  
     </div>
+          </div>
+              </div>
+

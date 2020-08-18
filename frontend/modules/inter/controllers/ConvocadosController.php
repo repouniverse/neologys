@@ -222,11 +222,31 @@ class ConvocadosController extends baseController
         if (is_null($model)){
             throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
         }
+        if (isset($_POST['hasEditable'])) {
+        // use Yii's response format to encode output as JSON
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
+        // read your posted model attributes
+        if ($model->load($_POST)) {
+            // read or convert your posted information
+            $value = $model->mail;
+            $model->save();
+            // return JSON encoded output in the below format
+            return ['output'=>$value, 'message'=>''];
+            
+            // alternatively you can return a validation error
+            // return ['output'=>'', 'message'=>'Validation error'];
+        }
+        // else if nothing to do always return an empty JSON encoded output
+        else {
+            return ['output'=>'', 'message'=>''];
+            }
+        }
         return $this->render('view_alumno', [
             'model' => $model,
         ]);       
     }
+    
     /**
      * Finds the InterConvocados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
