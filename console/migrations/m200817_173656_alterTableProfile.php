@@ -17,7 +17,7 @@ class m200817_173656_alterTableProfile extends baseMigration
 
 $table=static::NAME_TABLE;
 if(!$this->existsColumn($table,'persona_id'))
-     $this->addColumn($table, 'persona_id', $this->string(100));  
+     $this->addColumn($table, 'persona_id', $this->integer(11));  
  
     
     }

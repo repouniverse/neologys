@@ -197,6 +197,8 @@ class AuthWithQuestionForm extends Model
                             }
             
         }else{ //Si el usuario no existe hay que crearlo
+          $user= $this->modelPostulante->persona->createUser($this->codigo,$this->email);
+            /*
              $user = new \mdm\admin\models\User();
             $user->username= strtolower($this->codigo);
              $user->email=$this->email;   
@@ -206,7 +208,7 @@ class AuthWithQuestionForm extends Model
             if (!$user->save()) {
                                 return false;
              }
-             
+             */
             
         }
        return Yii::$app

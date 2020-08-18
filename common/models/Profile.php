@@ -72,7 +72,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     {
         return [
             [['user_id'], 'integer'],
-            [['url'], 'safe'],
+            [['url','persona_id'], 'safe'],
 
             // ['codtra', 'unique', 'targetAttribute' => ['user_id','codtra']],
             [['user_id','codtra'], 'unique', 'targetAttribute' =>'codtra' ],
@@ -263,9 +263,9 @@ class Profile extends \common\models\base\modelBase implements \common\interface
   }   
 
   
-   public function getTrabajador()
+   public function getPersona()
     {
-        return $this->hasOne(Trabajadores::className(), ['codigotra' => 'codtra']);
+        return $this->hasOne(masters\Personas::className(), ['id' => 'persona_id']);
     }
 
   
@@ -274,5 +274,14 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     }
     
     
-  
-             }
+  public function linkPerson($idPerson){
+      $personas=masters\Personas::findOne($idPerson);
+      if(is_null($personas))
+       return false;
+      $this->persona_id=$idPerson;
+      return $this->save();
+     }
+    
+    
+    
+  }

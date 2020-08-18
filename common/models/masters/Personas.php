@@ -2,6 +2,7 @@
 
 namespace common\models\masters;
 use common\models\base\modelBase;
+use common\models\Profile;
 use common\helpers\h;
 use common\helpers\BaseHelper;
 use Yii;
@@ -239,8 +240,30 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
      * Crea un usuario con un ROl determinado
      *
      */
-    public function createUser($role){
-        
+    public function createUser($username,$email,$role=null){ 
+        //$user = new \mdm\admin\models\User();
+        $user=new \common\models\User();
+            $user->username= strtoupper($username);
+             $user->email=$email;   
+             $user->password= uniqid(); 
+             //$model->retypePassword='123456'; 
+               $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
+            if (!$user->save()) {
+                                return NULL;
+             }else{
+                 $user->refresh();
+                 $id=$user->id;
+                 yii::error('El id de usuario '.$id ,__FUNCTION__);
+                $user->profile->linkPerson($this->id);
+                return $user;
+             }
+             
     }
+    
+    public function getProfile(){
+        return $this->hasOne(Profile::className(), ['persona_id' => 'id']);
+    }
+
+    
      
 }

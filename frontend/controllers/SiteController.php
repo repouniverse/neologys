@@ -317,10 +317,10 @@ Datos de sesión y de caché se han actualizado');
 
 public function actionRutas(){
     
-    $modelo= \frontend\modules\inter\models\InterModos::findOne(1);
-    $modeloAlumno= \common\models\masters\Alumnos::findOne(60);
-    $modelo->convocaPersona($modeloAlumno);
-    
+    //$modelo= \frontend\modules\inter\models\InterModos::findOne(1);
+    $modeloAlumno= \common\models\masters\Alumnos::findOne(106);
+    //$modelo->convocaPersona($modeloAlumno);
+    var_dump($modeloAlumno->persona->profile->user->username);
     die();
     
     

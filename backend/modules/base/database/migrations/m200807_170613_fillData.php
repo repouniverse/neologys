@@ -6,7 +6,7 @@ use backend\components\Installer;
 /**
  * Class m200806_193731_fillData
  */
-class m290806_193731_fillData extends Migration
+class m200807_170613_fillData extends Migration
 {
        const NAME_TABLE_UNIVERSIDADES='{{%universidades}}';
     const NAME_TABLE_PERIODOS='{{%periodos}}';
@@ -18,8 +18,8 @@ class m290806_193731_fillData extends Migration
      */
     public function safeUp()
     {
-       // Installer::createSettings();         
-        //Installer::createBasicRole(Installer::createFirstUser());
+        Installer::createSettings();         
+        Installer::createBasicRole(Installer::createFirstUser());
                  
     }
 
@@ -47,7 +47,7 @@ class m290806_193731_fillData extends Migration
      */
     public function safeDown()
     {
-       //Installer::revertCreateBasicRole();
+       Installer::revertCreateBasicRole();
     }
 
     /*

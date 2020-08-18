@@ -198,7 +198,7 @@ implements \common\interfaces\postulantesInterface
   
   
   public function createUser(){
-       $user = new \mdm\admin\models\User();
+      /* $user = new \mdm\admin\models\User();
             $user->username= strtoupper($this->codigo);
              $user->mail=$this->email;   
              $user->password= uniqid(); 
@@ -206,7 +206,7 @@ implements \common\interfaces\postulantesInterface
                $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
             if (!$user->save()) {
                                 return false;
-             }
+             }*/
   }
   
 }
