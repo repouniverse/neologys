@@ -88,7 +88,7 @@ return [
             'migrationNamespaces' => [
                 'frontend\modules\inter\database\migrations',
                 'frontend\modules\import\database\migrations',
-                'backend\modules\base\database\migrations',
+               // 'backend\modules\base\database\migrations',
                 
                 ],
             'migrationTable' => 'migration_module',

@@ -68,17 +68,17 @@ public function fillData()
     {
             \Yii::$app->db->createCommand()->
              batchInsert(static::NAME_TABLE,
-             ['tipodoc','ap','am','nombres','numerodoc','codgrupo'], $this->getData())->execute();
+             ['codigoper','tipodoc','ap','am','nombres','numerodoc','codgrupo'], $this->getData())->execute();
     }
   
     
     
 private static function  getData(){  
   $grupos=\Yii::$app->db->createCommand()->setSql("select *from {{%grupo_personas}}")->queryAll();
-    
+   // var_dump($grupos);die();
               return [
- ['10','RAMIREZ','TENORIO','JULIAN','10201403',$grupos[0]['codgrupo']], 
- ['10','BARRIENTOS','MARCA','LUIS','10201409',$grupos[0]['codgrupo']],
+ ['76000001','10','RAMIREZ','TENORIO','JULIAN','10201403',$grupos[0]['codgrupo']], 
+ ['76000002','10','BARRIENTOS','MARCA','LUIS','10201409',$grupos[0]['codgrupo']],
 
            ];      
     }

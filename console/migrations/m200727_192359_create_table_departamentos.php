@@ -85,7 +85,7 @@ if(!$this->existsTable($table)){
    
    foreach($facultades as $facultad){
        for( $i= 1 ; $i <= 3 ; $i++ ) {
-         $registro=[$facultad->universidad->id,$facultad->id,'DEPARTAMENTO '.$i,$personas[0]['codigoper']];
+         $registro=[$facultad['universidad_id'],$facultad['id'],'DEPARTAMENTO '.$i,$personas[0]['codigoper']];
          $departamentos[]=$registro;             
        }
    }

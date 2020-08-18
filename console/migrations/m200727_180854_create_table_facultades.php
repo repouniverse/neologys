@@ -64,7 +64,7 @@ public function safeDown()
    
    foreach($unive as $universidad){
        for( $i= 1 ; $i <= 3 ; $i++ ) {
-         $registro=[$universidad->id,$universidad->acronimo.'-FACULTAD '.$i];
+         $registro=[$universidad['id'],$universidad['acronimo'],'-FACULTAD '.$i];
          $facultades[]=$registro;             
        }
    }

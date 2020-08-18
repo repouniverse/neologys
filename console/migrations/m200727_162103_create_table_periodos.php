@@ -22,6 +22,7 @@ if(!$this->existsTable($table)) {
        
         ],$this->collateTable());
    $this->addPrimaryKey('pk_codpe534r',$table, 'codperiodo');
+   $this->fillData();
             }
  }
 
@@ -38,7 +39,7 @@ public function safeDown()
     {
             \Yii::$app->db->createCommand()->
              batchInsert(static::NAME_TABLE,
-             ['codperiodo','periodo'], $this->getData())->execute();
+             ['codperiodo','periodo','activa'], $this->getData())->execute();
     }
 
   

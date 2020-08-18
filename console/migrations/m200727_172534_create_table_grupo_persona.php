@@ -28,7 +28,7 @@ if(!$this->existsTable($table)){
             'detalle'=>$this->text()->append($this->collateColumn())
             ], $this->collateTable());      
     $this->addPrimaryKey($this->generateNameFk($table),static::NAME_TABLE, 'codgrupo');
-   
+   $this->filldata();
   }
     
     
@@ -48,7 +48,7 @@ if(!$this->existsTable($table)){
         }
     }
 
-    public function fill_data(){
+    public function filldata(){
         \Yii::$app->db->createCommand()->
              batchInsert(static::NAME_TABLE,
              ['codgrupo','desgrupo','modelo'], $this->getData())->execute();

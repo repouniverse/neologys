@@ -6,7 +6,7 @@ use console\migrations\baseMigration;
 /**
  * Class m200807_170611_create_fill_table_universidades
  */
-class m200807_170611_create_fill_table_universidades extends baseMigration
+class m200727_180851_create_fill_table_universidades extends baseMigration
 {
     const NAME_TABLE='{{%universidades}}';
  //const NAME_TABLE_CENTROS='{{%centros}}';
@@ -18,7 +18,8 @@ class m200807_170611_create_fill_table_universidades extends baseMigration
     }
 
     public function safeDown()
-    { static::deleteData();
+    { 
+        //static::deleteData();
     }
 
     

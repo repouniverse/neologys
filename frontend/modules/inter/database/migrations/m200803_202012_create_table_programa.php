@@ -79,7 +79,7 @@ if(!$this->existsTable($table)){
                'status'=>'1',
                'codocu'=>'112',
                'codigoper'=>$comando->setSql("select codigoper from {{%personas}} ")->queryScalar(),
-                 'fopen','2020-08-20'
+                // 'fopen','2020-08-20'
                ])->execute();
             
    
