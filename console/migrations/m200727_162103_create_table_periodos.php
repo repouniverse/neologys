@@ -33,5 +33,25 @@ public function safeDown()
         }
 
     }
+    
+  public function fillData()
+    {
+            \Yii::$app->db->createCommand()->
+             batchInsert(static::NAME_TABLE,
+             ['codperiodo','periodo'], $this->getData())->execute();
+    }
+
+  
+     private static function  getData(){             
+              return [
+ ['2019-III','PERIODO ACADEMICO 2020-I',''],
+ ['2020-I','PERIODO ACADEMICO 2020-I',''],
+['2020-II','PERIODO ACADEMICO 2020-II','1'],
+           ];      
+    }   
+    
+    
+    
+    
 
 }

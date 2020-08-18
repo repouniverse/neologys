@@ -31,6 +31,7 @@ if(!$this->existsTable($table)) {
       $this->addForeignKey($this->generateNameFk($table), $table,
               'universidad_id', self::NAME_TABLE_UNIVERSIDADES,'id'); 
               
+      $this->fillData();
             }
  }
 
@@ -42,5 +43,32 @@ public function safeDown()
         }
 
     }
+    
+ private function getUniversidades(){
+    return \Yii::$app->db->createCommand()->setSql("select *from {{%universidades}}")->queryAll();
+    
+    
+ }   
+ 
+ public function fillData(){
+       \Yii::$app->db->createCommand()->
+             batchInsert(static::NAME_TABLE,
+             ['universidad_id','codfac','desfac'], $this->getData())->execute();
+   
+ }
+ 
+ private function getData(){
+  $unive=$this->getUniversidades();
+  $facultades=[];
+  $registro=[];
+   
+   foreach($unive as $universidad){
+       for( $i= 1 ; $i <= 3 ; $i++ ) {
+         $registro=[$universidad->id,$universidad->acronimo.'-FACULTAD '.$i];
+         $facultades[]=$registro;             
+       }
+   }
+   return  $facultades;
+ } 
 
 }

@@ -41,9 +41,11 @@ if(!$this->existsTable($table)){
               'facultad_id', static::NAME_TABLE_FACULTADES,'id');
            $this->addForeignKey($this->generateNameFk($table), $table,
               'universidad_id', static::NAME_TABLE_UNIVERSIDADES,'id');
-  }
+   $this->fillData();
+           
+}
     
-    
+   
     
     }
 	
@@ -60,18 +62,37 @@ if(!$this->existsTable($table)){
         }
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190106_063220_create_table_centros cannot be reverted.\n";
-
-        return false;
-    }
-    */
+  public function fillData(){
+       \Yii::$app->db->createCommand()->
+             batchInsert(static::NAME_TABLE,
+             ['universidad_id','facultad_id','nombredepa','codigoper'], $this->getData())->execute();
+   
+ }  
+    
+    
+ private function getFacultades(){
+    return \Yii::$app->db->createCommand()->setSql("select *from {{%facultades}}")->queryAll();
+    
+    
+ }   
+ 
+ 
+ private function getData(){
+  $facultades=$this->getFacultades();
+  $departamentos=[];
+  $registro=[];
+   $personas=\Yii::$app->db->createCommand()->setSql("select *from {{%personas}}")->queryAll();
+   
+   foreach($facultades as $facultad){
+       for( $i= 1 ; $i <= 3 ; $i++ ) {
+         $registro=[$facultad->universidad->id,$facultad->id,'DEPARTAMENTO '.$i,$personas[0]['codigoper']];
+         $departamentos[]=$registro;             
+       }
+   }
+   return  $departamentos;
+ }  
+    
+    
+    
+    
 }

@@ -24,23 +24,6 @@ class m200807_170613_fillData extends Migration
     }
 
     
-    public static function fillDataUniversidades(){
-         \Yii::$app->db->createCommand()->
-             batchInsert(static::NAME_TABLE,
-             ['codpais','nombre','acronimo','estado'],
-             $this->getDataUniversidades())->execute();
-    }
-    
-    private static function getDataUniversidades(){
-        return [
-['ES','ESCUELA SUPERIOR DE RELACIONES PUBLICAS','ES-ESRP','BARCELONA'],
-['BCP','BANCO DE CREDITO DEL PERU'],
-['BN','BANCO DE LA NACION'],
-['SCBK','SCOTIABANK DEL PERU'],
- ['IB','INTERBANK'], 
- ['BANBIF','BANCO INTERAMERICANO DE FINAN']
-            ];
-    }
     
     /**
      * {@inheritdoc}
@@ -50,18 +33,5 @@ class m200807_170613_fillData extends Migration
        Installer::revertCreateBasicRole();
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m200806_193731_fillData cannot be reverted.\n";
-
-        return false;
-    }
-    */
+   
 }

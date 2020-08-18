@@ -56,6 +56,7 @@ if(!$this->existsTable($table)){
               'depa_id', static::NAME_TABLE_DEPARTAMENTOS,'id');
           $this->addForeignKey($this->generateNameFk($table), $table,
               'codigoper', static::NAME_TABLE_PERSONAS,'codigoper');
+          $this->fillData();
     }
     }
     /**
@@ -68,18 +69,24 @@ if(!$this->existsTable($table)){
         }
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m200803_202012_create_table_programa cannot be reverted.\n";
-
-        return false;
-    }
-    */
+   public function fillData(){
+       $comando=\Yii::$app->db->createCommand();
+  $comando->insert('{{%inter_programa}}',           
+           [
+               'universidad_id'=> $comando->setSql("select id from {{%universidades}} where nombre like '%PORR%'")->queryScalar(),
+           'codperiodo'=>$comando->setSql("select codperiodo from {{%periodos}} where activa='1'")->queryScalar(),
+             'clase'=>'A'  ,
+               'status'=>'1',
+               'codocu'=>'112',
+               'codigoper'=>$comando->setSql("select codigoper from {{%personas}} ")->queryScalar(),
+                 'fopen','2020-08-20'
+               ])->execute();
+            
+   
+   
+     }  
+    
+   
+    
+    
 }

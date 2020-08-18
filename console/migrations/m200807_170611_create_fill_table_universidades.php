@@ -33,12 +33,12 @@ class m200807_170611_create_fill_table_universidades extends baseMigration
           (new \yii\db\Query)
     ->createCommand()
     ->delete(self::NAME_TABLE)
-    ->execute();
-       
+    ->execute();       
     }
     
      private static function  getData(){             
               return [
+ ['PE','UNIVERISDAD SAN MARTIN DE PORRAS','PE-LIM','PE-USMP'],   
 ['ES','ESCUELA SUPERIOR DE RELACIONES PÚBLICAS','ES-ESRP','ES-B'],
 ['ES','UNIVERSIDAD DE MÁLAGA','ES-UMA','ES-B'],
 ['CO','UNIVERSIDAD DE MEDELLÍN','CO-UMED','CO-ANT'],

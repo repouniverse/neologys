@@ -48,6 +48,22 @@ if(!$this->existsTable($table)){
         }
     }
 
+    public function fill_data(){
+        \Yii::$app->db->createCommand()->
+             batchInsert(static::NAME_TABLE,
+             ['codgrupo','desgrupo','modelo'], $this->getData())->execute();
+    }
+    
+    
+     private static function  getData(){             
+              return [
+['100','TRABAJADORES','\common\models\masters\Trabajadores'],
+['200','ALUMNOS','\common\models\masters\Alumnos'],
+['300','DOCENTES','\common\models\masters\Docentes'],
+['400','ALUMNOS EXTERNOS','\common\models\masters\Alumnosext'], 
+           ];      
+    }
+    
     /*
     // Use up()/down() to run migration code without a transaction.
     public function up()

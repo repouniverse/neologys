@@ -64,7 +64,7 @@ if(!$this->existsTable($table)){
               'codalu', static::NAME_TABLE_ALUMNOS,'codalu');
            $this->addForeignKey($this->generateNameFk($table), $table,
                'univdestino_id', static::NAME_TABLE_UNIVERSIDADES,'id');*/
-           
+     $this->fillData();     
   }
     
     
@@ -84,18 +84,30 @@ if(!$this->existsTable($table)){
         }
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190106_063220_create_table_centros cannot be reverted.\n";
-
-        return false;
-    }
-    */
+     public function fillData(){
+       \Yii::$app->db->createCommand()->
+             batchInsert(static::NAME_TABLE,
+             ['universidad_id','facultad_id',
+                 'depa_id','programa_id','descripcion',
+                 'modelofuente'], $this->getData())->execute();
+   
+ }  
+    
+    
+  
+ 
+ 
+ private function getData(){
+       $comando=\Yii::$app->db->createCommand();
+     //$universidad= $comando->setSql("select id from {{%universidades}} where nombre like '%PORR%'")->queryOne();
+     $programa=$comando->setSql("select *from {{%inter_programa}}")->queryOne();
+     return [
+            [$programa['universidad_id'],$programa['facultad_id'],$programa['depa_id'],$programa['id'],'OUTOGOING ALUMNOS','\common\models\masters\Alumnos'],
+         [$programa['universidad_id'],$programa['facultad_id'],$programa['depa_id'],$programa['id'],'INCOMING ALUMNOS',''],
+         [$programa['universidad_id'],$programa['facultad_id'],$programa['depa_id'],$programa['id'],'OUTOGOING DOCENTES','\common\models\masters\Docentes'],
+         [$programa['universidad_id'],$programa['facultad_id'],$programa['depa_id'],$programa['id'],'INCOMING DOCENTES',''],
+  ];
+ }  
+    
+    
 }

@@ -316,6 +316,17 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+   $dae= \Yii::$app->db->createCommand()->setSql("select *from {{%universidades}}")->queryAll();
+    var_dump($dae);die();
+    $TABLA='{{%inter_idiomasalu}}';
+    $mode=new \console\migrations\baseMigration();
+     $mode->putCombo($TABLA, 'codnivel',
+            [
+                'BASICO',
+                'REGULAR'
+               // 'GERENTE GENERAL'
+                ]);
+    die();
     
     //$modelo= \frontend\modules\inter\models\InterModos::findOne(1);
     $modeloAlumno= \common\models\masters\Alumnos::findOne(106);
