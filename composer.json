@@ -30,7 +30,8 @@
         "sjaakp/yii2-timeline": "*",
         "sjaakp/yii2-dateline": "*",
         "kartik-v/yii2-grid": "dev-master",
-        "ruskid/yii2-csv-importer": "dev-master"
+        "ruskid/yii2-csv-importer": "dev-master",
+        "kartik-v/yii2-editable": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

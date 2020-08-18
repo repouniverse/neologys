@@ -8,6 +8,13 @@ return [
     'Faculty'=>'Facultad',
     'Departament'=>'Departamento',
     'Mode'=>'Modo',
+    'Student'=>'Alumno',
+    'Students'=>'Alumnos',
+    'Creare Student'=>'Crear Alumno',
+    'Code Student'=>'Código Alumno',
+    'Race'=>'Carrera',
+    'Mail'=>'Correo',
+    
     
     'ID'=>'ID',
     'University Id'=>'Universidad ID',

@@ -12,6 +12,9 @@ use common\helpers\h;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use common\models\masters\AlumnosSearch;
+use common\models\masters\Alumnos;
+
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
  */
@@ -209,6 +212,48 @@ class ConvocadosController extends baseController
        
      } 
     
+    public function actionIndexAlumnos()
+    { 
+        $searchModel = new AlumnosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+   return $this->render('index_alumnos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);         
+    }
+    
+    public function actionViewAlumno($id)
+    { 
+        $model=Alumnos::findOne($id);
+        if (is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+        }
+        if (isset($_POST['hasEditable'])) {
+        // use Yii's response format to encode output as JSON
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        // read your posted model attributes
+        if ($model->load($_POST)) {
+            // read or convert your posted information
+            $value = $model->mail;
+            $model->save();
+            // return JSON encoded output in the below format
+            return ['output'=>$value, 'message'=>''];
+            
+            // alternatively you can return a validation error
+            // return ['output'=>'', 'message'=>'Validation error'];
+        }
+        // else if nothing to do always return an empty JSON encoded output
+        else {
+            return ['output'=>'', 'message'=>''];
+            }
+        }
+        return $this->render('view_alumno', [
+            'model' => $model,
+        ]);       
+    }
+    
     /**
      * Finds the InterConvocados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -222,7 +267,7 @@ class ConvocadosController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
     }
     
     

@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\modules\inter\Module as m;
@@ -54,9 +53,9 @@ use yii\widgets\Pjax;
          ?>           
      </p>
       
- </div>
-     
-    <?php ActiveForm::end(); ?>
+ </div> 
+   <?php ActiveForm::end(); ?>
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">      
     <?php Pjax::begin(['id'=>'OpcionesUniversidad']); ?>      
           
     <?= GridView::widget([
@@ -105,6 +104,7 @@ use yii\widgets\Pjax;
         ],
     ]); ?>
     <?php Pjax::end(); ?>      
+    </div>
 </div>
     
     </div>
