@@ -123,6 +123,10 @@ class h {
      */
     public static function getIfNotPutSetting($seccion,$llave,$valorsino,
             $type=\yii2mod\settings\models\enumerables\SettingType::STRING_TYPE ){
+        yii::error('detectando',__FUNCTION__);
+        
+        yii::$app->settings->invalidateCache(); 
+        
         if(yii::$app->settings->has($seccion,$llave)){
             return yii::$app->settings->get($seccion,$llave);        
         }else{
@@ -130,7 +134,8 @@ class h {
                throw new \yii\base\Exception(Yii::t('sta.labels', 'Debe especificar un tercer parametro al usar esta funcion'));
          
             }else{
-               yii::$app->settings->set($seccion,$llave,$valorsino); 
+              yii::$app->settings->set($seccion,$llave,$valorsino); 
+               //die();
                return $valorsino;
             }
         }

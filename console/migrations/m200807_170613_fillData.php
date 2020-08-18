@@ -18,6 +18,7 @@ class m200807_170613_fillData extends Migration
      */
     public function safeUp()
     {
+        yii::error('ejcuntado la migracion');
         Installer::createSettings();         
         Installer::createBasicRole(Installer::createFirstUser());
                  
