@@ -11,4 +11,5 @@ return [
     'Edit :{name}'=>'Editar :{name}',
     'Create'=>'Crear',
     'Choose a value'=>'Seleccione un valor',
+    'Delete'=>'Eliminar',
 ];

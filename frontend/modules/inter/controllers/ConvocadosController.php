@@ -12,6 +12,9 @@ use common\helpers\h;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use common\models\masters\AlumnosSearch;
+use common\models\masters\Alumnos;
+
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
  */
@@ -202,6 +205,28 @@ class ConvocadosController extends baseController
        
      } 
     
+    public function actionIndexAlumnos()
+    { 
+        $searchModel = new AlumnosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+   return $this->render('index_alumnos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);         
+    }
+    
+    public function actionViewAlumno($id)
+    { 
+        $model=Alumnos::findOne($id);
+        if (is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+        }
+        
+        return $this->render('view_alumno', [
+            'model' => $model,
+        ]);       
+    }
     /**
      * Finds the InterConvocados model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -215,6 +240,6 @@ class ConvocadosController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
     }
 }
