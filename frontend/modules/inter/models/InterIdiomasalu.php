@@ -27,7 +27,7 @@ class InterIdiomasalu extends \common\models\base\modelBase
      */
     public static function tableName()
     {
-        return '7pxv4v_inter_idiomasalu';
+        return '{{%inter_idiomasalu}}';
     }
 
     /**
@@ -37,7 +37,7 @@ class InterIdiomasalu extends \common\models\base\modelBase
     {
         return [
             [['convocatoria_id', 'programa_id', 'modo_id'], 'integer'],
-            [['idioma', 'codnivel', 'certificado'], 'required'],
+            [['idioma', 'codnivel',], 'required'],
             [['detalle'], 'string'],
             [['idioma'], 'string', 'max' => 3],
             [['codnivel', 'certificado'], 'string', 'max' => 1],

@@ -541,4 +541,20 @@ class ComboHelper  {
 'de'	=>	yii::t('base_labels','German'),
 ];
     }
+    
+  public function getIdioma($idioma){
+     return self::getCboIdiomas()[$idioma];
+  } 
+  
+  public function getCountry($pais){
+     return self::getCboPaises()[$pais];
+  } 
+    
+    public function getCboNumeros($cantidad){
+        $datos=[];
+         for( $i= 1 ; $i <= $cantidad ; $i++ ){
+             $datos[$i]=$i;
+         }
+        return $datos;
+    }
 }

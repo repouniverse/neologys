@@ -26,25 +26,18 @@ use common\widgets\selectwidget\selectWidget;
        <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'form-pico',
-                      'url'=> ($model->isNewRecord)?\yii\helpers\Url::to(['/inter/convocados/modal-new-opuniv','id'=>$model->convocatoria_id]):
-                     \yii\helpers\Url::to(['/inter/convocados/modal-edit-opuniv','id'=>$model->id]),
+                      'url'=> ($model->isNewRecord)?\yii\helpers\Url::to(['/inter/convocados/modal-new-idioma','id'=>$model->convocatoria_id]):
+                     \yii\helpers\Url::to(['/inter/convocados/modal-edit-idioma','id'=>$model->id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
                <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
         
      </div>       
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
     
-    <?= $form->field($model, 'universidad_id')->label(m::t('labels','University'))->textInput(['value'=>$model->universidad->nombre,'disabled'=>true]) ?>
-  </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
-    <?= $form->field($model, 'facultad_id')->label(m::t('labels','Faculty'))->textInput(['value'=>$model->facultad->desfac,'disabled'=>true]) ?>
-
-    </div>
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-         <?=$form->field($model, 'univop_id')->label(m::t('labels','Select Transfer University'))->
-            dropDownList(ComboHelper::getCboUniversidades(),
+         <?=$form->field($model, 'idioma')->/*label(m::t('labels','Select Transfer University'))->*/
+            dropDownList(ComboHelper::getCboIdiomas(),
                     ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
@@ -52,8 +45,8 @@ use common\widgets\selectwidget\selectWidget;
                     )  ?>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-         <?=$form->field($model, 'prioridad')->label(m::t('labels','Priority'))->
-            dropDownList(ComboHelper::getCboNumeros(5),
+         <?=$form->field($model, 'codnivel')->/*label(m::t('labels','Priority'))->*/
+            dropDownList($model::comboDataField('codnivel'),
                     ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,

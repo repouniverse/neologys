@@ -286,5 +286,97 @@ class ConvocadosController extends baseController
       return ['warning'=>m::t('labels','The record was deleted')];
             }
      }
+   
+     
+      public function actionModalNewIdioma($id){
+     $this->layout = "install";
+        $model = New \frontend\modules\inter\models\InterIdiomasalu();
+        $datos=[];
+        $modelUniv= $this->findModel($id);
+        
+        
+        if(is_null( $modelUniv)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'convocatoria_id'=>$modelUniv->id,
+            'programa_id'=>$modelUniv->programa_id,
+            'modo_id'=>$modelUniv->modo_id,
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->convocatoria_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_idiomas', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+    }
     
+    public function actionModalEditIdioma($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterIdiomasalu::findOne($id);
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->convocatoria_id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_idiomas', [
+                        'model' => $model,
+                        //'codigo_fac'=> $model->facultad_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+    }   
+      
+   public function actionDeleteOpIdioma($id){
+     
+     //var_dump($model);die();
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model= \frontend\modules\inter\models\InterIdiomasalu::findOne($id);
+            
+          if(is_null($model))
+                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                //var_dump($model::className());die();
+          $this->deleteModel($id, $model::className());       
+      
+      return ['warning'=>m::t('labels','The record was deleted')];
+            }
+     }  
 }

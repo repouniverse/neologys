@@ -41,11 +41,16 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
       
  </div>
  
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+  <div class="col-lg-6 col-md-6 col-sm-3 col-xs-12">
      <?= $form->field($model, 'alumno_id')->label(m::t('labels','Student'))->textInput(['value'=>$model->alumno->fullName(false),'disabled'=>true]) ?>
       
  </div>
-          
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     <?= $form->field($model, 'motivos')->label(m::t('labels','Reasons for applying'))->textarea() ?>
+      
+ </div>
+
+   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">        
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
      <p>
          <?php $url= Url::to(['modal-new-opuniv','id'=>$model->id,'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
@@ -56,7 +61,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
       
  </div> 
    <?php ActiveForm::end(); ?>
-   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">      
+        
     <?php Pjax::begin(['id'=>'OpcionesUniversidad']); ?>      
           
     <?= GridView::widget([
@@ -113,7 +118,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                 }
                 ], 
             'prioridad',
-            'comentarios',
+            //'comentarios',
         ],
     ]); ?>
        
@@ -133,6 +138,96 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
        
     <?php Pjax::end(); ?>      
     </div>
+          
+   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">         
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     <p>
+         <?php $url= Url::to(['modal-new-idioma','id'=>$model->id,'gridName'=>'OpcionesIdiomas','idModal'=>'buscarvalor']);
+        //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
+       echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>', $url, ['class'=>'botonAbre']);
+         ?>           
+     </p>
+      
+ </div>       
+         
+    <?php Pjax::begin(['id'=>'OpcionesIdiomas']); ?>      
+          
+    <?= GridView::widget([
+        'id'=>'migrillax',
+        'dataProvider' => new \yii\data\ActiveDataProvider([
+            'query'=> \frontend\modules\inter\models\InterIdiomasalu::find()->andWhere(['convocatoria_id'=>$model->id])
+        ]),
+        //'summary' => '',
+        'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
+        //'filterModel' => $searchModel,
+        'columns' => [
+            
+         
+         [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{delete}',
+                'buttons' => [
+                    'update' => function($url, $model) {                        
+                        $options = [
+                            'title' => m::t('verbs', 'Update'),  
+                            'data-pjax'=>'0',
+                            'class'=>'botonAbre'
+                        ];
+                        $url= Url::to(['modal-edit-idioma','id'=>$model->id,'gridName'=>'OpcionesIdiomas','idModal'=>'buscarvalor']);
+                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                         },                          
+                         'delete' => function($url, $model) { 
+                        $url=Url::to(['delete-op-idioma','id'=>$model->id]);
+                        $options = [
+                            'family'=>'holas',
+                            'id'=>$model->id,
+                           // 'data-confirm' => m::t('labels', 'Are you sure you want to delete this record?'),
+                            'title' =>$url //m::t('verbs', 'Delete'),                            
+                        ];
+                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', '#', $options/*$options*/);
+                         }
+                    ]
+                ],
+         
+         
+         
+         
+         
+            ['attribute'=>m::t('labels','Languaje'),
+                'value'=> function($model){
+                    return frontend\modules\inter\helpers\ComboHelper::getIdioma($model->idioma);
+                }
+                ], 
+             ['attribute'=>m::t('labels','Skill'),
+                'format'=>'raw',
+                'value'=> function($model){
+                     return $model->comboValueField('codnivel');
+                
+                }
+                ], 
+            
+        ],
+    ]); ?>
+       
+        <?php 
+   echo linkAjaxGridWidget::widget([
+              'id'=>'sdrtrsds',
+            'idGrilla'=>'OpcionesIdiomas',
+            'family'=>'holas',
+          'type'=>'POST',
+           'evento'=>'click',
+           'posicion'=> \yii\web\View::POS_END
+           
+        ]); 
+   ?>
+    
+       
+       
+    <?php Pjax::end(); ?>      
+    </div>      
+          
+          
+          
 </div>
     
     </div>
