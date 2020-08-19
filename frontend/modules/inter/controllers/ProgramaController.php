@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\controllers;
-
+USE frontend\modules\inter\Module as m;
 use Yii;
 use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
@@ -389,5 +389,23 @@ class ProgramaController extends baseController
         }
        
   } 
+  
+  /*aja que ocnvoca alos alumnos o docentes de un tdereminado modo
+    @id: Id del Itermodos 
+   *    */
+  public function actionAjaxConvoca($id){
+     $model= \frontend\modules\inter\models\InterModos::findOne($id);
+    if(is_null($model))
+     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+   if(h::request()->isAjax){
+       h::response()->format = \yii\web\Response::FORMAT_JSON;
+      
+      return ['success'=>m::t('labels','{cantidad} records were incorporated',['cantidad'=> $model->convocaMasivamente()])];
+   }
+     
+  }
+  
+  
+  
   
 }

@@ -14,7 +14,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use common\models\masters\AlumnosSearch;
 use common\models\masters\Alumnos;
-
+use frontend\modules\inter\Module AS m;
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
  */
@@ -272,12 +272,16 @@ class ConvocadosController extends baseController
     
     
      public function actionDeleteUnivConvo($id){
-     $model= \frontend\modules\inter\models\InterOpuniv::findOne($id);
+     
+     //var_dump($model);die();
       if(h::request()->isAjax){
           h::response()->format = \yii\web\Response::FORMAT_JSON;
-             if(is_null($model))
+          $model= \frontend\modules\inter\models\InterOpuniv::findOne($id);
+            
+          if(is_null($model))
                  throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
-                 $this->deleteModel($id, $model::className());       
+                //var_dump($model::className());die();
+          $this->deleteModel($id, $model::className());       
       
       return ['warning'=>m::t('labels','The record was deleted')];
             }

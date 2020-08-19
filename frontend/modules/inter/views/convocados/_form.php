@@ -88,7 +88,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                         $options = [
                             'family'=>'holas',
                             'id'=>$model->id,
-                            'data-confirm' => m::t('labels', 'Are you sure you want to delete this record?'),
+                           // 'data-confirm' => m::t('labels', 'Are you sure you want to delete this record?'),
                             'title' =>$url //m::t('verbs', 'Delete'),                            
                         ];
                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', '#', $options/*$options*/);
@@ -119,7 +119,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
        
         <?php 
    echo linkAjaxGridWidget::widget([
-         
+              'id'=>'sdsds',
             'idGrilla'=>'OpcionesUniversidad',
             'family'=>'holas',
           'type'=>'POST',

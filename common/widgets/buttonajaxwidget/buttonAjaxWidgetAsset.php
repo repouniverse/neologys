@@ -1,6 +1,6 @@
 <?php
 // your_app/votewidget/VoteWidgetAsset.php
-namespace common\widgets\cbodepwidget;
+namespace common\widgets\buttonajaxwidget;
 use yii\web\AssetBundle;
 class buttonAjaxWidgetAsset extends AssetBundle
 {
