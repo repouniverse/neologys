@@ -5,6 +5,7 @@ use frontend\modules\inter\Module as m;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterConvocados */
 /* @var $form yii\widgets\ActiveForm */
@@ -59,6 +60,7 @@ use yii\widgets\Pjax;
     <?php Pjax::begin(['id'=>'OpcionesUniversidad']); ?>      
           
     <?= GridView::widget([
+        'id'=>'migrillax',
         'dataProvider' => new \yii\data\ActiveDataProvider([
             'query'=> \frontend\modules\inter\models\InterOpuniv::find()->andWhere(['convocatoria_id'=>$model->id])
         ]),
@@ -75,17 +77,21 @@ use yii\widgets\Pjax;
                     'update' => function($url, $model) {                        
                         $options = [
                             'title' => m::t('verbs', 'Update'),  
-                            'data-pjax'=>'0'
+                            'data-pjax'=>'0',
+                            'class'=>'botonAbre'
                         ];
                         $url= Url::to(['modal-edit-opuniv','id'=>$model->id,'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },                          
-                         'delete' => function($url, $model) {                        
+                         'delete' => function($url, $model) { 
+                        $url=Url::to(['delete-univ-convo','id'=>$model->id]);
                         $options = [
-                            'data-confirm' => m::t('labels', 'Are you sure you want to activate this user?'),
-                            'title' => m::t('verbs', 'Delete'),                            
+                            'family'=>'holas',
+                            'id'=>$model->id,
+                            'data-confirm' => m::t('labels', 'Are you sure you want to delete this record?'),
+                            'title' =>$url //m::t('verbs', 'Delete'),                            
                         ];
-                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);
+                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', '#', $options/*$options*/);
                          }
                     ]
                 ],
@@ -98,11 +104,33 @@ use yii\widgets\Pjax;
                 'value'=> function($model){
                     return $model->univop->nombre;
                 }
-                ],                
+                ], 
+             ['attribute'=>m::t('labels','Country'),
+                'format'=>'raw',
+                'value'=> function($model){
+                    $codpais= strtolower($model->universidad->codpais);
+                    return Html::img('@web/img/flags/32/'.$codpais.'.png');
+                }
+                ], 
             'prioridad',
             'comentarios',
         ],
     ]); ?>
+       
+        <?php 
+   echo linkAjaxGridWidget::widget([
+         
+            'idGrilla'=>'OpcionesUniversidad',
+            'family'=>'holas',
+          'type'=>'POST',
+           'evento'=>'click',
+           'posicion'=> \yii\web\View::POS_END
+           
+        ]); 
+   ?>
+    
+       
+       
     <?php Pjax::end(); ?>      
     </div>
 </div>
