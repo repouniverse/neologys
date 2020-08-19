@@ -271,6 +271,16 @@ class ConvocadosController extends baseController
     }
     
     
-    
+     public function actionDeleteUnivConvo($id){
+     $model= \frontend\modules\inter\models\InterOpuniv::findOne($id);
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+             if(is_null($model))
+                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                 $this->deleteModel($id, $model::className());       
+      
+      return ['warning'=>m::t('labels','The record was deleted')];
+            }
+     }
     
 }

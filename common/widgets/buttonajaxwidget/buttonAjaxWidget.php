@@ -17,12 +17,12 @@ class buttonAjaxWidget extends \yii\base\Widget
     public $posicion=\yii\web\View::POS_END;
     public $data=[];
     PUBLIC $isHtml=false;
-    public $IdGrilla=null; //Ids de los contendeores pjax a refrescar
+    public $idGrilla=null; //Ids de los contendeores pjax a refrescar
     public function init()
     {
        
         parent::init();
-         $this->registerTranslations();
+         //$this->registerTranslations();
     }
 
     public function run()
@@ -61,39 +61,46 @@ success: function (data) {// success callback function
  }
  
   private function makeJs(){
-   $this->getView()->registerJs("$(document).ready(function() {
+    $cadena="$(document).ready(function() {
     $('#".$this->id."').on('click',function(){
+       //pichicho
   $.ajax({ 
    url:'".$this->ruta."',
    type:'".$this->tipo."',
-   dataType:'html',
-   data:".Json::encode($this->data).",
-   error:function(xhr, status, error){ 
+   dataType:'".$this->dataType."',
+   data:".Json::encode($this->data).",    
+  error:  function(xhr, textStatus, error){               
                             var n = Noty('id');                      
-                             $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-remove-sign\'></span>      '+ xhr.responseText);
-                              $.noty.setType(n.options.id, 'error');         
-                                }, 
-success: function (data) {
-               var n = Noty('id');
+                              $.noty.setText(n.options.id, error);
+                              $.noty.setType(n.options.id, 'error');       
+                                },  
+            success: function(json) {  
+                  
+                        var n = Noty('id');
                        if ( !(typeof json['error']==='undefined') ) {
-                                        $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-trash\'></span>      '+ json['error']);
+                      
+                   $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-remove-sign\'></span>      '+ json['error']);
                               $.noty.setType(n.options.id, 'error'); 
                               }
                          if ( !(typeof json['success']==='undefined') ) {
-                                        $.noty.setText(n.options.id, json['success']);
+                                    
+                                $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-ok-sign\'></span>' + json['success']);
                              $.noty.setType(n.options.id, 'success');
                               } 
                                if ( !(typeof json['warning']==='undefined') ) {
-                                        $.noty.setText(n.options.id, json['warning']);
+                                        $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-info-sign\'></span>' +json['warning']);
                              $.noty.setType(n.options.id, 'warning');
+                            
+                              
                               } 
-                              $.pjax.defaults.timeout = false;  
-                              ".(is_null($this->idGrilla))?"//":""."$.pjax.reload({container: '".$this->idGrilla."'});
-    }
+                     $.pjax.reload({container: '".$this->idGrilla."'});
+                 }
        }); //ajax 
-        } //on change
-    );//on change
-     });",$this->posicion);
+        })
+    })";
+    
+    $cadena2="alert('hola compadre);";
+   $this->getView()->registerJs($cadena,$this->posicion);
   }                       
    
    

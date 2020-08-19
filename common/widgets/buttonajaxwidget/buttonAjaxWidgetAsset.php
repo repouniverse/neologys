@@ -2,7 +2,7 @@
 // your_app/votewidget/VoteWidgetAsset.php
 namespace common\widgets\cbodepwidget;
 use yii\web\AssetBundle;
-class cboDepWidgetAsset extends AssetBundle
+class buttonAjaxWidgetAsset extends AssetBundle
 {
     public $js = [
         
