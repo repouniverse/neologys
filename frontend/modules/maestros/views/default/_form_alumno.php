@@ -46,8 +46,8 @@ use common\models\masters\Facultades;
             <?= $form->field($model, 'nombres')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <?=$form->field($model, 'codfac')->
-                      dropDownList(ComboHelper::getCboFacultades(), ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+            <?=$form->field($model, 'facultad_id')->
+                      dropDownList(ComboHelper::getCboFacultades($model->universidad_id), ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
                       //dropDownList(Facultades::comboDataField('codfac') , ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
             ?>
         </div>

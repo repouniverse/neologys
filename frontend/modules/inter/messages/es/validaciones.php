@@ -1,8 +1,5 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+return
+    [
+        'Are you sure you want to activate this user?'=>'¿Está seguro de que desea activar este usuario?',
+    ];

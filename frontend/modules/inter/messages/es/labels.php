@@ -14,7 +14,9 @@ return [
     'Code Student'=>'Código Alumno',
     'Race'=>'Carrera',
     'Mail'=>'Correo',
-    
+    'Inter Summoned'=>'Inter Convocados',
+    'Create Inter Summoned'=>' Crear Inter Convocados',
+    'Program'=>'Programa',
     
     'ID'=>'ID',
     'University Id'=>'Universidad ID',

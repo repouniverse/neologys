@@ -39,7 +39,7 @@ class InterVwConvocados extends \common\models\base\modelBase
      */
     public static function tableName()
     {
-        return '7pxv4v_inter_vw_convocados';
+        return '{{%inter_vw_convocados}}';
     }
 
     /**

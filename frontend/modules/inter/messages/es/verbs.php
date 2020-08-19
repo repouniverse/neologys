@@ -12,4 +12,5 @@ return [
     'Create'=>'Crear',
     'Choose a value'=>'Seleccione un valor',
     'Delete'=>'Eliminar',
+    'View'=>'Ver',
 ];
