@@ -1,5 +1,5 @@
 <?php
-use yii\db\Migration;
+
 use  console\migrations\baseMigration;
 class m130524_201499Create_table_config extends  baseMigration
 {
