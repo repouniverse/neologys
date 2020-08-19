@@ -82,17 +82,19 @@ implements \common\interfaces\postulantesInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'codalu' => Yii::t('base_labels', 'Codalu'),
-            'codalu1' => Yii::t('base_labels', 'Codalu1'),
-            'codalu2' => Yii::t('base_labels', 'Codalu2'),
+            'id' => Yii::t('base_labels', 'Id'),
+            'codalu' => Yii::t('base_labels', 'Code Student'),
+            'codalu1' => Yii::t('base_labels', 'Code Student 1'),
+            'codalu2' => Yii::t('base_labels', 'Code Student 2'),
             //'codper' => Yii::t('base_labels', 'Codper'),
-            'ap' => Yii::t('base_labels', 'Ap'),
-            'am' => Yii::t('base_labels', 'Am'),
-            'nombres' => Yii::t('base_labels', 'Nombres'),
-            'codpering' => Yii::t('base_labels', 'Codpering'),
-            'codfac' => Yii::t('base_labels', 'Codfac'),
+            'ap' => Yii::t('base_labels', 'Last Name'),
+            'am' => Yii::t('base_labels', 'Mother Last Name'),
+            'nombres' => Yii::t('base_labels', 'Names'),
+            'codpering' => Yii::t('base_labels', 'Entry Period Code'),
+            'codfac' => Yii::t('base_labels', 'Code Faculty'),
             'codesp' => Yii::t('base_labels', 'Codesp'),
+            'tipodoc' => Yii::t('base_labels', 'Document Type'),
+            'numerodoc' => Yii::t('base_labels', 'Document Number'),
         ];
     }
 

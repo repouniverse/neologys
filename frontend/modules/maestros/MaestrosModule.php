@@ -1,12 +1,14 @@
 <?php
 
 namespace frontend\modules\maestros;
-
+use yii;
 /**
  * maestros module definition class
  */
 class MaestrosModule extends \yii\base\Module
 {
+   const CLASE_GENERAL='A'; 
+   const STATUS_GENERAL='1';
     /**
      * {@inheritdoc}
      */
@@ -19,19 +21,25 @@ class MaestrosModule extends \yii\base\Module
     {
         parent::init();
         $this->registerTranslations();
+        static::putSettingsModule();
         // custom initialization code goes here
     }
     
+    private static function putSettingsModule(){
+         //h::getIfNotPutSetting('mail','servermail',"smtp.googlemail.com", SettingType::STRING_TYPE);
+          
+        }
+    
      public function registerTranslations()
     {
-        \Yii::$app->i18n->translations['modules/inter/*'] = [
+        \Yii::$app->i18n->translations['modules/maestros/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
-            'basePath' => '@frontend/modules/inter/messages',
+            'basePath' => '@frontend/modules/maestros/messages',
             'fileMap' => [
-                'modules/inter/verbs' => 'verbs.php',
-                'modules/inter/validaciones' => 'validaciones.php',
-                'modules/inter/labels' => 'labels.php',
+                'modules/maestros/verbs' => 'verbs.php',
+                'modules/maestros/validaciones' => 'validaciones.php',
+                'modules/maestros/labels' => 'labels.php',
                
                 
             ],
@@ -41,6 +49,6 @@ class MaestrosModule extends \yii\base\Module
     public static function t($category, $message, $params = [], $language = null)
     {
         
-        return Yii::t('modules/inter/' . $category, $message, $params, $language);
+        return Yii::t('modules/maestros/' . $category, $message, $params, $language);
     }
 }

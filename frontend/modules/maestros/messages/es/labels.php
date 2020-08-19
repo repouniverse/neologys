@@ -1,8 +1,13 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+return [
+    'Student'=>'Alumno',
+    'Students'=>'Alumnos',
+    'Create Student'=>'Crear Alumno',
+    'Code Student'=>'Código Alumno',
+    'Update Student: {name}'=>'Actualizar Alumno: {name}',
+    'University'=>'Universidad',
+    'Universities'=>'Universidades',
+    'Create University'=>'Crear Universidad',
+    'Race'=>'Carrera',
+    'Mail'=>'Correo',      
+];
