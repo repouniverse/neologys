@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use common\helpers\h;
 use yii\bootstrap\ActiveForm;
-
+ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 $this->title = '   '.yii::t('base_labels','User Data');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

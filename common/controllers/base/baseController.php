@@ -246,4 +246,25 @@ private static function findKeyArrayInPost(){
     }
   
   
+   /*
+  * Esta funcion retorna un JSOn con respuesta de un error 
+  * usarlo siempre que se necesite una accion ajax para borrar
+  * un registro, se apoya en la funcion cruda deletemodel()
+  * id: Clave principal
+  * clase: Nombre de la clase a instnaciar
+  * Retorna un array de errores en formato JSON
+  */
+  public function actionDeletemodelForAjax(){
+        if(h::request()->isAjax){
+           $id= h::request()->post('id');
+          // var_dump(h::request()->post('modelito'));die();
+           $clase=str_replace('@','\\',h::request()->post('modelito'));
+          // var_dump(h::request()->post(),$id,$clase);die();
+           $datos=$this->deleteModel($id, $clase);
+           h::response()->format = \yii\web\Response::FORMAT_JSON;
+           return $datos;
+        }
+    } 
+    
+    
 }

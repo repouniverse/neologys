@@ -5,7 +5,7 @@ use common\models\base\modelBase;
 use common\models\Profile;
 use common\helpers\h;
 use common\helpers\BaseHelper;
-use frontend\modules\inter\Module as m;
+//use frontend\modules\inter\Module as m;
 use Yii;
 use Carbon\Carbon;
 
@@ -120,19 +120,19 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function attributeLabels()
     {
         return [
-            'codigoper' => yii::t('labels', 'Code'),
-            'ap' => yii::t('labels', 'Last Name'),
-            'am' => yii::t('labels', "Last Name"),
-            'nombres' => yii::t('labels', 'Names'),
-            'tipodoc' => yii::t('labels', 'Type Doc'),
+            'codigoper' => yii::t('base_labels', 'Code'),
+            'ap' => yii::t('base_labels', 'Last Name'),
+            'am' => yii::t('base_labels', "Last Name"),
+            'nombres' => yii::t('base_labels', 'Names'),
+            'tipodoc' => yii::t('base_labels', 'Type Doc'),
            
-            'numerodoc' => yii::t('labels', 'Num. Doc'),
-            'cumple' => yii::t('labels', 'Birth Date'),
-            'fecingreso' => yii::t('labels', 'Begin Date'),
-            'domicilio' => yii::t('labels', 'Address'),
-            'telfijo' => yii::t('labels', 'Phone'),
-            'telmoviles' => yii::t('labels', 'Movil Phone'),
-            'referencia' => yii::t('labels', 'References'),
+            'numerodoc' => yii::t('base_labels', 'Num. Doc'),
+            'cumple' => yii::t('base_labels', 'Birth Date'),
+            'fecingreso' => yii::t('base_labels', 'Begin Date'),
+            'domicilio' => yii::t('base_labels', 'Address'),
+            'telfijo' => yii::t('base_labels', 'Phone'),
+            'telmoviles' => yii::t('base_labels', 'Movil Phone'),
+            'referencia' => yii::t('base_labels', 'References'),
         ];
     }
 

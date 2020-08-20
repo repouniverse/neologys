@@ -4,6 +4,7 @@ use frontend\models\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use common\helpers\h;
+use common\controllers\base\baseController;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -19,7 +20,7 @@ use frontend\models\ContactForm;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends  baseController
 {
     /**
      * {@inheritdoc}
