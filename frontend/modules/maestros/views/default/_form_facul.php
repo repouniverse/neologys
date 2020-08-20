@@ -2,7 +2,7 @@
 
  use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use kartik\tabs\TabsX;
-use frontend\modules\inter\Module as m;
+use frontend\modules\maestros\MaestrosModule as m;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
  //USE yii\widgets\Pjax;

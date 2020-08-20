@@ -63,6 +63,7 @@ class InterConvocados extends \common\models\base\modelBase
             //[['codocu', 'clase', 'status'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
+            [['motivos'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codalu', 'codigo1', 'codigo2'], 'string', 'max' => 16],
             [['codperiodo'], 'exist', 'skipOnError' => true, 'targetClass' => Periodos::className(), 'targetAttribute' => ['codperiodo' => 'codperiodo']],
@@ -122,7 +123,7 @@ class InterConvocados extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|PeriodosQuery
      */
-    public function getCodperiodo0()
+    public function getPeriodo()
     {
         return $this->hasOne(Periodos::className(), ['codperiodo' => 'codperiodo']);
     }
@@ -166,6 +167,11 @@ class InterConvocados extends \common\models\base\modelBase
     {
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
+    
+    public function getPrograma()
+    {
+        return $this->hasOne(InterPrograma::className(), ['id' => 'programa_id']);
+    }
 
     /**
      * Gets query for [[Codocu0]].
@@ -196,6 +202,16 @@ class InterConvocados extends \common\models\base\modelBase
     {
         return $this->hasOne(Alumnos::className(), ['id' => 'alumno_id']);
     }
+    
+    public function getInterOpuniv()
+    {
+        return $this->hasMany(InterOpuniv::className(), ['convocatoria_id' => 'id']);
+    }
+    
+    public function getInterIdiomasalu()
+    {
+        return $this->hasMany(InterIdiomasalu::className(), ['convocatoria_id' => 'id']);
+    }
     /**
      * {@inheritdoc}
      * @return InterConvocadosQuery the active query used by this AR class.
@@ -203,5 +219,23 @@ class InterConvocados extends \common\models\base\modelBase
     public static function find()
     {
         return new InterConvocadosQuery(get_called_class());
+    }
+    
+    /*
+     * Verifica que este convocado a llenado la ficha
+     */
+    public function hasFillFicha(){
+        $persona=$this->alumno->persona;
+         $this->setScenario($persona::SCE_INTERMEDIO);         
+        $oldScenario=$this->getScenario();
+        $this->setScenario(self::SCENARIO_CONVOCATORIAMINIMA);
+        $funciono=$this->validate();
+        $this->setScenario($oldScenario); //Volvemos a colocar como estaba antes
+        return (
+                $funciono &&  //que tenga todos los datos de convocado
+                $persona->validate() && //que tenga todos los datos personales completos
+                $this->getInterOpuniv()->count()>0 //Que por lo menos haya llenado una univesidad de psotulacion 
+                );
+        
     }
 }

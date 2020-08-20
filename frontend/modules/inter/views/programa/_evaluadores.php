@@ -52,6 +52,8 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                             
             'acronimo',
             'descripcion',
+             'depa.nombredepa',
+              'carrera.nombre',               
             //'parametro',
             
             //'valor1',

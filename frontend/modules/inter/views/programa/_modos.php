@@ -50,7 +50,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                     'expandOneOnly' => true
                 ],               
                  
-            'acronimo',
+            //'acronimo',
             'descripcion',
             //'parametro',
             

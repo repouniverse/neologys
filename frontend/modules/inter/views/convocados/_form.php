@@ -5,6 +5,10 @@ use frontend\modules\inter\Module as m;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\helpers\h;
+ use kartik\date\DatePicker;
+ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
+ use common\helpers\ComboHelper;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterConvocados */
@@ -14,7 +18,9 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 <div class="inter-convocados-form">
     <br>
     <?php $form = ActiveForm::begin([
-    'fieldClass'=>'\common\components\MyActiveField'
+      'id'=>'biForm',
+    'fieldClass'=>'\common\components\MyActiveField',
+        //'enableAjaxValidation'=>true,
     ]); ?>
       <div class="box-header">
         <div class="col-md-12">
@@ -49,18 +55,20 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
      <?= $form->field($model, 'motivos')->label(m::t('labels','Reasons for applying'))->textarea() ?>
       
  </div>
-
+  
+               
+  
    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">        
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
      <p>
          <?php $url= Url::to(['modal-new-opuniv','id'=>$model->id,'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
-        //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
+        //echo  Html::button(m::t(verbs','Modificar Rangos'), ['href' => $url, 'title' => m::t('labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
        echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>', $url, ['class'=>'botonAbre']);
          ?>           
      </p>
       
  </div> 
-   <?php ActiveForm::end(); ?>
+  
         
     <?php Pjax::begin(['id'=>'OpcionesUniversidad']); ?>      
           
@@ -143,7 +151,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
      <p>
          <?php $url= Url::to(['modal-new-idioma','id'=>$model->id,'gridName'=>'OpcionesIdiomas','idModal'=>'buscarvalor']);
-        //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
+        //echo  Html::button(m::t(verbs','Modificar Rangos'), ['href' => $url, 'title' => m::t('labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
        echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>', $url, ['class'=>'botonAbre']);
          ?>           
      </p>
@@ -226,6 +234,303 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     <?php Pjax::end(); ?>      
     </div>      
           
+          
+    
+          
+          
+          
+          
+       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    
+    <?= $form->field($modelP, 'ap')->textInput() ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'am')->textInput(['maxlength' => true]) ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'nombres')->textInput(['maxlength' => true]) ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+   <?=$form->field($modelP, 'tipodoc')->
+            dropDownList($modelP->comboDataField('tipodoc') ,
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    )  ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'numerodoc')->textInput(['maxlength' => true]) ?>
+</div>
+   
+    
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?php  //h::settings()->invalidateCache();  ?>
+                       <?= $form->field($modelP, 'cumple',['enableAjaxValidation'=>true])->widget(DatePicker::class, [
+                             'language' => h::app()->language,
+                           // 'readonly'=>true,
+                          // 'inline'=>true,
+                           'pluginOptions'=>[
+                                     'format' => h::gsetting('timeUser', 'date')  , 
+                                  'changeMonth'=>true,
+                                  'changeYear'=>true,
+                                 'yearRange'=>"-99:+0",
+                               ],
+                           
+                            //'dateFormat' => h::getFormatShowDate(),
+                            'options'=>['class'=>'form-control']
+                            ]) ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <?php  //h::settings()->invalidateCache();  ?>
+                       <?= $form->field($modelP, 'fecingreso')->widget(DatePicker::class, [
+                            'language' => h::app()->language,
+                           'pluginOptions'=>[
+                                     'format' => h::gsetting('timeUser', 'date')  , 
+                                   'changeMonth'=>true,
+                                  'changeYear'=>true,
+                                 'yearRange'=>'1980:'.date('Y'),
+                               ],
+                          
+                            //'dateFormat' => h::getFormatShowDate(),
+                            'options'=>['class'=>'form-control']
+                            ]) ?>
+    </div>
+    
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'telfijo')->textInput(['maxlength' => true]) ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'telmoviles')->textInput(['maxlength' => true]) ?>
+</div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= $form->field($modelP, 'referencia')->textInput(['maxlength' => true]) ?>
+</div>
+        
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+     <?= $form->field($modelP, 'domicilio')->textInput(['maxlength' => true]) ?>
+ </div>        
+          
+          
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$modelP,               
+               'form'=>$form,
+               'data'=> ComboHelper::getCboDepartamentos(),
+               'campo'=>'depdir',
+               'idcombodep'=>'personas-provdir',
+               /* 'source'=>[ //fuente de donde se sacarn lso datos 
+                    /*Si quiere colocar los datos directamente 
+                     * para llenar el combo aqui , hagalo coloque la matriz de los datos
+                     * aqui:  'id1'=>'valor1', 
+                     *        'id2'=>'valor2,
+                     *         'id3'=>'valor3,
+                     *        ...
+                     * En otro caso 
+                     * de la BD mediante un modelo  
+                     */
+                        /*Docbotellas::className()=>[ //NOmbre del modelo fuente de datos
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'codenvio'/* //cpolumna 
+                                         * columna que sirve como criterio para filtrar los datos 
+                                         * si no quiere filtrar nada colocwue : false | '' | null
+                                         *
+                        
+                         ]*/
+                   'source'=>[\common\models\masters\Ubigeos::className()=>
+                                [
+                                  'campoclave'=>'codprov' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'provincia',//columna a mostrar 
+                                        'campofiltro'=>'coddepa'  
+                                ]
+                                ],
+                            ]
+               
+               
+        )  ?>
+ </div>       
+          
+          
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$modelP,               
+               'form'=>$form,
+               'data'=> ($modelP->isNewRecord)?[]:ComboHelper::getCboProvincias($modelP->depdir),
+               'campo'=>'provdir',
+               'idcombodep'=>'personas-distdir',
+               /* 'source'=>[ //fuente de donde se sacarn lso datos 
+                    /*Si quiere colocar los datos directamente 
+                     * para llenar el combo aqui , hagalo coloque la matriz de los datos
+                     * aqui:  'id1'=>'valor1', 
+                     *        'id2'=>'valor2,
+                     *         'id3'=>'valor3,
+                     *        ...
+                     * En otro caso 
+                     * de la BD mediante un modelo  
+                     */
+                        /*Docbotellas::className()=>[ //NOmbre del modelo fuente de datos
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'codenvio'/* //cpolumna 
+                                         * columna que sirve como criterio para filtrar los datos 
+                                         * si no quiere filtrar nada colocwue : false | '' | null
+                                         *
+                        
+                         ]*/
+                   'source'=>[\common\models\masters\Ubigeos::className()=>
+                                [
+                                  'campoclave'=>'coddist' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'distrito',//columna a mostrar 
+                                        'campofiltro'=>'codprov'  
+                                ]
+                                ],
+                            ]
+               
+               
+        )  ?>
+ </div> 
+ <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'distdir')->
+            dropDownList(($modelP->isNewRecord)?[]:ComboHelper::getCboDistritos($modelP->provdir),
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+ </div>      
+        
+   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'pais')->
+            dropDownList(ComboHelper::getCboPaises(),
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+ </div>       
+        
+  
+    
+       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$modelP,               
+               'form'=>$form,
+               'data'=> ComboHelper::getCboDepartamentos(),
+               'campo'=>'depnac',
+               'idcombodep'=>'personas-provnac',
+               /* 'source'=>[ //fuente de donde se sacarn lso datos 
+                    /*Si quiere colocar los datos directamente 
+                     * para llenar el combo aqui , hagalo coloque la matriz de los datos
+                     * aqui:  'id1'=>'valor1', 
+                     *        'id2'=>'valor2,
+                     *         'id3'=>'valor3,
+                     *        ...
+                     * En otro caso 
+                     * de la BD mediante un modelo  
+                     */
+                        /*Docbotellas::className()=>[ //NOmbre del modelo fuente de datos
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'codenvio'/* //cpolumna 
+                                         * columna que sirve como criterio para filtrar los datos 
+                                         * si no quiere filtrar nada colocwue : false | '' | null
+                                         *
+                        
+                         ]*/
+                   'source'=>[\common\models\masters\Ubigeos::className()=>
+                                [
+                                  'campoclave'=>'codprov' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'provincia',//columna a mostrar 
+                                        'campofiltro'=>'coddepa'  
+                                ]
+                                ],
+                            ]
+               
+               
+        )  ?>
+ </div>       
+          
+          
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$modelP,               
+               'form'=>$form,
+               'data'=> ($modelP->isNewRecord)?[]:ComboHelper::getCboProvincias($modelP->depdir),
+               'campo'=>'provnac',
+               'idcombodep'=>'personas-distnac',
+               /* 'source'=>[ //fuente de donde se sacarn lso datos 
+                    /*Si quiere colocar los datos directamente 
+                     * para llenar el combo aqui , hagalo coloque la matriz de los datos
+                     * aqui:  'id1'=>'valor1', 
+                     *        'id2'=>'valor2,
+                     *         'id3'=>'valor3,
+                     *        ...
+                     * En otro caso 
+                     * de la BD mediante un modelo  
+                     */
+                        /*Docbotellas::className()=>[ //NOmbre del modelo fuente de datos
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'codenvio'/* //cpolumna 
+                                         * columna que sirve como criterio para filtrar los datos 
+                                         * si no quiere filtrar nada colocwue : false | '' | null
+                                         *
+                        
+                         ]*/
+                   'source'=>[\common\models\masters\Ubigeos::className()=>
+                                [
+                                  'campoclave'=>'coddist' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'distrito',//columna a mostrar 
+                                        'campofiltro'=>'codprov'  
+                                ]
+                                ],
+                            ]
+               
+               
+        )  ?>
+ </div> 
+ <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'distnac')->
+            dropDownList(($modelP->isNewRecord)?[]:ComboHelper::getCboDistritos($modelP->provdir),
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+ </div>      
+
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'sexo')->
+            dropDownList(ComboHelper::getCboSex(),
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+ </div>   
+        
+   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'estcivil')->
+            dropDownList(ComboHelper::getCboEstCivil(),
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+ </div> 
+        
+     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+ <?= $form->field($modelP, 'pasaporte')->textInput() ?>
+            
+ </div>        
+          
+          
+          
+          
+          
+          
+  <?php ActiveForm::end(); ?>         
           
           
 </div>

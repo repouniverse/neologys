@@ -89,7 +89,7 @@ use yii\widgets\ActiveForm;
                 'buttons' => [
                    
                          'update' => function ($url,$model) {
-			    $url= Url::to(['modal-update-facultad','id'=>$model->codfac,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
+			    $url= Url::to(['modal-update-facultad','id'=>$model->id,'gridName'=>'grilla-facus','idModal'=>'buscarvalor']);
                              //echo  Html::button(yii::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => yii::t('sta.labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
                             return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, ['class'=>'botonAbre']);
                             },

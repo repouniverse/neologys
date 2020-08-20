@@ -13,6 +13,7 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 $this->title = Yii::t('base_labels', 'Update Inter Convocados: {name}', [
     'name' => $model->id,
 ]);
+$this->params['breadcrumbs'][] = ['label' => substr($model->programa->descripcion,0,10), 'url' => ['/inter/programa/update', 'id' => $model->programa->id]];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Inter Convocados'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
     'items' => [
         [
           'label'=>'<i class="fa fa-home"></i> '.yii::t('sta.labels','Principal'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('_form',['model' => $model]),
+            'content'=> $this->render('_form',['model' => $model, 'modelP'=>$modelP]),
             'active' => true,
              'options' => ['id' => 'myveryownID3'],
         ],

@@ -314,7 +314,7 @@ class ProgramaController extends baseController
      $this->layout = "install";
         $model = New \frontend\modules\inter\models\InterPlan();
         $datos=[];
-        $modelEval= InterPrograma::findOne($id);        
+        $modelEval= \frontend\modules\inter\models\InterModos::findOne($id);        
         
         if(is_null(  $modelEval)){
             //Si es error buttonSubmitWidget::OP_TERCERA
@@ -324,8 +324,13 @@ class ProgramaController extends baseController
         $model->setAttributes([
             'universidad_id'=>$modelEval->universidad_id,
              'facultad_id'=>$modelEval->facultad_id,
-             'depa_id'=>$modelEval->depa_id,
-            'eval_id'=>$modelEval->id,
+            'modo_id'=>$modelEval->id,
+            'depa_id'=>$modelEval->depa_id,
+            'programa_id'=>$modelEval->programa_id,
+             
+            //'eval_id'=>$modelEval->id,
+            
+            
         ]);
          if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);

@@ -5,6 +5,7 @@ use common\models\base\modelBase;
 use common\models\Profile;
 use common\helpers\h;
 use common\helpers\BaseHelper;
+use frontend\modules\inter\Module as m;
 use Yii;
 use Carbon\Carbon;
 
@@ -33,6 +34,14 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
    public $persona;
     
    CONST SCE_CREACION_BASICA='basico';
+   CONST SCE_INTERMEDIO='intermedio';
+   
+    public $dateorTimeFields = [
+        'cumple' => self::_FDATE,
+        'fecingreso' => self::_FDATE,
+        //'ftermino' => self::_FDATETIME
+    ];
+    
     public function behaviors()
 {
 	return [
@@ -71,14 +80,28 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         return [
             [['ap', 'am', 'nombres','tipodoc','numerodoc'], 'required'],
             [['identidad_id','codgrupo'], 'safe'],
-            [['cumple', 'fecingreso'], 'validateFechas'],
+            [['cumple'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
-           // [['dni', 'ppt', 'pasaporte', 'cumple', 'fecingreso'], 'string', 'max' => 10],
+            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'pasaporte','sexo','estcivil'], 'safe'],
             //[['codpuesto'], 'string', 'max' => 3],
             [['domicilio'], 'string', 'max' => 73],
             [['telfijo'], 'string', 'max' => 13],
             [['telmoviles', 'referencia'], 'string', 'max' => 30],
+            
+            
+            
+            [[
+            'ap', 'am',
+            'nombres', 'tipodoc', 
+            'numerodoc','identidad_id',
+            'codgrupo','cumple','domicilio','telfijo',
+            'depdir','provdir','distdir',
+            'depnac','provnac','distnac',
+            'sexo','estcivil','pasaporte',
+            
+            ],'required','on'=>self::SCE_INTERMEDIO],
+            
             //[['numerodoc','tipodoc'], 'unique'],
              //[['dni'], 'unique'],
             /*['dni','match',
@@ -97,19 +120,19 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function attributeLabels()
     {
         return [
-            'codigoper' => Yii::t('base.labels', 'Code'),
-            'ap' => Yii::t('base.labels', 'A Pat'),
-            'am' => Yii::t('base.labels', "A Mat"),
-            'nombres' => Yii::t('base.labels', 'Nombres'),
-            'tipodoc' => Yii::t('base.labels', 'Tipo doc'),
+            'codigoper' => yii::t('labels', 'Code'),
+            'ap' => yii::t('labels', 'Last Name'),
+            'am' => yii::t('labels', "Last Name"),
+            'nombres' => yii::t('labels', 'Names'),
+            'tipodoc' => yii::t('labels', 'Type Doc'),
            
-            'numerodoc' => Yii::t('base.labels', 'Num. Doc'),
-            'cumple' => Yii::t('base.labels', 'F Nac.'),
-            'fecingreso' => Yii::t('base.labels', 'F. ingreso'),
-            'domicilio' => Yii::t('base.labels', 'Dirección'),
-            'telfijo' => Yii::t('base.labels', 'Tel Fijo'),
-            'telmoviles' => Yii::t('base.labels', 'Movil'),
-            'referencia' => Yii::t('base.labels', 'Referencias'),
+            'numerodoc' => yii::t('labels', 'Num. Doc'),
+            'cumple' => yii::t('labels', 'Birth Date'),
+            'fecingreso' => yii::t('labels', 'Begin Date'),
+            'domicilio' => yii::t('labels', 'Address'),
+            'telfijo' => yii::t('labels', 'Phone'),
+            'telmoviles' => yii::t('labels', 'Movil Phone'),
+            'referencia' => yii::t('labels', 'References'),
         ];
     }
 
@@ -118,6 +141,16 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         $scenarios[self::SCE_CREACION_BASICA] = [
             'ap', 'am',
             'nombres', 'tipodoc', 'numerodoc','identidad_id','codgrupo'
+            ];
+        $scenarios[self::SCE_INTERMEDIO] = [
+            'ap', 'am',
+            'nombres', 'tipodoc', 
+            'numerodoc','identidad_id',
+            'codgrupo','cumple','domicilio','telfijo',
+            'depdir','provdir','distdir',
+            'depnac','provnac','distnac',
+            'sexo','estcivil','pasaporte',
+            
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -145,14 +178,13 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
        //self::CarbonNow();
        //var_dump(self::CarbonNow());
         
-       if($this->toCarbon('fecingreso')->greaterThan(self::CarbonNow())){
+       /*if($this->toCarbon('fecingreso')->greaterThan(self::CarbonNow())){
             $this->addError('fecingreso', yii::t('base.errors','La fecha  {campo} es una fecha futura',
                     ['campo'=>$this->getAttributeLabel('fecingreso')]));
-       }
+       }*/
       // if(self::CarbonNow()->diffInYears( $this->toCarbon('cumple')) < 18){
        if($this->age() < 16){
-            $this->addError('cumple', yii::t('base.errors','Es muy joven para ser trabajador',
-                    ['campo'=>$this->getAttributeLabel('cumple')]));
+            $this->addError('cumple', yii::t('errors','Too young'));
        }
         /*if (!in_array($this->$attribute, ['USA', 'Indonesia'])) {*/
            
@@ -180,10 +212,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         }  
         
         
-  public function age(){
-          return $this->toCarbon('cumple')->age; //no hay fecha de nacimiento
-        }  
-        
+ 
         
   public function docsIdentity(){
          return [
@@ -264,6 +293,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         return $this->hasOne(Profile::className(), ['persona_id' => 'id']);
     }
 
-    
+   
+    public function age(){
+          return $this->toCarbon('cumple')->age; //no hay fecha de nacimiento
+        }  
+        
      
 }

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use backend\modules\base\Module as m;
+use frontend\modules\inter\Module as m;
 use common\widgets\selectwidget\selectWidget;
 
 /* @var $this yii\web\View */
@@ -45,15 +45,15 @@ use common\widgets\selectwidget\selectWidget;
     </div>
    
      
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
     <?= $form->field($model, 'acronimo')->textInput(['maxlength' => true]) ?>
   </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
     
     <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 </div>
     
-     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?=$form->field($model, 'carrera_id')->
             dropDownList(ComboHelper::getCboCarreras($facultad_id) ,
                     ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
@@ -62,7 +62,15 @@ use common\widgets\selectwidget\selectWidget;
                         ]
                     )  ?>
         </div>   
-    
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?=$form->field($model, 'depa_id')->
+            dropDownList(ComboHelper::getCboDepartamentosFacu($facultad_id) ,
+                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    )  ?>
+        </div>   
     
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     

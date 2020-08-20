@@ -24,7 +24,7 @@ use backend\modules\base\Module as m;
                   ['idModal'=>$idModal,
                     'idForm'=>'form-pico',
                       'url'=> ($model->isNewRecord)?\yii\helpers\Url::to(['/maestros/default/modal-new-facultad','id'=>$universidad_id]):
-                     \yii\helpers\Url::to(['/maestros/default/modal-update-facultad','id'=>$model->codfac]),
+                     \yii\helpers\Url::to(['/maestros/default/modal-update-facultad','id'=>$model->id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>

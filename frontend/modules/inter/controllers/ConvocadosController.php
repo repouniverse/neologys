@@ -106,18 +106,41 @@ class ConvocadosController extends baseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if (h::request()->isAjax && $model->load(h::request()->post())) {
-                h::response()->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($model);
+        $modelP=$model->alumno->persona;
+        $modelP->setScenario($modelP::SCE_INTERMEDIO);
+        if (h::request()->isPost){
+            yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
+         yii::error(h::request()->post()['Personas'],__FUNCTION__);
+        yii::error($model->load(h::request()->post()),__FUNCTION__);
+        yii::error($modelP->load(h::request()->post()),__FUNCTION__);
         }
+         
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+       // var_dump($modelP);die();
+        if (h::request()->isAjax &&
+            $model->load(h::request()->post()) &&
+            $modelP->load(h::request()->post())    
+                ) {
+                  //var_dump($modelP->attributes);die();
+            yii::error('paso el ajzx',__FUNCTION__);
+                h::response()->format = Response::FORMAT_JSON;
+              yii::error('Los errores',__FUNCTION__);  
+              // yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
+               //yii::error(ActiveForm::validate($model),__FUNCTION__);
+                yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
+                return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP));
+        }
+        yii::error('continuado',__FUNCTION__);
+        if ($model->load(Yii::$app->request->post()) && 
+             $modelP->load(Yii::$app->request->post()) &&
+                $model->save() && $modelP->save()) {
+            yii::error('apunto de redireccionar',__FUNCTION__);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+ yii::error('a putno de renderizar',__FUNCTION__);
         return $this->render('update', [
             'model' => $model,
+            'modelP'=>$modelP
         ]);
     }
 

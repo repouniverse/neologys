@@ -29,7 +29,7 @@ class Trabajadores extends \common\models\base\modelBase
     use nameTrait;
     use identidadTrait;
   // public $persona=null;
-    public $prefijo='76';
+    public $prefijo='87';
     
     /**
      * {@inheritdoc}

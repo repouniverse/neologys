@@ -38,8 +38,10 @@ class InterOpuniv extends \common\models\base\modelBase
         return [
             [['universidad_id', 'facultad_id', 'convocatoria_id', 'univop_id', 'prioridad'], 'integer'],
             [['comentarios'], 'string'],
-             [['prioridad','convocatoria_id'], 'unique'],
-             [['univop_id','convocatoria_id'], 'unique'],
+             [['prioridad'], 'unique','targetAttribute'=>['prioridad','convocatoria_id']],
+             [['univop_id'], 'unique','targetAttribute'=>['univop_id','convocatoria_id']],
+             
+            //[['univop_id','convocatoria_id'], 'unique'],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
         ];

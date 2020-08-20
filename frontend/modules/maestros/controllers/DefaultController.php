@@ -967,27 +967,28 @@ class DefaultController extends \common\controllers\base\baseController
     
      public function actionModalUpdateFacultad($id){
      $this->layout = "install";
+      h::response()->format = \yii\web\Response::FORMAT_JSON;
         $model = Facultades::findOne($id);
         $datos=[];
         //$modelUniversidad= Universidades::findOne($id);
         if(is_null($model)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
-            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
         }
         //$model->universidad_id=$modelUniversidad->id;
       
         if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);
             $model->load(h::request()->post());
-             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
                return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
             }else{
                 $model->save();
                 
-                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->facultad_id];
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
             }
         }else{
             //var_dump($model->attributes);die();

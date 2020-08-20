@@ -190,9 +190,17 @@ class ComboHelper  {
    
    public static function getCboSex(){
          return [
-                'M'=>yii::t('base.names','MASCULINO'),
-                'F'=>yii::t('base.names','FEMENINO'),
-             'G'=>yii::t('base.names','GENERAL'),
+                'M'=>yii::t('base_labels','MASCULINO'),
+                'F'=>yii::t('base_labels','FEMENINO'),
+             'G'=>yii::t('base_labels','GENERAL'),
+                        ];
+    }
+    
+    public static function getCboEstCivil(){
+         return [
+                'S'=>yii::t('base_labels','SOLTERO'),
+                'C'=>yii::t('base_labels','CASADO'),
+             //'G'=>yii::t('base_labels','GENERAL'),
                         ];
     }
     
@@ -557,4 +565,15 @@ class ComboHelper  {
          }
         return $datos;
     }
+    
+    public static function getCboGrupoPersonas(){
+       
+      
+          //$query->andWhere(['facultad_id'=>$facultad_id]);
+     
+        return ArrayHelper::map(
+                        \common\models\masters\GrupoPersonas::find()->select(['codgrupo','desgrupo'])->all(),
+                'codgrupo','desgrupo');
+    }  
+    
 }
