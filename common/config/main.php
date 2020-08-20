@@ -71,6 +71,10 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',
                 ],
+                'base_names' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
                 'base_verbs' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',

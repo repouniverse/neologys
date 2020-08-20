@@ -402,4 +402,58 @@ public function actionRutas(){
     
 
     }
+    
+   public function actionProfile(){
+        
+       // echo \common\helpers\FileHelper::getUrlImageUserGuest();die();
+     /* if(h::app()->hasModule('sta')){
+          $this->redirect(\yii\helpers\Url::toRoute('/sta/default/profile'));
+      }*/
+        $model =Yii::$app->user->getProfile() ;
+        
+        $identidad=Yii::$app->user->identity;
+        $identidad->setScenario($identidad::SCENARIO_MAIL);
+       // var_dump($model);die();
+        if ($identidad->load(Yii::$app->request->post()) && $identidad->save() &&                
+                $model->load(Yii::$app->request->post()) && $model->save()) {
+           // var_dump($model->getErrors()   );die();
+            yii::$app->session->setFlash('success',yii::t('base_labels','Data has been recorded'));
+            return $this->redirect(['profile', 'id' => $model->user_id]);
+        }else{
+           // var_dump($model->getErrors()   );die();
+        }
+
+        return $this->render('profile', [
+            'identidad'=>$identidad,
+            'model' => $model,
+        ]);
+    }  
+    
+   public function actionAjaxAddFavorite(){
+         //$this->layout="install";
+    if(h::request()->isAjax){
+       h::response()->format = \yii\web\Response::FORMAT_JSON;
+        $url=Yii::$app->request->referrer;  
+        // $datos=[];
+        if(!is_null($url)){
+            $url=str_replace(\yii\helpers\Url::home(true),'',$url);
+           
+            $model= new \common\models\Userfavoritos();
+            $model->setAttributes([
+                            'url'=>$url,
+                             'user_id'=>h::userId(),
+                                ]);        
+            if($model->save()){
+               return ['success'=>yii::t('base_labels','Route: \'{url}\' was added to favorites ',['url'=>$url])];  
+           
+            }else{
+              return ['error'=>yii::t('base_labels','Has errors {mierror}',['mierror'=>$model->getFirstError()])];  
+            }
+        }else{
+           return ['error'=>yii::t('base_labels','Without Url')];
+        }
+    }   
+    }
+     
+    
 }

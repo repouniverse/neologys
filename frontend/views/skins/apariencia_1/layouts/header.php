@@ -19,6 +19,7 @@ use common\helpers\h;
 
             <ul class="nav navbar-nav">
               <?php require('notificaciones.php');   ?>   
+                <?php require('favoritos.php');   ?>   
                 
              <li class="dropdown user user-menu">
                     <a href="#" class="linkajustado" data-toggle="dropdown">
@@ -37,8 +38,12 @@ use common\helpers\h;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
+                                <?= Html::a(
+                                    yii::t('base_labels','Profile'),
+                                    ['/site/profile'],
+                                    ['class' => 'btn btn-default btn-flat']
+                                ) ?>
+                                </div>
                             <div class="pull-right">
                                 <?= Html::a(
                                     'Sign out',
