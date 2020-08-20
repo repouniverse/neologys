@@ -109,7 +109,23 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => ($model->isauditable)?'1':'0',
                         ];
                     },       
-                ],   
+                ], 
+                            
+                 [
+                    'class' => EditableColumn::class,
+                    'attribute' => 'grupopersonas',
+                    'url' => ['ajax-edit-transaccion'],
+                    'value' => function ($model) {
+                        return $model->grupopersonas;
+                    },
+                    'type' => 'select',
+                     'editableOptions' => function ($model) {
+                        return [
+                            'source' => common\helpers\ComboHelper::getCboGrupoPersonas(),
+                            'value' => $model->grupopersonas,
+                        ];
+                    },       
+                ],             
             //'valor1',
             //'valor2',
 
