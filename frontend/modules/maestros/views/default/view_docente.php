@@ -4,14 +4,14 @@ use yii\widgets\DetailView;
 use frontend\modules\maestros\MaestrosModule as m;
 
 $this->title = $model->fullname();
-$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Students'), 'url' => ['index-alumnos']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Teachers'), 'url' => ['index-docentes']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="documentos-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(m::t('verbs', 'Update'), ['update-alumnos', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
+        <?= Html::a(m::t('verbs', 'Update'), ['update-docentes', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
     </p>
     <?= DetailView::widget
         (   
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => 
                 [
-                    'codalu',
+                    'codoce',
                     'ap',
                     'am',
                     'nombres',
@@ -33,12 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                      'value'=> function($model)
                                {
                                 return $model->facultad->desfac;
-                               }
-                    ],
-                    ['attribute'=>m::t('labels', 'Race'),
-                     'value'=> function($model)
-                               {
-                                return $model->carrera->nombre;
                                }
                     ],
                 ],

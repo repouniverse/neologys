@@ -45,11 +45,11 @@ implements \common\interfaces\postulantesInterface
     public function rules()
     {
         return [
-            [['codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac'], 'required'],
-             [['mail'], 'safe'],
+            [['codalu', 'ap','am','nombres','tipodoc','numerodoc'], 'required'],
+             [['mail','universidad_id', 'facultad_id','carrera_id' ], 'safe'],
             /* PARA ESCENARIOBASICO*/
             [[
-            'codalu','mail', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
+            'codalu','mail', 'ap','am','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id',
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
@@ -65,7 +65,7 @@ implements \common\interfaces\postulantesInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
-           'codalu', 'ap','am','nombres','tipodoc','numerodoc', 'codfac',
+           'codalu', 'ap','am','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id','mail'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];

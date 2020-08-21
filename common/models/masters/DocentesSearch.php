@@ -9,7 +9,7 @@ use common\models\masters\Combovalores;
 /**
  * CombovaloresSearch represents the model behind the search form of `common\models\masters\Combovalores`.
  */
-class AlumnosSearch extends Alumnos
+class DocentesSearch extends Docentes
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class AlumnosSearch extends Alumnos
     public function rules()
     {
         return [           
-            [['ap','am','nombres','codalu', 'tipodoc', 'numerodoc'], 'safe'],
+            [['ap','am','nombres','codoce', 'tipodoc', 'numerodoc'], 'safe'],
         ];
     }
 
@@ -39,7 +39,7 @@ class AlumnosSearch extends Alumnos
      */
     public function search($params)
     {
-        $query = Alumnos::find();
+        $query = Docentes::find();
 
         // add conditions that should always apply here
 
@@ -64,7 +64,7 @@ class AlumnosSearch extends Alumnos
               ->andFilterWhere(['like', 'am', $this->am])
               ->andFilterWhere(['tipodoc'=>$this->tipodoc])
               ->andFilterWhere(['like', 'nombres', $this->nombres])
-              ->andFilterWhere(['like', 'codalu', $this->codalu])
+              ->andFilterWhere(['like', 'codoce', $this->codoce])
               ->andFilterWhere(['like', 'numerodoc', $this->numerodoc]);
 
         return $dataProvider;

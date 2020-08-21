@@ -17,6 +17,7 @@ return [
     'Inter Summoned'=>'Inter Convocados',
     'Create Inter Summoned'=>' Crear Inter Convocados',
     'Program'=>'Programa',
+    'Search'=>'Buscar',
     
     'ID'=>'ID',
     'University Id'=>'Universidad ID',

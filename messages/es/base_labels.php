@@ -17,4 +17,18 @@ return[
     'Code Faculty'=>'Código Facultad',
     'Document Type'=>'Tipo Documento',
     'Document Number'=>'Número Documento',
+    
+    // Docentes
+    'Faculty'=>'Facultad',
+    'Faculty Id'=>'Facultad ID',
+    'University'=>'Universidad',
+    'University Id'=>'Universidad ID',
+    'Person'=>'Persona',
+    'Person Id'=>'Persona ID',
+    'Code Teacher'=>'Código Docente',
+    'Code Teacher 1'=>'Código Docente 1',
+    'Code Teacher 2'=>'Código Docente 2',
+    'Personal Code'=>'Código Personal',
+    'Category'=>'Categoria',
+    'Available'=>'Disponible',
 ];

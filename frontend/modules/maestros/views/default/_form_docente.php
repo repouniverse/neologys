@@ -14,7 +14,7 @@ use common\models\masters\Facultades;
 <div class="box box-success">
     <?php $form = ActiveForm::begin(
                                     [
-                                        'id' => 'alumnos-form',
+                                        'id' => 'docentes-form',
                                         'enableAjaxValidation' => true,
                                         'fieldClass' => 'common\components\MyActiveField',
                                     ]
@@ -32,7 +32,7 @@ use common\models\masters\Facultades;
     
     <div class="box-body">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <?= $form->field($model, 'codalu')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'codoce')->textInput(['maxlength' => true]) ?>
         </div>
         
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
@@ -55,7 +55,7 @@ use common\models\masters\Facultades;
                         'form'=>$form,
                         'data'=> ComboHelper::getCboUniversidades(),
                         'campo'=>'universidad_id',
-                        'idcombodep'=>'alumnos-facultad_id',               
+                        'idcombodep'=>'docentes-facultad_id',               
                         'source'=>[\common\models\masters\Facultades::className()=>
                                     [
                                         'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
@@ -67,31 +67,10 @@ use common\models\masters\Facultades;
                )
             ?>
         </div>
-        
-        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">          
-            <?= ComboDep::widget
-                (
-                    [
-                        'model'=>$model,               
-                        'form'=>$form,
-                        'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
-                        'campo'=>'facultad_id',
-                        'idcombodep'=>'alumnos-carrera_id',               
-                        'source'=>[\common\models\masters\Carreras::className()=>
-                                    [
-                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
-                                        'camporef'=>'nombre',//columna a mostrar 
-                                        'campofiltro'=>'facultad_id'  
-                                    ]
-                                  ],
-                    ]
-               )
-            ?>
-        </div>
-        
+                
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
-            <?= $form->field($model, 'carrera_id')->
-                             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facultad_id),
+            <?= $form->field($model, 'facultad_id')->
+                             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
                                                                 ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                                          )
             ?>

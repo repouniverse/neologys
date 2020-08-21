@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\inter\models;
+namespace common\models\masters;
 
 /**
  * This is the ActiveQuery class for [[Docentes]].

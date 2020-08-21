@@ -8,4 +8,6 @@ return [
     'Choose a Value'=>'Seleccione un valor',
     'Delete'=>'Eliminar',
     'Update'=>'Actualizar',
+    'Search'=>'Buscar',
+    'Reset'=>'Reiniciar',
 ];
