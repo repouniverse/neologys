@@ -17,7 +17,7 @@ class AssetBundle extends \yii\web\AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@backend/views/skins/apariencia_1/nuevo/prueba/dist' ;
+    public $sourcePath = '@frontend/views/skins/apariencia_1/nuevo/prueba/dist' ;
 
     /**
      * @inherit

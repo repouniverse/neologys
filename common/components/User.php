@@ -5,6 +5,7 @@ use common\models\Useraudit;
 use common\helpers\h;
 use common\models\Profile;
 use yii\helpers\Html;
+use common\models\masters\Transacciones;
 use yii;
 use yii\web\User as UserOriginal;
 use Carbon\Carbon;
@@ -142,26 +143,28 @@ class User extends UserOriginal {
    }
    
    public function resolveUrlAfterLogin(){
-      //$url=\yii\helpers\Url::previous('intentona');
-      //yii::error('REOSLVE AFTER login');
-       //yii::error('El url recordado es '.$url);
-     // yii::error($url);
-     /* if(!is_null($url)){
-           yii::error('Se encontro un recuerdo '.$url);
-          return str_replace($url, \yii\helpers\Url::home(),'');
-      }else{
-        yii::error('NO Se encontro un recuerdo ');  
-      }*/
+    
        $url=$this->getUrlDefault();
        if(!is_null($url)){
           return $url;  
        }else{
-           $tipo=$this->profile->tipo;
-           $url=h::gsetting('general','url.profile.'.$tipo);
-            if(!is_null($url)){
-              return $url;
-          } 
+           $persona=$this->profile->persona;
+           if(is_null($persona))
+           return \yii\helpers\Url::home();
+           $codgrupo=$persona->codgrupo;
+           $url=$this->getUrlFromRoutes($codgrupo);
+           return ($url)?$url:\yii\helpers\Url::home();
        }
+   }
+   /*
+    * Esta funcion lee el valor de 
+    * la ruta  registrada en 
+    * la tabla auth_items , leele valor del
+    * campo 
+    * grupopersona  establecida 
+    */
+   private function getUrlFromRoutes($grupo){
+      return Transacciones::find()->select(['name'])->where(['grupopersonas'=>$grupo])->scalar();
    }
    
    

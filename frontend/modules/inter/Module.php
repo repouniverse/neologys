@@ -1,6 +1,9 @@
 <?php
 
 namespace frontend\modules\inter;
+use common\helpers\h;
+use common\helpers\FileHelper;
+USE yii2mod\settings\models\enumerables\SettingType;
 use yii;
 /**
  * inter module definition class
@@ -29,7 +32,13 @@ class Module extends \yii\base\Module
     
     private static function putSettingsModule(){
          //h::getIfNotPutSetting('mail','servermail',"smtp.googlemail.com", SettingType::STRING_TYPE);
-          
+             // h::getIfNotPutSetting('sta','formatDateFullCalendar',"YYYY-MM-DD HH:mm:ss", SettingType::STRING_TYPE);
+       h::getIfNotPutSetting('sta','prefiximagesalu','60', SettingType::STRING_TYPE);
+        
+        h::getIfNotPutSetting('sta','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
+         h::getIfNotPutSetting('sta','urlimagesalu','http:://www.orce.uni.edu.pe/alumnos/', SettingType::STRING_TYPE);
+          // h::getIfNotPutSetting('sta','showImgOrce',true, SettingType::BOOLEAN_TYPE);
+    
         }
     
     
@@ -55,4 +64,8 @@ class Module extends \yii\base\Module
         
         return Yii::t('modules/inter/' . $category, $message, $params, $language);
     }
+    
+    
+    
+    
 }

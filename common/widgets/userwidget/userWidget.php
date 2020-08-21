@@ -26,11 +26,7 @@ class userWidget extends Widget
     {
         
         $profile=h::user()->getProfile();
-      \yii::trace('trace');
-       \yii::error('error');
-        \yii::info('info');
-         \yii::warning('warning');
-        if(!is_null($profile) && //Si tiene asociado un profile
+      if(!is_null($profile) && //Si tiene asociado un profile
             count($profile->files)>0  && //Si tiene adjunto
             trim(substr($profile->files[0]->mime,0,5))=='image' //si es imagen 
                 ){
@@ -41,6 +37,7 @@ class userWidget extends Widget
            $this->_src='@web/img/anonimo.svg';
             //$this->longName='';
         }
+       // var_dump($this->_src);die();
         $this->longName=(!$this->longName)?'':$profile->names;
         parent::init();
         

@@ -7,6 +7,7 @@ use common\helpers\FileHelper;
 use common\behaviors\FileBehavior;
 use frontend\modules\sta\helpers\comboHelper;
 use yii\data\ActiveDataProvider;
+
 use Yii;
 
 /**
@@ -257,7 +258,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
      }
      
      
-  public function putUrl($url){
+  private function putUrl($url){
       $this->url=$url;
       $this->save();
   }   

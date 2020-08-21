@@ -138,6 +138,7 @@ class AuthWithQuestionForm extends Model
   
   
   public function sendEmailToVerifyMail($codalu) {
+      h::settings()->invalidateCache();
        $token=  \common\components\token\Token::create('auten', 'token_'.$codalu, null, time());
       // $replyTo=$examen->cita->taller->correo;
         $link= Url::to(['/inter/default/verify-email-token-auth',
@@ -185,16 +186,7 @@ class AuthWithQuestionForm extends Model
          
         if (!is_null($user)) { //Si el usuario ya existe
             //verifia rque si sttus este activo
-              if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
-                        $user->generatePasswordResetToken();
-                            if (!$user->save()) {
-                                return false;
-                            }
-                     }
-           $user->status=User::STATUS_ACTIVE;
-                  if (!$user->save()) {
-                                return false;
-                            }
+             
             
         }else{ //Si el usuario no existe hay que crearlo
           $user= $this->modelPostulante->persona->createUser($this->codigo,$this->email);
@@ -211,6 +203,16 @@ class AuthWithQuestionForm extends Model
              */
             
         }
+         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
+                        $user->generatePasswordResetToken();
+                            if (!$user->save()) {
+                                return false;
+                            }
+                     }
+           $user->status=User::STATUS_ACTIVE;
+                  if (!$user->save()) {
+                                return false;
+                            }
        return Yii::$app
             ->mailer
             ->compose(

@@ -317,6 +317,8 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    
+    return $this->render('@frontend/views/layouts/perfiles/panel_alumno_internacional'); 
    $dae= \Yii::$app->db->createCommand()->setSql("select *from {{%universidades}}")->queryAll();
     var_dump($dae);die();
     $TABLA='{{%inter_idiomasalu}}';

@@ -59,6 +59,17 @@ elseif($accion=='signup'){
         ['content' => $content]
     );
 
+    
+    
+}elseif($accion=='verify-email-token-auth'){
+   
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );
+
+  
+    
 }else{
 
 

@@ -66,8 +66,8 @@ class DefaultController extends Controller
                                 //$sesion=h::session()->set('login',$model->codigo);
                                 //if($modelPostulante->sinceraCorreo($model->email)){
                                       $model->sendEmailToVerifyMail($model->codigo);
-                                    return $this->redirect(['auth-end-first','code'=>$model->codigo,'correo'=>$model->email]);
-                                   
+                                    //return $this->redirect(['auth-end-first','code'=>$model->codigo,'corre o'=>$model->email]);
+                                    return $this->render('base_wait',['code'=>$model->codigo,'correo'=>$model->email]);
                                 //}else{
                                   
                                   //}
@@ -75,7 +75,7 @@ class DefaultController extends Controller
                          return  $this->render('base_add',['model'=>$model]);
             
         }else{
-           return $this->redirect(['base_auth','model'=>$model]);
+           return $this->redirect(['base_auth']);
         
            }
         }
@@ -90,6 +90,7 @@ class DefaultController extends Controller
 
    
    public function actionVerifyEmailTokenAuth($id){
+       $this->layout="install";
        $codalu= base64_decode($id);
        $modo_id=base64_decode(h::request()->get('modo_id'));
       
@@ -118,12 +119,15 @@ class DefaultController extends Controller
                             'email'=>$correo]);
                     //var_dump($modo_id,$model->attributes);die();
                     //actualiza el correo em la tabla postulante//
-                    
-                    $model->modelPostulante->sinceraCorreo($correo);
+                    $postulante=$model->modelPostulante;
+                    if(is_null($postulante))
+                     return $this->render('base_error_datos_url');
+                    $postulante->sinceraCorreo($correo);
                     //Como ya validó el token , aqui si creamos el usuario
                     //si no existe  y le mandamos paa que sresetee el password//
                    $model->sendEmailToCreateUser();
-                   return $this->redirect(['/site/request-password-reset']);
+                   return $this->render('base_final',['model'=>$model]);
+                  // return $this->redirect(['/site/request-password-reset']);
                    
              }
         }    

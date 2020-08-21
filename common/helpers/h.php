@@ -268,5 +268,14 @@ class h {
     $cuantos= \yii2mod\settings\models\SettingModel::find()->count();
      return ($cuantos > 0)?true:false;
  }
+ 
+ public static function awe($font){
+     return "<span class='fa fa-".$font."'></span>";
+     
+ }
+ public static function gly($font){
+     return "<span class='glyphicon glyphicon-".$font."'></span>";
+     
+ }
 }
 ?>

@@ -1,3 +1,10 @@
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .nav-tabs-custom>.nav-tabs>li.active {
     border-top-color: #6da252;
 }

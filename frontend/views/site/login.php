@@ -56,8 +56,8 @@ $fieldOptions2 = [
 
        <?=Html::a(yii::t('base.labels','I forgot my password'),Url::to(['request-password-reset']))?>
         <br>
-        <?=Html::a(yii::t('base.labels','Register'),Url::to(['signup']))?>
-      
+        <?=Html::a(yii::t('base.labels','Register'),Url::to(['/inter/default/base-auth']))?>
+         
     
         
     </div>

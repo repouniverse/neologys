@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea661b8ba401a12c3556aa88e7d00568",
+    "content-hash": "22468533bb497ce7623b37643c02ed3f",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -75,7 +75,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -282,6 +282,106 @@
             "time": "2013-12-10T17:49:58+00:00"
         },
         {
+            "name": "conquer/excanvas",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/borodulin/yii2-excanvas.git",
+                "reference": "55fb1708846feed7c74ee030164e6128d2364071"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/borodulin/yii2-excanvas/zipball/55fb1708846feed7c74ee030164e6128d2364071",
+                "reference": "55fb1708846feed7c74ee030164e6128d2364071",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "conquer\\excanvas\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Borodulin",
+                    "email": "borodulin@gmail.com",
+                    "homepage": "https://github.com/borodulin/yii2-excanvas"
+                }
+            ],
+            "description": "Yii2 excanvas assets",
+            "homepage": "https://github.com/borodulin/yii2-excanvas",
+            "keywords": [
+                "excanvas",
+                "extension",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-04-10T16:16:05+00:00"
+        },
+        {
+            "name": "conquer/jvectormap",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/borodulin/yii2-jvectormap.git",
+                "reference": "e9558a41a0b518b2871f6a2d1a62fc498a8b548a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/borodulin/yii2-jvectormap/zipball/e9558a41a0b518b2871f6a2d1a62fc498a8b548a",
+                "reference": "e9558a41a0b518b2871f6a2d1a62fc498a8b548a",
+                "shasum": ""
+            },
+            "require": {
+                "conquer/excanvas": "~1.0.0",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "conquer\\jvectormap\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Borodulin",
+                    "email": "borodulin@gmail.com"
+                }
+            ],
+            "description": "Yii2 jvectormap widget",
+            "homepage": "https://github.com/borodulin/yii2-jvectormap",
+            "keywords": [
+                "extension",
+                "jvectrormap",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-11-20T05:58:17+00:00"
+        },
+        {
             "name": "dmstr/yii2-adminlte-asset",
             "version": "2.6.2",
             "source": {
@@ -416,6 +516,51 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
+        },
+        {
+            "name": "drsdre/yii2-wizardwidget",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drsdre/yii2-wizardwidget.git",
+                "reference": "51ef01d315875830af2565121fe1f3b1bf32850c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drsdre/yii2-wizardwidget/zipball/51ef01d315875830af2565121fe1f3b1bf32850c",
+                "reference": "51ef01d315875830af2565121fe1f3b1bf32850c",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": ">=2.0.6",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "drsdre\\wizardwidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "A.F.Schuurman",
+                    "email": "andre.schuurman+yii2-wizardwidget@gmail.com"
+                }
+            ],
+            "description": "Multi step wizard widget using tabs to guide a user through steps to complete a task. Based on the Form wizard (using tabs) from lukepzak (see http://bootsnipp.com/snippets/featured/form-wizard-using-tabs).",
+            "keywords": [
+                "extension",
+                "tabs",
+                "ui",
+                "widget",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2016-12-28T13:00:02+00:00"
         },
         {
             "name": "egulias/email-validator",
