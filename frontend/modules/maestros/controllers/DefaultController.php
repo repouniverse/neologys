@@ -25,10 +25,12 @@ use common\models\masters\AlumnosSearch;
 use common\models\masters\Departamentos;
 use common\models\masters\DepartamentosSearch;
 use common\models\masters\Alumnos;
+use common\models\masters\DocentesSearch;
+use common\models\masters\Docentes;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /**
  * Default controller for the `maestros` module
  */
@@ -1004,29 +1006,38 @@ class DefaultController extends \common\controllers\base\baseController
        
    } 
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+      
    public function actionIndexAlumnos()
     { 
         $searchModel = new AlumnosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-   return $this->render('index_alumno', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]); 
-//}
-        
+        return $this->render
+                            (
+                             'index_alumno', 
+                             [
+                              'searchModel' => $searchModel,
+                              'dataProvider' => $dataProvider,
+                             ]
+                            );         
     }
 
+    
+    public function actionIndexDocentes()
+    { 
+        $searchModel = new DocentesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render
+                            (
+                             'index_docente', 
+                             [
+                              'searchModel' => $searchModel,
+                              'dataProvider' => $dataProvider,
+                             ]
+                            );         
+    }
+    
     /**
      * Displays a single Trabajadores model.
      * @param string $id
@@ -1051,14 +1062,28 @@ class DefaultController extends \common\controllers\base\baseController
         } else {
             return $this->render('view_alumno', ['model'=>$model]);
         }
-        
-        
-        
-        
-        
-       
     }
 
+    public function actionViewDocentes($id)
+    {
+         $model=$this->findModelDocentes($id);
+        // var_dump(h::request()->isAjax,$model->load(h::request()->post()));die();
+         if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'El registro se ha grabado');
+            // Multiple alerts can be set like below
+           // Yii::$app->session->setFlash('kv-detail-warning', 'A last warning for completing all data.');
+            //Yii::$app->session->setFlash('kv-detail-info', '<b>Note:</b> You can proceed by clicking <a href="#">this link</a>.');
+            return $this->redirect(['view-docentes', 'id'=>$model->id]);
+        } else {
+            return $this->render('view_docente', ['model'=>$model]);
+        }
+    }
+    
     /**
      * Creates a new Trabajadores model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -1079,7 +1104,7 @@ class DefaultController extends \common\controllers\base\baseController
         if ($model->load(h::request()->post()) && $model->save()) {
             return $this->redirect(['view-alumnos', 'id' => $model->id]);
         }else{
-           // print_r($model->getErrors());die();
+            //print_r($model->getErrors());die();
         }
 
         return $this->render('create_alumno', [
@@ -1087,6 +1112,25 @@ class DefaultController extends \common\controllers\base\baseController
         ]);
     }
 
+    public function actionCreateDocentes()
+    {
+        $model = new Docentes();
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            return $this->redirect(['view-docentes', 'id' => $model->id]);
+        }else{
+            //print_r($model->getErrors());die();
+        }
+
+        return $this->render('create_docente', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Updates an existing Trabajadores model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -1123,6 +1167,25 @@ class DefaultController extends \common\controllers\base\baseController
         ]);
     }
 
+    public function actionUpdateDocentes($id)
+    {
+        $model = $this->findModelDocentes($id);
+     
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+     
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           return $this->redirect(['view-docentes', 'id' => $model->id]);
+        }
+
+        
+        
+        return $this->render('update_docente', [
+          'model'=>$model
+        ]);
+    }
     /**
      * Deletes an existing Trabajadores model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -1130,13 +1193,41 @@ class DefaultController extends \common\controllers\base\baseController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDeleteAlumnos($id)
+    /*public function actionDeleteAlumnos($id)
     {
         $this->findModelTrabajadores($id)->delete();
 
         return $this->redirect(['index-alumno']);
-    }
+    }*/
 
+    public function actionDeleteAlumnos($id)
+    {
+        if(h::request()->isAjax)
+            {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                $model= Alumnos::findOne($id);
+            
+                if(is_null($model))
+                throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                $this->deleteModel($id, $model::className());
+                return ['warning'=>m::t('labels','The record was deleted')];
+            }
+     }
+    
+    public function actionDeleteDocentes($id)
+    {
+        if(h::request()->isAjax)
+            {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                $model= Docentes::findOne($id);
+            
+                if(is_null($model))
+                throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                $this->deleteModel($id, $model::className());
+                return ['warning'=>m::t('labels','The record was deleted')];
+            }
+    } 
+    
     /**
      * Finds the Trabajadores model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -1152,10 +1243,15 @@ class DefaultController extends \common\controllers\base\baseController
 
         throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
     }
-    
-     
-    
-    
+       
+    protected function findModelDocentes($id)
+    {
+        if (($model = Docentes::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+    }
     
     
     

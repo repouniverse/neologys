@@ -52,6 +52,7 @@ class ConvocadosController extends baseController
             'id'=>$modelPrograma->id,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'modelPrograma'=>$modelPrograma,
         ]);
         
            

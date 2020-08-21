@@ -6,18 +6,18 @@ use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 
-$this->title = m::t('labels', 'Students');
+$this->title = m::t('labels', 'Teachers');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="alumnos-index">
+<div class="docentes-index">
     <h4> <?= Html::encode($this->title) ?> </h4>
     <div class="box box-success">
         <div class="box-body">
             <?php Pjax::begin(['id'=>'gridTraba']); ?>
-            <?php  echo $this->render('_search_alumno', ['model' => $searchModel]); ?>
+            <?php  echo $this->render('_search_docente', ['model' => $searchModel]); ?>
             <p>
-                 <?= Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
+                 <?= Html::a(m::t('labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([
@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'ap',
                             'am',
                             'nombres',
-                            'codalu',
+                            'codoce',
                             ['class'=>'yii\grid\ActionColumn',
                                       'template'=>'{update}{delete}',
                                       'buttons'=>[
                                                   'update'=>function($url,$model)
                                                             {
-                                                                $url=Url::to(['update-alumnos','id'=>$model->id]);
+                                                                $url=Url::to(['update-docentes','id'=>$model->id]);
                                                                 $options = ['title' => m::t('verbs', 'Update'),];
                                                                 return Html::a
                                                                         (
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             },
                                                   'delete'=>function ($url,$model)
                                                             {                                                                 
-                                                                $url=Url::to(['delete-alumnos','id'=>$model->id]);
+                                                                $url=Url::to(['delete-docentes','id'=>$model->id]);
                                                                 $options = [
                                                                                 'family'=>'holas',
                                                                                 'id'=>$model->id,                                                                   

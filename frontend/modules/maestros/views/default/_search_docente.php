@@ -5,10 +5,10 @@ use frontend\modules\maestros\MaestrosModule as m;
 use common\models\masters\Personas;
 ?>
 
-<div class="alumnos-search">
+<div class="docentes-search">
     <?php $form = ActiveForm::begin(
                   [
-                   'action' => ['index-alumnos'],
+                   'action' => ['index-docentes'],
                    'method' => 'get',
                    'options' => ['data-pjax' => 1],
                   ]); 
@@ -21,7 +21,7 @@ use common\models\masters\Personas;
     </div>
 
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'codalu') ?>        
+        <?= $form->field($model, 'codoce') ?>        
     </div>
     
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

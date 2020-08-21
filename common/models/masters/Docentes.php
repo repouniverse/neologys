@@ -35,8 +35,10 @@ use Yii;
 class Docentes extends \common\models\base\modelBase 
 implements \common\interfaces\postulantesInterface 
 {
-     use nameTrait;
+    use nameTrait;
     use identidadTrait;
+    
+    const SCE_CREACION_BASICA='base';
     /**
      * {@inheritdoc}
      */
@@ -52,10 +54,17 @@ implements \common\interfaces\postulantesInterface
     {
         return [
             [['facultad_id', 'universidad_id', 'persona_id'], 'integer'],
-            [['codoce', 'codpering', 'codfac'], 'required'],
+            [['codoce'], 'required'],
+            
+             /* PARA ESCENARIOBASICO*/
+            [[
+            'codoce','ap','am','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id',
+            ],'required','on'=>self::SCE_CREACION_BASICA
+            ],
+            
             [['codoce', 'codoce1', 'codoce2'], 'string', 'max' => 16],
             [['codigoper'], 'string', 'max' => 8],
-            [['mail'], 'mail'],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['codpering', 'codfac'], 'string', 'max' => 10],
             [['numerodoc'], 'string', 'max' => 20],
@@ -73,25 +82,38 @@ implements \common\interfaces\postulantesInterface
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'codoce' => Yii::t('base_labels', 'Codoce'),
-            'codoce1' => Yii::t('base_labels', 'Codoce1'),
-            'codoce2' => Yii::t('base_labels', 'Codoce2'),
-            'codigoper' => Yii::t('base_labels', 'Codigoper'),
-            'ap' => Yii::t('base_labels', 'Ap'),
-            'am' => Yii::t('base_labels', 'Am'),
-            'nombres' => Yii::t('base_labels', 'Nombres'),
-            'codpering' => Yii::t('base_labels', 'Codpering'),
-            'codfac' => Yii::t('base_labels', 'Codfac'),
-            'numerodoc' => Yii::t('base_labels', 'Numerodoc'),
-            'tipodoc' => Yii::t('base_labels', 'Tipodoc'),
-            'categoria' => Yii::t('base_labels', 'Categoria'),
-            'dispo' => Yii::t('base_labels', 'Dispo'),
+            'facultad_id' => Yii::t('base_labels', 'Faculty'),
+            'universidad_id' => Yii::t('base_labels', 'University'),
+            'persona_id' => Yii::t('base_labels', 'Person'),
+            'codoce' => Yii::t('base_labels', 'Code Teacher'),
+            'codoce1' => Yii::t('base_labels', 'Code Teacher 1'),
+            'codoce2' => Yii::t('base_labels', 'Code Teacher 2'),
+            'codigoper' => Yii::t('base_labels', 'Personal Code'),
+            'ap' => Yii::t('base_labels', 'Last Name'),
+            'am' => Yii::t('base_labels', 'Mother Last Name'),
+            'nombres' => Yii::t('base_labels', 'Names'),
+            'codpering' => Yii::t('base_labels', 'Entry Period Code'),
+            'codfac' => Yii::t('base_labels', 'Code Faculty'),
+            'numerodoc' => Yii::t('base_labels', 'Document Number'),
+            'tipodoc' => Yii::t('base_labels', 'Document Type'),
+            'categoria' => Yii::t('base_labels', 'Category'),
+            'dispo' => Yii::t('base_labels', 'Available'),
         ];
     }
 
+    
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCE_CREACION_BASICA] = [
+           'codoce', 'ap','am','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id'
+            ];
+        /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
+        $scenarios[self::SCENARIO_PSICO] = ['codtra'];
+        $scenarios[self::SCENARIO_ACTIVO] = ['activo'];
+        $scenarios[self::SCENARIO_REPROGRAMA] = ['fechaprog', 'duracion', 'finicio', 'ftermino', 'codtra'];
+        */return $scenarios;
+    }
     /**
      * Gets query for [[Facultad]].
      *
@@ -168,7 +190,6 @@ implements \common\interfaces\postulantesInterface
   public function questionsForAutenticate() {
       return [
              'codigo'=>$this->codoce,
-             'email'=>$this->mail,
              'questions'=>[
                  'pregunta1'=>[yii::t('base_labels','Document Identity')=>$this->numerodoc],
                  'pregunta2'=>[yii::t('base_labels','Last Name')=>$this->ap],
@@ -179,7 +200,7 @@ implements \common\interfaces\postulantesInterface
   
   
   public function modelByCode($code) {
-      return static::find()->andWhere(['codalu'=>$code])->one();
+      return static::find()->andWhere(['codoce'=>$code])->one();
   }   
   
   
