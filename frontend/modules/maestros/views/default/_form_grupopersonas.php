@@ -44,6 +44,17 @@ use common\helpers\ComboHelper;
        
     </div>
     
+     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <?= $form->field($model, 'layout')->
+            dropDownList(ComboHelper::getCboModels(),
+                    ['prompt'=>'--'.yii::t('base.verbs','Choose a value')."--",
+                    // 'class'=>'probandoSelect2',
+                        ]
+                    ) ?>
+    
+       
+    </div>
+    
    
 
     <?php ActiveForm::end(); ?>

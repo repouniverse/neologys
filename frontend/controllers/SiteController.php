@@ -1,5 +1,6 @@
 <?php
 namespace frontend\controllers;
+    use yii\helpers\Url;
 use frontend\models\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -317,6 +318,28 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+var_dump(\common\models\masters\GrupoPersonas::mapFiles());
+   die();
+var_dump(\common\helpers\timeHelper::IsFormatMysqlDate( '2020-08-21?codfac'));
+die();
+
+   echo " Url::home()  :   ".Url::home()."<br>";
+   echo " Url::home('https')  :   ".Url::home('https')."<br>";
+   echo " Url::base()  :   ".Url::base()."<br>";
+   echo " Url::to(['controlador/accion','param2'=>'uno','param2'=>'dos'],true)  :   ".Url::to(['controlador/accion','param1'=>'uno','param2'=>'dos'],true)."<br>";
+   echo " Url::base(true)  :   ".Url::base(true)."<br>";
+   echo " Url::base('https')  :   ".Url::base('https')."<br>";
+   echo " Url::canonical()  :   ".Url::canonical()."<br>";
+   echo " Url::current()  :   ".Url::current()."<br>";
+   echo " Url::previous()  :   ".Url::previous()."<br>";
+   echo " UrlManager::getBaseUrl()  :   ".yii::$app->urlManager->getBaseUrl()."<br>";
+   echo " UrlManager::getHostInfo()  :   ".yii::$app->urlManager->getHostInfo()."<br>";
+   echo " UrlManager::getScriptUrl()  :   ".yii::$app->urlManager->getScriptUrl()."<br>";
+  
+    
+   
+    
+    
     
     return $this->render('@frontend/views/layouts/perfiles/panel_alumno_internacional'); 
    $dae= \Yii::$app->db->createCommand()->setSql("select *from {{%universidades}}")->queryAll();

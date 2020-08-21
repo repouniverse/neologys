@@ -291,5 +291,48 @@ public function UrlImage($path,$internal=true){
     
   }
 
-
+/*
+ * Deuelce deunnarray de rutas 
+ * claevs: rutas de los archivos
+ * valores: nombres de los archivos
+ * 
+ * si absolute =true 
+ * claves viene con ruta absoluta
+ * si false devuelve ruta relativa 
+ * 
+ * 
+ * Si inverse es true
+ *  * claves: nombres de los archivos
+ * valores: rutas de los archivos
+ */
+  public static function mapFiles($files,$absolute=false,$inverse=false){
+      $arreglo=[];
+      foreach($files as $file){
+          $extension=self::extensionFile($file, true);
+          $file=($absolute)?file:self::toPathRelative($file);
+          $arreglo[$file]= str_replace($extension,'',basename($file));
+          
+      }
+      
+      if($inverse){
+          return array_flip($arreglo);
+      }
+      return $arreglo;
+  }
+  
+  /*
+   * Devuelve la ruta de un archivo 
+   * es decir reemplaza la ruta larga por 
+   * una ruta corta 
+   *  c:\xampp\htodocs\frontend\views\mivista.php
+   * devuelve 
+   *   \frontend\views\mivista.php
+   * 
+   * Reemplza el yii::getAlias('@root) por una cadena vacía ''
+   */
+  public static function toPathRelative($absolutePath){
+      return str_replace(yii::getAlias('@root'), '', $absolutePath);
+  }
+  
+  
 }

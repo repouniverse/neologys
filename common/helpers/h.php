@@ -272,6 +272,8 @@ class h {
  public static function awe($font){
      return "<span class='fa fa-".$font."'></span>";
      
+    
+     
  }
  public static function gly($font){
      return "<span class='glyphicon glyphicon-".$font."'></span>";

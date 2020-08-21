@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-
+use common\helpers\FileHelper;
 use Yii;
 
 /**
@@ -16,6 +16,12 @@ use Yii;
  */
 class GrupoPersonas extends \common\models\base\modelBase
 {
+   /*
+    * Propiedad para alacenar la ruta donde se guardan so archios de las 
+    * cistas para los paneles de bienvenida 
+    */
+    public static $panelPath='frontend/views/layouts/perfiles'; 
+    
     /**
      * {@inheritdoc}
      */
@@ -32,6 +38,7 @@ class GrupoPersonas extends \common\models\base\modelBase
         return [
             [['codgrupo', 'desgrupo', 'modelo'], 'required'],
             [['detalle'], 'string'],
+            [['layout'], 'safe'],
             [['codgrupo'], 'string', 'max' => 3],
             [['desgrupo'], 'string', 'max' => 60],
             [['modelo'], 'string', 'max' => 100],
@@ -70,4 +77,31 @@ class GrupoPersonas extends \common\models\base\modelBase
     {
         return new GrupoPersonasQuery(get_called_class());
     }
+    /*
+     * dEVUELVE UN ARRAY DE RUTAS A LOS 
+     */
+    public static function mapFiles(){
+        $mapDir = Yii::getAlias('@'.self::$panelPath);
+        $mapDir =FileHelper::normalizePath($mapDir);
+     $options = ['filter' => function ($path) {
+         if (is_dir($path)) {
+             $file = basename($path);
+             if (substr($file,0,5) == 'panel') {
+                 return false;
+             }else{
+                 return true;
+             }
+         }
+         return;
+     }, 'only' => ['*.php'], 'except' => []];
+     
+        return FileHelper::mapFiles(FileHelper::findFiles($mapDir,
+                [
+                    'recursive'=>false,
+                ]));
+        
+        
+        
+    }
+    
 }
