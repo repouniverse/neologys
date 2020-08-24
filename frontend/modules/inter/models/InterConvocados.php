@@ -9,6 +9,7 @@ use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
 use common\models\masters\Alumnos;
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -81,24 +82,24 @@ class InterConvocados extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'codperiodo' => Yii::t('base_labels', 'Codperiodo'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'secuencia' => Yii::t('base_labels', 'Secuencia'),
-            'alumno_id' => Yii::t('base_labels', 'Alumno ID'),
-            'docente_id' => Yii::t('base_labels', 'Docente ID'),
-            'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'identidad_id' => Yii::t('base_labels', 'Identidad ID'),
-            'codalu' => Yii::t('base_labels', 'Codalu'),
-            'codigo1' => Yii::t('base_labels', 'Codigo1'),
-            'codigo2' => Yii::t('base_labels', 'Codigo2'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Departament'),
+            'modo_id' => m::t('labels', 'Mode'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'programa_id' => m::t('labels', 'Program'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'secuencia' => m::t('labels', 'Sequence'),
+            'alumno_id' => m::t('labels', 'Student'),
+            'docente_id' => m::t('labels', 'Teacher'),
+            'persona_id' => m::t('labels', 'Person'),
+            'identidad_id' => m::t('labels', 'Identity'),
+            'codalu' => m::t('labels', 'Code Student'),
+            'codigo1' => m::t('labels', 'Code 1'),
+            'codigo2' => m::t('labels', 'Code 2'),
         ];
     }
 

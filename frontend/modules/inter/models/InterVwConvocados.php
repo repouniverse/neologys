@@ -2,6 +2,7 @@
 
 namespace frontend\modules\inter\models;
 
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -49,12 +50,12 @@ class InterVwConvocados extends \common\models\base\modelBase
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['codocu', 'clase', 'status', 'acronimo', 'descripcion', 'desprograma'], 'required'],
+            [['codocu', 'clase', 'status', 'acronimo', 'descripcion', 'desprograma', 'codigoper'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codalu', 'codigo1', 'codigo2'], 'string', 'max' => 16],
-            [['am', 'ap', 'nombres', 'acronimo', 'descripcion', 'desprograma'], 'string', 'max' => 40],
+            [['am', 'ap', 'nombres', 'acronimo', 'descripcion', 'desprograma'], 'string', 'max' => 40],            
         ];
     }
 
@@ -64,33 +65,37 @@ class InterVwConvocados extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'universidad_id' => 'Universidad ID',
-            'facultad_id' => 'Facultad ID',
-            'depa_id' => 'Depa ID',
-            'modo_id' => 'Modo ID',
-            'codperiodo' => 'Codperiodo',
-            'codocu' => 'Codocu',
-            'programa_id' => 'Programa ID',
-            'clase' => 'Clase',
-            'status' => 'Status',
-            'secuencia' => 'Secuencia',
-            'alumno_id' => 'Alumno ID',
-            'docente_id' => 'Docente ID',
-            'persona_id' => 'Persona ID',
-            'identidad_id' => 'Identidad ID',
-            'codalu' => 'Codalu',
-            'codigo1' => 'Codigo1',
-            'codigo2' => 'Codigo2',
-            'am' => 'Am',
-            'ap' => 'Ap',
-            'nombres' => 'Nombres',
-            'acronimo' => 'Acronimo',
-            'descripcion' => 'Descripcion',
-            'desprograma' => 'Desprograma',
+            'id' => m::t('labels', 'ID'),
+            'codigoper' => m::t('labels', 'Person Code'),
+            'tipodoc' => m::t('labels', 'Document Type'),
+            'numerodoc' => m::t('labels', 'Document Number'),
+            'codgrupo' => m::t('labels', 'Group'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Departament'),
+            'modo_id' => m::t('labels', 'Mode'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'programa_id' => m::t('labels', 'Program'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'secuencia' => m::t('labels', 'Sequence'),
+            'alumno_id' => m::t('labels', 'Student'),
+            'docente_id' => m::t('labels', 'Teacher'),
+            'persona_id' => m::t('labels', 'Person'),
+            'identidad_id' => m::t('labels', 'Identity'),
+            'codalu' => m::t('labels', 'Student Code'),
+            'codigo1' => m::t('labels', 'Code 1'),
+            'codigo2' => m::t('labels', 'Code 2'),
+            'am' => m::t('labels', 'Last Name'),
+            'ap' => m::t('labels', 'Mother Last Name'),
+            'nombres' => m::t('labels', 'Names'),
+            'acronimo' => m::t('labels', 'Acronym'),
+            'descripcion' => m::t('labels', 'Description'),
+            'desprograma' => m::t('labels', 'Deprogram'),
         ];
     }
-
+      
     /**
      * {@inheritdoc}
      * @return InterVwConvocadosQuery the active query used by this AR class.

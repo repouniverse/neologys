@@ -13,4 +13,5 @@ return [
     'Choose a value'=>'Seleccione un valor',
     'Delete'=>'Eliminar',
     'View'=>'Ver',
+    'Search'=>'Buscar',
 ];

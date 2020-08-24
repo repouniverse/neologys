@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\inter\models\InterConvocadosSearch */
+/* @var $model common\models\masters\InterExpedientesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="inter-convocados-search">
+<div class="inter-expedientes-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -26,33 +26,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'depa_id') ?>
 
-    <?= $form->field($model, 'modo_id') ?>
+    <?= $form->field($model, 'programa_id') ?>
 
-    <?php // echo $form->field($model, 'codperiodo') ?>
+    <?php // echo $form->field($model, 'modo_id') ?>
 
-    <?php // echo $form->field($model, 'codocu') ?>
-
-    <?php // echo $form->field($model, 'programa_id') ?>
+    <?php // echo $form->field($model, 'convocado_id') ?>
 
     <?php // echo $form->field($model, 'clase') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 
-    <?php // echo $form->field($model, 'secuencia') ?>
+    <?php // echo $form->field($model, 'codocu') ?>
 
-    <?php // echo $form->field($model, 'alumno_id') ?>
+    <?php // echo $form->field($model, 'fpresenta') ?>
 
-    <?php // echo $form->field($model, 'docente_id') ?>
+    <?php // echo $form->field($model, 'fdocu') ?>
 
-    <?php // echo $form->field($model, 'persona_id') ?>
+    <?php // echo $form->field($model, 'detalles') ?>
 
-    <?php // echo $form->field($model, 'identidad_id') ?>
+    <?php // echo $form->field($model, 'textointerno') ?>
 
-    <?php // echo $form->field($model, 'codalu') ?>
+    <?php // echo $form->field($model, 'estado') ?>
 
-    <?php // echo $form->field($model, 'codigo1') ?>
-
-    <?php // echo $form->field($model, 'codigo2') ?>
+    <?php // echo $form->field($model, 'requerido') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('base_labels', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -141,6 +141,10 @@ implements \common\interfaces\postulantesInterface
         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
     }
 
+    public function getTipodocumento(){
+         return (Combovalores::getValue('personas.tipodoc', $this->tipodoc ));
+      } 
+      
     /**
      * {@inheritdoc}
      * @return DocentesQuery the active query used by this AR class.

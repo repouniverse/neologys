@@ -1,31 +1,22 @@
 <?php
-use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
-use yii\helpers\Html;
+    use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+    use yii\helpers\Html;
+    use yii\grid\GridView;
+    use yii\widgets\Pjax;
+    use frontend\modules\maestros\MaestrosModule as m;
 
-use yii\grid\GridView;
-use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel common\models\masters\TrabajadoresSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('base.labels', 'Persons');
-$this->params['breadcrumbs'][] = $this->title;
+    $this->title = m::t('labels', 'Persons');
+    $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
-
 <div class="trabajadores-index">
-
     <h4><?= Html::encode($this->title) ?></h4>
- <div class="box box-success">
-     <div class="box-body">
-    <?php Pjax::begin([
-        'id'=>'gridTraba'
-    ]); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="box box-success">
+        <div class="box-body">
+            <?php Pjax::begin(['id'=>'gridTraba']); ?>
+            <?php  echo $this->render('_search_personas', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Create person'), ['create-persona'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Person'), ['create-persona'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

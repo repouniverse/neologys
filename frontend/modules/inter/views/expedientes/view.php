@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\inter\models\InterConvocados */
+/* @var $model frontend\modules\inter\models\InterExpedientes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Inter Convocados'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Inter Expedientes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="inter-convocados-view">
+<div class="inter-expedientes-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -33,20 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'universidad_id',
             'facultad_id',
             'depa_id',
-            'modo_id',
-            'codperiodo',
-            'codocu',
             'programa_id',
+            'modo_id',
+            'convocado_id',
             'clase',
             'status',
-            'secuencia',
-            'alumno_id',
-            'docente_id',
-            'persona_id',
-            'identidad_id',
-            'codalu',
-            'codigo1',
-            'codigo2',
+            'codocu',
+            'fpresenta',
+            'fdocu',
+            'detalles:ntext',
+            'textointerno:ntext',
+            'estado',
+            'requerido',
         ],
     ]) ?>
 

@@ -1,14 +1,15 @@
 <?php
 
-namespace frontend\modules\inter\models;
+namespace common\models\masters;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\modules\inter\models\InterConvocados;
+use frontend\modules\inter\models\InterExpedientes;
+
 /**
- * InterConvocadosSearch represents the model behind the search form of `frontend\modules\inter\models\InterConvocados`.
+ * InterExpedientesSearch represents the model behind the search form of `frontend\modules\inter\models\InterExpedientes`.
  */
-class InterConvocadosSearch extends InterConvocados
+class InterExpedientesSearch extends InterExpedientes
 {
     /**
      * {@inheritdoc}
@@ -16,8 +17,8 @@ class InterConvocadosSearch extends InterConvocados
     public function rules()
     {
         return [
-            [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2'], 'safe'],            
+            [['id', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'convocado_id'], 'integer'],
+            [['clase', 'status', 'codocu', 'fpresenta', 'fdocu', 'detalles', 'textointerno', 'estado', 'requerido'], 'safe'],
         ];
     }
 
@@ -39,7 +40,7 @@ class InterConvocadosSearch extends InterConvocados
      */
     public function search($params)
     {
-        $query = InterConvocados::find();
+        $query = InterExpedientes::find();
 
         // add conditions that should always apply here
 
@@ -61,22 +62,20 @@ class InterConvocadosSearch extends InterConvocados
             'universidad_id' => $this->universidad_id,
             'facultad_id' => $this->facultad_id,
             'depa_id' => $this->depa_id,
-            'modo_id' => $this->modo_id,
             'programa_id' => $this->programa_id,
-            'secuencia' => $this->secuencia,
-            'alumno_id' => $this->alumno_id,
-            'docente_id' => $this->docente_id,
-            'persona_id' => $this->persona_id,
-            'identidad_id' => $this->identidad_id,
+            'modo_id' => $this->modo_id,
+            'convocado_id' => $this->convocado_id,
         ]);
 
-        $query->andFilterWhere(['like', 'codperiodo', $this->codperiodo])
-            ->andFilterWhere(['like', 'codocu', $this->codocu])
-            ->andFilterWhere(['like', 'clase', $this->clase])
+        $query->andFilterWhere(['like', 'clase', $this->clase])
             ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'codalu', $this->codalu])
-            ->andFilterWhere(['like', 'codigo1', $this->codigo1])
-            ->andFilterWhere(['like', 'codigo2', $this->codigo2]);
+            ->andFilterWhere(['like', 'codocu', $this->codocu])
+            ->andFilterWhere(['like', 'fpresenta', $this->fpresenta])
+            ->andFilterWhere(['like', 'fdocu', $this->fdocu])
+            ->andFilterWhere(['like', 'detalles', $this->detalles])
+            ->andFilterWhere(['like', 'textointerno', $this->textointerno])
+            ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'requerido', $this->requerido]);
 
         return $dataProvider;
     }
