@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\TrabajadoresSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -11,46 +11,34 @@ use yii\widgets\ActiveForm;
 <div class="trabajadores-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['index-persona'],
         'method' => 'get',
         'options' => [
             'data-pjax' => 1
         ],
     ]); ?>
-
-    <?= $form->field($model, 'codigoper') ?>
-
-    <?= $form->field($model, 'ap') ?>
-
-    <?= $form->field($model, 'am') ?>
-
-    <?= $form->field($model, 'nombres') ?>
-
     
-
-    <?php // echo $form->field($model, 'ppt') ?>
-
-    <?php // echo $form->field($model, 'pasaporte') ?>
-
-    <?php // echo $form->field($model, 'codpuesto') ?>
-
-    <?php // echo $form->field($model, 'cumple') ?>
-
-    <?php // echo $form->field($model, 'fecingreso') ?>
-
-    <?php // echo $form->field($model, 'domicilio') ?>
-
-    <?php // echo $form->field($model, 'telfijo') ?>
-
-    <?php // echo $form->field($model, 'telmoviles') ?>
-
-    <?php // echo $form->field($model, 'referencia') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('control.errors', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('control.errors', 'Reset'), ['class' => 'btn btn-default']) ?>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <div class="form-group">
+            <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        </div>
     </div>
 
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <?= $form->field($model, 'codigoper') ?>        
+    </div>
+       
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <?= $form->field($model, 'ap') ?>
+    </div>
+    
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <?= $form->field($model, 'am') ?>
+    </div>
+    
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <?= $form->field($model, 'nombres') ?>
+    </div>
+    
     <?php ActiveForm::end(); ?>
-
 </div>

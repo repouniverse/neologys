@@ -31,4 +31,13 @@ return[
     'Personal Code'=>'Código Personal',
     'Category'=>'Categoria',
     'Available'=>'Disponible',
+    
+    // Personas    
+    'Person Code'=>'Código de Persona',
+    'Birth Date'=>'Cumpleaños',
+    'Begin Date'=>'Fecha de ingreso',
+    'Address'=>'Domicilio',
+    'Phone'=>'Teléfono',
+    'Movil Phone'=>'Celular',
+    'References'=>'Referencias',
 ];

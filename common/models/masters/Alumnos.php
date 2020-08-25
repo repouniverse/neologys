@@ -5,6 +5,7 @@ use common\interfaces\identidadesInterface;
 
 USE common\traits\nameTrait;
 USE common\traits\identidadTrait;
+use common\models\masters\Combovalores;
 use Yii;
 
 /**
@@ -126,7 +127,9 @@ implements \common\interfaces\postulantesInterface
          return $this->hasOne(Carreras::className(), ['id' => 'carrera_id']);
       }
   
-      
+     public function getTipodocumento(){
+         return (Combovalores::getValue('personas.tipodoc', $this->tipodoc ));
+      } 
       
     /*
      * funcion q ue me permite 

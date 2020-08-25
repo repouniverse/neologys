@@ -6,7 +6,6 @@ use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
 use common\models\masters\Periodos;
-use common\models\masters\Carreras;
 use common\models\masters\Personas;
 use Yii;
 
@@ -72,18 +71,18 @@ class InterPrograma extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'codperiodo' => Yii::t('base_labels', 'Codperiodo'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'codigoper' => Yii::t('base_labels', 'Codigoper'),
-            'fopen' => Yii::t('base_labels', 'Fopen'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'depa_id' => m::t('labels', 'Departament'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'codigoper' => m::t('labels', 'Person Code'),
+            'fopen' => m::t('labels', 'Begin Date'),
+            'descripcion' => m::t('labels', 'Description'),
+            'detalles' => m::t('labels', 'Details'),
         ];
     }
 

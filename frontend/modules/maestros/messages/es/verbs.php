@@ -10,4 +10,6 @@ return [
     'Update'=>'Actualizar',
     'Search'=>'Buscar',
     'Reset'=>'Reiniciar',
+    'View'=>'Ver',
+    'View :{name}'=>'Ver :{name}',
 ];
