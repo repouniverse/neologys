@@ -20,7 +20,7 @@ class GrupoPersonas extends \common\models\base\modelBase
     * Propiedad para alacenar la ruta donde se guardan so archios de las 
     * cistas para los paneles de bienvenida 
     */
-    public static $panelPath='frontend/views/layouts/perfiles'; 
+    public $panelPath='frontend/views/layouts/perfiles'; 
     
     /**
      * {@inheritdoc}
@@ -80,8 +80,8 @@ class GrupoPersonas extends \common\models\base\modelBase
     /*
      * dEVUELVE UN ARRAY DE RUTAS A LOS 
      */
-    public static function mapFiles(){
-        $mapDir = Yii::getAlias('@'.self::$panelPath);
+    public function mapFiles(){
+        $mapDir = Yii::getAlias('@'.$this->panelPath);
         $mapDir =FileHelper::normalizePath($mapDir);
      $options = ['filter' => function ($path) {
          if (is_dir($path)) {
@@ -93,12 +93,12 @@ class GrupoPersonas extends \common\models\base\modelBase
              }
          }
          return;
-     }, 'only' => ['*.php'], 'except' => []];
+     }, 'only' => ['*.php'], 'except' => [],'recursive'=>false];
+    
      
-        return FileHelper::mapFiles(FileHelper::findFiles($mapDir,
-                [
-                    'recursive'=>false,
-                ]));
+     
+        return FileHelper::mapFilesView(FileHelper::findFiles($mapDir,
+                $options));
         
         
         

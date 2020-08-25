@@ -144,13 +144,13 @@ class User extends UserOriginal {
    
    public function resolveUrlAfterLogin(){
     
-       $url=$this->getUrlDefault();
+       $url=$this->getUrlDefault();//verifica sus favoritos 
        if(!is_null($url)){
           return $url;  
        }else{
            $persona=$this->profile->persona;
            if(is_null($persona))
-           return \yii\helpers\Url::home();
+           return \yii\helpers\Url::home();//Si no al home 
            $codgrupo=$persona->codgrupo;
            $url=$this->getUrlFromRoutes($codgrupo);
            return ($url)?$url:\yii\helpers\Url::home();
@@ -220,6 +220,8 @@ public function isMultiFacultad(){
             where(['user_id'=>$this->id,'activa'=>'1'])->
             count()>1)?true:false;   
 }
+
+
 
 
 }

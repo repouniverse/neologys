@@ -320,6 +320,27 @@ public function UrlImage($path,$internal=true){
       return $arreglo;
   }
   
+  
+  /*
+ * Deuelce deunnarray de rutas 
+ * claevs: rutas de los archivos
+ * valores: nombres de los archivos
+ * 
+ *
+ */
+  public static function mapFilesView($files){
+      $arreglo=[];
+      foreach($files as $file){
+          $extension=self::extensionFile($file, true);  
+          $file=self::normalizePath(str_replace($extension,'',str_replace(yii::$app->viewPath,'',$file)),'/');
+          $arreglo[$file]= str_replace($extension,'',basename($file));
+          
+      }
+      
+      
+      return $arreglo;
+  }
+  
   /*
    * Devuelve la ruta de un archivo 
    * es decir reemplaza la ruta larga por 

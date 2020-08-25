@@ -46,7 +46,7 @@ use common\helpers\ComboHelper;
     
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <?= $form->field($model, 'layout')->
-            dropDownList(ComboHelper::getCboModels(),
+            dropDownList($model->mapFiles(),
                     ['prompt'=>'--'.yii::t('base.verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                         ]

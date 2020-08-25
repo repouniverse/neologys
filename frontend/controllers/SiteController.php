@@ -17,6 +17,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\masters\GrupoPersonas;
 
 /**
  * Site controller
@@ -481,5 +482,31 @@ die();
     }   
     }
      
+   /*
+    * FUNCION DE PANEL DE BIENVENIDA 
+    */
+  public function actionWelcome(){
+      //var_dump(yii::$app->viewPath);die();
+      //var_dump(h::user()->profile->persona->identidad);die();
+   if(!is_null(($persona=h::user()->profile->persona))){
+     //if(is_null(($alumno=$persona->alumno))){
+         if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+             if(!is_null($identidad=$persona->identidad)){
+                // echo $grupo->layout; die();
+             return $this->render($grupo->layout,['identidad'=>$identidad]);
+         }else{
+            echo " NO tiene el perfill alumno" ; die();
+         }
+         
+     }else{
+         echo " NO especigico el grupo en l atabla personas " ; die(); 
+     }
+    }else{
+        echo " NO tiene el perfil persona  " ; die(); 
+    }
+  }  
+  
+  
+    
     
 }

@@ -28,7 +28,8 @@ class AuthWithQuestionForm extends Model
           ['email', 'email'],
              ['modo_id', 'safe'],
              ['email', 'string', 'max' => 100],
-            
+             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' =>yii::t('base_labels', 'This email address has already been taken.')],
+
           [['pregunta1','pregunta2','pregunta3'], 'trim'],
           [['pregunta1','pregunta2'], 'required','on'=>self::SCE_AUTH_ADITIONAL],
           [['pregunta1','pregunta2'], 'validateAnswers','on'=>self::SCE_AUTH_ADITIONAL],
