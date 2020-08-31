@@ -62,20 +62,20 @@ class ImportCargamasivadet extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => m::t('labels', 'ID'),
-            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
-            'nombrecampo' => m::t('labels', 'Campo'),
-            'aliascampo' => m::t('labels', 'Alias'),
-            'sizecampo' => m::t('labels', 'Ancho'),
-            'activa' => m::t('labels', 'Activo'),
-            'requerida' => m::t('labels', 'Oblig.'),
-            'tipo' => m::t('labels', 'Tipo Dato'),
-            'esclave' => m::t('labels', 'Clave'),
-            'detalle' => m::t('labels', 'Detalle'),
-            'esforeign' => m::t('labels', 'Relacionado'),
-            'parent_id' => m::t('labels', 'Parent ID'),
-            'modelo' => m::t('labels', 'Tabla'),
-            'nveces' => m::t('labels', 'N repetic'),
+            'id' => m::t('m_import', 'ID'),
+            'cargamasiva_id' => m::t('m_import', 'Bulk Load ID'),
+            'nombrecampo' => m::t('m_import', 'Field'),
+            'aliascampo' => m::t('m_import', 'Alias'),
+            'sizecampo' => m::t('m_import', 'Size'),
+            'activa' => m::t('m_import', 'Active'),
+            'requerida' => m::t('m_import', 'Required'),
+            'tipo' => m::t('m_import', 'Data Type'),
+            'esclave' => m::t('m_import', 'Its Key'),
+            'detalle' => m::t('m_import', 'Detail'),
+            'esforeign' => m::t('m_import', 'Its Related'),
+            'parent_id' => m::t('m_import', 'Parent Id'),
+            'modelo' => m::t('m_import', 'Table'),
+            'nveces' => m::t('m_import', 'n Times'),
         ];
     }
 

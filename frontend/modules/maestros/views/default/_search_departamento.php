@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use frontend\modules\maestros\MaestrosModule as m;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\DocumentosSearch */
@@ -35,8 +36,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'idreportedefault') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('verbs', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

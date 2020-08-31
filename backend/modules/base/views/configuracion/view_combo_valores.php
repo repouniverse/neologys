@@ -7,7 +7,7 @@ use backend\modules\base\Module as m;
 /* @var $model common\models\masters\Combovalores */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => m::t('app', 'Dropdown Values'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Dropdown Values'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

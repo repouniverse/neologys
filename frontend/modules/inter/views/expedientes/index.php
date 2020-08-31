@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\modules\inter\Module as m;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\masters\InterExpedientesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base_labels', 'Inter Expedientes');
+$this->title = m::t('labels', 'Inter Files');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-expedientes-index">
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('base_labels', 'Create Inter Expedientes'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Inter Files'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

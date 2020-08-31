@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\Sociedades */
 
-$this->title = Yii::t('base.verbs', 'Create University');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Universities'), 'url' => ['index-univer']];
+$this->title = m::t('labels', 'Create University');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Universities'), 'url' => ['index-univer']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sociedades-create">

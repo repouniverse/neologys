@@ -471,7 +471,7 @@ die();
                              'user_id'=>h::userId(),
                                 ]);        
             if($model->save()){
-               return ['success'=>yii::t('base_labels','Route: \'{url}\' was added to favorites ',['url'=>$url])];  
+               return ['success'=>yii::t('base_labels','Route: \'{url}\' was added to favorites',['url'=>$url])];  
            
             }else{
               return ['error'=>yii::t('base_labels','Has errors {mierror}',['mierror'=>$model->getFirstError()])];  

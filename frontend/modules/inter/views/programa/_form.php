@@ -30,9 +30,9 @@ use common\widgets\selectwidget\selectWidget;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('base.labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
         <?php  $url=Url::to(['/inter/convocados/index','id'=>$model->id]);  ?>
-         <?= Html::a('<span class="btn btn-danger btn-sm" ><span class="fa fa-users"></span>  '.m::t('labels','Convocados').'</span></span>', $url); ?>  
+         <?= Html::a('<span class="btn btn-danger btn-sm" ><span class="fa fa-users"></span>  '.m::t('labels','Convened').'</span></span>', $url); ?>  
 
             </div>
         </div>
@@ -84,7 +84,7 @@ use common\widgets\selectwidget\selectWidget;
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'depa_id')->
             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDepartamentosFacu($model->facultad_id),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -94,7 +94,7 @@ use common\widgets\selectwidget\selectWidget;
   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
      <?= $form->field($model, 'codperiodo')->
             dropDownList(ComboHelper::getCboPeriodos(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

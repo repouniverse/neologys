@@ -1,16 +1,16 @@
 <?php
 use yii\helpers\Html;
 
-use backend\modules\base\Module as m;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 
-$this->title = yii::t('base.verbs', 'Edit : {name}', [
+$this->title = m::t('verbs', 'Edit : {name}', [
     'name' => $model->desfac,
 ]);
-$this->params['breadcrumbs'][] =['label' => yii::t('base.labels', 'Field Settings'), 'url' => ['index-facul']];
+$this->params['breadcrumbs'][] =['label' => m::t('labels', 'Field Settings'), 'url' => ['index-facul']];
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = yii::t('base.verbs', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="combovalores-update">
 

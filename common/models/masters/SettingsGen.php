@@ -47,15 +47,15 @@ class SettingsGen extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => yii::t('base.labels', 'ID'),
-            'type' => yii::t('base.labels', 'Type'),
-            'section' => yii::t('base.labels', 'Section'),
-            'key' => yii::t('base.labels', 'Key'),
-            'value' => yii::t('base.labels', 'Value'),
-            'status' => yii::t('base.labels', 'Status'),
-            'description' => yii::t('base.labels', 'Description'),
-            'created_at' => yii::t('base.labels', 'Created At'),
-            'updated_at' => yii::t('base.labels', 'Updated At'),
+            'id' => yii::t('base_labels', 'ID'),
+            'type' => yii::t('base_labels', 'Type'),
+            'section' => yii::t('base_labels', 'Section'),
+            'key' => yii::t('base_labels', 'Key'),
+            'value' => yii::t('base_labels', 'Value'),
+            'status' => yii::t('base_labels', 'Status'),
+            'description' => yii::t('base_labels', 'Description'),
+            'created_at' => yii::t('base_labels', 'Created At'),
+            'updated_at' => yii::t('base_labels', 'Updated At'),
         ];
     }
 

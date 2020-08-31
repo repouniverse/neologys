@@ -1,4 +1,4 @@
-<?php
+    <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
 use frontend\modules\inter\Module as m;
@@ -71,7 +71,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                'orden',
             'acronimo',
             'descripcion',
-            'documento.desdocu'
+            //'documento.desdocu'
             //'parametro',
             
             //'valor1',

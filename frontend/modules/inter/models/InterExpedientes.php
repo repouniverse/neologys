@@ -8,6 +8,7 @@ use common\models\masters\Documentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -74,22 +75,22 @@ class InterExpedientes extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'convocado_id' => Yii::t('base_labels', 'Convocado ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'fpresenta' => Yii::t('base_labels', 'Fpresenta'),
-            'fdocu' => Yii::t('base_labels', 'Fdocu'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
-            'textointerno' => Yii::t('base_labels', 'Textointerno'),
-            'estado' => Yii::t('base_labels', 'Estado'),
-            'requerido' => Yii::t('base_labels', 'Requerido'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Departament'),
+            'programa_id' => m::t('labels', 'Program'),
+            'modo_id' => m::t('labels', 'Mode'),
+            'convocado_id' => m::t('labels', 'Summoned Id'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'fpresenta' => m::t('labels', 'Presentation Date'),
+            'fdocu' => m::t('labels', 'Document Date'),
+            'detalles' => m::t('labels', 'Details'),
+            'textointerno' => m::t('labels', 'Internal Text'),
+            'estado' => m::t('labels', 'Status'),
+            'requerido' => m::t('labels', 'Required'),
         ];
     }
 

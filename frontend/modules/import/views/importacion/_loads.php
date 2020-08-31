@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+use frontend\modules\import\ModuleImport as m;
 ?>
 <div style='overflow:auto;'>
      <?php Pjax::begin(['id'=>'grilla-cargas']); ?>
@@ -23,7 +24,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                     'attachCarga' => function($url, $model) {  
                          $url=\yii\helpers\Url::toRoute(['/finder/selectimage','extension'=>'csv','isImage'=>false,'idModal'=>'imagemodal','modelid'=>$model->id,'nombreclase'=> str_replace('\\','_',get_class($model))]);
                         $options = [
-                            'title' => Yii::t('sta.labels', 'Subir Archivo'),
+                            'title' => m::t('m_import', 'Upload file'),
                             //'aria-label' => Yii::t('rbac-admin', 'Activate'),
                             //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
                             'data-method' => 'get',
@@ -105,7 +106,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     <?php Pjax::end(); ?> 
     
  
-   <?= Html::buttonInput(yii::t('sta.labels','Crear carga'), ['id'=>'btn-carga-nueva','class' => 'btn btn-info']) ?> 
+   <?= Html::buttonInput(m::t('m_import','Create Load'), ['id'=>'btn-carga-nueva','class' => 'btn btn-info']) ?> 
     
 </div>
 <?php 

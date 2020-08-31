@@ -63,14 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($model) {
                         return $model->transaccion;
                     },
-                    //'type' => 'select',
-                   /* 'editableOptions' => function ($model) {
-                        return [
-                            'source' => SettingStatus::listData(),
-                            'value' => $model->status,
-                        ];
-                    },*/
-                    //'filter' => SettingStatus::listData(),
                     'filterInputOptions' => ['prompt' => m::t('labels', 'Transaction code'), 'class' => 'form-control'],
                 ],
                             

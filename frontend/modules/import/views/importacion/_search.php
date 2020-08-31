@@ -35,8 +35,8 @@ use frontend\modules\import\ModuleImport as m;
     <?php // echo $form->field($model, 'modelo') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(m::t('labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(m::t('labels', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('m_import', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('m_import', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

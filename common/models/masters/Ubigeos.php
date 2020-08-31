@@ -43,13 +43,13 @@ class Ubigeos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'ID'),
-            'coddepa' => Yii::t('base.names', 'Coddepa'),
-            'codprov' => Yii::t('base.names', 'Codprov'),
-            'coddist' => Yii::t('base.names', 'Coddist'),
-            'departamento' => Yii::t('base.names', 'Departamento'),
-            'provincia' => Yii::t('base.names', 'Provincia'),
-            'distrito' => Yii::t('base.names', 'Distrito'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'coddepa' => Yii::t('base_labels', 'Departament Code'),
+            'codprov' => Yii::t('base_labels', 'Province Code'),
+            'coddist' => Yii::t('base_labels', 'District Code'),
+            'departamento' => Yii::t('base_labels', 'Departament'),
+            'provincia' => Yii::t('base_labels', 'Province'),
+            'distrito' => Yii::t('base_labels', 'District'),
         ];
     }
 

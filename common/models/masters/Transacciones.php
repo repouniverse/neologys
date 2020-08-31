@@ -64,12 +64,12 @@ class Transacciones extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('base.labels', 'Name'),
-            'transaccion' => Yii::t('base.labels', 'Transaction'),
-            'isauditable' => Yii::t('base.labels', 'Is Audit'),
-            'description' => Yii::t('base.labels', 'Description'),
-            'esruta' => Yii::t('base.labels', 'Is Route'),
-            'group' => Yii::t('base.labels', 'Group'),
+            'name' => Yii::t('base_labels', 'Name'),
+            'transaccion' => Yii::t('base_labels', 'Transaction'),
+            'isauditable' => Yii::t('base_labels', 'Is Audit'),
+            'description' => Yii::t('base_labels', 'Description'),
+            'esruta' => Yii::t('base_labels', 'Is Route'),
+            'group' => Yii::t('base_labels', 'Group'),
         ];
     }
 

@@ -13,8 +13,6 @@ use yii\widgets\Pjax;
 
     <h4>Parametros</h4>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
    
     <div style='overflow:auto;'>
     <?= GridView::widget([

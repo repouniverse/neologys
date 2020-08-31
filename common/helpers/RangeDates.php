@@ -52,13 +52,13 @@ class RangeDates extends \yii\base\Component{
     public function __construct(Array $dates){
         //var_dump($dates[0]->greaterThanOrEqualTo($dates[1]));die();
         if(count($dates) <> 2)
-         throw new \yii\base\Exception(Yii::t('base.errors', 'La propiedad dates Debe de contener {can} elementos',['can'=>2]));
+         throw new \yii\base\Exception(Yii::t('base_errors', 'The dates property must contain {can} elements',['can'=>2]));
         if(!($dates[0] instanceof \Carbon\Carbon) or 
            !($dates[1] instanceof \Carbon\Carbon))
-          throw new \yii\base\Exception(Yii::t('base.errors', 'La propiedad dates debe ser un array debe contener instancias de Carbon'));
+          throw new \yii\base\Exception(Yii::t('base_errors', 'The dates property must be an array must contain Carbon instances'));
          
        if($dates[0]->greaterThanOrEqualTo($dates[1]))           
-         throw new \yii\base\Exception(Yii::t('base.errors', 'La fecha de inicio es mayor o igual que la fecha de termino'));
+         throw new \yii\base\Exception(Yii::t('base_errors', 'The start date is greater than or equal to the end date'));
        
    $this->_dates=$dates;
    }

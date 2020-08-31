@@ -64,19 +64,19 @@ class Trabajadores extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.labels', 'ID'),
-            'ap' => Yii::t('base.labels', 'Ap'),
-            'am' => Yii::t('base.labels', 'Am'),
-            'nombres' => Yii::t('base.labels', 'Nombres'),
-            'numerodoc' => Yii::t('base.labels', 'Numerodoc'),
-            'tipodoc' => Yii::t('base.labels', 'Tipodoc'),
-            'fingreso' => Yii::t('base.labels', 'Fingreso'),
-            'detalles' => Yii::t('base.labels', 'Detalles'),
-            'correo' => Yii::t('base.labels', 'Correo'),
-            'codtra' => Yii::t('base.labels', 'Codtra'),
-            'persona_id' => Yii::t('base.labels', 'Persona ID'),
-            'codigoper' => Yii::t('base.labels', 'Codigoper'),
-            'codcargo' => Yii::t('base.labels', 'Codcargo'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'ap' => Yii::t('base_labels', 'Last Name'),
+            'am' => Yii::t('base_labels', 'Mother Last Name'),
+            'nombres' => Yii::t('base_labels', 'Names'),
+            'numerodoc' => Yii::t('base_labels', 'Document Number'),
+            'tipodoc' => Yii::t('base_labels', 'Document Type'),
+            'fingreso' => Yii::t('base_labels', 'Begin Date'),
+            'detalles' => Yii::t('base_labels', 'Details'),
+            'correo' => Yii::t('base_labels', 'Mail'),
+            'codtra' => Yii::t('base_labels', 'Worker Code'),
+            'persona_id' => Yii::t('base_labels', 'Person ID'),
+            'codigoper' => Yii::t('base_labels', 'Person Code'),
+            'codcargo' => Yii::t('base_labels', 'Position Code'),
         ];
     }
 

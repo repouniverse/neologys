@@ -21,7 +21,7 @@ class ActionAudit extends \yii\base\Action
        // $ext=h::request()->get('extension');
        //$idGrilla=h::request()->get('idGrilla');
         if(!is_numeric($id))
-          throw new \yii\base\Exception(Yii::t('base.errors', 'Id is invalid'));
+          throw new \yii\base\Exception(Yii::t('base_errors', 'Id is invalid'));
         $this->controller->layout = "install";
        // $nombremodal=
         $model= new $clase;

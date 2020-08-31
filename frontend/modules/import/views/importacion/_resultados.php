@@ -14,12 +14,12 @@ use yii\web\View;
 </div>
 <?php }elseif($nerrores>0){  ?>
 <div class="alert alert-danger" role="alert">       
-       <?= m::t('labels','El proceso ha concluido con {nerrores} errores',['nerrores'=>$nerrores]);?>        
+       <?= m::t('m_import','The process ended with {nerrores} errors',['nerrores'=>$nerrores]);?>        
 </div>
 <?php 
 }else{ ?>
   <div class="alert alert-success" role="alert">       
-       <?= m::t('labels','El proceso ha concluido sin errores');?>        
+       <?= m::t('m_import','The process was completed without errors');?>        
 </div>
 <?php
 }

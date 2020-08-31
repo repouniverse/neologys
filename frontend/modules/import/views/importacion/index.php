@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\import\models\ImportCargamasivaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = m::t('labels', 'Registros de importación');
+$this->title = m::t('m_import', 'Import Records');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="import-cargamasiva-index">

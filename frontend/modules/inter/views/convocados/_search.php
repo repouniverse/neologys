@@ -45,7 +45,7 @@ use frontend\modules\inter\Module as m;
             $form->field($model, 'facultad_id')->
                          dropDownList
                          (
-                            comboHelper::getCboFacultades(), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                            comboHelper::getCboFacultades(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                          )
         ?>
     </div>

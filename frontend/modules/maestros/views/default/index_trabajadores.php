@@ -4,11 +4,12 @@ use yii\helpers\Html;
 
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\masters\TrabajadoresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base.labels', 'Workers');
+$this->title = m::t('labels', 'Workers');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Create worker'), ['create-trabajadores'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Worker'), ['create-trabajadores'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'pasaporte',
             //'codpuesto',
             //'cumple',
-            'fecingreso',
+            'fingreso',
             //'domicilio',
             //'telfijo',
             //'telmoviles',

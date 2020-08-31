@@ -1,16 +1,17 @@
 <?php
 
 use yii\helpers\Html;
+use frontend\modules\maestros\MaestrosModule as m;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Documentos */
 
-$this->title = Yii::t('app', 'Update Documentos: {name}', [
+$this->title = m::t('labels', 'Update Documents: {name}', [
     'name' => $model->codocu,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Documentos'), 'url' => ['index-docu']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Documents'), 'url' => ['index-docu']];
 
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <h4><?= Html::encode($this->title) ?></h4>
 <div class="documentos-update">

@@ -28,16 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-           
-
-           
             'nombretabla',
-           
             'codigo',
             'valor',
-            //'valor1',
-            //'valor2',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}{delete}',
@@ -46,15 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         $options = [
                             'title' => m::t('verbs', 'Edit'),                            
                         ];
-                       // return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
-                         
-                         $url= \yii\helpers\Url::toRoute(['update-combo-valores','id'=>$model->id]);
+                        $url= \yii\helpers\Url::toRoute(['update-combo-valores','id'=>$model->id]);
                         $options = [
                             'data-pjax'=>'0',
-                            //'target'=>'_blank',
                             'title' => m::t('verbs', 'Edit'),                                
                         ];
-                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options);
                       
                     },
                     'delete' => function($url, $model) {

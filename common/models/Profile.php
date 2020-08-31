@@ -103,15 +103,15 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'ID'),
-            'user_id' => Yii::t('base.names', 'Id usuario'),
-            'names' => Yii::t('base.names', 'Nombres'),
-            'photo' => Yii::t('base.names', 'Foto'),
-            'detalle' => Yii::t('base.names', 'Detalle'),
-            'interlocutor' => Yii::t('base.names', 'Type'),
-             'recexternos' => Yii::t('base.names', 'Usa Rec Externos'),
-            'duration' => Yii::t('base.names', 'Duracion'),
-            'durationabsolute' => Yii::t('base.names', 'Duracion absoluta'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'user_id' => Yii::t('base_labels', 'User ID'),
+            'names' => Yii::t('base_labels', 'Names'),
+            'photo' => Yii::t('base_labels', 'Photo'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
+            'interlocutor' => Yii::t('base_labels', 'Type'),
+             'recexternos' => Yii::t('base_labels', 'Usa Rec Externos'),
+            'duration' => Yii::t('base_labels', 'Duration'),
+            'durationabsolute' => Yii::t('base_labels', 'Absolute Duration'),
         ];
     }
 

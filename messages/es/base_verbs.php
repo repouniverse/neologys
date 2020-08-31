@@ -15,4 +15,5 @@ return[
     'Search'=>'Buscar',
     'Reset'=>'Reiniciar',
     'Go Back'=>'Atrás',
+    'Request password reset'=>'Petición de recuperación de contraseña',
 ];

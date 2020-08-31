@@ -7,16 +7,11 @@ use common\helpers\ComboHelper;
 use common\helpers\h;
 use backend\modules\base\Module AS m;
  use kartik\date\DatePicker;
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\sta\models\Alumnos */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="alumnos-form">
     <br>
     <?php $form = ActiveForm::begin([
-       //'enableAjaxValidation'=>true,
-    //'fieldClass'=>'\common\components\MyActiveField'
     ]); ?>
       <div class="box-header">
         <div class="col-md-12">
@@ -29,19 +24,8 @@ use backend\modules\base\Module AS m;
         </div>
     </div>
       <div class="box-body">
-        <?php //print_r($model->attributes);var_dump($model->facultad); die(); ?>
-
 
    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">  
-   <?php 
-   /* echo selectWidget::widget([
-           // 'id'=>'mipapa',
-            'model'=>$model,
-            'form'=>$form,
-            'campo'=>'codcar',
-             'addCampos'=>[2],
-            //'foreignskeys'=>[1,2,3],
-        ]); */ ?>
        <?php if(!$model->isNewRecord) { ?>
         <?= $form->field($model->carrera,'descar')->textInput(['disabled'=>true,'maxlength' => true]) ?>
        <?php } ?>
@@ -78,11 +62,8 @@ use backend\modules\base\Module AS m;
           
           
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                           <?php  //h::settings()->invalidateCache();  ?>
                        <?= $form->field($model, 'fecna')->widget(DatePicker::class, [
                              'language' => h::app()->language,
-                           // 'readonly'=>true,
-                          // 'inline'=>true,
                            'pluginOptions'=>[
                                      'format' => h::gsetting('timeUser', 'date')  , 
                                   'changeMonth'=>true,
@@ -90,33 +71,13 @@ use backend\modules\base\Module AS m;
                                  'yearRange'=>"-99:+0",
                                ],
                            
-                            //'dateFormat' => h::getFormatShowDate(),
                             'options'=>['class'=>'form-control']
                             ]) ?>
                            </div>
-          
-          
-          
-          
-          
- 
-          
-            
-  
-          
-          
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
      <?= $form->field($model, 'codalu')->textInput(['disabled'=>true,'maxlength' => true]) ?>
 
- </div>
-          
-          
-          
-          
-          
-          
-          
-          
+ </div>          
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
      <?= $form->field($model, 'dni')->textInput(['maxlength' => true]) ?>
 

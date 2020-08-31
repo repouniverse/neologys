@@ -38,11 +38,11 @@ class User extends UserOriginal {
    public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'Id'),
-            'username' => Yii::t('base.names', 'Nombre Usuario'),
-            'status' => Yii::t('base.names', 'Activo'),
-            'created_at' => Yii::t('base.names', 'Creado'),
-            'updated_at' => Yii::t('base.names', 'Modificado'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'username' => Yii::t('base_labels', 'User Name'),
+            'status' => Yii::t('base_labels', 'Active'),
+            'created_at' => Yii::t('base_labels', 'Creado'),
+            'updated_at' => Yii::t('base_labels', 'Modificado'),
             
         ];
     }  
@@ -220,8 +220,4 @@ public function isMultiFacultad(){
             where(['user_id'=>$this->id,'activa'=>'1'])->
             count()>1)?true:false;   
 }
-
-
-
-
 }

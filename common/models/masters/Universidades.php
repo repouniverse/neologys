@@ -57,11 +57,11 @@ class Universidades extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'codpais' => Yii::t('base_labels', 'Codpais'),
-            'nombre' => Yii::t('base_labels', 'Nombre'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'estado' => Yii::t('base_labels', 'Estado'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
+            'codpais' => Yii::t('base_labels', 'Country Code'),
+            'nombre' => Yii::t('base_labels', 'Name'),
+            'acronimo' => Yii::t('base_labels', 'Acronym'),
+            'estado' => Yii::t('base_labels', 'Status'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

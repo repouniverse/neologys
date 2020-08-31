@@ -59,12 +59,12 @@ class Facultades extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'codfac' => Yii::t('base_labels', 'Codfac'),
-            'desfac' => Yii::t('base_labels', 'Desfac'),
-            'code1' => Yii::t('base_labels', 'Code1'),
-            'code2' => Yii::t('base_labels', 'Code2'),
-            'code3' => Yii::t('base_labels', 'Code3'),
+            'universidad_id' => Yii::t('base_labels', 'University ID'),
+            'codfac' => Yii::t('base_labels', 'Faculty Code'),
+            'desfac' => Yii::t('base_labels', 'Faculty Description'),
+            'code1' => Yii::t('base_labels', 'Code 1'),
+            'code2' => Yii::t('base_labels', 'Code 2'),
+            'code3' => Yii::t('base_labels', 'Code 3'),
         ];
     }
 

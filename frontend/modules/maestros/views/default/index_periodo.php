@@ -4,11 +4,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\sta\models\PeriodosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base.labels', 'Periodos');
+$this->title = m::t('labels', 'Periods');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="periodos-index">
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base.labels', 'Create Periodos'), ['create-periodo'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Periods'), ['create-periodo'], ['class' => 'btn btn-success']) ?>
     </p>
     <div style='overflow:auto;'>
     <?= GridView::widget([
@@ -38,14 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'update' => function($url, $model) {  
                         $url=Url::to(['update-periodo','id'=>$model->codperiodo]);
                         $options = [
-                            'title' => Yii::t('base.verbs', 'Update'),                            
+                            'title' => m::t('verbs', 'Update'),                            
                         ];
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                          
                          'delete' => function($url, $model) {
                         $options = [
-                                        'title' =>yii::t('base.labels', 'Delete'),                            
+                                        'title' =>m::t('verbs', 'Delete'),                            
                                     ];
                         $url = \yii\helpers\Url::toRoute($this->context->id.'/deletemodel-for-ajax');
                               return \yii\helpers\Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-trash"></span>', '#', ['title'=>$url,/*'id'=>$model->codparam,*/'family'=>'holas','id'=>\yii\helpers\Json::encode(['id'=>$model->codperiodo,'modelito'=> str_replace('@','\\',get_class($model))]),/*'title' => 'Borrar'*/]);

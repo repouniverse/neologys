@@ -65,13 +65,13 @@ class ImportCargamasiva extends modelBase
     {
         return [
             'id' => m::t('m_import', 'ID'),
-            'user_id' => m::t('m_import', 'Usuario'),
-            'insercion' => m::t('m_import', 'Insercion'),
-            'escenario' => m::t('m_import', 'Escenario'),
-            'lastimport' => m::t('m_import', 'Ultima Carga'),
+            'user_id' => m::t('m_import', 'User'),
+            'insercion' => m::t('m_import', 'Insertion'),
+            'escenario' => m::t('m_import', 'Stage'),
+            'lastimport' => m::t('m_import', 'Last Load'),
             'descripcion' => m::t('m_import', 'Descripcion'),
             'format' => m::t('m_import', 'Formato'),
-            'modelo' => m::t('m_import', 'Tabla'),
+            'modelo' => m::t('m_import', 'Table'),
         ];
     }
     
@@ -339,7 +339,7 @@ public function isDateorTime($tipo,$nombrecampo,$longitud){
  public function activeRecordLoad(){
     $registro= ImportCargamasivaUser::childQueryLoads()->where(['activo'=>'1'])->andFilterWhere(['not',['activo'=>ImportCargamasivaUser::STATUS_CARGADO]])->one();
     if(is_null($registro)){
-        throw new \yii\base\Exception(m::t('m_import', 'Verifique que exista un registro de carga pendiente, todos están terminados o no existe ninguno abierto'));
+        throw new \yii\base\Exception(m::t('m_import', 'Verify that there is a pending upload record, all are finished or none are open'));
     }else{
         return $registro;
     }
@@ -390,7 +390,7 @@ public function ordenCampos(){
               $this->AttributesPkForFindModel($fila,$this->camposClave())
               )->one();
       if(is_null($registro)) 
-      throw new NotFoundHttpException(m::t('sta.errors', 'El registro no existe'));
+      throw new NotFoundHttpException(m::t('m_import', 'The record does not exist'));
       return $registro;
   }
  public function beforeSave($insert) {
@@ -455,7 +455,7 @@ public function ordenCampos(){
          //var_dump(in_array($campo,array_keys($model->attributes)),$campo,array_keys($model->attributes));
          yii::error('El campo '.$campo);
          if(!(in_array($campo,array_keys($model->attributes))))
-         throw new \yii\base\Exception(m::t('m_import', 'No existe el campo \'{campo}\' para la tabla \'{tabla}\'',['campo'=>$campo,'tabla'=>$model->tableName()]));
+         throw new \yii\base\Exception(m::t('m_import', 'There is no field \'{campo}\' for table \'{table}\'',['campo'=>$campo,'tabla'=>$model->tableName()]));
             $arr=[];
          $safeFields=$model->getSafeFields();
          if(!in_array($campo,$safeFields)){

@@ -51,10 +51,10 @@ class GrupoParametros extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.labels', 'ID'),
-            'codgrupo' => Yii::t('base.labels', 'Codgrupo'),
-            'descripcion' => Yii::t('base.labels', 'Descripcion'),
-            'detalle' => Yii::t('base.labels', 'Detalle'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'codgrupo' => Yii::t('base_labels', 'Group Code'),
+            'descripcion' => Yii::t('base_labels', 'Description'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

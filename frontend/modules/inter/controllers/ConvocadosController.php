@@ -43,7 +43,7 @@ class ConvocadosController extends baseController
     {
         $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne($id);
         if(is_null($modelPrograma))
-            throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
   
         $searchModel = new \frontend\modules\inter\models\VwInterConvocadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -251,7 +251,7 @@ class ConvocadosController extends baseController
     { 
         $model=Alumnos::findOne($id);
         if (is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
         }
         if (isset($_POST['hasEditable'])) {
         // use Yii's response format to encode output as JSON
@@ -291,7 +291,7 @@ class ConvocadosController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -303,7 +303,7 @@ class ConvocadosController extends baseController
           $model= \frontend\modules\inter\models\InterOpuniv::findOne($id);
             
           if(is_null($model))
-                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                 throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 //var_dump($model::className());die();
           $this->deleteModel($id, $model::className());       
       
@@ -396,11 +396,11 @@ class ConvocadosController extends baseController
           $model= \frontend\modules\inter\models\InterIdiomasalu::findOne($id);
             
           if(is_null($model))
-                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                 throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 //var_dump($model::className());die();
           $this->deleteModel($id, $model::className());       
       
-      return ['warning'=>m::t('labels','The record was deleted')];
+      return ['warning'=>m::t('validaciones','The record was deleted')];
             }
      }  
 }

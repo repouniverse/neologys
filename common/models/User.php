@@ -249,8 +249,8 @@ public function scenarios()
 }
 
 public static function dataComboStatus(){
-    return [static::STATUS_DELETED => yii::t('base.labels','Disabled'),
-            static::STATUS_ACTIVE => yii::t('base.labels','Active')];
+    return [static::STATUS_DELETED => yii::t('base_labels','Disabled'),
+            static::STATUS_ACTIVE => yii::t('base_labels','Active')];
     
 }
  /* public function afterFind() {

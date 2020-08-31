@@ -43,10 +43,10 @@ class Periodos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'codperiodo' => Yii::t('base.labels', 'Codperiodo'),
-            'periodo' => Yii::t('base.labels', 'Periodo'),
-            'activa' => Yii::t('base.labels', 'Activa'),
-            'tolerancia' => Yii::t('base.labels', 'Tolerance'),
+            'codperiodo' => Yii::t('base_labels', 'Period Code'),
+            'periodo' => Yii::t('base_labels', 'Period'),
+            'activa' => Yii::t('base_labels', 'Active'),
+            'tolerancia' => Yii::t('base_labels', 'Tolerance'),
         ];
     }
 

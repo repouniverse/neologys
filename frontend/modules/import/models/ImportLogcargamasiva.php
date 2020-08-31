@@ -50,14 +50,14 @@ class ImportLogcargamasiva extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => m::t('labels', 'ID'),
-            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
-            'nombrecampo' => m::t('labels', 'Campo'),
-            'mensaje' => m::t('labels', 'Mensaje del error'),
-            'level' => m::t('labels', 'Nivel'),
-            'fecha' => m::t('labels', 'Fecha'),
-            'user_id' => m::t('labels', 'User ID'),
-            'numerolinea' => m::t('labels', 'Número de fila'),
+            'id' => m::t('m_import', 'ID'),
+            'cargamasiva_id' => m::t('m_import', 'Bulk Load ID'),
+            'nombrecampo' => m::t('m_import', 'Field'),
+            'mensaje' => m::t('m_import', 'Error Message'),
+            'level' => m::t('m_import', 'Level'),
+            'fecha' => m::t('m_import', 'Date'),
+            'user_id' => m::t('m_import', 'User ID'),
+            'numerolinea' => m::t('m_import', 'Row Number'),
         ];
     }
 

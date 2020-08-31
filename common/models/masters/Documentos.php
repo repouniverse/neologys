@@ -60,15 +60,15 @@ class Documentos extends modelBase
     public function attributeLabels()
     {
         return [
-            'codocu' => 'Codocu',
-            'desdocu' => 'Desdocu',
-            'clase' => yii::t('base.labels','Class'),
-            'tipo' => 'Tipo',
-            'tabla' => 'Tabla',
-            'abreviatura' => 'Abreviatura',
-            'prefijo' => 'Prefijo',
-            'escomprobante' => 'Escomprobante',
-            'idreportedefault' => 'Idreportedefault',
+            'codocu' => yii::t('base_labels','Document Code'),
+            'desdocu' => yii::t('base_labels','Document Description'),
+            'clase' => yii::t('base_labels','Class'),
+            'tipo' => yii::t('base_labels','Type'),
+            'tabla' => yii::t('base_labels','Table'),
+            'abreviatura' => yii::t('base_labels','Abbreviation'),
+            'prefijo' => yii::t('base_labels','Prefix'),
+            'escomprobante' => yii::t('base_labels','Is Voucher'),
+            'idreportedefault' => yii::t('base_labels','Default Report Id'),
         ];
     }
     

@@ -14,12 +14,12 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterPrograma */
 
-$this->title = m::t('labels', 'Update Inter Programa: {name}', [
+$this->title = m::t('labels', 'Update Inter Program: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Programas'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Programs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = m::t('labels', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="inter-programa-update">
 <h4><i class="fa fa-edit"></i><?= Html::encode($this->title) ?></h4>

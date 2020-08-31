@@ -18,15 +18,13 @@ class timeHelper {
    
    public STATIC function daysOfWeek(){
        return [
-           0=>yii::t('base.names','Domingo'),
-           1=>yii::t('base.names','Lunes'),
-           2=>yii::t('base.names','Martes'),
-           3=>yii::t('base.names','Miercoles'),
-           4=>yii::t('base.names','Jueves'),
-           5=>yii::t('base.names','Viernes'),
-           6=>yii::t('base.names','Sabado'),
-        
-           
+           0=>yii::t('base_names','Sunday'),
+           1=>yii::t('base_names','Monday'),
+           2=>yii::t('base_names','Tuesday'),
+           3=>yii::t('base_names','Wednesday'),
+           4=>yii::t('base_names','Thursday'),
+           5=>yii::t('base_names','Friday'),
+           6=>yii::t('base_names','Saturday'),
        ];
    }
    
@@ -44,18 +42,18 @@ class timeHelper {
    
     public static  function cboMeses(){
        return [
-           '1'=>yii::t('base.names','ENERO'),
-           '2'=>yii::t('base.names','FEBRERO'),
-           '3'=>yii::t('base.names','MARZO'),
-           '4'=>yii::t('base.names','ABRIL'),
-           '5'=>yii::t('base.names','MAYO'),
-           '6'=>yii::t('base.names','JUNIO'),
-           '7'=>yii::t('base.names','JULIO'),
-           '8'=>yii::t('base.names','AGOSTO'),
-           '9'=>yii::t('base.names','SETIEMBRE'),
-           '10'=>yii::t('base.names','OCTUBRE'),
-           '11'=>yii::t('base.names','NOVIEMBRE'),
-           '12'=>yii::t('base.names','DICIEMBRE'),
+           '1'=>yii::t('base_names','January'),
+           '2'=>yii::t('base_names','Febrary'),
+           '3'=>yii::t('base_names','March'),
+           '4'=>yii::t('base_names','April'),
+           '5'=>yii::t('base_names','May'),
+           '6'=>yii::t('base_names','June'),
+           '7'=>yii::t('base_names','July'),
+           '8'=>yii::t('base_names','August'),
+           '9'=>yii::t('base_names','September'),
+           '10'=>yii::t('base_names','October'),
+           '11'=>yii::t('base_names','November'),
+           '12'=>yii::t('base_names','December'),
        ];
    }
    
@@ -114,11 +112,11 @@ class timeHelper {
   public static function Saludo(){
       $hora=Date('H');
       if ($hora <= 12)
-          return yii::t('base.names','Buenos días');
+          return yii::t('base_names','Good morning');
         else if ($hora < 19)
-          return yii::t('base.names','Buenas Tardes');
+          return yii::t('base_names','Good afternoon');
         else
-         return yii::t('base.names','Buenas Noches');
+         return yii::t('base_names','Good night');
   }
   
   public static function semanas(){

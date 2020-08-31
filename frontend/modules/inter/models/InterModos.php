@@ -8,6 +8,7 @@ use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
 use common\interfaces\postulantesInterface;
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -68,14 +69,14 @@ class InterModos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Departament'),
+            'programa_id' => m::t('labels', 'Program'),
+            'acronimo' => m::t('labels', 'Acronym'),
+            'descripcion' => m::t('labels', 'Description'),
+            'detalles' => m::t('labels', 'Details'),
         ];
     }
 
@@ -211,7 +212,7 @@ class InterModos extends \common\models\base\modelBase
              }
            
        } else{
-           throw new \yii\base\InvalidConfigException(Yii::t('base_errors', 'Class {clase} is not Instance of postulanteInterface ',['clase'=>$this->claseModeloFuente])); 
+           throw new \yii\base\InvalidConfigException(m::t('validaciones', 'Class {clase} is not Instance of postulant Interface',['clase'=>$this->claseModeloFuente])); 
        
        }   
    }

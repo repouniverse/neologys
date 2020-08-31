@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\Documentos */
 
-$this->title = Yii::t('base.labels', 'Create Departament');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Departaments'), 'url' => ['index-departamentos']];
+$this->title = m::t('labels', 'Create Departament');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Departaments'), 'url' => ['index-departamentos']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="documentos-create">

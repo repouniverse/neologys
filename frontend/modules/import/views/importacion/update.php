@@ -5,12 +5,12 @@ use frontend\modules\import\ModuleImport as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\import\models\ImportCargamasiva */
 
-$this->title = m::t('labels', 'Editar importación : {name}', [
+$this->title = m::t('m_import', 'Edit import : {name}', [
     'name' => $model->descripcion,
 ]);
-$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Importaciones'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('m_import', 'Imports'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = m::t('labels', 'Editar');
+$this->params['breadcrumbs'][] = m::t('m_import', 'Edit');
 ?>
 <div class="import-cargamasiva-update">
  <?php ECHO spinnerWidget::widget();?>

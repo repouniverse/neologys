@@ -1,7 +1,6 @@
 <?php
 
 namespace frontend\modules\inter\controllers;
-USE frontend\modules\inter\Module as m;
 use Yii;
 use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
@@ -12,6 +11,7 @@ use common\helpers\h;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use frontend\modules\inter\Module as m;
 /**
  * ProgramaController implements the CRUD actions for InterPrograma model.
  */
@@ -143,7 +143,7 @@ class ProgramaController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -162,8 +162,8 @@ class ProgramaController extends baseController
         }
         $model->setAttributes([
             'universidad_id'=>$modelPrograma->universidad_id,
-             'facultad_id'=>$modelPrograma->facultad_id,
-             'depa_id'=>$modelPrograma->depa_id,
+            'facultad_id'=>$modelPrograma->facultad_id,
+            'depa_id'=>$modelPrograma->depa_id,
             'programa_id'=>$modelPrograma->id,
         ]);
          if(h::request()->isPost){
@@ -323,7 +323,7 @@ class ProgramaController extends baseController
         }
         $model->setAttributes([
             'universidad_id'=>$modelEval->universidad_id,
-             'facultad_id'=>$modelEval->facultad_id,
+            'facultad_id'=>$modelEval->facultad_id,
             'modo_id'=>$modelEval->id,
             'depa_id'=>$modelEval->depa_id,
             'programa_id'=>$modelEval->programa_id,
@@ -401,11 +401,11 @@ class ProgramaController extends baseController
   public function actionAjaxConvoca($id){
      $model= \frontend\modules\inter\models\InterModos::findOne($id);
     if(is_null($model))
-     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+     throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
    if(h::request()->isAjax){
        h::response()->format = \yii\web\Response::FORMAT_JSON;
       
-      return ['success'=>m::t('labels','{cantidad} records were incorporated',['cantidad'=> $model->convocaMasivamente()])];
+      return ['success'=>m::t('validaciones','{cantidad} records were incorporated',['cantidad'=> $model->convocaMasivamente()])];
    }
      
   }

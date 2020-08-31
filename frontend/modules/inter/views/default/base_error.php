@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use frontend\modules\inter\helpers\ComboHelper;
+use frontend\modules\inter\Module as m;
 ?>
 
 <div class="login-box">    
@@ -10,8 +11,7 @@ use frontend\modules\inter\helpers\ComboHelper;
     <div class="login-box-body">
         <div class="alert alert-danger">
             
-           <?=\yii::t('base_labels','
-The supplied token is not correct or it has been a long time and has expired, please re-authenticate')?>
+           <?=\m::t('validaciones','The supplied token is not correct or it has been a long time and has expired, please re-authenticate')?>
         </div>
 
      

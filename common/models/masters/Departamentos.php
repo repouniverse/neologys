@@ -64,14 +64,14 @@ class Departamentos extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'coddepa' => Yii::t('base_labels', 'Coddepa'),
-            'nombredepa' => Yii::t('base_labels', 'Nombredepa'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
-            'correodepa' => Yii::t('base_labels', 'Correodepa'),
-            'webdepa' => Yii::t('base_labels', 'Webdepa'),
-            'codigoper' => Yii::t('base_labels', 'Codigoper'),
+            'universidad_id' => Yii::t('base_labels', 'University'),
+            'facultad_id' => Yii::t('base_labels', 'Faculty'),
+            'coddepa' => Yii::t('base_labels', 'Departament Code'),
+            'nombredepa' => Yii::t('base_labels', 'Departament Name'),
+            'detalles' => Yii::t('base_labels', 'Details'),
+            'correodepa' => Yii::t('base_labels', 'Departament Mail'),
+            'webdepa' => Yii::t('base_labels', 'Departament Web'),
+            'codigoper' => Yii::t('base_labels', 'Person Code'),
         ];
     }
 

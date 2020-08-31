@@ -55,18 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
                          }
                     ]
                 ],
-         
-         
-         
-         
-         
-
             'id',
             'codgrupo',
             'descripcion',
             'detalle:ntext',
-
-          
         ],
     ]); ?>
     <?php Pjax::end(); ?>

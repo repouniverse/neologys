@@ -1,8 +1,74 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+return
+    [
+        'Save'=>'Grabar',
+        'Search'=>'Buscar',
+        'Reset'=>'Reiniciar',
+        'Download Template'=>'Descargar Plantilla',
+        '--Select a value'=>'--Seleccione un valor',
+        'Upload file'=>'Subir Archivo',
+        'Create Load'=>'Crear Carga',
+        'Imports'=>'Importaciones',
+        'Create Import'=>'Crear Importación',
+        'Import Records'=>'Registros de importación',
+        'Edit import : {name}'=>'Editar importación : {name}',
+        'Edit'=>'Editar',
+        'Massive Loads'=>'Cargas Masivas',
+        
+        'The requested page does not exist.'=>'La página solicitada no existe.',
+        'Seconds'=>'Segundos',
+        'The load was created successfully'=>'Se creó la carga exitosamente',
+        'Could not create load'=>'No se pudo crear la carga',
+        'The record does not exist'=>'El registro no existe',
+        'There is no attachment'=>'No hay archivo adjunto',
+        'The import records has a field {field} with  \'order\' = 0 '=>'Los registros de importación tienen un campo {field} con  \'order\' = 0 ',
+        'The import records has a field {field} with  \'size\' = 0 '=>'Los registros de importación tienen un campo {field} con  \'size\' = 0 ',
+        'Verify that there is a pending upload record, all are finished or none are open'=>'Verifique que exista un registro de carga pendiente, todos están terminados o no existe ninguno abierto',
+        'There is no field \'{campo}\' for table \'{table}\''=>'No existe el campo \'{campo}\' para la tabla \'{tabla}\'',
+        'No upload has been made yet'=>'Aun no se ha efectuado ninguna carga',
+        'The process ended with {nerrores} errors'=>'El proceso ha concluido con {nerrores} errores',
+        'The process was completed without errors'=>'El proceso ha concluido sin errores',
+        
+        //Import Carga Masiva
+        'ID'=>'Id',
+        'User'=>'Usuario',
+        'Insertion'=>'Insercion',
+        'Stage'=>'Escenario',
+        'Last Load'=>'Ultima Carga',
+        'Description'=>'Descripcion',
+        'Format'=>'Formato',
+        'Table'=>'Tabla',
+        
+        //Import Carga Masiva User
+        'Bulk Load ID'=> 'ID Carga Masiva',
+        'Loading Date'=> 'Fecha Carga',
+        'User Id'=> 'ID Usuario',
+        'Line'=> 'Linea',
+        'Total Line'=> 'Total Linea',
+        'Headboard'=> 'Cabecera',
+        'Duration'=> 'Duracion',
+        'Attached'=> 'Adjunto',
+        
+        //Import Carga Masiva Det
+        'Field'=>'Campo',
+        'Alias'=>'Alias',
+        'Size'=>'Tamaño',
+        'Active'=>'Activo',
+        'Required'=>'Obligatorio',
+        'Field Name'=>'Nombre de campo',
+        'Field Alias'=>'Alias de campo',
+        'Field Size'=>'Tamaño de campo',
+        'Data Type'=>'Tipo de dato',
+        'Its Key'=>'Es clave',
+        'Detail'=>'Detalle',
+        'Its Related'=>'Esta relacionado',
+        'Parent Id'=>'ID Padre',
+        'Table'=>'Tabla',
+        'n Times'=>'n veces',
+        
+        //Import Log Carga Masiva
+        'Error Message'=>'Mensaje de Error',
+        'Level'=>'Nivel',
+        'Date'=>'Fecha',
+        'Row Number'=>'Número de fila',
+    ];

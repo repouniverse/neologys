@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use backend\modules\base\Module as m;
+use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
  USE yii\widgets\Pjax;
  use yii\grid\GridView;

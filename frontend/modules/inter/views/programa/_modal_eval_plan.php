@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use backend\modules\base\Module as m;
+use frontend\modules\inter\Module as m;
 use common\widgets\selectwidget\selectWidget;
 
 /* @var $this yii\web\View */
@@ -56,7 +56,7 @@ use common\widgets\selectwidget\selectWidget;
      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <?=$form->field($model, 'codocu')->
             dropDownList(ComboHelper::getCboDocuments() ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -66,7 +66,7 @@ use common\widgets\selectwidget\selectWidget;
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <?=$form->field($model, 'orden')->
             dropDownList(ComboHelper::getCboCardinales(40),
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

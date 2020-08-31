@@ -8,6 +8,7 @@ use common\models\masters\InterExpedientesSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use frontend\modules\inter\Module as m;
 
 /**
  * ExpedientesController implements the CRUD actions for InterExpedientes model.
@@ -122,6 +123,6 @@ class ExpedientesController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
 }

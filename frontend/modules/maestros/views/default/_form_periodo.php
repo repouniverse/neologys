@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use frontend\modules\maestros\MaestrosModule as m;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Periodos */
@@ -15,7 +16,7 @@ use yii\widgets\ActiveForm;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton(Yii::t('base.labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>

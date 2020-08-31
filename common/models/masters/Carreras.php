@@ -55,13 +55,13 @@ class Carreras extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'codesp' => Yii::t('base_labels', 'Codesp'),
-            'nombre' => Yii::t('base_labels', 'Nombre'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'ciclo' => Yii::t('base_labels', 'Ciclo'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
+            'universidad_id' => Yii::t('base_labels', 'University ID'),
+            'facultad_id' => Yii::t('base_labels', 'Faculty ID'),
+            'codesp' => Yii::t('base_labels', 'Race Code'),
+            'nombre' => Yii::t('base_labels', 'Name'),
+            'acronimo' => Yii::t('base_labels', 'Acronym'),
+            'ciclo' => Yii::t('base_labels', 'Cycle'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

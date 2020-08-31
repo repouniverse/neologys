@@ -91,15 +91,15 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
     {
         return [
             'id' => m::t('m_import', 'ID'),
-            'cargamasiva_id' => m::t('m_import', 'Cargamasiva ID'),
-            'fechacarga' => m::t('m_import', 'Fecha'),
-            'user_id' => m::t('m_import', 'Iduser'),
-            'descripcion' => m::t('m_import', 'Descripción'),
-            'current_linea' => m::t('m_import', 'Linea'),
-            'total_linea' => m::t('m_import', 'Total Linea'),
-            'tienecabecera' => m::t('m_import', 'Cabecera'),
-            'duracion' => m::t('m_import', 'Duración'),
-             'hasFile' => m::t('m_import', 'Adjunto'),
+            'cargamasiva_id' => m::t('m_import', 'Bulk Load ID'),
+            'fechacarga' => m::t('m_import', 'Loading Date'),
+            'user_id' => m::t('m_import', 'User Id'),
+            'descripcion' => m::t('m_import', 'Description'),
+            'current_linea' => m::t('m_import', 'Line'),
+            'total_linea' => m::t('m_import', 'Total Line'),
+            'tienecabecera' => m::t('m_import', 'Headboard'),
+            'duracion' => m::t('m_import', 'Duration'),
+            'hasFile' => m::t('m_import', 'Attached'),
         ];
     }
 

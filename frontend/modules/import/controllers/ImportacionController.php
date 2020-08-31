@@ -200,7 +200,7 @@ class ImportacionController extends baseController
          //'Porcentaje de registros Procesados'=>($numeroregistros*100/($carga->total_linea-$carga->firstLineTobegin()+1 )). ' % ',
          'Numero de registros encontrados con errores'=>$nerrores,
          'Numero de registros Totales en el Archivo'=>$carga->total_linea,
-         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.m::t('base.names','Segundos'),
+         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.m::t('m_import','Segundos'),
          'Numero de errores de carga'=>$nerrores,
      ];
     $resultado=$this->renderAjax('_resultados',[
@@ -385,9 +385,9 @@ public function actionNewCarga(){
             ];
         $errores=[];
         if(ImportCargamasivaUser::firstOrCreateStatic($attributes,'minimo')){
-            $errores['success']=m::t('sta.messages','Se creó la carga exitosamente');
+            $errores['success']=m::t('m_import','The load was created successfully');
         }else{
-             $errores['error']=ym::t('sta.messages','No se pudo crear la carga');
+             $errores['error']=ym::t('m_import','Could not create load');
         }
        return $errores;
      }
@@ -469,7 +469,7 @@ public function actionLoadCarga($idcarga){
             return $model;
         }
 
-        throw new NotFoundHttpException(m::t('sta.errors', 'El registro no existe'));
+        throw new NotFoundHttpException(m::t('m_import', 'The record does not exist'));
     
      
  }
@@ -477,7 +477,7 @@ public function actionLoadCarga($idcarga){
  /*VERIFICA QUE EL ARCHIVO DE CARGA TENGA YA EL ADJUNTO */
  public function  VerifyHasAttachment($carga){
      if (!$carga->hasFileCsv()) { 
-         throw new NotFoundHttpException(m::t('sta.errors', 'No hay archivo adjunto'));
+         throw new NotFoundHttpException(m::t('m_import', 'There is no attachment'));
         }
  }
  

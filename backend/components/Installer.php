@@ -50,57 +50,57 @@ class Installer
      public static function getRutas() {
          return [
              'RBAC'=>[
-        '/admin/permission/index'=>Yii::t('base.labels', 'Permisos'),
+        '/admin/permission/index'=>Yii::t('base_labels', 'Permissions'),
        // '/admin/permission/create'=>Yii::t('base.actions', 'Crear Permiso'),
-         '/admin/role/index'=>Yii::t('base.labels', 'Roles'),
-        '/admin'=>Yii::t('base.verbs', 'Asignaciones'),
+         '/admin/role/index'=>Yii::t('base_labels', 'Roles'),
+        '/admin'=>Yii::t('base_labels', 'Assignments'),
                  
-         '/admin/rule/index'=>Yii::t('base.labels', 'Reglas'),
+         '/admin/rule/index'=>Yii::t('base_labels', 'Rules'),
        // '/admin/rule/create'=>Yii::t('base.actions', 'Crear Regla'),
            ],
              'User'=>[
                         //'/admin/user/logout'=>Yii::t('base.actions', 'Salir'),
-                        '/admin/user/signup'=>Yii::t('base.verbs', 'Registrarse'),
+                        '/admin/user/signup'=>Yii::t('base_labels', 'Check in'),
                         //'/admin/user/request-password-reset'=>Yii::t('base.actions', 'Solicitar'),
                         //'/admin/user/reset-password'=>Yii::t('base.actions', 'Reset Pwd'),
-                        '/admin/user/change-password'=>Yii::t('base.verbs', 'Cambiar Pass'),
+                        '/admin/user/change-password'=>Yii::t('base_labels', 'Change Password'),
                   ],
              
              'Menu'=>[
                         //'/admin/menu/create'=>Yii::t('base.actions', 'Crear Menu'),
-                        '/admin/menu/index'=>Yii::t('base.labels', 'Menu'),
-                        '/admin/route/index'=>Yii::t('base.labels', 'Rutas'),
+                        '/admin/menu/index'=>Yii::t('base_labels', 'Menu'),
+                        '/admin/route/index'=>Yii::t('base_labels', 'Routes'),
                        // '/admin/route/create'=>Yii::t('base.actions', 'Crear Ruta'),
                        
                   ],
              'Basic Settings'=>[
-                        '/base/configuracion/index'=>Yii::t('base.labels', 'Parameters Group'),
-                        '/base/configuracion/parametros-mail'=>Yii::t('base.labels', 'Settings Mail'),
-                        '/base/configuracion/index-campos-valores'=>Yii::t('base.labels', 'Masters Fields'),
-                        '/base/configuracion/index-combo-valores'=>Yii::t('base.labels', 'Masters Fields Values'),
-                         '/base/configuracion/index-transacciones'=>Yii::t('base.labels', 'Transactions'),
+                        '/base/configuracion/index'=>Yii::t('base_labels', 'Parameters Group'),
+                        '/base/configuracion/parametros-mail'=>Yii::t('base_labels', 'Settings Mail'),
+                        '/base/configuracion/index-campos-valores'=>Yii::t('base_labels', 'Masters Fields'),
+                        '/base/configuracion/index-combo-valores'=>Yii::t('base_labels', 'Masters Fields Values'),
+                         '/base/configuracion/index-transacciones'=>Yii::t('base_labels', 'Transactions'),
                         
                   ],
                  'Masters Values'=>[
-                        '/maestros/default/index-alumnos'=>Yii::t('base.labels', 'Students'),
-                         '/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
-                         '/maestros/default/index-docu'=>Yii::t('base.labels', 'Documents'),
-                         '/maestros/default/index-facul'=>Yii::t('base.labels', 'Faculties'),
-                        '/maestros/default/index-grupo-personas'=>Yii::t('base.labels', 'People Group'),
-                     '/maestros/default/index-periodo'=>Yii::t('base.labels', 'Periods'),
-                      '/maestros/default/index-persona'=>Yii::t('base.labels', 'People'),
-                  '/maestros/default/index-trabajadores'=>Yii::t('base.labels', 'Workers'),
-                      '/maestros/default/index-univer'=>Yii::t('base.labels', 'Universities'),
+                        '/maestros/default/index-alumnos'=>Yii::t('base_labels', 'Students'),
+                         '/maestros/default/index-departamentos'=>Yii::t('base_labels', 'Departaments'),
+                         '/maestros/default/index-docu'=>Yii::t('base_labels', 'Documents'),
+                         '/maestros/default/index-facul'=>Yii::t('base_labels', 'Faculties'),
+                        '/maestros/default/index-grupo-personas'=>Yii::t('base_labels', 'People Group'),
+                     '/maestros/default/index-periodo'=>Yii::t('base_labels', 'Periods'),
+                      '/maestros/default/index-persona'=>Yii::t('base_labels', 'People'),
+                  '/maestros/default/index-trabajadores'=>Yii::t('base_labels', 'Workers'),
+                      '/maestros/default/index-univer'=>Yii::t('base_labels', 'Universities'),
              ],
              
              'Herramientas'=>[
-                        '/import/importacion'=>Yii::t('base.labels', 'Importación'),
-                         //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
+                        '/import/importacion'=>Yii::t('base_labels', 'Import'),
+                         //'/maestros/default/index-departamentos'=>Yii::t('base_labels', 'Departaments'),
                          ],
              
               'Internacional'=>[
-                        '/inter/programa'=>Yii::t('base.labels', 'Programas'),
-                         //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
+                        '/inter/programa'=>Yii::t('base_labels', 'Programs'),
+                         //'/maestros/default/index-departamentos'=>Yii::t('base_labels', 'Departaments'),
                          ],
              
              //'parameters'=>[

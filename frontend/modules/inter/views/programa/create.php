@@ -5,8 +5,8 @@ use frontend\modules\inter\Module as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterPrograma */
 
-$this->title = m::t('base.labels', 'Create Inter Programa');
-$this->params['breadcrumbs'][] = ['label' => m::t('base.labels', 'Inter Programas'), 'url' => ['index']];
+$this->title = m::t('labels', 'Create Inter Program');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Programs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-programa-create">

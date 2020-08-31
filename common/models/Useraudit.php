@@ -43,11 +43,11 @@ class Useraudit extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'ID'),
-            'user_id' => Yii::t('base.names', 'User ID'),
-            'when' => Yii::t('base.names', 'Cuando'),
-            'ip' => Yii::t('base.names', 'Dirección de red IP'),
-            'action' => Yii::t('base.names', 'Acción'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'user_id' => Yii::t('base_labels', 'User ID'),
+            'when' => Yii::t('base_labels', 'When'),
+            'ip' => Yii::t('base_labels', 'IP'),
+            'action' => Yii::t('base_labels', 'Action'),
         ];
     }
 

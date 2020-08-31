@@ -26,13 +26,13 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
   <div class="box-footer">
         <div class="col-md-12">
             <div class="form-group no-margin">
-        <?= Html::submitButton('<span class="fa fa-save"></span>    '.m::t('labels', 'Grabar'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>    '.m::t('m_import', 'Save'), ['class' => 'btn btn-success']) ?>
            
             <?php 
                if(!$model->isNewRecord){
                   $url=Url::to(['example-csv','id'=>$model->id]);
                 echo Html::a(
-                        '<span class="fa fa-download"></span>    '.m::t('labels','Descargar plantilla'),
+                        '<span class="fa fa-download"></span>    '.m::t('m_import','Download Template'),
                         $url,
                         [
                           
@@ -98,7 +98,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">   
    <?= $form->field($model, 'escenario')->
             dropDownList(($model->isNewRecord)?[]:[$model->escenario=>$model->escenario],
-                    ['prompt'=>'--'.m::t('base.verbs','--Seleccione un valor')."--",
+                    ['prompt'=>'--'.m::t('m_import','--Select a value')."--",
                      'disabled'=>(!$model->isNewRecord)?true:false
                        ]
                     ) ?>
@@ -122,7 +122,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">   
    <?= $form->field($model, 'format')->
             dropDownList(['csv'=>'csv'],
-                    ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                    ['prompt'=>'--'.m::t('m_import','--Select a value')."--",
                      'disabled'=>(!$model->isNewRecord)?true:false
                        ]
                     ) ?>

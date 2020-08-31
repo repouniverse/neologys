@@ -17,7 +17,7 @@ trait modelBaseTrait {
     private function sizeColumn($attribute)
 	{
             if($attribute===null or !$this->hasAttribute($attribute) )
-                throw new ServerErrorHttpException(Yii::t('models.error', 'Don\'t exists the attribute or constant "{atributo}" in this class {clase} ',['atributo'=>$attribute,'clase'=>static::class]));
+                throw new ServerErrorHttpException(Yii::t('base_errors', 'Don\'t exists the attribute or constant "{atributo}" in this class {clase}',['atributo'=>$attribute,'clase'=>static::class]));
     		return $this->getTableSchema()->getColumn($attribute)->size;
 	}   
         
@@ -77,11 +77,11 @@ trait modelBaseTrait {
              
              private function checkPrefixField($attribute,$prefix,$width){
            $tamanocol=$this->sizeColumn($attribute)+0;
-            if(strlen($prefix) >=$tamanocol  )throw new ServerErrorHttpException(Yii::t('error', 'The prefix field "{prefix}" is greater than width of attribute {attribute} ',['prefix'=>$prefix,'attribute'=>static::class]));
+            if(strlen($prefix) >=$tamanocol  )throw new ServerErrorHttpException(Yii::t('base_errors', 'The prefix field "{prefix}" is greater than width of attribute {attribute}',['prefix'=>$prefix,'attribute'=>static::class]));
             //if($width+0 >=$tamanocol  )throw new ServerErrorHttpException(Yii::t('error', 'The prefix field "{prefix}" is greater than width of attribute {attribute} ',['prefix'=>$prefix,'attribute'=>static::class]));
     		
-            if(strlen($prefix)+strlen($width) > $tamanocol ) throw new ServerErrorHttpException(Yii::t('error',
-                    ' width ({lcolumn}) of column {columna} is too small to fill values with the size prefix ( {lprefix}) and size lenght ({lsize}) ',
+            if(strlen($prefix)+strlen($width) > $tamanocol ) throw new ServerErrorHttpException(Yii::t('base_errors',
+                    'width ({lcolumn}) of column {columna} is too small to fill values with the size prefix ( {lprefix}) and size lenght ({lsize})',
                     ['lprefix'=>$prefix,'lsize'=>$width,'lcolumn'=>$tamanocol,'columna'=>$attribute  ]));
         }
         
@@ -93,8 +93,8 @@ trait modelBaseTrait {
                         $module = Yii::$app;
                 } elseif (is_string($module)) {
                     if(!yii::$app->hasModule($module))
-                     throw new ServerErrorHttpException(Yii::t('models.error',
-                    ' The Application doesn\'t have the  module \'{module}\'',
+                     throw new ServerErrorHttpException(Yii::t('base_errors',
+                    'The Application doesn\'t have the  module \'{module}\'',
                     ['module'=>$module]));
                         $module = Yii::$app->getModule($module);
                         }

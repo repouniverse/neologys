@@ -23,7 +23,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
             </div>
             <?php 
             $url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(m::t('labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>',$url, ['class'=>"botonAbre small-box-footer"]);
+            echo Html::a(m::t('labels','Details').'<i class="fa fa-arrow-circle-right"></i>',$url, ['class'=>"botonAbre small-box-footer"]);
             ?>
             
           </div>

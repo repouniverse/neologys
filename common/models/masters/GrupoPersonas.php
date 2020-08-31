@@ -52,10 +52,10 @@ class GrupoPersonas extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'codgrupo' => Yii::t('base.labels', 'Codgrupo'),
-            'desgrupo' => Yii::t('base.labels', 'Desgrupo'),
-            'modelo' => Yii::t('base.labels', 'Modelo'),
-            'detalle' => Yii::t('base.labels', 'Detalle'),
+            'codgrupo' => Yii::t('base_labels', 'Group Code'),
+            'desgrupo' => Yii::t('base_labels', 'Group Description'),
+            'modelo' => Yii::t('base_labels', 'Model'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

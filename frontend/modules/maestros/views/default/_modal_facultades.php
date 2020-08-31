@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use backend\modules\base\Module as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 /* @var $form yii\widgets\ActiveForm */

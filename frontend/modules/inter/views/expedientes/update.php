@@ -1,16 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-
+use frontend\modules\inter\Module as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterExpedientes */
 
-$this->title = Yii::t('base_labels', 'Update Inter Expedientes: {name}', [
+$this->title = m::t('labels', 'Update Inter Files: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Inter Expedientes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Files'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="inter-expedientes-update">
 
