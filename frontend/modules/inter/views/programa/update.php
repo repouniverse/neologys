@@ -51,7 +51,12 @@ $this->params['breadcrumbs'][] = m::t('labels', 'Update');
             'active' => false,
              'options' => ['id' => 'myveryggvrwnID68'],
         ],
-       
+       [
+          'label'=>'<i class="fa fa-users"></i> '.m::t('labels','Stages'), //$this->context->countDetail() obtiene el contador del detalle
+            'content'=> $this->render('_etapas',[ 'model' => $model]),
+            'active' => false,
+             'options' => ['id' => 'myverygererrwnID68'],
+        ],
     ],
 ]);  
   ?>

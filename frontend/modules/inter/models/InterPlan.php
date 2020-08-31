@@ -52,7 +52,7 @@ class InterPlan extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'eval_id', 'modo_id', 'programa_id'], 'integer'],
             [['acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
-             [['orden','requisito_id'], 'safe'],
+             [['orden','requisito_id','etapa_id','ordenetapa'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
             [['acronimo', 'descripcion'], 'string', 'max' => 40],
@@ -131,6 +131,8 @@ class InterPlan extends \common\models\base\modelBase
     {
         return $this->hasOne(\common\models\masters\Departamentos::className(), ['id' => 'depa_id']);
     }
+     
+    
 
     /**
      * Gets query for [[Universidad]].
@@ -142,6 +144,11 @@ class InterPlan extends \common\models\base\modelBase
         return $this->hasOne(\common\models\masters\Universidades::className(), ['id' => 'universidad_id']);
     }
 
+    public function getEtapa()
+    {
+        return $this->hasOne(InterEtapas::className(), ['id' => 'etapa_id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return InterPlanQuery the active query used by this AR class.
@@ -157,5 +164,10 @@ class InterPlan extends \common\models\base\modelBase
             'modo_id'=>$this->modo_id,
         ])->andWhere(['<>','id',$this->id])->asArray(),
              'id','descripcion');
+    }
+    
+    public function beforeSave($insert) {
+        $this->ordenetapa= InterEtapas::findOne($this->etapa_id)->orden;
+        return parent::beforeSave($insert);
     }
 }

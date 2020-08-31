@@ -30,22 +30,7 @@ class SiteController extends  baseController
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+           
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -98,7 +83,8 @@ class SiteController extends  baseController
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+           // return $this->goBack();
+           $this->redirect(Url::toRoute([Yii::$app->user->resolveUrlAfterLogin()]));
         } else {
             $model->password = '';
             return $this->render('login', [

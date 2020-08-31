@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use frontend\modules\inter\Module as m;
 alumnoAsset::register($this);
 ?>
+<h4><?=h::awe('user').h::space(10).$identidad->fullName(false,true, '-')?></h4>
  <div class="box box-success">
     <div class="box-body">
       
@@ -52,10 +53,33 @@ alumnoAsset::register($this);
     
 
 <?php
+//var_dump($identidad->currentConvocatoria());die();
+ //echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado',['identidad'=>$identidad]);
+
+
+
+$convocatoria=$identidad->currentConvocatoria();
+$etapas=$convocatoria->modo->getEtapas()->orderBy(['orden'=>SORT_ASC])->asArray()->all();
+$steps=[];
+foreach($etapas as $etapa){
+    $steps[$etapa['orden']]=[  'title' => $etapa['descripcion'],
+                'icon' => 'fa fa-'.$etapa['awe'],
+                'content' =>'<h4>'.$etapa['descripcion'].'</h4><br><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info">'.$etapa['comentarios'].'</div>'.$this->render('_etapa_'.$etapa['orden'],
+                                [
+                                    'identidad'=>$identidad,
+                                    'convocatoria'=>$convocatoria,
+                                ]
+                     
+                                         ),
+             ];
+}
+
+
 $wizard_config = [
 	'id' => 'stepwizard',
-	'steps' => [
-		1 => [
+         'steps' => $steps,   
+	/*'steps' => [
+		0 => [
 			'title' => 'Step 1',
 			'icon' => 'fa fa-filter',
 			'content' => '<h3>Step 1</h3>This is step 1',
@@ -68,20 +92,20 @@ $wizard_config = [
 				 ],
 			 ],
 		],
-		2 => [
+		1 => [
 			'title' => 'Step 2',
 			'icon' => 'fa fa-folder-open',
 			'content' => '<h3>Step 2</h3>This is step 2',
 			'skippable' => true,
 		],
-		3 => [
+		2 => [
 			'title' => 'Step 3',
 			'icon' => 'fa fa-comments',
 			'content' => '<h3>Step 3</h3>This is step 3',
 		],
-	],
+	],*/
 	'complete_content' => "You are done!", // Optional final screen
-	'start_step' => 2, // Optional, start with a specific step
+	'start_step' => $convocatoria->currentStage(), // Optional, start with a specific step
 ];
 ?>
         <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-gray-light">
@@ -92,7 +116,7 @@ $wizard_config = [
 
    <div class="map-container">
     <div id="world-map" class="jvmap-smart">   
-<?= JVectorMapWidget::widget([
+<?php /*echo JVectorMapWidget::widget([
     //'id'=>'map1',
     'map'=>'world_mill_en',
     
@@ -105,7 +129,7 @@ $wizard_config = [
     'htmlOptions'=>[
         'id'=>'map1',
                 ],
-]); ?>
+]);*/ ?>
     
         
         

@@ -279,5 +279,19 @@ class h {
      return "<span class='glyphicon glyphicon-".$font."'></span>";
      
  }
+ 
+ public static function space($tamano){
+     $cadena='';
+   if(is_integer($tamano) && $tamano > 0){
+     for( $i=1; $i <= $tamano; $i++){
+        $cadena.=' ';
+    }
+    return $cadena;  
+   }else{
+       return ' ';
+   }
+     
+ }
+ 
 }
 ?>

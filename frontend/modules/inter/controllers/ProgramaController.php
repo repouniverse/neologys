@@ -5,6 +5,7 @@ USE frontend\modules\inter\Module as m;
 use Yii;
 use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
+use frontend\modules\inter\models\InterEtapas;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -326,9 +327,8 @@ class ProgramaController extends baseController
              'facultad_id'=>$modelEval->facultad_id,
             'modo_id'=>$modelEval->id,
             'depa_id'=>$modelEval->depa_id,
-            'programa_id'=>$modelEval->programa_id,
-             
-            //'eval_id'=>$modelEval->id,
+            'programa_id'=>$modelEval->programa_id,             
+           // 'eval_id'=>$modelEval->id,
             
             
         ]);
@@ -410,7 +410,117 @@ class ProgramaController extends baseController
      
   }
   
+  /*
+   * Crea una etapa del programa 
+   */
+  public function actionCreateEtapa(){
+  $model=New InterEtapas();
+  //$model = new InterPrograma();
+        
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            return $this->redirect(['update', 'id' => $model->id]);
+
+
+        }ELSE{
+           //PRINT_R($model->getErrors());DIE();
+
+        }
+
+        return $this->render('create_etapa', [
+            'model' => $model,
+        ]);
+      
+  }
   
   
+    public function actionModalNewEtapa($id){
+     $this->layout = "install";
+        $model = New InterEtapas();
+        $datos=[];
+        $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne($id);        
+        
+        if(is_null(  $modelPrograma)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            
+            'programa_id'=>$modelPrograma->id,             
+           // 'eval_id'=>$modelEval->id,
+            
+            
+        ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_etapa', [
+                        'model' => $model,
+                        'programa_id'=> $modelPrograma->id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+   public function actionModalEditEtapa($id){
+     $this->layout = "install";
+        $model = InterEtapas::findOne($id);
+        $datos=[];
+              
+        
+        if(is_null( $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+       
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_etapa', [
+                        'model' => $model,
+                        'programa_id'=> $model->programa_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
   
 }

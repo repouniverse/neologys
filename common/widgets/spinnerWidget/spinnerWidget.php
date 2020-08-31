@@ -22,21 +22,15 @@ class spinnerWidget extends yii\base\Widget
      $unico= uniqid();$this->idDiv=$unico;
             $this->getView()->registerJs("$(document).ready(
                  function(){
-                         
             $(document).ajaxStart(function(){
-                                        $('#". $unico."').css('display','contents'); 
-                                
+                                        $('#". $unico."').css('display','contents');                                        
                                             }
                                   );
-                
-                   
-            $(document).ajaxStop(function(){
+            $(document).ajaxComplete(function(){
                                         $('#".$unico."').css('display', 'none'); 
-                                                         
                                                 }
                                  );
-                
-              
+
                 });", \yii\web\View::POS_READY);
         }
 

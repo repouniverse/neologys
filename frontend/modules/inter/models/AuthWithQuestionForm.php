@@ -5,6 +5,7 @@ namespace frontend\modules\inter\models;
 use yii\base\Model;
 use yii\helpers\Url;
 use common\models\User;
+use frontend\modules\inter\Module;
 class AuthWithQuestionForm extends Model 
 
 {
@@ -190,7 +191,13 @@ class AuthWithQuestionForm extends Model
              
             
         }else{ //Si el usuario no existe hay que crearlo
-          $user= $this->modelPostulante->persona->createUser($this->codigo,$this->email);
+          $user= $this->modelPostulante->
+                persona->createUser($this->codigo,$this->email);
+          //Asignar el rol 
+         Yii::$app->authManager->assign(
+                 Module::getRolePostulante(),
+                 $user->id);
+          
             /*
              $user = new \mdm\admin\models\User();
             $user->username= strtolower($this->codigo);

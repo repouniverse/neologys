@@ -11,7 +11,7 @@ $this->title = m::t('labels', 'Inter Programas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-programa-index">
-
+   <?php Html::img('@frontend');      ?>
     <h4><?= Html::encode($this->title) ?></h4>
     <div class="box box-success">
      <div class="box-body">

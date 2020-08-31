@@ -94,7 +94,7 @@ class InterModos extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|InterExpedientesQuery
      */
-    public function getInterExpedientes()
+    public function getExpedientes()
     {
         return $this->hasMany(InterExpedientes::className(), ['modo_id' => 'id']);
     }
@@ -131,6 +131,10 @@ class InterModos extends \common\models\base\modelBase
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
 
+    
+    
+    
+    
     /**
      * Gets query for [[Universidad]].
      *
@@ -146,9 +150,14 @@ class InterModos extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|InterPlanQuery
      */
-    public function getInterPlans()
+    public function getPlanes()
     {
         return $this->hasMany(InterPlan::className(), ['modo_id' => 'id']);
+    }
+    
+     public function getEtapas()
+    {
+        return $this->hasMany(InterEtapas::className(), ['modo_id' => 'id']);
     }
 
     /**
@@ -185,8 +194,9 @@ class InterModos extends \common\models\base\modelBase
                     ]);
            $model->attributes=$postulante->pushAttributeInterModo(
                    $model->attributes);
-           yii::error($model->firstOrCreate($model->attributes,
-                   $model::SCENARIO_CONVOCATORIAMINIMA));
+          return  $model->firstOrCreate($model->attributes,
+                   $model::SCENARIO_CONVOCATORIAMINIMA);
+           //yii::error();
            
       }else{
           return false;
@@ -199,13 +209,14 @@ class InterModos extends \common\models\base\modelBase
     
     
    public function convocaMasivamente(){
+       $cantidad=0;
        $this->modelFuente = Yii::createObject($this->modelofuente);
        if($this->modelFuente instanceof postulantesInterface) {
            $providerPersons=$this->modelFuente->providerPersonsToConvocar();
              foreach($providerPersons->batch(10) as $persons){
                  foreach($persons as $person){
-                     yii::error('siguiendo a '.$person->id);
-                    $this->convocaPersona($person);  
+                     yii::error('siguiendo a '.$person->id);                   
+                    if($this->convocaPersona($person))$cantidad++;
                  }
                 
              }
@@ -213,7 +224,8 @@ class InterModos extends \common\models\base\modelBase
        } else{
            throw new \yii\base\InvalidConfigException(Yii::t('base_errors', 'Class {clase} is not Instance of postulanteInterface ',['clase'=>$this->claseModeloFuente])); 
        
-       }   
+       } 
+       return $cantidad;
    }
    
   

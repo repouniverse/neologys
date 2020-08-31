@@ -1,5 +1,6 @@
 <?php use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
 
 

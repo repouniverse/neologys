@@ -16,7 +16,7 @@ class ComboHelper  extends combo{
   public static function getCboModos($programa_id=null){
       $query= \frontend\modules\inter\models\InterModos::find();
       if(!is_null($programa_id)){
-          $query->andWhere(['programa_id'=>$facultad_id]);
+          $query->andWhere(['programa_id'=>$programa_id]);
       }else{
        $mp=\frontend\modules\inter\models\InterPrograma::find() 
         ->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
@@ -25,5 +25,30 @@ class ComboHelper  extends combo{
         return ArrayHelper::map(
                        $query->all(),
                 'id','descripcion');
-    }     
+    }  
+    
+    
+    public static function getCboProgramas(){
+      $query= \frontend\modules\inter\models\InterPrograma::find();
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','descripcion');
+    }   
+    
+    public static function getCboEtapas($modo_id){
+      $query= \frontend\modules\inter\models\InterEtapas::find()->andWhere(['modo_id'=>$modo_id]);
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','descripcion');
+    }  
+    
+   public static function getCboEvaluadores($programa_id){
+      $query= \frontend\modules\inter\models\InterEvaluadores::find()->andWhere(['programa_id'=>$programa_id]);
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','descripcion');
+    }  
 }

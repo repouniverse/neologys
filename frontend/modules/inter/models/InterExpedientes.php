@@ -8,6 +8,9 @@ use common\models\masters\Documentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
+use common\helpers\h;
+use common\behaviors\FileBehavior;
+use yii\helpers\Html;
 use Yii;
 
 /**
@@ -39,6 +42,13 @@ use Yii;
  */
 class InterExpedientes extends \common\models\base\modelBase
 {
+   
+    
+    const SCE_BASICO='basico';
+        
+    const SCE_ESTADO='estado';
+     public $booleanFields=['estado','requerido'];  
+
     /**
      * {@inheritdoc}
      */
@@ -47,6 +57,16 @@ class InterExpedientes extends \common\models\base\modelBase
         return '{{%inter_expedientes}}';
     }
 
+     public function behaviors() {
+        return [
+           
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+            
+        ];
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -54,9 +74,10 @@ class InterExpedientes extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'convocado_id'], 'integer'],
-            [['clase', 'status', 'codocu', 'estado', 'requerido'], 'required'],
+            [['codocu'], 'required'],
             [['detalles', 'textointerno'], 'string'],
-            [['clase', 'status', 'estado', 'requerido'], 'string', 'max' => 1],
+            [['plan_id','orden','etapa_id','secuencia'], 'safe'],
+            [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
             [['fpresenta', 'fdocu'], 'string', 'max' => 10],
             [['codocu'], 'exist', 'skipOnError' => true, 'targetClass' => Documentos::className(), 'targetAttribute' => ['codocu' => 'codocu']],
@@ -93,12 +114,34 @@ class InterExpedientes extends \common\models\base\modelBase
         ];
     }
 
+    
+     public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCE_BASICO] = [
+                        'universidad_id',
+                       'facultad_id',
+                       'depa_id',
+                       'plan_id',
+                        'programa_id',
+                       'modo_id',            
+                       'convocado_id',
+                       'codocu',
+            'orden',
+                        'etapa_id','secuencia',
+            ];
+        $scenarios[self::SCE_ESTADO] = [
+                        
+                        'estado',
+            ];
+        return $scenarios;
+    }
+    
     /**
      * Gets query for [[Codocu0]].
      *
      * @return \yii\db\ActiveQuery|DocumentosQuery
      */
-    public function getCodocu0()
+    public function getDocumento()
     {
         return $this->hasOne(Documentos::className(), ['codocu' => 'codocu']);
     }
@@ -133,6 +176,12 @@ class InterExpedientes extends \common\models\base\modelBase
         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
     }
 
+    
+    public function getPlan()
+    {
+        return $this->hasOne(InterPlan::className(), ['id' => 'plan_id']);
+    }
+    
     /**
      * Gets query for [[Convocado]].
      *
@@ -161,4 +210,22 @@ class InterExpedientes extends \common\models\base\modelBase
     {
         return new InterExpedientesQuery(get_called_class());
     }
+    
+    public function aprove(){
+        $oldScenario=$this->getScenario();
+        $this->setScenario(self::SCE_ESTADO);
+        $this->estado=true;
+        $grabo=$this->save();
+        $this->setScenario($oldScenario);//dejamos las cosas como estaban antes
+        return $grabo;
+        
+    }
+    
+    public function flagAttach(){
+        $tieneAdjunto=$this->hasAttachments();
+       $icono=(!$tieneAdjunto)?h::awe('folder-open'):h::awe('check');
+       $color=(!$tieneAdjunto)?'red':'green';
+       return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>';
+    }
+   
 }

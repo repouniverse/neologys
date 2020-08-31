@@ -2,8 +2,9 @@
 
 namespace common\models\masters;
 use common\interfaces\identidadesInterface;
-
+use frontend\modules\inter\models\InterConvocados;
 USE common\traits\nameTrait;
+use common\helpers\h;
 USE common\traits\identidadTrait;
 use common\models\masters\Combovalores;
 use Yii;
@@ -160,7 +161,10 @@ implements \common\interfaces\postulantesInterface
        return static::find()/*->andWhere([])*/;
    }
    
-      
+   public function getConvocatorias()
+    {
+        return $this->hasMany(InterConvocados::className(), ['alumno_id' => 'id']);
+    }   
       /*
        
        * Reporta un array de elementos ActiveQuery 
@@ -212,6 +216,10 @@ implements \common\interfaces\postulantesInterface
             if (!$user->save()) {
                                 return false;
              }*/
+  }
+  
+  public function currentConvocatoria(){
+     return  $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
   }
   
 }

@@ -16,6 +16,7 @@ class ActionSelectImage extends \yii\base\Action
          
         $clase=str_replace('_','\\',h::request()->get('nombreclase'));
         $isImage=h::request()->get('isImage');
+        $idGrilla=h::request()->get('idGrilla');
         $id=h::request()->get('modelid');
         $ext=h::request()->get('extension');
        //$idGrilla=h::request()->get('idGrilla');
@@ -29,6 +30,8 @@ class ActionSelectImage extends \yii\base\Action
            // h::request()->get('idModal');die();
             //echo \yii\helpers\Html::script("$('#createCompany').modal('hide'); window.parent.$.pjax({container: '#grilla-contactos'})");
             $this->controller->closeModal('buscarvalor');
+            if(!is_null($idGrilla))
+            echo "<script> $.pjax.reload({container: '#".$idGrilla."', async: false});</script>";
         
         } else {
             if($model->hasErrors()){

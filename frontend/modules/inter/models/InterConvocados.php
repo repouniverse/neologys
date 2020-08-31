@@ -10,45 +10,19 @@ use common\models\masters\Carreras;
 use common\models\masters\Personas;
 use common\models\masters\Alumnos;
 use frontend\modules\inter\Module as m;
+use frontend\modules\inter\models\InterPlan;
 use Yii;
 
-/**
- * This is the model class for table "{{%inter_convocados}}".
- *
- * @property int $id
- * @property int|null $universidad_id
- * @property int|null $facultad_id
- * @property int|null $depa_id
- * @property int|null $modo_id
- * @property string|null $codperiodo
- * @property string $codocu
- * @property int|null $programa_id
- * @property string $clase
- * @property string $status
- * @property int|null $secuencia
- * @property int|null $alumno_id
- * @property int|null $docente_id
- * @property int|null $persona_id
- * @property int|null $identidad_id
- * @property string|null $codalu
- * @property string|null $codigo1
- * @property string|null $codigo2
- *
- * @property Periodos $codperiodo0
- * @property Universidades $universidad
- * @property Departamentos $depa
- * @property InterModos $modo
- * @property Facultades $facultad
- * @property Documentos $codocu0
- * @property InterExpedientes[] $interExpedientes
- */
 class InterConvocados extends \common\models\base\modelBase
 {
     const SCENARIO_CONVOCATORIAMINIMA='convocatoriamin';
+    const SCENARIO_FICHA='ficha';
+    const STAGE_UPLOADS=2;
      const CODIGO_DOCUMENTO='115';
     /**
      * {@inheritdoc}
      */
+    //public $booleanFields=['asistio','activo'];
     public static function tableName()
     {
         return '{{%inter_convocados}}';
@@ -64,7 +38,9 @@ class InterConvocados extends \common\models\base\modelBase
             //[['codocu', 'clase', 'status'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
-            [['motivos'], 'safe'],
+            [['motivos','depa_id'], 'safe'],
+             [['motivos'], 'validateOpUniv','on'=>self::SCENARIO_FICHA],
+            [['programa_id','alumno_id'], 'unique', 'targetAttribute' => ['programa_id','alumno_id']],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codalu', 'codigo1', 'codigo2'], 'string', 'max' => 16],
             [['codperiodo'], 'exist', 'skipOnError' => true, 'targetClass' => Periodos::className(), 'targetAttribute' => ['codperiodo' => 'codperiodo']],
@@ -116,6 +92,19 @@ class InterConvocados extends \common\models\base\modelBase
                        'programa_id',
                        'codperiodo',
                        'codocu',
+            ];
+        $scenarios[self::SCENARIO_FICHA] = [
+                        'universidad_id',
+                       'facultad_id',
+                       'depa_id',
+                       'persona_id',
+                       'modo_id',
+                       'alumno_id',
+                       'programa_id',
+                       'codperiodo',
+                       'codocu',
+                       'motivos',
+                       
             ];
         return $scenarios;
     }
@@ -184,16 +173,22 @@ class InterConvocados extends \common\models\base\modelBase
         return $this->hasOne(Documentos::className(), ['codocu' => 'codocu']);
     }
 
+    
+    public function getPersona()
+    {
+        return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
     /**
      * Gets query for [[InterExpedientes]].
      *
      * @return \yii\db\ActiveQuery|InterExpedientesQuery
      */
-    public function getInterExpedientes()
+    public function getExpedientes()
     {
         return $this->hasMany(InterExpedientes::className(), ['convocado_id' => 'id']);
     }
-
+    
+   
     /**
      * Gets query for [[Codocu0]].
      *
@@ -239,4 +234,218 @@ class InterConvocados extends \common\models\base\modelBase
                 );
         
     }
+   /*
+    * crea el expediente segun la etapa de
+    * del proceso
+    */ 
+   public function createExpedientes($stage=null){
+       if(is_null($stage))
+       $query= Interplan::find()->andWhere(['modo_id'=>$this->modo_id]);
+       $query= Interplan::find()->andWhere(['modo_id'=>$this->modo_id,'ordenetapa'=>$stage]);
+      $modelsPlanes=$query->all();
+      //yii::error(Interplan::find()->andWhere(['modo_id'=>$this->modo_id])->createCommand()->rawSql);
+      yii::error('Ingnresando al for ',__FUNCTION__);
+      foreach($modelsPlanes as $modelPlan){
+          yii::error('seguimiento docuementos');
+          yii::error($modelPlan->codocu,__FUNCTION__);
+          $this->createExpediente($modelPlan);
+      }
+   } 
+  
+   public function afterSave($insert, $changedAttributes) {
+      if($insert){
+          $this->createFirstExpediente();
+      }
+       RETURN parent::afterSave($insert, $changedAttributes);
+   }
+   
+  /*public function hasCompleteExpedientes(){
+      $this->getExpedientes()->andWhere(['estado'=>'1']);
+  }*/
+   /*
+    * Obtiene la etapa en la que se encuentra 
+    * el postulante 
+    */
+  public function currentStage(){
+    /*Obteniendo la etapa actual*/
+    $etapa=$this->getExpedientes()->select(['max(orden)'])->andWhere(['estado'=>'1'])->scalar();
+    IF($etapa){
+        /*
+         * Si en esta etapa todos los expedientes estan aprobados 
+         * virtualmente ya pasó a la siguiente si no se queda aquí
+         */
+      if($this->hasCompletedStage($etapa)){
+          //Debe de calcularse la siguitente etapa
+          return InterEtapas::nextStage($etapa, $this->modo_id);
+      }else{
+          return $etapa;
+      }
+    }else{
+       return InterEtapas::firstStage($this->modo->id);  
+    }
+    
+    
+      
+     
+  }
+  /*
+   * Devuelve la etapa actual 
+   * pero no es inteligente como la 
+   * funcion currentStage() que avanza 
+   * a la siguietne cuando encuentra completa la etapa
+   * , esta funcion no avanza 
+   * te da la etpaa como tal
+   */
+public function rawCurrentStage(){
+    $etapa=$this->getExpedientes()->
+            select(['max(orden)'])->andWhere(['estado'=>'1'])->scalar();
+    var_dump($this->getExpedientes()->
+            select(['max(orden)'])->andWhere(['estado'=>'1'])->createCommand()->rawSql);
+    die();
+    IF($etapa){
+          return $etapa;
+     
+    }else{
+       return InterEtapas::firstStage($this->modo->id);  
+    } 
+}
+   
+  /*Como saber si ha completado la etapa*/
+  public function hasCompletedStage($stage){
+      $expAprobados=$this->getExpedientes()
+              ->andWhere(['orden'=>$stage,'estado'=>'1'])->count();
+      if($expAprobados > 0){
+        $nExpedientesEnEtapa= $this->modo->getPlanes()->andWhere(['ordenetapa'=>$stage])->count();
+           if($expAprobados >=$nExpedientesEnEtapa){
+               /*Quieer decior que ya aprobo toda la etapa*/
+              return true;
+           }else{
+              return false; 
+           }
+      }else{
+          return false; //Si no ha aprobado nada , ues no ha compeltado
+      }
+     
+  }
+ 
+  
+ public function porcAvance($stage=null){
+      $expAprobados=$this->getExpedientes()
+              ->andWhere(['orden'=>(is_null($stage))?$this->rawCurrentStage():$stage,'estado'=>'1'])->count();
+       $nExpedientesEnEtapa= $this->modo->getPlanes()->andWhere(['ordenetapa'=>(is_null($stage))?$this->rawCurrentStage():$stage])->count();
+       //var_dump($this->rawCurrentStage(),$expAprobados,$nExpedientesEnEtapa);die();
+       if($nExpedientesEnEtapa >0)
+       return round(100*$expAprobados/$nExpedientesEnEtapa,3);
+       return 0;
+ }
+  
+ 
+public function porcAvanceUploads($stage){
+    $query=$this->getExpedientes()
+              ->andWhere(['orden'=>$stage]);
+     //$expedientes=$query->all();
+     $nexpedientes=$query->count();
+     $nsubidos=0;
+     foreach($this->expedientes as $expediente){
+        if($expediente->hasAttachments())$nsubidos++;
+     }
+    // var_dump($nexpedientes,$nsubidos);die();
+     if($nexpedientes>0)return 100*round($nsubidos/$nexpedientes,3);
+     return 0;
+}
+  
+  
+  /*
+   * Devuelve los IDS de los planes expedientes 
+   * si activo=true
+   * Solo devuelve aquellos auq ya han sido completados
+   */ 
+  public function idPlanesInExpedientes($activo=false){
+       if(!$activo)
+       return $this->getExpedientes()->select(['plan_id'])->column();
+       return $this->getExpedientes()->select(['plan_id'])->andWhere(['estado'=>'1'])->column();
+    }
+    
+    /*
+   * Devuelve los IDS de los expedientes 
+   * si activo=true
+   * Solo devuelve aquellos auq ya han sido completados
+   */ 
+  public function idExpedientes($activo=false){
+        if(!$activo)
+      return $this->getExpedientes()->select(['id'])->column();
+       return $this->getExpedientes()->select(['id'])->andWhere(['estado'=>'1'])->column();
+    
+    }
+  
+ public function createFirstExpediente(){
+    $modelPlan= Interplan::find()->
+    andWhere(['modo_id'=>$this->modo_id,
+      'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
+            ])->orderBy(['orden'=>SORT_ASC])->one(); 
+   return $this->createExpediente($modelPlan);
+    
+ }
+ 
+ public function firstExpediente($stage=null){
+     if(is_null($stage))
+     RETURN $this->getExpedientes()->andWhere(['orden'=>InterEtapas::firstStage($this->modo_id)])
+            ->orderBy(['secuencia'=>SORT_ASC])->one();
+      RETURN $this->getExpedientes()->andWhere([          
+          'orden'=>$stage])
+            ->orderBy(['secuencia'=>SORT_ASC])->one();
+ }     
+ 
+ private function createExpediente(InterPlan $modelPlan){
+    return  InterExpedientes::firstOrCreateStatic([
+                        'universidad_id'=>$this->universidad_id,
+                       'facultad_id'=>$this->facultad_id,
+                       'depa_id'=>$this->depa_id,
+                        'plan_id'=>$modelPlan->id,
+                       'orden'=>$modelPlan->ordenetapa, //oJO ESTA ES LA ETAPA NO EL ORDEN
+                        'etapa_id'=>$modelPlan->etapa_id,
+                        'programa_id'=>$this->programa_id,
+                       'modo_id'=>$this->modo_id,            
+                       'convocado_id'=>$this->id,
+                       'codocu'=>$modelPlan->codocu,
+                       'secuencia'=>$modelPlan->orden, //OJO NO CONFUNDIRSE  CON LA ETAPA, ESTE ES EL ORDEN
+            ],InterExpedientes::SCE_BASICO,[ /*Campos para verifica rduplciados*/
+                'convocado_id'=>$this->id,
+                 'secuencia'=>$modelPlan->orden,
+                 'plan_id'=>$modelPlan->id,
+                'orden'=>$modelPlan->ordenetapa,
+                ] );
+ }
+   
+ public function validateOpUniv($attribute, $params)
+    {
+      if($this->getInterOpuniv()->count()==0){
+          $this->addError('motivos',m::t('errors','You must fill Universities to apply'));
+      }
+    }
+ 
+    
+ public function sendEmailUploads(){
+     $nombre=$this->persona->fullName();
+        $mailer = new \common\components\Mailer();
+        $message =new  \yii\swiftmailer\Message();
+            $message->setSubject(m::t('labels','Notificación de Carga de documentos'))
+            ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
+            ->setTo('jramirez@neotegnia.com')
+            ->SetHtmlBody("Buenas Tardes <br>"
+                    . "El postulante   ".$nombre."  "
+                    . " Ha terminado de subir sus documentos "
+                    . " ");
+           
+    try {
+        
+           $result = $mailer->send($message);
+           //$mensajes['success']='Se envió un mensaje al correo que indicaste';
+    } catch (\Swift_TransportException $Ste) {      
+         $mensajes['error']=$Ste->getMessage();
+    }
+   return $result; 
+ }   
+    
+    
 }

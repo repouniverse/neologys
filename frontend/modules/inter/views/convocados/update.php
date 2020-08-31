@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
              'options' => ['id' => 'myveryownID3'],
         ],
         [
-          'label'=>'<i class="fa fa-users"></i> '.yii::t('sta.labels','Tutores'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('_segunda',[ 'model' => $model]),
+          'label'=>'<i class="fa fa-users"></i> '.yii::t('sta.labels','Files'), //$this->context->countDetail() obtiene el contador del detalle
+            'content'=> $this->render('_expedientes',[ 'model' => $model]),
             'active' => false,
              'options' => ['id' => 'myveryownID4'],
         ],

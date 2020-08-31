@@ -5,9 +5,10 @@ use frontend\modules\inter\Module as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use common\widgets\buttonajaxwidget\buttonAjaxWidget;
  USE yii\widgets\Pjax;
- use yii\grid\GridView;
+ //use yii\grid\GridView;
+ USE kartik\grid\GridView;
 ?>
-<?php Pjax::begin(['id'=>'grilla-plan-evaluaciones']); ?>
+<?php Pjax::begin(['id'=>'grilla-plan-evaluaciones','timeout'=>false]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
    
@@ -15,7 +16,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
           <!-- small box -->
           <div class="small-box bg-teal-gradient">
             <div class="inner">
-                <h3><?php Pjax::begin(['id'=>'pjax-cantidad']); echo $model->getInterconvocados()->count() ; Pjax::end(); ?></h3>
+                <h3><?php Pjax::begin(['id'=>'pjax-cantidad'.$model->id,'timeout'=>40000]); echo $model->getInterconvocados()->count() ; Pjax::end(); ?></h3>
 
               <p><?=m::t('labels','Convened Students')?></p>
             </div>
@@ -32,7 +33,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         <?php 
    echo buttonAjaxWidget::widget([  
             'id'=>'enlaceconv_'.$model->id,
-            'idGrilla'=>'pjax-cantidad',
+            'idGrilla'=>'pjax-cantidad'.$model->id,
             'ruta'=>Url::to(['/inter/programa/ajax-convoca','id'=>$model->id]),          
            //'posicion'=> \yii\web\View::POS_END           
         ]); 
@@ -44,7 +45,9 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         'id'=>'mi-grillhfhfha',
         'dataProvider' => new \yii\data\ActiveDataProvider(
                 [
-                    'query'=> frontend\modules\inter\models\InterPlan::find()->andWhere(['eval_id'=>$model->id])
+                    'query'=> frontend\modules\inter\models\InterPlan::find()->
+                andWhere(['modo_id'=>$model->id])->orderBy(['etapa_id'=>SORT_ASC,'orden'=>SORT_ASC]),
+                    
                 ]
                 ),
         //'filterModel' => $searchModel,
@@ -66,12 +69,18 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                             }
                     ]
                 ],
-                                   
+               [
+               'attribute' => 'etapa',
+                   'value'=>function($model){
+                    return $model->etapa_id;    
+                   },
+                    'group'=>TRUE,
+                    ],                     
                  
                'orden',
             'acronimo',
             'descripcion',
-            'documento.desdocu'
+            //'documento.desdocu'
             //'parametro',
             
             //'valor1',

@@ -106,8 +106,21 @@ class ConvocadosController extends baseController
      */
     public function actionUpdate($id)
     {
+        
         $model = $this->findModel($id);
         $modelP=$model->alumno->persona;
+     /*
+      * Mejora reste codigo, debe ser tartado en un accesFilter
+      * no de esta manera por nurencia se ha escrito asi 
+      * debe de ahber un filtro para saber si el aluunoq ue accede 
+      * a su ficha de personal
+      */
+     //try{//intentando obtener el id de persona del usuario que iongresa a este actio
+      // $currentPerson=h::user()->profile->persona;
+     //} catch (Exception $ex) {
+        
+    // }
+        
         $modelP->setScenario($modelP::SCE_INTERMEDIO);
         if (h::request()->isPost){
             yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
@@ -136,7 +149,10 @@ class ConvocadosController extends baseController
              $modelP->load(Yii::$app->request->post()) &&
                 $model->save() && $modelP->save()) {
             yii::error('apunto de redireccionar',__FUNCTION__);
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(h::userName()=='admin')
+            return $this->redirect(['view', 'id' => $model->id]); 
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
  yii::error('a putno de renderizar',__FUNCTION__);
         return $this->render('update', [
@@ -402,5 +418,74 @@ class ConvocadosController extends baseController
       
       return ['warning'=>m::t('labels','The record was deleted')];
             }
-     }  
+     }
+     
+     
+     public function actionAjaxCreaExpedientes($id){
+         if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model=$this->findModel($id);
+          $model->createExpedientes();
+           return ['success'=>'hola esto esta ok'];
+         }
+     }
+     
+   public function actionFillFicha($id){
+        $model = $this->findModel($id);
+        $model->setScenario($model::SCENARIO_FICHA);
+        $modelP=$model->alumno->persona;
+     
+        $modelP->setScenario($modelP::SCE_INTERMEDIO);
+        if (h::request()->isPost){
+           // $model->load(h::request()->post());
+            //$modelP->load(h::request()->post());
+           // yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
+         //yii::error(h::request()->post()['Personas'],__FUNCTION__);
+        //yii::error($model->load(h::request()->post()),__FUNCTION__);
+       // yii::error($modelP->load(h::request()->post()),__FUNCTION__);
+        }
+         
+        
+       // var_dump($modelP);die();
+        if (h::request()->isAjax &&
+            $model->load(h::request()->post()) &&
+            $modelP->load(h::request()->post())    
+                ) {
+                  //var_dump($modelP->attributes);die();
+            //yii::error('paso el ajzx',__FUNCTION__);
+                h::response()->format = Response::FORMAT_JSON;
+              //yii::error('Los errores',__FUNCTION__);  
+              // yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
+               //yii::error(ActiveForm::validate($model),__FUNCTION__);
+               // yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
+                return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP));
+        }
+       // yii::error('continuado',__FUNCTION__);
+        if ($model->load(Yii::$app->request->post()) && 
+             $modelP->load(Yii::$app->request->post()) &&
+                $model->save() && $modelP->save()) {
+            //var_dump(!is_null($exp=$model->firstExpediente()));die();
+            if(!is_null($exp=$model->firstExpediente()))
+                $exp->aprove(); //aprobar le primer expediente la ficha de
+              //var_dump($model->currentStage());die();
+//yii::error('apunto de redireccionar',__FUNCTION__);
+            //if(h::userName()=='admin')
+            //return $this->redirect(['view', 'id' => $model->id]); 
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
+        }
+ //yii::error('a putno de renderizar',__FUNCTION__);
+        return $this->render('ficha_postulante', [
+            'model' => $model,
+            'modelP'=>$modelP
+        ]); 
+   }  
+   
+  public function actionUploadsDocs($id){
+      $model = $this->findModel($id);
+      $model->createExpedientes($model->currentStage());
+      return $this->render('uploads_postulante',['model'=>$model]);
+  }
+   
+   
 }

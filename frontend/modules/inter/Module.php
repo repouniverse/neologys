@@ -13,6 +13,7 @@ class Module extends \yii\base\Module
     
    const CLASE_GENERAL='A'; 
    const STATUS_GENERAL='1'; 
+   const ROL_POSTULANTE='r_interpostulante';
     /**
      * {@inheritdoc}
      */
@@ -66,6 +67,14 @@ class Module extends \yii\base\Module
     }
     
     
-    
+   public static function getRolePostulante(){
+        $auth = Yii::$app->authManager;
+       if(is_null($rol=$auth->getRole(self::ROL_POSTULANTE))){
+           $rol=$auth->createRole(self::ROL_POSTULANTE);
+           $auth->add($rol);
+       }
+      return $rol;
+       
+   }
     
 }

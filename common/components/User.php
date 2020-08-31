@@ -145,10 +145,12 @@ class User extends UserOriginal {
    public function resolveUrlAfterLogin(){
     
        $url=$this->getUrlDefault();//verifica sus favoritos 
+        //var_dump($url);die();
        if(!is_null($url)){
           return $url;  
        }else{
            $persona=$this->profile->persona;
+          
            if(is_null($persona))
            return \yii\helpers\Url::home();//Si no al home 
            $codgrupo=$persona->codgrupo;
