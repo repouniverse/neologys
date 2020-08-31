@@ -51,4 +51,12 @@ class ComboHelper  extends combo{
                        $query->all(),
                 'id','descripcion');
     }  
+    
+     public static function getCboStages($modo_id){
+      $query= \frontend\modules\inter\models\InterEtapas::find()->andWhere(['modo_id'=>$modo_id]);
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','descripcion');
+    }  
 }

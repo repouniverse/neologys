@@ -33,7 +33,8 @@
         "ruskid/yii2-csv-importer": "dev-master",
         "kartik-v/yii2-editable": "dev-master",
         "conquer/jvectormap": "*",
-        "drsdre/yii2-wizardwidget": "*"
+        "drsdre/yii2-wizardwidget": "*",
+        "kartik-v/yii2-export": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

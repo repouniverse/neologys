@@ -18,12 +18,14 @@ alumnoAsset::register($this);
          <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div class="small-box bg-green-gradient">
             <div class="inner">
-              <h3><?php echo "saludo" ?></h3>
+              <h3><?php 
+              $convocatoria=$identidad->currentConvocatoria();
+              echo $convocatoria->modo->getPlanes()->andWhere(['ordenetapa'=>$convocatoria::STAGE_UPLOADS])->count(); ?></h3>
 
-              <p>Periodo promedio (días)</p>
+              <p><?php echo yii::t('base_labels','Files uploaded') ?></p>
             </div>
             <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-users"></i></span>
+                <span style="color:white;opacity:0.5;"><i class="fa fa-file"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
@@ -35,12 +37,16 @@ alumnoAsset::register($this);
          <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
            <div class="small-box bg-yellow-gradient">
             <div class="inner">
-              <h3><?php echo "saludo" ?></h3>
+              <h3><?php 
+              $lleno=$convocatoria->hasFillFicha();
+              echo ($lleno)?"<span class='fa fa-ok'></span>":"<span class='fa file'></span>"?></h3>
 
-              <p>Periodo promedio (días)</p>
+              <p><?php 
+              $lleno=$convocatoria->hasFillFicha();
+              echo ($lleno)?yii::t('base_labels','Ficha completa'):yii::t('base_labels','Falta llenar tu Ficha') ?></p>
             </div>
             <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-users"></i></span>
+                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
@@ -58,7 +64,7 @@ alumnoAsset::register($this);
 
 
 
-$convocatoria=$identidad->currentConvocatoria();
+
 $etapas=$convocatoria->modo->getEtapas()->orderBy(['orden'=>SORT_ASC])->asArray()->all();
 $steps=[];
 foreach($etapas as $etapa){

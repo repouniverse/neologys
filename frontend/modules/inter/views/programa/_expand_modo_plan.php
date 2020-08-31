@@ -16,7 +16,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
           <!-- small box -->
           <div class="small-box bg-teal-gradient">
             <div class="inner">
-                <h3><?php Pjax::begin(['id'=>'pjax-cantidad'.$model->id,'timeout'=>40000]); echo $model->getInterconvocados()->count() ; Pjax::end(); ?></h3>
+                <h3><?php Pjax::begin(['id'=>'pjax-cantidad'.$model->id,'timeout'=>false]); echo $model->getConvocados()->count() ; Pjax::end(); ?></h3>
 
               <p><?=m::t('labels','Convened Students')?></p>
             </div>
@@ -29,6 +29,21 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
             ?>
             
           </div>
+          <div class="small-box bg-teal-gradient">
+            <div class="inner">
+                <h3><?=m::t('labels','Stages')?></h3>
+
+              <p><?=m::t('labels','Stages')?></p>
+            </div>
+            <div class="icon">
+                <span style="color:white;opacity:0.5;"><i class="fa fa-users"></i></span>
+            </div>
+            <?php 
+            $url=Url::to(['cantidades-en-riesgo']);
+            echo Html::a(m::t('labels','Convene').'<i class="fa fa-arrow-circle-right"></i>','#', ['id'=>'refresh_'.$model->id,'class'=>"small-box-footer"]);
+            ?>
+            
+          </div>
        
         <?php 
    echo buttonAjaxWidget::widget([  
@@ -38,6 +53,15 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
            //'posicion'=> \yii\web\View::POS_END           
         ]); 
    ?>
+           <?php 
+   echo buttonAjaxWidget::widget([  
+            'id'=>'refresh_'.$model->id,
+            'idGrilla'=>'pjax-cantidad'.$model->id,
+            'ruta'=>Url::to(['/inter/convocados/ajax-refresh-etapa-exp','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]); 
+   ?>
+          
     
    </div>
    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12"> 

@@ -49,9 +49,20 @@ use frontend\modules\inter\Module as m;
                          )
         ?>
     </div>
-    
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= 
+            $form->field($model, 'current_etapa')->
+                         dropDownList
+                         (
+                            comboHelper::getCboStages(1), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                         )
+        ?>
+    </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= $form->field($model, 'ap') ?>
+        <?= $form->field($model, 'am') ?>
+    </div> 
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'nombres') ?>
     </div> 
     
     <?php ActiveForm::end(); ?>

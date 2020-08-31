@@ -84,7 +84,7 @@ class InterModos extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|InterConvocadosQuery
      */
-    public function getInterConvocados()
+    public function getConvocados()
     {
         return $this->hasMany(InterConvocados::className(), ['modo_id' => 'id']);
     }
@@ -228,6 +228,15 @@ class InterModos extends \common\models\base\modelBase
        return $cantidad;
    }
    
-  
+   /*
+    * Refresca la etapa de los expedientes 
+    */
+   public function refreshStageExpedientes(){
+       $contador=0;
+       foreach($this->convocados as $convocado){
+           if($convocado->updateStage())$contador++;
+       }
+       return $contador;
+   }
    
 }

@@ -17,6 +17,7 @@ class InterConvocados extends \common\models\base\modelBase
 {
     const SCENARIO_CONVOCATORIAMINIMA='convocatoriamin';
     const SCENARIO_FICHA='ficha';
+     const SCENARIO_STAGE='etapa';
     const STAGE_UPLOADS=2;
      const CODIGO_DOCUMENTO='115';
     /**
@@ -38,7 +39,7 @@ class InterConvocados extends \common\models\base\modelBase
             //[['codocu', 'clase', 'status'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
-            [['motivos','depa_id'], 'safe'],
+            [['motivos','depa_id','current_etapa'], 'safe'],
              [['motivos'], 'validateOpUniv','on'=>self::SCENARIO_FICHA],
             [['programa_id','alumno_id'], 'unique', 'targetAttribute' => ['programa_id','alumno_id']],
             [['clase', 'status'], 'string', 'max' => 1],
@@ -104,6 +105,10 @@ class InterConvocados extends \common\models\base\modelBase
                        'codperiodo',
                        'codocu',
                        'motivos',
+                       
+            ];
+        $scenarios[self::SCENARIO_STAGE] = [
+                        'current_etapa',
                        
             ];
         return $scenarios;
@@ -446,6 +451,16 @@ public function porcAvanceUploads($stage){
     }
    return $result; 
  }   
-    
+  
+ 
+public function updateStage(){
+     $oldScenario=$this->getScenario();
+        $this->setScenario(self::SCENARIO_STAGE);
+        $this->current_etapa=$this->currentStage();
+        $grabo=$this->save();
+        $this->setScenario($oldScenario);//dejamos las cosas como estaban antes
+        return $grabo;
+} 
+ 
     
 }

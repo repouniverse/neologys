@@ -211,10 +211,10 @@ class InterExpedientes extends \common\models\base\modelBase
         return new InterExpedientesQuery(get_called_class());
     }
     
-    public function aprove(){
+    public function aprove($approbe=true){
         $oldScenario=$this->getScenario();
         $this->setScenario(self::SCE_ESTADO);
-        $this->estado=true;
+        $this->estado=$approbe;
         $grabo=$this->save();
         $this->setScenario($oldScenario);//dejamos las cosas como estaban antes
         return $grabo;
@@ -223,7 +223,7 @@ class InterExpedientes extends \common\models\base\modelBase
     
     public function flagAttach(){
         $tieneAdjunto=$this->hasAttachments();
-       $icono=(!$tieneAdjunto)?h::awe('folder-open'):h::awe('check');
+       $icono=(!$tieneAdjunto)?h::awe('folder-open'):h::awe('paperclip');
        $color=(!$tieneAdjunto)?'red':'green';
        return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>';
     }

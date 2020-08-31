@@ -5,7 +5,7 @@
     use yii\widgets\Pjax;
     use frontend\modules\inter\Module as m;
     echo \common\widgets\spinnerWidget\spinnerWidget::widget();    
-
+  use kartik\export\ExportMenu;
     $this->title = m::t('labels', 'Inter Summoned');
     $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Program'), 'url' => ['/inter/programa/update','id'=>$id]];
     $this->params['breadcrumbs'][] = $this->title;
@@ -14,20 +14,9 @@
     <h4><?= Html::encode($this->title) ?></h4>
     <div class="box box-success">
         <div class="box-body">
-            <?php Pjax::begin(); ?>
-                <?php  
-                    echo $this->render('_search', ['model' => $searchModel, 'id'=>$id, 'modelPrograma'=>$modelPrograma]);  
-                ?>
-                <p> <?= Html::a(m::t('labels', 'Create Inter Summoned'), ['create'], ['class' => 'btn btn-success']) ?> </p>
-                <div style='overflow:auto;'>
-                    <?= GridView::widget(
-                        [
-                            'dataProvider' => $dataProvider,
-                            'summary' => '',
-                            'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
-                            'filterModel' => $searchModel,
-                            'columns' => 
-                            [   
+            <?php Pjax::begin();
+            
+            $gridColumns=[   
                                 [
                                     'class' => 'yii\grid\ActionColumn',
                                     'template' => '{update}',
@@ -72,7 +61,31 @@
                                 'facultad_id',
                                 'depa_id',
                                 'modo_id',
-                            ],
+                            ];
+            
+            
+            ?>
+                <?php  
+                    echo $this->render('_search', ['model' => $searchModel, 'id'=>$id, 'modelPrograma'=>$modelPrograma]);  
+                ?>
+                <p> <?= Html::a(m::t('labels', 'Create Inter Summoned'), ['create'], ['class' => 'btn btn-success']) ?> </p>
+                <div style='overflow:auto;'>
+                    <?=ExportMenu::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => $gridColumns,
+        'batchSize'=>20,
+    'dropdownOptions' => [
+        'label' => yii::t('base_labels','Export'),
+        'class' => 'btn btn-success'
+    ]
+]) . "<hr>\n".GridView::widget(
+                        [
+                            'dataProvider' => $dataProvider,
+                            'summary' => '',
+                            'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
+                          //  'filterModel' => $searchModel,
+                            'columns' => $gridColumns,
+                            
                         ]);
                     ?>
             <?php Pjax::end(); ?>

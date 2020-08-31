@@ -18,7 +18,7 @@ class VwInterConvocadosSearch extends InterVwConvocados
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2'], 'safe'],
+            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2','current_etapa'], 'safe'],
         ];
     }
 
@@ -71,6 +71,7 @@ class VwInterConvocadosSearch extends InterVwConvocados
             'identidad_id' => $this->identidad_id,
               'codperiodo' => $this->codperiodo,
             'codgrupo' => $this->codgrupo,
+              'current_etapa' => $this->current_etapa,
         ]);
 
         $query->andFilterWhere(['like', 'ap', $this->ap])

@@ -17,7 +17,7 @@ class InterConvocadosSearch extends InterConvocados
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2'], 'safe'],            
+            [['codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2','current_etapa'], 'safe'],            
         ];
     }
 
@@ -68,6 +68,7 @@ class InterConvocadosSearch extends InterConvocados
             'docente_id' => $this->docente_id,
             'persona_id' => $this->persona_id,
             'identidad_id' => $this->identidad_id,
+             'current_etapa' => $this->current_etapa,
         ]);
 
         $query->andFilterWhere(['like', 'codperiodo', $this->codperiodo])

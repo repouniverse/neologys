@@ -262,6 +262,12 @@ public static function randomNameFile($ext){
     return uniqid().'_'.h::userId()/*.'_'.str_replace('.','_',h::request()->getUserIP())*/.$ext;
 }
 
+public function isImage($filePath){
+   $ext=self::extensionFile($filePath);
+   return in_array($ext,self::extImages());
+}
+
+
 public function UrlImage($path,$internal=true){
  if(is_file($path)){
     /* echo " path  : ".$path; echo "<br>";

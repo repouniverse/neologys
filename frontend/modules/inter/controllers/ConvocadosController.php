@@ -487,5 +487,75 @@ class ConvocadosController extends baseController
       return $this->render('uploads_postulante',['model'=>$model]);
   }
    
-   
+   public function actionExpandAttachments(){
+       $this->layout="install";
+        if(h::request()->isAjax)  {
+     $id=h::request()->post('expandRowKey');
+    $model= \frontend\modules\inter\models\InterExpedientes::findone($id); 
+    if(!is_null($model)){
+      return $this->renderAjax('@frontend/views/comunes/adjuntos', [
+                        'model' => $model,
+                 //'allowedExtensions' => $allowedExtensions,
+                        //'vendorsForCombo' => $vendorsForCombo,
+            ]); 
+        
+       
+    }else{
+        
+    }}
+    }
+  
+  public function actionAjaxAproveExpediente($id){
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model=\frontend\modules\inter\models\InterExpedientes::findOne($id);
+          if(is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+          }else{
+              if($model->aprove()){
+                  return ['success'=>m::t('labels','File was aprobed')];
+              }else{
+                  return ['error'=>m::t('labels','There were problems')];
+              }
+          }
+      }
+  }
+  
+  public function actionAjaxDisapbrobeExpediente($id){
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model=\frontend\modules\inter\models\InterExpedientes::findOne($id);
+          if(is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+          }else{
+              if($model->aprove(false)){
+                  return ['warning'=>m::t('labels','File was disapprobed')];
+              }else{
+                  return ['error'=>m::t('labels','There were problems')];
+              }
+          }
+      }
+  }
+  
+  /*
+   * Refresca el campo
+   * current_etapa de la tala expedientes
+   */
+  public function actionAjaxRefreshEtapaExp($id){
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model=\frontend\modules\inter\models\InterModos::findOne($id);
+          if(is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+          }else{
+              if($model->refreshStageExpedientes()){
+                  return ['warning'=>m::t('labels','Records were updated')];
+              }else{
+                  return ['error'=>m::t('labels','There were problems')];
+              }
+          }
+      }
+  }
+  
+  
 }
