@@ -548,7 +548,7 @@ class ConvocadosController extends baseController
           if(is_null($model)){
             throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
-              if($model->refreshStageExpedientes()){
+              if($model->refreshStageConvocados()){
                   return ['warning'=>m::t('labels','Records were updated')];
               }else{
                   return ['error'=>m::t('labels','There were problems')];

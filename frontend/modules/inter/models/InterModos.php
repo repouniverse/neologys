@@ -229,9 +229,9 @@ class InterModos extends \common\models\base\modelBase
    }
    
    /*
-    * Refresca la etapa de los expedientes 
+    * Refresca la etapa de los eConvocados 
     */
-   public function refreshStageExpedientes(){
+   public function refreshStageConvocados(){
        $contador=0;
        foreach($this->convocados as $convocado){
            if($convocado->updateStage())$contador++;
