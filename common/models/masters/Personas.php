@@ -83,7 +83,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             [['cumple'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
-            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'pasaporte','sexo','estcivil'], 'safe'],
+            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'sexo','estcivil'], 'safe'],
             //[['codpuesto'], 'string', 'max' => 3],
             [['domicilio'], 'string', 'max' => 73],
             [['telfijo'], 'string', 'max' => 13],
@@ -98,7 +98,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'codgrupo','cumple','domicilio','telfijo',
             'depdir','provdir','distdir',
             'depnac','provnac','distnac',
-            'sexo','estcivil','pasaporte',
+            'sexo','estcivil',
             
             ],'required','on'=>self::SCE_INTERMEDIO],
             
@@ -149,7 +149,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'codgrupo','cumple','domicilio','telfijo',
             'depdir','provdir','distdir',
             'depnac','provnac','distnac',
-            'sexo','estcivil','pasaporte',
+            'sexo','estcivil',
             
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];

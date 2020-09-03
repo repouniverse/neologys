@@ -45,10 +45,10 @@ class m200819_215806_alter_table_personas extends baseMigration
             $this->dropColumn($table, 'sexo');
         if($this->existsColumn($table,'pais'))
             $this->dropColumn($table, 'pais');
-        //if($this->existsColumn($table,'pasaporte'))
-        //    $this->dropColumn($table, 'pasaporte');
-        //if($this->existsColumn($table,'dni'))
-        //    $this->dropColumn($table, 'dni');
+        if($this->existsColumn($table,'pasaporte'))
+            $this->dropColumn($table, 'pasaporte');
+        if($this->existsColumn($table,'dni'))
+            $this->dropColumn($table, 'dni');
         if($this->existsColumn($table,'estcivil'))
             $this->dropColumn($table, 'estcivil');            
         if($this->existsColumn($table,'depnac'))

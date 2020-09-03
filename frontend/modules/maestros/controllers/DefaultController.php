@@ -21,10 +21,12 @@ use common\models\masters\PeriodosSearch;
 use common\models\masters\Carreras;
 use common\models\masters\GrupoPersonasSearch;
 use common\models\masters\GrupoPersonas;
-use common\models\masters\AlumnosSearch;
 use common\models\masters\Departamentos;
 use common\models\masters\DepartamentosSearch;
 use common\models\masters\Alumnos;
+use common\models\masters\AlumnosSearch;
+use common\models\masters\AlumnosInter;
+use common\models\masters\AlumnosInterSearch;
 use common\models\masters\DocentesSearch;
 use common\models\masters\Docentes;
 use frontend\controllers\base\baseController;
@@ -1005,23 +1007,30 @@ class DefaultController extends \common\controllers\base\baseController
         }
        
    } 
-   
       
-   public function actionIndexAlumnos()
-    { 
+    public function actionIndexAlumnos()
+    {
         $searchModel = new AlumnosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render
-                            (
-                             'index_alumno', 
-                             [
-                              'searchModel' => $searchModel,
-                              'dataProvider' => $dataProvider,
-                             ]
-                            );         
+        return $this->render('index_alumno', 
+                            [
+                                'searchModel' => $searchModel, 
+                                'dataProvider' => $dataProvider,
+                            ]);         
     }
+    
+    public function actionIndexAlumnosInter()
+    {        
+        $searchModel = new AlumnosInterSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index_alumno_inter', 
+                            [
+                                'searchModel' => $searchModel, 
+                                'dataProvider' => $dataProvider,
+                            ]);         
+    }
     
     public function actionIndexDocentes()
     { 

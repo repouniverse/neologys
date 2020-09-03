@@ -17,6 +17,8 @@ return[
     'Code Faculty'=>'Código Facultad',
     'Document Type'=>'Tipo Documento',
     'Document Number'=>'Número Documento',
+    'Mail'=>'Correo',
+    'Reason'=>'Motivo',
     
     // Docentes
     'Faculty'=>'Facultad',
