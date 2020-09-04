@@ -8,6 +8,7 @@ use yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use common\models\masters\Valoresdefault;
+use common\helpers\FileHelper;
 use mdm\admin\models\User;
 class h {
      const SESION_MALETIN = 'maletin';
@@ -292,6 +293,37 @@ class h {
    }
      
  }
+ 
+ 
+ private static function  externalUrlImage($codalu){
+      $extension=h::settings()->get('general','extensionimagesalu');
+        if(!(substr($extension,0,1)=='.'))
+         $extension='.'.$extension;
+        
+      $urlExt= FileHelper::normalizePath(
+             h::settings()->get('general','urlimagesalu').DIRECTORY_SEPARATOR
+            .h::settings()->get('general','prefiximagesalu') 
+            .$codalu
+            .$extension,'/');   
+     // VAR_DUMP($urlExt,'https://www.orce.uni.edu.pe/fotosuni/006019930117K.jpg');DIE();
+      if(FileHelper::checkUrlFound($urlExt)){
+          return $urlExt;
+      }else{
+        return false; 
+      }
+   }
+ 
+ public static function getPathImagePerson($codalu){
+     if(h::gsetting('general','showImgExternal') or h::user()->profile->recexternos){
+          $hasExternal=self::externalUrlImage($codalu);
+         if($hasExternal)
+         return $hasExternal;
+        return  FileHelper::getUrlImageUserGuest();  
+     } else{
+        return  FileHelper::getUrlImageUserGuest();   
+     }
+   
+    }
  
 }
 ?>

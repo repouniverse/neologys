@@ -1,5 +1,5 @@
 <?php
-use frontend\modules\inter\Module as m;
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\inter\models\InterExpedientesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = m::t('labels', 'Inter Expedientes');
+$this->title = Yii::t('labels', 'Inter Expedientes');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-expedientes-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(m::t('labels', 'Create Inter Expedientes'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('labels', 'Create Inter Expedientes'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div style='overflow:auto;'>
     <?= GridView::widget([

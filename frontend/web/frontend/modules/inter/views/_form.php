@@ -1,5 +1,5 @@
 <?php
-use frontend\modules\inter\Module as m;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.Yii::t('labels', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>

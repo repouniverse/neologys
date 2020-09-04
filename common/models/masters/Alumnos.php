@@ -36,6 +36,9 @@ implements \common\interfaces\postulantesInterface
     /**
      * {@inheritdoc}
      */
+    
+    public $codpais=null;
+    
     public static function tableName()
     {
         return '{{%alumnos}}';

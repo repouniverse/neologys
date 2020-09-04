@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\inter\controllers;
+namespace frontend\modules\inter\models;
 
 use Yii;
 use frontend\modules\inter\models\InterExpedientes;
@@ -8,11 +8,14 @@ use frontend\modules\inter\models\InterExpedientesSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\helpers\h;
+use yii\helpers\Url;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
- * ExpedientesController implements the CRUD actions for InterExpedientes model.
+ * ExpedController implements the CRUD actions for InterExpedientes model.
  */
-class ExpedientesController extends baseController
+class ExpedController extends baseController
 {
     /**
      * {@inheritdoc}
@@ -65,6 +68,14 @@ class ExpedientesController extends baseController
     public function actionCreate()
     {
         $model = new InterExpedientes();
+        
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,6 +97,11 @@ class ExpedientesController extends baseController
     {
         $model = $this->findModel($id);
 
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -122,31 +138,6 @@ class ExpedientesController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
-    }
-    
-    public function actionProgramInterview($id){
-        $model=$this->findModel($id);
-        
-        $eventosHorarios=$model->plan->eventsToCalendar();
-        $eventosHorarios[]=[
-            'id' => '3336565',
-            'title' => 'CITA',
-            'start' => '2020-09-02 11:30:00',
-            'end' => '2020-09-02 12:30:00',
-            'color' => '#FF0000',
-           // 'codtra' => $this->codtra
-        ];
-        $eventosHorarios[]=[
-            'id' => '333446565',
-            'title' => 'CITA',
-            'start' => '2020-09-02 12:30:00',
-            'end' => '2020-09-02 13:30:00',
-            'color' => '#00ff00',
-           // 'codtra' => $this->codtra
-        ];
-        //var_dump($eventosHorarios);die();
-       return  $this->render('calendario',['model'=>$model, 'eventosHorarios'=> $eventosHorarios]);
-        
+        throw new NotFoundHttpException(Yii::t('labels', 'The requested page does not exist.'));
     }
 }

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\masters\InterExpedientesSearch */
+/* @var $model frontend\modules\inter\models\InterExpedientesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -50,9 +50,19 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'requerido') ?>
 
+    <?php // echo $form->field($model, 'plan_id') ?>
+
+    <?php // echo $form->field($model, 'orden') ?>
+
+    <?php // echo $form->field($model, 'etapa_id') ?>
+
+    <?php // echo $form->field($model, 'secuencia') ?>
+
+    <?php // echo $form->field($model, 'current_etapa') ?>
+
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('base_labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('base_labels', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton(Yii::t('labels', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('labels', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -39,9 +39,9 @@ class ConvocadosController extends baseController
      * Lists all InterConvocados models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex()
     {
-        $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne($id);
+        $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne(1);
         if(is_null($modelPrograma))
             throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
   
@@ -66,8 +66,12 @@ class ConvocadosController extends baseController
      */
     public function actionView($id)
     {
+         $model=$this->findModel($id);
+         $model->createExpedientes($model->currentStage());
+        $alumno=$model->alumno;
+        $persona=$alumno->persona;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno
         ]);
     }
 

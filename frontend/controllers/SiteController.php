@@ -305,6 +305,12 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    
+    $rango=\frontend\modules\inter\models\InterHorarios::findOne(1)->range();
+    var_dump($rango->initialDate->format('Y-m-d H:i:s'));
+    die();
+    
+    
 var_dump(\common\models\masters\GrupoPersonas::mapFiles());
    die();
 var_dump(\common\helpers\timeHelper::IsFormatMysqlDate( '2020-08-21?codfac'));

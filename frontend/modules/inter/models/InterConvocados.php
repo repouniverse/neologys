@@ -20,10 +20,16 @@ class InterConvocados extends \common\models\base\modelBase
      const SCENARIO_STAGE='etapa';
     const STAGE_UPLOADS=2;
      const CODIGO_DOCUMENTO='115';
+     const FLAG_ELIMINADO='X';
+     CONST FLAG_ACTIVO='A';
     /**
      * {@inheritdoc}
      */
-    //public $booleanFields=['asistio','activo'];
+    public $booleanFields=['pendiente'];
+    /*
+     * Pendiente es un campo booelano para 
+     * calificar un proceso abierto sobre ese alumno
+     */
     public static function tableName()
     {
         return '{{%inter_convocados}}';
@@ -39,7 +45,7 @@ class InterConvocados extends \common\models\base\modelBase
             //[['codocu', 'clase', 'status'], 'required'],
             [['codperiodo'], 'string', 'max' => 10],
             [['codocu'], 'string', 'max' => 3],
-            [['motivos','depa_id','current_etapa'], 'safe'],
+            [['motivos','depa_id','current_etapa','pendiente'], 'safe'],
              [['motivos'], 'validateOpUniv','on'=>self::SCENARIO_FICHA],
             [['programa_id','alumno_id'], 'unique', 'targetAttribute' => ['programa_id','alumno_id']],
             [['clase', 'status'], 'string', 'max' => 1],
@@ -304,9 +310,9 @@ class InterConvocados extends \common\models\base\modelBase
 public function rawCurrentStage(){
     $etapa=$this->getExpedientes()->
             select(['max(orden)'])->andWhere(['estado'=>'1'])->scalar();
-    var_dump($this->getExpedientes()->
+  /*  var_dump($this->getExpedientes()->
             select(['max(orden)'])->andWhere(['estado'=>'1'])->createCommand()->rawSql);
-    die();
+ */
     IF($etapa){
           return $etapa;
      
@@ -402,6 +408,8 @@ public function porcAvanceUploads($stage){
  }     
  
  private function createExpediente(InterPlan $modelPlan){
+     /*Solo los planes de la especialidad del alumno*/
+    if($modelPlan->eval->carrera->id==$this->alumno->carrera_id)
     return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
                        'facultad_id'=>$this->facultad_id,
@@ -420,6 +428,7 @@ public function porcAvanceUploads($stage){
                  'plan_id'=>$modelPlan->id,
                 'orden'=>$modelPlan->ordenetapa,
                 ] );
+    return false;
  }
    
  public function validateOpUniv($attribute, $params)
@@ -462,5 +471,11 @@ public function updateStage(){
         return $grabo;
 } 
  
-    
+  
+public function beforeSave($insert) {
+    if($insert)
+     $this->estado=self::FLAG_ACTIVO;
+    return parent::beforeSave($insert);
+}
+
 }

@@ -13,5 +13,18 @@ interface rangeInterface {
  *   
  */
 public function range($fecha);
+
+/*
+ * Devuelve un objeto plantilla
+ * para una semana
+ *   
+ */
+public function rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null);
+  
+
+
+
+public function rangesToDay(\Carbon\Carbon $carbon,array $arrayWhere=null);
   
 }
+

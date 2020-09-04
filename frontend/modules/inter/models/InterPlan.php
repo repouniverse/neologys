@@ -35,6 +35,13 @@ use Yii;
  */
 class InterPlan extends \common\models\base\modelBase
 {
+     public $dateorTimeFields = [
+        //'cumple' => self::_FDATE,
+        'finicio' => self::_FDATE,
+        //'ftermino' => self::_FDATETIME
+    ];
+    
+    
     /**
      * {@inheritdoc}
      */
@@ -52,6 +59,7 @@ class InterPlan extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'eval_id', 'modo_id', 'programa_id'], 'integer'],
             [['acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
+             [['finicio'], 'safe'],
              [['orden','requisito_id','etapa_id','ordenetapa'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
@@ -149,6 +157,11 @@ class InterPlan extends \common\models\base\modelBase
         return $this->hasOne(InterEtapas::className(), ['id' => 'etapa_id']);
     }
     
+    public function getHorarios()
+    {
+        return $this->hasMany(InterHorarios::className(), ['plan_id' => 'id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return InterPlanQuery the active query used by this AR class.
@@ -170,4 +183,13 @@ class InterPlan extends \common\models\base\modelBase
         $this->ordenetapa= InterEtapas::findOne($this->etapa_id)->orden;
         return parent::beforeSave($insert);
     }
+    
+    public function eventsToCalendar(){
+        $horarios=$this->getHorarios()->andWhere(['activo'=>'1'])->all();
+        $eventos=[];
+        foreach($horarios as $horario){
+           $eventos[]=$horario->eventToCalendar();
+        }
+        return $eventos;
+      }
 }

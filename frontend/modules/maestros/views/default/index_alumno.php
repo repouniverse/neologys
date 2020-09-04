@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\grid\GridView;
+USE kartik\grid\GridView;
 use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
@@ -15,6 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-success">
         <div class="box-body">
             <?php Pjax::begin(['id'=>'gridTraba']); ?>
+            <?php $paises=\common\helpers\ComboHelper::getCboPaises();
+            $universidades=\common\helpers\ComboHelper::getCboUniversidades();
+            ?>
             <?php  echo $this->render('_search_alumno', ['model' => $searchModel]); ?>
             <p>
                  <?= Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
@@ -22,10 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= GridView::widget([
                 'dataProvider'=>$dataProvider,
-                'filterModel'=>$searchModel,
+                //'filterModel'=>$searchModel,
                 'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
                 //'summary'=>'',
                 'columns'=>[
+                            
+                           ['attribute'=>'universidad_id',
+                              'filter'=> $universidades,
+                               'group'=>true,
+                              'value'=>function($model){
+                              return  $model->universidad->nombre;
+                              }
+                                
+                                ],
                             'ap',
                             'am',
                             'nombres',

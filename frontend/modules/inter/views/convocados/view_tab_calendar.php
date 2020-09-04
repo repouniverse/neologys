@@ -44,19 +44,19 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     'items' => [
         [
             'label' =>'<i class="glyphicon glyphicon-hourglass"></i> '.yii::t('base.names','Citas'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_files',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'content'=> $this->render('_tab_citas',['modelTallerDet'=>$modelTallerdet,'codperiodo'=>$codperiodo,'dataProvider'=>$dataProvider]),
             'active' => true,
              'options' => ['id' => 'tnID3'],
         ],
         [
             'label' =>'<i class="glyphicon glyphicon-calendar"></i> '. yii::t('base.names','Programación'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_calendar',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'content'=> $this->render('_tab_calendario',['modelTallerdet'=>$modelTallerdet,'codalu'=>$codalu,'codperiodo'=>$codperiodo,'idalu'=>$model->id,'modelPsico'=>$modelPsico,  'items'=>[['name'=>$codalu,'color'=>$color]],'citasPendientes'=>$citasPendientes,'model'=>$modelPsico]),
             'active' => false,
              'options' => ['id' => 'myy6nID4'],
         ],
       [
             'label' =>'<i class="glyphicon glyphicon-folder-open"></i>   '. yii::t('base.names','Documentos'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_entrevistas',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'content'=> $this->render('_tab_documentos',['model'=>$modelTallerdet]),
             'active' => false,
              'options' => ['id' => 'mxx4ID4'],
         ],

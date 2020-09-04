@@ -191,7 +191,99 @@ class RangeDates extends \yii\base\Component{
       return $rangoLibre;
   } 
    
+  /*
+   * Dada una fecha CARBON 
+   * Y dos textos de horas saca
+   * un objeto range 
+   * limite inferior:  CARBON CON LA HORA DE IINCIO
+   * limite superios: CARBON CON LA HORA FINA 
+   * 
+   * @carbonEjemplo : Objeto carbon indica la fecha o fecha y hora ejemploS: 2012-04-28 , 2012-04-28 15:23:12
+   * @hinicio: hora de inicio en texto formato :  hh:mm  ejemplo  '08:23'
+   * @hfinal: hora final  en texto formato :  hh:mm  ejemplo  '11:45'
+   * 
+   * Devuelve  RANGE [ CARBON1 2012-04-28 08:23:00 , CARBON2 2012-04-28 11:45:00]
+   */
+  
+public static function RangeFromCarbonAndLimits($miCarbon,$hinicio,$hfinal){
+     $carbon = $miCarbon;       
+        $segundosPasadosInicio = $carbon->copy()->parse($hinicio)
+                ->diffInSeconds($carbon->copy()->parse($hinicio)->startOfDay());
+        $segundosPasadosFin = $carbon->copy()->parse($hfinal)->diffInSeconds($carbon->copy()->parse($hinicio)->startOfDay());
+        $carbonInicio = $carbon->copy()->startOfDay()->addSeconds($segundosPasadosInicio);
+        $carbonFinal = $carbon->copy()->startOfDay()->addSeconds($segundosPasadosFin);
+        return new RangeDates([$carbonInicio,$carbonFinal]);
+
+}
+
+/*COMPARA SI ESTE RANGO ES MENOR QUE OTRO
+ *    CUMPLEN :
+ *    ------------  THIS
+ *            --------- OTRO
+ * tambien 
+ *    ------------  THIS
+ *       ------ OTRO
+ * 
+ * TAM BIEN   :
+ *      -------
+ *                  ---------  OTRO
+ *  */
+
+public function rangeIsLess(RangeDates $rango){
+   return $this->initialDate->lt($rango->initialDate);
+}
+
+
+
+
+/*COMPARA SI ESTE RANGO ES MENOR QUE OTRO
+ *    CUMPLEN :
+ *                  ------------  THIS
+ *            --------- OTRO
+ * tambien 
+ *          ----- THIS
+ *       --------------- OTRO
+ * 
+ * TAM BIEN   :
+ *                                  -------THIS
+ *                  ---------  OTRO
+ *  */
+public function rangeIsGreather(RangeDates $rango){
+   return $this->initialDate->gt($rango->initialDate);
+}
    
+
+   
+   
+   
+   
+
+   
+
+
+  
+   
+
+  
+  
+  
+  
+/*
+ * Prepara un evento para
+ * el control calendar 
+ */
+ public function toEventCalendar($title=null){
+     $title=(is_null($title))?'Event':$title;
+     return [
+          'title' => $title,
+            'start' =>$this->initialDate->format(timeHelper::formatMysqlDateTime()),
+            'end' =>$this->finalDate->format(timeHelper::formatMysqlDateTime()) ,
+            //'color' => '#5cb85c',
+            //'codtra' => $this->codtra
+     ];
+ }
+
+  
    
 }
    

@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\masters;
+namespace frontend\modules\inter\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;

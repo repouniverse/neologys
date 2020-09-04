@@ -232,8 +232,9 @@ class ComboHelper  {
     
     
     
-    public function getCboPaises(){
+    public static function getCboPaises(){
   return [
+
 'AF'	=>	yii::t('base.paises','Afghanistan'),
 'AL'	=>	yii::t('base.paises','Albania'),
 'DZ'	=>	yii::t('base.paises','Algeria'),

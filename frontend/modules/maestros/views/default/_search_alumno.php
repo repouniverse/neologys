@@ -32,6 +32,17 @@ use common\models\masters\Personas;
                                      )
         ?>
     </div>
+     
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+         <?= 
+            $form->field($model, 'universidad_id')->
+                         dropDownList(
+                                      \common\helpers\ComboHelper::getCboUniversidades(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",]
+                                     )
+        ?>
+    </div>
+    
+    
     
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <?= $form->field($model, 'numerodoc') ?>        

@@ -7,20 +7,20 @@ use yii\widgets\DetailView;
 /* @var $model frontend\modules\inter\models\InterExpedientes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Inter Expedientes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('labels', 'Inter Expedientes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="inter-expedientes-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4><?= Html::encode($this->title) ?></h4>
 
     <p>
-        <?= Html::a(Yii::t('base_labels', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('base_labels', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('labels', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('labels', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('base_labels', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('labels', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -45,6 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'textointerno:ntext',
             'estado',
             'requerido',
+            'plan_id',
+            'orden',
+            'etapa_id',
+            'secuencia',
+            'current_etapa',
         ],
     ]) ?>
 

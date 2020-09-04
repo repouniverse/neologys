@@ -1,5 +1,5 @@
 <?php
-use frontend\modules\inter\Module as m;
+
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 
@@ -10,12 +10,12 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterExpedientes */
 
-$this->title = m::t('labels', 'Update Inter Expedientes: {name}', [
+$this->title = Yii::t('labels', 'Update Inter Expedientes: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Expedientes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('labels', 'Inter Expedientes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = m::t('labels', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('labels', 'Update');
 ?>
 <div class="inter-expedientes-update">
 <h4><i class="fa fa-edit"></i><?= Html::encode($this->title) ?></h4>
@@ -45,3 +45,6 @@ $this->params['breadcrumbs'][] = m::t('labels', 'Update');
        
     ],
 ]);  
+
+</div>
+</div>

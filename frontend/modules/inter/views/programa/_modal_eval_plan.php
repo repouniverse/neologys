@@ -1,5 +1,5 @@
 <?php
-
+use kartik\date\DatePicker;
 use common\helpers\h;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -91,7 +91,23 @@ use common\widgets\selectwidget\selectWidget;
                     )  ?>
         </div>   
     
-      
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?php  //h::settings()->invalidateCache();  ?>
+                       <?= $form->field($model, 'finicio')->widget(DatePicker::class, [
+                             'language' => h::app()->language,
+                           // 'readonly'=>true,
+                          // 'inline'=>true,
+                           'pluginOptions'=>[
+                                     'format' => h::gsetting('timeUser', 'date')  , 
+                                  'changeMonth'=>true,
+                                  'changeYear'=>true,
+                                 'yearRange'=>"-99:+0",
+                               ],
+                           
+                            //'dateFormat' => h::getFormatShowDate(),
+                            'options'=>['class'=>'form-control']
+                            ]) ?>
+</div>  
    
 
     <?php ActiveForm::end(); ?>

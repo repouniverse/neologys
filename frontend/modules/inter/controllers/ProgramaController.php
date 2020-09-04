@@ -523,4 +523,96 @@ class ProgramaController extends baseController
        
   } 
   
+  public function actionViewPlan($id){
+    $model= \frontend\modules\inter\models\InterPlan::findOne($id);
+    if(is_null($model))
+      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+     return $this->render('_view_plan',['model'=>$model]);
+    
+  } 
+  
+  public function actionCreateHorario($id){
+     $this->layout = "install";
+       $modelPlan= \frontend\modules\inter\models\InterPlan::findOne($id);
+         if(is_null($modelPlan))
+      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+     
+       $model = New \frontend\modules\inter\models\InterHorarios();
+        $datos=[];
+        //$modelPlan= Talleres::findOne($id);
+        if(is_null($modelPlan)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+       //'universidad_id'=>$$modelPlan->universidad_id,
+             'facultad_id'=>$modelPlan->facultad_id,
+            'etapa_id'=>$modelPlan->etapa_id,
+            'plan_id'=>$modelPlan->id,
+            'programa_id'=>$modelPlan->programa_id, ]);  
+      
+        if(h::request()->isPost){
+            $model->setScenario(\frontend\modules\inter\models\InterHorarios::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_rangos', [
+                        'model' => $model,
+                        'idTaller' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
+  public function actionEditHorario($id){
+     $this->layout = "install";
+        $model = \frontend\modules\inter\models\InterHorarios::findOne($id);
+        $datos=[];
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+      
+        if(h::request()->isPost){
+            $model->setScenario(\frontend\modules\inter\models\InterHorarios::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_rangos', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
+
+  
 }

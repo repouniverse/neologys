@@ -19,7 +19,7 @@
             $gridColumns=[   
                                 [
                                     'class' => 'yii\grid\ActionColumn',
-                                    'template' => '{update}',
+                                    'template' => '{update}{view}',
                                     'buttons' => 
                                     [
                                         'update' => function($url, $model)
@@ -35,7 +35,9 @@
                                         'view' => function($url, $model)
                                                   {
                                                         $options = 
-                                                        ['title' => m::t('verbs', 'View'),];
+                                                        ['title' => m::t('verbs', 'View'),
+                                                            'data-pjax'=>'0'  ];
+                                                         $url=Url::to(['view','id'=>$model->id]);
                                                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options);
                                                   },
                                         'delete' => function($url, $model)
