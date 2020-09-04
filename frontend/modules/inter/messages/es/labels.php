@@ -31,6 +31,7 @@ return [
     'Types'=>'Tipos',
     'Evaluators'=>'Evaluadores',
     'Stages'=>'Etapas',
+    'Age'=>'Edad',
     
     'ID'=>'ID',
     'University Id'=>'Universidad ID',

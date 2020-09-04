@@ -154,6 +154,15 @@ implements \common\interfaces\postulantesInterface
         return new DocentesQuery(get_called_class());
     }
     
+    public function afterSave($insert, $changedAttributes)
+    {
+        if($insert)
+        {
+            $this->refresh();
+            $this->createPersonFromThis();
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
         
     /*
      * funcion q ue me permite 

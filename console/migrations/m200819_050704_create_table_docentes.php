@@ -1,7 +1,7 @@
 <?php
     use console\migrations\baseMigration;
     
-class m200819_050703_create_table_docentes extends baseMigration
+class m200819_050704_create_table_docentes extends baseMigration
 {    
     const NAME_TABLE='{{%docentes}}';
     const NAME_TABLE_FACULTADES='{{%facultades}}';
@@ -33,7 +33,6 @@ class m200819_050703_create_table_docentes extends baseMigration
                 'categoria' => $this->string(2)->append($this->collateColumn()), 
                 'dispo' => $this->string(2)->append($this->collateColumn()),
                 'correo' => $this->string(50)->append($this->collateColumn()),
-                'categoria' => $this->string(3)->append($this->collateColumn()),
            
             ], $this->collateTable());
             $this->createIndex(uniqid('codalu'), static::NAME_TABLE, 'codoce');

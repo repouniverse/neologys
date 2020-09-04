@@ -11,5 +11,5 @@ $this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
     <h4><?= Html::encode($this->title) ?></h4>
     <div class="documentos-update">
-        <?= $this->render('_form_docente', ['model' => $model,]) ?>
+        <?= $this->render('_form_docente', ['model' => $model,'modelPersona' => $modelPersona,]) ?>
     </div>

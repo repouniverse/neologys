@@ -35,6 +35,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     
    CONST SCE_CREACION_BASICA='basico';
    CONST SCE_INTERMEDIO='intermedio';
+   CONST SCE_DOCENTES='docentes';
    
     public $dateorTimeFields = [
         'cumple' => self::_FDATE,
@@ -133,6 +134,14 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'telfijo' => yii::t('base_labels', 'Phone'),
             'telmoviles' => yii::t('base_labels', 'Movil Phone'),
             'referencia' => yii::t('base_labels', 'References'),
+            'pais' => yii::t('base_labels', 'Nacionality'),
+            'estcivil' => yii::t('base_labels', 'Civil Status'),
+            'depnac' => yii::t('base_labels', 'Departament Nac.'),
+            'provnac' => yii::t('base_labels', 'Province Nac.'),
+            'distnac' => yii::t('base_labels', 'District Nac.'),
+            'depdir' => yii::t('base_labels', 'Departament Add.'),
+            'provdir' => yii::t('base_labels', 'Province Add.'),
+            'distdir' => yii::t('base_labels', 'District Add.'),
         ];
     }
 
@@ -151,6 +160,17 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'depnac','provnac','distnac',
             'sexo','estcivil',
             
+            ];
+        
+        $scenarios[self::SCE_DOCENTES] = [
+            'ap', 'am',
+            'nombres', 'tipodoc', 
+            'numerodoc','identidad_id',
+            'codgrupo','cumple','fecingreso',
+            'domicilio','telfijo','telmoviles',
+            'referencia','sexo','estcivil',
+            'depdir','provdir','distdir',
+            'depnac','provnac','distnac',
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];

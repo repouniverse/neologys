@@ -1,10 +1,11 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+use common\helpers\ComboHelper as combo;
 
 $this->title = m::t('labels', 'Teachers');
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,53 +16,77 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-success">
         <div class="box-body">
             <?php Pjax::begin(['id'=>'gridTraba']); ?>
+            <?php 
+                $paises=combo::getCboPaises();
+                $universidades=combo::getCboUniversidades();
+            ?>
             <?php  echo $this->render('_search_docente', ['model' => $searchModel]); ?>
             <p>
                  <?= Html::a(m::t('labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
             </p>
 
-            <?= GridView::widget([
-                'dataProvider'=>$dataProvider,
-                'filterModel'=>$searchModel,
-                'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
-                //'summary'=>'',
-                'columns'=>[
-                            'ap',
-                            'am',
-                            'nombres',
-                            'codoce',
-                            ['class'=>'yii\grid\ActionColumn',
-                                      'template'=>'{update}{delete}',
-                                      'buttons'=>[
-                                                  'update'=>function($url,$model)
-                                                            {
-                                                                $url=Url::to(['update-docentes','id'=>$model->id]);
-                                                                $options = ['title' => m::t('verbs', 'Update'),];
-                                                                return Html::a
-                                                                        (
-                                                                            '<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>',
-                                                                            $url,
-                                                                            $options
-                                                                        );
-                                                            },
-                                                  'delete'=>function ($url,$model)
-                                                            {                                                                 
-                                                                $url=Url::to(['delete-docentes','id'=>$model->id]);
-                                                                $options = [
-                                                                                'family'=>'holas',
-                                                                                'id'=>$model->id,                                                                   
-                                                                                'title' =>$url //m::t('verbs', 'Delete'),
-                                                                           ];
-                                                                return Html::a
-                                                                        (
-                                                                            '<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>',
-                                                                            '#', 
-                                                                            $options
-                                                                        );                                                                
-                                                            }
-                                                 ]
-                            ],
-                           ],
+            <?= GridView::widget(
+                [
+                    'dataProvider'=>$dataProvider,
+                    //'filterModel'=>$searchModel,
+                    'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
+                    'columns'=>
+                    [
+                        /*[
+                            'attribute'=>'Pais',
+                            'filter'=> $paises,
+                            'group'=>true,
+                            'value'=>function($model)
+                                     {
+                                        return $model->persona->pais;
+                                     }                                 
+                        ],*/
+                        [
+                            'attribute'=>'universidad_id',
+                            'filter'=>$universidades,
+                            'group'=>true,
+                            'value'=>function($model)
+                                     {
+                                        return $model->universidad->nombre;
+                                     }                                
+                        ],
+                        'codoce',
+                        'ap',
+                        'am',
+                        'nombres',
+                        [
+                            'class'=>'yii\grid\ActionColumn',
+                            'template'=>'{update}{delete}',
+                            'buttons'=>
+                            [
+                                'update'=>function($url,$model)
+                                          {
+                                            $url=Url::to(['update-docentes','id'=>$model->id]);
+                                            $options = ['title' => m::t('verbs', 'Update'),];
+                                            return Html::a
+                                                   (
+                                                        '<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>',
+                                                        $url, $options
+                                                   );
+                                          },
+                                'delete'=>function ($url,$model)
+                                          {                                                                 
+                                            $url=Url::to(['delete-docentes','id'=>$model->id]);
+                                            $options = 
+                                            [
+                                                'family'=>'holas',
+                                                'id'=>$model->id,                                                                   
+                                                'title' =>$url
+                                            ];
+                                            return Html::a
+                                                   (
+                                                        '<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>',
+                                                        '#', $options
+                                                   );                                                                
+                                          }
+                            ]
+                        ],
+                    ],
                 ]); 
             ?>
             <?php 
