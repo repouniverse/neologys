@@ -339,7 +339,8 @@ class h {
         ///var_dump(self::NAME_SESSION_CURRENT_UNIVERSITY,h::session()->get(self::NAME_SESSION_CURRENT_UNIVERSITY));die();
         return $sesion->get(self::NAME_SESSION_CURRENT_UNIVERSITY)+0;
     }else{
-       return  h::currentControllerObject()->redirect(['general/choose-university']);
+       return null;
+       //return  h::currentControllerObject()->redirect(['general/choose-university']);
     }
   }   
     

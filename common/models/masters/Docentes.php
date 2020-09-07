@@ -2,7 +2,7 @@
 
 namespace common\models\masters;
 use common\interfaces\identidadesInterface;
-
+use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
 USE common\traits\identidadTrait;
 use Yii;
@@ -55,6 +55,9 @@ implements \common\interfaces\postulantesInterface
         return [
             [['facultad_id', 'universidad_id', 'persona_id'], 'integer'],
             [['codoce'], 'required'],
+            
+             [['mail'], 'unique'],
+            [['codoce'], 'unique'],
             
              /* PARA ESCENARIOBASICO*/
             [[
@@ -184,7 +187,7 @@ implements \common\interfaces\postulantesInterface
    /*
     * Devuelve un activeQuery con nc roteior especifico
     */
-   public function providerPersonsToConvocar() {
+   public function providerPersonsToConvocar(InterModos $modo) {
        /*Aqui debe de aparecerun filtro de validacion
         * estos filtro debe de sacare de una tabla
         * que mas adelante denemos de crear sefun lso datos que entregue Crispin de SAP*/
@@ -233,7 +236,21 @@ implements \common\interfaces\postulantesInterface
       return false;
   }
   
-  
+  public function createUser(){
+     if(!$this->isExternal()) //Si es un docente de la misma universidad no tiene sentido crear usuari
+      return false;
+     $rol=null;
+    if(yii::$app->hasModule('inter'))
+        $rol=\frontend\modules\inter\Module::ROL_POSTULANTE;
+      $user=$this->persona->createUser($this->codoce,$this->mail,$role);
+      if(!is_null($user)){
+        $this->hasuser=true; $this->save(); 
+      }
+    return $user;
+     
+  }
     
-    
+  public function isExternal(){
+    return !(h::currentUniversity()==$this->universidad_id);
+ }   
 }

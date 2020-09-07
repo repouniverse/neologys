@@ -84,6 +84,10 @@ class SiteController extends  baseController
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
            // return $this->goBack();
+            $current_uni=h::currentUniversity();
+            //var_dump($current_uni);die();
+            if(is_null( $current_uni))
+            return $this->redirect(['general/choose-university']);
            $this->redirect(Url::toRoute([Yii::$app->user->resolveUrlAfterLogin()]));
         } else {
             $model->password = '';
@@ -305,6 +309,10 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    //die();
+    $uni=h::currentUniversity();
+    var_dump($uni);
+    die();
     VAR_DUMP(h::currentUniversity());die();
     $convo=\frontend\modules\inter\models\InterConvocados::findOne(1234);
    var_dump($convo->currentStage());
