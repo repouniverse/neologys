@@ -3,7 +3,7 @@ use yii\helpers\Html;
 ?>
 <?php
  
-$options=array_merge($opcionesBase,['prompt'=>'--'.yii::t('base.verbs','Seleccione un valor')."--",
+$options=array_merge($opcionesBase,['prompt'=>'--'.yii::t('base.verbs','Choose a value')."--",
           // 'class'=>'probandoSelect2',
           // 'labelOptions'=>['label'=>false],
                       

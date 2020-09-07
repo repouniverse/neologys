@@ -305,6 +305,10 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    VAR_DUMP(h::currentUniversity());die();
+    $convo=\frontend\modules\inter\models\InterConvocados::findOne(1234);
+   var_dump($convo->currentStage());
+    die();
     
     $rango=\frontend\modules\inter\models\InterHorarios::findOne(1)->range();
     var_dump($rango->initialDate->format('Y-m-d H:i:s'));
@@ -499,6 +503,6 @@ die();
   }  
   
   
-    
+  
     
 }

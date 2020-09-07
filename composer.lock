@@ -2356,6 +2356,7 @@
                 }
             ],
             "time": "2020-08-24T12:35:58+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "npm-asset/fullcalendar",
@@ -2368,6 +2369,8 @@
             "license": [
                 "MIT"
             ]
+=======
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
         },
         {
             "name": "paragonie/random_compat",
@@ -3705,7 +3708,11 @@
         },
         {
             "name": "symfony/translation",
+<<<<<<< HEAD
             "version": "v5.1.5",
+=======
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
@@ -6877,6 +6884,7 @@
         },
         {
             "name": "symfony/console",
+<<<<<<< HEAD
             "version": "v5.1.5",
             "source": {
                 "type": "git",
@@ -6887,6 +6895,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/186f395b256065ba9b890c0a4e48a91d598fa2cf",
                 "reference": "186f395b256065ba9b890c0a4e48a91d598fa2cf",
+=======
+            "version": "v5.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "51ff337ce194bdc3d8db12b20ce8cd54ac9f71e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/51ff337ce194bdc3d8db12b20ce8cd54ac9f71e9",
+                "reference": "51ff337ce194bdc3d8db12b20ce8cd54ac9f71e9",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
                 "shasum": ""
             },
             "require": {
@@ -6966,11 +6986,19 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2020-09-02T07:07:40+00:00"
         },
         {
             "name": "symfony/css-selector",
             "version": "v5.1.5",
+=======
+            "time": "2020-08-17T13:51:41+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -7101,7 +7129,11 @@
         },
         {
             "name": "symfony/dom-crawler",
+<<<<<<< HEAD
             "version": "v4.4.13",
+=======
+            "version": "v4.4.12",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -7176,7 +7208,11 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
             "version": "v5.1.5",
+=======
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -7338,7 +7374,11 @@
         },
         {
             "name": "symfony/finder",
+<<<<<<< HEAD
             "version": "v5.1.5",
+=======
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -7707,7 +7747,11 @@
         },
         {
             "name": "symfony/string",
+<<<<<<< HEAD
             "version": "v5.1.5",
+=======
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
@@ -7792,7 +7836,11 @@
         },
         {
             "name": "symfony/yaml",
+<<<<<<< HEAD
             "version": "v5.1.5",
+=======
+            "version": "v5.1.4",
+>>>>>>> d0daeb4b26992c0332ece4cc165eda7306d26630
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",

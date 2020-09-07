@@ -7,6 +7,7 @@ USE common\traits\nameTrait;
 use common\helpers\h;
 USE common\traits\identidadTrait;
 use common\models\masters\Combovalores;
+use frontend\modules\inter\models\InterModos;
 use Yii;
 
 /**
@@ -38,7 +39,7 @@ implements \common\interfaces\postulantesInterface
      */
     
     public $codpais=null;
-    
+    public $booleanFields=['hasuser'];
     public static function tableName()
     {
         return '{{%alumnos}}';
@@ -51,7 +52,9 @@ implements \common\interfaces\postulantesInterface
     {
         return [
             [['codalu', 'ap','am','nombres','tipodoc','numerodoc'], 'required'],
-             [['mail','universidad_id', 'facultad_id','carrera_id' ], 'safe'],
+             [['mail','universidad_id', 'facultad_id','carrera_id','hasuser' ], 'safe'],
+           
+             [['codalu'], 'unique'],
             /* PARA ESCENARIOBASICO*/
             [[
             'codalu','mail', 'ap','am','nombres','tipodoc','numerodoc',
@@ -155,13 +158,18 @@ implements \common\interfaces\postulantesInterface
    /*
     * Devuelve un activeQuery con nc roteior especifico
     */
-   public function providerPersonsToConvocar() {
+   public function providerPersonsToConvocar(InterModos $modelModo) {
        /*Aqui debe de aparecerun filtro de validacion
         * estos filtro debe de sacare de una tabla
         * que mas adelante denemos de crear sefun lso datos que entregue Crispin de SAP*/
         //por ahora sacar todos los registros 
-       return static::find()->limit(30);
-       return static::find()/*->andWhere([])*/;
+       if($modelModo->programa->universidad_id==$this->universidad_id){
+          return static::find()->limit(30);
+         return static::find()/*->andWhere([])*/; 
+       }else{//en caso de ser modo incomingo pasarlo de frente porque ay están selecionados 
+           return static::find()->andWhere(['<>','universidad_id',$modelModo->programa->universidad_id]);
+       }
+       
    }
    
    public function getConvocatorias()
@@ -208,21 +216,35 @@ implements \common\interfaces\postulantesInterface
       return false;
   }
   
-  
+  /*
+   * crea un usuario desde un Alumno
+   */
   public function createUser(){
-      /* $user = new \mdm\admin\models\User();
-            $user->username= strtoupper($this->codigo);
-             $user->mail=$this->email;   
-             $user->password= uniqid(); 
-             //$model->retypePassword='123456'; 
-               $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
-            if (!$user->save()) {
-                                return false;
-             }*/
+     if(!$this->isExternal()) //Si es un alumno de la misma universidad no tiene sentido crear usuari
+      return false;
+     $rol=null;
+    if(yii::$app->hasModule('inter'))
+        $rol=\frontend\modules\inter\Module::ROL_POSTULANTE;
+      $user=$this->persona->createUser($this->codalu,$this->mail,$role);
+      if(!is_null($user)){
+        $this->hasuser=true; $this->save(); 
+      }
+    return $user;
+     
   }
   
   public function currentConvocatoria(){
      return  $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
   }
+  
+  
+  /*
+   * Verifica que el alumno es de otra universisas
+   * diferente a la universidad actual
+   */
+ public function isExternal(){
+    return !(h::currentUniversity()==$this->universidad_id);
+ } 
+  
   
 }

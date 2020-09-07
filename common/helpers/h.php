@@ -17,6 +17,8 @@ class h {
     const TIME_FORMAT = 'php:H:i:s';   
    const FLAG_ACTIVE = '1'; 
     const FLAG_INACTIVE = '0'; 
+    const CURRENT_UNIVERSITY=1;
+    const NAME_SESSION_CURRENT_UNIVERSITY='universidad_actual';
 
     public static function convert($dateStr, $type='date', $format = null) {
         if ($type === 'datetime') {
@@ -82,6 +84,10 @@ class h {
     
     public static function currentController(){
         return Yii::$app->controller->id;
+    }
+    
+    public static function currentControllerObject(){
+        return Yii::$app->controller;
     }
     public static function currentAction(){
         return Yii::$app->controller->action->id;
@@ -324,6 +330,23 @@ class h {
      }
    
     }
- 
+ /*
+  * Integer devuel el valo de la universidad activa
+  */
+ public static function currentUniversity(){
+     $sesion=h::session();
+    if($sesion->has(self::NAME_SESSION_CURRENT_UNIVERSITY)){
+        ///var_dump(self::NAME_SESSION_CURRENT_UNIVERSITY,h::session()->get(self::NAME_SESSION_CURRENT_UNIVERSITY));die();
+        return $sesion->get(self::NAME_SESSION_CURRENT_UNIVERSITY)+0;
+    }else{
+       return  h::currentControllerObject()->redirect(['general/choose-university']);
+    }
+  }   
+    
+    
 }
+
+
+
+
 ?>

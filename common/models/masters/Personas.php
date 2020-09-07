@@ -2,6 +2,7 @@
 
 namespace common\models\masters;
 use common\models\base\modelBase;
+
 use common\models\Profile;
 use common\helpers\h;
 use common\helpers\BaseHelper;
@@ -35,6 +36,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     
    CONST SCE_CREACION_BASICA='basico';
    CONST SCE_INTERMEDIO='intermedio';
+   CONST SCE_DOCENTES='docentes';
    
     public $dateorTimeFields = [
         'cumple' => self::_FDATE,
@@ -83,7 +85,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             [['cumple'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
-            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'pasaporte','sexo','estcivil'], 'safe'],
+            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'sexo','estcivil'], 'safe'],
             //[['codpuesto'], 'string', 'max' => 3],
             [['domicilio'], 'string', 'max' => 73],
             [['telfijo'], 'string', 'max' => 13],
@@ -98,7 +100,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'codgrupo','cumple','domicilio','telfijo',
             'depdir','provdir','distdir',
             'depnac','provnac','distnac',
-            'sexo','estcivil','pasaporte',
+            'sexo','estcivil',
             
             ],'required','on'=>self::SCE_INTERMEDIO],
             
@@ -133,6 +135,14 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'telfijo' => yii::t('base_labels', 'Phone'),
             'telmoviles' => yii::t('base_labels', 'Movil Phone'),
             'referencia' => yii::t('base_labels', 'References'),
+            'pais' => yii::t('base_labels', 'Nacionality'),
+            'estcivil' => yii::t('base_labels', 'Civil Status'),
+            'depnac' => yii::t('base_labels', 'Departament Nac.'),
+            'provnac' => yii::t('base_labels', 'Province Nac.'),
+            'distnac' => yii::t('base_labels', 'District Nac.'),
+            'depdir' => yii::t('base_labels', 'Departament Add.'),
+            'provdir' => yii::t('base_labels', 'Province Add.'),
+            'distdir' => yii::t('base_labels', 'District Add.'),
         ];
     }
 
@@ -149,8 +159,19 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'codgrupo','cumple','domicilio','telfijo',
             'depdir','provdir','distdir',
             'depnac','provnac','distnac',
-            'sexo','estcivil','pasaporte',
+            'sexo','estcivil',
             
+            ];
+        
+        $scenarios[self::SCE_DOCENTES] = [
+            'ap', 'am',
+            'nombres', 'tipodoc', 
+            'numerodoc','identidad_id',
+            'codgrupo','cumple','fecingreso',
+            'domicilio','telfijo','telmoviles',
+            'referencia','sexo','estcivil',
+            'depdir','provdir','distdir',
+            'depnac','provnac','distnac',
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -284,7 +305,16 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                  $id=$user->id;
                  yii::error('El id de usuario '.$id ,__FUNCTION__);
                 $user->profile->linkPerson($this->id);
+                /****LE ASIGNA EL ROL */
+                if(!is_null($role)){
+                   Yii::$app->authManager->assign(
+                 $role,
+                 $user->id); 
+                }
+                    
+                
                 return $user;
+                /************************/
              }
              
     }

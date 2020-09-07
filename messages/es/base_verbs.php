@@ -11,7 +11,7 @@ return[
     'Edit'=>'Modificar',
     'Edit: {name}'=>'Modificar :{name}',
     'Create'=>'Crear',
-    'Choose a value'=>'Seleccione un valor',
+    'Choose a value'=>'Escoja un valor',
     'Search'=>'Buscar',
     'Reset'=>'Reiniciar',
     'Go Back'=>'Atrás',

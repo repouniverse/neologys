@@ -1,7 +1,8 @@
 <?php
     use yii\helpers\Url;
     use yii\helpers\Html;
-    use yii\grid\GridView;
+    use kartik\grid\GridView;
+   // use yii\grid\GridView;
     use yii\widgets\Pjax;
     use frontend\modules\inter\Module as m;
     echo \common\widgets\spinnerWidget\spinnerWidget::widget();    
@@ -51,18 +52,29 @@
                                                     }
                                     ]
                                 ],
+                           ['attribute'=>'descripcion',
+                                   //'header'=>''
+                                    'group'=>true, 
+                                     ],
+                              ['attribute'=>'current_etapa',
+                                   //'header'=>'current_stage',
+                                    'group'=>true, 
+                                 ],
+                                 
                                 'am',
                                 'ap',
                                 'nombres',
-                                'codigoper',
-                                'tipodoc',
-                                'numerodoc',
-                                'codgrupo',
-                                'id',
-                                'universidad_id',
+                                //'current_etapa',
+                                 
+                               // 'codigoper',
+                                //'documento.desdocu',
+                                //'numerodoc',
+                                //'codgrupo',
+                                //'id',
+                                /*'universidad_id',
                                 'facultad_id',
                                 'depa_id',
-                                'modo_id',
+                                'modo_id',*/
                             ];
             
             

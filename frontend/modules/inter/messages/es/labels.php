@@ -1,6 +1,5 @@
 <?php
 return [
-    //'Edit : {name}'=>'Editar : {name}',
     'Field Settings'=>'Campos configurables',
     'The record was saved...!'=>'El registro fue guardado...!',
     'Settings Group'=>'Grupo Parametros',
@@ -16,7 +15,23 @@ return [
     'Mail'=>'Correo',
     'Inter Summoned'=>'Inter Convocados',
     'Create Inter Summoned'=>' Crear Inter Convocados',
-    'Program'=>'Programa',    
+    'Update Inter Summoned: {name}'=>'Actualizar Inter Convocados: {name}',
+    'Program'=>'Programa',
+    'Main'=>'Principal',
+    'Tutors'=>'Tutores',
+    'Inter Files'=>'Inter Expedientes',
+    'Create Inter Files'=>' Crear Inter Expedientes',
+    'Update Inter Files: {name}'=>'Actualizar Inter Expedientes: {name}',
+    'Convened Students'=>'Alumnos convocados',
+    'Convene'=>'Convocar  ',
+    'Convened'=>'Convocados',
+    'Inter Programs'=>'Inter Programas',
+    'Create Inter Program'=>'Crear Inter Programa',
+    'Update Inter Program: {name}'=>'Actualizar Inter Programa: {name}',
+    'Types'=>'Tipos',
+    'Evaluators'=>'Evaluadores',
+    'Stages'=>'Etapas',
+    'Age'=>'Edad',
     
     'ID'=>'ID',
     'University Id'=>'Universidad ID',
@@ -32,7 +47,7 @@ return [
     'Document Code'=>'Código de documento',
     'Program Id'=>'Programa ID',
     'Class'=>'Clase',
-    'Status'=>'Status',
+    'Status'=>'Estado',
     'Sequence'=>'Secuencia',
     'Student Id'=>'Alumno ID',
     'Teacher Id'=>'Docente ID',
@@ -54,5 +69,34 @@ return [
     'Document Number'=>'Número Documento',
     'Group Code'=>'Código Grupo',
     'Group'=>'Grupo',
+    
+    //AuthWithQuestionForm
+    'Code'=>'Código',
+    'Email'=>'Correo',
+    'Modality'=>'Modalidad',
+    'First question'=>'Primera pregunta',
+    'Second question'=>'Segunda pregunta',
+    'Third question'=>'Tercera pregunta',
+    
+    //InterExpedientes
+    'Summoned Id'=>'ID Convocado',
+    'Presentation Date'=>'Fecha de presentación',
+    'Document Date'=>'Fecha de documento',
+    'Internal Text'=>'Texto Interno',
+    'Required'=>'Requerido',
+    
+    //InterIdiomas
+    'Language'=>'Idioma',
+    'Level Code'=>'Código de nivel',
+    'Certificate'=>'Certificado',
+    
+    //InterModalidades
+    'External Text'=>'Texto Externo',
+    'Slogan'=>'Eslogan',
+    'Local'=>'Local',
+    
+    //InterPlan
+    'Evaluator Id'=> 'Evaluador ID',
+    'Evaluator'=> 'Evaluador',
 ];
 

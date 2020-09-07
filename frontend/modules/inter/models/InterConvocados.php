@@ -280,15 +280,18 @@ class InterConvocados extends \common\models\base\modelBase
   public function currentStage(){
     /*Obteniendo la etapa actual*/
     $etapa=$this->getExpedientes()->select(['max(orden)'])->andWhere(['estado'=>'1'])->scalar();
+    //var_dump($etapa);die();
     IF($etapa){
         /*
          * Si en esta etapa todos los expedientes estan aprobados 
          * virtualmente ya pasó a la siguiente si no se queda aquí
          */
       if($this->hasCompletedStage($etapa)){
+          
           //Debe de calcularse la siguitente etapa
           return InterEtapas::nextStage($etapa, $this->modo_id);
       }else{
+          
           return $etapa;
       }
     }else{
@@ -325,9 +328,16 @@ public function rawCurrentStage(){
   public function hasCompletedStage($stage){
       $expAprobados=$this->getExpedientes()
               ->andWhere(['orden'=>$stage,'estado'=>'1'])->count();
+      // if($modelPlan->eval->carrera->id==$this->alumno->carrera_id)
       if($expAprobados > 0){
-        $nExpedientesEnEtapa= $this->modo->getPlanes()->andWhere(['ordenetapa'=>$stage])->count();
-           if($expAprobados >=$nExpedientesEnEtapa){
+            
+        $nExpedientesEnEtapa= $this->getExpedientes()
+              ->andWhere(['orden'=>$stage])->count();
+        
+        /*$nExpedientesEnEtapa= $this->modo->getPlanes()->
+                andWhere(['ordenetapa'=>$stage,'plan_id'])->count();*/
+           //VAR_DUMP($expAprobados,$nExpedientesEnEtapa);DIE();
+        if($expAprobados >=$nExpedientesEnEtapa){
                /*Quieer decior que ya aprobo toda la etapa*/
               return true;
            }else{
@@ -478,4 +488,15 @@ public function beforeSave($insert) {
     return parent::beforeSave($insert);
 }
 
+/*
+ * Devuel un active record del
+ * expediente que le toca procesar,
+ * si no encuentra decuve null
+ */
+    public function currentExpediente(){
+        return $this->getExpedientes()
+           ->andWhere(['estado'=>'0'])->orderBy(['secuencia'=>SORT_ASC])->one();
+        
+        
+        }
 }

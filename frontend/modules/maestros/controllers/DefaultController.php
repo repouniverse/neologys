@@ -21,16 +21,20 @@ use common\models\masters\PeriodosSearch;
 use common\models\masters\Carreras;
 use common\models\masters\GrupoPersonasSearch;
 use common\models\masters\GrupoPersonas;
-use common\models\masters\AlumnosSearch;
 use common\models\masters\Departamentos;
 use common\models\masters\DepartamentosSearch;
 use common\models\masters\Alumnos;
+use common\models\masters\AlumnosSearch;
+use common\models\masters\AlumnosInter;
+use common\models\masters\AlumnosInterSearch;
 use common\models\masters\DocentesSearch;
 use common\models\masters\Docentes;
 use frontend\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\modules\maestros\MaestrosModule as m;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
  * Default controller for the `maestros` module
  */
@@ -1005,23 +1009,30 @@ class DefaultController extends \common\controllers\base\baseController
         }
        
    } 
-   
       
-   public function actionIndexAlumnos()
-    { 
+    public function actionIndexAlumnos()
+    {
         $searchModel = new AlumnosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render
-                            (
-                             'index_alumno', 
-                             [
-                              'searchModel' => $searchModel,
-                              'dataProvider' => $dataProvider,
-                             ]
-                            );         
+        return $this->render('index_alumno', 
+                            [
+                                'searchModel' => $searchModel, 
+                                'dataProvider' => $dataProvider,
+                            ]);         
     }
+    
+    public function actionIndexAlumnosInter()
+    {        
+        $searchModel = new AlumnosInterSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index_alumno_inter', 
+                            [
+                                'searchModel' => $searchModel, 
+                                'dataProvider' => $dataProvider,
+                            ]);         
+    }
     
     public function actionIndexDocentes()
     { 
@@ -1114,7 +1125,8 @@ class DefaultController extends \common\controllers\base\baseController
 
     public function actionCreateDocentes()
     {
-        $model = new Docentes();
+        $model = new Docentes();                  
+        $model->setScenario($model::SCE_CREACION_BASICA);
         
         if (h::request()->isAjax && $model->load(h::request()->post())) {
                 h::response()->format = \yii\web\Response::FORMAT_JSON;
@@ -1167,9 +1179,10 @@ class DefaultController extends \common\controllers\base\baseController
         ]);
     }
 
-    public function actionUpdateDocentes($id)
+    /*public function actionUpdateDocentes($id)
     {
         $model = $this->findModelDocentes($id);
+        $modelPersona = $this->findModelPersona($model->persona_id);
      
         if (h::request()->isAjax && $model->load(h::request()->post())) {
                 h::response()->format = \yii\web\Response::FORMAT_JSON;
@@ -1182,10 +1195,76 @@ class DefaultController extends \common\controllers\base\baseController
 
         
         
+        return $this->render
+               (
+                    'update_docente',
+                    [
+                        'model'=>$model,
+                        'modelPersona'=>$modelPersona,
+                    ]
+                );
+    }*/
+    
+    public function actionUpdateDocentes($id)
+    {
+        
+        $model = $this->findModelDocentes($id);
+        $modelPersona=$model->persona;
+     /*
+      * Mejora reste codigo, debe ser tartado en un accesFilter
+      * no de esta manera por nurencia se ha escrito asi 
+      * debe de ahber un filtro para saber si el aluunoq ue accede 
+      * a su ficha de personal
+      */
+     //try{//intentando obtener el id de persona del usuario que iongresa a este actio
+      // $currentPerson=h::user()->profile->persona;
+     //} catch (Exception $ex) {
+        
+    // }
+        
+        $modelPersona->setScenario($modelPersona::SCE_DOCENTES);
+        if (h::request()->isPost){
+            //yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
+         //yii::error(h::request()->post()['Personas'],__FUNCTION__);
+        $model->load(h::request()->post());
+        $modelPersona->load(h::request()->post());
+        }
+         
+        
+       // var_dump($modelP);die();
+        if (h::request()->isAjax &&
+            $model->load(h::request()->post()) &&
+            $modelPersona->load(h::request()->post())    
+                ) {
+                  //var_dump($modelP->attributes);die();
+            //yii::error('paso el ajzx',__FUNCTION__);
+                h::response()->format = Response::FORMAT_JSON;
+            //  yii::error('Los errores',__FUNCTION__);  
+              // yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
+               //yii::error(ActiveForm::validate($model),__FUNCTION__);
+              //  yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
+                return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelPersona));
+        }
+        //yii::error('continuado',__FUNCTION__);
+        if ($model->load(Yii::$app->request->post()) && 
+             $modelPersona->load(Yii::$app->request->post()) &&
+                $model->save() && $modelPersona->save()) {
+        //    yii::error('apunto de redireccionar',__FUNCTION__);
+        //    if(h::userName()=='admin')
+        //    return $this->redirect(['view', 'id' => $model->id]); 
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+        //    return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
+            return $this->redirect('index-docentes');
+        }
+ yii::error('a putno de renderizar',__FUNCTION__);
         return $this->render('update_docente', [
-          'model'=>$model
+            'model' => $model,
+            'modelPersona'=>$modelPersona
         ]);
     }
+    
+    
+    
     /**
      * Deletes an existing Trabajadores model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

@@ -3,12 +3,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\models\masters\Personas;
+use common\helpers\ComboHelper;
 ?>
 
 <div class="alumnos-search">
     <?php $form = ActiveForm::begin(
                   [
-                   'action' => ['index-alumnos'],
+                   'action' => ['index-alumnos-inter'],
                    'method' => 'get',
                    'options' => ['data-pjax' => 1],
                   ]); 
@@ -17,11 +18,10 @@ use common\models\masters\Personas;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
-             <?= Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
-          
         </div>
     </div>
-
+    
+    
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <?= $form->field($model, 'codalu') ?>        
     </div>
@@ -34,17 +34,6 @@ use common\models\masters\Personas;
                                      )
         ?>
     </div>
-     
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-         <?= 
-            $form->field($model, 'universidad_id')->
-                         dropDownList(
-                                      \common\helpers\ComboHelper::getCboUniversidades(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",]
-                                     )
-        ?>
-    </div>
-    
-    
     
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <?= $form->field($model, 'numerodoc') ?>        
@@ -54,7 +43,9 @@ use common\models\masters\Personas;
         <?= $form->field($model, 'ap') ?>
     </div>
     
-   
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <?= $form->field($model, 'am') ?>
+    </div>
     
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <?= $form->field($model, 'nombres') ?>

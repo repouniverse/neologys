@@ -192,12 +192,16 @@ class AuthWithQuestionForm extends Model
             
         }else{ //Si el usuario no existe hay que crearlo
           $user= $this->modelPostulante->
-                persona->createUser($this->codigo,$this->email);
+         persona->createUser($this->codigo,
+                 $this->email,
+                 Module::ROL_POSTULANTE);
           //Asignar el rol 
-         Yii::$app->authManager->assign(
-                 Module::getRolePostulante(),
-                 $user->id);
-          
+        
+          /*Luego hay que actualizar tamb e record modelpostualnte 
+           * 
+           */
+          $this->modelPostulante->hasuser=true;
+          $this->modelPostulante->save();
             /*
              $user = new \mdm\admin\models\User();
             $user->username= strtolower($this->codigo);

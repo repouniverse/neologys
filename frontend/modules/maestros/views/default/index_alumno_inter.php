@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-USE kartik\grid\GridView;
+use yii\grid\GridView;
 use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 
-$this->title = m::t('labels', 'Students');
+$this->title = m::t('labels', 'Students International');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -15,21 +15,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-success">
         <div class="box-body">
             <?php Pjax::begin(['id'=>'gridTraba']); ?>
-            <?php $paises=\common\helpers\ComboHelper::getCboPaises();
-            $universidades=\common\helpers\ComboHelper::getCboUniversidades();
-            ?>
-            <?php  echo $this->render('_search_alumno', ['model' => $searchModel]); ?>
+            <?php  echo $this->render('_search_alumno_inter', ['model' => $searchModel, 'modelPersona'=>$modelPersona]); ?>
             <p>
-                  </p>
+                 <?= Html::a(m::t('labels', 'Create Student International'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
+            </p>
 
- .
             <?= GridView::widget(
                 [
                     'dataProvider'=>$dataProvider,
-                   // 'filterModel'=>$searchModel,
+                    'filterModel'=>$searchModel,
                     'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
                     'columns'=>
                     [
+                        [
+                            'attribute'=>'universidad',
+                            'header'=>m::t('labels','University'),
+                            'value'=>function ($model)
+                                     {
+                                        return $model->universidad->nombre;
+                                     },
+                        ],
                         'codalu',
                         'ap',
                         'am',
@@ -69,7 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ],
                     ],
-
                 ]); 
             ?>
             <?php 

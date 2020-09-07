@@ -43,7 +43,7 @@ class ActionCombodependiente extends \yii\base\Action
              }
            
             
-            $datos=[''=>yii::t('base.verbs','--Seleccione un Valor--')]+$datos;
+            $datos=[''=>yii::t('base.verbs','--Choose a value--')]+$datos;
            }else{/*Se traa de datos directametne */
                $datos=$source;
              

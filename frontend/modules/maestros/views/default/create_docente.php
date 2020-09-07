@@ -9,6 +9,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="documentos-create">
     <h4><?= Html::encode($this->title) ?></h4>
     <div class="box box-success">    
-        <?= $this->render('_form_docente', ['model' => $model,]) ?>
+        <?= $this->render('_form_docente_basico', ['model' => $model,]) ?>
     </div>
 </div>

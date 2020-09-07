@@ -212,12 +212,15 @@ class InterModos extends \common\models\base\modelBase
        $cantidad=0;
        $this->modelFuente = Yii::createObject($this->modelofuente);
        if($this->modelFuente instanceof postulantesInterface) {
-           $providerPersons=$this->modelFuente->providerPersonsToConvocar();
+           $providerPersons=$this->modelFuente->providerPersonsToConvocar($this);
              foreach($providerPersons->batch(10) as $persons){
                  foreach($persons as $person){
                      yii::error('siguiendo a '.$person->id);                   
-                    if($this->convocaPersona($person))$cantidad++;
-                 }
+                    if($this->convocaPersona($person)){
+                                $cantidad++;
+                                
+                                            }  
+                     }
                 
              }
            

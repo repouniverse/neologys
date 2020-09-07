@@ -57,7 +57,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                             }
                     ]
                 ],
-               'orden',
+              // 'etapa.orden',
             'acronimo',
             'descripcion',
             'documento.desdocu'

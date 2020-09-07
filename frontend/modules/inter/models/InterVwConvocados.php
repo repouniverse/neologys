@@ -91,8 +91,9 @@ class InterVwConvocados extends \common\models\base\modelBase
             'ap' => m::t('labels', 'Mother Last Name'),
             'nombres' => m::t('labels', 'Names'),
             'acronimo' => m::t('labels', 'Acronym'),
-            'descripcion' => m::t('labels', 'Description'),
+            'descripcion' => m::t('labels', 'Mode'),
             'desprograma' => m::t('labels', 'Deprogram'),
+            'current_etapa' => m::t('labels', 'Current Stage'),
         ];
     }
       

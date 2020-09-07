@@ -13,7 +13,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
 <h4><span class="fa fa-calendar"></span><?='   '.\yii\helpers\Html::encode(yii::t('sta.labels','File')).'-'.$persona->fullName() ?></h4>
 <div class="box box-success">
-<div class="box body">
+
 
 <?php  
  use kartik\tabs\TabsX;
@@ -43,25 +43,20 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
       'encodeLabels'=>false,
     'items' => [
         [
-            'label' =>'<i class="glyphicon glyphicon-hourglass"></i> '.yii::t('base.names','Citas'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_files',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'label' =>'<i class="glyphicon glyphicon-folder-open"></i>   '. m::t('labels','Interviews'), //$this->context->countDetail() obtiene el contador del detalle
+            'content'=> $this->render('view_tab_entrevistas',['current_expediente'=>$current_expediente,'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
             'active' => true,
-             'options' => ['id' => 'tnID3'],
+             'options' => ['id' => 'mxx4ID4'],
         ],
         [
-            'label' =>'<i class="glyphicon glyphicon-calendar"></i> '. yii::t('base.names','Programación'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_calendar',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'label' =>'<i class="glyphicon glyphicon-calendar"></i> '. m::t('labels','Schedule'), //$this->context->countDetail() obtiene el contador del detalle
+            'content'=> $this->render('view_tab_calendar',['current_expediente'=>$current_expediente,'eventos'=>$eventos,'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
             'active' => false,
              'options' => ['id' => 'myy6nID4'],
         ],
-      [
-            'label' =>'<i class="glyphicon glyphicon-folder-open"></i>   '. yii::t('base.names','Documentos'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_entrevistas',['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
-            'active' => false,
-             'options' => ['id' => 'mxx4ID4'],
-        ],
+      
     ],
 ]); 
     ?> 
 </div>
-    </div>
+    

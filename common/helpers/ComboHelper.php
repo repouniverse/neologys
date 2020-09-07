@@ -204,6 +204,16 @@ class ComboHelper  {
                         ];
     }
     
+    public static function getCboCategoriaDocente()
+    {
+        return 
+        [
+            'PR'=>yii::t('base_labels','MAIN'),
+            'AS'=>yii::t('base_labels','ASSOCIATE'),
+            'AU'=>yii::t('base_labels','AUXILIAR'),
+        ];
+    }
+    
      public static function getCboBancos(){
          return ArrayHelper::map(
                         \common\models\masters\Bancos::find()->all(),

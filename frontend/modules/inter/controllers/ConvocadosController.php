@@ -70,9 +70,22 @@ class ConvocadosController extends baseController
          $model->createExpedientes($model->currentStage());
         $alumno=$model->alumno;
         $persona=$alumno->persona;
+        $current_expediente=$model->currentExpediente();
+        $eventos=[
+                    [
+                'title' => m::t('labels','eet'),
+              'start' =>date('Y-m-d H:i:s'),
+                'end' =>$model::CarbonNow()->addMinutes(30)->format('Y-m-d H:i:s'),
+                'color' => '#e9f72057',
+                     ] 
+            ];
         return $this->render('view', [
-            'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno
-        ]);
+            'current_expediente'=>$current_expediente,
+            'eventos'=>$eventos,
+            'model' =>$model ,
+            'persona'=>$persona,
+            'alumno'=>$alumno
+                                ]);
     }
 
     /**
@@ -127,10 +140,10 @@ class ConvocadosController extends baseController
         
         $modelP->setScenario($modelP::SCE_INTERMEDIO);
         if (h::request()->isPost){
-            yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
-         yii::error(h::request()->post()['Personas'],__FUNCTION__);
-        yii::error($model->load(h::request()->post()),__FUNCTION__);
-        yii::error($modelP->load(h::request()->post()),__FUNCTION__);
+            //yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
+         //yii::error(h::request()->post()['Personas'],__FUNCTION__);
+        $model->load(h::request()->post());
+        $modelP->load(h::request()->post());
         }
          
         
@@ -140,21 +153,21 @@ class ConvocadosController extends baseController
             $modelP->load(h::request()->post())    
                 ) {
                   //var_dump($modelP->attributes);die();
-            yii::error('paso el ajzx',__FUNCTION__);
+            //yii::error('paso el ajzx',__FUNCTION__);
                 h::response()->format = Response::FORMAT_JSON;
-              yii::error('Los errores',__FUNCTION__);  
+            //  yii::error('Los errores',__FUNCTION__);  
               // yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
                //yii::error(ActiveForm::validate($model),__FUNCTION__);
-                yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
+              //  yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
                 return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP));
         }
-        yii::error('continuado',__FUNCTION__);
+        //yii::error('continuado',__FUNCTION__);
         if ($model->load(Yii::$app->request->post()) && 
              $modelP->load(Yii::$app->request->post()) &&
                 $model->save() && $modelP->save()) {
-            yii::error('apunto de redireccionar',__FUNCTION__);
-            if(h::userName()=='admin')
-            return $this->redirect(['view', 'id' => $model->id]); 
+        //    yii::error('apunto de redireccionar',__FUNCTION__);
+        //    if(h::userName()=='admin')
+        //    return $this->redirect(['view', 'id' => $model->id]); 
             h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
             return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }

@@ -20,7 +20,10 @@ use frontend\modules\inter\models\InterExpedientes;
 <?= GridView::widget([
         'dataProvider' =>new ActiveDataProvider([
             'query'=> InterExpedientes::find()->andWhere([
-                'convocado_id'=>$model->id,'orden'=>$model->currentStage()]),
+                'convocado_id'=>$model->id,
+                'orden'=>$model->currentStage(),
+                //'plan_id'=>$model->plan->eval->,
+                ]),
                 ]),
          //'summary' => '',
          'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
@@ -75,17 +78,31 @@ use frontend\modules\inter\models\InterExpedientes;
                     //'headerOptions' => ['class' => 'kartik-sheet-style'], 
                     'expandOneOnly' => true
                 ],
+                                         [ 'attribute'=>'Current',
+            'format'=>'raw',
+            'value'=>function($model)use($current_expediente){
+                  if($current_expediente->id==$model->id)
+                  return '<i style="color:red;font-size:24px;">'.h::awe('arrow-right').'</i>';           
+                   return '';
+                  
+            }
+            ],
               'plan.orden',
+              ['attribute'=>'proceso',
+                  'value'=>function($model){
+                         return $model->plan->descripcion;
+                    }
+               ],
+             ['attribute'=>'Evaluador',
+                  'value'=>function($model){
+                         return $model->plan->eval->descripcion;
+                    }
+               ], 
          //'documento.desdocu',
           //'plan.depa.nombredepa',   
-         'plan.eval.descripcion',   
-         'clase',
-        [ 'attribute'=>'Attachment',
-            'format'=>'raw',
-            'value'=>function($model){
-                  return $model->flagAttach();           
-            }
-            ]
+         //'plan.eval.descripcion',   
+         
+       
          
          
          

@@ -12,10 +12,11 @@ use common\models\masters\Personas;
 use common\models\masters\GrupoPersonas;
 trait identidadTrait
 {
-   private $camposComunes=[
-       'ap','am','nombres','tipodoc','numerodoc'
-   ];
-    
+    private $camposComunes=
+    [
+        'ap','am','nombres','tipodoc','numerodoc'
+    ];
+        
     private function queryPerson(){
         return Personas::find()->andWhere([
             'ap'=>$this->ap,
@@ -50,7 +51,6 @@ trait identidadTrait
         }
         return false;
     }
-
     
    private function prepareAtributes(){
        $atri=[];
@@ -63,7 +63,7 @@ trait identidadTrait
         $atri['codgrupo']=$this->obtenerGrupo();
        return $atri;
    } 
-   
+      
     public function getPersona() {
         /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
           ->getRawSql();die(); */

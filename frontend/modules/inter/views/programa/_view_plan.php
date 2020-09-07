@@ -11,6 +11,16 @@
     use common\helpers\ComboHelper;
     use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 ?>
+<?php $this->title = m::t('labels', 'View plan');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Plans'), 'url' => ['index-plans']];
+//$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Programa'), 'url' => ['update', 'id' => $modelTallerdet->talleres_id]];
+$this->params['breadcrumbs'][] = m::t('labels', 'Plan');
+?>
+<?php
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
+?>
+<h4><span class="fa fa-calendar"></span><?=$model->descripcion ?></h4>
+<div class="box box-success">
 <div class="inter-convocados-form">
     <br>
         <?php $form = ActiveForm::begin(
@@ -18,13 +28,7 @@
                         'id'=>'biForm',
                         'fieldClass'=>'\common\components\MyActiveField',
                       ]); ?>
-        <div class="box-header">
-            <div class="col-md-12">
-                <div class="form-group no-margin">                
-                    <?= Html::submitButton('<span class="fa fa-save"></span>'.m::t('verbs', 'Save'), ['class' => 'btn btn-warning']) ?>
-                </div>
-            </div>
-        </div>
+        
         <div class="box-body"> 
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <?= $form->field($model, 'descripcion')->
@@ -160,3 +164,4 @@
        
         </div>    
 </div>
+    </div>

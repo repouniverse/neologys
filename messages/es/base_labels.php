@@ -4,6 +4,11 @@ return[
     'Register'=>'Registrarse',
     'User Data'=>'Datos de usuario',
     'Profile'=>'Perfil',
+    'Nacionality'=>'Nacionalidad',
+    'Civil Status'=>'Estado Civil',
+    'MAIN'=>'PRINCIPAL',
+    'ASSOCIATE'=>'ASOCIADO',
+    'AUXILIAR'=>'AUXILIAR',
     
     // Alumnos
     'Id'=>'ID',
@@ -17,6 +22,8 @@ return[
     'Code Faculty'=>'Código Facultad',
     'Document Type'=>'Tipo Documento',
     'Document Number'=>'Número Documento',
+    'Mail'=>'Correo',
+    'Reason'=>'Motivo',
     
     // Docentes
     'Faculty'=>'Facultad',
@@ -40,4 +47,10 @@ return[
     'Phone'=>'Teléfono',
     'Movil Phone'=>'Celular',
     'References'=>'Referencias',
+    'Departament Nac.'=>'Departamento Nac.',
+    'Province Nac.'=>'Provincia Nac.',
+    'District Nac.'=>'Distrito Nac.',
+    'Departament Add.'=>'Departamento Dom.',
+    'Province Add.'=>'Provincia Dom.',
+    'District Add.'=>'Distrito Dom.',
 ];
