@@ -67,6 +67,8 @@ implements \common\interfaces\postulantesInterface
             [[ 'codesp'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['codpering', 'codfac'], 'string', 'max' => 10],
+             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
+             [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
         ];
     }
 

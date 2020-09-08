@@ -6,15 +6,17 @@ use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 
+
 $this->title = m::t('labels', 'Students');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="alumnos-index">
+<?php echo common\widgets\spinnerWidget\spinnerWidget::widget();   ?>
     <h4> <?= Html::encode($this->title) ?> </h4>
     <div class="box box-success">
         <div class="box-body">
-            <?php Pjax::begin(['id'=>'gridTraba']); ?>
+            <?php Pjax::begin(['id'=>'gridTraba','timeout'=>false]); ?>
             <?php $paises=\common\helpers\ComboHelper::getCboPaises();
             $universidades=\common\helpers\ComboHelper::getCboUniversidades();
             ?>
@@ -33,7 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'codalu',
                         'ap',
                         'am',
-                        'nombres',                            
+                        'nombres', 
+                        [
+                            'attribute'=>'imagen',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                return Html::img($model->image($model->codalu),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
+                            }
+                        ],
                         [
                             'class'=>'yii\grid\ActionColumn',
                             'template'=>'{update}{delete}',

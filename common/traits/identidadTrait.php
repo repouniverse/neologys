@@ -9,7 +9,9 @@ namespace common\traits;
 use yii;
 use  yii\web\ServerErrorHttpException;
 use common\models\masters\Personas;
+use common\helpers\FileHelper;
 use common\models\masters\GrupoPersonas;
+use common\helpers\h;
 trait identidadTrait
 {
     private $camposComunes=
@@ -86,8 +88,34 @@ trait identidadTrait
         }
    
     
+     public function image($codigo){
+         if(h::gsetting('general','showImgExternal') or h::user()->profile->recexternos){
+          $hasExternal=self::externalUrlImage($codigo);
+         if($hasExternal)
+         return $hasExternal;
+        return  FileHelper::getUrlImageUserGuest();  
+     } else{
+        return  FileHelper::getUrlImageUserGuest();   
+     }
+     }
   
+    private static function  externalUrlImage($codigo){
+      $extension=h::settings()->get('general','extensionimagesalu');
+        if(!(substr($extension,0,1)=='.'))
+         $extension='.'.$extension;
         
+      $urlExt= FileHelper::normalizePath(
+             h::settings()->get('general','urlimagesalu')
+           // .h::settings()->get('sta','prefiximagesalu') 
+            .$codigo
+            .$extension,'/');   
+     //VAR_DUMP($urlExt,FileHelper::checkUrlFound($urlExt));DIE();
+      if(FileHelper::checkUrlFound($urlExt)){
+          return $urlExt;
+      }else{
+        return false; 
+      }
+   }     
         
    
    

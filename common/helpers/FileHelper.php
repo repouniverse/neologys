@@ -148,9 +148,9 @@ class FileHelper extends FileHelperOriginal {
    public function getUrlImageUserGuest(){
        $directorio=yii::getAlias('@common/web/img').DIRECTORY_SEPARATOR;
        if(!is_dir($directorio))
-         throw new \yii\base\Exception(Yii::t('base.errors', 'The  \''.$directorio.'\' Directory doesn\'t exists '));
+         throw new \yii\base\Exception(Yii::t('base_errors', 'The  \''.$directorio.'\' Directory doesn\'t exists '));
         if(!is_file($directorio.'anonimus.png'))
-       throw new \yii\base\Exception(Yii::t('base.errors', 'The  \''.$directorio.'anonimus.png\' Picture doesn\'t exists '));
+       throw new \yii\base\Exception(Yii::t('base_errors', 'The  \''.$directorio.'anonimus.png\' Picture doesn\'t exists '));
         return \yii\helpers\Url::base().'/img/anonimus.png';
    }
    
@@ -199,15 +199,24 @@ class FileHelper extends FileHelperOriginal {
        $file = $urlAbsolute;     
        
         $file_headers = @get_headers($file);
-        
-        //var_dump($file_headers );
-            if(!$file_headers || strpos($file_headers[0],'200')===false/*$file_headers[0] == static::NOT_FOUND_MESSAGE*/) {
-                $exists = false;
-                }
-                    else {
-                $exists = true;
+        if($file_headers){
+            if($file_headers[0] == static::NOT_FOUND_MESSAGE){
+                return false;
+            }else{
+               return true;
             }
-         return true;
+        }else{
+            return false;
+        }
+       /* if(is_string($file_headers)
+        var_dump($file_headers );die();
+            if(!$file_headers || strpos($file_headers[0],'200')===false/*$file_headers[0] == static::NOT_FOUND_MESSAGE*//*) {*/
+                //$exists = false;
+               // }
+                    //else {
+                //$exists = true;
+            //}
+        // return true;
    }
    
    /*
@@ -360,6 +369,9 @@ public function UrlImage($path,$internal=true){
   public static function toPathRelative($absolutePath){
       return str_replace(yii::getAlias('@root'), '', $absolutePath);
   }
+  
+  
+  
   
   
 }
