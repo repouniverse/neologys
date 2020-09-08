@@ -1153,30 +1153,28 @@ class DefaultController extends \common\controllers\base\baseController
     public function actionUpdateAlumnos($id)
     {
         $model = $this->findModelAlumnos($id);
+        $modelPersona=$model->persona;
      
-       /* $modito=\frontend\modules\import\models\ImportCargamasivaUser::find(31)->one();
-        $modito->setScenario('fechita');
-        $modito->fechacarga=date('Y-m-d H:i:s');
-        $modito->fechacarga=$modito->swichtDate('fechacarga',true);*/
-        //var_dump(Carbon::now());die();
-        //var_dump($modito->fechacarga,$modito->save(),$modito->getFirstError());die();
-        // var_dump(date('d/m/Y H:i:s'));die();
-         if (h::request()->isAjax && $model->load(h::request()->post())) {
-                h::response()->format = \yii\web\Response::FORMAT_JSON;
-                return \yii\widgets\ActiveForm::validate($model);
+        $modelPersona->setScenario($modelPersona::SCE_ALUMNOS);
+        if (h::request()->isPost)
+        {
+            $model->load(h::request()->post());
+            $modelPersona->load(h::request()->post());
         }
         
-        
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           return $this->redirect(['view-alumnos', 'id' => $model->id]);
+        if (h::request()->isAjax && $model->load(h::request()->post()) && $modelPersona->load(h::request()->post()))
+        {
+            h::response()->format = Response::FORMAT_JSON;
+            return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelPersona));
         }
-
         
+        if ($model->load(Yii::$app->request->post()) && $modelPersona->load(Yii::$app->request->post()) && $model->save() && $modelPersona->save())
+        {
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            return $this->redirect('index-alumnos');
+        }
         
-        return $this->render('update_alumno', [
-          'model'=>$model
-        ]);
+        return $this->render('update_alumno', ['model' => $model,'modelPersona'=>$modelPersona]);        
     }
 
     /*public function actionUpdateDocentes($id)

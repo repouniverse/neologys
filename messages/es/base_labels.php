@@ -24,6 +24,10 @@ return[
     'Document Number'=>'Número Documento',
     'Mail'=>'Correo',
     'Reason'=>'Motivo',
+    'Race'=>'Carrera',
+    'Country Residence'=>'País Residencia',
+    'Birth Place'=>'Lugar Nacimiento',
+    'Place Residence'=>'Lugar Residencia',
     
     // Docentes
     'Faculty'=>'Facultad',
@@ -41,9 +45,10 @@ return[
     
     // Personas    
     'Person Code'=>'Código de Persona',
-    'Birth Date'=>'Cumpleaños',
+    'Birth Date'=>'Fecha Nacimiento',
     'Begin Date'=>'Fecha de ingreso',
     'Address'=>'Domicilio',
+    'Address Residence'=>'Domicilio Residencia',
     'Phone'=>'Teléfono',
     'Movil Phone'=>'Celular',
     'References'=>'Referencias',
@@ -53,4 +58,8 @@ return[
     'Departament Add.'=>'Departamento Dom.',
     'Province Add.'=>'Provincia Dom.',
     'District Add.'=>'Distrito Dom.',
+    'Contact Country Residence'=>'Contacto País Residencia',
+    'Relationship Contact'=>'Parentesco Contacto',
+    'Blood Type'=>'Grupo Sanguineo',
+    'Regular Use Medications'=>'Uso regular de medicamentos',
 ];

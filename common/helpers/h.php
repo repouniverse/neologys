@@ -333,12 +333,16 @@ class h {
  /*
   * Integer devuel el valo de la universidad activa
   */
- public static function currentUniversity(){
+ public static function currentUniversity($isModel=false){
      $sesion=h::session();
     if($sesion->has(self::NAME_SESSION_CURRENT_UNIVERSITY)){
         ///var_dump(self::NAME_SESSION_CURRENT_UNIVERSITY,h::session()->get(self::NAME_SESSION_CURRENT_UNIVERSITY));die();
-        return $sesion->get(self::NAME_SESSION_CURRENT_UNIVERSITY)+0;
-    }else{
+        $iduni= $sesion->get(self::NAME_SESSION_CURRENT_UNIVERSITY)+0;
+        if ($isModel)
+            return \common\models\masters\Universidades::findOne ($iduni);
+        else
+            return $iduni;        
+    }else{       
        return null;
        //return  h::currentControllerObject()->redirect(['general/choose-university']);
     }

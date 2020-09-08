@@ -8,6 +8,7 @@ use common\helpers\h;
 USE common\traits\identidadTrait;
 use common\models\masters\Combovalores;
 use frontend\modules\inter\models\InterModos;
+use common\models\masters\Universidades;
 use Yii;
 
 /**
@@ -103,6 +104,10 @@ implements \common\interfaces\postulantesInterface
             'codesp' => Yii::t('base_labels', 'Codesp'),
             'tipodoc' => Yii::t('base_labels', 'Document Type'),
             'numerodoc' => Yii::t('base_labels', 'Document Number'),
+            'universidad_id' => Yii::t('base_labels', 'University'),
+            'mail' => Yii::t('base_labels', 'Mail'),
+            'facultad_id' => Yii::t('base_labels', 'Faculty'),
+            'carrera_id' => Yii::t('base_labels', 'Race'),
         ];
     }
 
@@ -243,8 +248,19 @@ implements \common\interfaces\postulantesInterface
    * diferente a la universidad actual
    */
  public function isExternal(){
+     //return in_array($this->universidad_id, \common\helpers\ComboHelper::getcboIdsUniversidadesInThisCountry());     
     return !(h::currentUniversity()==$this->universidad_id);
  } 
   
-  
+ public static function currentPais()
+ {
+    $codpais=h::currentUniversity(true)->codpais;
+    return $codpais;
+ } 
+ 
+ public static function studentPais($univer_id)
+ {
+    $codpais=Universidades::findOne($univer_id)->codpais;
+    return $codpais;
+ } 
 }

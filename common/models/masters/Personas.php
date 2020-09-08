@@ -37,6 +37,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
    CONST SCE_CREACION_BASICA='basico';
    CONST SCE_INTERMEDIO='intermedio';
    CONST SCE_DOCENTES='docentes';
+   CONST SCE_ALUMNOS='alumnos';
    
     public $dateorTimeFields = [
         'cumple' => self::_FDATE,
@@ -143,6 +144,15 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'depdir' => yii::t('base_labels', 'Departament Add.'),
             'provdir' => yii::t('base_labels', 'Province Add.'),
             'distdir' => yii::t('base_labels', 'District Add.'),
+            'paisresidencia' => yii::t('base_labels', 'Country Residence'),
+            'lugarnacimiento' => yii::t('base_labels', 'Birth Place'),
+            'lugarresidencia' => yii::t('base_labels', 'Place Residence'),
+            'domiciliopaisorigen' => yii::t('base_labels', 'Address'),
+            'domicilio' => yii::t('base_labels', 'Address Residence'),
+            'codcontpaisresid' => yii::t('base_labels', 'Contact Country Residence'),
+            'parentcontpaisresid' => yii::t('base_labels', 'Relationship Contact'),
+            'gruposangu' => yii::t('base_labels', 'Blood Type'),
+            'usoregulmedic' => yii::t('base_labels', 'Regular Use Medications'),
         ];
     }
 
@@ -172,6 +182,21 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'referencia','sexo','estcivil',
             'depdir','provdir','distdir',
             'depnac','provnac','distnac',
+            ];
+        
+        $scenarios[self::SCE_ALUMNOS] = [
+            'ap', 'am',
+            'nombres', 'tipodoc', 
+            'numerodoc','identidad_id',
+            'codgrupo','cumple','fecingreso',
+            'domicilio','telfijo','telmoviles',
+            'referencia','sexo','estcivil',
+            'depdir','provdir','distdir',
+            'depnac','provnac','distnac',
+            'lugarnacimiento', 'telpaisorigen', 'codcontpaisorigen',
+            'parentcontpaisorigen', 'polizaseguroint', 'telefasistencia',
+            'paisresidencia', 'lugarresidencia', 'codcontpaisresid',
+            'parentcontpaisresid', 'tipogrado', 'idiomanativo', 'codresponsable'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];

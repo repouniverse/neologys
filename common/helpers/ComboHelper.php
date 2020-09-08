@@ -1072,5 +1072,12 @@ class ComboHelper  {
 
       ];
   }  
-    
+   
+  public static function getcboIdsUniversidadesInThisCountry($codpais=null)
+  {
+    if (is_null($codpais))
+        $codpais=h::currentUniversity (true)->codpais;      
+    $idsuniver=\common\models\masters\Universidades::find()->select(['id'])->andWhere(['codpais'=>$codpais])->column();
+    return $idsuniver;
+  }
 }
