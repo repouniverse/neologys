@@ -8,7 +8,5 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="documentos-create">
     <h4><?= Html::encode($this->title) ?></h4>
-    <div class="box box-success">    
-        <?= $this->render('_form_alumno', ['model' => $model,]) ?>
-    </div>
+    <?= $this->render('_form_alumno_basico', ['model' => $model,]) ?>
 </div>

@@ -17,7 +17,7 @@ class AlumnosSearch extends Alumnos
     public function rules()
     {
         return [           
-            [['ap','am','nombres','codalu', 'tipodoc', 'numerodoc','universidad_id'], 'safe'],
+            [['ap','am','nombres','codalu', 'tipodoc', 'numerodoc','universidad_id','facultad_id','carrera_id', 'codpais'], 'safe'],
         ];
     }
 
@@ -62,8 +62,11 @@ class AlumnosSearch extends Alumnos
 
         $query->andFilterWhere(['like', 'ap', $this->ap])
               ->andFilterWhere(['like', 'am', $this->am])
-               ->andFilterWhere(['universidad_id'=> $this->universidad_id])
+              ->andFilterWhere(['universidad_id'=> $this->universidad_id])
+              ->andFilterWhere(['facultad_id'=> $this->facultad_id])
+              ->andFilterWhere(['carrera_id'=> $this->carrera_id])
               ->andFilterWhere(['tipodoc'=>$this->tipodoc])
+              ->andFilterWhere(['codpais'=>$this->codpais])
               ->andFilterWhere(['like', 'nombres', $this->nombres])
               ->andFilterWhere(['like', 'codalu', $this->codalu])
               ->andFilterWhere(['like', 'numerodoc', $this->numerodoc]);

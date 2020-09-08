@@ -21,10 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $universidades=\common\helpers\ComboHelper::getCboUniversidades();
             ?>
             <?php  echo $this->render('_search_alumno', ['model' => $searchModel]); ?>
-            <p>
-                  </p>
-
- .
             <?= GridView::widget(
                 [
                     'dataProvider'=>$dataProvider,

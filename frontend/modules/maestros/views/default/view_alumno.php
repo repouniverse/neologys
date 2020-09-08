@@ -67,7 +67,7 @@
                                 'value'=> $model->tipodocumento,
                             ],
                             'numerodoc',
-                             
+                            'mail',
                             /*
                             [
                                 'group'=>true,
