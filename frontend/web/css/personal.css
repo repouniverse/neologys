@@ -129,5 +129,9 @@ h4 {
     font-size:18px;
     color:#925b08;
 }
-
-
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #orange;
+    background-color: #60a917;
+    color: white;
+}

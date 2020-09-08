@@ -181,7 +181,11 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'domicilio','telfijo','telmoviles',
             'referencia','sexo','estcivil',
             'depdir','provdir','distdir',
-            'depnac','provnac','distnac',
+            'depnac','provnac','distnac','alergias',
+            'telpaisorigen', 'codcontpaisorigen','pasaporte','gruposangu',
+            'parentcontpaisorigen', 'polizaseguroint', 'telefasistencia',
+            'paisresidencia', 'lugarresidencia', 'codcontpaisresid','lugarnacimiento',
+            'parentcontpaisresid', 'tipogrado', 'idiomanativo', 'codresponsable'
             ];
         
         $scenarios[self::SCE_ALUMNOS] = [
@@ -209,6 +213,18 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
           ->getRawSql();die(); */
         return $this->hasOne(GrupoPersonas::className(), ['codgrupo' => 'codgrupo']);
+    }
+    
+     public function getResponsable() {
+        /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
+          ->getRawSql();die(); */
+        return $this->hasOne(Personas::className(), ['codigoper' => 'codresponsable']);
+    }
+    
+    public function getContacto() {
+        /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
+          ->getRawSql();die(); */
+        return $this->hasOne(Personas::className(), ['codigoper' => 'codcontpaisresid']);
     }
     
     public function getIdentidad() {

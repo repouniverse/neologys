@@ -250,7 +250,7 @@ implements \common\interfaces\postulantesInterface
    * diferente a la universidad actual
    */
  public function isExternal(){
-     //return in_array($this->universidad_id, \common\helpers\ComboHelper::getcboIdsUniversidadesInThisCountry());     
+    //return in_array($this->universidad_id, \common\helpers\ComboHelper::getcboIdsUniversidadesInThisCountry());     
     return !(h::currentUniversity()==$this->universidad_id);
  } 
   

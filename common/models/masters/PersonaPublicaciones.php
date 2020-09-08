@@ -5,24 +5,25 @@ namespace common\models\masters;
 use Yii;
 
 /**
- * This is the model class for table "{{%persona_idiomas}}".
+ * This is the model class for table "{{%persona_publicaciones}}".
  *
  * @property int $id
  * @property int|null $persona_id
- * @property string $codnivel
+ * @property string $nombre
+ * @property string $editorial
+ * @property string|null $isbn
  * @property string|null $detalle
- * @property string $certificado
  *
  * @property Personas $persona
  */
-class PersonaIdiomas extends \common\models\base\modelBase
+class PersonaPublicaciones extends \common\models\base\modelBase
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%persona_idiomas}}';
+        return '{{%persona_publicaciones}}';
     }
 
     /**
@@ -32,9 +33,10 @@ class PersonaIdiomas extends \common\models\base\modelBase
     {
         return [
             [['persona_id'], 'integer'],
-            [['codnivel', 'idioma'], 'required'],
+            [['nombre', 'editorial'], 'required'],
             [['detalle'], 'string'],
-            [['codnivel', 'certificado'], 'string', 'max' => 1],
+            [['nombre', 'editorial'], 'string', 'max' => 40],
+            [['isbn'], 'string', 'max' => 30],
             [['persona_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_id' => 'id']],
         ];
     }
@@ -47,9 +49,10 @@ class PersonaIdiomas extends \common\models\base\modelBase
         return [
             'id' => Yii::t('base_labels', 'ID'),
             'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'codnivel' => Yii::t('base_labels', 'Codnivel'),
+            'nombre' => Yii::t('base_labels', 'Nombre'),
+            'editorial' => Yii::t('base_labels', 'Editorial'),
+            'isbn' => Yii::t('base_labels', 'Isbn'),
             'detalle' => Yii::t('base_labels', 'Detalle'),
-            'certificado' => Yii::t('base_labels', 'Certificado'),
         ];
     }
 
@@ -65,10 +68,10 @@ class PersonaIdiomas extends \common\models\base\modelBase
 
     /**
      * {@inheritdoc}
-     * @return PersonaIdiomasQuery the active query used by this AR class.
+     * @return PersonaPublicacionesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new PersonaIdiomasQuery(get_called_class());
+        return new PersonaPublicacionesQuery(get_called_class());
     }
 }

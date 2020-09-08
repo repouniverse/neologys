@@ -4,6 +4,7 @@ namespace common\models\masters;
 use common\interfaces\identidadesInterface;
 use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
+use common\helpers\h;
 USE common\traits\identidadTrait;
 use Yii;
 
@@ -56,15 +57,22 @@ implements \common\interfaces\postulantesInterface
             [['facultad_id', 'universidad_id', 'persona_id'], 'integer'],
             [['codoce'], 'required'],
             
+              [['correo'], 'safe'],
+            
              [['mail'], 'unique'],
             [['codoce'], 'unique'],
             
              /* PARA ESCENARIOBASICO*/
             [[
-            'codoce','ap','am','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id',
+            'codoce','ap','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id','correo'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
+            
+            
+            [['correo'],'unique'],
+            ["correo", "unique", "targetClass" => Alumnos::className(), "targetAttribute" => "mail"],
+            ["correo", "unique", "targetClass" => \common\models\User::className(), "targetAttribute" => "email"],
             
             [['codoce', 'codoce1', 'codoce2'], 'string', 'max' => 16],
             [['codigoper'], 'string', 'max' => 8],
@@ -109,7 +117,7 @@ implements \common\interfaces\postulantesInterface
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
            'codoce', 'ap','am','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id'
+            'universidad_id', 'facultad_id','correo'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];

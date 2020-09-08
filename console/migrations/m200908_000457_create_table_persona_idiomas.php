@@ -19,7 +19,9 @@ class m200908_000457_create_table_persona_idiomas extends baseMigration
                 //'universidad_id'=>$this->integer(11),
                 'persona_id'=>$this->integer(11),
                 'codnivel'=>$this->string(1)->notNull()->append($this->collateColumn()),
-             'detalle'=>$this->text()->append($this->collateColumn()),
+             'idioma'=>$this->string(3)->notNull()->append($this->collateColumn()),
+           
+                'detalle'=>$this->text()->append($this->collateColumn()),
              'certificado'=>$this->string(1)->notNull()->append($this->collateColumn()),
           
             ], $this->collateTable());

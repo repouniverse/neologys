@@ -309,6 +309,8 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    
+    var_dump(\common\models\masters\Docentes::findOne(2));die();
     //die();
     $uni=h::currentUniversity();
     var_dump($uni);

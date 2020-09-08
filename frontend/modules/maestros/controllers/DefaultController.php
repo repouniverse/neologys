@@ -1247,6 +1247,8 @@ class DefaultController extends \common\controllers\base\baseController
         if ($model->load(Yii::$app->request->post()) && 
              $modelPersona->load(Yii::$app->request->post()) &&
                 $model->save() && $modelPersona->save()) {
+            
+            //VAR_DUMP($modelPersona->attributes,$model->attributes);DIE();
         //    yii::error('apunto de redireccionar',__FUNCTION__);
         //    if(h::userName()=='admin')
         //    return $this->redirect(['view', 'id' => $model->id]); 
@@ -1627,4 +1629,269 @@ class DefaultController extends \common\controllers\base\baseController
         }
        
   }  
-}
+
+  
+   public function actionModalNewEventoInter($id){
+     $this->layout = "install";
+        $model = New \common\models\masters\PersonaEventosInter();
+        $datos=[];
+       // var_DUMP($id,\common\models\masters\Docentes::findOne($id));DIE();
+        $modelDocente= \common\models\masters\Docentes::findOne($id);
+        //var_dump($id,$modelDocente);die();
+        if(is_null($modelDocente)){ 
+            echo "maiol";die();
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            // h::response()->format = \yii\web\Response::FORMAT_JSON;
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }else{
+            //echo "bien"; die();
+        } 
+        
+        $model->persona_id=$modelDocente->persona->id;
+        //$model->facultad_id=$modelFacultad->id;
+        //var_dump($model->persona_id);die();
+        if(h::request()->isPost){
+           
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_evento_inter', [
+                        'model' => $model,
+                        'docente_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }    
+    public function actionModalEditEventoInter($id){
+     $this->layout = "install";
+        $model = \common\models\masters\PersonaEventosInter::findOne($id);
+        $datos=[];
+       
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_evento_inter', [
+                        'model' => $model,
+                        //'docente_id'=> $model->docente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+
+  
+  
+   public function actionModalNewPersonaIdioma($id){
+     $this->layout = "install";
+        $model = New \common\models\masters\PersonaIdiomas();
+        $datos=[];
+       // var_DUMP($id,\common\models\masters\Docentes::findOne($id));DIE();
+        $modelDocente= \common\models\masters\Docentes::findOne($id);
+        //var_dump($id,$modelDocente);die();
+        if(is_null($modelDocente)){ 
+            //echo "maiol";die();
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            // h::response()->format = \yii\web\Response::FORMAT_JSON;
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }else{
+            //echo "bien"; die();
+        } 
+        
+        $model->persona_id=$modelDocente->persona->id;
+        //$model->facultad_id=$modelFacultad->id;
+        //var_dump($model->persona_id);die();
+        if(h::request()->isPost){
+           
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_persona_idioma', [
+                        'model' => $model,
+                        'docente_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }    
+    public function actionModalEditPersonaIdioma($id){
+     $this->layout = "install";
+        $model = \common\models\masters\PersonaIdiomas::findOne($id);
+        $datos=[];
+       
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_persona_idioma', [
+                        'model' => $model,
+                        //'docente_id'=> $model->docente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+
+  public function actionModalNewPersonaPubli($id){
+     $this->layout = "install";
+        $model = New \common\models\masters\PersonaPublicaciones();
+        $datos=[];
+       // var_DUMP($id,\common\models\masters\Docentes::findOne($id));DIE();
+        $modelDocente= \common\models\masters\Docentes::findOne($id);
+        //var_dump($id,$modelDocente);die();
+        if(is_null($modelDocente)){ 
+            //echo "maiol";die();
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            // h::response()->format = \yii\web\Response::FORMAT_JSON;
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }else{
+            //echo "bien"; die();
+        } 
+        
+        $model->persona_id=$modelDocente->persona->id;
+        //$model->facultad_id=$modelFacultad->id;
+        //var_dump($model->persona_id);die();
+        if(h::request()->isPost){
+           
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_persona_publi', [
+                        'model' => $model,
+                        'docente_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }    
+    public function actionModalEditPersonaPubli($id){
+     $this->layout = "install";
+        $model = \common\models\masters\PersonaPublicaciones::findOne($id);
+        $datos=[];
+       
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_persona_publi', [
+                        'model' => $model,
+                        //'docente_id'=> $model->docente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+
+  
+  
+  
+        }

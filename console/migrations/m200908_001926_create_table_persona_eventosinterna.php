@@ -2,7 +2,7 @@
   use console\migrations\baseMigration;
 class m200908_001926_create_table_persona_eventosinterna extends baseMigration
 {    
-    const NAME_TABLE='{{%persona_publicaciones}}';
+    const NAME_TABLE='{{%persona_eventosinter}}';
     //const NAME_TABLE_FACULTADES='{{%facultades}}';
     //const NAME_TABLE_UNIVERSIDADES='{{%universidades}}';
     const NAME_TABLE_PERSONAS='{{%personas}}';
