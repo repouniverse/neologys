@@ -82,8 +82,8 @@ class Profile extends \common\models\base\modelBase implements \common\interface
             [['names'], 'string', 'max' => 60],
              
              [['names','duration','durationabsolute','url','codtra','recexternos'], 'safe'],
-            [['tipo'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
-            [['tipo'],'safe','on'=>self::SCENARIO_INTERLOCUTOR],
+            [['persona_id'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
+            [['persona_id'],'safe','on'=>self::SCENARIO_INTERLOCUTOR],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -189,14 +189,9 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     * Esi no encuentra deveulve el defaulr 
     */
    private function sourceExternalImage(){
-       $link=\frontend\modules\sta\staModule::getPathImage($this->user->username);
-       if(h::app()->hasModule('sta') && 
-               $this->tipo== \frontend\modules\sta\staModule::USER_ALUMNO && 
-               $link ){
-           return $link; 
-       }else{
+      
           return  FileHelper::getUrlImageUserGuest();  
-       }
+       
    }
    
    public function name(){
@@ -283,6 +278,6 @@ class Profile extends \common\models\base\modelBase implements \common\interface
       return $this->save();
      }
     
-    
+ 
     
   }

@@ -9,6 +9,7 @@ class MaestrosModule extends \yii\base\Module
 {
    const CLASE_GENERAL='A'; 
    const STATUS_GENERAL='1';
+   const ROLE_GENERAL='r_baseUser';
     /**
      * {@inheritdoc}
      */

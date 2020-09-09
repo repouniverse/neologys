@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 use common\helpers\h;
+use yii\helpers\Url;
 use common\controllers\base\baseController;
 use Yii;
 use yii\base\InvalidArgumentException;
@@ -63,7 +64,7 @@ class GeneralController extends  baseController
       $sesion->remove(h::NAME_SESSION_CURRENT_UNIVERSITY);
       $sesion->set(h::NAME_SESSION_CURRENT_UNIVERSITY,$model->id);
       $sesion->setFlash('success',yii::t('base_labels','University was selected'));
-      return $this->redirect([h::user()->resolveUrlAfterLogin()]);
+         $this->redirect(Url::toRoute([Yii::$app->user->resolveUrlAfterLogin()]));
   }
   
   public function actionCreateUserIden($id){

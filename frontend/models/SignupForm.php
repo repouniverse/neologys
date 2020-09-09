@@ -4,7 +4,7 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
-
+use frontend\modules\maestros\MaestrosModule;
 /**
  * Signup form
  */
@@ -13,7 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+public $status;
 
     /**
      * {@inheritdoc}
@@ -53,7 +53,7 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
+       // $user->generateEmailVerificationToken();
         return $user->save() && $this->sendEmail($user);
 
     }

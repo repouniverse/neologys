@@ -18,6 +18,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\masters\GrupoPersonas;
+use mdm\admin\models\searchs\User as UserSearch;
 
 /**
  * Site controller
@@ -521,6 +522,84 @@ die();
                 'dataProvider' => $dataProvider,
         ]);
     }
-  
+   /*
+     * Esta funcion es simlar a sign-UP
+     * solo que la usa el daminsitrador de
+     * de la pagina o un usuario con toles para
+     * manejar RBAC
+     */
+       public function actionCreateUser()
+    {
+      // $this->layout="install";
+        $model = new SignupForm();
+        //$model->setScenario('createx');
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {   
+                 yii::$app->session->
+               setFlash('success',
+            yii::t('base_verbs','The user has been created'));
+		
+                  $this->redirect('manage-users');
+            }
+        }
+        
+
+        return $this->render('createuser', [
+            'model' => $model,
+        ]);
+    } 
+    
+      public function actionViewUsers(){
+         $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('users_edit', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+     public function actionViewProfile($iduser){
+        // UserFacultades::refreshTableByUser($iduser);
+         $newIdentity=h::user()->identity->findOne($iduser);
+      if(is_null($newIdentity))
+          throw new BadRequestHttpException(yii::t('base.errors','User not found with id '.$iduser));  
+           //echo $newIdentity->id;die();
+     // h::user()->switchIdentity($newIdentity);
+         
+        $profile =$newIdentity->getProfile($iduser);
+        $profile->setScenario($profile::SCENARIO_INTERLOCUTOR);
+        if(h::request()->isPost){
+            $arrpost=h::request()->post();
+              //var_dump($arrpost);die();
+            $profile->persona_id=$arrpost[$profile->getShortNameClass()]['persona_id'];
+             
+            //$profile->codtra=$arrpost[$profile->getShortNameClass()]['codtra'];
+            //var_dump(get_class($profile),$profile->validate());die();
+            if (h::request()->isAjax) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($profile);
+             }
+           if ($profile->save()) {
+             $user= \common\models\User::findOne($profile->user_id);
+             $user->status=$arrpost['User']['status'];
+             $user->save();
+             //$this->updateUserFacultades($arrpost[UserFacultades::getShortNameClass()]);
+            yii::$app->session->setFlash('success',yii::t('base_labels','Se grabaron los datos '));
+            return $this->redirect(['view-users']);
+           }else{
+              //var_dump($profile->getErrors());die(); 
+           }
+            //var_dump(h::request()->post());die();
+        }
+        //echo $model->id;die();
+       // var_dump(UserFacultades::providerFacus($iduser)->getModels());die();
+        return $this->render('_formtabs', [
+            'profile' => $profile,
+            'model'=>$newIdentity,
+            //'userfacultades'=> UserFacultades::providerFacusAll($iduser)->getModels(),
+        ]);
+    }
+   
     
 }
