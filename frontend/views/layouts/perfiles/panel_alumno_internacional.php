@@ -122,7 +122,7 @@ $wizard_config = [
 
    <div class="map-container">
     <div id="world-map" class="jvmap-smart">   
-<?php /*echo JVectorMapWidget::widget([
+<?php echo JVectorMapWidget::widget([
     //'id'=>'map1',
     'map'=>'world_mill_en',
     
@@ -135,7 +135,7 @@ $wizard_config = [
     'htmlOptions'=>[
         'id'=>'map1',
                 ],
-]);*/ ?>
+]); ?>
     
         
         

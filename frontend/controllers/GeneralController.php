@@ -64,7 +64,8 @@ class GeneralController extends  baseController
       $sesion->remove(h::NAME_SESSION_CURRENT_UNIVERSITY);
       $sesion->set(h::NAME_SESSION_CURRENT_UNIVERSITY,$model->id);
       $sesion->setFlash('success',yii::t('base_labels','University was selected'));
-         $this->redirect(Url::toRoute([Yii::$app->user->resolveUrlAfterLogin()]));
+        $this->redirect(\yii\helpers\Url::home());
+      //$this->redirect(Url::toRoute(['/'.Yii::$app->user->resolveUrlAfterLogin()]));
   }
   
   public function actionCreateUserIden($id){

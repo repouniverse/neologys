@@ -1,53 +1,102 @@
 <?php
+use frontend\views\layouts\perfiles\alumnoAsset;
+use common\helpers\h;
+use yii\helpers\Url;
+use conquer\jvectormap\JVectorMapWidget;
+use yii\helpers\Html;
+alumnoAsset::register($this);
 
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
 ?>
-<div class="site-index">
+    
+<h4><i style="font-size:30px;"><?=h::awe('globe').'</i>'.h::space(10).yii::t('base_labels','Welcome to International Module')?></h4>
+<div class="box body body-success">
+<div class="row">
+       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="small-box bg-green-gradient">
+            <div class="inner">
+              <h3>60</h3>
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+              <p><?php echo yii::t('base_labels','Students') ?></p>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+            <div class="icon">
+                <span style="color:white;opacity:0.5;"><i class="fa fa-file"></i></span>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <?php 
+            //$url=Url::to(['cantidades-en-riesgo']);
+            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            ?>
+            
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">  
+           <div class="small-box bg-yellow-gradient">
+            <div class="inner">
+              <h3>45</h3>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+              <p><?php 
+            
+              echo yii::t('base_labels','Program') ?></p>
             </div>
-        </div>
+            <div class="icon">
+                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
+            </div>
+            <?php 
+            //$url=Url::to(['cantidades-en-riesgo']);
+            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>',Url::to(['/inter/programa']), ['class'=>"small-box-footer"]);
+            ?>
+            
+          </div>
+         </div> 
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">  
+             <div class="small-box bg-light-blue">
+            <div class="inner">
+              <h3>45</h3>
 
-    </div>
+              <p><?php 
+            
+              echo yii::t('base_labels','Teachers') ?></p>
+            </div>
+            <div class="icon">
+                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
+            </div>
+            <?php 
+            //$url=Url::to(['cantidades-en-riesgo']);
+            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            ?>
+            
+          </div>
+        </div>     
+</div>        
+             
+      
+
+
+
+
+<div class="map-container">
+    <div id="world-map" class="jvmap-smart">   
+<?php echo JVectorMapWidget::widget([
+    //'id'=>'map1',
+    'map'=>'world_mill_en',
+    
+    'options'=>[
+        'backgroundColor'=>'#d9dde2;',
+        'width'=>'600',
+        'height'=>'600'
+        ],
+    
+    'htmlOptions'=>[
+        'id'=>'map1',
+                ],
+]); ?>
+    
+        
+        
+        
+        
+        
+        <br>
+     
+</div>
+</div>
 </div>
