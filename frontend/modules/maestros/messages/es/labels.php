@@ -27,4 +27,6 @@ return [
     'Teachers'=>'Docentes',
     'Create Teacher'=>'Crear Docente',
     'Update Teacher: {name}'=>'Actualizar Docente: {name}',
+    'Location data'=>'Datos de localización',
+    'Aditional data'=>'Datos Adicionales',
 ];

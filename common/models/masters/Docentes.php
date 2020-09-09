@@ -6,6 +6,7 @@ use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
 use common\helpers\h;
 USE common\traits\identidadTrait;
+use common\helpers\h;
 use Yii;
 
 /**
