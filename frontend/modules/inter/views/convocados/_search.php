@@ -25,7 +25,9 @@ use frontend\modules\inter\Module as m;
             $form->field($model, 'codperiodo')->
                          dropDownList
                          (
-                            comboHelper::getCboPeriodos(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
+                         //frontend\modules\inter\helpers\ComboHelper::  
+                         
+                            \frontend\modules\inter\helpers\ComboHelper::getCboPeriodos(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                          )
         ?>
     </div>
