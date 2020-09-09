@@ -512,7 +512,15 @@ die();
     }
   }  
   
-  
+  public function actionManageUsers(){
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('users', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ]);
+    }
   
     
 }
