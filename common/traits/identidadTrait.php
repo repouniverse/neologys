@@ -39,10 +39,10 @@ trait identidadTrait
     
     
     public function createPersonFromThis(){
-      
+      yii::error('crendo personas ');
         if(!$this->isNewRecord && !$this->hasHomonimo()){
             //$this->refresh();
-          
+          yii::error('paso ');
             $model=New Personas();
             $model->setScenario(Personas::SCE_CREACION_BASICA);
             $model->setAttributes($this->prepareAtributes());

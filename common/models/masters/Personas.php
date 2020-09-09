@@ -250,7 +250,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
        }*/
       // if(self::CarbonNow()->diffInYears( $this->toCarbon('cumple')) < 18){
        if($this->age() < 16){
-            $this->addError('cumple', yii::t('labels','Too young'));
+            $this->addError('cumple', yii::t('base_labels','Too young'));
        }
         /*if (!in_array($this->$attribute, ['USA', 'Indonesia'])) {*/
            

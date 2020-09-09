@@ -62,6 +62,12 @@ implements \common\interfaces\postulantesInterface
             'universidad_id', 'facultad_id','carrera_id',
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
+            [['mail'],'unique'],
+            ["mail", "unique", "targetClass" => Alumnos::className(), "targetAttribute" => "mail"],
+            ["mail", "unique", "targetClass" => \common\models\User::className(), "targetAttribute" => "email"],
+             [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
+           [['tipodoc','numerodoc'], "targetClass" => \common\models\masters\Personas::className(),"targetAttribute" => ['tipodoc','numerodoc']],
+            [['tipodoc','numerodoc'], "validateDocumento"],
             
             /*****/
             [['codalu', 'codalu1', 'codalu2'], 'string', 'max' => 16],
@@ -272,4 +278,10 @@ implements \common\interfaces\postulantesInterface
     $codpais=Universidades::findOne($univer_id)->codpais;
     return $codpais;
  } 
+ 
+  public function validateDocumento($attribute,$params){
+     if(Personas::find()->andWhere(
+             ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
+             ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
+ }
 }

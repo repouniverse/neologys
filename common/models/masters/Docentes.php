@@ -6,7 +6,7 @@ use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
 use common\helpers\h;
 USE common\traits\identidadTrait;
-use common\helpers\h;
+
 use Yii;
 
 /**
@@ -86,7 +86,9 @@ public function behaviors()
             [['correo'],'unique'],
             ["correo", "unique", "targetClass" => Alumnos::className(), "targetAttribute" => "mail"],
             ["correo", "unique", "targetClass" => \common\models\User::className(), "targetAttribute" => "email"],
-            
+            [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
+            [['tipodoc','numerodoc'], "validateDocumento"],
+          
             [['codoce', 'codoce1', 'codoce2'], 'string', 'max' => 16],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
@@ -273,5 +275,11 @@ public function behaviors()
     
   public function isExternal(){
     return !(h::currentUniversity()==$this->universidad_id);
- }   
+ } 
+ 
+ public function validateDocumento($attribute,$params){
+     if(Personas::find()->andWhere(
+             ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
+             ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
+ }
 }
