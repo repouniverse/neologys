@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use common\helpers\ComboHelper as combo;
-
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 $this->title = m::t('labels', 'Teachers');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -21,9 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $universidades=combo::getCboUniversidades();
             ?>
             <?php  echo $this->render('_search_docente', ['model' => $searchModel]); ?>
-            <p>
-                 <?= Html::a(m::t('labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
-            </p>
+            .
 
             <?= GridView::widget(
                 [

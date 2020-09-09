@@ -47,7 +47,19 @@ implements \common\interfaces\postulantesInterface
     {
         return '{{%docentes}}';
     }
-
+public function behaviors()
+{
+	return [
+		
+		'fileBehavior' => [
+			'class' => \nemmo\attachments\behaviors\FileBehavior::className()
+		],
+             'auditoriaBehavior' => [
+			'class' => '\common\behaviors\AuditBehavior' ,
+                               ],
+		
+	];
+}
     /**
      * {@inheritdoc}
      */
@@ -64,8 +76,8 @@ implements \common\interfaces\postulantesInterface
             
              /* PARA ESCENARIOBASICO*/
             [[
-            'codoce','ap','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id','correo'
+            'codoce','ap','nombres',
+            'universidad_id', 'facultad_id','tipodoc','numerodoc'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
             

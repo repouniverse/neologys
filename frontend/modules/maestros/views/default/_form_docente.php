@@ -81,8 +81,11 @@
         </div>
                
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?php ?>
-            <?= $form->field($modelPersona, 'fecingreso')->
+            <?php 
+             ECHO $form->field($model, 'correo')->textInput(['maxlength' => true]);
+           
+            ?>
+            <?PHP /*ECHO $form->field($modelPersona, 'fecingreso')->
                 widget(DatePicker::class,
                 [
                     'language' => h::app()->language,
@@ -94,7 +97,7 @@
                         'yearRange'=>'1980:'.date('Y'),
                     ],
                     'options'=>['class'=>'form-control']
-                ])
+                ])*/
             ?>
         </div>
         
@@ -106,8 +109,14 @@
             ?>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            
+                     
+            
             <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Location data'); ?></p>
         <hr style="border: 1px dashed #4CAF50;">
+                 <?= 
+                    ($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$modelPersona])
+                ?>  
          </div>
         
        <?php 
@@ -121,17 +130,24 @@
           ?>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Aditional data'); ?></p>
-        <hr style="border: 1px dashed #4CAF50;">
+        
+            <hr style="border: 1px dashed #4CAF50;">
          </div>  
         
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <?=$form->field($modelPersona, 'idiomanativo')->
                       dropDownList(\frontend\modules\inter\helpers\ComboHelper::getCboIdiomas(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
             ?>
         </div> 
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <?= $form->field($modelPersona, 'alergias')->textInput(['maxlength' => true]) ?>
         </div> 
+         <div class="col-lg-4 col-md-4 col-sm-6   col-xs-12">    
+            <?= $form->field($modelPersona, 'sexo')->
+                       dropDownList(ComboHelper::getCboSex(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+            ?>
+        </div>
+        
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($modelPersona, 'pasaporte')->textInput(['maxlength' => true]) ?>
         </div> 
@@ -143,7 +159,10 @@
         </div> 
        
         
-               
+         <?php 
+       if(!$model->isExternal()){
+         
+          ?>      
                 
         
             <?php echo TabsX::widget
@@ -178,6 +197,9 @@
                     ]
                   );  
             ?> 
+        
+       <?php  } ?>
+        
          </div>     
              
              

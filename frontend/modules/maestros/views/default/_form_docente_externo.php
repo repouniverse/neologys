@@ -40,8 +40,8 @@
             'model'=>$modelPersona,
             'form'=>$form,
             'campo'=>'codcontpaisresid',
-         'ordenCampo'=>8,
-         'addCampos'=>[7,9],
+         'ordenCampo'=>5,
+         'addCampos'=>[7,8,17],
         ]);  ?>
 
            </div> 

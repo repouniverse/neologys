@@ -18,7 +18,9 @@ use common\helpers\ComboHelper as combo;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
-        </div>
+        
+                 <?= Html::a(m::t('labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
+            
     </div>
     
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">

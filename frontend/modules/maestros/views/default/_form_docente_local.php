@@ -6,6 +6,7 @@
         use common\models\masters\Personas;
           use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
              use common\models\masters\Ubigeos;
+          use yii\helpers\Url;
 ?>
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?php ?>
@@ -27,11 +28,7 @@
             ?>
         </div>        
         
-        <div class="col-lg-4 col-md-4 col-sm-4   col-xs-12">    
-            <?= $form->field($modelPersona, 'sexo')->
-                       dropDownList(ComboHelper::getCboSex(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
-            ?>
-        </div>
+       
         
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">    
             <?= $form->field($modelPersona, 'estcivil')->
@@ -168,88 +165,3 @@
             ?>
         </div>
         
- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">        
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>
-                        <?php $url= Url::to(['modal-new-opuniv','id'=>$model->id,
-                                             'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
-                              echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>',
-                                           $url, ['class'=>'botonAbre']);
-                        ?>
-                    </p>      
-                </div> 
-                <?php Pjax::begin(['id'=>'OpcionesEventos']); ?>          
-                    <?= GridView::widget(
-                        [
-                            'id'=>'migrillax',
-                            'dataProvider' => new \yii\data\ActiveDataProvider(
-                                              [
-                                                  'query'=> \frontend\modules\inter\models\InterOpuniv::find()->
-                                                             andWhere(['convocatoria_id'=>$model->id])
-                                              ]),
-                            'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
-                            'columns' =>
-                            [
-                                [
-                                    'class' => 'yii\grid\ActionColumn',
-                                    'template' => '{update}{delete}',
-                                    'buttons' =>
-                                    [
-                                        'update' => function($url, $model) 
-                                                    {
-                                                        $options = 
-                                                        [
-                                                            'title' => m::t('verbs', 'Update'),  
-                                                            'data-pjax'=>'0',
-                                                            'class'=>'botonAbre'
-                                                        ];
-                                                        $url= Url::to(['modal-edit-opuniv','id'=>$model->id,
-                                                                       'gridName'=>'OpcionesUniversidad','idModal'=>'buscarvalor']);
-                                                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options);
-                                                    },                          
-                                        'delete' => function($url, $model)
-                                                    { 
-                                                        $url=Url::to(['delete-univ-convo','id'=>$model->id]);
-                                                        $options = 
-                                                        [
-                                                            'family'=>'holas',
-                                                            'id'=>$model->id,
-                                                            'title' =>$url
-                                                        ];
-                                                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', '#', $options/*$options*/);
-                                                    }
-                                    ]
-                                ],
-                                [
-                                    'attribute'=>'Universidad',
-                                    'value'=> function($model)
-                                              {
-                                                return $model->univop->nombre;
-                                              }
-                                ], 
-                                [
-                                    'attribute'=>m::t('labels','Country'),
-                                    'format'=>'raw',
-                                    'value'=> function($model)
-                                              {
-                                                $codpais= strtolower($model->universidad->codpais);
-                                                return Html::img('@web/img/flags/32/'.$codpais.'.png');
-                                              }
-                                ], 
-                                'prioridad',
-                            ],
-                        ]); 
-                    ?>       
-                    <?php 
-                        echo linkAjaxGridWidget::widget(
-                             [
-                                'id'=>'sdsds',
-                                'idGrilla'=>'OpcionesUniversidad',
-                                'family'=>'holas',
-                                'type'=>'POST',
-                                'evento'=>'click',
-                                'posicion'=> \yii\web\View::POS_END           
-                             ]); 
-                    ?>
-                <?php Pjax::end(); ?>      
-            </div> 

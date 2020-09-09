@@ -11,7 +11,7 @@
     use common\models\masters\Ubigeos;
 ?>
 
-<div class="box box-success">
+<div class="">
     <?php $form = ActiveForm::begin(
                                     [
                                         'id' => 'docentes-form',
@@ -33,33 +33,34 @@
     </div>
     
     <div class="box-body">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'codoce')->textInput(['maxlength' => true]) ?>
         </div>
+         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?=$form->field($model, 'tipodoc')->
+                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+            ?>
+        </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?= $form->field($model, 'numerodoc')->textInput(['maxlength' => true]) ?>
+        </div>
+        
+        
+        
+        
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">    
             <?= $form->field($model, 'ap')->textInput() ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-4col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'am')->textInput(['maxlength' => true]) ?>
         </div>
         
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'nombres')->textInput(['maxlength' => true]) ?>
         </div>
-        
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-            <?=$form->field($model, 'tipodoc')->
-                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
-            ?>
-        </div>
-        
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <?= $form->field($model, 'numerodoc')->textInput(['maxlength' => true]) ?>
-        </div>
-        
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">          
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
             <?= ComboDep::widget
                 (
                     [
@@ -80,7 +81,7 @@
             ?>
         </div>
                 
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">    
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
             <?= $form->field($model, 'facultad_id')->
                              dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
                                                                 ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
@@ -88,13 +89,19 @@
             ?>
         </div>
         
+        
+        
+        
+       
+        
+        
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=$form->field($model, 'categoria')->
                       dropDownList(ComboHelper::getCboCategoriaDocente(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
             ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
         </div>
     </div>

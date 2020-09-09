@@ -89,6 +89,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'sexo','estcivil'], 'safe'],
             //[['codpuesto'], 'string', 'max' => 3],
             [['domicilio'], 'string', 'max' => 73],
+             [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
             [['telfijo'], 'string', 'max' => 13],
             [['telmoviles', 'referencia'], 'string', 'max' => 30],
             

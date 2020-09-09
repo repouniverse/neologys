@@ -13,7 +13,7 @@
         <div class="box box-success">
         <div class="box-body">
         <p>
-            <?= Html::a(m::t('verbs', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(m::t('verbs', 'Edit'), ['update-persona', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </p>
         <?php 
             echo DetailView::widget(

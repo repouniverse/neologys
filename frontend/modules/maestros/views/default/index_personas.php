@@ -15,13 +15,10 @@
             <?php Pjax::begin(['id'=>'gridTraba']); ?>
             <?php  echo $this->render('_search_personas', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(m::t('labels', 'Create Person'), ['create-persona'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
          'summary' => '',
         'columns' => [
            

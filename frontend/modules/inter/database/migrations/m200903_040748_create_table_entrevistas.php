@@ -1,11 +1,11 @@
 <?php
-
-use yii\db\Migration;
+namespace frontend\modules\inter\database\migrations;
+use console\migrations\baseMigration;
 
 /**
  * Class m200903_040748_create_table_entrevistas
  */
-class m200903_040748_create_table_entrevistas extends Migration
+class m200903_040748_create_table_entrevistas extends baseMigration
 {
     /**
      * {@inheritdoc}
@@ -20,9 +20,8 @@ class m200903_040748_create_table_entrevistas extends Migration
      */
     public function safeDown()
     {
-        echo "m200903_040748_create_table_entrevistas cannot be reverted.\n";
-
-        return false;
+        
+        return true;
     }
 
     /*

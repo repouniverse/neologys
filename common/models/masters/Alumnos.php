@@ -72,7 +72,14 @@ implements \common\interfaces\postulantesInterface
              [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
         ];
     }
-
+  public function behaviors() {
+        return [
+            
+            'auditoriaBehavior' => [
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+        ];
+  }    
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [

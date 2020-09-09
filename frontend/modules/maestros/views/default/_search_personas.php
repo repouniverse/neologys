@@ -21,6 +21,8 @@ use frontend\modules\maestros\MaestrosModule as m;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(m::t('labels', 'Create Person'), ['create-persona'], ['class' => 'btn btn-success']) ?>
+   
         </div>
     </div>
 
