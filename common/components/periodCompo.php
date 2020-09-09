@@ -1,5 +1,4 @@
 <?php
-
 namespace common\components;
 
 use Yii;
