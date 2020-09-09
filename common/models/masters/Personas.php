@@ -151,8 +151,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'domicilio' => yii::t('base_labels', 'Address Residence'),
             'codcontpaisresid' => yii::t('base_labels', 'Contact Country Residence'),
             'parentcontpaisresid' => yii::t('base_labels', 'Relationship Contact'),
-            'gruposangu' => yii::t('base_labels', 'Blood Type'),
+            'gruposangu' => yii::t('base_labels', 'Blood Type'),            
             'usoregulmedic' => yii::t('base_labels', 'Regular Use Medications'),
+            'polizaseguroint' => yii::t('base_labels', 'Insurance Policy'),
+            'telefasistencia' => yii::t('base_labels', 'Assistance Phone'),
         ];
     }
 
@@ -196,7 +198,8 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'lugarnacimiento', 'telpaisorigen', 'codcontpaisorigen',
             'parentcontpaisorigen', 'polizaseguroint', 'telefasistencia',
             'paisresidencia', 'lugarresidencia', 'codcontpaisresid',
-            'parentcontpaisresid', 'tipogrado', 'idiomanativo', 'codresponsable'
+            'parentcontpaisresid', 'tipogrado', 'idiomanativo', 'codresponsable',
+            'alergias', 'gruposangu', 'usoregulmedic'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -230,7 +233,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
        }*/
       // if(self::CarbonNow()->diffInYears( $this->toCarbon('cumple')) < 18){
        if($this->age() < 16){
-            $this->addError('cumple', yii::t('errors','Too young'));
+            $this->addError('cumple', yii::t('labels','Too young'));
        }
         /*if (!in_array($this->$attribute, ['USA', 'Indonesia'])) {*/
            
@@ -352,6 +355,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function age(){
           return $this->toCarbon('cumple')->age; //no hay fecha de nacimiento
         }  
-        
+     
+    public function getContacto() 
+    {
+        return $this->hasOne(Personas::className(), ['codigoper' => 'codcontpaisresid']);
+    }
      
 }

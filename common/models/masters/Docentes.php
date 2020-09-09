@@ -5,6 +5,7 @@ use common\interfaces\identidadesInterface;
 use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
 USE common\traits\identidadTrait;
+use common\helpers\h;
 use Yii;
 
 /**

@@ -9,6 +9,7 @@ return[
     'MAIN'=>'PRINCIPAL',
     'ASSOCIATE'=>'ASOCIADO',
     'AUXILIAR'=>'AUXILIAR',
+    'Too young' => 'Muy Joven',
     
     // Alumnos
     'Id'=>'ID',
@@ -62,4 +63,6 @@ return[
     'Relationship Contact'=>'Parentesco Contacto',
     'Blood Type'=>'Grupo Sanguineo',
     'Regular Use Medications'=>'Uso regular de medicamentos',
+    'Insurance Policy'=>'Poliza de seguro',
+    'Assistance Phone'=>'Telefono de asistencia',
 ];
