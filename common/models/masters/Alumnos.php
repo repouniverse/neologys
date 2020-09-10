@@ -184,12 +184,30 @@ implements \common\interfaces\postulantesInterface
         * que mas adelante denemos de crear sefun lso datos que entregue Crispin de SAP*/
         //por ahora sacar todos los registros 
        //$universidad_programa=
+       
        $id_universidad_modo=$modelModo->programa->universidad_id;
-        return static::find()->andWhere(
+       if(h::currentUniversity()==$id_universidad_modo){
+           var_dump(static::find()->andWhere(
                 [
                     'universidad_id'=>
                     $id_universidad_modo
-                ]);      
+                ])->createCommand()->rawSql);die();
+          return static::find()->andWhere(
+                [
+                    'universidad_id'=>
+                    $id_universidad_modo
+                ]);   
+       }else{
+           var_dump(static::find()->andWhere(
+                [
+                   '<>','universidad_id',$id_universidad_modo
+                ])->createCommand()->rawSql);die();
+           return static::find()->andWhere(
+                [
+                   '<>','universidad_id',$id_universidad_modo
+                ]);  
+       }
+            
        
        
        

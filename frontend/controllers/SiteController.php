@@ -88,7 +88,7 @@ class SiteController extends  baseController
             //$current_uni=h::currentUniversity();
             //var_dump($current_uni);die();
             //if(is_null( $current_uni))
-            //return $this->redirect(['general/choose-university']);
+            ///return $this->redirect(['general/choose-university']);
            $this->redirect(Url::toRoute([Yii::$app->user->resolveUrlAfterLogin()]));
         } else {
             $model->password = '';

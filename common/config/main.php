@@ -37,8 +37,9 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        
         'periodo' => [
-            'class' => 'common\components\PeriodCompo',
+            'class' => 'common\components\periodCompo',
             'cache' => ['class' => 'yii\caching\FileCache'],
         ],
         

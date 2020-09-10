@@ -334,7 +334,9 @@ class h {
   * Integer devuel el valo de la universidad activa
   */
  public static function currentUniversity($isModel=false){
-     $sesion=h::session();
+     return 1;
+    /* $sesion=h::session();
+     
     if($sesion->has(self::NAME_SESSION_CURRENT_UNIVERSITY)){
         ///var_dump(self::NAME_SESSION_CURRENT_UNIVERSITY,h::session()->get(self::NAME_SESSION_CURRENT_UNIVERSITY));die();
         $iduni= $sesion->get(self::NAME_SESSION_CURRENT_UNIVERSITY)+0;
@@ -345,7 +347,7 @@ class h {
     }else{       
        return null;
        //return  h::currentControllerObject()->redirect(['general/choose-university']);
-    }
+    }*/
   }   
     
     
