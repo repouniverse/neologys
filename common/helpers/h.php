@@ -335,6 +335,7 @@ class h {
   */
  public static function currentUniversity($isModel=false){
      return 1;
+     
     /* $sesion=h::session();
      
     if($sesion->has(self::NAME_SESSION_CURRENT_UNIVERSITY)){

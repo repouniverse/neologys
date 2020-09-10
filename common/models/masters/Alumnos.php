@@ -185,7 +185,11 @@ implements \common\interfaces\postulantesInterface
         //por ahora sacar todos los registros 
        //$universidad_programa=
        
-       $id_universidad_modo=$modelModo->programa->universidad_id;
+       return static::find()->andWhere(
+                [
+                   '<>','universidad_id',1
+                ]);  
+      /* $id_universidad_modo=$modelModo->programa->universidad_id;
        if(h::currentUniversity()==$id_universidad_modo){
            var_dump(static::find()->andWhere(
                 [
@@ -206,7 +210,7 @@ implements \common\interfaces\postulantesInterface
                 [
                    '<>','universidad_id',$id_universidad_modo
                 ]);  
-       }
+       }*/
             
        
        
@@ -302,8 +306,9 @@ implements \common\interfaces\postulantesInterface
   
  public static function currentPais()
  {
-    $codpais=h::currentUniversity(true)->codpais;
-    return $codpais;
+    return 'PE';
+//$codpais=h::currentUniversity(true)->codpais;
+    //return $codpais;
  } 
  
  public static function studentPais($univer_id)
