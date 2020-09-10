@@ -10,6 +10,7 @@ interface postulantesInterface {
     /*Contienen las preguntaspara autenticar*/
     public function questionsForAutenticate();
     public function modelByCode($code);
+    public function code();
     public function createUser();
     public function isExternal();
 }

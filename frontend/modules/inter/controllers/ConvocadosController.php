@@ -68,8 +68,9 @@ class ConvocadosController extends baseController
     {
          $model=$this->findModel($id);
          $model->createExpedientes($model->currentStage());
-        $alumno=$model->alumno;
-        $persona=$alumno->persona;
+       // $alumno=$model->alumno;
+        $persona=$model->persona;
+        $identidad=$persona->identidad;
         $current_expediente=$model->currentExpediente();
         $eventos=[
                     [
@@ -84,7 +85,7 @@ class ConvocadosController extends baseController
             'eventos'=>$eventos,
             'model' =>$model ,
             'persona'=>$persona,
-            'alumno'=>$alumno
+            'identidad'=>$identidad
                                 ]);
     }
 

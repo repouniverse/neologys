@@ -178,23 +178,20 @@ class AuthWithQuestionForm extends Model
   
   
   
-  public function sendEmailToCreateUser(){
-      
+  public function sendEmailToCreateUser(){      
         /* @var $user User */
         $user = User::findOne([
             //'status' => User::STATUS_ACTIVE,
             'email' => $this->email,
-        ]);
-         
+        ]);         
         if (!is_null($user)) { //Si el usuario ya existe
-            //verifia rque si sttus este activo
-             
-            
+            //verifia rque si sttus este activo 
         }else{ //Si el usuario no existe hay que crearlo
           $user= $this->modelPostulante->
          persona->createUser($this->codigo,
                  $this->email,
-                 Module::ROL_POSTULANTE);
+                 \Yii::$app->authManager->getRole(Module::ROL_POSTULANTE)
+                 );
           //Asignar el rol 
         
           /*Luego hay que actualizar tamb e record modelpostualnte 

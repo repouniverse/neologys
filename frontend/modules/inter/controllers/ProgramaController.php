@@ -625,4 +625,17 @@ class ProgramaController extends baseController
         ]);
   }
   
+  public function actionAjaxRellenaHorarios($id){
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model= \frontend\modules\inter\models\InterPlan::findOne($id);
+    if(is_null($model))
+      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+      $model->generateRangos();
+       return ['success'=>m::t('labels','Schedules have been generated')];
+      
+    
+      }
+  }
+  
 }

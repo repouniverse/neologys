@@ -151,6 +151,10 @@ class InterPlan extends \common\models\base\modelBase
     {
         return $this->hasOne(\common\models\masters\Universidades::className(), ['id' => 'universidad_id']);
     }
+     public function getPrograma()
+    {
+        return $this->hasOne(InterPrograma::className(), ['id' => 'programa_id']);
+    }
 
     public function getEtapa()
     {
@@ -192,4 +196,30 @@ class InterPlan extends \common\models\base\modelBase
         }
         return $eventos;
       }
+      
+    public function generateRangos(){
+       $diasWeek= \common\helpers\timeHelper::daysOfWeek();
+       $programa=$this->programa;
+       foreach($diasWeek as $ndia=>$namedia){
+           InterHorarios::firstOrCreateStatic(
+                   [
+                     'plan_id'=>$this->id,
+                      'dia'=>$ndia ,
+                      'nombredia'=>$namedia ,
+                       'programa_id'=>$programa->id,
+                       'facultad_id'=>$programa->facultad_id,
+                       'etapa_id'=>$this->etapa_id,
+                       'hinicio'=>'09:00',
+                       'hfin'=>'17:00',
+                       'tolerancia'=>0.1,
+                       'activo'=>false,
+                       'skipferiado'=>false,
+                       
+                   ], 
+                   null,
+                   ['plan_id'=>$this->id,'dia'=>$ndia]);
+       }
+    }  
+      
+      
 }

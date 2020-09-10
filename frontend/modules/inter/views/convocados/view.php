@@ -29,7 +29,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 <?php
 
  echo $this->render('_alu_basico',
-               ['model' =>$model ,'persona'=>$persona,'alumno'=>$alumno
+               ['model' =>$model ,'persona'=>$persona,'identidad'=>$identidad
                 ]);
 
 ?>
@@ -44,13 +44,13 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     'items' => [
         [
             'label' =>'<i class="glyphicon glyphicon-folder-open"></i>   '. m::t('labels','Interviews'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_entrevistas',['current_expediente'=>$current_expediente,'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'content'=> $this->render('view_tab_entrevistas',['current_expediente'=>$current_expediente,'model' =>$model ,'persona'=>$persona,'identidad'=>$identidad]),
             'active' => true,
              'options' => ['id' => 'mxx4ID4'],
         ],
         [
             'label' =>'<i class="glyphicon glyphicon-calendar"></i> '. m::t('labels','Schedule'), //$this->context->countDetail() obtiene el contador del detalle
-            'content'=> $this->render('view_tab_calendar',['current_expediente'=>$current_expediente,'eventos'=>$eventos,'model' =>$model ,'persona'=>$persona,'alumno'=>$alumno]),
+            'content'=> $this->render('view_tab_calendar',['current_expediente'=>$current_expediente,'eventos'=>$eventos,'model' =>$model ,'persona'=>$persona,'identidad'=>$identidad]),
             'active' => false,
              'options' => ['id' => 'myy6nID4'],
         ],

@@ -26,9 +26,22 @@ trait identidadTrait
             'nombres'=>$this->nombres,
         ]);
     }
+    
+    private function queryDocument(){
+        return Personas::find()->andWhere([
+            //'ap'=>$this->ap,
+            'tipodoc'=>$this->tipodoc,
+            'numerodoc'=>$this->numerodoc,
+        ]);
+    }
     private function existsNamesInPerson(){
         
         return $this->queryPerson()->exists();
+    }
+    
+    private function existsDocInPerson(){
+        
+        return $this->queryDocument()->exists();
     }
    
     
@@ -40,16 +53,37 @@ trait identidadTrait
     
     public function createPersonFromThis(){
       yii::error('crendo personas ');
-        if(!$this->isNewRecord && !$this->hasHomonimo()){
+      $existe=$this->existsDocInPerson();
+       //$existe=existsDocInPerson();
+          if($existe){
+              $persona=$this->queryDocument()->one();
+             $model= $this::className();
+             $model::UpdateAll(['persona_id'=>$persona->id],
+                    ['id'=>$this->id]);
+          }
+      
+        if(!$this->isNewRecord && !$existe){
             //$this->refresh();
+         
+          
+          
+          
           yii::error('paso ');
-            $model=New Personas();
+          Personas::firstOrCreateStatic(
+                  $this->prepareAtributes(),
+                  Personas::SCE_CREACION_BASICA,
+                 [
+            //'ap'=>$this->ap,
+            'tipodoc'=>$this->tipodoc,
+            'numerodoc'=>$this->numerodoc,
+                        ]);
+          /*$model=New Personas();
             $model->setScenario(Personas::SCE_CREACION_BASICA);
             $model->setAttributes($this->prepareAtributes());
              //var_dump($this->prepareAtributes());
            // var_dump($model->attributes);die();
             if(!$model->save()){ print_r($model->getErrors()); DIE();}
-            return $model->save();
+            return $model->save();*/
         }
         return false;
     }

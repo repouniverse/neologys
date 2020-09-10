@@ -27,6 +27,17 @@ class AuditBehavior extends Behavior
      const ES_BORRADO='DELETE';
     // public $_owner=null;
      
+     public function username(){
+         $identidad=yii::$app->user->identity;
+         if(is_object($identidad)){
+           $username=$identidad->username;  
+         }else{
+           $username='ANONIMO';  
+         }
+         
+         RETURN $username;
+     }
+     
    public function events()
     {
         
@@ -73,7 +84,8 @@ class AuditBehavior extends Behavior
          $ip='';     
       }
           
-       $username=yii::$app->user->identity->username;
+       //$username=yii::$app->user->identity->username;
+      $username=$this->username();
        $controllerId=yii::$app->controller->id;
        $currentUrl=Yii::$app->request->getUrl();
      
@@ -124,7 +136,8 @@ class AuditBehavior extends Behavior
       }else{
          $ip='';     
       }
-       $username=yii::$app->user->identity->username;
+      //$username=yii::$app->user->identity->username;
+      $username=$this->username();
        $controllerId=yii::$app->controller->id;
        $currentUrl=Yii::$app->request->getUrl();
        $arrttribute=array_keys($owner->getPrimaryKey(true));
@@ -171,7 +184,8 @@ class AuditBehavior extends Behavior
       }else{
          $ip='';     
       }
-       $username=yii::$app->user->identity->username;
+      //$username=yii::$app->user->identity->username;
+      $username=$this->username();
        $controllerId=yii::$app->controller->id;
        $currentUrl=Yii::$app->request->getUrl();
        foreach($this->owner->attributes as $attribute=>$value){

@@ -66,8 +66,8 @@ implements \common\interfaces\postulantesInterface
             ["mail", "unique", "targetClass" => Alumnos::className(), "targetAttribute" => "mail"],
             ["mail", "unique", "targetClass" => \common\models\User::className(), "targetAttribute" => "email"],
              [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
-           [['tipodoc','numerodoc'], "targetClass" => \common\models\masters\Personas::className(),"targetAttribute" => ['tipodoc','numerodoc']],
-            [['tipodoc','numerodoc'], "validateDocumento"],
+          // [['tipodoc','numerodoc'], "targetClass" => \common\models\masters\Personas::className(),"targetAttribute" => ['tipodoc','numerodoc']],
+            //[['tipodoc','numerodoc'], "validateDocumento"],
             
             /*****/
             [['codalu', 'codalu1', 'codalu2'], 'string', 'max' => 16],
@@ -183,12 +183,22 @@ implements \common\interfaces\postulantesInterface
         * estos filtro debe de sacare de una tabla
         * que mas adelante denemos de crear sefun lso datos que entregue Crispin de SAP*/
         //por ahora sacar todos los registros 
-       if($modelModo->programa->universidad_id==$this->universidad_id){
+       //$universidad_programa=
+       $id_universidad_modo=$modelModo->programa->universidad_id;
+        return static::find()->andWhere(
+                [
+                    'universidad_id'=>
+                    $id_universidad_modo
+                ]);      
+       
+       
+       
+       /*if($modelModo->programa->universidad_id==$this->universidad_id){
           return static::find()->limit(30);
-         return static::find()/*->andWhere([])*/; 
+         return static::find()/*->andWhere([])*//*; 
        }else{//en caso de ser modo incomingo pasarlo de frente porque ay están selecionados 
            return static::find()->andWhere(['<>','universidad_id',$modelModo->programa->universidad_id]);
-       }
+       }*/
        
    }
    
@@ -219,8 +229,13 @@ implements \common\interfaces\postulantesInterface
       return static::find()->andWhere(['codalu'=>$code])->one();
   }   
   
-  
+  /*
+   * ESTA FUNCIO NSOLO SE USA PARA 
+   * SINCERAR EL CORREO DEL ALUMNO 
+   * DESACTIOVAR EL BEHAVIOR AUDITORIA 
+   */
   public function sinceraCorreo($mail){
+      
       
       if($this->isAttributeSafe('mail')){
           $this->mail=$mail;
@@ -279,9 +294,13 @@ implements \common\interfaces\postulantesInterface
     return $codpais;
  } 
  
-  public function validateDocumento($attribute,$params){
+  public function validateDocumento($attribute, $params) {
      if(Personas::find()->andWhere(
              ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
              ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
+ }
+ 
+ public function code(){
+     return $this->codalu;
  }
 }

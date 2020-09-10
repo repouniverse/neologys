@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use \common\traits\identidadTrait;
 /**
  * This is the model class for table "7pxv4v_inter_vw_convocados".
  *
@@ -34,12 +34,13 @@ use Yii;
  */
 class InterVwConvocados extends \common\models\base\modelBase
 {
+use identidadTrait;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '7pxv4v_inter_vw_convocados';
+        return '{{%inter_vw_convocados}}';
     }
 
     /**

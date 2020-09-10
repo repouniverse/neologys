@@ -174,8 +174,9 @@ class InterModos extends \common\models\base\modelBase
     * en referencia a este alumno
     */
    public function convocaPersona(postulantesInterface $postulante){
-       
+       yii::error('convocando perosna');
       if(!$postulante->isNewRecord && $postulante->esconvocable()){
+          yii::error('cumple');
           $model=new \frontend\modules\inter\models\InterConvocados();
           $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
            $model->setAttributes(
@@ -214,6 +215,7 @@ class InterModos extends \common\models\base\modelBase
        if($this->modelFuente instanceof postulantesInterface) {
            $providerPersons=$this->modelFuente->providerPersonsToConvocar($this);
              foreach($providerPersons->batch(10) as $persons){
+                 
                  foreach($persons as $person){
                      yii::error('siguiendo a '.$person->id);                   
                     if($this->convocaPersona($person)){

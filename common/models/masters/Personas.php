@@ -99,10 +99,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'ap', 'am',
             'nombres', 'tipodoc', 
             'numerodoc','identidad_id',
-            'codgrupo','cumple','domicilio','telfijo',
-            'depdir','provdir','distdir',
-            'depnac','provnac','distnac',
-            'sexo','estcivil',
+            'codgrupo','cumple','domicilio','telfijo','telmoviles','pais',
+            'depdir','provdir','distdir','alergias','gruposangu','usoregulmedic',
+            'depnac','provnac','distnac','pasaporte','referencia','provnac','distnac',
+            'sexo','estcivil','alergias',
             
             ],'required','on'=>self::SCE_INTERMEDIO],
             
@@ -169,10 +169,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'ap', 'am',
             'nombres', 'tipodoc', 
             'numerodoc','identidad_id',
-            'codgrupo','cumple','domicilio','telfijo',
-            'depdir','provdir','distdir',
-            'depnac','provnac','distnac',
-            'sexo','estcivil',
+            'codgrupo','cumple','domicilio','telfijo','telmoviles','pais',
+            'depdir','provdir','distdir','alergias','gruposangu','usoregulmedic',
+            'depnac','provnac','distnac','pasaporte','referencia','provnac','distnac',
+            'sexo','estcivil','alergias',
             
             ];
         
@@ -352,9 +352,10 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                 $user->profile->linkPerson($this->id);
                 /****LE ASIGNA EL ROL */
                 if(!is_null($role)){
-                   Yii::$app->authManager->assign(
+                  $vari= Yii::$app->authManager->assign(
                  $role,
                  $user->id); 
+                  //var_dump($vari);die();
                 }
                     
                 

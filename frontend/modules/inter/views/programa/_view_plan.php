@@ -10,6 +10,7 @@
     use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     use common\helpers\ComboHelper;
     use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+    use common\widgets\buttonajaxwidget\buttonAjaxWidget;
 ?>
 <?php $this->title = m::t('labels', 'View plan');
 $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Plans'), 'url' => ['index-plans']];
@@ -93,7 +94,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         <?php ActiveForm::end(); ?>    
   <?php
  $url= Url::to(['create-horario','id'=>$model->id,'gridName'=>'grilla-rangos','idModal'=>'buscarvalor']);
-   echo  Html::button(m::t('base.verbs','Agregar Rango'), ['href' => $url, 'title' => m::t('labels','Agregar Tutor'),'id'=>'btn_crear_rangos', 'class' => 'botonAbre btn btn-success']); 
+   echo  Html::button(m::t('verbs','Generate Schedules'), ['href' => '#', 'title' => m::t('labels','Agregar Tutor'),'id'=>'btn-expe', 'class' => 'btn-success']); 
 ?> 
             
         <br>
@@ -155,6 +156,17 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
           
         ],
     ]); ?>
+        
+   <?php echo buttonAjaxWidget::widget(
+       [  
+            'id'=>'btn-expe',
+            'idGrilla'=>'grilla-rangos',
+            'ruta'=>Url::to(['/inter/programa/ajax-rellena-horarios','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]
+       
+   );   ?>     
+        
     <?php Pjax::end(); ?>
 
 

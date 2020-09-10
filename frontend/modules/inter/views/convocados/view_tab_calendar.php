@@ -29,7 +29,7 @@ $plan=$current_expediente->plan;
    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
  
  <?PHP   
- $codalu=$alumno->codalu;
+ $codalu=$identidad->codalu;
  
 $jsRemoveCallback = <<<JS
 function(title) {

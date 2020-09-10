@@ -21,36 +21,57 @@
         <div class="box-header">
             <div class="col-md-12">
                 <div class="form-group no-margin">                
-                    <?= Html::submitButton('<span class="fa fa-save"></span>'.m::t('verbs', 'Save'), ['class' => 'btn btn-warning']) ?>
+                    <?= Html::submitButton('<span class="fa fa-save"></span>     '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
                 </div>
             </div>
         </div>
         <div class="box-body"> 
+            <?php $alumno=$model->alumno;  ?>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <?= $form->field($model, 'alumno_id')->
+                           label(m::t('labels','Code'))->
+                           textInput(['value'=>$alumno->codalu,'disabled'=>true])
+                ?>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                
+                <?= $form->field($model, 'alumno_id')->
+                           label(m::t('labels','Student'))->
+                           textInput(['value'=>$alumno->fullName(false),'disabled'=>true])
+                ?>
+            </div>
+            
+            
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <?= $form->field($model, 'universidad_id')->
-                           label(m::t('labels','University'))->
+                           label(m::t('labels','Original University'))->
                            textInput(['value'=>$model->universidad->nombre,'disabled'=>true])
                 ?>      
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">     
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
                 <?= $form->field($model, 'facultad_id')->
                            label(m::t('labels','Faculty'))->
                            textInput(['value'=>$model->facultad->desfac,'disabled'=>true])
                 ?>
       
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <?= $form->field($model, 'depa_id')->
+            <!--<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <?php /*$form->field($model, 'depa_id')->
                            label(m::t('labels','Departament'))->
-                           textInput(['value'=>$model->depa->nombredepa,'disabled'=>true])
+                           textInput(['value'=>$model->depa->nombredepa,'disabled'=>true])*/
                 ?>      
-            </div> 
-            <div class="col-lg-6 col-md-6 col-sm-3 col-xs-12">
+             </div> -->
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <?= $form->field($model, 'alumno_id')->
-                           label(m::t('labels','Student'))->
-                           textInput(['value'=>$model->alumno->fullName(false),'disabled'=>true])
+                           label(m::t('labels','Mail'))->
+                           textInput(['value'=>$alumno->mail,'disabled'=>true])
                 ?>
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?= $form->field($model, 'carrera_id')->textInput(['disabled'=>true,'value'=>$alumno->carrera->nombre,'maxlength' => true]) ?>            
+            </div>
+            
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <?= $form->field($model, 'motivos',['enableAjaxValidation'=>true])->
                            label(m::t('labels','Reasons for applying'))->
@@ -262,9 +283,9 @@
                             'options'=>['class'=>'form-control']
                         ]) ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <!--<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?php ?>
-                <?= $form->field($modelP, 'fecingreso')->
+                <?PHP /*ECHO $form->field($modelP, 'fecingreso')->
                     widget(DatePicker::class,
                     [
                         'language' => h::app()->language,
@@ -277,21 +298,59 @@
                         ],
                         'options'=>['class'=>'form-control']
                     ])
-                ?>
-            </div>    
+                */?>
+            </div> -->   
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?= $form->field($modelP, 'telfijo')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?= $form->field($modelP, 'telmoviles')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <?= $form->field($modelP, 'referencia')->textInput(['maxlength' => true]) ?>
-            </div>        
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+                <?= $form->field($modelP, 'pasaporte')->textInput() ?>            
+            </div>     
+            
+            
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
+                <?= $form->field($modelP, 'sexo')->
+                           dropDownList(ComboHelper::getCboSex(),
+                                        ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                ?>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
+                <?= $form->field($modelP, 'estcivil')->
+                           dropDownList(ComboHelper::getCboEstCivil(),
+                                       ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                ?>
+            </div> 
+             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
+                <?= $form->field($modelP, 'pais')->
+                           dropDownList(ComboHelper::getCboPaises(),
+                                        ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                ?>
+            </div>
+            
+            <!--  Aqui cej zala division para datros de dmcicio   -->
+            
+            
+            
+             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Location data'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+               </div>
+            
+            
+            
+            
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <?= $form->field($modelP, 'domicilio')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <?= $form->field($modelP, 'referencia')->textInput(['maxlength' => true]) ?>
+            </div> 
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
                 <?= ComboDep::widget(
                     [
                         'model'=>$modelP,               
@@ -328,7 +387,7 @@
                     ])
                 ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
                 <?= ComboDep::widget(
                     [
                         'model'=>$modelP,               
@@ -365,19 +424,14 @@
                     ])
                 ?>
             </div> 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
                 <?= $form->field($modelP, 'distdir')->
                            dropDownList(($modelP->isNewRecord)?[]:ComboHelper::getCboDistritos($modelP->provdir),
                                         ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
                 ?>
             </div>              
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
-                <?= $form->field($modelP, 'pais')->
-                           dropDownList(ComboHelper::getCboPaises(),
-                                        ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
-                ?>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+           
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
                 <?= ComboDep::widget(
                     [
                         'model'=>$modelP,               
@@ -414,7 +468,7 @@
                     ])
                 ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
                 <?= ComboDep::widget(
                     [
                         'model'=>$modelP,               
@@ -451,27 +505,31 @@
                     ])
                 ?>
             </div> 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
                 <?= $form->field($modelP, 'distnac')->
                            dropDownList(($modelP->isNewRecord)?[]:ComboHelper::getCboDistritos($modelP->provdir),
                                         ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
                 ?>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
-                <?= $form->field($modelP, 'sexo')->
-                           dropDownList(ComboHelper::getCboSex(),
-                                        ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
-                ?>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
-                <?= $form->field($modelP, 'estcivil')->
-                           dropDownList(ComboHelper::getCboEstCivil(),
-                                       ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
-                ?>
-            </div>        
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
-                <?= $form->field($modelP, 'pasaporte')->textInput() ?>            
-            </div>
+            
+            
+             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Aditional data'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+               </div>
+            
+         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <?= $form->field($modelP, 'alergias')->textInput(['maxlength' => true]) ?>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <?= $form->field($modelP, 'gruposangu')->textInput(['maxlength' => true]) ?>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <?= $form->field($modelP, 'usoregulmedic')->textInput(['maxlength' => true]) ?>
+        </div>
+            
         <?php ActiveForm::end(); ?>
         </div>    
 </div>

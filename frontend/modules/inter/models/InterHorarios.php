@@ -58,7 +58,7 @@ implements \common\interfaces\rangeInterface
     public function rules()
     {
         return [
-            [['plan_id', 'programa_id', 'facultad_id', 'etapa_id', 'dia', 'hinicio', 'hfin', 'tolerancia', 'activo', 'clase', 'skipferiado'], 'required'],
+            [['plan_id', 'programa_id', 'facultad_id', 'etapa_id', 'dia', 'hinicio', 'hfin', 'tolerancia', 'activo',  'skipferiado'], 'required'],
             [['plan_id', 'programa_id', 'facultad_id', 'etapa_id', 'dia'], 'integer'],
             [['tolerancia'], 'number'],
             [['hinicio', 'hfin'], 'string', 'max' => 5],

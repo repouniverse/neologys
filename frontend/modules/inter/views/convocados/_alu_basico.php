@@ -33,7 +33,7 @@ use common\helpers\h;
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
                 <?= $form->field($model, 'id')->
                            label(m::t('labels','Profession'))->
-                           textInput(['value'=>$alumno->carrera->nombre,'disabled'=>true])
+                           textInput(['value'=>$identidad->carrera->nombre,'disabled'=>true])
                 ?>
       
             </div>
@@ -53,7 +53,7 @@ use common\helpers\h;
                             
               </div>
               <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                  <img src="<?=h::getPathImagePerson('1987102810')?>" class="img-thumbnail">
+                  <?php echo Html::img($identidad->image($identidad->code()),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);?>
               </div>
                
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

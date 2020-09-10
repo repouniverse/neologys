@@ -52,6 +52,23 @@
                                                     }
                                     ]
                                 ],
+                              /* [
+                            'attribute'=>'imagenx',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                return Html::img($model->image($model->codalu),
+                                        ['width'=>60,'height'=>80,
+                                            'class'=>"img-thumbnail cuaizquierdo"
+                                            ]);
+                            }
+                        ], */            
+                           /*['attribute'=>'codigo',
+                               'value'=>function ($model){
+                                 return $model->code();       
+                               }
+                                   //'header'=>''
+                                    //'group'=>true, 
+                                     ],*/
                            ['attribute'=>'descripcion',
                                    //'header'=>''
                                     'group'=>true, 

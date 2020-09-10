@@ -282,4 +282,7 @@ public function behaviors()
              ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
              ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
  }
+ public function code(){
+     return $this->codigoper;
+ }
 }

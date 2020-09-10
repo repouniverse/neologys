@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'My panel'), 
    
     <div class="box box-success">
      <?php 
-     //VAR_DUMP($model->firstExpediente());DIE();
+   // VAR_DUMP($model->currentStage(),$model->firstExpediente());DIE();
      echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado',['identidad'=>$modelP->identidad]);?>   
     <?php echo $this->render('_form_postulante',['model' => $model, 'modelP'=>$modelP]); ?>
     </div>

@@ -18,13 +18,13 @@ class timeHelper {
    
    public STATIC function daysOfWeek(){
        return [
-           0=>yii::t('base.names','Domingo'),
-           1=>yii::t('base.names','Lunes'),
-           2=>yii::t('base.names','Martes'),
-           3=>yii::t('base.names','Miercoles'),
-           4=>yii::t('base.names','Jueves'),
-           5=>yii::t('base.names','Viernes'),
-           6=>yii::t('base.names','Sabado'),
+           0=>yii::t('base_labels','Domingo'),
+           1=>yii::t('base_labels','Lunes'),
+           2=>yii::t('base_labels','Martes'),
+           3=>yii::t('base_labels','Miercoles'),
+           4=>yii::t('base_labels','Jueves'),
+           5=>yii::t('base_labels','Viernes'),
+           6=>yii::t('base_labels','Sabado'),
         
            
        ];
