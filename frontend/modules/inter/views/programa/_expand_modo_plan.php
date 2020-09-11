@@ -39,7 +39,7 @@
             </div>
             <?php 
                 $url=Url::to(['cantidades-en-riesgo']);
-                echo Html::a(m::t('labels','Convene').'<i class="fa fa-arrow-circle-right"></i>','#', ['id'=>'refresh_'.$model->id,'class'=>"small-box-footer"]);
+                echo Html::a(m::t('labels','Update').'<i class="fa fa-arrow-circle-right"></i>','#', ['id'=>'refresh_'.$model->id,'class'=>"small-box-footer"]);
             ?>            
         </div>
         <?php 
