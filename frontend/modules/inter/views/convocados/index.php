@@ -78,8 +78,8 @@
                                     'group'=>true, 
                                  ],
                                  
-                                'am',
                                 'ap',
+                                'am',                                   
                                 'nombres',
                                 //'current_etapa',
                                  
@@ -96,9 +96,10 @@
             
             
             ?>
+                
                 <?php  
                     echo $this->render('_search', ['model' => $searchModel, 'id'=>$id, 'modelPrograma'=>$modelPrograma]);  
-                ?>
+                ?>                
                 <p> <?= Html::a(m::t('labels', 'Create Inter Summoned'), ['create'], ['class' => 'btn btn-success']) ?> </p>
                 <div style='overflow:auto;'>
                     <?=ExportMenu::widget([

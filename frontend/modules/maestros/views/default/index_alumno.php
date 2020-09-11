@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="alumnos-index">
-<?php echo common\widgets\spinnerWidget\spinnerWidget::widget();   ?>
+<?php echo common\widgets\spinnerWidget\spinnerWidget::widget();?>
     <h4> <?= Html::encode($this->title) ?> </h4>
     <div class="box box-success">
         <div class="box-body">

@@ -14,7 +14,7 @@
 <div class="box box-success">
     <div class="box box-body">
         <?php 
-            $paisActual = $model->currentPais(true);
+            $paisActual = $model->currentPais();
             $paisResidencia = $model->studentPais($model->universidad_id);
             $modelPersona->paisresidencia = $paisResidencia;
             $form = ActiveForm::begin
