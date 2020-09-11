@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use frontend\modules\inter\helpers\comboHelper;
+use frontend\modules\inter\helpers\ComboHelperomboHelper;
 use frontend\modules\inter\Module as m;
 //use frontend\modules\sigi\models\SigiUnidades;
  //use kartik\date\DatePicker;
@@ -48,7 +48,7 @@ use frontend\modules\inter\Module as m;
  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
      
     <?php
-    $data=comboHelper::getCboModos($model->programa_id);
+    $data=ComboHelper::getCboModos($model->programa_id);
    echo  $form->field($model, 'modo_id')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",

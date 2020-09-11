@@ -227,5 +227,20 @@ class InterExpedientes extends \common\models\base\modelBase
        $color=(!$tieneAdjunto)?'red':'green';
        return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>';
     }
+    
+    
+    public function putColorEventsCalendar($events){
+        foreach ($events as $key=>$event){
+            if($event['id']==$this->id){
+               // yii::error('coincidio');
+               $event['color']="#ff0000";
+               $events[$key]=$event;
+              // yii::error($event);
+               //break;
+            }
+        }
+        return $events;
+        
+    }
    
 }

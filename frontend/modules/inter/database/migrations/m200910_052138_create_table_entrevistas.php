@@ -12,6 +12,7 @@ class m200910_052138_create_table_entrevistas extends baseMigration
    //const NAME_TABLE_DEPARTAMENTOS='{{%departamentos}}';
    const NAME_TABLE_FACULTADES='{{%facultades}}';
    const NAME_TABLE_PROGRAMAS='{{%inter_programas}}';
+   const NAME_TABLE_PLANES='{{%inter_plan}}';
    //const NAME_TABLE_CONVOCATORIAS='{{%inter_convocados}}';
    //const NAME_TABLE_DOCUMENTOS='{{%documentos}}';
    //const NAME_TABLE_ALUMNOS='{{%alumnos}}';
@@ -28,12 +29,15 @@ if(!$this->existsTable($table)) {
        // 'aluriesgo_id'=>$this->integer(11)->notNull(),
         'facultad_id'=>$this->integer(11)->notNull(),
          'etapa_id'=>$this->integer(11)->notNull(),
+         'plan_id'=>$this->integer(11)->notNull(),
          'universidad_id'=>$this->integer(11)->notNull(),//Rompiendo la normalizacion 
          'modo_id'=>$this->integer(11)->notNull(),//Rompiendo la normalizacion 
         'codperiodo'=>$this->string(19)->append($this->collateColumn()),
          'expediente_id'=>$this->integer(11)->notNull(),
         'convocado_id'=>$this->integer(11)->notNull(),
         'persona_id'=>$this->integer(11)->notNull(),
+        'fechaprog'=>$this->string(19)->append($this->collateColumn()),
+         
          'finicio'=>$this->string(19)->append($this->collateColumn()),
          'numero'=>$this->char(8)->append($this->collateColumn()),
         'ftermino'=>$this->string(19)->append($this->collateColumn()),
@@ -59,7 +63,8 @@ if(!$this->existsTable($table)) {
               'expediente_id', static::NAME_TABLE_EXPEDIENTES,'id');
      $this->addForeignKey($this->generateNameFk($table), $table,
               'facultad_id', static::NAME_TABLE_FACULTADES,'id');
-            
+       $this->addForeignKey($this->generateNameFk($table), $table,
+              'plan_id', static::NAME_TABLE_PLANES,'id');      
      
                 /*  $this->addForeignKey($this->generateNameFk($table), $table,
               'codcar', static::NAME_TABLE_CARRERAS,'codcar');*/

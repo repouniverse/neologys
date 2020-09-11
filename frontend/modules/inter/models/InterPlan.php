@@ -166,6 +166,11 @@ class InterPlan extends \common\models\base\modelBase
         return $this->hasMany(InterHorarios::className(), ['plan_id' => 'id']);
     }
     
+    
+    public function getEntrevistas()
+    {
+        return $this->hasMany(InterEntrevistas::className(), ['plan_id' => 'id']);
+    }
     /**
      * {@inheritdoc}
      * @return InterPlanQuery the active query used by this AR class.
@@ -221,5 +226,23 @@ class InterPlan extends \common\models\base\modelBase
        }
     }  
       
-      
+    public function populateEntrevistas(){
+        $entrevs=[];
+        foreach($this->entrevistas as $entrevista){
+           $entrevs[]=$entrevista; 
+        }
+        return $entrevs; 
+    }
+    
+    public function populateEventosToCalendar(){
+        $entrevistas=$this->populateEntrevistas();
+        $entrevs=[];
+        foreach($entrevistas as $entrevista){
+           $entrevs[]=$entrevista->range()->toEventCalendar($title=null,$entrevista->expediente_id); 
+        }
+        unset($entrevistas);
+        return $entrevs;
+    }
+    
+    
 }

@@ -72,14 +72,25 @@ class ConvocadosController extends baseController
         $persona=$model->persona;
         $identidad=$persona->identidad;
         $current_expediente=$model->currentExpediente();
-        $eventos=[
+        $eventos=$current_expediente->plan->populateEventosToCalendar();
+       // var_dump($eventos);die();
+       
+      
+     
+     
+     
+       
+        $eventos=$current_expediente->plan->populateEventosToCalendar();
+        $eventos=$current_expediente->putColorEventsCalendar($eventos);
+        
+       /* $eventos=[
                     [
                 'title' => m::t('labels','eet'),
               'start' =>date('Y-m-d H:i:s'),
                 'end' =>$model::CarbonNow()->addMinutes(30)->format('Y-m-d H:i:s'),
                 'color' => '#e9f72057',
                      ] 
-            ];
+            ];*/
         return $this->render('view', [
             'current_expediente'=>$current_expediente,
             'eventos'=>$eventos,
@@ -484,7 +495,11 @@ class ConvocadosController extends baseController
                 $model->save() && $modelP->save()) {
             //var_dump(!is_null($exp=$model->firstExpediente()));die();
             if(!is_null($exp=$model->firstExpediente()))
-                $exp->aprove(); //aprobar le primer expediente la ficha de
+                if($exp->aprove()){
+//aprobar le primer expediente la ficha de
+                }else{
+                    print_r($exp->getErrors());DIE();
+                }
               //var_dump($model->currentStage());die();
 //yii::error('apunto de redireccionar',__FUNCTION__);
             //if(h::userName()=='admin')
@@ -575,5 +590,87 @@ class ConvocadosController extends baseController
       }
   }
   
+ 
+  public function actionInterViews($id){
+      
+      $model = $this->findModel($id);
+      
+       $model->createExpedientes($model->currentStage());
+      $current_expediente=$model->currentExpediente();
+       $persona=$model->persona;
+        $identidad=$persona->identidad;
+        $eventos=$current_expediente->plan->populateEventosToCalendar();
+        $eventos=$current_expediente->putColorEventsCalendar($eventos);
+       // var_dump($current_expediente->id);
+        //print_r($eventos);die();
+      return $this->render('calendar_postulante',['eventos'=>$eventos,'persona'=>$persona,'identidad'=>$identidad,'model'=>$model,'current_expediente'=>$current_expediente]);
+  }
+ 
+  
+ public function actionMakeCitaByExpediente(){
+    if(h::request()->isAjax){
+        h::response()->format = \yii\web\Response::FORMAT_JSON;
+      
+        $id=h::request()->get('id');
+        $codalu=h::request()->get('codalu');
+        $fecha=h::request()->get('fecha');
+        $model= \frontend\modules\inter\models\InterExpedientes::findOne($id);
+        $datos=[];
+        $error=false; 
+         
+      if(is_null($model)) {
+             $error=true; $datos['error']=m::t('errors','No existe el registro Expediente para el id '.$id);
+         }
+        if(!\common\helpers\timeHelper::IsFormatMysqlDateTime($fecha)) {
+             $error=true; $datos['error']=m::t('errors','La fecha {fecha} suministrada no tiene el formato adecuado ',['fecha'=>$fecha]);
+         }
+          
+        if(!$error) { //BUSCAR LA PERSONA ID
+            /*de donde sacamos a la persona? de los departamenteos */
+            $nombre= $model->depa->persona->fullName();
+            $attributes=[
+                'universidad_id'=>$model->universidad_id,
+                'facultad_id'=>$model->facultad->id,
+                'fechaprog'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
+                'etapa_id'=>$model->etapa_id,
+                'plan_id'=>$model->plan_id,
+                'persona_id'=>$model->depa->persona->id,
+                'expediente_id'=>$model->id,
+                'modo_id'=>$model->modo_id,
+                'convocado_id'=>$model->convocado->id,
+                'codperiodo'=>\common\helpers\h::periodos()->currentPeriod,
+                
+            ];
+           // var_dump($fecha,$model::_FDATETIME,$model::SwichtFormatDate($fecha,$model::_FDATETIME,true));die();
+         yii::error('creando la cita'.date('Y-m-d H:i:s'));
+            $entre=New \frontend\modules\inter\models\InterEntrevistas();
+           $entre->setScenario($entre::SCENARIO_BASICO);
+           $entre->attributes=$attributes;
+           
+              if($entre->save()){
+                 yii::error('grabo'.date('Y-m-d H:i:s'));
+               if(h::gsetting('sta','notificacitasmail')){
+                   //$cita->enviacorreo();
+               }else{
+                 //  print_r($entre->getErrors());
+               }
+               
+              $datos=['success'=>m::t('errors','Se ha creado la cita {numero} con {psico} satisfactoriamente',['psico'=>$nombre,'numero'=>$entre->numero])];
+              // RETURN $datos; 
+            }else{
+             $datos=['error'=>m::t('errors','Hubo un problema : '.$entre->getFirstError())];
+                UNSET($entre);
+               }
+             //print_r($datos); die();
+           }
+            //var_dump(count($datos),$datos);die();
+           //return ['success'=>'pirata'];
+            return $datos; 
+            
+                } 
+    
+       
+    }
+ 
   
 }

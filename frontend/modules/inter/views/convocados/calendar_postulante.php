@@ -12,14 +12,36 @@ use frontend\modules\inter\Module as m;
 /* @var $model frontend\modules\sta\models\Talleres */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-
 <?php 
-$plan=$current_expediente->plan;
+/* @var $this yii\web\View */
+/* @var $model frontend\modules\sta\models\Talleres */
+ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
+/* @var $this yii\web\View */
+/* @var $model frontend\modules\inter\models\InterConvocados */
+
+$this->title = Yii::t('base_labels', 'Fill in personal data : {name}', [
+    'name' => $model->persona->fullName(),
+]);
+//$this->params['breadcrumbs'][] = ['label' => substr($model->programa->descripcion,0,10), 'url' => ['/inter/programa/update', 'id' => $model->programa->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'My panel'), 'url' => [h::user()->resolveUrlAfterLogin()]];
+//$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+///$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
 
+
+
+ 
+
+
+
+
 <div class="borereuccess">   
-  <div class="box-body">               
+  <div class="box-body">  
+      <?php 
+$plan=$current_expediente->plan;
+
+echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado',['identidad'=>$model->persona->identidad]);
+?>  
       <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
           <div class="alert alert-warning"><?php echo $plan->descripcion.h::space(20).Html::a('('.m::t('labels','See schedules').')',Url::to(['/inter/programa/view-plan','id'=>$plan->id]),['target'=>'_blank']); ?></div>
       </div>
@@ -67,7 +89,7 @@ echo CalendarScheduleWidget::widget([
         //'formatDate'=>'dd/mm/yyyy',
          'locale'=>'es',
         
-       'events' => $plan->eventsToCalendar(),
+       'events' => array_merge($plan->eventsToCalendar(),$eventos),
         
         /*'events' => [
             ['title' => 'evento 1', 'start' => date('Y-m-d 10:00:00'), 'end' => date('Y-m-d 20:00:00'), 'color' => '#286090'],
@@ -81,9 +103,9 @@ echo CalendarScheduleWidget::widget([
                   var fechainicio=event.start.format("YYYY-MM-DD HH:mm:ss");
         $.ajax({ 
                     method:"get",    
-                    url: "'.\yii\helpers\Url::toRoute('/sta/programas/make-cita-by-student').'",
+                    url: "'.\yii\helpers\Url::toRoute('/inter/convocados/make-cita-by-expediente').'",
                     delay: 250,
-                        data: {id:'.$model->id.', fecha:fechainicio,codalu:event.title  },
+                        data: {id:'.$current_expediente->id.', fecha:fechainicio,codalu:event.title  },
              error:  function(xhr, textStatus, error){               
                            // revertFunc();
                                 }, 

@@ -67,7 +67,7 @@ echo CalendarScheduleWidget::widget([
         //'formatDate'=>'dd/mm/yyyy',
          'locale'=>'es',
         
-       'events' => $plan->eventsToCalendar(),
+       'events' => array_merge($plan->eventsToCalendar(),$eventos),
         
         /*'events' => [
             ['title' => 'evento 1', 'start' => date('Y-m-d 10:00:00'), 'end' => date('Y-m-d 20:00:00'), 'color' => '#286090'],

@@ -23,7 +23,7 @@ use frontend\modules\inter\models\InterExpedientes;
                 'convocado_id'=>$model->id,
                 'orden'=>$model->currentStage(),
                 //'plan_id'=>$model->plan->eval->,
-                ]),
+                ])->orderBy(['secuencia'=>SORT_ASC]),
                 ]),
          //'summary' => '',
          'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
