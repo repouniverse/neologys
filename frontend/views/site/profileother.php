@@ -61,8 +61,8 @@ $this->title = 'Profile';
             'model'=>$profile,
             'form'=>$form,
             'campo'=>'persona_id',
-         'ordenCampo'=>7,
-         'addCampos'=>[7,8,9],
+         'ordenCampo'=>2,
+         'addCampos'=>[3,4,5],
         'inputOptions'=>[/*'enableAjaxValidation'=>true*/],
         ]);
            ?>
