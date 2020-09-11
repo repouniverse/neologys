@@ -48,7 +48,7 @@ use frontend\modules\inter\Module as m;
  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
      
     <?php
-    $data=ComboHelper::getCboModos($model->programa_id);
+    $data= ComboHelper::getCboModos($model->programa_id);
    echo  $form->field($model, 'modo_id')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
@@ -60,7 +60,7 @@ use frontend\modules\inter\Module as m;
      </div> 
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">      
     <?php
-    $data=comboHelper::getCboAwesome();
+    $data=ComboHelper::getCboAwesome();
    echo  $form->field($model, 'awe')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
@@ -73,7 +73,7 @@ use frontend\modules\inter\Module as m;
           
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">      
     <?php
-    $data=comboHelper::getCboCardinales(20);
+    $data=ComboHelper::getCboCardinales(20);
    echo  $form->field($model, 'orden')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
