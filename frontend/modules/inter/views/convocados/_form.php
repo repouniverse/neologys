@@ -39,6 +39,13 @@
                 ?>
       
             </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">     
+                <?= $form->field($model, 'mail')->
+                           label(m::t('labels','Email'))->
+                           textInput(['value'=>$model->alumno->mail,'disabled'=>true])
+                ?>
+      
+            </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <?= $form->field($model, 'depa_id')->
                            label(m::t('labels','Departament'))->
