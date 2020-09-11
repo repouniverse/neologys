@@ -212,10 +212,12 @@ class InterExpedientes extends \common\models\base\modelBase
     }
     
     public function aprove($approbe=true){
+     
         $oldScenario=$this->getScenario();
         $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
+        var_dump($grabo);die();
         $this->setScenario($oldScenario);//dejamos las cosas como estaban antes
         return $grabo;
         
