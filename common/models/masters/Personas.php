@@ -82,7 +82,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     {
         return [
             [['ap', 'am', 'nombres','tipodoc','numerodoc'], 'required'],
-            [['identidad_id','codgrupo'], 'safe'],
+            [['identidad_id','codgrupo','provnac','distnac'], 'safe'],
             [['cumple'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
