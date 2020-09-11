@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use frontend\modules\inter\helpers\ComboHelperomboHelper;
+use frontend\modules\inter\helpers\ComboHelper;
 use frontend\modules\inter\Module as m;
 //use frontend\modules\sigi\models\SigiUnidades;
  //use kartik\date\DatePicker;
