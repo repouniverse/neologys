@@ -73,7 +73,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     {
         return [
             [['user_id'], 'integer'],
-            [['url','persona_id'], 'safe'],
+            [['url','persona_id','universidad_id','multiple_universidad'], 'safe'],
 
             // ['codtra', 'unique', 'targetAttribute' => ['user_id','codtra']],
             [['user_id','codtra'], 'unique', 'targetAttribute' =>'codtra' ],
@@ -82,8 +82,8 @@ class Profile extends \common\models\base\modelBase implements \common\interface
             [['names'], 'string', 'max' => 60],
              
              [['names','duration','durationabsolute','url','codtra','recexternos'], 'safe'],
-            [['persona_id'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
-            [['persona_id'],'safe','on'=>self::SCENARIO_INTERLOCUTOR],
+            [['persona_id','universidad_id'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
+            //[['persona_id'],'safe','on'=>self::SCENARIO_INTERLOCUTOR],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -91,7 +91,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_INTERLOCUTOR] = ['tipo','codtra','user_id'];
+        $scenarios[self::SCENARIO_INTERLOCUTOR] = ['persona_id','universidad_id','multiple_universidad'];
         //$scenarios[self::SCENARIO_UPDATE_TABULAR] = ['codigo','coditem'];
        // $scenarios[self::SCENARIO_REGISTER] = ['username', 'email', 'password'];
         return $scenarios;
@@ -103,15 +103,17 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'ID'),
-            'user_id' => Yii::t('base.names', 'Id usuario'),
-            'names' => Yii::t('base.names', 'Nombres'),
-            'photo' => Yii::t('base.names', 'Foto'),
-            'detalle' => Yii::t('base.names', 'Detalle'),
-            'interlocutor' => Yii::t('base.names', 'Type'),
-             'recexternos' => Yii::t('base.names', 'Usa Rec Externos'),
-            'duration' => Yii::t('base.names', 'Duracion'),
-            'durationabsolute' => Yii::t('base.names', 'Duracion absoluta'),
+            'id' => Yii::t('base_names', 'ID'),
+            'user_id' => Yii::t('base_names', 'Id usuario'),
+            'names' => Yii::t('base_names', 'Nombres'),
+            'photo' => Yii::t('base_names', 'Foto'),
+            'detalle' => Yii::t('base_names', 'Detalle'),
+            'interlocutor' => Yii::t('base_names', 'Type'),
+            'universidad_id' => Yii::t('base_names', 'University'),
+           'multiple_universidad' => Yii::t('base_names', 'Many Universities'),            
+             'recexternos' => Yii::t('base_names', 'Usa Rec Externos'),
+            'duration' => Yii::t('base_names', 'Duracion'),
+            'durationabsolute' => Yii::t('base_names', 'Duracion absoluta'),
         ];
     }
 
@@ -278,6 +280,47 @@ class Profile extends \common\models\base\modelBase implements \common\interface
       return $this->save();
      }
     
+ public function beforeSave($insert) {
+     if($insert){
+        $this->resolveUniversity(); 
+        $this->resolveMultiple(); 
+     }
+     return parent::beforeSave($insert);
+ }
+ /*
+  * Esta funcion se ecnarga de resolver 
+  * el campo universidad_id QUE ES LA UNIVERSIDAD BASE DE 
+  * UN USUARIO 
+  * 
+  * La universidad base de una usuario es la universidad 
+  * en la cual se desenvuelve el usuario.
+  * OJO PARA UN ALUMNO el campo universidad_id no necesariamente
+  * es igual al LA UNIVERSIDAD BASE, por ejemplo un alumno de
+  * la universisad de  Medellin puede tener como universidad 
+  * base la SAN MARTIN DE PORRAS, esto va a pasar con los alumnos 
+  * y docentes incoming por ejemplo.  Estos usuarios van a desembolverse 
+  * dentro del programa de la USMP pero  su origen es la Universidad
+  * de Medellin por eejemplo
+  *  cuando se crea el 
+  * profile.  
+  * Cuando el campo está vacío o no se especifica
+  * loq eu hace es copiar el valor del usuario
+  * que lo crea.  
+  */
+ private function resolveUniversity(){
+     if(empty($this->universidad_id))
+       $this->universidad_id=h::currentUniversity();
+ }
  
+ /*
+  * Si el campo mulriple esta vacío
+  * colocarlo con universidad simple
+  * no es necesario que tenga varias unviersidades
+  * como SCOPES
+  */
+ private function resolveMultiple(){
+     if(empty($this->multiple_universidad))
+       $this->multiple_universidad=false;
+ }
     
   }

@@ -7,13 +7,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
  use kartik\date\DatePicker;
  use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
+ use common\widgets\inputajaxwidget\inputAjaxWidget;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Trabajadores */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="box box-success">
-
+    <div id="advertencia_doc"></div>
     <?php $form = ActiveForm::begin([
     'id' => 'trabajadores-form',
     'enableAjaxValidation' => true,
@@ -333,3 +334,15 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 </div>
   </div> 
+<?php 
+  echo inputAjaxWidget::widget([
+      'id_input'=>'personas-numerodoc',
+            'tipo'=>'get',
+            'evento'=>'change',
+      'isHtml'=>true,
+            'idGrilla'=>'advertencia_doc',
+            'ruta'=>Url::to(['/maestros/default/verify-duplicate-person']),          
+           //'posicion'=> \yii\web\View::POS_END           
+        
+  ]);
+?>

@@ -1892,8 +1892,77 @@ class DefaultController extends \common\controllers\base\baseController
        
   }  
 
+  public function actionModalCreatePersonaMinimo(){
+      $this->layout = "install";
+        $model =new \common\models\masters\Personas();
+        $datos=[];
+       
+       
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_personas_minimo', [
+                        'model' => $model,
+                        //'docente_id'=> $model->docente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        } 
+  }
   
   
+  public function actionVerifyDuplicatePerson(){
+      if(h::request()->isAjax){
+        // h::response()->format = \yii\web\Response::FORMAT_JSON;
+           $valor=h::request()->get('valorInput'); 
+           if(is_null($model=Personas::find()->andWhere([
+               'numerodoc'=>$valor,
+           ])->one())){
+               return '';
+           }else{
+             $message=m::t('labels','It\'s possible that already exists {persona} with  this document number',['persona'=>$model->fullName() ]); 
+             return '<div class="alert alert-warning">'.$message.'</div>';
+           }
+      }
+  }
   
+  
+  public function actionCreateForeignPerson(){
+      
+        $model = new Personas();
+        $model->setScenario($model::SCE_CREACION_EXTRANJERO);
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
         }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            return $this->redirect(['view-persona', 'id' => $model->id]);
+        }
+
+        return $this->render('create_personas_extranjero', [
+            'model' => $model,
+        ]);
+  }
+  
+  
+  
+  }
 

@@ -11,6 +11,7 @@
     use common\helpers\ComboHelper;
     use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     use common\widgets\buttonajaxwidget\buttonAjaxWidget;
+    
 ?>
 <?php $this->title = m::t('labels', 'View plan');
 $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Plans'), 'url' => ['index-plans']];

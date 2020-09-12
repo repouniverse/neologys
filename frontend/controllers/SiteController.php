@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
     use yii\helpers\Url;
+    use yii\helpers\ArrayHelper;
+   use common\models\masters\UsersUniversities;
 use frontend\models\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -562,7 +564,7 @@ die();
     }
     
      public function actionViewProfile($iduser){
-        // UserFacultades::refreshTableByUser($iduser);
+        
          $newIdentity=h::user()->identity->findOne($iduser);
       if(is_null($newIdentity))
           throw new BadRequestHttpException(yii::t('base.errors','User not found with id '.$iduser));  
@@ -570,6 +572,11 @@ die();
      // h::user()->switchIdentity($newIdentity);
          
         $profile =$newIdentity->getProfile($iduser);
+        
+        if($profile->multiple_universidad)
+            \common\models\masters\UsersUniversities::refreshTableByUser($iduser);
+        
+        
         $profile->setScenario($profile::SCENARIO_INTERLOCUTOR);
         if(h::request()->isPost){
             $arrpost=h::request()->post();
@@ -586,8 +593,13 @@ die();
              $user= \common\models\User::findOne($profile->user_id);
              $user->status=$arrpost['User']['status'];
              $user->save();
-             //$this->updateUserFacultades($arrpost[UserFacultades::getShortNameClass()]);
-            yii::$app->session->setFlash('success',yii::t('base_labels','Se grabaron los datos '));
+             if($profile->multiple_universidad){
+                $this->updateUserUniversidades($arrpost[UsersUniversities::getShortNameClass()]);
+             
+             }else{
+                 UsersUniversities::revokeAccess($profile->user_id);
+             }
+             yii::$app->session->setFlash('success',yii::t('base_labels','Se grabaron los datos '));
             return $this->redirect(['view-users']);
            }else{
               //var_dump($profile->getErrors());die(); 
@@ -599,9 +611,37 @@ die();
         return $this->render('_formtabs', [
             'profile' => $profile,
             'model'=>$newIdentity,
-            //'userfacultades'=> UserFacultades::providerFacusAll($iduser)->getModels(),
+            'useruniversidades'=> \common\models\masters\UsersUniversities::providerUniversidadesAll($iduser)->getModels(),
         ]);
     }
    
+    /*
+     * Actualizacion de los valores del aacultades uausuarios 
+     */
+    private function updateUserUniversidades($arrpostUserFac){
+        $ar=array_combine(ArrayHelper::getColumn($arrpostUserFac,'id'),
+                ArrayHelper::getColumn($arrpostUserFac,'activo'));
+        foreach($ar as $clave=>$valor){
+           \Yii::$app->db->createCommand()->
+             update(UsersUniversities::tableName(),
+             ['activo'=>$valor],['id'=>$clave])->execute();
+        }
+        
+    } 
     
+    public function actionUniqueUniversity($id){
+      $model= \common\models\Profile::findOne($id);
+      if(is_null($model))
+          throw new BadRequestHttpException(yii::t('base_errors','Profile not found with id '.$id));  
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model->multiple_universidad=!$model->multiple_universidad;
+          $model->save();
+          if(!$model->multiple_universidad){
+              UsersUniversities::revokeAccess($model->user_id);
+          }
+         return ['success'=>yii::t('base_labels','User has changed multiple Universities')];
+      } 
+          
+    }
 }

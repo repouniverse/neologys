@@ -38,12 +38,17 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
    CONST SCE_INTERMEDIO='intermedio';
    CONST SCE_DOCENTES='docentes';
    CONST SCE_ALUMNOS='alumnos';
+   CONST SCE_CREACION_MINIMA='minima';
+   CONST SCE_CREACION_EXTRANJERO='extranjero';
    
+   public $cumple1;
     public $dateorTimeFields = [
         'cumple' => self::_FDATE,
+        'cumple1' => self::_FDATE,
         'fecingreso' => self::_FDATE,
         //'ftermino' => self::_FDATETIME
     ];
+     
     
     public function behaviors()
 {
@@ -62,7 +67,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     
      public function init(){
          $this->prefijo='76';
-         $this->dateorTimeFields=['fecingreso'=>self::_FDATE,'cumple'=>self::_FDATE];
+         $this->dateorTimeFields=['fecingreso'=>self::_FDATE,'cumple1'=>self::_FDATE,'cumple'=>self::_FDATE];
             return parent::init();
      }
      
@@ -81,7 +86,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function rules()
     {
         return [
-            [['ap', 'am', 'nombres','tipodoc','numerodoc'], 'required'],
+            [['ap',  'nombres','tipodoc','numerodoc','codgrupo'], 'required'],
             [['identidad_id','codgrupo','provnac','distnac'], 'safe'],
             [['cumple'], 'validateFechas'],
             [['codigoper'], 'string', 'max' => 8],
@@ -132,6 +137,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
            
             'numerodoc' => yii::t('base_labels', 'Document Number'),
             'cumple' => yii::t('base_labels', 'Birth Date'),
+            'cumple1' => yii::t('base_labels', 'Birth Date'),
             'fecingreso' => yii::t('base_labels', 'Begin Date'),
             'domicilio' => yii::t('base_labels', 'Address'),
             'telfijo' => yii::t('base_labels', 'Phone'),
@@ -164,6 +170,21 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         $scenarios[self::SCE_CREACION_BASICA] = [
             'ap', 'am',
             'nombres', 'tipodoc', 'numerodoc','identidad_id','codgrupo'
+            ];
+        $scenarios[self::SCE_CREACION_MINIMA] = [
+            'ap', 
+            'nombres', 'tipodoc', 'numerodoc','codgrupo'
+            ];
+        
+          $scenarios[self::SCE_CREACION_EXTRANJERO] = [
+            'ap', 
+            'nombres', 'tipodoc', 'numerodoc','codgrupo',
+             'lugarnacimiento', 'telpaisorigen', 'codcontpaisorigen',
+            'parentcontpaisorigen', 'polizaseguroint', 'telefasistencia',
+            'paisresidencia', 'lugarresidencia', 'codcontpaisresid',
+            'parentcontpaisresid', 'tipogrado', 'idiomanativo', 'codresponsable',
+            'alergias', 'gruposangu', 'usoregulmedic' 
+              
             ];
         $scenarios[self::SCE_INTERMEDIO] = [
             'ap', 'am',

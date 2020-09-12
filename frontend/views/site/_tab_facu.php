@@ -22,18 +22,21 @@ $this->title = 'Profile';
    
        
              
-            <?php /*h::user()->switchIdentity($identidad);*/ ?>
+            <?php
+            //var_dump($useruniversidades);die();
+            
+            /*h::user()->switchIdentity($identidad);*/ ?>
             
                
              
               <?php 
-             /* $i=0;
-              foreach($userfacultades as $userfacultad) { 
+              $i=0;
+              foreach($useruniversidades as $useruniversidad) { 
                 // vr_dump($userfacultad->facultad->desfac);
                  // echo $userfacultad->facultad->desfac."<br>";
-                  echo $this->render('checkboxfacultad',['i'=>$i,'form'=>$form,'userfacultad'=>$userfacultad]);
+                  echo $this->render('checkboxfacultad',['i'=>$i,'form'=>$form,'useruniversidad'=>$useruniversidad]);
                $i++;
-               }*/ ?> 
+               } ?> 
              
             
             

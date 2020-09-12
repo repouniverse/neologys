@@ -11,13 +11,17 @@ use common\models\masters\Personas;
  */
 class PersonasSearch extends Personas
 {
+    
+    
+    
+     
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['codigoper', 'ap', 'am', 'nombres', 'cumple', 'fecingreso', 'domicilio', 'telfijo', 'telmoviles', 'referencia'], 'safe'],
+            [['codigoper', 'ap', 'am', 'nombres', 'cumple', 'cumple1', 'numerodoc','tipodoc','codgrupo'], 'safe'],
         ];
     }
 
@@ -61,13 +65,22 @@ class PersonasSearch extends Personas
             ->andFilterWhere(['like', 'am', $this->am])
             ->andFilterWhere(['like', 'nombres', $this->nombres])
             ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
-            ->andFilterWhere(['like', 'cumple', $this->cumple])
+            ->andFilterWhere([ 'tipodoc'=> $this->tipodoc])    
+            ->andFilterWhere(['codgrupo'=> $this->codgrupo])
             ->andFilterWhere(['like', 'fecingreso', $this->fecingreso])
             ->andFilterWhere(['like', 'domicilio', $this->domicilio])
             ->andFilterWhere(['like', 'telfijo', $this->telfijo])
             ->andFilterWhere(['like', 'telmoviles', $this->telmoviles])
             ->andFilterWhere(['like', 'referencia', $this->referencia]);
-
+ if(!empty($this->cumple) && !empty($this->cumple1)){
+         $query->andFilterWhere([
+             'between',
+             'cumple',
+             $this->openBorder('cumple',false),
+             $this->openBorder('cumple1',true)
+                        ]);   
+        }
+       //echo $query->createCommand()->rawSql;die();
         return $dataProvider;
     }
     

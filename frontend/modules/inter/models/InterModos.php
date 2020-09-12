@@ -36,6 +36,7 @@ class InterModos extends \common\models\base\modelBase
     
     //public $claseModeloFuente='common\models\masters\Alumnos';
     protected $modelFuente;
+    public $booleanFields=['externalpeople'];
     /**
      * {@inheritdoc}
      */
@@ -53,7 +54,7 @@ class InterModos extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'programa_id'], 'integer'],
             [['acronimo', 'descripcion'], 'required'],
             [['detalles','modelofuente'], 'string'],
-            [['modelofuente'], 'safe'],
+            [['modelofuente','externalpeople'], 'safe'],
             [['acronimo', 'descripcion'], 'string', 'max' => 40],
             [['programa_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterPrograma::className(), 'targetAttribute' => ['programa_id' => 'id']],
             [['depa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['depa_id' => 'id']],
