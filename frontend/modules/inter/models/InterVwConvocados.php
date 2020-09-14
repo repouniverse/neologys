@@ -1,8 +1,9 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use common\models\masters\Carreras;
 use frontend\modules\inter\Module as m;
+USE common\helpers\h;
 use Yii;
 
 /**
@@ -35,6 +36,7 @@ use Yii;
  */
 class InterVwConvocados extends \common\models\base\modelBase
 {
+        use \common\traits\identidadTrait;
     /**
      * {@inheritdoc}
      */
@@ -96,7 +98,16 @@ class InterVwConvocados extends \common\models\base\modelBase
             'current_etapa' => m::t('labels', 'Current Stage'),
         ];
     }
-      
+    
+     public function getDocumento()
+    {
+        return $this->hasOne(Documentos::className(), ['codocu' => 'codocu']);
+    }
+
+    public function getExpedientes()
+    {
+        return $this->hasMany(InterExpedientes::className(), ['convocado_id' => 'id']);
+    }
     /**
      * {@inheritdoc}
      * @return InterVwConvocadosQuery the active query used by this AR class.
@@ -105,4 +116,23 @@ class InterVwConvocados extends \common\models\base\modelBase
     {
         return new InterVwConvocadosQuery(get_called_class());
     }
+    /*saca datos de los expedientes según etapas*/
+ public function datosExpedientes(){
+     $datos=[];$datos1=[];
+     $registros=$this->getExpedientes()->orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])->all();
+     foreach($registros as $expediente){
+         $datos1['titulo']=$expediente->plan->acronimo;
+         $datos1['subtitulo']=$expediente->documento->desdocu;
+         $plan=$expediente->plan;
+         $area=m::t('labels','Departament').': '.$plan->depa->nombredepa;
+         $texto=m::t('labels','Aprobe For').': '.$plan->eval->trabajador->fullName();
+         $font=($expediente->estado)?'check-circle':'exclamation-triangle';
+         $color=($expediente->estado)?'green':'yellow';
+         $datos1['texto']=$area.'<br>'.$texto.'<br><i style="font-size:32px; color:'.$color.'">'.h::awe($font).'</i>';
+    $datos[]=$datos1;
+            $datos1=[];
+         }
+     //var_dump($datos);die();
+     return $datos;
+ }
 }

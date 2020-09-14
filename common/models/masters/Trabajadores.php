@@ -45,10 +45,10 @@ class Trabajadores extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['ap', 'am', 'nombres'], 'required'],
+            [['ap', 'am', 'nombres','facultad_id','universidad_id'], 'required'],
             [['detalles'], 'string'],
             [['persona_id'], 'integer'],
-             [['persona_id'], 'safe'],
+             [['persona_id','facultad_id','universidad_id','depa_id','cargo_id'], 'safe'],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['numerodoc'], 'string', 'max' => 20],
             [['tipodoc'], 'string', 'max' => 2],
@@ -80,6 +80,11 @@ class Trabajadores extends \common\models\base\modelBase
         ];
     }
 
+    
+    public function getPersona() {
+         return $this->hasOne(Personas::className(), [ 'id'=> 'persona_id']);
+   
+    }
     /**
      * {@inheritdoc}
      * @return TrabajadoresQuery the active query used by this AR class.

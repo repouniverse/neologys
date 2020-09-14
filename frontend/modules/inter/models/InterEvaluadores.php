@@ -50,6 +50,7 @@ class InterEvaluadores extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'carrera_id', 'programa_id'], 'integer'],
             [[ 'acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
+            [['persona_id','trabajador_id'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
             [['acronimo'], 'string', 'max' => 10],
@@ -58,6 +59,7 @@ class InterEvaluadores extends \common\models\base\modelBase
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
             [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
+             //[['persona_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_id' => 'id']],
         ];
     }
 
@@ -115,6 +117,17 @@ class InterEvaluadores extends \common\models\base\modelBase
     public function getCarrera()
     {
         return $this->hasOne(Carreras::className(), ['id' => 'carrera_id']);
+    }
+
+    
+    public function getPersona()
+    {
+        return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
+    
+    public function getTrabajador()
+    {
+        return $this->hasOne(\common\models\masters\Trabajadores::className(), ['id' => 'trabajador_id']);
     }
 
     /**

@@ -7,7 +7,7 @@ use common\helpers\h;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>',\yii\helpers\Url::to([Yii::$app->user->resolveUrlAfterLogin()]), ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 

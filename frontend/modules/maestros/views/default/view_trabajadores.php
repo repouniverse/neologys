@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $model->id;
 <div class="box box-success">
     <div class="box-body">
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('base.verbs', 'Edit'), ['update-trabajadores', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         
     </p>
 

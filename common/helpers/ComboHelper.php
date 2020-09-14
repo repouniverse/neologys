@@ -532,6 +532,13 @@ class ComboHelper  {
     }  
     
   
+     public static function getCboCargos($idDepa){
+        return ArrayHelper::map(
+                        \common\models\masters\Cargos::find()->andWhere(['depa_id'=>$idDepa])->all(),
+                'id','descargo');
+    }  
+    
+    
    public static function getCboCarreras($facultad_id=null){
       $query= \common\models\masters\Carreras::find();
       if(!is_null($facultad_id)){
@@ -1080,4 +1087,16 @@ class ComboHelper  {
     $idsuniver=\common\models\masters\Universidades::find()->select(['id'])->andWhere(['codpais'=>$codpais])->column();
     return $idsuniver;
   }
+  
+  public static function getcboTrabajadores($depaid=null)
+  {
+    $query= \common\models\masters\Trabajadores::find();
+      if(!is_null($depaid)){
+          $query->andWhere(['depa_id'=>$depaid]);
+      }
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','ap');
+    } 
+  
 }

@@ -313,6 +313,9 @@ Datos de sesión y de caché se han actualizado');
 
 public function actionRutas(){
     
+    //var_dUMP(h::user()->identity->profile->persona->identidad);
+   var_dump(\common\models\masters\Trabajadores::findOne(6)->persona->profile->user->id);
+    die();
    // var_dump(\common\models\masters\Docentes::findOne(2));die();
     $model= \common\models\masters\Personas::findOne(1);
      var_dump($model::className());
@@ -582,7 +585,7 @@ die();
             $arrpost=h::request()->post();
               //var_dump($arrpost);die();
             $profile->persona_id=$arrpost[$profile->getShortNameClass()]['persona_id'];
-             
+              $profile->universidad_id=$arrpost[$profile->getShortNameClass()]['universidad_id'];
             //$profile->codtra=$arrpost[$profile->getShortNameClass()]['codtra'];
             //var_dump(get_class($profile),$profile->validate());die();
             if (h::request()->isAjax) {
@@ -644,4 +647,30 @@ die();
       } 
           
     }
+    
+    public function actionWelcomeTrabajador(){
+       
+      //var_dump(yii::$app->viewPath);die();
+      //var_dump(h::user()->profile->persona->identidad);die();
+   if(!is_null(($persona=h::user()->profile->persona))){
+     //if(is_null(($alumno=$persona->alumno))){
+         if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+             if(!is_null($identidad=$persona->identidad)){
+                // echo $grupo->layout; die();
+             return $this->render($grupo->layout,['identidad'=>$identidad]);
+         }else{
+            echo " NO tiene el perfill alumno" ; die();
+         }
+         
+     }else{
+         echo " NO especigico el grupo en l atabla personas " ; die(); 
+     }
+    }else{
+        echo " NO tiene el perfil persona  " ; die(); 
+    }
+    
+  
+    }
+    
+    
 }

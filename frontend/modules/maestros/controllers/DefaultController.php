@@ -8,6 +8,7 @@ use Yii;
 use common\helpers\h;
 use common\models\masters\Periodos;
 use common\models\masters\Documentos;
+use common\models\masters\Cargos;
 use common\models\masters\DocumentosSearch;
 use common\models\masters\Facultades;
 use common\models\masters\FacultadesSearch;
@@ -871,31 +872,69 @@ class DefaultController extends \common\controllers\base\baseController
      */
     public function actionUpdateTrabajadores($id)
     {
-        $model = $this->findModelTrabajadores($id);
-     
-       /* $modito=\frontend\modules\import\models\ImportCargamasivaUser::find(31)->one();
-        $modito->setScenario('fechita');
-        $modito->fechacarga=date('Y-m-d H:i:s');
-        $modito->fechacarga=$modito->swichtDate('fechacarga',true);*/
-        //var_dump(Carbon::now());die();
-        //var_dump($modito->fechacarga,$modito->save(),$modito->getFirstError());die();
-        // var_dump(date('d/m/Y H:i:s'));die();
-         if (h::request()->isAjax && $model->load(h::request()->post())) {
-                h::response()->format = \yii\web\Response::FORMAT_JSON;
-                return \yii\widgets\ActiveForm::validate($model);
+        
+       /* $model = $this->findModelTrabajadores($id);
+        $modelPersona=$model->persona;
+   $modelPersona->setScenario($modelPersona::SCE_INTERMEDIO);
+        if (h::request()->isPost){
+            $model->load(h::request()->post());
+        $modelPersona->load(h::request()->post());
         }
-        
-        
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           return $this->redirect(['view-trabajadores', 'id' => $model->id]);
+        if (h::request()->isAjax &&
+            $model->load(h::request()->post()) &&
+            $modelPersona->load(h::request()->post())    
+                ) {
+                   h::response()->format = Response::FORMAT_JSON;
+           return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelPersona));
         }
-
-        
-        
+        if ($model->load(Yii::$app->request->post()) && 
+             $modelPersona->load(Yii::$app->request->post()) &&
+                $model->save() && $modelPersona->save()) {
+             h::session()->setFlash('success',m::t('labels','Data has been completed'));
+         return $this->redirect('index-dtrabajadores');
+        }else{
+           }
+ yii::error('a putno de renderizar',__FUNCTION__);
         return $this->render('update_trabajadores', [
-          'model'=>$model
+            'model' => $model,
+            'modelPersona'=>$modelPersona
         ]);
+        */
+        
+     
+        
+        
+         $model = $this->findModelTrabajadores($id);
+        
+        if (h::request()->isPost){
+            $model->load(h::request()->post());
+        }
+         
+        
+       // var_dump($modelP);die();
+        if (h::request()->isAjax &&
+            $model->load(h::request()->post())   
+                ) {
+                   h::response()->format = Response::FORMAT_JSON;
+           return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && 
+            
+                $model->save() ) {
+             h::session()->setFlash('success',m::t('labels','Data has been completed'));
+         return $this->redirect('index-trabajadores');
+        }else{
+           }
+ yii::error('a putno de renderizar',__FUNCTION__);
+        return $this->render('update_trabajadores', [
+            'model' => $model,
+            //'modelPersona'=>$modelPersona
+        ]);
+        
+        
+        
+        
+        
     }
 
     /**
@@ -1961,6 +2000,88 @@ class DefaultController extends \common\controllers\base\baseController
             'model' => $model,
         ]);
   }
+  
+  
+  
+    public function actionModalNewCargo($id){
+     $this->layout = "install";
+        $model = New Cargos();
+        $datos=[];
+        $modelDepa= Departamentos::findOne($id);
+        
+        if(is_null($modelDepa)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        $model->depa_id=$modelDepa->id;
+       /// $model->facultad_id=$modelFacultad->id;
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_cargo', [
+                        'model' => $model,
+                        'depa_id'=> $model->depa_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+    
+    
+     public function actionModalEditCargo($id){
+     $this->layout = "install";
+        $model = Cargos::findOne($id);
+        $datos=[];
+        //$modelUniversidad= Universidades::findOne($id);
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            echo yii::t('warnings','Record not found');die();
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        //$model->universidad_id=$modelUniversidad->id;
+      
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_cargo', [
+                        'model' => $model,
+                        'depa_id'=> $model->depa_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+   } 
   
   
   

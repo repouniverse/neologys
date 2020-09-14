@@ -8,7 +8,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 use backend\modules\base\Module as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
  USE yii\widgets\Pjax;
- use yii\grid\GridView;
+ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 /* @var $form yii\widgets\ActiveForm */
@@ -47,6 +47,19 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                             }
                     ]
                 ],
+             [
+                    'class' => 'kartik\grid\ExpandRowColumn',
+                    'width' => '50px',
+                    'value' => function ($model, $key, $index, $column)
+                               {
+                                return GridView::ROW_COLLAPSED;
+                               },
+                    'detail' => function ($model, $key, $index, $column) 
+                                {
+                                    return $this->render('_expand_cargos', ['model'=>$model]);
+                                },
+                    'expandOneOnly' => true
+                ],               
             'coddepa',
             'nombredepa',
             //'parametro',

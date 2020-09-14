@@ -119,6 +119,8 @@ class InterPlan extends \common\models\base\modelBase
     {
         return $this->hasOne(\common\models\masters\Facultades::className(), ['id' => 'facultad_id']);
     }
+    
+     
 
     /**
      * Gets query for [[Modo]].

@@ -2,7 +2,7 @@
     use yii\helpers\Url;
     use yii\helpers\Html;
     use kartik\grid\GridView;
-   // use yii\grid\GridView;
+   //use yii\grid\GridView;
     use yii\widgets\Pjax;
     use frontend\modules\inter\Module as m;
     echo \common\widgets\spinnerWidget\spinnerWidget::widget();    
@@ -69,13 +69,42 @@
                                    //'header'=>''
                                     //'group'=>true, 
                                      ],*/
+                                            
+                           [
+                    'class' => 'kartik\grid\ExpandRowColumn',
+                    'width' => '50px',
+                    'value' => function ($model, $key, $index, $column)
+                               {
+                                return GridView::ROW_COLLAPSED;
+                               },
+                    'detail' => function ($model, $key, $index, $column) 
+                                {
+                                    return $this->render('_expand_historial', ['model'=>$model,'datos'=>$model->datosExpedientes()]);
+                                },
+                    'expandOneOnly' => true
+                ],
+                [
+                            'attribute'=>'imagen',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                return Html::img($model->image($model->codigoalumno),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
+                            }
+                        ],                        
+                                        
+                   'codigoalumno',  
+                    'codesp',
                            ['attribute'=>'descripcion',
                                    //'header'=>''
                                     'group'=>true, 
                                      ],
                               ['attribute'=>'current_etapa',
+                                  'format'=>'raw',
+                                  'value'=>function($model){
+                                      return '<div class="circle-badge">'.$model->current_etapa.'</div>';
+                                  },
+                                  
                                    //'header'=>'current_stage',
-                                    'group'=>true, 
+                                   //'group'=>true, 
                                  ],
                                  
                                 'ap',
@@ -100,8 +129,9 @@
                 <?php  
                     echo $this->render('_search', ['model' => $searchModel, 'id'=>$id, 'modelPrograma'=>$modelPrograma]);  
                 ?>                
-                <p> <?= Html::a(m::t('labels', 'Create Inter Summoned'), ['create'], ['class' => 'btn btn-success']) ?> </p>
-                <div style='overflow:auto;'>
+                
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <div style='overflow:auto;'>
                     <?=ExportMenu::widget([
     'dataProvider' => $dataProvider,
     'columns' => $gridColumns,
@@ -113,7 +143,7 @@
 ]) . "<hr>\n".GridView::widget(
                         [
                             'dataProvider' => $dataProvider,
-                            'summary' => '',
+                            //'summary' => '',
                             'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
                           //  'filterModel' => $searchModel,
                             'columns' => $gridColumns,
@@ -121,7 +151,8 @@
                         ]);
                     ?>
             <?php Pjax::end(); ?>
-                </div>
+</div>
         </div>
     </div>
-</div>       
+</div> 
+ </div>  

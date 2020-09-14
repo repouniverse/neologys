@@ -11,6 +11,7 @@ use common\models\masters\Personas;
 use common\models\masters\Alumnos;
 use frontend\modules\inter\Module as m;
 use frontend\modules\inter\models\InterPlan;
+use common\helpers\h;
 use Yii;
 
 class InterConvocados extends \common\models\base\modelBase
@@ -499,4 +500,7 @@ public function beforeSave($insert) {
         
         
         }
+        
+        
+ 
 }

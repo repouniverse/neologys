@@ -18,7 +18,7 @@ class InterPlanSearch extends InterPlan
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id'], 'integer'],
-            [['id', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'orden', 'etapa_id', 'ordenetapa'], 'safe'],
+            [['id','descripcion','codocu', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'orden', 'etapa_id', 'ordenetapa'], 'safe'],
         ];
     }
 
@@ -58,14 +58,15 @@ class InterPlanSearch extends InterPlan
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+           // 'id' => $this->id,
             'universidad_id' => $this->universidad_id,
             'facultad_id' => $this->facultad_id,
-            'depa_id' => $this->depa_id,
-             'eval_id' => $this->eval_id,
+            //'depa_id' => $this->depa_id,
+            // 'eval_id' => $this->eval_id,
             'programa_id' => $this->programa_id,
             'modo_id' => $this->modo_id,
             'etapa_id' => $this->etapa_id,
+            'codocu' => $this->codocu,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion])

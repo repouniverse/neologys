@@ -88,6 +88,10 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',
                 ],
+                'base_errors' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
                 'julian' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',

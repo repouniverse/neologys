@@ -1,6 +1,7 @@
 <?php
 use frontend\modules\inter\Module as m;
 use yii\helpers\Html;
+use common\helpers\h;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
@@ -13,13 +14,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-programa-index">
    
-    <h4><?= Html::encode($this->title) ?></h4>
+    <h4><?=h::awe('calendar').h::space(10).Html::encode($this->title) ?></h4>
     <div class="box box-success">
      <div class="box-body">
     <?php Pjax::begin(['id'=>'planPjax']); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search_planes', ['model' => $searchModel]); ?>
 
-    
+    .
+   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
     <div style='overflow:auto;'>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -64,7 +66,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         
                     ]
                 ],
+              [
+                    'class' => 'kartik\grid\ExpandRowColumn',
+                    'width' => '50px',
+                    'value' => function ($model, $key, $index, $column)
+                               {
+                                return GridView::ROW_COLLAPSED;
+                               },
+                    'detail' => function ($model, $key, $index, $column) 
+                                {
+                                    return $this->render('_expand_evaluadores', ['model'=>$model]);
+                                },
+                    'expandOneOnly' => true
+                ],                   
+                                 
          'descripcion',
+         'orden',
          ['attribute'=>'modo_id',
              'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
              'value'=>function($model){
@@ -77,6 +94,15 @@ $this->params['breadcrumbs'][] = $this->title;
              'value'=>function($model){
                  $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
                         return $etapa->descripcion;
+             },
+                      'group'=>true,
+             ],
+                     
+         ['attribute'=>'codocu',
+             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboDocuments(),
+             'value'=>function($model){
+               //  $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
+                        return $model->documento->desdocu;
              },
                       'group'=>true,
              ],
@@ -107,4 +133,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
     </div>
+</div>
        

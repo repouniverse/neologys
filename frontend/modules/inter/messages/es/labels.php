@@ -9,7 +9,7 @@ return [
     'Mode'=>'Modo',
     'Student'=>'Alumno',
     'Students'=>'Alumnos',
-    'Creare Student'=>'Crear Alumno',
+    'Create Student'=>'Crear Alumno',
     'Code Student'=>'Código Alumno',
     'Race'=>'Carrera',
     'Mail'=>'Correo',

@@ -465,34 +465,27 @@ class ConvocadosController extends baseController
         $modelP=$model->alumno->persona;
      
         $modelP->setScenario($modelP::SCE_INTERMEDIO);
-        if (h::request()->isPost){
-           // $model->load(h::request()->post());
-            //$modelP->load(h::request()->post());
-           // yii::error(h::request()->post()['InterConvocados'],__FUNCTION__);
-         //yii::error(h::request()->post()['Personas'],__FUNCTION__);
-        //yii::error($model->load(h::request()->post()),__FUNCTION__);
-       // yii::error($modelP->load(h::request()->post()),__FUNCTION__);
-        }
-         
+        
         
        // var_dump($modelP);die();
         if (h::request()->isAjax &&
             $model->load(h::request()->post()) &&
             $modelP->load(h::request()->post())    
                 ) {
-                  //var_dump($modelP->attributes);die();
-            //yii::error('paso el ajzx',__FUNCTION__);
+                  yii::error($modelP->attributes,__FUNCTION__);
+            yii::error('paso el ajzx',__FUNCTION__);
                 h::response()->format = Response::FORMAT_JSON;
-              //yii::error('Los errores',__FUNCTION__);  
-              // yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
-               //yii::error(ActiveForm::validate($model),__FUNCTION__);
-               // yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
+             // yii::error('Los errores',__FUNCTION__);  
+               //yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
+              //yii::error(ActiveForm::validate($model),__FUNCTION__);
+                yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
                 return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP));
         }
-       // yii::error('continuado',__FUNCTION__);
+        yii::error('continuado',__FUNCTION__);
         if ($model->load(Yii::$app->request->post()) && 
              $modelP->load(Yii::$app->request->post()) &&
                 $model->save() && $modelP->save()) {
+             yii::error('GRABO AMBOS ',__FUNCTION__);
             //var_dump(!is_null($exp=$model->firstExpediente()));die();
             if(!is_null($exp=$model->firstExpediente()))
                 if($exp->aprove()){
@@ -507,7 +500,7 @@ class ConvocadosController extends baseController
             h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
             return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
- //yii::error('a putno de renderizar',__FUNCTION__);
+ yii::error('a putno de renderizar',__FUNCTION__);
         return $this->render('ficha_postulante', [
             'model' => $model,
             'modelP'=>$modelP

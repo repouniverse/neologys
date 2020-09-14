@@ -282,7 +282,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     
  public function beforeSave($insert) {
      if($insert){
-        $this->resolveUniversity(); 
+        //$this->resolveUniversity(); 
         $this->resolveMultiple(); 
      }
      return parent::beforeSave($insert);

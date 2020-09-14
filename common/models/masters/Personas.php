@@ -106,7 +106,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             'numerodoc','identidad_id',
             'codgrupo','cumple','domicilio','telfijo','telmoviles','pais',
             'depdir','provdir','distdir','alergias','gruposangu','usoregulmedic',
-            'depnac','provnac','distnac','pasaporte','referencia','provnac','distnac',
+            /*'depnac','provnac','distnac',*/'pasaporte','referencia',
             'sexo','estcivil','alergias',
             
             ],'required','on'=>self::SCE_INTERMEDIO],
