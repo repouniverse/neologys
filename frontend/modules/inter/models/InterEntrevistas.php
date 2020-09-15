@@ -1,10 +1,14 @@
 <?php
 
-namespace frontend\modules\inter\models;
-USE common\models\masters\Universidades;
-USE common\models\masters\Facultades;
-use common\helpers\RangeDates; 
-use Yii;
+    namespace frontend\modules\inter\models;
+    use common\models\masters\Universidades;
+    use common\models\masters\Facultades;
+    use common\helpers\RangeDates; 
+    use common\models\masters\Personas;
+    use frontend\modules\inter\models\InterConvocados;
+    use frontend\modules\inter\models\InterPlan;
+    use frontend\modules\inter\Module as m;
+    use Yii;
 
 /**
  * This is the model class for table "7pxv4v_inter_entrevistas".
@@ -54,7 +58,7 @@ implements \common\interfaces\rangeInterface
         'finicio' => self::_FDATETIME,
         'ftermino' => self::_FDATETIME
     ];
-    public $booleanFields=['asistio'];
+    //public $booleanFields=['asistio'];
     /**
      * {@inheritdoc}
      */
@@ -70,7 +74,7 @@ implements \common\interfaces\rangeInterface
             [['detalles', 'detalles_secre'], 'string'],
             [['codperiodo', 'finicio', 'ftermino'], 'string', 'max' => 19],
             [['numero', 'codfac'], 'string', 'max' => 8],
-            //[['asistio', 'activo', 'masivo'], 'string', 'max' => 1],
+            [['asistio','activo', 'masivo'], 'string', 'max' => 1],
             [['etapa_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterEtapas::className(), 'targetAttribute' => ['etapa_id' => 'id']],
             [['expediente_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterExpedientes::className(), 'targetAttribute' => ['expediente_id' => 'id']],
             [['modo_id'], 'exist', 'skipOnError' => true, 'targetClass' => InterModos::className(), 'targetAttribute' => ['modo_id' => 'id']],
@@ -85,37 +89,38 @@ implements \common\interfaces\rangeInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'facultad_id' => 'Facultad ID',
-            'etapa_id' => 'Etapa ID',
-            'universidad_id' => 'Universidad ID',
-            'modo_id' => 'Modo ID',
-            'codperiodo' => 'Codperiodo',
-            'expediente_id' => 'Expediente ID',
+            'id' =>  m::t('labels', 'ID'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'etapa_id' => m::t('labels', 'Stage'),
+            'universidad_id' =>  m::t('labels', 'University'),
+            'modo_id' => m::t('labels', 'Mode'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'expediente_id' => m::t('labels', 'File'),
             'convocado_id' => 'Convocado ID',
             'persona_id' => 'Persona ID',
-            'finicio' => 'Finicio',
+            'finicio' => m::t('labels', 'Begin Date'),
             'numero' => 'Numero',
-            'ftermino' => 'Ftermino',
-            'asistio' => 'Asistio',
-            'detalles' => 'Detalles',
-            'detalles_secre' => 'Detalles Secre',
-            'activo' => 'Activo',
+            'ftermino' => m::t('labels', 'End Date'),
+            'asistio' => m::t('labels', 'Attended'), 
+            'detalles' => m::t('labels', 'Details'),
+            'detalles_secre' => m::t('labels', 'Details Secrets'),
+            'activo' => m::t('labels', 'Active'),
             'masivo' => 'Masivo',
             'duracion' => 'Duracion',
             'codfac' => 'Codfac',
             'flujo_id' => 'Flujo ID',
+            'fechaprog' => m::t('labels', 'Scheduled Date'),  
         ];
     }
 
     
     public function scenarios() {
-        $scenarios = parent::scenarios();
+        $scenarios = parent::scenarios();   
         $scenarios[self::SCENARIO_BASICO] = [
             'facultad_id', 'universidad_id', 
             'etapa_id', 'fechaprog', 'codperiodo', 
             'persona_id', 'etapa_id', 'modo_id', 'expediente_id','plan_id',
-            'convocado_id'];
+            'convocado_id', 'asistio', 'activo'];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio','justificada'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
         $scenarios[self::SCENARIO_ACTIVO] = ['activo'];
@@ -123,6 +128,26 @@ implements \common\interfaces\rangeInterface
         */
         return $scenarios;
     }
+    /**
+     * Gets query for [[Persona]].
+     *
+     * @return \yii\db\ActiveQuery|PersonasQuery
+     */
+    public function getPersona()
+    {
+        return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
+    
+    /**
+     * Gets query for [[InterConvocados]].
+     *
+     * @return \yii\db\ActiveQuery|InterConvocadosQuery
+     */
+    public function getConvocado()
+    {
+        return $this->hasOne(InterConvocados::className(), ['id' => 'convocado_id']);
+    }
+    
     /**
      * Gets query for [[Etapa]].
      *
@@ -173,6 +198,16 @@ implements \common\interfaces\rangeInterface
         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
     }
 
+    /**
+     * Gets query for [[InterPlan]].
+     *
+     * @return \yii\db\ActiveQuery|InterPlanQuery
+     */
+    public function getPlan()
+    {
+        return $this->hasOne(InterPlan::className(), ['id' => 'plan_id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return InterEntrevistasQuery the active query used by this AR class.

@@ -232,9 +232,9 @@ echo CalendarScheduleWidget::widget([
         
         /*evento Click*/
         'eventClick' => new JsExpression('function(event) {'
-                . 'if (confirm("'.yii::t('sta.labels','¿Confirmar que desea visualizar la cita ?').'")) {
-                 var url = "sta/citas/view?id="+event.id; // t
-          var abso="'.\yii\helpers\Url::home(true).'";
+                . 'if (confirm("'.yii::t('sta.labels','¿Confirmar que desea visualizar la cita ?').'")) {'
+                .'var url = "/inter/expedientes/update-inter-entrevista?id="+15;' // t
+          .'var abso="'.\yii\helpers\Url::home(true).'";
               window.open(abso+url);
           //window.location=abso+url;
                 }'
