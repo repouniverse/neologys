@@ -35,6 +35,8 @@ implements \common\interfaces\postulantesInterface
      */
 
     const SCE_CREACION_BASICA='base';
+    const SCE_EXTRANJERO='extranjero';
+    const SCE_LOCAL='local';
     /**
      * {@inheritdoc}
      */
@@ -69,6 +71,22 @@ implements \common\interfaces\postulantesInterface
           // [['tipodoc','numerodoc'], "targetClass" => \common\models\masters\Personas::className(),"targetAttribute" => ['tipodoc','numerodoc']],
             //[['tipodoc','numerodoc'], "validateDocumento"],
             
+            
+            
+            [[
+           'codalu', 'ap','am','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id','carrera_id','mail',
+            'lugarnacimiento','telpaisorigen',
+            'codcontpaisorigen','polizaseguroint','telefasistencia',
+            'paisresidencia','lugarresidencia',
+            'codresponsable',
+                'domiciliopaisorigen',
+            ],'required','on'=>self::SCE_EXTRANJERO],
+            
+            
+            
+            
+            
             /*****/
             [['codalu', 'codalu1', 'codalu2'], 'string', 'max' => 16],
             [[ 'codesp'], 'string', 'max' => 8],
@@ -92,6 +110,18 @@ implements \common\interfaces\postulantesInterface
            'codalu', 'ap','am','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id','mail'
             ];
+        
+        $scenarios[self::SCE_EXTRANJERO] = [
+           'codalu', 'ap','am','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id','carrera_id','mail',
+            'lugarnacimiento','telpaisorigen',
+            'codcontpaisorigen','polizaseguroint','telefasistencia',
+            'paisresidencia','lugarresidencia','codcontpaisresidencia',
+            'parentcontpaisresid','codresponsable',
+                'domiciliopaisorigen',
+            ];
+        
+        
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
         $scenarios[self::SCENARIO_ACTIVO] = ['activo'];

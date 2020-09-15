@@ -463,9 +463,12 @@ class ConvocadosController extends baseController
         $model = $this->findModel($id);
         $model->setScenario($model::SCENARIO_FICHA);
         $modelP=$model->alumno->persona;
-     
-        $modelP->setScenario($modelP::SCE_INTERMEDIO);
-        
+         if($model->alumno->isExternal()){
+           $scenario=$modelP::SCE_EXTRANJERO;  
+         }ELSE{
+             $scenario=$modelP::SCE_INTERMEDIO;   
+         }
+        $modelP->setScenario($scenario);        
         
        // var_dump($modelP);die();
         if (h::request()->isAjax &&

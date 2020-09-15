@@ -100,16 +100,18 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             
             
             
-            [[
+            /*[[
             'ap', 'am',
             'nombres', 'tipodoc', 
-            'numerodoc','identidad_id',
+            'numerodoc','facultad_id',
+            'universidad_id','carrera_id',
+            
             'codgrupo','cumple','domicilio','telfijo','telmoviles','pais',
             'depdir','provdir','distdir','alergias','gruposangu','usoregulmedic',
-            /*'depnac','provnac','distnac',*/'pasaporte','referencia',
+            'depnac','provnac','distnac','pasaporte','referencia',
             'sexo','estcivil','alergias',
             
-            ],'required','on'=>self::SCE_INTERMEDIO],
+            ],'required','on'=>self::SCE_EXTRANJERO],*/
             
             //[['numerodoc','tipodoc'], 'unique'],
              //[['dni'], 'unique'],

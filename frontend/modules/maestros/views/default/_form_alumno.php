@@ -126,7 +126,7 @@
         </div>
     
         <?php
-            if ($modelPersona->paisresidencia=='PE')    
+            if (!$model->isExternal())    
             {                
         ?>
     
