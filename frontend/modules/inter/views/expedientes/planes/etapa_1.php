@@ -13,8 +13,13 @@
     use common\models\masters\Alumnos;
 ?>
 <div class="inter-convocados-form">
+    <div class="box-body">
+       <?php echo $this->render('encabezado',['model'=>$model,'identidad'=>$identidad]); ?>
+    </div>
     <br>
         <?php 
+            $modelP=$persona;UNSET($persona);
+            $model=$convocado;UNSET($convocado);
             $paisResidencia = Alumnos::studentPais($model->universidad_id);    //$model->studentPais($model->universidad_id);
             $modelP->paisresidencia = $paisResidencia;
             $form = ActiveForm::begin
@@ -25,13 +30,7 @@
                         ]
                     ); 
         ?>
-        <div class="box-header">
-            <div class="col-md-12">
-                <div class="form-group no-margin">                
-                    <?= Html::submitButton('<span class="fa fa-save"></span>     '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
-                </div>
-            </div>
-        </div>
+       
         <div class="box-body"> 
             <?php $alumno=$model->alumno;  ?>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

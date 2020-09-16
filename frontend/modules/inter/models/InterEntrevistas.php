@@ -4,6 +4,7 @@ namespace frontend\modules\inter\models;
 USE common\models\masters\Universidades;
 USE common\models\masters\Facultades;
 use common\helpers\RangeDates; 
+ use frontend\modules\inter\models\InterConvocados;
 use Yii;
 
 /**
@@ -39,7 +40,7 @@ use Yii;
 class InterEntrevistas extends \common\models\base\modelBase
 implements \common\interfaces\rangeInterface
 {
-    
+    public  $prefijo='125';
     const SCENARIO_BASICO='basico';
     /**
      * {@inheritdoc}
@@ -54,7 +55,7 @@ implements \common\interfaces\rangeInterface
         'finicio' => self::_FDATETIME,
         'ftermino' => self::_FDATETIME
     ];
-    public $booleanFields=['asistio'];
+    public $booleanFields=['asistio','activo'];
     /**
      * {@inheritdoc}
      */
@@ -132,7 +133,10 @@ implements \common\interfaces\rangeInterface
     {
         return $this->hasOne(InterEtapas::className(), ['id' => 'etapa_id']);
     }
-
+public function getPlan()
+    {
+        return $this->hasOne(InterPlan::className(), ['id' => 'plan_id']);
+    }
     /**
      * Gets query for [[Expediente]].
      *
@@ -143,6 +147,11 @@ implements \common\interfaces\rangeInterface
         return $this->hasOne(InterExpedientes::className(), ['id' => 'expediente_id']);
     }
 
+    
+    public function getConvocado()
+    {
+        return $this->hasOne(InterConvocados::className(), ['id' => 'convocado_id']);
+    }
     /**
      * Gets query for [[Modo]].
      *
@@ -254,5 +263,33 @@ public function  rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null){
       Return $rangoSemana;
  }
     
+    public function putColorEventsCalendar($events){
+        foreach ($events as $key=>$event){
+            if($event['id']==$this->id){
+               // yii::error('coincidio');
+               $event['color']="#ff0000";
+               $events[$key]=$event;
+              // yii::error($event);
+               //break;
+            }
+        }
+        return $events;
+        
+    }
     
+   public function beforeSave($insert) {
+       if($insert){
+           $this->activo=true;
+           $this->numero=$this->correlativo('numero');
+       }
+       return parent::beforeSave($insert);
+   }
+   
+   /*
+    * asiste False para revertir asistencia 
+    */
+   public function asiste($asiste=true){
+       $this->asistio=$asiste;
+      return  $this->save();
+   }
 }

@@ -124,9 +124,9 @@ class InterVwConvocados extends \common\models\base\modelBase
      $registros=$this->getExpedientes()->orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])->all();
      foreach($registros as $expediente){
          $datos1['titulo']=$expediente->plan->acronimo;
-         $datos1['subtitulo']=Html::a($expediente->documento->desdocu,Url::to(['/inter/expedientes/update-expediente','id'=>$expediente->id]),['data-pjax'=>'0','target'=>'_blank']);
+         $datos1['subtitulo']=Html::a($expediente->documento->desdocu,Url::to(['/inter/expedientes/update','id'=>$expediente->id]),['data-pjax'=>'0','target'=>'_blank']);
          $plan=$expediente->plan;
-         $area=m::t('labels','Departament').': '.$plan->depa->nombredepa;
+         $area=m::t('labels','Departament').': '.$plan->eval->depa->nombredepa;
          $texto=m::t('labels','Aprobe For').': '.$plan->eval->trabajador->fullName();
          $font=($expediente->estado)?'check-circle':'exclamation-triangle';
          $color=($expediente->estado)?'#60a917':'#f39c12';

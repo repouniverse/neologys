@@ -20,9 +20,7 @@ $plan=$current_expediente->plan;
 
 <div class="borereuccess">   
   <div class="box-body">               
-      <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-          <div class="alert alert-warning"><?php echo $plan->descripcion.h::space(20).Html::a('('.m::t('labels','See schedules').')',Url::to(['/inter/programa/view-plan','id'=>$plan->id]),['target'=>'_blank']); ?></div>
-      </div>
+      
     
         
             
@@ -211,9 +209,15 @@ echo CalendarScheduleWidget::widget([
         /*evento Click*/
         'eventClick' => new JsExpression('function(event) {'
                 . 'if (confirm("'.yii::t('sta.labels','¿Confirmar que desea visualizar la cita ?').'")) {
-                 var url = "sta/citas/view?id="+event.id; // t
+                 var url = "inter/expedientes/modal-edit-entrevista?id="+event.id; // t
           var abso="'.\yii\helpers\Url::home(true).'";
-              window.open(abso+url);
+              //window.open(abso+url);
+              $("#buscarvalor").modal("show")
+                  //.find(".modal-content")
+                  .load(abso+url);  
+                
+
+
           //window.location=abso+url;
                 }'
                 . '}'),

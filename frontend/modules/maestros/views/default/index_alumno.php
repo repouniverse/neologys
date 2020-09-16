@@ -31,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'codalu',
                         'ap',
                         'am',
-                        'nombres', 
+                        'nombres',
+                        [
+                            'attribute'=>'carrera_id',
+                            //'format'=>'raw',
+                            'value'=>function($model){
+                                return $model->carrera->nombre;
+                            }
+                        ],
                         [
                             'attribute'=>'imagen',
                             'format'=>'raw',

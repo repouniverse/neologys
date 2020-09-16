@@ -11,6 +11,7 @@ interface postulantesInterface {
     public function questionsForAutenticate();
     public function modelByCode($code);
     public function code();
+    public function nameFieldCode();
     public function createUser();
     public function isExternal();
 }

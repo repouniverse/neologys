@@ -15,7 +15,7 @@
     <h4><?= Html::encode($this->title) ?></h4>
     <div class="box box-success">
         <div class="box-body">
-            <?php Pjax::begin();
+            <?php Pjax::begin(['id'=>'index-con','timeout'=>false]);
             
             $gridColumns=[   
                                 [

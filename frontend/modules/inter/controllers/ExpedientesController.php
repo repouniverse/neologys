@@ -1,13 +1,15 @@
 <?php
 
 namespace frontend\modules\inter\controllers;
-
+use frontend\modules\inter\Module as m;
 use Yii;
 use frontend\modules\inter\models\InterExpedientes;
+use frontend\modules\inter\models\InterEntrevistas;
 use frontend\modules\inter\models\InterExpedientesSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\helpers\h;
 
 /**
  * ExpedientesController implements the CRUD actions for InterExpedientes model.
@@ -89,9 +91,16 @@ class ExpedientesController extends baseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        return $this->render('update', [
+        $convocado=$model->convocado;
+         $persona=$convocado->persona;
+        $identidad=$persona->identidad;
+       
+        
+        return $this->render('/expedientes/planes/marco_general', [
+            'persona' => $persona,
             'model' => $model,
+            'identidad'=>$identidad,
+            'convocado'=>$convocado
         ]);
     }
 
@@ -149,4 +158,132 @@ class ExpedientesController extends baseController
        return  $this->render('calendario',['model'=>$model, 'eventosHorarios'=> $eventosHorarios]);
         
     }
+    
+   public function actionUpdateInterEntrevista($id)
+    {
+       $this->layout="install";
+        /*$model = $this->findModelInterEntrevista($id);
+        $persona = $model->convocado->persona;
+        
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $modelExp->redirect(['view', 'id' => $idExpediente]);
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            return array_merge(ActiveForm::validate($model),ActiveForm::validate($persona));
+        }
+        
+        return $this->render('update_entrevista', [
+            'model' => $model,'persona' => $persona
+        ]);*/
+        
+        $model = $this->findModelInterEntrevista($id);
+        $persona=$model->convocado->persona;        
+        //$model->setScenario($model::SCENARIO_BASICO);
+        
+        if (h::request()->isPost)
+        {
+            $model->load(h::request()->post());
+        }
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) 
+        {
+            h::response()->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        {
+            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            //return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
+        }
+        
+        yii::error('a putno de renderizar',__FUNCTION__);
+        return $this->render('update_entrevista', 
+                      [
+                        'model' => $model,
+                        'persona'=>$persona
+                      ]);
+        
+    }
+    
+    
+    public function actionModalEditEntrevista($id){
+     $this->layout = "install";
+        $model = $this->findModelInterEntrevista($id);
+        $persona=$model->convocado->persona; 
+        $datos=[];
+       
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('modal_update_entrevista', [
+                        'model' => $model,
+                        'persona'=>$persona,
+                        //'docente_id'=> $model->docente_id,
+                        'gridName'=>'PjaxCalendar',
+                        'idModal'=>'buscarvalor',
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }  
+    
+    
+    protected function findModelInterEntrevista($id)
+    {
+        if (($model = InterEntrevistas::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
+    } 
+    
+  
+   public function actionAjaxAsisteEntrevista($id){
+     
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model= \frontend\modules\inter\models\InterEntrevistas::findOne($id);
+          if(is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+          }else{
+              if($model->asiste()){
+                  return ['success'=>m::t('labels','File was aprobed')];
+              }else{
+                  return ['error'=>m::t('labels','There were problems').$model->getFirstError()];
+              }
+          }
+      }
+     
+   } 
+    
+    public function actionModalViewHorarios($id){
+    $this->layout="install";
+    $model= \frontend\modules\inter\models\InterPlan::findOne($id);
+    if(is_null($model))
+      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+     return $this->render('_view_horarios',['model'=>$model]);
+    
+  }  
+    
 }

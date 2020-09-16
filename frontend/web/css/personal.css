@@ -171,3 +171,40 @@ div.circle-badge {
     line-height: 28px;
     opacity: 0.7;
 }
+
+.aviso-success{
+    background-color: #ebf7cd !important;
+    color: #1e9828;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #31ad0a;
+    padding:10px;
+}
+
+
+
+.aviso-warning{
+    background-color: #f8fd805e !important;
+    color: #f9bf57;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #orange;
+    padding:10px;
+}
+
+.aviso-danger{
+    background-color: #fff0f0 !important;
+    color: #ff5353;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: red;
+    padding:10px;
+}
+.aviso-info{
+    background-color: #e7f9ff !important;
+    color: #14b5e4;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #2593c7;
+    padding:10px;
+}

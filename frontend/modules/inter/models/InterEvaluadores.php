@@ -63,6 +63,15 @@ class InterEvaluadores extends \common\models\base\modelBase
         ];
     }
 
+    
+    public function behaviors() {
+        return [
+            
+            'auditoriaBehavior' => [
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+        ];
+  }   
     /**
      * {@inheritdoc}
      */

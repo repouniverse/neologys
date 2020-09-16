@@ -108,7 +108,10 @@ use common\widgets\selectwidget\selectWidget;
                             'options'=>['class'=>'form-control']
                             ]) ?>
 </div>  
-   
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    
+    <?= $form->field($model, 'notificamail')->checkbox([]) ?>
+    </div>
 
     <?php ActiveForm::end(); ?>
 

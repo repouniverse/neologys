@@ -271,6 +271,17 @@ class InterConvocados extends \common\models\base\modelBase
        RETURN parent::afterSave($insert, $changedAttributes);
    }
    
+   public function afterFind() {
+       if(!$this->hasExpedientes()){
+           //echo "ddsds";die();
+           $this->createFirstExpediente();
+       }else{
+           //echo "dsfsfsfsfsfsdsds";die();
+       }
+       
+       return parent::afterFind();
+   }
+   
   /*public function hasCompleteExpedientes(){
       $this->getExpedientes()->andWhere(['estado'=>'1']);
   }*/
@@ -401,11 +412,18 @@ public function porcAvanceUploads($stage){
     }
   
  public function createFirstExpediente(){
-    $modelPlan= Interplan::find()->
+    $modelPlan= Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
-            ])->orderBy(['orden'=>SORT_ASC])->one(); 
-   return $this->createExpediente($modelPlan);
+            ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
+    ->where(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->one();
+   /* echo Interplan::find()->alias('t')->
+    andWhere(['modo_id'=>$this->modo_id,
+      'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
+            ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
+    ->where(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->limit(1)->createCommand()->rawSql;DIE();*/
+   
+    return $this->createExpediente($modelPlan);
     
  }
  
@@ -420,8 +438,8 @@ public function porcAvanceUploads($stage){
  
  private function createExpediente(InterPlan $modelPlan){
      /*Solo los planes de la especialidad del alumno*/
-    if($modelPlan->eval->carrera->id==$this->alumno->carrera_id)
-    return  InterExpedientes::firstOrCreateStatic([
+    if($modelPlan->eval->carrera->id==$this->alumno->carrera_id){
+        return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
                        'facultad_id'=>$this->facultad_id,
                        'depa_id'=>$this->depa_id,
@@ -439,7 +457,13 @@ public function porcAvanceUploads($stage){
                  'plan_id'=>$modelPlan->id,
                 'orden'=>$modelPlan->ordenetapa,
                 ] );
-    return false;
+      
+    }else{
+       return false; 
+      
+    }
+    
+    
  }
    
  public function validateOpUniv($attribute, $params)
@@ -501,6 +525,8 @@ public function beforeSave($insert) {
         
         }
         
-        
+  public function hasExpedientes(){
+      return ($this->getExpedientes()->count()==0)?FALSE:true;
+  }      
  
 }

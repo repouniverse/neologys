@@ -283,6 +283,9 @@ public function behaviors()
              ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
  }
  public function code(){
-     return $this->codigoper;
+     return $this->codoce;
+ }
+ public function nameFieldCode(){
+     return 'codoce';
  }
 }

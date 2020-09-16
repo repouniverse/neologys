@@ -182,6 +182,11 @@ class InterExpedientes extends \common\models\base\modelBase
         return $this->hasOne(InterPlan::className(), ['id' => 'plan_id']);
     }
     
+     public function getEtapa()
+    {
+        return $this->hasOne(InterEtapas::className(), ['id' => 'etapa_id']);
+    }
+    
     /**
      * Gets query for [[Convocado]].
      *
@@ -202,6 +207,11 @@ class InterExpedientes extends \common\models\base\modelBase
         return $this->hasOne(Departamentos::className(), ['id' => 'depa_id']);
     }
 
+    public function getEntrevistas()
+    {
+        return $this->hasMany(InterEntrevistas::className(), ['expediente_id' => 'id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return InterExpedientesQuery the active query used by this AR class.
@@ -217,6 +227,8 @@ class InterExpedientes extends \common\models\base\modelBase
        /// $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
+        if($grabo && $this->plan->notificamail)
+        $this->mailAprove();
         //var_dump($grabo);die();
         ///$this->setScenario($oldScenario);//dejamos las cosas como estaban antes
         return $grabo;
@@ -244,5 +256,42 @@ class InterExpedientes extends \common\models\base\modelBase
         return $events;
         
     }
+    
+ public function hasEntrevista(){
+     $model=$this->getEntrevistas()->andWhere([
+         'activo'=>'1'
+     ])->one();
+//var_dump($model);die();
+     return (!is_null($model))?$model:false;
+ } 
+ 
+ public function mailAprove(){
+  $alumno=$this->convocado->alumno;
+ $mailer = new \common\components\Mailer();
+        $message = new \yii\swiftmailer\Message();
+        $message->setSubject('APROBACION DE EXPEDIENTE')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
+                ->setTo($alumno->mail)
+                ->SetHtmlBody("Buenas Tardes   " . $alumno->fullName() . " <br>"
+                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
+                        . "La presente es para notificarle que has  "
+                        . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
+                        . "Te esperamos en la siguiente etapa  ");
+
+        try {
+
+            $result = $mailer->send($message);
+            return true;
+            $mensajes['success'] = m::t('labels','Se envió el correo, confirmando la aprobación del expediente ');
+        } catch (\Swift_TransportException $Ste) {
+            $mensajes['error'] = $Ste->getMessage();
+        }
+          return $mensajes;
+        
+        }
+       
+
+
+ 
    
 }

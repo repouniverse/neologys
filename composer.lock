@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf43278899da92a17c83c363640b94a4",
+    "content-hash": "1877722495aa1a734e5e7583155cee1b",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -96,7 +96,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -1601,6 +1601,60 @@
                 "yii2"
             ],
             "time": "2020-03-20T14:21:31+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-widget-datetimepicker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-datetimepicker.git",
+                "reference": "f64114bff520ea67f48e2a4e6372915968eb2c69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datetimepicker/zipball/f64114bff520ea67f48e2a4e6372915968eb2c69",
+                "reference": "f64114bff520ea67f48e2a4e6372915968eb2c69",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=2.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\datetime\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Enhanced Yii2 wrapper for the bootstrap datetimepicker plugin (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-datetimepicker",
+            "keywords": [
+                "datetime",
+                "extension",
+                "form",
+                "jquery",
+                "picker",
+                "plugin",
+                "select2",
+                "widget",
+                "yii2"
+            ],
+            "time": "2020-09-11T13:24:42+00:00"
         },
         {
             "name": "kartik-v/yii2-widget-select2",
@@ -8131,6 +8185,7 @@
         "ruskid/yii2-csv-importer": 20,
         "kartik-v/yii2-editable": 20,
         "kartik-v/yii2-export": 20,
+        "kartik-v/yii2-widget-datetimepicker": 20,
         "nemmo/yii2-attachments": 10
     },
     "prefer-stable": false,

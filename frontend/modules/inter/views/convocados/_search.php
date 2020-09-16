@@ -11,7 +11,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 <div class="citas-search">
     <?php $form = ActiveForm::begin(
           [
-            'action' => ['index','id'=>$id, 'modelPrograma'=>$modelPrograma],
+           // 'action' => ['index','id'=>$id, 'modelPrograma'=>$modelPrograma],
             'method' => 'get',
             'options' => ['data-pjax' => 1],
           ]); 

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 $url= Url::to
                                                       (
                                                         [
-                                                            'modal-edit-plan','id'=>$model->id,'gridName'=>'grilla-plan-evaluaciones',
+                                                            'modal-edit-plan','id'=>$model->id,'gridName'=>'planPjax',
                                                             'idModal'=>'buscarvalor'
                                                         ]
                                                       );

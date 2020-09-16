@@ -41,7 +41,7 @@ class InterPlan extends \common\models\base\modelBase
         //'ftermino' => self::_FDATETIME
     ];
     
-    
+     public $booleanFields=['notificamail'];
     /**
      * {@inheritdoc}
      */
@@ -59,7 +59,7 @@ class InterPlan extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'eval_id', 'modo_id', 'programa_id'], 'integer'],
             [['acronimo', 'descripcion'], 'required'],
             [['detalles'], 'string'],
-             [['finicio'], 'safe'],
+             [['finicio','notificamail'], 'safe'],
              [['orden','requisito_id','etapa_id','ordenetapa'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
@@ -240,7 +240,7 @@ class InterPlan extends \common\models\base\modelBase
         $entrevistas=$this->populateEntrevistas();
         $entrevs=[];
         foreach($entrevistas as $entrevista){
-           $entrevs[]=$entrevista->range()->toEventCalendar($title=null,$entrevista->expediente_id); 
+           $entrevs[]=$entrevista->range()->toEventCalendar($title=null,$entrevista->id,['botonAbre']); 
         }
         unset($entrevistas);
         return $entrevs;

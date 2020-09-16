@@ -272,16 +272,19 @@ public function rangeIsGreather(RangeDates $rango){
  * Prepara un evento para
  * el control calendar 
  */
- public function toEventCalendar($title=null,$idexpediente=null){
+ public function toEventCalendar($title=null,$id=null,$arrayClases=[]){
      $title=(is_null($title))?'Event':$title;
-     return [
-            'id'=>$idexpediente,
+     $options=[
+            'id'=>$id,
           'title' => $title,
             'start' =>$this->initialDate->format(timeHelper::formatMysqlDateTime()),
             'end' =>$this->finalDate->format(timeHelper::formatMysqlDateTime()) ,
             //'color' => '#5cb85c',
             //'codtra' => $this->codtra
      ];
+     if(count($arrayClases)>0)
+     $options['classNames']=$arrayClases;
+     return $options;
  }
 
   

@@ -356,4 +356,7 @@ implements \common\interfaces\postulantesInterface
  public function code(){
      return $this->codalu;
  }
+ public function nameFieldCode(){
+     return 'codalu';
+ }
 }

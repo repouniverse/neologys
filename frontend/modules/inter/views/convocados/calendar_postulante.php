@@ -3,15 +3,22 @@ use common\widgets\calendarWidget\CalendarScheduleWidget;
 use yii\web\JsExpression;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\modules\inter\models\InterEntrevistas;
 use yii\widgets\ActiveForm;
 use common\helpers\h;
-//use yii\grid\GridView;
+use yii\grid\GridView;
 use yii\widgets\Pjax;
 use frontend\modules\inter\Module as m;
+use common\widgets\buttonajaxwidget\buttonAjaxWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Talleres */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<br>
+<BR>
+
+<div class="box box-success">
+<div class="box-body">
 <?php 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Talleres */
@@ -35,19 +42,200 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'My panel'), 
 
 
 
-<div class="borereuccess">   
-  <div class="box-body">  
+  
+   
       <?php 
 $plan=$current_expediente->plan;
 
 echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado',['identidad'=>$model->persona->identidad]);
 ?>  
-      <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-          <div class="alert alert-warning"><?php echo $plan->descripcion.h::space(20).Html::a('('.m::t('labels','See schedules').')',Url::to(['/inter/programa/view-plan','id'=>$plan->id]),['target'=>'_blank']); ?></div>
-      </div>
+      
+    <div style="margin-top:2px;">.</div>
+    <h4><?=m::t('labels','Current Step')."  :  ".h::space(10).$plan->descripcion?></h4>
+    
+    <br>
+        
+    
+    
+    <?php if($modelEntrevista= $current_expediente->hasEntrevista()){ ?>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+     <?php $tipo=($modelEntrevista->asistio)?'info':'warning';   ?>   
+     <?php $mensaje=($modelEntrevista->asistio)?m::t('labels','You already passed the interview'):
+             m::t('labels','You have an interview {numero} scheduled at {fecha}',['numero'=>$modelEntrevista->numero,'fecha'=>$modelEntrevista->fechaprog]);   ?>   
+    <div class=" aviso-<?=$tipo?> ">
+        <?php
+        echo m::t('labels',$mensaje); 
+        
+        ?>
+    </div>
+   </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+         <?php 
+         $url=Url::to(['/inter/expedientes/modal-view-horarios','id'=>$plan->id]);
+         $options=['data-pjax'=>'0','class'=>'botonAbre','gridName'=>'PjaxCalendar','idModal'=>'buscarvalor' ];
+         echo Html::a('<span class="btn btn-danger btn-sm" ><span class="fa fa-calendar"></span>  '.m::t('labels','View Schedules').'</span></span>', $url,$options);
+        ?>  
+
+    </div>
+    
+ <?php }else{ ?>
+    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+        
+    <div class=" aviso-danger ">
+        <?php echo m::t('errors','You don\'t have an interview scheduled yet'); ?>
+    </div>
+   </div>
+    <?php } ?>
+    
+    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+    .
+    </diV>
+    
+    
+    
     
         
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       <?php
+    $gridColumns=[
             
+         
+         [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{view}',
+                'buttons' => [
+                    'update' => function($url, $model) {
+                     
+                          $url= \yii\helpers\Url::toRoute(['update','id'=>$model->id]);
+                        $options = [
+                            'data-pjax'=>'0',
+                            'target'=>'_blank',
+                            'title' => Yii::t('base.verbs', 'Editar'),                            
+                        ];
+                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-pencil"></span>', $url, $options);
+                      
+                        
+                     }
+                        ,
+                          'view' => function($url, $model) {  
+                             $url= \yii\helpers\Url::toRoute(['view','id'=>$model->id]);
+                       
+                              $options = [
+                            'data-pjax'=>'0',
+                            'target'=>'_blank',
+                            'title' => Yii::t('base.verbs', 'Ver'),                            
+                        ];
+                        return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options);
+                      
+                        
+                        
+                        },
+                         
+                    ]
+                ],
+                
+         [ 'attribute' => 'numero',
+            
+             ],
+        [ 'attribute' => 'fechaprog',
+             ],
+            // 'alumno.celulares', 
+             // 'alumno.correo', 
+           [ 'attribute' => 'plan',
+                'format'=>'raw',
+                   'value'=>function($model){
+                  return $model->expediente->plan->descripcion;         
+                }
+             ],
+           [
+           'attribute' => 'check',
+           'format'=>'raw',
+          'value'=>function($model){
+                 if($model->asistio)
+                  return '<i style="font-size:20px; color:#60a917;">'.h::awe('check').'</i>';         
+                }
+           ],
+           
+      
+            
+           
+        ];
+    
+    ?>
+ 
+ 
+
+         
+
+    
+    
+
+    <?php Pjax::begin(['id'=>'listado_asistencias', 'timeout'=>false]); ?>
+   
+    <?= GridView::widget([
+        'dataProvider' =>NEW  \yii\data\ActiveDataProvider([
+            'query'=>InterEntrevistas::find()->andWhere([
+                'convocado_id'=>$model->id,
+            ])->orderBy(['fechaprog'=>SORT_ASC]),
+        ]),
+         //'summary' => '',
+         'tableOptions'=>['class'=>'table no-margin'],
+        //'filterModel' => $searchModel,
+        'columns' => $gridColumns,
+    ]); ?>
+        
+   <?php Pjax::end(); ?>     
+
+ 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
  
  <?PHP   
@@ -309,7 +497,7 @@ echo CalendarScheduleWidget::widget([
 
 
 ?>
-    
+ 
         
 </div>
     </div>

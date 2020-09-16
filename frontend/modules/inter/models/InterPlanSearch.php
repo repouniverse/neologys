@@ -61,6 +61,7 @@ class InterPlanSearch extends InterPlan
            // 'id' => $this->id,
             'universidad_id' => $this->universidad_id,
             'facultad_id' => $this->facultad_id,
+            'orden' => $this->orden,
             //'depa_id' => $this->depa_id,
             // 'eval_id' => $this->eval_id,
             'programa_id' => $this->programa_id,

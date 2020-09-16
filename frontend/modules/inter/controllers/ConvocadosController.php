@@ -490,12 +490,17 @@ class ConvocadosController extends baseController
                 $model->save() && $modelP->save()) {
              yii::error('GRABO AMBOS ',__FUNCTION__);
             //var_dump(!is_null($exp=$model->firstExpediente()));die();
-            if(!is_null($exp=$model->firstExpediente()))
+            if(!is_null($exp=$model->firstExpediente())){
+                yii::error('El expediemte no es nulo');
                 if($exp->aprove()){
 //aprobar le primer expediente la ficha de
                 }else{
                     print_r($exp->getErrors());DIE();
                 }
+            }else{
+               yii::error('El expediemte  es nulo'); 
+            }
+                
               //var_dump($model->currentStage());die();
 //yii::error('apunto de redireccionar',__FUNCTION__);
             //if(h::userName()=='admin')
@@ -598,7 +603,7 @@ class ConvocadosController extends baseController
         $eventos=$current_expediente->plan->populateEventosToCalendar();
         $eventos=$current_expediente->putColorEventsCalendar($eventos);
        // var_dump($current_expediente->id);
-        //print_r($eventos);die();
+       //print_r($eventos);die();
       return $this->render('calendar_postulante',['eventos'=>$eventos,'persona'=>$persona,'identidad'=>$identidad,'model'=>$model,'current_expediente'=>$current_expediente]);
   }
  
