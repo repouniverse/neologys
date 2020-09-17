@@ -44,6 +44,7 @@ phpunit.phar
 
 #ignorando archivos no deseados
 *.bmp*
+*.png*
 *.csv*
 *.jpg*
 *.pdf*

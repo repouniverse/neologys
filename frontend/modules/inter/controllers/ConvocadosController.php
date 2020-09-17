@@ -4,6 +4,7 @@ namespace frontend\modules\inter\controllers;
 
 use Yii;
 use frontend\modules\inter\models\InterConvocados;
+use frontend\modules\inter\models\InterEtapas;
 use frontend\modules\inter\models\InterConvocadosSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
@@ -518,6 +519,14 @@ class ConvocadosController extends baseController
   public function actionUploadsDocs($id){
       $model = $this->findModel($id);
       $model->createExpedientes($model->currentStage());
+      /*if($model->hasChangedStage()){
+          $mensaje=m::t('labels','Congratulations, you have completed the stage {etapa}',['etapa'=> InterEtapas::findOne($model->rawCurrentStage())->descripcion]);  
+          h::session()->setFlash('success',$mensaje);
+        return $this->redirect([h::user()->resolveUrlAfterLogin()]);
+         
+         //return   $this->render('complete_stage',['model'=>$model]);
+       }*/
+      
       return $this->render('uploads_postulante',['model'=>$model]);
   }
    
@@ -591,12 +600,42 @@ class ConvocadosController extends baseController
       }
   }
   
- 
+   /*
+   * Refresca el campo
+   * current_etapa de la tala expedientes
+   */
+  public function actionAjaxRefreshEtapas(){
+      if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          $model= \frontend\modules\inter\Module::currentPrograma(true);
+          if(is_null($model)){
+            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+          }else{
+              //var_dump($model);die();
+              foreach($model->modo as $modo){
+                  $modo->refreshStageConvocados();
+              }
+              //if($model->refreshStageConvocados()){
+                  return ['warning'=>m::t('labels','Records were updated')];
+              //}else{
+                  //return ['error'=>m::t('labels','There were problems')];
+             // }
+          }
+      }
+  }
+  
   public function actionInterViews($id){
       
       $model = $this->findModel($id);
       
        $model->createExpedientes($model->currentStage());
+       if($model->hasCompletedStage($model->currentStage())){
+        $mensaje=m::t('labels','Congratulations, you have completed the stage {etapa}',['etapa'=> InterEtapas::findOne($model->rawCurrentStage())->descripcion]);  
+          h::session()->setFlash('success',$mensaje);
+        return  $this->redirect([h::user()->resolveUrlAfterLogin()]);
+         //return   $this->render('complete_stage',['model'=>$model]);
+       }
+       //var_dump($model->currentStage());die();
       $current_expediente=$model->currentExpediente();
        $persona=$model->persona;
         $identidad=$persona->identidad;
@@ -607,6 +646,8 @@ class ConvocadosController extends baseController
       return $this->render('calendar_postulante',['eventos'=>$eventos,'persona'=>$persona,'identidad'=>$identidad,'model'=>$model,'current_expediente'=>$current_expediente]);
   }
  
+  
+  
   
  public function actionMakeCitaByExpediente(){
     if(h::request()->isAjax){
@@ -628,7 +669,7 @@ class ConvocadosController extends baseController
           
         if(!$error) { //BUSCAR LA PERSONA ID
             /*de donde sacamos a la persona? de los departamenteos */
-            $nombre= $model->depa->persona->fullName();
+            $nombre= $model->plan->eval->trabajador->fullName();
             $attributes=[
                 'universidad_id'=>$model->universidad_id,
                 'facultad_id'=>$model->facultad->id,

@@ -20,6 +20,7 @@ alumnoAsset::register($this);
             <div class="inner">
               <h3><?php 
               $convocatoria=$identidad->currentConvocatoria();
+              $convocatoria->createFirstExpediente();
               echo $convocatoria->modo->getPlanes()->andWhere(['ordenetapa'=>$convocatoria::STAGE_UPLOADS])->count(); ?></h3>
 
               <p><?php echo yii::t('base_labels','Files uploaded') ?></p>

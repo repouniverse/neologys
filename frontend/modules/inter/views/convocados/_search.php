@@ -20,7 +20,12 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
-        </div>
+       
+         <?php
+          //$url= Url::to(['unique-university','id'=>$profile->id,'gridName'=>'check-multiple','idModal'=>'buscarvalor']);
+            echo  Html::button(h::awe('refresh').h::space(10).yii::t('base_verbs','Refresh Stages'), ['href' => '#', 'title' => yii::t('base_labels','Refresh'),'id'=>'button_refresh_etapa', 'class' => 'btn-warning']); 
+           ?> 
+          </div>      
     </div>
   
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

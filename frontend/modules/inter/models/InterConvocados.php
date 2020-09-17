@@ -254,7 +254,8 @@ class InterConvocados extends \common\models\base\modelBase
        if(is_null($stage))
        $query= Interplan::find()->andWhere(['modo_id'=>$this->modo_id]);
        $query= Interplan::find()->andWhere(['modo_id'=>$this->modo_id,'ordenetapa'=>$stage]);
-      $modelsPlanes=$query->all();
+      //var_dump($query->createCommand()->rawSql);die();
+       $modelsPlanes=$query->all();
       //yii::error(Interplan::find()->andWhere(['modo_id'=>$this->modo_id])->createCommand()->rawSql);
       yii::error('Ingnresando al for ',__FUNCTION__);
       foreach($modelsPlanes as $modelPlan){
@@ -271,16 +272,17 @@ class InterConvocados extends \common\models\base\modelBase
        RETURN parent::afterSave($insert, $changedAttributes);
    }
    
-   public function afterFind() {
+   /*public function afterFind() {
+        YII::ERROR('AFETR FIND ',__FUNCTION__);
        if(!$this->hasExpedientes()){
-           //echo "ddsds";die();
+          YII::ERROR('NO TIENE EXPEDIENTES ',__FUNCTION__);
            $this->createFirstExpediente();
        }else{
-           //echo "dsfsfsfsfsfsdsds";die();
+           YII::ERROR('YA TIENE EXPEDIENTES ',__FUNCTION__);
        }
        
        return parent::afterFind();
-   }
+   }*/
    
   /*public function hasCompleteExpedientes(){
       $this->getExpedientes()->andWhere(['estado'=>'1']);
@@ -412,25 +414,35 @@ public function porcAvanceUploads($stage){
     }
   
  public function createFirstExpediente(){
+    // YII::ERROR('CREANDO EXPEDIENTE PRIMERO ',__FUNCTION__);
     $modelPlan= Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
             ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
-    ->where(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->one();
+    ->andWhere(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->one();
    /* echo Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
             ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
     ->where(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->limit(1)->createCommand()->rawSql;DIE();*/
-   
+   /*YII::ERROR(Interplan::find()->alias('t')->
+    andWhere(['modo_id'=>$this->modo_id,
+      'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
+            ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
+    ->andWhere(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->createCommand()->rawSql);*/
     return $this->createExpediente($modelPlan);
     
  }
  
  public function firstExpediente($stage=null){
-     if(is_null($stage))
-     RETURN $this->getExpedientes()->andWhere(['orden'=>InterEtapas::firstStage($this->modo_id)])
-            ->orderBy(['secuencia'=>SORT_ASC])->one();
+     if(is_null($stage)){
+         /*VAR_DUMP($this->getExpedientes()->andWhere(['orden'=>InterEtapas::firstStage($this->modo_id)])
+            ->orderBy(['secuencia'=>SORT_ASC])->createCommand()->rawSql);DIE();*/
+         RETURN $this->getExpedientes()->andWhere(['orden'=>InterEtapas::firstStage($this->modo_id)])
+            ->orderBy(['secuencia'=>SORT_ASC])->one(); 
+     }
+    
+     
       RETURN $this->getExpedientes()->andWhere([          
           'orden'=>$stage])
             ->orderBy(['secuencia'=>SORT_ASC])->one();
@@ -438,7 +450,9 @@ public function porcAvanceUploads($stage){
  
  private function createExpediente(InterPlan $modelPlan){
      /*Solo los planes de la especialidad del alumno*/
+     yii::error('itentando crear expediente ');
     if($modelPlan->eval->carrera->id==$this->alumno->carrera_id){
+        yii::error('si es de la carera  ');
         return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
                        'facultad_id'=>$this->facultad_id,
@@ -529,4 +543,8 @@ public function beforeSave($insert) {
       return ($this->getExpedientes()->count()==0)?FALSE:true;
   }      
  
+ public function hasChangedStage() {
+     return (!($this->currentStage() == $this->rawCurrentStage()));
+ }
+  
 }

@@ -227,8 +227,11 @@ class InterExpedientes extends \common\models\base\modelBase
        /// $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
-        if($grabo && $this->plan->notificamail)
-        $this->mailAprove();
+        if($grabo && $this->plan->notificamail){
+            yii::error('ENVIANDO CORREO',__FUNCTION__);
+             $this->mailAprove();
+        }
+       
         //var_dump($grabo);die();
         ///$this->setScenario($oldScenario);//dejamos las cosas como estaban antes
         return $grabo;
@@ -284,6 +287,7 @@ class InterExpedientes extends \common\models\base\modelBase
             return true;
             $mensajes['success'] = m::t('labels','Se envió el correo, confirmando la aprobación del expediente ');
         } catch (\Swift_TransportException $Ste) {
+            
             $mensajes['error'] = $Ste->getMessage();
         }
           return $mensajes;

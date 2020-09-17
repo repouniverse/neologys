@@ -18,11 +18,12 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
        
     
     
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <h4><?=h::awe('id-card').h::space(10).$model->documento->desdocu?></h4>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group no-margin">                
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group no-margin"> 
+                   
                   <?php 
                    $gridName='grillapk';
                    Pjax::begin(['id'=>$gridName,'timeout'=>false]);
@@ -37,7 +38,57 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                 </div>
           </div>
 <BR>  .
-<BR> 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Stage and order'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+</div>
+<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">     
+                <?= $form->field($model, 'orden')->
+                           label(m::t('labels','Order Stage'))->
+                           textInput(['disabled'=>true])
+                ?>
+      
+    </div> 
+  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">     
+                <?= $form->field($model, 'etapa_id')->
+                           label(m::t('labels','Stage'))->
+                           textInput(['value'=>$model->etapa->descripcion,'disabled'=>true])
+                ?>
+      
+    </div>  
+
+<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">     
+                <?= $form->field($model, 'plan_id')->
+                           label(m::t('labels','Plan'))->
+                           textInput(['value'=>$model->plan->descripcion,'disabled'=>true])
+                ?>
+      
+    </div>  
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Evaluator'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+</div>
+ <?php $evaluadorPerson=$model->plan->eval->trabajador;  ?>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
+                <?= $form->field($model, 'plan_id')->
+                           label(m::t('labels','Evaluator'))->
+                           textInput(['value'=>$evaluadorPerson->fullName(),'disabled'=>true])
+                ?>
+      
+    </div> 
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
+                <?= $form->field($model, 'depa_id')->
+                           label(m::t('labels','Departament'))->
+                           textInput(['value'=>$model->plan->eval->depa->nombredepa,'disabled'=>true])
+                ?>
+      
+    </div> 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Person'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+</div>
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -81,44 +132,23 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
       </div>        
               
               
-  </div> 
-<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">     
-                <?= $form->field($model, 'orden')->
-                           label(m::t('labels','Order Stage'))->
-                           textInput(['disabled'=>true])
-                ?>
-      
-    </div> 
-  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">     
-                <?= $form->field($model, 'etapa_id')->
-                           label(m::t('labels','Stage'))->
-                           textInput(['value'=>$model->etapa->descripcion,'disabled'=>true])
-                ?>
-      
-    </div>  
-
-<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">     
-                <?= $form->field($model, 'plan_id')->
-                           label(m::t('labels','Plan'))->
-                           textInput(['value'=>$model->plan->descripcion,'disabled'=>true])
-                ?>
-      
-    </div>  
- <?php $evaluadorPerson=$model->plan->eval->trabajador;  ?>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
-                <?= $form->field($model, 'plan_id')->
-                           label(m::t('labels','Evaluator'))->
-                           textInput(['value'=>$evaluadorPerson->fullName(),'disabled'=>true])
-                ?>
-      
-    </div> 
- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
-                <?= $form->field($model, 'depa_id')->
-                           label(m::t('labels','Departament'))->
-                           textInput(['value'=>$model->plan->eval->depa->nombredepa,'disabled'=>true])
-                ?>
-      
-    </div> 
+  </div>   
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','File'); ?></p>
+            <hr style="border: 1px dashed #4CAF50;">
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group no-margin"> 
+                     <?= Html::submitButton('<span class="fa fa-save"></span>'.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
+                
+                </div>
+          </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     <?= $form->field($model, 'detalles')->
+                           textArea([])
+      ?>
+</div>
+ <?php ActiveForm::end(); ?>
      <?php echo buttonAjaxWidget::widget(
        [  
             'id'=>'btn-exp',
@@ -139,5 +169,5 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
 
 
       
-    <?php ActiveForm::end(); ?>
+   
  

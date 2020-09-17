@@ -85,7 +85,7 @@ class Module extends \yii\base\Module
    
    
    public static function currentPrograma($isModel=false){
-     $periodo= h::periodos()->currentPeriod();
+     $periodo= h::periodos()->getCurrentPeriod();
      
      $model=models\InterPrograma::find()->andWhere(['codperiodo'=>$periodo])->one();
   IF(IS_NULL($model))

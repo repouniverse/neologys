@@ -546,7 +546,7 @@ die();
                setFlash('success',
             yii::t('base_verbs','The user has been created'));
 		
-                  $this->redirect('manage-users');
+                  $this->redirect('view-users');
             }
         }
         

@@ -89,7 +89,8 @@ class ExpedientesController extends baseController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+           h::session()->setFlash('success', m::t('labels','Data has been recorded'));
         }
         $convocado=$model->convocado;
          $persona=$convocado->persona;

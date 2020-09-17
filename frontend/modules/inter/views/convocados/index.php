@@ -5,8 +5,10 @@
    //use yii\grid\GridView;
     use yii\widgets\Pjax;
     use frontend\modules\inter\Module as m;
-    echo \common\widgets\spinnerWidget\spinnerWidget::widget();    
+   
+    use common\widgets\buttonajaxwidget\buttonAjaxWidget;
   use kartik\export\ExportMenu;
+   echo \common\widgets\spinnerWidget\spinnerWidget::widget();  
     $this->title = m::t('labels', 'Inter Summoned');
     $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Program'), 'url' => ['/inter/programa/update','id'=>$id]];
     $this->params['breadcrumbs'][] = $this->title;
@@ -129,7 +131,16 @@
                 <?php  
                     echo $this->render('_search', ['model' => $searchModel, 'id'=>$id, 'modelPrograma'=>$modelPrograma]);  
                 ?>                
-                
+        <?php 
+            echo buttonAjaxWidget::widget
+                 (
+                    [  
+                        'id'=>'button_refresh_etapa',
+                        'idGrilla'=>'index-con',
+                        'ruta'=>Url::to(['/inter/convocados/ajax-refresh-etapas']),
+                    ]
+                 ); 
+               ?>        
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <div style='overflow:auto;'>
                     <?=ExportMenu::widget([

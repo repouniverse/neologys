@@ -49,7 +49,7 @@ $plan=$current_expediente->plan;
 
 echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado',['identidad'=>$model->persona->identidad]);
 ?>  
-      
+     <?php  Pjax::begin(['id'=>'estado-label','timeout'=>false]);  ?> 
     <div style="margin-top:2px;">.</div>
     <h4><?=m::t('labels','Current Step')."  :  ".h::space(10).$plan->descripcion?></h4>
     
@@ -86,7 +86,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
     </div>
    </div>
     <?php } ?>
-    
+    <?php  Pjax::end();  ?> 
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
     .
     </diV>
@@ -312,7 +312,8 @@ echo CalendarScheduleWidget::widget([
                                         $.noty.setText(n.options.id,"<span class=\'glyphicon glyphicon-info-sign\'></span>" +json["warning"]);
                              $.noty.setType(n.options.id, "warning");
                               } 
-                              
+                             $.pjax.reload({container: "#estado-label", async:false});
+                              $.pjax.reload({container: "#listado_asistencias", async:false});
                       
                         },
    cache: true
