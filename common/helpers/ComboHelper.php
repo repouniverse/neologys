@@ -192,7 +192,7 @@ class ComboHelper  {
          return [
                 'M'=>yii::t('base_labels','MASCULINO'),
                 'F'=>yii::t('base_labels','FEMENINO'),
-             'G'=>yii::t('base_labels','GENERAL'),
+             //'G'=>yii::t('base_labels','GENERAL'),
                         ];
     }
     
