@@ -7,7 +7,9 @@
     use yii\widgets\Pjax;
     use kartik\grid\GridView;
 ?>
-<?php Pjax::begin(['id'=>'grilla-plan-evaluaciones','timeout'=>false]); ?>
+<?php 
+$idGrilla='grilla-plan-evaluaciones'.$model->id;
+Pjax::begin(['id'=>$idGrilla,'timeout'=>false]); ?>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div class="small-box bg-teal-gradient">
             <div class="inner">
@@ -83,12 +85,12 @@
                             'template' => '{delete}{update}',
                             'buttons' => 
                             [
-                                'update' => function ($url,$model) 
+                                'update' => function ($url,$model) use($idGrilla)
                                             {
                                                 $url= Url::to
                                                       (
                                                         [
-                                                            'modal-edit-plan','id'=>$model->id,'gridName'=>'grilla-plan-evaluaciones',
+                                                            'modal-edit-plan','id'=>$model->id,'gridName'=>$idGrilla,
                                                             'idModal'=>'buscarvalor'
                                                         ]
                                                       );
@@ -138,7 +140,7 @@
         ?>
         <p>
             <?php 
-                $url= Url::to(['modal-new-plan','id'=>$model->id,'gridName'=>'grilla-plan-evaluaciones','idModal'=>'buscarvalor']);            
+                $url= Url::to(['modal-new-plan','id'=>$model->id,'gridName'=>$idGrilla,'idModal'=>'buscarvalor']);            
                 echo Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-plus"></span>', $url, ['class'=>'botonAbre']);
             ?>           
         </p>

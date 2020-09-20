@@ -77,6 +77,7 @@ class VwInterConvocadosSearch extends InterVwConvocados
 
         $query->andFilterWhere(['like', 'ap', $this->ap])
             ->andFilterWhere(['like', 'am', $this->am])
+             ->andFilterWhere(['like', 'codigoalumno', $this->codigoalumno])
             ->andFilterWhere(['like', 'nombres', $this->nombres])
             ->andFilterWhere(['like', 'tipodoc', $this->tipodoc])
             ->andFilterWhere(['like', 'codigoper', $this->codigoper])

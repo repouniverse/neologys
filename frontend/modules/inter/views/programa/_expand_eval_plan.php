@@ -6,7 +6,9 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
  USE yii\widgets\Pjax;
  use yii\grid\GridView;
 ?>
-<?php Pjax::begin(['id'=>'grilla-plan-evaluaciones']); ?>
+<?php 
+$idGrilla='grilla-plan-evaluaciones'.$model->id;
+Pjax::begin(['id'=>$idGrilla]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
    
@@ -45,8 +47,8 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
                 'template' => '{delete}{update}',
                 'buttons' => [
                    
-                         'update' => function ($url,$model) {
-			    $url= Url::to(['modal-edit-plan','id'=>$model->id,'gridName'=>'grilla-plan-evaluaciones','idModal'=>'buscarvalor']);
+                         'update' => function ($url,$model)use($idGrilla) {
+			    $url= Url::to(['modal-edit-plan','id'=>$model->id,'gridName'=>$idGrilla,'idModal'=>'buscarvalor']);
                              //echo  Html::button(m::t('base.verbs','Modificar Rangos'), ['href' => $url, 'title' => m::t('labels','Agregar Tutor'),'id'=>'btn_contacts', 'class' => 'botonAbre btn btn-success']); 
                             return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, ['class'=>'botonAbre']);
                             },

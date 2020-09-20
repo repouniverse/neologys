@@ -884,6 +884,7 @@ class modelBase extends \yii\db\ActiveRecord
                  IF(!$this->save()){
                      //echo "fallo";die();
                     // print_r($model->getErrors());die();
+                      yii::error( $this->attributes,__METHOD__);
                      yii::error($this->getErrors(),__METHOD__);
                      // print_r($model->getErrors());die();
                      return false;

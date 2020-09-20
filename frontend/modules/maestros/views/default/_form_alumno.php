@@ -3,15 +3,19 @@
     use common\models\masters\Personas;
     use common\helpers\ComboHelper;
     use yii\helpers\Html;
+     use yii\helpers\Url;
     use yii\widgets\ActiveForm;
     use frontend\modules\maestros\MaestrosModule as m;
     use common\helpers\h;
     use kartik\date\DatePicker;
     use common\models\masters\Ubigeos;
     use common\widgets\selectwidget\selectWidget;
+     use common\widgets\buttonajaxwidget\buttonAjaxWidget;
+     USE yii\widgets\Pjax;
 ?>
 
 <div class="box box-success">
+      <?PHP  echo \common\widgets\spinnerWidget\spinnerWidget::widget();?>
     <div class="box box-body">
         <?php 
             $paisActual = $model->currentPais();
@@ -32,6 +36,7 @@
                 <div class="form-group no-margin">
                     <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
                     <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>       
+                 <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
                 </div>
             </div>
         </div>    
@@ -283,7 +288,15 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <?= $form->field($model, 'motivo')->textInput(['maxlength' => true]) ?>
         </div>
-        
+          <?php Pjax::begin(['id'=>'america']); Pjax::end();  ?>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<?php echo buttonAjaxWidget::widget(
+       [  
+            'id'=>'btn-register',
+            'idGrilla'=>'america',
+            'ruta'=>Url::to(['/inter/convocados/ajax-register-alu','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]  
+   );   ?> 

@@ -11,6 +11,7 @@
     use common\helpers\ComboHelper;
     use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     use common\models\masters\Alumnos;
+    use common\widgets\selectwidget\selectWidget;
 ?>
 <div class="inter-convocados-form">
     <br>

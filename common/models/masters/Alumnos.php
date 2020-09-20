@@ -9,6 +9,7 @@ USE common\traits\identidadTrait;
 use common\models\masters\Combovalores;
 use frontend\modules\inter\models\InterModos;
 use common\models\masters\Universidades;
+use yii\web\BadRequestHttpException;
 use Yii;
 
 /**
@@ -40,7 +41,7 @@ implements \common\interfaces\postulantesInterface
     /**
      * {@inheritdoc}
      */
-    
+    public $hardFields=['ap','am','nombres','tipodoc','numerodoc'];
     public $codpais=null;
     public $booleanFields=['hasuser'];
     public static function tableName()
@@ -54,10 +55,11 @@ implements \common\interfaces\postulantesInterface
     public function rules()
     {
         return [
-            [['codalu', 'ap','am','nombres','tipodoc','numerodoc'], 'required'],
+            [['codalu', 'ap','nombres','tipodoc','numerodoc'], 'required'],
              [['mail','universidad_id', 'facultad_id','carrera_id','hasuser' ], 'safe'],
            
              [['codalu'], 'unique'],
+              [['numerodoc'], 'validateDuplicado'],
             /* PARA ESCENARIOBASICO*/
             [[
             'codalu','mail', 'ap','am','nombres','tipodoc','numerodoc',
@@ -74,16 +76,16 @@ implements \common\interfaces\postulantesInterface
             
             
             [[
-           'codalu', 'ap','am','nombres','tipodoc','numerodoc',
+           'codalu', 'ap','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id','mail',
-            'lugarnacimiento','telpaisorigen',
+            /*'telpaisorigen',
             'codcontpaisorigen','polizaseguroint','telefasistencia',
             'paisresidencia','lugarresidencia',
             'codresponsable',
-                'domiciliopaisorigen',
+                'domiciliopaisorigen',*/'unidest_id','facudest_id','carreradest_id',
             ],'required','on'=>self::SCE_EXTRANJERO],
             
-            
+             [['unidest_id','facudest_id','carreradest_id'],'safe'],
             
             
             
@@ -94,6 +96,16 @@ implements \common\interfaces\postulantesInterface
             [['codpering', 'codfac'], 'string', 'max' => 10],
              [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
              [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
+            
+            /*
+             * escenario extranjero 
+             */
+             [['unidest_id','facudestd_id','carreradest_id'], 'required','on'=>self::SCE_EXTRANJERO],
+            [['universidad_id','facultad_id','carrera_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
+             [['unidest_id','facudest_id','carreradest_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
+            [['unidest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['unidest_id' => 'id'] ,'on'=>self::SCE_EXTRANJERO],
+             [['facudest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facudest_id' => 'id'],'on'=>self::SCE_EXTRANJERO],
+             [['carreradest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carreradest_id' => 'id'],'on'=>self::SCE_EXTRANJERO],
         ];
     }
   public function behaviors() {
@@ -114,11 +126,12 @@ implements \common\interfaces\postulantesInterface
         $scenarios[self::SCE_EXTRANJERO] = [
            'codalu', 'ap','am','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id','mail',
-            'lugarnacimiento','telpaisorigen',
+            'unidest_id','facudest_id','carreradest_id'
+            /*'lugarnacimiento','telpaisorigen',
             'codcontpaisorigen','polizaseguroint','telefasistencia',
             'paisresidencia','lugarresidencia','codcontpaisresidencia',
             'parentcontpaisresid','codresponsable',
-                'domiciliopaisorigen',
+                'domiciliopaisorigen',*/
             ];
         
         
@@ -359,4 +372,93 @@ implements \common\interfaces\postulantesInterface
  public function nameFieldCode(){
      return 'codalu';
  }
+ /*
+  * Se regidtra como convadao directamente
+  */
+ public function registerConvocado($idModo=null) {
+    /*Buscamos el programa actual*/
+    if(is_null($idModo)){
+     $modelModo=$this->resolveModo(true);  
+    }else{
+      $modelModo=InterModos::findOne($idModo);   
+    }
+     
+     
+  
+    $external=$this->isExternal();
+  
+   if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && $this->esConvocable()){
+       $model=new \frontend\modules\inter\models\InterConvocados();
+          $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
+           $model->setAttributes(
+                   [
+                       'universidad_id'=>($external)?$this->unidest_id:$this->universidad_id,
+                       'facultad_id'=>($external)?$this->facudest_id:$this->facultad_id,
+                       'depa_id'=>$modelModo->depa_id,
+                       'modo_id'=>$modelModo->id,
+                       'persona_id'=>$this->persona->id,
+                       //'docente_id'=>$postulante->id,
+                       'programa_id'=>$modelModo->programa_id,
+                       'codperiodo'=>$modelModo->programa->codperiodo,
+                       'codocu'=>$model::CODIGO_DOCUMENTO,
+                       
+                       
+                    ]);
+           $attr=$this->pushAttributeInterModo(
+                   $model->attributes);
+           //var_dump($model->attributes['docente_id']);die();
+          // var_dump($attr);die();
+          return  $model->firstOrCreate($attr,
+                   $model::SCENARIO_CONVOCATORIAMINIMA);
+   }
+   
+   
+ }
+ 
+ /*Funcion para validar el alumno extranejero*/
+ 
+ public function validateExt($attribute, $params) {
+   $current_universidad=h::currentUniversity().'';
+  //VAR_DUMP($current_universidad,$this->unidest_id,$this->universidad_id);
+   /*Si la universidad destino no  es la misma que el usuario que 
+    * la crea error no permitir     */
+   if($current_universidad<>$this->unidest_id){
+     $this->addError ('unidest_id',yii::t('base_errors','This university doesn\'t match'));
+     
+   }
+    /*Si la universidad origen es la misma que el usuario que 
+    * la crea el alumno no es extrno
+    */
+   if($current_universidad==$this->universidad_id){
+     $this->addError ('universidad_id',yii::t('base_errors','This university doesn\'t match'));
+     
+   }
+   
+   
+   
+   
+ }
+ 
+ /*
+  * Devuelve el modo , busca a que modo pertenece
+  */
+ public function resolveModo($isModel=false){
+    $programa= \frontend\modules\inter\Module::currentPrograma(true);
+    if(is_null($programa))
+    throw new BadRequestHttpException(yii::t('base_errors','Program not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+    $query=$programa->getModo()->andWhere([
+        'modelofuente'=>'\\'.self::className(),
+        'externalpeople'=>($this->isExternal())?'1':'0'
+    ]);
+    $modo=$query->one();
+    if(is_null($modo))
+    throw new BadRequestHttpException(yii::t('base_errors','Mode not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+    if($isModel){
+        return $modo;
+    }else{
+        return $modo->id;
+    }
+    
+ }
+ 
 }

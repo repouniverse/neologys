@@ -20,7 +20,8 @@ use common\helpers\ComboHelper as combo;
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
         
                  <?= Html::a(m::t('labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
-            
+              <?= Html::a(m::t('labels', 'Create External Teacher'), ['create-docente-ext'], ['class' => 'btn btn-warning']) ?>
+          
     </div>
     
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">

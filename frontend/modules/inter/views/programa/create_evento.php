@@ -5,8 +5,8 @@ use frontend\modules\inter\Module as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterPrograma */
 
-$this->title = m::t('base.labels', 'Create event');
-$this->params['breadcrumbs'][] = ['label' => m::t('base.labels', 'Events'), 'url' => ['index-eventos']];
+$this->title = m::t('labels', 'Create Event');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Events'), 'url' => ['index-eventos']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-programa-create">

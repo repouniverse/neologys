@@ -1159,13 +1159,45 @@ class DefaultController extends \common\controllers\base\baseController
 
         return $this->render('create_alumno', [
             'model' => $model,
+            'scenario'=>null
         ]);
     }
 
+    /*
+     * Creas un alumno extranjero 
+     */
+     public function actionCreateAlumnoExt()
+    {
+        $model = new Alumnos();
+        $model->setScenario($model::SCE_EXTRANJERO);
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            h::session()->setFlash('success',m::t('labels','Student was created'));
+            return $this->redirect(['view-alumnos', 'id' => $model->id]);
+        }else{
+            //print_r($model->getErrors());die();
+        }
+
+        return $this->render('create_alumno', [
+            'model' => $model,'scenario'=>$model::SCE_EXTRANJERO
+        ]);
+    }
+    
+    
+    
+    
     public function actionCreateDocentes()
     {
-        $model = new Docentes();                  
-        $model->setScenario($model::SCE_CREACION_BASICA);
+        $model = new Docentes(); 
+        $scenario=$model::SCE_CREACION_BASICA;
+        $model->setScenario($scenario);
         
         if (h::request()->isAjax && $model->load(h::request()->post())) {
                 h::response()->format = \yii\web\Response::FORMAT_JSON;
@@ -1179,9 +1211,40 @@ class DefaultController extends \common\controllers\base\baseController
         }
 
         return $this->render('create_docente', [
-            'model' => $model,
+            'model' => $model,'scenario'=>$scenario
         ]);
     }
+    
+    
+      /*
+     * Creas un alumno extranjero 
+     */
+     public function actionCreateDocenteExt()
+    {
+        $model = new Docentes();
+        $model->setScenario($model::SCE_EXTRANJERO);
+       
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = \yii\web\Response::FORMAT_JSON;
+                return \yii\widgets\ActiveForm::validate($model);
+        }
+        
+        
+        
+        if ($model->load(h::request()->post()) && $model->save()) {
+            h::session()->setFlash('success',m::t('labels','Student was created'));
+            return $this->redirect(['view-docentes', 'id' => $model->id]);
+        }else{
+           // print_r($model->getErrors());die();
+        }
+
+        return $this->render('create_docente', [
+            'model' => $model,'scenario'=>$model::SCE_EXTRANJERO
+        ]);
+    }
+    
+    
+    
     /**
      * Updates an existing Trabajadores model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -1973,7 +2036,7 @@ class DefaultController extends \common\controllers\base\baseController
            ])->one())){
                return '';
            }else{
-             $message=m::t('labels','It\'s possible that already exists {persona} with  this document number',['persona'=>$model->fullName() ]); 
+             $message=m::t('labels','It\'s possible that already exists a person {persona} with  this document number',['persona'=>$model->fullName() ]); 
              return '<div class="alert alert-warning">'.$message.'</div>';
            }
       }

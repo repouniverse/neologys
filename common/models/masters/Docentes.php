@@ -6,7 +6,7 @@ use frontend\modules\inter\models\InterModos;
 USE common\traits\nameTrait;
 use common\helpers\h;
 USE common\traits\identidadTrait;
-
+use yii\web\BadRequestHttpException;
 use Yii;
 
 /**
@@ -39,8 +39,9 @@ implements \common\interfaces\postulantesInterface
 {
     use nameTrait;
     use identidadTrait;
-    
+    public $hardFields=['ap','am','nombres','tipodoc','numerodoc'];
     const SCE_CREACION_BASICA='base';
+    const SCE_EXTRANJERO='extranjero';
     /**
      * {@inheritdoc}
      */
@@ -78,17 +79,27 @@ public function behaviors()
              /* PARA ESCENARIOBASICO*/
             [[
             'codoce','ap','nombres',
-            'universidad_id', 'facultad_id','tipodoc','numerodoc'
+            'universidad_id', 'facultad_id','tipodoc','mail','numerodoc'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
+             [[
+           'codoce', 'ap','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id','correo',
+            /*'telpaisorigen',
+            'codcontpaisorigen','polizaseguroint','telefasistencia',
+            'paisresidencia','lugarresidencia',
+            'codresponsable',
+                'domiciliopaisorigen',*/'unidest_id','facudest_id',
+            ],'required','on'=>self::SCE_EXTRANJERO],
             
+             [['unidest_id','facudest_id','carreradest_id'],'safe'],
             
             [['correo'],'unique'],
             ["correo", "unique", "targetClass" => Alumnos::className(), "targetAttribute" => "mail"],
             ["correo", "unique", "targetClass" => \common\models\User::className(), "targetAttribute" => "email"],
             [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
-            [['tipodoc','numerodoc'], "validateDocumento"],
-          
+           // [['tipodoc','numerodoc'], "validateDocumento"],
+            [['numerodoc'], 'validateDuplicado'],
             [['codoce', 'codoce1', 'codoce2'], 'string', 'max' => 16],
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
@@ -98,7 +109,10 @@ public function behaviors()
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
             [['codigoper'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
-        ];
+                [['universidad_id','facultad_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
+             [['unidest_id','facudest_id','carreradest_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
+            
+            ];
     }
 
     /**
@@ -204,6 +218,8 @@ public function behaviors()
   
    public function pushAttributeInterModo($attributesModo) {
        $attributesModo['docente_id']=$this->id;
+       
+      // var_dump($attributesModo);
        return $attributesModo;
    }
    
@@ -277,15 +293,97 @@ public function behaviors()
     return !(h::currentUniversity()==$this->universidad_id);
  } 
  
- public function validateDocumento($attribute,$params){
+ /*public function validateDocumento($attribute,$params){
      if(Personas::find()->andWhere(
              ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
              ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
- }
+ }*/
  public function code(){
      return $this->codoce;
  }
  public function nameFieldCode(){
      return 'codoce';
  }
+ 
+ public function registerConvocado($idModo=null) {
+    /*Buscamos el programa actual*/
+    if(is_null($idModo)){
+     $modelModo=$this->resolveModo(true);  
+    }else{
+      $modelModo=InterModos::findOne($idModo);   
+    }
+     
+     
+  
+    $external=$this->isExternal();
+  
+   if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && $this->esConvocable()){
+       $model=new \frontend\modules\inter\models\InterConvocados();
+          $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
+           $model->setAttributes(
+                   [
+                       'universidad_id'=>($external)?$this->unidest_id:$this->universidad_id,
+                       'facultad_id'=>($external)?$this->facudest_id:$this->facultad_id,
+                       'depa_id'=>$modelModo->depa_id,
+                       'modo_id'=>$modelModo->id,
+                       'persona_id'=>$this->persona->id,
+                       //'docente_id'=>$postulante->id,
+                       'programa_id'=>$modelModo->programa_id,
+                       'codperiodo'=>$modelModo->programa->codperiodo,
+                       'codocu'=>$model::CODIGO_DOCUMENTO,
+                       
+                       
+                    ]);
+          
+           $attr=$this->pushAttributeInterModo(
+                   $model->attributes);
+           //var_dump($model->attributes['docente_id']);die();
+          // var_dump($attr);die();
+          return  $model->firstOrCreate($attr,
+                   $model::SCENARIO_CONVOCATORIAMINIMA);
+       
+   }
+   
+   
+ }
+ 
+ public function validateExt($attribute, $params) {
+   $current_universidad=h::currentUniversity().'';
+  //VAR_DUMP($current_universidad,$this->unidest_id,$this->universidad_id);
+   /*Si la universidad destino no  es la misma que el usuario que 
+    * la crea error no permitir     */
+   if($current_universidad<>$this->unidest_id){
+     $this->addError ('unidest_id',yii::t('base_errors','This university doesn\'t match'));
+     
+   }
+    /*Si la universidad origen es la misma que el usuario que 
+    * la crea el alumno no es extrno
+    */
+   if($current_universidad==$this->universidad_id){
+     $this->addError ('universidad_id',yii::t('base_errors','This university doesn\'t match'));
+     
+   }
+   
+ }
+ public function resolveModo($isModel=false){
+    $programa= \frontend\modules\inter\Module::currentPrograma(true);
+    if(is_null($programa))
+    throw new BadRequestHttpException(yii::t('base_errors','Program not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+    $query=$programa->getModo()->andWhere([
+        'modelofuente'=>'\\'.self::className(),
+        'externalpeople'=>($this->isExternal())?'1':'0'
+    ]);
+    $modo=$query->one();
+    if(is_null($modo))
+    throw new BadRequestHttpException(yii::t('base_errors','Mode not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+    if($isModel){
+        return $modo;
+    }else{
+        return $modo->id;
+    }
+    
+ }
+ 
+ 
+ 
 }

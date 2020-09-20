@@ -10,12 +10,15 @@
     use yii\widgets\ActiveForm;
       use kartik\tabs\TabsX;
     use kartik\date\DatePicker;
+      use common\widgets\inputajaxwidget\inputAjaxWidget;
     use frontend\modules\maestros\MaestrosModule as m;
         use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+             use common\widgets\buttonajaxwidget\buttonAjaxWidget;
     use common\models\masters\Ubigeos;
 ?>
 
 <div class="box box-success">
+    <div id="advertencia_doc"></div>
  <?php echo \common\widgets\spinnerWidget\spinnerWidget::widget();    ?>
     <?php $form = ActiveForm::begin(
                                     [
@@ -32,7 +35,9 @@
                 <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
                 <?= 
                     ($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])
-                ?>       
+                ?>  
+                 <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
+               
             </div>
         </div>
     </div>
@@ -226,4 +231,24 @@
        
  
     <?php ActiveForm::end(); ?>
+     <?php 
+            echo inputAjaxWidget::widget([
+      'id_input'=>'docentes-numerodoc',
+            'tipo'=>'get',
+            'evento'=>'change',
+      'isHtml'=>true,
+            'idGrilla'=>'advertencia_doc',
+            'ruta'=>Url::to(['/maestros/default/verify-duplicate-person']),          
+           //'posicion'=> \yii\web\View::POS_END           
+        
+            ]);
+           ?>
+    <?php echo buttonAjaxWidget::widget(
+       [  
+            'id'=>'btn-register',
+            'idGrilla'=>'america',
+            'ruta'=>Url::to(['/inter/convocados/ajax-register-doce','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]  
+   );   ?>
  </div>

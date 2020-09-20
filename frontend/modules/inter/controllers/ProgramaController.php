@@ -6,6 +6,8 @@ use Yii;
 use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
 use frontend\modules\inter\models\InterEtapas;
+use frontend\modules\inter\models\InterEventos;
+use frontend\modules\inter\models\InterEventosSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -636,6 +638,66 @@ class ProgramaController extends baseController
       
     
       }
+  }
+  
+   /*
+   * Crea una etapa del programa 
+   */
+  public function actionCreateEvento(){
+  $model=New InterEventos();
+  //$model = new InterPrograma();
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            return $this->redirect(['index-eventos', 'id' => $model->id]);
+        }ELSE{
+           //PRINT_R($model->getErrors());DIE();
+
+        }
+        return $this->render('create_evento', [
+            'model' => $model,
+        ]);
+      
+  }
+  
+   /*
+   * Crea una etapa del programa 
+   */
+  public function actionEditEvento($id){
+  $model= InterEventos::findOne($id);
+  if(is_null($model))
+  throw new NotFoundHttpException(Yii::t('base_errors', 'Record not found.'));
+   
+  //$model = new InterPrograma();
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            return $this->redirect(['index-eventos', 'id' => $model->id]);
+        }ELSE{
+           //PRINT_R($model->getErrors());DIE();
+
+        }
+        return $this->render('update_evento', [
+            'model' => $model,
+        ]);
+      
+  }
+  
+  
+  public function actionIndexEventos(){
+     $searchModel = new InterEventosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_eventos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);  
   }
   
 }

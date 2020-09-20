@@ -9,11 +9,12 @@ use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
 use common\models\masters\Alumnos;
+use common\models\masters\Docentes;
 use frontend\modules\inter\Module as m;
 use frontend\modules\inter\models\InterPlan;
 use common\helpers\h;
 use Yii;
-
+use yii\web\BadRequestHttpException;
 class InterConvocados extends \common\models\base\modelBase
 {
     const SCENARIO_CONVOCATORIAMINIMA='convocatoriamin';
@@ -48,7 +49,9 @@ class InterConvocados extends \common\models\base\modelBase
             [['codocu'], 'string', 'max' => 3],
             [['motivos','depa_id','current_etapa','pendiente'], 'safe'],
              [['motivos'], 'validateOpUniv','on'=>self::SCENARIO_FICHA],
-            [['programa_id','alumno_id'], 'unique', 'targetAttribute' => ['programa_id','alumno_id']],
+            [['programa_id','alumno_id'], 'unique','filter'=>['>','alumno_id',0], 'targetAttribute' => ['programa_id','alumno_id']],
+            [['programa_id','docente_id'], 'unique','filter'=>['>','docente_id',0], 'targetAttribute' => ['programa_id','docente_id']],
+            [['docente_id'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codalu', 'codigo1', 'codigo2'], 'string', 'max' => 16],
             [['codperiodo'], 'exist', 'skipOnError' => true, 'targetClass' => Periodos::className(), 'targetAttribute' => ['codperiodo' => 'codperiodo']],
@@ -97,6 +100,7 @@ class InterConvocados extends \common\models\base\modelBase
                        'persona_id',
                        'modo_id',
                        'alumno_id',
+                       'docente_id',
                        'programa_id',
                        'codperiodo',
                        'codocu',
@@ -233,7 +237,7 @@ class InterConvocados extends \common\models\base\modelBase
      * Verifica que este convocado a llenado la ficha
      */
     public function hasFillFicha(){
-        $persona=$this->alumno->persona;
+        $persona=$this->postulante->persona;
          $this->setScenario($persona::SCE_INTERMEDIO);         
         $oldScenario=$this->getScenario();
         $this->setScenario(self::SCENARIO_CONVOCATORIAMINIMA);
@@ -415,11 +419,15 @@ public function porcAvanceUploads($stage){
   
  public function createFirstExpediente(){
     // YII::ERROR('CREANDO EXPEDIENTE PRIMERO ',__FUNCTION__);
-    $modelPlan= Interplan::find()->alias('t')->
+     $postulante=$this->postulante;
+     $externo=$postulante->isExternal();
+     $campoCarrera=($externo)?'carreradest_id':'carrera_id';
+     $query=Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
             ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
-    ->andWhere(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->one();
+    ->andWhere(['x.carrera_id' => $this->postulante->{$campoCarrera}])->limit(1);
+    $modelPlan=$query->one();
    /* echo Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
@@ -430,6 +438,11 @@ public function porcAvanceUploads($stage){
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
             ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
     ->andWhere(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->createCommand()->rawSql);*/
+   if(is_null($modelPlan)){
+        throw new BadRequestHttpException(yii::t('base_errors','Plan not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+         
+   }
+    
     return $this->createExpediente($modelPlan);
     
  }
@@ -451,7 +464,10 @@ public function porcAvanceUploads($stage){
  private function createExpediente(InterPlan $modelPlan){
      /*Solo los planes de la especialidad del alumno*/
      yii::error('itentando crear expediente ');
-    if($modelPlan->eval->carrera->id==$this->alumno->carrera_id){
+     $alumno=$this->alumno;
+     $externo=$alumno->isExternal();
+     $campoCarrera=($externo)?'carreradest_id':'carrera_id';
+    if($modelPlan->eval->carrera->id==$alumno->{$campoCarrera}){
         yii::error('si es de la carera  ');
         return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
@@ -547,4 +563,15 @@ public function beforeSave($insert) {
      return (!($this->currentStage() == $this->rawCurrentStage()));
  }
   
+ public function getPostulante(){
+     if(!empty($this->alumno_id))
+   return Alumnos::findOne($this->alumno_id);
+     
+      if(!empty($this->docente_id))
+   return Docentes::findOne($this->alumno_id);
+         
+    
+ }
+ 
+ 
 }

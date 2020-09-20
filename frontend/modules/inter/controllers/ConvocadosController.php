@@ -15,6 +15,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use common\models\masters\AlumnosSearch;
 use common\models\masters\Alumnos;
+use common\models\masters\Docentes;
 use frontend\modules\inter\Module AS m;
 /**
  * ConvocadosController implements the CRUD actions for InterConvocados model.
@@ -465,7 +466,7 @@ class ConvocadosController extends baseController
         $model->setScenario($model::SCENARIO_FICHA);
         $modelP=$model->alumno->persona;
          if($model->alumno->isExternal()){
-           $scenario=$modelP::SCE_EXTRANJERO;  
+           $scenario=$modelP::SCE_CREACION_EXTRANJERO;  
          }ELSE{
              $scenario=$modelP::SCE_INTERMEDIO;   
          }
@@ -714,5 +715,30 @@ class ConvocadosController extends baseController
        
     }
  
+  public function actionTest(){
+      $model=\common\models\masters\Alumnos::findOne(444);
+   $model->registerConvocado(2);
+   die();
+  }
   
+  
+  public function actionAjaxRegisterAlu($id){
+    if(h::request()->isAjax){
+        h::response()->format = \yii\web\Response::FORMAT_JSON;
+      $model=Alumnos::findOne($id);
+      //$modo=($model->isExternal())?2:1;
+      $model->registerConvocado();
+      RETURN ['success'=>'Se registró el alumno'];
+    }
+  }
+  
+  public function actionAjaxRegisterDoce($id){
+    if(h::request()->isAjax){
+        h::response()->format = \yii\web\Response::FORMAT_JSON;
+      $model=Docentes::findOne($id);
+      //$modo=($model->isExternal())?2:1;
+      $model->registerConvocado();
+      RETURN ['success'=>'Se registró el docente'];
+    }
+  }
 }

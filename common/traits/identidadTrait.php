@@ -27,6 +27,8 @@ trait identidadTrait
         ]);
     }
     
+    
+    
     private function queryDocument(){
         return Personas::find()->andWhere([
             //'ap'=>$this->ap,
@@ -56,6 +58,7 @@ trait identidadTrait
       $existe=$this->existsDocInPerson();
        //$existe=existsDocInPerson();
           if($existe){
+              YII::ERROR('EXISTE UNA PERSONA CON ESOS DOCUMENTOS');
               $persona=$this->queryDocument()->one();
              $model= $this::className();
              $model::UpdateAll(['persona_id'=>$persona->id],
@@ -84,6 +87,8 @@ trait identidadTrait
            // var_dump($model->attributes);die();
             if(!$model->save()){ print_r($model->getErrors()); DIE();}
             return $model->save();*/
+        }elseif(!$this->isNewRecord && $existe){
+            
         }
         return false;
     }
@@ -151,6 +156,29 @@ trait identidadTrait
       }
    }     
         
+ /*
+  * FUCNION PARA VALIDAR LOS DUPLICADOS 
+  * esta funcion revisa si hay un numero de documento
+  * y btipo en la tabla PERSONAS. Si la hay 
+  * verifica que los AP, AM, Y NOBRES SEAN IDENTICOS
+  * de otro modo no lo deja pasar
+  * 
+  */
+   
+   public function validateDuplicado($attribute, $params) {
+       //yii::error('validado duplicado');
+       //yii::error(!$this->existsNamesInPerson());
+        //yii::error($this->existsDocInPerson());
+       $message='There is a person with the same identity '
+            . 'number but the names do not match,Verify '
+            . 'that the full names are the same';
+    if(!$this->existsNamesInPerson() && $this->existsDocInPerson())
+    $this->addError('numerodoc',yii::t('base_errors',$message
+            ));
+    
+    
+   } 
+   
    
    
 }

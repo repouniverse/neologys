@@ -106,6 +106,60 @@
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
         </div>
+        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">          
+            <?= ComboDep::widget
+                (
+                    [
+                        'model'=>$model,               
+                        'form'=>$form,
+                        'data'=> ComboHelper::getCboUniversidades(),
+                        'campo'=>'unidest_id',
+                        'idcombodep'=>'docentes-facudest_id',               
+                        'source'=>[\common\models\masters\Facultades::className()=>
+                                    [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'desfac',//columna a mostrar 
+                                        'campofiltro'=>'universidad_id'  
+                                    ]
+                                  ],
+                    ]
+               )
+            ?>
+        </div>
+        
+        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">          
+            <?= ComboDep::widget
+                (
+                    [
+                        'model'=>$model,               
+                        'form'=>$form,
+                        'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->unidest_id),
+                        'campo'=>'facudest_id',
+                        'idcombodep'=>'docentes-carreradest_id',               
+                        'source'=>[\common\models\masters\Carreras::className()=>
+                                    [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'nombre',//columna a mostrar 
+                                        'campofiltro'=>'facultad_id'  
+                                    ]
+                                  ],
+                    ]
+               )
+            ?>
+        </div>
+        
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+            <?= $form->field($model, 'carreradest_id')->
+                             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facudest_id),
+                                                                ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
+                                         )
+            ?>
+        </div>
+        
+        
+        
+        
+        
     </div>
     <?php ActiveForm::end(); ?>
      <?php 

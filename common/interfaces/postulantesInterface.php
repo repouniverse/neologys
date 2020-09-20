@@ -14,4 +14,6 @@ interface postulantesInterface {
     public function nameFieldCode();
     public function createUser();
     public function isExternal();
+     public function registerConvocado($idModo);
+    public function resolveModo();
 }

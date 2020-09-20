@@ -8,7 +8,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="documentos-create">
     <h4><?= Html::encode($this->title) ?></h4>
-    <div class="box box-success">    
-        <?= $this->render('_form_docente_basico', ['model' => $model,]) ?>
+    <div class="box box-success">   
+          <?php 
+    $VISTAFORMULARIO=(!($scenario==$model::SCE_EXTRANJERO))?'_form_docente_basico':'_form_docente_extranjero_basico';
+   // var_dump($scenario,$VISTAFORMULARIO);die();
+    ?>
+    <?= $this->render($VISTAFORMULARIO, ['model' => $model,]) ?>
+        
+        
+        
+       
     </div>
 </div>

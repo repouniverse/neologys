@@ -22,23 +22,24 @@
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
              <?= Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
+             <?= Html::a(m::t('labels', 'Create External Student'), ['create-alumno-ext'], ['class' => 'btn btn-warning']) ?>
           
         </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'codalu') ?>        
     </div>
     
-     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'ap') ?>
     </div>
     
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'nombres') ?>
     </div>
     
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
          <?= 
             $form->field($model, 'tipodoc')->
                          dropDownList
@@ -48,11 +49,11 @@
         ?>
     </div>
     
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'numerodoc') ?>        
     </div>
      
-    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">          
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
         <?= ComboDep::widget
             (
                 [
@@ -75,7 +76,7 @@
         ?>
     </div>
         
-    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">          
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
         <?= ComboDep::widget
             (
                 [
@@ -98,7 +99,7 @@
         ?>
     </div>
         
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
         <?= $form->field($model, 'carrera_id')->
                          dropDownList(ComboHelper::getCboCarreras($model->facultad_id),
                                       ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
@@ -108,3 +109,6 @@
    
     <?php ActiveForm::end(); ?>
 </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    
+</div>.

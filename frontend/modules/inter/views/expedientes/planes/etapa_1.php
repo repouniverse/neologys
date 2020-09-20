@@ -9,6 +9,7 @@
     use kartik\date\DatePicker;
     use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     use common\helpers\ComboHelper;
+    USE common\widgets\selectwidget\selectWidget;
     use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
     use common\models\masters\Alumnos;
 ?>

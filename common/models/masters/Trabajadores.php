@@ -30,7 +30,7 @@ class Trabajadores extends \common\models\base\modelBase
     use identidadTrait;
   // public $persona=null;
     public $prefijo='87';
-    
+    public $hardFields=['ap','am','nombres','tipodoc','numerodoc'];
     /**
      * {@inheritdoc}
      */
@@ -51,13 +51,24 @@ class Trabajadores extends \common\models\base\modelBase
              [['persona_id','facultad_id','universidad_id','depa_id','cargo_id'], 'safe'],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['numerodoc'], 'string', 'max' => 20],
+             [['numerodoc'], 'validateDuplicado'],
             [['tipodoc'], 'string', 'max' => 2],
             [['fingreso', 'codtra'], 'string', 'max' => 10],
             [['correo'], 'string', 'max' => 80],
             [['codigoper', 'codcargo'], 'string', 'max' => 8],
+             [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
         ];
     }
 
+    
+    public function behaviors() {
+        return [
+            
+            'auditoriaBehavior' => [
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+        ];
+           }    
     /**
      * {@inheritdoc}
      */

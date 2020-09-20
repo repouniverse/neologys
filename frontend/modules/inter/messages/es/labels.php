@@ -65,8 +65,8 @@ return [
     'Names'=>'Nombres',
     'Deprogram'=>'Desprograma',
     'Acronym'=>'Acrónimo',
-    'Document Type'=>'Tipo Documento',
-    'Document Number'=>'Número Documento',
+    'Document Type'=>'Tipo Doc.',
+    'Document Number'=>'Núm. Doc.',
     'Group Code'=>'Código Grupo',
     'Group'=>'Grupo',
     
