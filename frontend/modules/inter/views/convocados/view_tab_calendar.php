@@ -27,7 +27,7 @@ $plan=$current_expediente->plan;
    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
  
  <?PHP   
- $codalu=$identidad->codalu;
+  $codalu=$identidad->{$identidad->nameFieldCode()};
  
 $jsRemoveCallback = <<<JS
 function(title) {

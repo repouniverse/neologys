@@ -782,6 +782,8 @@ class ProgramaController extends baseController
         ]);  
   }
   
-  
+public function actionRutas(){
+    
+}
   
 }

@@ -286,5 +286,47 @@ class ExpedientesController extends baseController
      return $this->render('_view_horarios',['model'=>$model]);
     
   }  
+  
+  
+  public function actionModalNewObs($id){
+      $this->layout = "install";
+        $modelExp = $this->findModel($id);
+        $model=New \frontend\modules\inter\models\InterObsexpe();
+        $model->universidad_id=$modelExp->universidad_id;
+        $model->facultad_id=$modelExp->universidad_id;
+        $model->expediente_id=$modelExp->id;
+        
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('modal_create_observacion', [
+                        'model' => $model,
+                        'persona'=>$persona,
+                        'expediente_id'=> $model->expediente_id,
+                        'gridName'=>'PjaxCalendar',
+                        'idModal'=>'buscarvalor',
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+  }
     
 }

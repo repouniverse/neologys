@@ -58,7 +58,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
    
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'universidad_id')->textInput(['disabled'=>true,'value'=>$model->universidad->nombre,'maxlength' => true]) ?>
-            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Full Name'))->textInput(['disabled'=>true,'value'=>$model->convocado->alumno->persona->fullname(),'maxlength' => true]) ?>
+            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Full Name'))->textInput(['disabled'=>true,'value'=>$model->convocado->postulante->persona->fullname(),'maxlength' => true]) ?>
         </div>
         
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -67,7 +67,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         </div>
         
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Race'))->textInput(['disabled'=>true,'value'=>$model->convocado->alumno->carrera->nombre,'maxlength' => true]) ?>            
+            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Race'))->textInput(['disabled'=>true,'value'=>$model->convocado->postulante->carrera->nombre,'maxlength' => true]) ?>            
             <?= $form->field($model, 'etapa_id')->textInput(['disabled'=>true,'value'=>$model->etapa->descripcion,'maxlength' => true]) ?>            
         </div>
         

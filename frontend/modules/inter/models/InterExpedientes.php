@@ -212,6 +212,11 @@ class InterExpedientes extends \common\models\base\modelBase
         return $this->hasMany(InterEntrevistas::className(), ['expediente_id' => 'id']);
     }
     
+    public function getObservaciones()
+    {
+        return $this->hasMany(InterObsexpe::className(), ['expediente_id' => 'id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return InterExpedientesQuery the active query used by this AR class.
@@ -269,13 +274,13 @@ class InterExpedientes extends \common\models\base\modelBase
  } 
  
  public function mailAprove(){
-  $alumno=$this->convocado->alumno;
+  $postulante=$this->convocado->postulante;
  $mailer = new \common\components\Mailer();
         $message = new \yii\swiftmailer\Message();
         $message->setSubject('APROBACION DE EXPEDIENTE')
                 ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
-                ->setTo($alumno->mail)
-                ->SetHtmlBody("Buenas Tardes   " . $alumno->fullName() . " <br>"
+                ->setTo($postulante->mail)
+                ->SetHtmlBody("Buenas Tardes   " . $postulante->fullName() . " <br>"
                         //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
                         . "La presente es para notificarle que has  "
                         . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
@@ -295,7 +300,10 @@ class InterExpedientes extends \common\models\base\modelBase
         }
        
 
-
+public function hasObserves(){
+    return $this->getObservaciones()
+      ->andWhere(['valido'=>'1'])->exists();
+}
  
    
 }
