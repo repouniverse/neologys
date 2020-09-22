@@ -295,7 +295,8 @@ class ExpedientesController extends baseController
         $model->universidad_id=$modelExp->universidad_id;
         $model->facultad_id=$modelExp->universidad_id;
         $model->expediente_id=$modelExp->id;
-        
+         $model->convocado_id=$modelExp->convocado_id;
+         $model->valido=true;
         if(is_null($model)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
@@ -319,10 +320,10 @@ class ExpedientesController extends baseController
             //var_dump($model->attributes);die();
            return $this->renderAjax('modal_create_observacion', [
                         'model' => $model,
-                        'persona'=>$persona,
+                       // 'persona'=>$persona,
                         'expediente_id'=> $model->expediente_id,
-                        'gridName'=>'PjaxCalendar',
-                        'idModal'=>'buscarvalor',
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,
           
             ]);  

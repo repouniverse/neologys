@@ -18,9 +18,9 @@ use frontend\modules\inter\Module as m;
 <?=    \common\widgets\spinnerWidget\spinnerWidget::widget();?>
     <div class="box-body">
 
-
+        <h4><?=$model->expediente->documento->desdocu?></h4>
    <?php
-    $identidad=$persona->identidad;
+    //$identidad=$persona->identidad;
    $form = ActiveForm::begin(['id'=>'form-pico',
         'fieldClass'=>'\common\components\MyActiveField']); ?>
 
@@ -40,12 +40,7 @@ use frontend\modules\inter\Module as m;
                       ]
                   )?>
                <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
-           <?php  //$url= Url::to(['create-horario','id'=>$model->id,'gridName'=>'grilla-rangos','idModal'=>'buscarvalor']);
-              if(!$model->asistio)
-              echo  Html::button(h::awe('check').h::space(10).m::t('labels','Confirm assistance'), ['href' => '#', 'title' => m::t('labels','Confirm assistance'),'id'=>'btn-asistencia', 'class' => 'btn-warning']); 
-             
-             ?>
-                
+           
             </div>
         </div>
         <?php  Pjax::end();  ?>
@@ -56,17 +51,16 @@ use frontend\modules\inter\Module as m;
         
     </div>
    
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'universidad_id')->textInput(['disabled'=>true,'value'=>$model->universidad->nombre,'maxlength' => true]) ?>
-            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Full Name'))->textInput(['disabled'=>true,'value'=>$model->convocado->alumno->persona->fullname(),'maxlength' => true]) ?>
+            <?= $form->field($model, 'convocado_id')->label(m::t('labels','Full Name'))->textInput(['disabled'=>true,'value'=>$model->convocado->postulante->fullname(),'maxlength' => true]) ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'facultad_id')->textInput(['disabled'=>true,'value'=>$model->facultad->desfac,'maxlength' => true]) ?>            
-            <?= $form->field($model, 'modo_id')->textInput(['disabled'=>true,'value'=>$model->modo->descripcion,'maxlength' => true]) ?>            
-        </div>
+         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'expediente_id')->label(m::t('labels','File'))->textInput(['disabled'=>true,'value'=>$model->expediente->documento->desdocu,'maxlength' => true]) ?>            
             <?php //echo $form->field($model, 'etapa_id')->textInput(['disabled'=>true,'value'=>$model->etapa->descripcion,'maxlength' => true]) ?>            
         </div>        

@@ -783,7 +783,9 @@ class ProgramaController extends baseController
   }
   
 public function actionRutas(){
-    
+ $model=   \frontend\modules\inter\models\InterConvocados::findOne(1428);
+ //var_dump($model->currentStage());die();
+ $model->createExpedientes($model->currentStage());
 }
   
 }

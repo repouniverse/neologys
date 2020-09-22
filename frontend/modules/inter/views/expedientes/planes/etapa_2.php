@@ -37,5 +37,10 @@
             ]);  ?> 
     
     <?php ActiveForm::end(); ?>
-        
+      
+    <?php  
+   echo  $this->render('observaciones_al_documento',['model'=>$model]);
+    ?>
+    
+    
 </div>

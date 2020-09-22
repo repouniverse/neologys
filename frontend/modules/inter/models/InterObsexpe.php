@@ -94,6 +94,11 @@ public $booleanFields=['valido'];
     {
         return $this->hasOne(InterExpedientes::className(), ['id' => 'expediente_id']);
     }
+    
+    public function getConvocado()
+    {
+        return $this->hasOne(InterConvocados::className(), ['id' => 'convocado_id']);
+    }
 
     /**
      * {@inheritdoc}

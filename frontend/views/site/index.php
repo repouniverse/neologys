@@ -21,7 +21,7 @@ alumnoAsset::register($this);
               <p><?php echo yii::t('base_labels','Students') ?></p>
             </div>
             <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-file"></i></span>
+                <span style="color:white;opacity:0.5;"><i class="fa fa-users"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
@@ -31,7 +31,7 @@ alumnoAsset::register($this);
           </div>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">  
-           <div class="small-box bg-yellow-gradient">
+           <div class="small-box bg-purple-gradient">
             <div class="inner">
               <h3>45</h3>
 
@@ -40,7 +40,7 @@ alumnoAsset::register($this);
               echo yii::t('base_labels','Program') ?></p>
             </div>
             <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
+                <span style="color:white;opacity:0.5;"><i class="glyphicon glyphicon-scale"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
@@ -50,7 +50,7 @@ alumnoAsset::register($this);
           </div>
          </div> 
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">  
-             <div class="small-box bg-light-blue">
+             <div class="small-box bg-teal-gradient">
             <div class="inner">
               <h3>45</h3>
 
@@ -59,7 +59,7 @@ alumnoAsset::register($this);
               echo yii::t('base_labels','Teachers') ?></p>
             </div>
             <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
+                <span style="color:white;opacity:0.5;"><i class="glyphicon glyphicon-list"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
