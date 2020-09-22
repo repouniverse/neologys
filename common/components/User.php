@@ -143,12 +143,17 @@ class User extends UserOriginal {
    }
    
    public function resolveUrlAfterLogin(){
-    
+    yii::error( 'resolviendo afterlogin',__FUNCTION__);
        $url=$this->getUrlDefault();//verifica sus favoritos 
+       yii::error( 'Url favorito',__FUNCTION__);
+       yii::error( $url,__FUNCTION__);
        
        if(!is_null($url)){
+           yii::error( 'encontro favorito',__FUNCTION__);
+           yii::error( $url,__FUNCTION__);
           return $url;  
        }else{
+           yii::error( 'No encontro favorito',__FUNCTION__);
            $persona=$this->profile->persona;
           yii::error( $persona,__FUNCTION__);
            if(is_null($persona))

@@ -3,6 +3,9 @@
 namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
+use common\models\masters\Carreras;
+
+
 use Yii;
 
 /**
@@ -48,11 +51,13 @@ class InterEventos extends \common\models\base\modelBase
             [['facultad_id', 'universidad_id'], 'required'],
             [['facultad_id', 'universidad_id'], 'integer'],
             [['detalles'], 'string'],
+            [['carrera_id'], 'safe'],
             [['finicio', 'ftermino', 'numero'], 'string', 'max' => 10],
             [['web'], 'string', 'max' => 100],
             [['descripcion', 'ciudad'], 'string', 'max' => 40],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
+             [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
         ];
     }
 
@@ -93,6 +98,11 @@ class InterEventos extends \common\models\base\modelBase
     public function getFacultad()
     {
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
+    }
+    
+     public function getCarrera()
+    {
+        return $this->hasOne(Carreras::className(), ['id' => 'carrera_id']);
     }
 
     /**

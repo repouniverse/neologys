@@ -549,7 +549,7 @@ die();
                setFlash('success',
             yii::t('base_verbs','The user has been created'));
 		
-                  $this->redirect('view-users');
+                  $this->redirect('manage-users');
             }
         }
         
@@ -675,5 +675,41 @@ die();
   
     }
     
+     public function actionWelcomeDocente(){
+       
+      //var_dump(yii::$app->viewPath);die();
+      //var_dump(h::user()->profile->persona->identidad);die();
+   if(!is_null(($persona=h::user()->profile->persona))){
+     //if(is_null(($alumno=$persona->alumno))){
+         if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+             if(!is_null($identidad=$persona->identidad)){
+                // echo $grupo->layout; die();
+             return $this->render($grupo->layout,['identidad'=>$identidad]);
+         }else{
+            echo " NO tiene el perfill alumno" ; die();
+         }
+         
+     }else{
+         echo " NO especigico el grupo en l atabla personas " ; die(); 
+     }
+    }else{
+        echo " NO tiene el perfil persona  " ; die(); 
+    }
     
+  
+    }
+    
+  public function actionSetHomeUrl($id){
+      if(h::request()->isAjax){
+          
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+        $registro=  \common\models\Userfavoritos::findOne($id);
+        if(is_null($registro)){
+            return ['error'=>yii::t('base_errors','No se encontró el registro para este id')];
+        }else{
+            $registro->setHomeUrl();
+            return ['success'=>yii::t('base_errors','The initial page was changed')]; 
+        }
+      }
+  }   
 }

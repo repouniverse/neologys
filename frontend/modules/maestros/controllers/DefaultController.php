@@ -1494,7 +1494,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         
         if ($model->load(h::request()->post()) && $model->save()) {
-            return $this->redirect(['view-departamento', 'id' => $model->coddepa]);
+            return $this->redirect(['index-departamentos']);
         }else{
            // print_r($model->getErrors());die();
         }
@@ -1530,7 +1530,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           return $this->redirect(['view-departamento', 'id' => $model->coddepa]);
+           return $this->redirect(['index-departamentos']);
         }
 
         

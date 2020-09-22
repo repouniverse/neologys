@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use frontend\modules\inter\Module as m;
 use Yii;
 use  yii\web\ServerErrorHttpException;
 /**

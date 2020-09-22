@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update}{delete}',
                 'buttons' => [
                     'update' => function($url, $model) {  
-                        $url=Url::to(['update-departamento','id'=>$model->coddepa]);
+                        $url=Url::to(['update-departamento','id'=>$model->id]);
                         $options = [
                             'title' => Yii::t('base.verbs', 'Update'),                            
                         ];

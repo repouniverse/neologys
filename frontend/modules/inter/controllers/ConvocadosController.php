@@ -464,8 +464,8 @@ class ConvocadosController extends baseController
    public function actionFillFicha($id){
         $model = $this->findModel($id);
         $model->setScenario($model::SCENARIO_FICHA);
-        $modelP=$model->alumno->persona;
-         if($model->alumno->isExternal()){
+        $modelP=$model->postulante->persona;
+         if($model->postulante->isExternal()){
            $scenario=$modelP::SCE_CREACION_EXTRANJERO;  
          }ELSE{
              $scenario=$modelP::SCE_INTERMEDIO;   
@@ -737,8 +737,30 @@ class ConvocadosController extends baseController
         h::response()->format = \yii\web\Response::FORMAT_JSON;
       $model=Docentes::findOne($id);
       //$modo=($model->isExternal())?2:1;
-      $model->registerConvocado();
+     if(!$model->esConvocable())
+      RETURN ['error'=>m::t('errors','This teacher does not meet the requirements to apply')];
+      if($model->registerConvocado())
       RETURN ['success'=>'Se registró el docente'];
+      RETURN ['error'=>m::t('errors','There were problems registering')];
     }
   }
+  
+  public function actionIndexConvoDocentes(){
+      $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne(1);
+        if(is_null($modelPrograma))
+            throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+  
+        $searchModel = new \frontend\modules\inter\models\InterVwConvocadosDocentesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_docentes', [
+            'id'=>$modelPrograma->id,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'modelPrograma'=>$modelPrograma,
+        ]);
+         
+  }
+  
+  
 }

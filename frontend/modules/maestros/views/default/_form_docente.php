@@ -28,7 +28,7 @@
                                     ]
                                    ); 
     ?>
-        
+    <?php Pjax::begin(['id'=>'america']);?>    
     <div class="box-header">
         <div class="col-md-12">
             <div class="form-group no-margin">
@@ -36,12 +36,27 @@
                 <?= 
                     ($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])
                 ?>  
-                 <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
+                 <?php 
+                 if(!$model->isConvocado()){
+                    if($model->isExternal()){
+                        if(!$model->isInvited())
+                        echo Html::a(m::t('labels', 'Invite teacher'), Url::to(['/inter/programa/create-invitacion','id'=>$model->id]), ['data-pjax'=>'0','class' => 'btn btn-warning']);
+           
+                 
+                        
+                    }else{
+                      echo Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']);
+                     
+                    }
+                   
+                 }else{
+                 }
+                         ?>
                
             </div>
         </div>
     </div>
-    
+    <?php Pjax::end();    ?>
     <div class="box-body">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'codoce')->textInput(['disabled'=>true,'maxlength' => true]) ?>
@@ -60,8 +75,7 @@
         
         
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">  
-             <?= $form->field($model, 'universidad_id')->textInput(['disabled'=>true,'value'=>$model->universidad->nombre,'maxlength' => true]) ?>
-            <?php /*echo ComboDep::widget
+             <?php echo ComboDep::widget
                 (
                     [
                         'model'=>$model,               
@@ -78,11 +92,32 @@
                                   ],
                     ]
                )
-            */?>
+            ?>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">    
-             <?= $form->field($model, 'facultad_id')->textInput(['disabled'=>true,'value'=>$model->facultad->desfac,'maxlength' => true]) ?>
-           
+         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">  
+              <?php echo ComboDep::widget
+                (
+                    [
+                        'model'=>$model,               
+                        'form'=>$form,
+                        'data'=> ComboHelper::getCboFacultades($model->universidad_id),
+                        'campo'=>'facultad_id',
+                        'idcombodep'=>'docentes-carrera_base',               
+                        'source'=>[\common\models\masters\Carreras::className()=>
+                                    [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'nombre',//columna a mostrar 
+                                        'campofiltro'=>'facultad_id'  
+                                    ]
+                                  ],
+                    ]
+               )
+            ?>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?=$form->field($model, 'carrera_base')->
+                      dropDownList(ComboHelper::getCboCarreras($model->facultad_id),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+            ?>
         </div>
                
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -176,7 +211,7 @@
             <?= $form->field($modelPersona, 'polizaseguroint')->textInput(['maxlength' => true]) ?>
         </div> 
        
-        
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">  
 
          <?php 
        if(!$model->isExternal()){
@@ -222,7 +257,7 @@
 
         
        <?php  } ?>
-        
+        </div>  
 
          </div>     
              

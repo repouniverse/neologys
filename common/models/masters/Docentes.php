@@ -3,6 +3,7 @@
 namespace common\models\masters;
 use common\interfaces\identidadesInterface;
 use frontend\modules\inter\models\InterModos;
+use frontend\modules\inter\models\InterConvocados;
 USE common\traits\nameTrait;
 use common\helpers\h;
 USE common\traits\identidadTrait;
@@ -71,7 +72,7 @@ public function behaviors()
             [['facultad_id', 'universidad_id', 'persona_id'], 'integer'],
             [['codoce'], 'required'],
             
-              [['correo'], 'safe'],
+              [['correo','carrera_base'], 'safe'],
             
              [['mail'], 'unique'],
             [['codoce'], 'unique'],
@@ -79,12 +80,12 @@ public function behaviors()
              /* PARA ESCENARIOBASICO*/
             [[
             'codoce','ap','nombres',
-            'universidad_id', 'facultad_id','tipodoc','mail','numerodoc'
+            'universidad_id', 'facultad_id','tipodoc','mail','numerodoc','carrera_base'
             ],'required','on'=>self::SCE_CREACION_BASICA
             ],
              [[
            'codoce', 'ap','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id','correo',
+            'universidad_id', 'facultad_id','correo','carrera_base',
             /*'telpaisorigen',
             'codcontpaisorigen','polizaseguroint','telefasistencia',
             'paisresidencia','lugarresidencia',
@@ -106,6 +107,7 @@ public function behaviors()
             [['codpering', 'codfac'], 'string', 'max' => 10],
             [['numerodoc'], 'string', 'max' => 20],
             [['tipodoc', 'categoria', 'dispo'], 'string', 'max' => 2],
+             [['carrera_base'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_base' => 'id']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
             [['codigoper'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
@@ -146,7 +148,7 @@ public function behaviors()
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
            'codoce', 'ap','am','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id','correo'
+            'universidad_id', 'facultad_id','correo','carrera_base'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
@@ -162,6 +164,15 @@ public function behaviors()
     public function getFacultad()
     {
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
+    }
+    
+    
+    
+     public function getCarrera()
+    {
+         
+         
+        return $this->hasOne(Carreras::className(), ['id' => 'carrera_base']);
     }
 
     /**
@@ -180,10 +191,27 @@ public function behaviors()
     {
         return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
     }
+    
+    public function getOrigen()
+    {
+        return $this->hasOne(Carreras::className(), ['id' => 'carrera_base']);
+    }
 
     public function getTipodocumento(){
          return (Combovalores::getValue('personas.tipodoc', $this->tipodoc ));
       } 
+   
+      
+      
+      public function getConvocatorias()
+    {
+        return $this->hasMany(InterConvocados::className(), ['docente_id' => 'id']);
+    }
+      
+  public function currentConvocatoria(){
+     return  $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
+  }    
+      
       
     /**
      * {@inheritdoc}
@@ -210,8 +238,17 @@ public function behaviors()
      * para postular al aproerma de internacionala
      */
    public function esConvocable(){
-      
-       return true;
+      if($this->isExternal()){
+         /*
+          * Si es extrajero tiene que estar invitado
+          */ 
+         return \frontend\modules\inter\models\InterInvitaciones::find()
+         ->andWhere(['docenteinv_id'=>$this->id])->exists();
+          
+      }else{
+       return true;   
+      }
+       
        
    }
    
@@ -316,6 +353,13 @@ public function behaviors()
      
   
     $external=$this->isExternal();
+    /*Veroficando primero que si es extranjero
+     * haya psado por una invitacion*/
+   
+    
+    
+    
+    
   
    if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && $this->esConvocable()){
        $model=new \frontend\modules\inter\models\InterConvocados();
@@ -384,6 +428,34 @@ public function behaviors()
     
  }
  
+public function beforeSave($insert) {
+    if($insert){
+        /*En caso de profesoires nacionales 
+         * la carrera y facultad destino es la misma 
+         * de us origen. Esto mientras sean postulantes 
+         * luego de aplicar, esto cambiara, pero por ahora 
+         * colocar estos mismo valores por default.
+         */
+        if(!($this->isExternal())){
+            $this->unidest_id=$this->universidad_id;
+            $this->facudest_id=$this->facultad_id;
+            $this->carreradest_id=$this->carrera_base;
+        }
+    }
+    return parent::beforeSave($insert);
+}
  
- 
+public function isConvocado() {
+   return  \frontend\modules\inter\models\InterConvocados::find()
+     ->andWhere(['docente_id'=>$this->id])->exists();
+}
+
+public function isInvited() {
+   return \frontend\modules\inter\models\InterInvitaciones::find()
+     ->andWhere(['docenteinv_id'=>$this->id])->exists();
+}
+
+public function campoCarrera() {
+   RETURN 'carreradest_id';
+}
 }

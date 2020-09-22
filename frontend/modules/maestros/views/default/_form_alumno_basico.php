@@ -58,7 +58,8 @@
                                     [
                                         'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'desfac',//columna a mostrar 
-                                        'campofiltro'=>'universidad_id'  
+                                        'campofiltro'=>'universidad_id'  ,
+                                        
                                     ]
                                   ],
                     ]
@@ -79,7 +80,8 @@
                                     [
                                         'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombre',//columna a mostrar 
-                                        'campofiltro'=>'facultad_id'  
+                                        'campofiltro'=>'facultad_id' ,
+                                        'additionalFilter'=>['esbase'=>'1']
                                     ]
                                   ],
                     ]

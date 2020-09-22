@@ -43,16 +43,22 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 //'template' => Helper::filterActionColumn(['view', 'activate', 'delete']),
-            'template' => '{view}{activate}',
+            'template' => '{view}{update}',
                 'buttons' => [
                     'view' => function ($url,$model) {
 			    $url = Url::to(['admin/assignment/view', 'id' => $model->id]);
                             // return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => 'Update']);
                             $options=[];
-                           return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
+                           return Html::a('<span class="btn btn-warning btn-sm fa fa-user-lock"></span>', $url, $options/*$options*/);
                         
                              },
-                                     
+                   'update' => function ($url,$model) {
+			    $url = Url::to(['site/view-profile', 'iduser' => $model->id]);
+                            // return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => 'Update']);
+                            $options=[];
+                           return Html::a('<span class="btn btn-info btn-sm fa fa-user-tag"></span>', $url, $options/*$options*/);
+                        
+                             },                  
                     
                     
                    /* 'activate' => function($url, $model) {

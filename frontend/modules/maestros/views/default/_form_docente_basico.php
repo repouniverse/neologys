@@ -82,10 +82,29 @@
                )
             ?>
         </div>
-                
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
+            <?= ComboDep::widget
+                (
+                    [
+                        'model'=>$model,               
+                        'form'=>$form,
+                        'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
+                        'campo'=>'facultad_id',
+                        'idcombodep'=>'docentes-carrera_base',               
+                        'source'=>[\common\models\masters\Carreras::className()=>
+                                    [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'nombre',//columna a mostrar 
+                                        'campofiltro'=>'facultad_id'  
+                                    ]
+                                  ],
+                    ]
+               )
+            ?>
+        </div>      
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
-            <?= $form->field($model, 'facultad_id')->
-                             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
+            <?= $form->field($model, 'carrera_base')->
+                             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facultad_id),
                                                                 ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                                          )
             ?>

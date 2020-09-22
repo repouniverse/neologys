@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'type' => 'select',
                      'editableOptions' => function ($model) {
                         return [
-                            'source' => common\helpers\ComboHelper::getCboGrupoPersonas(),
+                            'source' =>array_merge([''=>'--'.m::t('labels','Choose a value').'--'], common\helpers\ComboHelper::getCboGrupoPersonas()),
                             'value' => $model->grupopersonas,
                         ];
                     },       

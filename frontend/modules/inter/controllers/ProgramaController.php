@@ -7,6 +7,8 @@ use frontend\modules\inter\models\InterPrograma;
 use frontend\modules\inter\models\InterProgramaSearch;
 use frontend\modules\inter\models\InterEtapas;
 use frontend\modules\inter\models\InterEventos;
+use frontend\modules\inter\models\InterInvitaciones;
+use frontend\modules\inter\models\InterInvitacionesSearch;
 use frontend\modules\inter\models\InterEventosSearch;
 use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
@@ -15,6 +17,7 @@ use common\helpers\h;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use yii\web\BadRequestHttpException;
 /**
  * ProgramaController implements the CRUD actions for InterPrograma model.
  */
@@ -699,5 +702,86 @@ class ProgramaController extends baseController
             'dataProvider' => $dataProvider,
         ]);  
   }
+  
+   /*
+   * Crea una etapa del programa 
+   */
+  public function actionCreateInvitacion($id){
+    $docente= \common\models\masters\Docentes::findOne($id);
+    
+    
+    if(is_null($docente))
+    throw new BadRequestHttpException(yii::t('base_errors','Teacher not found'));
+     if(!$docente->isExternal())
+    throw new BadRequestHttpException(yii::t('base_errors','This teacher is not external'));
+   
+     $model=New InterInvitaciones(); 
+        $model->docenteinv_id=$docente->id;
+         $model->universidad_id=$docente->universidad_id;
+         $model->facultad_id=$docente->facultad_id;
+         
+      
+       
+      $programa=$this->findModel(m::currentPrograma());
+        
+  //$model->facultad_id=
+  //$model = new InterPrograma();
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            return $this->redirect(['index-invitaciones', 'id' => $model->id]);
+        }ELSE{
+           //PRINT_R($model->getErrors());DIE();
+
+        }
+        return $this->render('create_invitacion', [
+            'model' => $model,'programa'=>$programa,'docente'=>$docente
+        ]);
+      
+  }
+  
+   /*
+   * Crea una etapa del programa 
+   */
+  public function actionEditInvitacion($id){
+  $model= InterInvitaciones::findOne($id);
+  $docente=$model->docenteanfi;
+  $programa=$this->findModel(m::currentPrograma());
+  if(is_null($model))
+  throw new NotFoundHttpException(Yii::t('base_errors', 'Record not found.'));
+   
+  //$model = new InterPrograma();
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            return $this->redirect(['index-invitaciones', 'id' => $model->id]);
+        }ELSE{
+           //PRINT_R($model->getErrors());DIE();
+
+        }
+        return $this->render('update_invitacion', [
+            'model' => $model,'programa'=>$programa,'docente'=>$docente
+        ]);
+      
+  }
+  
+  
+  public function actionIndexInvitaciones(){
+     $searchModel = new InterInvitacionesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_invitaciones', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);  
+  }
+  
+  
   
 }

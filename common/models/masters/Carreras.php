@@ -31,6 +31,7 @@ class Carreras extends \common\models\base\modelBase
         return '{{%carreras}}';
     }
 
+    public $booleanFields=['esbase'];
     /**
      * {@inheritdoc}
      */
@@ -40,6 +41,7 @@ class Carreras extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'ciclo'], 'integer'],
             [['nombre', 'acronimo'], 'required'],
             [['detalle'], 'string'],
+              [['esbase'], 'safe'],
             [['codesp'], 'string', 'max' => 8],
             [['nombre'], 'string', 'max' => 60],
             [['acronimo'], 'string', 'max' => 12],

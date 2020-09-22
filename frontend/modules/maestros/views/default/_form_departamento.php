@@ -33,6 +33,13 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    
+      <?= $form->field($model, 'coddepa')->textInput(['disabled' =>($model->isNewRecord)?FALSE:TRUE]) ?>
+          </div>
+      
+      
+      
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"> 
     <?= ComboDep::widget([
                'model'=>$model,               
@@ -42,7 +49,7 @@ use yii\widgets\ActiveForm;
                'idcombodep'=>'departamentos-facultad_id',               
                    'source'=>[\common\models\masters\Facultades::className()=>
                                 [
-                                  'campoclave'=>'facultad_id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                  'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'desfac',//columna a mostrar 
                                         'campofiltro'=>'universidad_id'  
                                 ]

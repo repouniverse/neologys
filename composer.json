@@ -50,7 +50,9 @@
         "codeception/module-filesystem": "^1.0",
         "codeception/verify": "~0.5.0 || ~1.1.0",
         "symfony/browser-kit": ">=2.7 <=4.2.4",
-         "nemmo/yii2-attachments": "~1.0.0.0-beta3"        
+         "nemmo/yii2-attachments": "~1.0.0.0-beta3" ,
+        "rmrevin/yii2-fontawesome": "~2.17",
+        "fortawesome/font-awesome": "~4.7"
     },
     "config": {
         "process-timeout": 1800,

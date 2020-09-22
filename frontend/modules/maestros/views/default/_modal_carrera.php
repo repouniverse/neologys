@@ -59,7 +59,10 @@ use common\widgets\selectwidget\selectWidget;
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
     </div>
     
+     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
     
+    <?= $form->field($model, 'esbase')->checkBox([]) ?>
+    </div>
     
     
     

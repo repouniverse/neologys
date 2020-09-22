@@ -44,9 +44,10 @@ class Departamentos extends \common\models\base\modelBase
     {
         return [
             [['universidad_id', 'facultad_id'], 'integer'],
-            [['nombredepa','codigoper'], 'required'],
+            [['coddepa','nombredepa','universidad_id', 'facultad_id'], 'required'],
             [['detalles'], 'string'],
             [['coddepa'], 'string', 'max' => 10],
+            [['coddepa'], 'unique'],
             [['nombredepa'], 'string', 'max' => 40],
             [['correodepa'], 'string', 'max' => 80],
             [['webdepa'], 'string', 'max' => 100],

@@ -461,4 +461,13 @@ implements \common\interfaces\postulantesInterface
     
  }
  
+ public function isConvocado() {
+   return  \frontend\modules\inter\models\InterConvocados::find()
+     ->andWhere(['alumno_id'=>$this->id])->exists();
+}
+ 
+public function campoCarrera() {
+   RETURN ($this->isExternal())?'carreradest_id':'carrera_id';;
+}
+
 }

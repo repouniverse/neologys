@@ -421,7 +421,7 @@ public function porcAvanceUploads($stage){
     // YII::ERROR('CREANDO EXPEDIENTE PRIMERO ',__FUNCTION__);
      $postulante=$this->postulante;
      $externo=$postulante->isExternal();
-     $campoCarrera=($externo)?'carreradest_id':'carrera_id';
+     $campoCarrera=$postulante->campoCarrera();
      $query=Interplan::find()->alias('t')->
     andWhere(['modo_id'=>$this->modo_id,
       'ordenetapa'=> InterEtapas::firstStage($this->modo_id)
@@ -464,10 +464,9 @@ public function porcAvanceUploads($stage){
  private function createExpediente(InterPlan $modelPlan){
      /*Solo los planes de la especialidad del alumno*/
      yii::error('itentando crear expediente ');
-     $alumno=$this->alumno;
-     $externo=$alumno->isExternal();
-     $campoCarrera=($externo)?'carreradest_id':'carrera_id';
-    if($modelPlan->eval->carrera->id==$alumno->{$campoCarrera}){
+     $postulante=$this->postulante;
+      $campoCarrera=$postulante->campoCarrera();
+    if($modelPlan->eval->carrera->id==$postulante->{$campoCarrera}){
         yii::error('si es de la carera  ');
         return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
@@ -568,7 +567,7 @@ public function beforeSave($insert) {
    return Alumnos::findOne($this->alumno_id);
      
       if(!empty($this->docente_id))
-   return Docentes::findOne($this->alumno_id);
+   return Docentes::findOne($this->docente_id);
          
     
  }

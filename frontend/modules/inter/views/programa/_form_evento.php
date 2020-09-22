@@ -62,12 +62,33 @@ use kartik\date\DatePicker;
                
         )  ?>
  </div> 
-
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$model,               
+               'form'=>$form,
+               'data'=> ($model->isNewRecord)?[]:comboHelper::getCboFacultades($model->universidad_id),
+               'campo'=>'facultad_id',
+               'idcombodep'=>'intereventos-carrera_id',
+               
+                   'source'=>[\common\models\masters\Carreras::className()=>
+                                [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'nombre',//columna a mostrar 
+                                        'campofiltro'=>'facultad_id'  
+                                ]
+                                ],
+                            ]
+               
+               
+        )  ?>
+ </div> 
+          
+          
  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
      
     <?php
-    $data=($model->isNewRecord)?[]:comboHelper::getCboFacultades($model->universidad_id);
-   echo  $form->field($model, 'facultad_id')->
+    $data=($model->isNewRecord)?[]:comboHelper::getCboCarreras($model->facultad_id);
+   echo  $form->field($model, 'carrera_id')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
                     // 'class'=>'probandoSelect2',

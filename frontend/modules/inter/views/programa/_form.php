@@ -72,7 +72,8 @@ use common\widgets\selectwidget\selectWidget;
                                 [
                                   'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombredepa',//columna a mostrar 
-                                        'campofiltro'=>'facultad_id'  
+                                        'campofiltro'=>'facultad_id' ,
+                                    
                                 ]
                                 ],
                             ]

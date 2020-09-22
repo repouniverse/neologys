@@ -16,4 +16,6 @@ interface postulantesInterface {
     public function isExternal();
      public function registerConvocado($idModo);
     public function resolveModo();
+     public function isConvocado();
+     public function campoCarrera();
 }
