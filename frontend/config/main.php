@@ -49,11 +49,7 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
-        ],
+        
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
@@ -88,7 +84,18 @@ return [
             'class' => 'frontend\modules\import\ModuleImport',
         ],
     ],
-    
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/login/',
+            'site/clear-cache/',
+           // 'site/signup',
+             'site/request-password-reset',
+            'site/reset-password', 
+           'site/logout',
+           'site/mantenimiento',            
+        ]
+    ],
     
     'params' => $params,
 ];

@@ -54,13 +54,16 @@ return [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\PhpManager'
         ],
         'user' => [
-            'class' => 'common\components\User',
-            //'identityClass' => 'mdm\admin\models\User',
+         'class' => 'common\components\User',
+        //'identityClass' => 'mdm\admin\models\User',
             'identityClass' => 'common\models\User',
-            //'loginUrl' => ['admin/user/login'],
-            //'class' => 'mdm\admin\models\User',
-            'loginUrl' => ['admin/user/login'],
-        ],
+        //'loginUrl' => ['admin/user/login'],
+         'loginUrl' => ['site/login'],  
+           'enableAutoLogin'=>false,
+           // authTimeout
+            'enableSession' => true,
+            'authTimeout'=>60*180,
+    ],
         'i18n' => [
             'translations' => [
                 'rbac-admin' => [
