@@ -329,5 +329,9 @@ class ExpedientesController extends baseController
             ]);  
         }
   }
+  
+  public function actionAjaxShowAdjunto($id){
+      
+  }
     
 }

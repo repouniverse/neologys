@@ -1,5 +1,6 @@
 <?php
 use frontend\views\layouts\perfiles\alumnoAsset;
+//use frontend\modules\inter\Module as m;
 use common\helpers\h;
 use frontend\modules\inter\components\Metricas;
 //use frontend\modules\inter\Module as m;
@@ -76,11 +77,10 @@ alumnoAsset::register($this);
 </div>        
              
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <h4><i style="font-size:30px;"><?=h::awe('calendar').'</i>'.h::space(10).yii::t('base_labels','Welcome to International Module').h::space(10).$identidad->fullName()?></h4>
-  
+     
        <?php Pjax::begin();            
             $gridColumns=[   
-                                [
+                                /*[
                                     'class' => 'yii\grid\ActionColumn',
                                     'template' => '{update}{view}',
                                     'buttons' => 
@@ -113,7 +113,7 @@ alumnoAsset::register($this);
                                                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options);
                                                     }
                                     ]
-                                ],
+                                ],*/
                              
                            [
                     'class' => 'kartik\grid\ExpandRowColumn',
@@ -122,11 +122,14 @@ alumnoAsset::register($this);
                                {
                                 return GridView::ROW_COLLAPSED;
                                },
-                    'detail' => function ($model, $key, $index, $column) 
+                    /*'detail' => function ($model, $key, $index, $column) 
                                 {
                                     return $this->render('@frontend/modules/inter/views/convocados/_expand_historial', ['model'=>$model,'datos'=>$model->datosExpedientes()]);
-                                },
+                                },*/
+                                        'detailUrl' =>Url::toRoute([$this->context->id.'/view-ajax-citas']),
+                    //'headerOptions' => ['class' => 'kartik-sheet-style'], 
                     'expandOneOnly' => true
+                    //'expandOneOnly' => true
                 ],
                 [
                             'attribute'=>'imagen',
@@ -134,8 +137,13 @@ alumnoAsset::register($this);
                             'value'=>function($model){
                                 return Html::img($model->image($model->codigoalumno),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
                             }
-                        ],                        
-                       'id_expediente',                 
+                        ], 
+                        
+                                
+                       ['attribute'=>'desdocu',
+                                   //'header'=>''
+                                    'group'=>true, 
+                                     ],             
                    'codigoalumno',  
                     'codesp',
                            ['attribute'=>'descripcion',
@@ -151,10 +159,15 @@ alumnoAsset::register($this);
                                    //'header'=>'current_stage',
                                    //'group'=>true, 
                                  ],
-                                 
-                                'ap',
-                                'am',                                   
-                                'nombres',
+                                ['attribute'=>yii::t('base_labels','Names'),
+                                  //'format'=>'raw',
+                                  'value'=>function($model){
+                                      return $model->fullName();
+                                  },
+                                  
+                                   //'header'=>'current_stage',
+                                   //'group'=>true, 
+                                 ],
                                 //'current_etapa',
                                  
                                // 'codigoper',
@@ -174,19 +187,9 @@ alumnoAsset::register($this);
                               
         <?php $dataProvider =(new InterVwExpedientesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
                 
-
-       <div style='overflow:auto;'>
-                    <?=ExportMenu::widget([
-    'dataProvider' =>$dataProvider,
-                        
-                       
-    'columns' => $gridColumns,
-        'batchSize'=>20,
-    'dropdownOptions' => [
-        'label' => yii::t('base_labels','Export'),
-        'class' => 'btn btn-success'
-    ]
-]) . "<hr>\n".GridView::widget(
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  
+                    <?=GridView::widget(
                         [
                             'dataProvider' => $dataProvider,
                             //'summary' => '',
@@ -202,11 +205,95 @@ alumnoAsset::register($this);
       
       
         
-    </div>       
+  
+    </div> 
+    <br>.<br><br>.<br><br>.<br><br>.<br>
+  
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+         <?php $dataProvider =(new \frontend\modules\inter\models\InterVwExpedientesDocentesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
+        
+       <div style='overflow:auto;'>
+           <?php 
+           $gridColumns=[   
+                                
+                           [
+                    'class' => 'kartik\grid\ExpandRowColumn',
+                    'width' => '50px',
+                    'value' => function ($model, $key, $index, $column)
+                               {
+                                return GridView::ROW_COLLAPSED;
+                               },
+                    'detail' => function ($model, $key, $index, $column) 
+                                {
+                                    return $this->render('@frontend/modules/inter/views/convocados/_expand_historial', ['model'=>$model,'datos'=>$model->datosExpedientes()]);
+                                },
+                    'expandOneOnly' => true
+                ],
+                [
+                            'attribute'=>'imagen',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                return Html::img($model->image($model->codigodocente),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
+                            }
+                        ],   
+                        
+                       ['attribute'=>'desdocu',
+                                   //'header'=>''
+                                    'group'=>true, 
+                                     ],                 
+                   'codigodocente',  
+                    'codesp',
+                           ['attribute'=>'descripcion',
+                                   //'header'=>''
+                                    'group'=>true, 
+                                     ],
+                              ['attribute'=>'current_etapa',
+                                  'format'=>'raw',
+                                  'value'=>function($model){
+                                      return '<div class="circle-badge">'.$model->current_etapa.'</div>';
+                                  },
+                                  
+                                   //'header'=>'current_stage',
+                                   //'group'=>true, 
+                                 ],
+                                 
+                                ['attribute'=>yii::t('base_labels','Names'),
+                                  //'format'=>'raw',
+                                  'value'=>function($model){
+                                      return $model->fullName();
+                                  },
+                                  
+                                   //'header'=>'current_stage',
+                                   //'group'=>true, 
+                                 ],
+                            ];
+            
+            
+           
+           
+           
+           
+           
+             echo GridView::widget(
+                        [
+                            'dataProvider' => $dataProvider,
+                            //'summary' => '',
+                            'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
+                          //  'filterModel' => $searchModel,
+                            'columns' => $gridColumns,
+                            
+                        ]);
+           
+           
+           ?>
 
-
-
-
+         </div>
+   </div>          
+           
+           
 </div>
+      
+      
+    
 </div>
 </div>

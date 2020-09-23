@@ -84,7 +84,10 @@ $marcadores=[
       ['latLng'=> [7.12,-73.11], 'name'=> 'UNIVERSIDAD AUTÓNOMA DE BUCARAMANGA','weburl' => Url::to(['/maestros/default/update-univer','id'=>5])],
       ['latLng'=> [-34.53, -56.09], 'name'=> 'UNIVERSIDAD CATÓLICA DEL URUGUAY','weburl' => Url::to(['/maestros/default/update-univer','id'=>26])],
       ['latLng'=> [52.45, 9.23], 'name'=> 'UNIVERSIDAD DE LEUPHANA','weburl' => Url::to(['/maestros/default/update-univer','id'=>28])],        
-              ];
+      ['latLng'=> [23.63, -102.55], 'name'=> 'UNIVERSIDAD DE ANAHUAC','weburl' => Url::to(['/maestros/default/update-univer','id'=>10])],        
+              
+    
+    ];
 $options=[
         'backgroundColor'=>'#d9dde2;',
          'markerStyle'=>[

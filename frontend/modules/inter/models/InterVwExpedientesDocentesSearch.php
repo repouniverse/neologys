@@ -4,14 +4,14 @@ namespace frontend\modules\inter\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\modules\inter\models\InterVwExpedientes;
+use frontend\modules\inter\models\InterVwExpedientesDocentes;
 
 /**
  * InterConvocadosSearch represents the model behind the search form of `frontend\modules\inter\models\InterConvocados`.
  */
-class InterVwExpedientesSearch extends InterVwExpedientes
+class InterVwExpedientesDocentesSearch extends InterVwExpedientesDocentes
 {
-    use \common\traits\attachmentTrait;
+       use \common\traits\attachmentTrait;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +19,7 @@ class InterVwExpedientesSearch extends InterVwExpedientes
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2','current_etapa','codigoalumno','facultad_id','carrera_id'], 'safe'],
+            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codigodocente', 'codoce1', 'codoce2','current_etapa','facultad_id','carrera_base','facudest_id','unidest_id','carreradest_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class InterVwExpedientesSearch extends InterVwExpedientes
      */
     public function search($params)
     {
-        $query = InterVwExpedientes::find();
+        $query = InterVwExpedientesDocentes::find();
 
         // add conditions that should always apply here
 
@@ -88,11 +88,12 @@ class InterVwExpedientesSearch extends InterVwExpedientes
     
      public function searchByPendienteByEvaluador($id_trabajador)
     {
-       $idsEvaluaciones= InterEvaluadores::find()->select(['id'])
+      $idsEvaluaciones= InterEvaluadores::find()->select(['id'])
                  ->andWhere(['trabajador_id'=>$id_trabajador])->column();
-       //$idsAttachments=$this->idsInAttachments(InterExpedientes::getShortNameClass());
-      
-        $query = InterVwExpedientes::find();
+         
+         
+         
+        $query = InterVwExpedientesDocentes::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -104,7 +105,7 @@ class InterVwExpedientesSearch extends InterVwExpedientes
             // $query->where('0=1');
             return $dataProvider;
         }
-          
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_eval'=>$idsEvaluaciones,
@@ -113,7 +114,7 @@ class InterVwExpedientesSearch extends InterVwExpedientes
         ]);
 
         
-///echo $query->createCommand()->rawSql;die();
+
         return $dataProvider;
     }
     

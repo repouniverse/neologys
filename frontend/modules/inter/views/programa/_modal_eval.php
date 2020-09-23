@@ -76,7 +76,8 @@ use common\widgets\selectwidget\selectWidget;
                     \common\models\masters\Trabajadores::className()=>
                         [
                             'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
-                            'camporef'=>'ap',//columna a mostrar 
+                            //'camporef'=>'ap',//columna a mostrar 
+                            'camporef'=>['nombres','ap','am'],//columna a mostrar 
                             'campofiltro'=>'depa_id'  
                         ]
                     ],

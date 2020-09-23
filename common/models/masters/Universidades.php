@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-
+use common\behaviors\FileBehavior;
 use Yii;
 
 /**
@@ -33,6 +33,16 @@ class Universidades extends \common\models\base\modelBase
     public static function tableName()
     {
         return '{{%universidades}}';
+    }
+    
+     public function behaviors() {
+        return [
+           
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+            
+        ];
     }
 
     /**

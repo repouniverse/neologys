@@ -46,7 +46,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 </div>
     
-        
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <?= \common\widgets\imagewidget\ImageWidget::widget(['name'=>'imagenrep','model'=>$model]); ?>
+   </div>   
     
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
    <?=$form->field($model, 'codpais')->

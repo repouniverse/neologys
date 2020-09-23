@@ -2,6 +2,7 @@
 
 namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
+use frontend\modules\inter\models\InterExpedientes;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
 use common\models\masters\Periodos;
@@ -162,4 +163,31 @@ class InterEvaluadores extends \common\models\base\modelBase
     {
         return new InterEvaluadoresQuery(get_called_class());
     }
+    
+    
+    /*******************************************
+     * funciones para sacar metricas de
+     * avance de evaluacion
+     ******************************************/
+    private function queryExpedientes(){
+        //Join con la tabla planes
+       return InterExpedientes::find()->alias('t')
+       ->join('INNER JOIN','{{%inter_plane}} x', 't.plan_id =x.id');
+    }
+    
+    /*
+     * Numero de expedientes sin aprobar 
+     */
+    public function numExpSinAprobar(){        
+      return  $this->queryExpedientes()->
+       andWhere(['t.estadoexp'=>'0','x.id'=>$this->id])->count();
+    }
+    
+     /*
+    
+    
+   /********************
+     * Fin de funciones metricas
+     */
+     
 }

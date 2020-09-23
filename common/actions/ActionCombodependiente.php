@@ -28,10 +28,29 @@ class ActionCombodependiente extends \yii\base\Action
                  $funcion=$source[$modelo]['campofiltro'];
                 $datos=$modelo::{$funcion}($valorfiltro);
              }else{
-                 $query=$modelo::find()->select([
+                 
+                 
+                 /*Si hay camos concatenados*/
+                 $adicionales='';
+                 if(is_array($source[$modelo]['camporef'])){
+                     foreach($source[$modelo]['camporef'] as $clave=>$valor){   
+                      $adicionales.=",'-',".$valor;
+                      //$query=$query->orFilterWhere(['like',$valor,$filter]);
+                        }
+                     $adicionales=substr($adicionales,5);
+                    $expresion=new \yii\db\Expression('CONCAT('.$adicionales.') as segundocampo');
+                    $campos= [ $source[$modelo]['campoclave'],$expresion];
+                          
+                 }else{
+                     $campos=[
                      $source[$modelo]['campoclave'],
-                      $source[$modelo]['camporef']
-                 ])->andWhere([
+                      $source[$modelo]['camporef'].' as segundocampo'
+                        ];
+                 }
+                 
+                 
+                 
+                 $query=$modelo::find()->select($campos)->andWhere([
                      $source[$modelo]['campofiltro']=>$valorfiltro
                          ]);
                  if(array_key_exists('additionalFilter', $source[$modelo]))
@@ -42,7 +61,7 @@ class ActionCombodependiente extends \yii\base\Action
                    $arrData=$query->asArray()->all();
                   
                    $datos=array_combine(array_column( $arrData,$source[$modelo]['campoclave']),
-                            array_column($arrData,$source[$modelo]['camporef']));
+                            array_column($arrData,'segundocampo'));
                  
                  //$model::find()->
                  /*var_dump( $valorfiltro,

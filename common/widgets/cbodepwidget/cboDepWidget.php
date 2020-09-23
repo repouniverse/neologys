@@ -87,9 +87,6 @@ class cboDepWidget extends \yii\base\Widget
              // 'valores'=>$valores,
                // 'idcontrolprefix'=>$this->getIdControl(),
                 ]);
-        
-        
-        
         }
     
  private function makeJs(){

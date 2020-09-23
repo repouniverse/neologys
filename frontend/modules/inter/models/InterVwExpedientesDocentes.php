@@ -5,7 +5,7 @@ USE common\helpers\h;
 use Yii;
 
 /**
- * This is the model class for table "{{%inter_vw_expedientes}}".
+ * This is the model class for table "{{%inter_vw_expedientes_docentes}}".
  *
  * @property int $id
  * @property int|null $universidad_id
@@ -29,7 +29,7 @@ use Yii;
  * @property string|null $motivos
  * @property int|null $current_etapa
  * @property string|null $pendiente
- * @property string $am
+ * @property string|null $am
  * @property string $ap
  * @property string $nombres
  * @property string $codigoper
@@ -38,28 +38,40 @@ use Yii;
  * @property string $codgrupo
  * @property string $acronimo
  * @property string $descripcion
- * @property string $codigoalumno
- * @property string|null $codalu1
- * @property string|null $codalu2
- * @property int|null $carrera_id
+ * @property string $codigodocente
+ * @property string|null $codoce1
+ * @property string|null $codoce2
+ * @property int $unidest_id
+ * @property int $facudest_id
+ * @property int $carreradest_id
  * @property string|null $codesp
  * @property string $nombre
+ * @property int $id_expediente
+ * @property int|null $plan_id
  * @property string $estadoexp
  * @property string $requerido
  * @property int|null $orden
  * @property int|null $etapa_id
  * @property string $desdocu
+ * @property string $acronimoplan
+ * @property string $decriplan
+ * @property int $id_eval
+ * @property string $acronimoeval
+ * @property string $descrieval
+ * @property string $apeval
+ * @property string $ameval
+ * @property string $nombreseval
  */
-class InterVwExpedientes extends \common\models\base\modelBase
+class InterVwExpedientesDocentes extends \common\models\base\modelBase
 {
-    use \common\traits\identidadTrait;
+ use \common\traits\identidadTrait;
     use \common\traits\nameTrait;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%inter_vw_expedientes}}';
+        return '{{%inter_vw_expedientes_docentes}}';
     }
 
     /**
@@ -68,14 +80,14 @@ class InterVwExpedientes extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id', 'current_etapa', 'carrera_id', 'orden', 'etapa_id'], 'integer'],
-            [['codocu', 'clase', 'status', 'am', 'ap', 'nombres', 'codigoper', 'codgrupo', 'acronimo', 'descripcion', 'codigoalumno', 'nombre', 'estadoexp', 'requerido', 'desdocu'], 'required'],
+            [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id', 'current_etapa', 'unidest_id', 'facudest_id', 'carreradest_id', 'id_expediente', 'plan_id', 'orden', 'etapa_id', 'id_eval'], 'integer'],
+            [['codocu', 'clase', 'status', 'ap', 'nombres', 'codigoper', 'codgrupo', 'acronimo', 'descripcion', 'codigodocente', 'unidest_id', 'facudest_id', 'carreradest_id', 'nombre', 'estadoexp', 'requerido', 'desdocu', 'acronimoplan', 'decriplan', 'acronimoeval', 'descrieval', 'apeval', 'ameval', 'nombreseval'], 'required'],
             [['motivos'], 'string'],
-            [['codperiodo'], 'string', 'max' => 10],
+            [['codperiodo', 'acronimoeval'], 'string', 'max' => 10],
             [['codocu', 'codgrupo'], 'string', 'max' => 3],
             [['clase', 'status', 'estado', 'pendiente', 'estadoexp', 'requerido'], 'string', 'max' => 1],
-            [['codalu', 'codigo1', 'codigo2', 'codigoalumno', 'codalu1', 'codalu2'], 'string', 'max' => 16],
-            [['am', 'ap', 'nombres', 'acronimo', 'descripcion'], 'string', 'max' => 40],
+            [['codalu', 'codigo1', 'codigo2', 'codigodocente', 'codoce1', 'codoce2'], 'string', 'max' => 16],
+            [['am', 'ap', 'nombres', 'acronimo', 'descripcion', 'acronimoplan', 'decriplan', 'descrieval', 'apeval', 'ameval', 'nombreseval'], 'string', 'max' => 40],
             [['codigoper', 'codesp'], 'string', 'max' => 8],
             [['tipodoc'], 'string', 'max' => 2],
             [['numerodoc'], 'string', 'max' => 20],
@@ -120,44 +132,52 @@ class InterVwExpedientes extends \common\models\base\modelBase
             'codgrupo' => Yii::t('base_labels', 'Codgrupo'),
             'acronimo' => Yii::t('base_labels', 'Acronimo'),
             'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'codigoalumno' => Yii::t('base_labels', 'Codigoalumno'),
-            'codalu1' => Yii::t('base_labels', 'Codalu1'),
-            'codalu2' => Yii::t('base_labels', 'Codalu2'),
-            'carrera_id' => Yii::t('base_labels', 'Carrera ID'),
+            'codigodocente' => Yii::t('base_labels', 'Codigodocente'),
+            'codoce1' => Yii::t('base_labels', 'Codoce1'),
+            'codoce2' => Yii::t('base_labels', 'Codoce2'),
+            'unidest_id' => Yii::t('base_labels', 'Unidest ID'),
+            'facudest_id' => Yii::t('base_labels', 'Facudest ID'),
+            'carreradest_id' => Yii::t('base_labels', 'Carreradest ID'),
             'codesp' => Yii::t('base_labels', 'Codesp'),
             'nombre' => Yii::t('base_labels', 'Nombre'),
+            'id_expediente' => Yii::t('base_labels', 'Id Expediente'),
+            'plan_id' => Yii::t('base_labels', 'Plan ID'),
             'estadoexp' => Yii::t('base_labels', 'Estadoexp'),
             'requerido' => Yii::t('base_labels', 'Requerido'),
             'orden' => Yii::t('base_labels', 'Orden'),
             'etapa_id' => Yii::t('base_labels', 'Etapa ID'),
             'desdocu' => Yii::t('base_labels', 'Desdocu'),
+            'acronimoplan' => Yii::t('base_labels', 'Acronimoplan'),
+            'decriplan' => Yii::t('base_labels', 'Decriplan'),
+            'id_eval' => Yii::t('base_labels', 'Id Eval'),
+            'acronimoeval' => Yii::t('base_labels', 'Acronimoeval'),
+            'descrieval' => Yii::t('base_labels', 'Descrieval'),
+            'apeval' => Yii::t('base_labels', 'Apeval'),
+            'ameval' => Yii::t('base_labels', 'Ameval'),
+            'nombreseval' => Yii::t('base_labels', 'Nombreseval'),
         ];
     }
-
-    public function getExpediente()
+    
+  public function getExpediente()
     {
         return $this->hasOne(InterExpedientes::className(), ['id' => 'id_expediente']);
-    }
+    }   
     
     
-    
-    
-    public function getExpedientes()
+ public function getExpedientes()
     {
         return $this->hasMany(InterExpedientes::className(), ['convocado_id' => 'id']);
     }
-    
     /**
      * {@inheritdoc}
-     * @return InterVwExpedientesQuery the active query used by this AR class.
+     * @return InterVwExpedientesDocentesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new InterVwExpedientesQuery(get_called_class());
+        return new InterVwExpedientesDocentesQuery(get_called_class());
     }
     
-    
-    public function datosExpedientes(){
+     public function datosExpedientes(){
      $datos=[];$datos1=[];
      $registros=$this->getExpedientes()->orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])->all();
     
