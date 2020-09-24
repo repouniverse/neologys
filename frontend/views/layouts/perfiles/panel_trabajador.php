@@ -4,7 +4,7 @@ use frontend\views\layouts\perfiles\alumnoAsset;
 use common\helpers\h;
 use frontend\modules\inter\components\Metricas;
 //use frontend\modules\inter\Module as m;
-use frontend\modules\inter\models\InterVwExpedientesSearch;
+use frontend\modules\inter\models\InterExpedientesSearch;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
@@ -126,7 +126,9 @@ alumnoAsset::register($this);
                                 {
                                     return $this->render('@frontend/modules/inter/views/convocados/_expand_historial', ['model'=>$model,'datos'=>$model->datosExpedientes()]);
                                 },*/
-                                        'detailUrl' =>Url::toRoute([$this->context->id.'/view-ajax-citas']),
+                          'detailUrl' =>Url::toRoute([
+                                            '/inter/expedientes/ajax-show-adjunto']),
+                      
                     //'headerOptions' => ['class' => 'kartik-sheet-style'], 
                     'expandOneOnly' => true
                     //'expandOneOnly' => true
@@ -135,25 +137,44 @@ alumnoAsset::register($this);
                             'attribute'=>'imagen',
                             'format'=>'raw',
                             'value'=>function($model){
-                                return Html::img($model->image($model->codigoalumno),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
+                                   $postulante=$model->convocado->postulante;
+                                return Html::img($model->image($postulante->{$postulante->nameFieldCode()}),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
                             }
                         ], 
                         
-                                
-                       ['attribute'=>'desdocu',
+                        'plan.documento.desdocu',        
+                       /*['attribute'=>'desdocu',
                                    //'header'=>''
                                     'group'=>true, 
-                                     ],             
-                   'codigoalumno',  
-                    'codesp',
+                                     ],    */         
+                   [
+                            'attribute'=>'codigo',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                   $postulante=$model->convocado->postulante;
+                                return $postulante->{$postulante->nameFieldCode()};
+                            }
+                        ],  
+                          
+                           ['attribute'=>'Esp',
+                              'value'=>function($model){
+                                   //$postulante=$model->postulante;
+                                return $model->convocado->postulante->carrera->codesp;
+                              }
+                                ],     
+                                
+                                
                            ['attribute'=>'descripcion',
-                                   //'header'=>''
+                                   'value'=>function($model){
+                                   //$postulante=$model->postulante;
+                                return $model->modo->descripcion;
+                            },
                                     'group'=>true, 
                                      ],
                               ['attribute'=>'current_etapa',
                                   'format'=>'raw',
                                   'value'=>function($model){
-                                      return '<div class="circle-badge">'.$model->current_etapa.'</div>';
+                                      return '<div class="circle-badge">'.$model->orden.'</div>';
                                   },
                                   
                                    //'header'=>'current_stage',
@@ -162,7 +183,7 @@ alumnoAsset::register($this);
                                 ['attribute'=>yii::t('base_labels','Names'),
                                   //'format'=>'raw',
                                   'value'=>function($model){
-                                      return $model->fullName();
+                                      return $model->convocado->postulante->fullName();
                                   },
                                   
                                    //'header'=>'current_stage',
@@ -185,7 +206,7 @@ alumnoAsset::register($this);
             ?>
                 
                               
-        <?php $dataProvider =(new InterVwExpedientesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
+        <?php $dataProvider =(new InterExpedientesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
                 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
   
@@ -210,11 +231,11 @@ alumnoAsset::register($this);
     <br>.<br><br>.<br><br>.<br><br>.<br>
   
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         <?php $dataProvider =(new \frontend\modules\inter\models\InterVwExpedientesDocentesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
+         <?php $dataProvider =(new \frontend\modules\inter\models\InterExpedientesSearch())->searchByPendienteByEvaluador($identidad->id); ?>
         
        <div style='overflow:auto;'>
            <?php 
-           $gridColumns=[   
+           /*$gridColumns=[   
                                 
                            [
                     'class' => 'kartik\grid\ExpandRowColumn',
@@ -284,7 +305,7 @@ alumnoAsset::register($this);
                             
                         ]);
            
-           
+           */
            ?>
 
          </div>

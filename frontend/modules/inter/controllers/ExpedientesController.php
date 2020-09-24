@@ -330,8 +330,16 @@ class ExpedientesController extends baseController
         }
   }
   
-  public function actionAjaxShowAdjunto($id){
-      
+  public function actionAjaxShowAdjunto(){
+    //if(h::request()->isAjax){
+        $id=h::request()->post('expandRowKey');
+        $model= $this->findModel($id);
+       return  $this->renderAjax(
+                '_expand_show_files',
+                ['model'=>$model]);
+        
+    //}
+     
   }
     
 }

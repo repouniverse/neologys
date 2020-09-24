@@ -276,6 +276,9 @@ public function isImage($filePath){
    return in_array($ext,self::extImages());
 }
 
+public function isPdf($filePath){
+   return (self::extensionFile($filePath)=='pdf');
+}
 
 public function UrlImage($path,$internal=true){
  if(is_file($path)){

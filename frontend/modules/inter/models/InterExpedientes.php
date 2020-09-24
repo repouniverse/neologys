@@ -42,7 +42,7 @@ use Yii;
  */
 class InterExpedientes extends \common\models\base\modelBase
 {
-   
+    use \common\traits\identidadTrait;
     
     const SCE_BASICO='basico';
         

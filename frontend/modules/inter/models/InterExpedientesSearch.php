@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use frontend\modules\inter\Module as m;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\modules\inter\models\InterExpedientes;
@@ -11,6 +11,8 @@ use frontend\modules\inter\models\InterExpedientes;
  */
 class InterExpedientesSearch extends InterExpedientes
 {
+   
+    
     /**
      * {@inheritdoc}
      */
@@ -79,4 +81,47 @@ class InterExpedientesSearch extends InterExpedientes
 
         return $dataProvider;
     }
+    
+    
+     public function searchByPendienteByEvaluador($id_trabajador)
+    {
+         
+         $idsEvaluaciones= InterEvaluadores::find()->select(['id'])
+                 ->andWhere([
+                     'trabajador_id'=>$id_trabajador,
+                     'programa_id'=>m::currentPrograma(),
+                     ])->column();
+         $idsPlanes= InterPlan::find()->select(['id'])
+                 ->andWhere([
+                     'eval_id'=>$idsEvaluaciones,
+                     //'programa_id'=>m::currentPrograma(),
+                     ])->column();
+       //$idsAttachments=$this->idsInAttachments(InterExpedientes::getShortNameClass());
+      
+        $query = InterExpedientes::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+       // $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+          
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'plan_id'=>$idsPlanes,
+            //'id_expediente'=>$this->idsInAttachments(InterExpedientes::getShortNameClass()),
+           'estado'=>'0' 
+        ]);
+
+        
+///echo $query->createCommand()->rawSql;die();
+        return $dataProvider;
+    }
+    
+    
 }
