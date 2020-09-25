@@ -1,0 +1,41 @@
+table {
+    		    font-family: arial, sans-serif;
+    		    border-collapse: collapse;
+    		    width: 100%;
+}
+td, th {
+    		    border: 1px solid #dddddd;
+    		   /* text-align: left;*/
+    		    padding-left:8px;
+                    padding-right:8px;
+                    padding-bottom:1px;
+                    padding-top:1px;
+}
+
+
+
+td {
+    font-family: cour;
+    font-weight: normal;
+    font-size:12px;
+}
+th {
+    font-family: cour;
+   /* font-weight: normal;*/
+    font-size:13px;
+}
+
+td {
+    font-family: cour;
+    font-weight: normal;
+    
+}
+.pagination {    
+    display: none !important;
+}
+
+ul {    
+    display: none !important;
+}
+
+

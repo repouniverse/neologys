@@ -69,6 +69,7 @@ implements \common\interfaces\rangeInterface
                 'convocado_id', 'persona_id',
                  
                  ], 'required'],
+            [['asistio'], 'safe'],
             [['facultad_id', 'etapa_id', 'universidad_id','plan_id', 'modo_id', 'expediente_id', 'convocado_id', 'persona_id', 'duracion', 'flujo_id'], 'integer'],
             [['detalles', 'detalles_secre'], 'string'],
             [['codperiodo', 'finicio', 'ftermino'], 'string', 'max' => 19],
@@ -115,7 +116,7 @@ implements \common\interfaces\rangeInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_BASICO] = [
-            'facultad_id', 'universidad_id', 
+            'facultad_id', 'universidad_id','asistio',
             'etapa_id', 'fechaprog', 'codperiodo', 
             'persona_id', 'etapa_id', 'modo_id', 'expediente_id','plan_id',
             'convocado_id'];
