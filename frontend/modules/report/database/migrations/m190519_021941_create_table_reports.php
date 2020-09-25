@@ -6,7 +6,8 @@ class m190519_021941_create_table_reports extends baseMigration
 {
 
     const NAME_TABLE='{{%reportes}}';
-    const NAME_TABLE_CENTROS='{{%centros}}';
+    const NAME_TABLE_FACULTADES='{{%facultades}}';
+    const NAME_TABLE_UNIVERSIDADES='{{%universidades}}';
      const NAME_TABLE_DOCUMENTOS='{{%documentos}}';
     /**
      * {@inheritdoc}
@@ -17,6 +18,8 @@ class m190519_021941_create_table_reports extends baseMigration
 if ($this->db->schema->getTableSchema(static::NAME_TABLE, true) === null){
         $this->createTable(static::NAME_TABLE, [
             'id'=>$this->primaryKey(),
+            'facultad_id'=>$this->integer(11)->notNull(),
+            'universidad_id'=>$this->integer(11)->notNull(),
             'xgeneral'=>$this->integer(5),
             'ygeneral'=>$this->integer(5),
              'type'=>$this->string(5)->notNull()->append($this->collateColumn()),///pfd, xls, cvs,
@@ -24,7 +27,7 @@ if ($this->db->schema->getTableSchema(static::NAME_TABLE, true) === null){
              'role'=>$this->string(64)->notNull()->append($this->collateColumn()),
             'ylogo'=>$this->integer(5),
              'codocu'=>$this->char(3)->notNull()->append($this->collateColumn()),
-           'codcen'=>$this->string(5)->notNull()->append($this->collateColumn()),
+          // 'codcen'=>$this->string(5)->notNull()->append($this->collateColumn()),
            'modelo'=>$this->string(60)->notNull()->append($this->collateColumn()),
            'nombrereporte'=>$this->string(60)->notNull()->append($this->collateColumn()),
            'detalle'=>$this->text()->append($this->collateColumn()),
@@ -41,7 +44,12 @@ if ($this->db->schema->getTableSchema(static::NAME_TABLE, true) === null){
             'tienecabecera'=>$this->char(1)->append($this->collateColumn()),	
             ], $this->collateTable());
         $this->addForeignKey($this->generateNameFk(static::NAME_TABLE), static::NAME_TABLE,
-              'codcen', self::NAME_TABLE_CENTROS,'codcen');
+              'facultad_id', self::NAME_TABLE_FACULTADES,'id');
+        
+        $this->addForeignKey($this->generateNameFk(static::NAME_TABLE), static::NAME_TABLE,
+              'universidad_id', self::NAME_TABLE_UNIVERSIDADES,'id');
+        
+        
        $this->addForeignKey($this->generateNameFk(static::NAME_TABLE), static::NAME_TABLE,
               'codocu', self::NAME_TABLE_DOCUMENTOS,'codocu');
         }
