@@ -182,7 +182,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
          
 
     
-    
+    <h4><?=m::t('labels','History interviews')?></h4>  
 
     <?php Pjax::begin(['id'=>'listado_asistencias', 'timeout'=>false]); ?>
    
@@ -192,7 +192,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
                 'convocado_id'=>$model->id,
             ])->orderBy(['fechaprog'=>SORT_ASC]),
         ]),
-         //'summary' => '',
+         'summary' => '',
          'tableOptions'=>['class'=>'table no-margin'],
         //'filterModel' => $searchModel,
         'columns' => $gridColumns,
@@ -229,7 +229,15 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
       
       
       
-      
+   <div class=" aviso-info ">
+        <?php
+        echo m::t('labels','Para programar  una cita '
+                . 'arrastra la etiqueta roja donde aparece tu '
+                . 'código, sólo aceptará en los horarios '
+                . 'de color amarillo.'); 
+        
+        ?>
+    </div>    
       
       
       
@@ -255,6 +263,7 @@ JS;
 //$modelPsico=$model->tallerdet->tallerPsico();
 
 //$codalu=$model->tallerdet->codalu;
+Pjax::begin(['id'=>'mi-calendario','timeout'=>false]);
 echo CalendarScheduleWidget::widget([
     'defaultEventDuration'=>'00:60',
     'draggableEvents' => [
@@ -268,6 +277,8 @@ echo CalendarScheduleWidget::widget([
         'createCallback' => new JsExpression($jsCreateCallback)
     ],
     'fullCalendarOptions' => [
+        'slotEventOverlap'=>false,
+        //'defaultView'=>'week',
         'minTime'=>"07:00:00",
         'maxTime'=>"21:00:00",
        /*  'validRange'=>[
@@ -287,7 +298,8 @@ echo CalendarScheduleWidget::widget([
       
         
         'eventReceive' => new JsExpression('function(event, delta,minuteDelta, revertFunc) {
-       if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'")) {
+      
+if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'")) {
                   var fechainicio=event.start.format("YYYY-MM-DD HH:mm:ss");
         $.ajax({ 
                     method:"get",    
@@ -314,7 +326,7 @@ echo CalendarScheduleWidget::widget([
                               } 
                              $.pjax.reload({container: "#estado-label", async:false});
                               $.pjax.reload({container: "#listado_asistencias", async:false});
-                      
+                            $.pjax.reload({container: "#mi-calendario", async:false});
                         },
    cache: true
   })
@@ -331,7 +343,7 @@ echo CalendarScheduleWidget::widget([
                    var fechatermino=event.end.format("YYYY-MM-DD HH:mm:ss");
         $.ajax({ 
                     method:"get",    
-                    url: "'.\yii\helpers\Url::toRoute(['/sta/citas/reprograma-cita']).'",
+                    url: "'.\yii\helpers\Url::toRoute(['/inter/convocados/reprograma-cita']).'",
                     delay: 250,
                         data: {idcita:event.id, finicio:fechainicio,ftermino:fechatermino },
              error:  function(xhr, textStatus, error){               
@@ -493,8 +505,7 @@ echo CalendarScheduleWidget::widget([
     ]
 ]); 
 
-
-
+Pjax::end();
 
 
 ?>

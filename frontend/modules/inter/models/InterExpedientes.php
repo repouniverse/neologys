@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
+use frontend\modules\inter\Module as m;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
@@ -247,7 +248,33 @@ class InterExpedientes extends \common\models\base\modelBase
         $tieneAdjunto=$this->hasAttachments();
        $icono=(!$tieneAdjunto)?h::awe('folder-open'):h::awe('paperclip');
        $color=(!$tieneAdjunto)?'red':'green';
+       if($tieneAdjunto)
        return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>';
+       return '';
+    }
+    
+     public function flagStatus(){
+        $tieneAdjunto=$this->hasAttachments();
+        if($tieneAdjunto){
+            if($this->hasObserves()){
+                $icono=h::awe('eye');
+               $color='red';
+               $message=m::t('errors','You have a annotation CLICK HERE');
+               $link=\yii\helpers\Url::to(['/inter/expedientes/modal-view-obs','id'=>$this->id,'idGrilla'=>'s']);
+               $options=['class'=>'botonAbre',];
+               return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>'.\yii\helpers\Html::a($message,$link,$options);
+            }ELSE{
+               if($this->estado) {
+                   $icono=h::awe('check');
+                   $color='green';
+                   return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>';
+               }else{
+                   return '';
+               }
+            } 
+        }else{
+            return '';
+        }
     }
     
     

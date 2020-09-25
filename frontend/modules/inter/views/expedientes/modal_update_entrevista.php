@@ -41,8 +41,8 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                   )?>
                <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
            <?php  //$url= Url::to(['create-horario','id'=>$model->id,'gridName'=>'grilla-rangos','idModal'=>'buscarvalor']);
-              if(!$model->asistio)
-              echo  Html::button(h::awe('check').h::space(10).m::t('labels','Confirm assistance'), ['href' => '#', 'title' => m::t('labels','Confirm assistance'),'id'=>'btn-asistencia', 'class' => 'btn-warning']); 
+              //if(!$model->asistio)
+              //echo  Html::button(h::awe('check').h::space(10).m::t('labels','Confirm assistance'), ['href' => '#', 'title' => m::t('labels','Confirm assistance'),'id'=>'btn-asistencia', 'class' => 'btn-warning']); 
              
              ?>
                 
@@ -75,11 +75,8 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
             <?php echo Html::img($identidad->image($identidad->code()),['width'=>140,'height'=>160, 'class'=>"img-thumbnail cuaizquierdo"]);?>
         </div>  
                 
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-            <?= $form->field($model, 'codperiodo')->label(m::t('labels','Period'))->textInput(['disabled'=>true,'maxlength' => true]) ?>            
-        </div>
         
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">            
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">            
             <?php echo $form->field($model, 'fechaprog',['enableAjaxValidation'=>true])->widget(
         DateTimePicker::classname(), [
          'name' => 'fechaprog',
@@ -95,7 +92,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
             ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
            <?php echo $form->field($model, 'finicio',['enableAjaxValidation'=>true])->widget(
         DateTimePicker::classname(), [
          'name' => 'finicio',
@@ -111,7 +108,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
             ?>          
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <?php echo $form->field($model, 'ftermino',['enableAjaxValidation'=>true])->widget(
         DateTimePicker::classname(), [
          'name' => 'ftermino',
@@ -127,12 +124,18 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
             ?>
         </div>
         
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-            <?= $form->field($model, 'detalles')->textarea(['maxlength' => true]) ?>            
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?= $form->field($model, 'detalles')->textarea([
+                'maxlength' => true,
+                'rows' => 10,
+                ]) ?>            
         </div>
         
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-            <?= $form->field($model, 'detalles_secre')->textarea(['maxlength' => true]) ?>            
+        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+            <?= $form->field($model, 'detalles_secre')->textarea([
+                'maxlength' => true,
+                 'rows' => 10,
+                ]) ?>            
         </div>
         
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
@@ -140,7 +143,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         </div>
         
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">            
-            <?= $form->field($model, 'activo')->checkBox() ?>
+            <?= $form->field($model, 'activo')->checkBox(['disabled'=>true]) ?>
         </div>
    
 

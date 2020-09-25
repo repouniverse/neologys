@@ -111,7 +111,7 @@ class CalendarScheduleWidget extends Widget
     {
          parent::init();
         $this->draggableEvents = array_merge([
-            'title' => 'TITULO',
+            'title' => 'Entrevista',
             'items' => [
                 /*['name' => '洗冰箱', 'color' => '#00c0ef'],
                 ['name' => '擦玻璃', 'color' => '#d81b60'],*/
@@ -120,10 +120,10 @@ class CalendarScheduleWidget extends Widget
             'canDropToTrash' => true,
         ], $this->draggableEvents);
 
-        $this->createEvents = array_merge([
+       /* $this->createEvents = array_merge([
             'title' => 'EVENTOS',
             'colors' => [],
-        ], $this->createEvents);
+        ], $this->createEvents);*/
 
         $this->fullCalendarOptions = array_merge([
             'header' => [
@@ -234,11 +234,12 @@ class CalendarScheduleWidget extends Widget
   </div>
 </form>
 HTML;
-        $html = strtr($this->createEventsWrapTemplate, [
+      $html='';
+        /*$html = strtr($this->createEventsWrapTemplate, [
             '{title}' => $createEvents['title'],
             '{colors}' => Html::tag('ul', implode("\n", $colors), ['id' => 'color-chooser-container']),
             '{addButton}' => $addButton,
-        ]);
+        ]);*/
 
         return $html;
     }

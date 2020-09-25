@@ -82,7 +82,13 @@ use frontend\modules\inter\models\InterExpedientes;
                 ],
          'documento.desdocu',
          'clase',
-        [ 'attribute'=>'Attachment',
+            [ 'attribute'=>'estado',
+            'format'=>'raw',
+            'value'=>function($model){
+                  return $model->flagStatus();           
+            }
+            ],
+        [ 'attribute'=>'Adjunto',
             'format'=>'raw',
             'value'=>function($model){
                   return $model->flagAttach();           

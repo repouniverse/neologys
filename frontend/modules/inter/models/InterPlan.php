@@ -246,5 +246,20 @@ class InterPlan extends \common\models\base\modelBase
         return $entrevs;
     }
     
+    /*rETORNA UN ARRA DE MODEL DE HORARIOS DE ESE DIA */
+    
+   public function horariosToDay($dayOrCarbon){
+       if(is_numeric($day))
+       return $this->getHorarios()->andWhere(['dia'=>$dia])->all();
+       if($dayOrCarbon instanceof \Carbon\Carbon){
+        return $this->getHorarios()->andWhere(['dia'=>$dayOrCarbon->dayOfWeek])->all();   
+       }
+   }
+   
+   public function rangoToDay($Carbon){
+     $horario=$this->getHorarios()->one();
+     if(is_null($horario))return null;
+     return $horario->rangesToDay($carbon);
+   }
     
 }

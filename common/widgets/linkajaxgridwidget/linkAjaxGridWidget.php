@@ -18,7 +18,7 @@ class linkAjaxGridWidget extends Widget
    public $mode='json'; //puede ser json, html
    public $data=[];//DATA DEL AJAX
      public $divReplace=null; //puede ser json, html
-    public $posicion=View::POS_HEAD;
+    public $posicion=View::POS_END;
      //
    // private $_varsJs=[];
     

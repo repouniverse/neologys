@@ -11,10 +11,11 @@ use yii\widgets\Pjax;
 use yii\helpers\Url;
 use conquer\jvectormap\JVectorMapWidget;
 use yii\helpers\Html;
+ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 alumnoAsset::register($this);
 
 ?>
-    
+  <?php echo \common\widgets\spinnerWidget\spinnerWidget::widget(); ?>  
 <h4><i style="font-size:30px;"><?=h::awe('calendar').'</i>'.h::space(10).yii::t('base_labels','Welcome to International Module').h::space(10).$identidad->fullName()?></h4>
 <div class="box box-success">
   <div class="box-body">  
@@ -78,42 +79,66 @@ alumnoAsset::register($this);
              
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
      
-       <?php Pjax::begin();            
+       <?php
+       $ajaxIdentidad='PjaxIndentidad';
+       Pjax::begin(['id'=>$ajaxIdentidad]);            
             $gridColumns=[   
-                                /*[
-                                    'class' => 'yii\grid\ActionColumn',
-                                    'template' => '{update}{view}',
-                                    'buttons' => 
-                                    [
-                                        'update' => function($url, $model)
-                                                    {
-                                                        $options = 
-                                                        [
-                                                            'title' => yii::t('base_verbs', 'Update'), 
-                                                            'data-pjax'=>'0'                                                                            
-                                                        ];
-                                                        $url=Url::to(['update','id'=>$model->id]);
-                                                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options);
-                                                    },
-                                        'view' => function($url, $model)
-                                                  {
-                                                        $options = 
-                                                        ['title' => yii::t('base_verbs', 'View'),
-                                                            'data-pjax'=>'0'  ];
-                                                         $url=Url::to(['view','id'=>$model->id]);
-                                                        return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options);
-                                                  },
-                                        'delete' => function($url, $model)
-                                                    {
-                                                        $options = 
-                                                        [
-                                                            'data-confirm' => m::t('validaciones', 'Are you sure you want to activate this user?'),
-                                                            'title' => m::t('verbs', 'Delete'),
-                                                        ];
-                                                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options);
-                                                    }
-                                    ]
-                                ],*/
+                                [
+                'class' => 'yii\grid\ActionColumn',
+                //'template' => Helper::filterActionColumn(['view', 'activate', 'delete']),
+            'template' => '{asistencia}',
+               'buttons' => [
+                   
+                    'rescue' => function ($url,$model) {
+                       // if(!empty($model->numerocita)){
+                            $url = Url::toRoute(['/sta/citas/rescue-token','id'=>$model->codalu]);
+                              return Html::a('<span class="btn btn-info glyphicon glyphicon-log-in"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                       
+                        /*}else{
+                             return '';
+                        }*/
+                           
+                           
+			 
+			   }, 
+                   
+                   
+                        'delete' => function ($url,$model) {
+                        /////if(!$model->asistio && empty($model->numerocita) && !$model->libre){
+                            $url = Url::toRoute([$this->context->id.'/elimina-alumno','id'=>$model->id]);
+                              return Html::a('<span class="btn btn-danger glyphicon glyphicon-trash"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                       
+                        //}else{
+                             //return '';
+                        //}
+			   }, 
+                        'asistencia' => function ($url,$model) {
+                        //if(!$model->asistio && !$model->libre){
+                            $url = Url::toRoute(['/inter/convocados/ajax-aprove-expediente','id'=>$model->id]);
+                              return Html::a('<span class="btn btn-success glyphicon glyphicon-ok"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                      
+                       // }else{
+                           // return '';
+                        //}
+                           
+                            
+			 
+			     } ,
+                         'cita' => function ($url,$model) {
+                        //if($model->asistio && empty($model->numerocita) && !$model->libre ){
+                           $url = Url::toRoute([$this->context->id.'/crea-cita','id'=>$model->id]);
+                              return Html::a('<span class="btn btn-warning  glyphicon glyphicon-dashboard"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                        
+                        /*}else{
+                            return ''; 
+                        }*/
+                           
+                           
+			 
+			    } ,
+                               
+                    ]
+                ],
                              
                            [
                     'class' => 'kartik\grid\ExpandRowColumn',
@@ -141,7 +166,28 @@ alumnoAsset::register($this);
                                 return Html::img($model->image($postulante->{$postulante->nameFieldCode()}),['width'=>60,'height'=>80, 'class'=>"img-thumbnail cuaizquierdo"]);
                             }
                         ], 
-                        
+                        ['attribute'=>yii::t('base_labels','Names'),
+                                  //'format'=>'raw',
+                                  'value'=>function($model){
+                                      return $model->convocado->postulante->fullName();
+                                     
+                                  },
+                                  'group'=>true,
+                                   //'header'=>'current_stage',
+                                   //'group'=>true, 
+                                 ],         
+                        [
+                            'attribute'=>'Documento',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                   //$postulante=$model->convocado->postulante;
+                               $enlace= $model->plan->documento->desdocu;
+                               $url=Url::to(['/inter/expedientes/update','id'=>$model->id]);
+                               return Html::a($enlace,$url,['data-pjax'=>'0','target'=>'_blank']);
+                            }
+                        ],
+                               
+                                
                         'plan.documento.desdocu',        
                        /*['attribute'=>'desdocu',
                                    //'header'=>''
@@ -180,15 +226,7 @@ alumnoAsset::register($this);
                                    //'header'=>'current_stage',
                                    //'group'=>true, 
                                  ],
-                                ['attribute'=>yii::t('base_labels','Names'),
-                                  //'format'=>'raw',
-                                  'value'=>function($model){
-                                      return $model->convocado->postulante->fullName();
-                                  },
-                                  
-                                   //'header'=>'current_stage',
-                                   //'group'=>true, 
-                                 ],
+                                
                                 //'current_etapa',
                                  
                                // 'codigoper',
@@ -220,6 +258,21 @@ alumnoAsset::register($this);
                             
                         ]);
                     ?>
+    
+    <?php 
+   echo linkAjaxGridWidget::widget([
+           'id'=>'widgetgruidBancos',
+            'idGrilla'=>$ajaxIdentidad,
+            'family'=>'holas',
+          'type'=>'POST',
+           'evento'=>'click',
+       'posicion'=>\yii\web\View::POS_END
+            //'foreignskeys'=>[1,2,3],
+        ]); 
+   ?>
+    
+    
+    
             <?php Pjax::end(); ?>
       
       

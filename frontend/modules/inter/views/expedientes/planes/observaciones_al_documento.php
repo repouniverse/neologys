@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-
+use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 ?>
 <?php 
 $gridName='grillap';
@@ -39,13 +39,10 @@ Pjax::begin(['id'=>$gridName]); ?>
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },
-                         'delete' => function($url, $model) {                        
-                        $options = [
-                            'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
-                            'title' => Yii::t('base.verbs', 'Delete'),                            
-                        ];
-                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);
-                         }
+                       'delete' => function ($url,$model) {
+			   $url = \yii\helpers\Url::toRoute($this->context->id.'/deletemodel-for-ajax');
+                              return \yii\helpers\Html::a('<span class="btn btn-danger glyphicon glyphicon-trash"></span>', '#', ['title'=>$url,/*'id'=>$model->codparam,*/'family'=>'holas','id'=>\yii\helpers\Json::encode(['id'=>$model->id,'modelito'=> str_replace('@','\\',get_class($model))]),/*'title' => 'Borrar'*/]);
+                            }
                     ]
                 ],
          ['attribute'=>'detalles',
@@ -67,6 +64,17 @@ Pjax::begin(['id'=>$gridName]); ?>
           
         ],
     ]); ?>
+     
+             <?php 
+   echo linkAjaxGridWidget::widget([
+           'id'=>'widgetgruidBancos',
+            'idGrilla'=>$gridName,
+            'family'=>'holas',
+          'type'=>'POST',
+           'evento'=>'click',
+            //'foreignskeys'=>[1,2,3],
+        ]); 
+   ?>
     <?php Pjax::end(); ?>
 </div>
 <p>

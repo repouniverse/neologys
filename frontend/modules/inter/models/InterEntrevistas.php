@@ -5,6 +5,7 @@ USE common\models\masters\Universidades;
 USE common\models\masters\Facultades;
 use common\helpers\RangeDates; 
  use frontend\modules\inter\models\InterConvocados;
+ use frontend\modules\inter\models\InterHorarios;
 use Yii;
 
 /**
@@ -40,6 +41,7 @@ use Yii;
 class InterEntrevistas extends \common\models\base\modelBase
 implements \common\interfaces\rangeInterface
 {
+    use \common\traits\timeTrait;
     public  $prefijo='125';
     const SCENARIO_BASICO='basico';
     /**
@@ -281,6 +283,7 @@ public function  rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null){
        if($insert){
            $this->activo=true;
            $this->numero=$this->correlativo('numero');
+           
        }
        return parent::beforeSave($insert);
    }
@@ -292,4 +295,19 @@ public function  rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null){
        $this->asistio=$asiste;
       return  $this->save();
    }
+   
+   
+    public function isInJourney() {
+        /*sacando el rango de horarios predefinidos
+es un arraya de registros modelos InterHorarios         */
+      $rangoDay= $this->plan->rangoToDay($this->toCarbon('fechaprog'));
+      RETURN $this->isRangeIntoOtherRange(
+                        $this->range(),$rangoDay);
+      }
+  
+  public function dayOfweek(){
+      return $this->toCarbon('fechaprog')->dayOfWeek;
+  }  
+    
+    
 }

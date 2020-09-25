@@ -288,7 +288,76 @@ class ExpedientesController extends baseController
   }  
   
   
-  public function actionModalNewObs($id){
+  public function actionModalEditObs($id){
+      $this->layout = "install";
+        //$modelExp = $this->findModel($id);
+        $model=\frontend\modules\inter\models\InterObsexpe::findOne($id);
+       /* $model->universidad_id=$modelExp->universidad_id;
+        $model->facultad_id=$modelExp->universidad_id;
+        $model->expediente_id=$modelExp->id;
+         $model->convocado_id=$modelExp->convocado_id;
+         $model->valido=true;*/
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        
+        
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('modal_create_observacion', [
+                        'model' => $model,
+                       // 'persona'=>$persona,
+                        'expediente_id'=> $model->expediente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+  }
+  public function actionModalViewObs($id){
+      $this->layout = "install";
+        //$modelExp = $this->findModel($id);
+        $modelExp= \frontend\modules\inter\models\InterExpedientes::findOne($id);
+        $model=$modelExp->getObservaciones()->one();
+       /* $model->universidad_id=$modelExp->universidad_id;
+        $model->facultad_id=$modelExp->universidad_id;
+        $model->expediente_id=$modelExp->id;
+         $model->convocado_id=$modelExp->convocado_id;
+         $model->valido=true;*/
+        if(is_null($model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>''];
+        }
+       
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('modal_view_observacion', [
+                        'model' => $model,
+                       // 'persona'=>$persona,
+                        'expediente_id'=> $model->expediente_id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        
+  }
+   public function actionModalNewObs($id){
       $this->layout = "install";
         $modelExp = $this->findModel($id);
         $model=New \frontend\modules\inter\models\InterObsexpe();
@@ -329,17 +398,28 @@ class ExpedientesController extends baseController
             ]);  
         }
   }
-  
   public function actionAjaxShowAdjunto(){
-    //if(h::request()->isAjax){
+    if(h::request()->isAjax){
         $id=h::request()->post('expandRowKey');
         $model= $this->findModel($id);
        return  $this->renderAjax(
                 '_expand_show_files',
                 ['model'=>$model]);
         
-    //}
+    }
      
   }
-    
+  
+
+public function actionAjaxSubsanaObs($id){
+   if(h::request()->isAjax){
+        h::response()->format = \yii\web\Response::FORMAT_JSON;
+        $model= \frontend\modules\inter\models\InterObsexpe::findOne($id);
+        $model->valido=false;
+        $model->save();
+        return ['success'=>m::t('labels','The annotation has been reversed')];
+        
+    }  
+}
+  
 }

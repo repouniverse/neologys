@@ -22,7 +22,7 @@ use Yii;
  * @property Universidades $universidad
  * @property InterExpedientes $expediente
  */
-class InterObsexpe extends \yii\db\ActiveRecord
+class InterObsexpe extends \common\models\base\modelBase
 {
     /**
      * {@inheritdoc}
