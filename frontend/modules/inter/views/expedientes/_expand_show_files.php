@@ -2,7 +2,7 @@
 use common\helpers\FileHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\Html;
+//use yii\helpers\Html;
 yii::error('A punto de recorrer  ',__FUNCTION__);
 foreach($model->files as $file){
     //yii::error('recorreindo buecle  ',__FUNCTION__);
