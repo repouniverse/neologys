@@ -33,18 +33,18 @@
         ?>
        
         <div class="box-body"> 
-            <?php $alumno=$model->alumno;  ?>
+            <?php $postulante=$model->postulante;  ?>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <?= $form->field($model, 'alumno_id')->
                            label(m::t('labels','Code'))->
-                           textInput(['value'=>$alumno->codalu,'disabled'=>true])
+                           textInput(['value'=>$postulante->code(),'disabled'=>true])
                 ?>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 
                 <?= $form->field($model, 'alumno_id')->
                            label(m::t('labels','Student'))->
-                           textInput(['value'=>$alumno->fullName(false),'disabled'=>true])
+                           textInput(['value'=>$postulante->fullName(false),'disabled'=>true])
                 ?>
             </div>
             
@@ -72,11 +72,11 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <?= $form->field($model, 'alumno_id')->
                            label(m::t('labels','Mail'))->
-                           textInput(['value'=>$alumno->mail,'disabled'=>true])
+                           textInput(['value'=>$postulante->mailAddress(),'disabled'=>true])
                 ?>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?= $form->field($model, 'carrera_id')->textInput(['disabled'=>true,'value'=>$alumno->carrera->nombre,'maxlength' => true]) ?>            
+            <?= $form->field($model, 'carrera_id')->textInput(['disabled'=>true,'value'=>$postulante->carrera->nombre,'maxlength' => true]) ?>            
             </div>
             
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -348,7 +348,7 @@
                </div>
             
             <?php
-            if (!$alumno->isExternal())    
+            if (!$postulante->isExternal())    
             {                
             ?>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

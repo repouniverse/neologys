@@ -290,6 +290,8 @@ public function  rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null){
        if($insert){
            $this->activo=true;
            $this->numero=$this->correlativo('numero');
+           $this->finicio=$this->fechaprog;           
+          $this->ftermino=self::SwichtFormatDate($this->toCarbon('fechaprog')->addMinutes(30)->format(\common\helpers\timeHelper::formatMysqlDateTime()),'datetime',true);
            
        }
        return parent::beforeSave($insert);

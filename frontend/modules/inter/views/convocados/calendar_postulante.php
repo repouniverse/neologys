@@ -346,6 +346,8 @@ if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'"
       }
                              
                                     }'),
+        
+        
         'eventDrop' => new JsExpression('function(event, delta,revertFunc) {
            
        if(event.title=="'.$codalu.'"){
@@ -395,124 +397,12 @@ if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'"
       }
 }'),
         
-        /*evento resize*/
-        'eventResize' => new JsExpression('function(event, delta, revertFunc) {
-               if(event.title=="'.$codalu.'"){
-                   // alert(event.title + " SE MOVIO A     INICIO->" + event.start.format("YYYY-MM-DD H:m:s")+ "   FIN  -> "+event.end.format("YYYY-MM-DD HH:mm:ss") );
-                    if (confirm("'.yii::t('sta.labels','¿Confirmar que desea cambiar la duración de esta cita ?').'")) {
-                               var fechainicio=event.start.format("YYYY-MM-DD HH:mm:ss");
-                               var fechatermino=event.end.format("YYYY-MM-DD HH:mm:ss");
-                               // alert(event.start.format("YYYY-MM-DD HH:mm:ss"));
-                                // alert(event.end.format("YYYY-MM-DD HH:mm:ss"));
-                               //alert(event.id);
-        $.ajax({ 
-                    method:"get",    
-                    url: "'.\yii\helpers\Url::toRoute(['/sta/citas/reprograma-cita']).'",
-                    delay: 250,
-                        data: {idcita:event.id, finicio:fechainicio ,ftermino:fechatermino},
-             error:  function(xhr, textStatus, error){               
-                           var n = Noty("id");                      
-                              $.noty.setText(n.options.id, "No se completó la operación,refresque la página e intente nuevamente");
-                              $.noty.setType(n.options.id, "error");
-                                }, 
-              success: function(json) {  
-                        var n = Noty("id");
-                       if ( !(typeof json["error"]==="undefined") ) {
-                      //revertFunc();
-                   $.noty.setText(n.options.id,"<span class=\'glyphicon glyphicon-remove-sign\'></span>      "+ json["error"]);
-                              $.noty.setType(n.options.id, "error"); 
-                              }
-                         if ( !(typeof json["success"]==="undefined") ) {
-                                        $.noty.setText(n.options.id,"<span class=\'glyphicon glyphicon-ok-sign\'></span>" + json["success"]);
-                             $.noty.setType(n.options.id, "success");
-                              } 
-                               if ( !(typeof json["warning"]==="undefined") ) {
-                                        $.noty.setText(n.options.id,"<span class=\'glyphicon glyphicon-info-sign\'></span>" +json["warning"]);
-                             $.noty.setType(n.options.id, "warning");
-                              } 
-                              
-                      
-                        },
-   cache: true
-  })
-        }else{
-      //revertFunc();
-
-                            } } else{
-                             alert("No puede editar citas que no pertenezcan a este alumno");  
-                            }
-                  }'),
+     
         /*fin del veno resize*/
         
         
         /*evento Click*/
-        'eventClick' => new JsExpression('function(event) {'
-                . 'if (confirm("'.yii::t('sta.labels','¿Confirmar que desea visualizar la cita ?').'")) {
-                 var url = "sta/citas/view?id="+event.id; // t
-          var abso="'.\yii\helpers\Url::home(true).'";
-              window.open(abso+url);
-          //window.location=abso+url;
-                }'
-                . '}'),
-     
-        'dayClick'=>new JsExpression('function(date, jsEvent, view) {
-            var fecha=date.format("YYYY-MM-DD HH:mm:ss");
-            var hora=fecha.substr(11,2);
-            if(hora=="00"){
-             //no hacer nada
-            }else{
-            fechax=date.format("DD/MM/YYYY HH:mm");
-            if (confirm("'.yii::t('sta.labels','¿Confirmar que desea REPROGRAMAR esta cita a la nueva fecha ').'"+ fechax+" ?")) {
-                
-
-                  $.ajax({
-              url: "'.\yii\helpers\Url::toRoute(['/sta/citas/reprograma-cita']).'",
-              type: "get",
-              data: {idcita:'.$model->id.', finicio:fecha },
-              dataType: "json", 
-              error:  function(xhr, textStatus, error){               
-                            var n = Noty("id");                      
-                              $.noty.setText(n.options.id, error);
-                              $.noty.setType(n.options.id, "error");       
-                                }, 
-              success: function(json) {
-              var n = Noty("id");
-                      
-                       if ( !(typeof json["error"]==="undefined") ) {
-                        $.noty.setText(n.options.id,"<span class=\"glyphicon glyphicon-trash\"></span>      "+ json["error"]);
-                              $.noty.setType(n.options.id, "error");  
-                          }    
-
-                             if ( !(typeof json["warning"]==="undefined" )) {
-                        $.noty.setText(n.options.id,"<span class=\"glyphicon glyphicon-trash\"></span>      "+ json["warning"]);
-                              $.noty.setType(n.options.id, "warning"); 
-                              $.pjax.reload({container: "#botones-examenes"});
-                             } 
-                          if ( !(typeof json["success"]==="undefined" )) {
-                         
-                         
-                        $.noty.setText(n.options.id,"<span class=\"glyphicon glyphicon-ok\"></span>      "+ json["success"]);
-                             
-                            $.noty.setType(n.options.id, "success");  
-                               
-                             }      
-                   
-                        }
-                        });
-
-
-
-
-
-
-
-
-
-            }
-
-
-            }
-      }'),
+    
         
         
         

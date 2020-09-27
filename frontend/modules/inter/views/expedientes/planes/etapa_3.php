@@ -34,10 +34,11 @@
      */
     $current_expediente=$model;
     $model=$convocado;
-    $model->createExpedientes($model->currentStage());
-     $eventos=$current_expediente->plan->populateEventosToCalendar();
-    $eventos=$current_expediente->plan->populateEventosToCalendar();
-    $eventos=$current_expediente->putColorEventsCalendar($eventos);
+   // if(!h::request()->isAjax)
+    //$model->createExpedientes($model->currentStage());
+     $eventos=$current_expediente->plan->populateEventosToCalendar($identidad->code());
+    //$eventos=$current_expediente->plan->populateEventosToCalendar();
+   // $eventos=$current_expediente->putColorEventsCalendar($eventos);
    ?>
  <?php if($modelEntrevista= $current_expediente->hasEntrevista()){ ?>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">

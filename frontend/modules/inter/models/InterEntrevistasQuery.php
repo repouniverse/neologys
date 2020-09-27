@@ -1,13 +1,13 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use frontend\modules\inter\components\ActiveQueryEntrevistas;
 /**
  * This is the ActiveQuery class for [[InterEntrevistas]].
  *
  * @see InterEntrevistas
  */
-class InterEntrevistasQuery extends \yii\db\ActiveQuery
+class InterEntrevistasQuery extends ActiveQueryEntrevistas
 {
     /*public function active()
     {

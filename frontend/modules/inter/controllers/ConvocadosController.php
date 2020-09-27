@@ -70,8 +70,9 @@ class ConvocadosController extends baseController
     public function actionView($id)
     {
          $model=$this->findModel($id);
-         $model->createExpedientes($model->currentStage());
-       // $alumno=$model->alumno;
+         //$model->createExpedientes($model->currentStage());
+       
+// $alumno=$model->alumno;
         $persona=$model->persona;
         $identidad=$persona->identidad;
         
@@ -79,7 +80,7 @@ class ConvocadosController extends baseController
         $current_expediente=$model->currentExpediente();
         if(!is_null($current_expediente)){
            $eventos=$current_expediente->plan->populateEventosToCalendar();
-           $eventos=$current_expediente->putColorEventsCalendar($eventos);  
+          // $eventos=$current_expediente->putColorEventsCalendar($eventos);  
         }else{
            $eventos=[];  
         }
@@ -511,7 +512,7 @@ class ConvocadosController extends baseController
    
   public function actionUploadsDocs($id){
       $model = $this->findModel($id);
-      $model->createExpedientes($model->currentStage());
+     // $model->createExpedientes($model->currentStage());
       /*if($model->hasChangedStage()){
           $mensaje=m::t('labels','Congratulations, you have completed the stage {etapa}',['etapa'=> InterEtapas::findOne($model->rawCurrentStage())->descripcion]);  
           h::session()->setFlash('success',$mensaje);
@@ -549,6 +550,7 @@ class ConvocadosController extends baseController
             throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->aprove()){
+                $model->convocado->createExpedientes($model->convocado->currentStage());
                   return ['success'=>m::t('labels','File was aprobed')];
               }else{
                   return ['error'=>m::t('labels','There were problems')];
@@ -622,7 +624,7 @@ class ConvocadosController extends baseController
       $model = $this->findModel($id);
       
       if(!h::request()->isAjax)
-       $model->createExpedientes($model->currentStage());
+       //$model->createExpedientes($model->currentStage());
        /*if($model->hasCompletedStage($model->currentStage())){
         $mensaje=m::t('labels','Congratulations, you have completed the stage {etapa}',['etapa'=> InterEtapas::findOne($model->rawCurrentStage())->descripcion]);  
           h::session()->setFlash('success',$mensaje);
@@ -669,6 +671,9 @@ class ConvocadosController extends baseController
                 'universidad_id'=>$model->universidad_id,
                 'facultad_id'=>$model->facultad->id,
                 'fechaprog'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
+                //'fechaprog'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
+                'finicio'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
+                //'ftermino'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
                 'etapa_id'=>$model->etapa_id,
                 'plan_id'=>$model->plan_id,
                 'persona_id'=>$model->depa->persona->id,

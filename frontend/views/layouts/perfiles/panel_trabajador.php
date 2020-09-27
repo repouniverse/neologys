@@ -167,9 +167,13 @@ alumnoAsset::register($this);
                             }
                         ], 
                         ['attribute'=>yii::t('base_labels','Names'),
-                                  //'format'=>'raw',
+                                  'format'=>'raw',
+                                    
                                   'value'=>function($model){
-                                      return $model->convocado->postulante->fullName();
+                                            $convocado=$model->convocado;
+                                            $url=Url::to(['/inter/convocados/view','id'=>$convocado->id]);
+                                            $options=['data-pjax'=>'0','target'=>'_target'];
+                                      return Html::a($convocado->postulante->fullName(),$url,$options);
                                      
                                   },
                                   'group'=>true,

@@ -21,12 +21,13 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <h4><?=h::awe('id-card').h::space(10).$model->documento->desdocu?></h4>
           </div>
+          <?php  $gridName='grillapk';
+                   Pjax::begin(['id'=>$gridName,'timeout'=>false]);  ?>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group no-margin"> 
                    
                   <?php 
-                   $gridName='grillapk';
-                   Pjax::begin(['id'=>$gridName,'timeout'=>false]);
+                   
                      ?>
                     <?php if(!$model->estado){ ?>
                     <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Aprobe'), ['id'=>'btn-exp','class' => 'btn btn-warning']) ?>
@@ -34,9 +35,27 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                     <i style="font-size:19px;color:green;"><?=h::awe('check-circle')?></i><?= Html::button('<span class="fa fa-minus-circle"></span>   '.m::t('labels', 'Unaprobe'), ['id'=>'btn-exp-dis','class' => 'btn btn-danger']) ?>
                      
                     <?php } ?> 
-                   <?php Pjax::end();  ?>
+                   
                 </div>
           </div>
+      <?php echo buttonAjaxWidget::widget(
+       [  
+            'id'=>'btn-exp',
+            'idGrilla'=>$gridName,
+            'ruta'=>Url::to(['/inter/convocados/ajax-aprove-expediente','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]  
+   );   ?>   
+
+<?php echo buttonAjaxWidget::widget(
+       [  
+            'id'=>'btn-exp-dis',
+            'idGrilla'=>$gridName,
+            'ruta'=>Url::to(['/inter/convocados/ajax-disapbrobe-expediente','id'=>$model->id]),          
+           //'posicion'=> \yii\web\View::POS_END           
+        ]  
+   );   ?>   
+<?php Pjax::end();  ?>
 <BR>  .
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 </div>
@@ -149,23 +168,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
       ?>
 </div>
  <?php ActiveForm::end(); ?>
-     <?php echo buttonAjaxWidget::widget(
-       [  
-            'id'=>'btn-exp',
-            'idGrilla'=>$gridName,
-            'ruta'=>Url::to(['/inter/convocados/ajax-aprove-expediente','id'=>$model->id]),          
-           //'posicion'=> \yii\web\View::POS_END           
-        ]  
-   );   ?>   
-
-<?php echo buttonAjaxWidget::widget(
-       [  
-            'id'=>'btn-exp-dis',
-            'idGrilla'=>$gridName,
-            'ruta'=>Url::to(['/inter/convocados/ajax-disapbrobe-expediente','id'=>$model->id]),          
-           //'posicion'=> \yii\web\View::POS_END           
-        ]  
-   );   ?>   
+    
 
 
       

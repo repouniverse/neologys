@@ -17,9 +17,11 @@ use yii\helpers\Html;
         $url=$urlModal;
  
         echo  Html::button('<span class="glyphicon glyphicon-pencil"></span>', ['href' => $url, 'title' => 'Editar Adjunto', 'class' => 'botonAbre btn btn-success']); 
+        if($model->hasAttachments())
+        echo  Html::a('<span class="glyphicon glyphicon-download-alt"></span>', $model->files[0]->url, ['title' => 'Descargar','data-pjax'=>'0', 'class' => ' btn btn-warning']); 
         ?>
        
-       <span class="btn btn-warning btn-gh glyphicon glyphicon-zoom-in"></span>
+       
      <?php }else{  ?>
        <span class="glyphicon glyphicon-alert"></span>
        <?=$mensaje?>

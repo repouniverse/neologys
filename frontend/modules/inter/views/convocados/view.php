@@ -35,6 +35,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         Pjax::begin(['id'=>'grillapk','timeout'=>false]);
     ?>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <?php  if(!$model->isAdmitido()){      ?>
                 <div class="form-group no-margin"> 
                  <?php    if($model->isHabilToIngresar())
                     echo Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Final approval'), ['id'=>'btn-admision','class' => 'btn btn-success']);
@@ -44,7 +45,21 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                  ?>
                 
                 </div>
+       <?php  } else{   ?>         
+        
+          <div class="aviso-info col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?php echo m::t('labels','Este postulante, ha sido admitido en el programa Internacional');    ?>
+        </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+           <?= \common\widgets\imagewidget\ImageWidget::widget([
+        'name'=>'imagenrep',
+        'isImage'=>false,  
+        'model'=>$model,
+        'extensions'=>['pdf'],
+            ]); ?>
+           </div>
           
+         <?php  }  ?> 
     </div>
     
     <?php echo buttonAjaxWidget::widget(

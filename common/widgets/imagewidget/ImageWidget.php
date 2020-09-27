@@ -33,6 +33,7 @@ class ImageWidget extends \yii\widgets\InputWidget
        yii::t('widImage','Este registro anexa Archivos.');
        $extensiones=(is_null($this->extensions) or count($this->extensions)==0)?null:\yii\helpers\Json::encode($this->extensions);
             return $this->render('controls',[
+                'model'=>$this->model,
                'ancho'=> $this->ancho,
                 'alto'=>$this->alto,
                 'urlModal'=>\yii\helpers\Url::toRoute(['/'.$this->controllerName.'/'.$this->actionName,'isImage'=>$this->isImage,'idModal'=>'imagemodal','modelid'=>$this->model->id,'nombreclase'=> str_replace('\\','_',get_class($this->model)),/*'idGrilla'=>$this->idGrilla,*/'extension'=>$extensiones]),
