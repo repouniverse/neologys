@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\masters\Tenores;
+use common\models\masters\TenoresSearch;
 
 /**
  * Site controller
@@ -90,5 +92,117 @@ class GeneralController extends  baseController
     
       
   }
-    
+  
+  
+   /**
+     * Lists all Tenores models.
+     * @return mixed
+     */
+    public function actionIndexTenores()
+    {
+        $searchModel = new TenoresSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index_tenores', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Tenores model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewTenor($id)
+    {
+        return $this->render('view_tenores', [
+            'model' => $this->findModelTenor($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Tenores model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateTenor()
+    {
+        $model = new Tenores();
+        
+        
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view_tenores', 'id' => $model->id]);
+        }
+
+        return $this->render('create_tenores', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Tenores model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdateTenor($id)
+    {
+        $model = $this->findModelTenor($id);
+
+        if (h::request()->isAjax && $model->load(h::request()->post())) {
+                h::response()->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+        }
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view-tenor', 'id' => $model->id]);
+        }
+
+        return $this->render('update_tenores', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Tenores model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteTenor($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index_tenores']);
+    }
+
+    /**
+     * Finds the Tenores model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Tenores the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelTenor($id)
+    {
+        if (($model = Tenores::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+    }
 }
+  
+    
+

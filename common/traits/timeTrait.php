@@ -176,6 +176,10 @@ private function intoSecondCondition(RangeDates $rangeCompare,
   public function isRangeInOtherGroupRanges(RangeDates $rangeCompare,$groupRanges,$withBorders=true){
       $retorno=false;
       foreach($groupRanges as $rangeSearch){
+          yii::error('rango base  comparar');
+          yii::error($rangeCompare->rawInitialDate.'-'.$rangeCompare->rawFinalDate);
+          yii::error('rango de busqueda');
+          yii::error($rangeSearch->rawInitialDate.'-'.$rangeSearch->rawFinalDate);
           if($this->isRangeIntoOtherRange($rangeCompare, $rangeSearch, $withBorders)){
               $retorno=true;
               break;

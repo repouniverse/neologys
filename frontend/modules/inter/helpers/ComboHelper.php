@@ -66,4 +66,12 @@ class ComboHelper  extends combo{
                        $query->all(),
                 'id','descripcion');
     }  
+    
+    public static function getCboStatusConvocado(){
+       return [
+       \frontend\modules\inter\models\InterConvocados::FLAG_ACTIVO=>'En proceso',
+       \frontend\modules\inter\models\InterConvocados::FLAG_ADMITIDO=>'Admitido', 
+         \frontend\modules\inter\models\InterConvocados::FLAG_ELIMINADO=>'Eliminado', 
+       ]; 
+    }
 }

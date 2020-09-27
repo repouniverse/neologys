@@ -17,5 +17,8 @@ interface postulantesInterface {
      public function registerConvocado($idModo);
     public function resolveModo();
      public function isConvocado();
+      public function mailAddress();
      public function campoCarrera();
+      public function campoLink();
+   
 }

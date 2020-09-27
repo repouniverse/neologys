@@ -74,6 +74,7 @@ class InterVwExpedientesDocentesSearch extends InterVwExpedientesDocentes
               'codperiodo' => $this->codperiodo,
             'codgrupo' => $this->codgrupo,
               'current_etapa' => $this->current_etapa,
+             //'estado' => $this->estado,
         ]);
 
         $query->andFilterWhere(['like', 'ap', $this->ap])

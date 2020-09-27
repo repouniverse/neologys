@@ -93,7 +93,7 @@ success: function (data) {// success callback function
                             
                               
                               } 
-                     $.pjax.reload({container: '#".$this->idGrilla."'});
+                     $.pjax.reload({container: '#".$this->idGrilla."', async:false});
                  }
        }); //ajax 
         })

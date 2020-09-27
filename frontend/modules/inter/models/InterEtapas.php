@@ -19,6 +19,9 @@ class InterEtapas extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
+    
+    public $booleanFields=['esfinal'];
+    
     public static function tableName()
     {
         return '{{%inter_etapas}}';
@@ -33,7 +36,7 @@ class InterEtapas extends \common\models\base\modelBase
             [['programa_id', 'modo_id'], 'integer'],
             [['descripcion'], 'required'],
             [['comentarios'], 'string'],
-             [['awe','orden'], 'safe'],
+             [['awe','orden','esfinal'], 'safe'],
             [['descripcion'], 'string', 'max' => 30],
             [['activo'], 'string', 'max' => 1],
         ];

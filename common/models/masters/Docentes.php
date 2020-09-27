@@ -458,4 +458,10 @@ public function isInvited() {
 public function campoCarrera() {
    RETURN 'carreradest_id';
 }
+
+public function mailAddress() {
+    RETURN $this->correo;
+}
+public function campoLink(){
+    return 'docente_id';}
 }

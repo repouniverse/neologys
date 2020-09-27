@@ -35,7 +35,7 @@ class Module extends \yii\base\Module
             $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
             $fontData = $defaultFontConfig['fontdata'];
 //$mpdf = new \common\components\MyMpdf([/*
-$mpdf = new \Mpdf\Mpdf([
+$mpdf = new \Mpdf\Mpdf([/*
     'fontDir' => array_merge($fontDirs,[
        Yii::getAlias('@fonts')
     ]),
@@ -54,8 +54,8 @@ $mpdf = new \Mpdf\Mpdf([
         ],
         
     ],
-    //'default_font' => 'cour'
-]);
+    
+*/]);
 //print_r($mpdf->fontdata);die();
           
           //$mpdf=new \Mpdf\Mpdf();

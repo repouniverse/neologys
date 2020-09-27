@@ -69,6 +69,18 @@ class RangeDates extends \yii\base\Component{
    public function getInitialDate(){
        return $this->_dates[0];
    }
+   
+   public function getRawInitialDate($largeFormat=true){
+       if($largeFormat)
+       return $this->initialDate->format(timeHelper::formatMysqlDateTime());
+       return $this->initialDate->format(timeHelper::formatMysqlDate());
+   }
+   public function getRawFinalDate($largeFormat=true){
+      if($largeFormat)
+       return $this->finalDate->format(timeHelper::formatMysqlDateTime());
+       return $this->finalDate->format(timeHelper::formatMysqlDate());
+   }
+   
    public function getFinalDate(){
        return $this->_dates[1];
    }
@@ -272,14 +284,15 @@ public function rangeIsGreather(RangeDates $rango){
  * Prepara un evento para
  * el control calendar 
  */
- public function toEventCalendar($title=null,$id=null,$arrayClases=[]){
-     $title=(is_null($title))?'Event':$title;
+ public function toEventCalendar($title=null,$id=null,$arrayClases=[],$code=null){
+     $title=(is_null($title))?'Entrevista':$title;
+     $color=($code==$title)?'#ff0000':'#ebbf43';
      $options=[
             'id'=>$id,
           'title' => $title,
             'start' =>$this->initialDate->format(timeHelper::formatMysqlDateTime()),
             'end' =>$this->finalDate->format(timeHelper::formatMysqlDateTime()) ,
-            //'color' => '#5cb85c',
+            'color' => $color,
             //'codtra' => $this->codtra
      ];
      if(count($arrayClases)>0)

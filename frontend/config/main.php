@@ -93,7 +93,8 @@ return [
              'site/request-password-reset',
             'site/reset-password', 
            'site/logout',
-           'site/mantenimiento',            
+           'site/mantenimiento',
+           'inter/default/base-auth'
         ]
     ],
     

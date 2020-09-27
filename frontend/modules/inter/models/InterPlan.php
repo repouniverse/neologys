@@ -236,11 +236,12 @@ class InterPlan extends \common\models\base\modelBase
         return $entrevs; 
     }
     
-    public function populateEventosToCalendar(){
+    public function populateEventosToCalendar($code=null){
         $entrevistas=$this->populateEntrevistas();
         $entrevs=[];
         foreach($entrevistas as $entrevista){
-           $entrevs[]=$entrevista->range()->toEventCalendar($title=null,$entrevista->id,['botonAbre']); 
+           $entrevs[]=$entrevista->range()->
+              toEventCalendar($entrevista->codigo,$entrevista->id,['botonAbre'],$code); 
         }
         unset($entrevistas);
         return $entrevs;
@@ -256,8 +257,15 @@ class InterPlan extends \common\models\base\modelBase
        }
    }
    
-   public function rangoToDay($Carbon){
-     $horario=$this->getHorarios()->one();
+   public function rangoToDay($carbon){
+     $horario=$this->getHorarios()->andWhere([
+         'dia'=>$carbon->dayOfWeek,
+         'activo'=>'1'
+         ])->one();
+     /*echo $this->getHorarios()->andWhere([
+         'dia'=>$carbon->dayOfWeek,
+         'activo'=>'1'
+         ])->createCommand()->rawSql;die();*/
      if(is_null($horario))return null;
      return $horario->rangesToDay($carbon);
    }

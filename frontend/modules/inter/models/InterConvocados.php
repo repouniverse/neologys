@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
+use common\behaviors\FileBehavior;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Departamentos;
@@ -24,6 +25,7 @@ class InterConvocados extends \common\models\base\modelBase
      const CODIGO_DOCUMENTO='115';
      const FLAG_ELIMINADO='X';
      CONST FLAG_ACTIVO='A';
+     CONST FLAG_ADMITIDO='B';
     /**
      * {@inheritdoc}
      */
@@ -37,6 +39,24 @@ class InterConvocados extends \common\models\base\modelBase
         return '{{%inter_convocados}}';
     }
 
+    
+    public function behaviors()
+            {
+	return [
+		/*'auditoriaBehavior' => [
+			'class' => '\common\behaviors\AuditBehavior' ,
+                               ],*/
+		'fileBehavior' => [
+			'class' => FileBehavior::className()
+		],
+            
+            /*'AccessDownloadBehavior' => [
+			'class' => AccessDownloadBehavior::className()
+		]*/
+		
+                ];
+            }
+    
     /**
      * {@inheritdoc}
      */
@@ -548,10 +568,24 @@ public function beforeSave($insert) {
  * si no encuentra decuve null
  */
     public function currentExpediente(){
-        return $this->getExpedientes()
+        $expediente= $this->getExpedientes()
            ->andWhere(['estado'=>'0'])->orderBy(['secuencia'=>SORT_ASC])->one();
         
-        
+        /*Si nesta al final cuidado */
+        if(is_null($expediente)){
+           $expediente= $this->getExpedientes()
+           ->andWhere(['estado'=>'1'])->orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])->
+                 limit(1)->one();
+          /* echo "El expedente es nulo  ". $this->getExpedientes()
+           ->andWhere(['estado'=>'1'])->orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])->
+                 limit(1)->createCommand()->rawSql; die();*/
+        }else{
+            /*echo "Al inicio  ". $this->getExpedientes()
+           ->andWhere(['estado'=>'0'])->orderBy(['secuencia'=>SORT_ASC])-> 
+           createCommand()->rawSql;die();*/
+        }
+            
+      return $expediente; 
         }
         
   public function hasExpedientes(){
@@ -572,5 +606,121 @@ public function beforeSave($insert) {
     
  }
  
+ 
+ public function generateCertificadoAdmision(){
+      //$model=$this->findModel($id);
+       $rutaTemporal=\yii::getAlias('@frontend/modules/inter/temporales/');
+      $rutaTemporal.= uniqid().'.pdf'; 
+      yii::error($rutaTemporal,__FUNCTION__);
+        $postulante=$this->postulante;
+        $controlador=h::currentControllerObject();
+        $controlador->layout='install';
+      $pagina=$controlador->render('reportes/reporte_certificado_admision',['postulante'=>$postulante]);
+      //return $pagina;
+      $this->preparePdf($pagina)->Output($rutaTemporal,
+            \Mpdf\Output\Destination::FILE);
+     $this->deleteAllAttachments();
+       $this->attachFromPath($rutaTemporal); 
+              unlink($rutaTemporal);
+ }
+ 
+private function enviaMailConfirmando(){
+     $mailer = new \common\components\Mailer();
+        $message =new  \yii\swiftmailer\Message();
+            $message->setSubject('Confirmación de Ingreso')
+            ->setFrom(['hipogea@hotmail.com'=>'Internacional'])
+            ->setTo('hipogea@hotmail.com'/*$this->postulante->mailAddress()*/)           
+            ->SetHtmlBody("Buenas Tardes <br>"
+                    . "La presente es Confirmar que has sido admitido  "
+                    . " Al programa internacional "
+                    . " Adjuntamos un certificado de admisión.  Muchas gracias  ");
+           if(!empty($replyTo)){
+              $message->setReplyTo($replyTo); 
+           }
+           foreach ($this->files as $file){
+            $message->attach($file->path);
+           }
+           try {
+        
+           $result = $mailer->send($message);
+           $mensajes['success']='Se envió un mensaje al correo que indicaste';
+            } catch (\Swift_TransportException $Ste) {      
+                $mensajes['error']=$Ste->getMessage();
+                }
+            return $mensajes;
+}
+private function preparePdf($contenidoHtml){
+  //  $contenidoHtml = \Pelago\Emogrifier\CssInlinerCssInliner::fromHtml($contenidoHtml)->inlineCss()->render();
+  //->renderBodyContent(); 
+    $mpdf= \frontend\modules\report\Module::getPdf();
+    // $mpdf->SetHeader(['{PAGENO}']);
+   $mpdf->margin_header=1;
+   $mpdf->margin_footer=1;
+   $mpdf->setAutoTopMargin='stretch';
+  $mpdf->setAutoBottomMargin='stretch';
+  
+   //$stylesheet = file_get_contents(\yii::getAlias("@frontend/web/css/bootstrap.min.css")); // external css
+   $stylesheet2 = file_get_contents(\yii::getAlias("@frontend/web/css/reporte.css")); // external css
+   //$mpdf->WriteHTML($stylesheet,1);
+    $mpdf->WriteHTML($stylesheet2,1);
+   
+   /*$mpdf->DefHTMLHeaderByName(
+  'Chapter2Header',$this->render("/citas/reportes/cabecera")
+);*/
+   //$mpdf->DefHTMLFooterByName('pie',$this->render("/citas/reportes/footer"));
+  // $mpdf->SetHTMLHeaderByName('Chapter2Header');
+  // $contenidoHtml = \Pelago\Emogrifier\CssInliner::fromHtml($contenidoHtml)->inlineCss($stylesheet)->render();
+   $mpdf->WriteHTML($contenidoHtml);
+      return  $mpdf; 
+}
+
+public function hasExpedientesPendientes(){
+   return  $this->getExpedientes()->andWhere(['estado'=>'0'])->exists();
+}
+
+public function isEliminado(){
+    return (self::FLAG_ELIMINADO==$this->estado);
+}
+public function isAdmitido(){
+    return (self::FLAG_ADMITIDO==$this->estado);
+}
+
+public function isInFinalStage(){
+   return InterEtapas::findOne($this->rawCurrentStage())->esfinal;
+}
+
+public function isHabilToIngresar(){
+   return  (!$this->hasExpedientesPendientes() && !$this->isEliminado() && 
+      $this->isInFinalStage() && !$this->isAdmitido());
+}
+
+public function admitirPostulante(){
+    /*Verificar que haya pasado todos los controles 
+     * de todos los planes.
+     */
+   if($this->isHabilToIngresar()) {
+       $this->estado=self::FLAG_ADMITIDO;
+       $this->generateCertificadoAdmision();
+       $grabo= $this->save();
+       if($grabo)$this->enviaMailConfirmando();
+       return $grabo;
+   }else{
+       $this->addError('estado',m::t('errors','This person does not have the complete requirements'));
+       return false;
+   }
+}
+
+public function cancelarPostulante(){
+   
+   if(!$this->isAdmitido() && !$this->isEliminado()) {
+       $this->estado=self::FLAG_ELIMINADO;
+      return $this->save();
+      
+   }else{
+       $this->addError('estado',m::t('errors','This process cannot be canceled'));
+       return false;
+   }
+}
+
  
 }

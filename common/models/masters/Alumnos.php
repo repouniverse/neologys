@@ -470,4 +470,12 @@ public function campoCarrera() {
    RETURN ($this->isExternal())?'carreradest_id':'carrera_id';;
 }
 
+public function mailAddress() {
+    RETURN $this->mail;
+}
+
+public function campoLink(){
+    return 'alumno_id';}
+
+
 }

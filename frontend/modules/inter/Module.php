@@ -32,20 +32,17 @@ class Module extends \yii\base\Module
     
     
     private static function putSettingsModule(){
-         h::getIfNotPutSetting('general','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
+        /* h::getIfNotPutSetting('general','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','urlimagesalu','http://desa.itekron.com/fotos/', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','prefiximagesalu','', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','showImgExternal',true, SettingType::BOOLEAN_TYPE);
    
-         //h::getIfNotPutSetting('mail','servermail',"smtp.googlemail.com", SettingType::STRING_TYPE);
-             // h::getIfNotPutSetting('sta','formatDateFullCalendar',"YYYY-MM-DD HH:mm:ss", SettingType::STRING_TYPE);
-       h::getIfNotPutSetting('timeUser','hour','hh::ii', SettingType::STRING_TYPE);
+          h::getIfNotPutSetting('timeUser','hour','hh::ii', SettingType::STRING_TYPE);
         h::getIfNotPutSetting('timeBD','hour','H:i', SettingType::STRING_TYPE);
        
         h::getIfNotPutSetting('sta','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('sta','urlimagesalu','http:://www.orce.uni.edu.pe/alumnos/', SettingType::STRING_TYPE);
-          // h::getIfNotPutSetting('sta','showImgOrce',true, SettingType::BOOLEAN_TYPE);
-    
+        */  
         }
     
     

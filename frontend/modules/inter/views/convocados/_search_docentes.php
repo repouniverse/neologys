@@ -121,7 +121,15 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
         ?>
     </div>
     
-    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= 
+            $form->field($model, 'estado')->
+                         dropDownList
+                         (
+                         \frontend\modules\inter\helpers\ComboHelper::getCboStatusConvocado(), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                         )
+        ?>
+    </div>
     
      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= 
@@ -135,12 +143,15 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'codigodocente') ?>
     </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'nombres') ?>
+    </div> 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'ap') ?>
     </div> 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= $form->field($model, 'nombres') ?>
+        <?= $form->field($model, 'am') ?>
     </div> 
-    
     <?php ActiveForm::end(); ?>
 </div>

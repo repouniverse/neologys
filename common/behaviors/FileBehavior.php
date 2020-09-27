@@ -190,6 +190,7 @@ CONST FIRE_METHOD='triggerUpload';
                 if (!$this->getModule()->attachFile($newPathFile, $this->owner)) {
                     throw new \Exception(\Yii::t('yii', 'File upload failed.'));
                 } else {
+                    @unlink($newPathFile);
                     yii::error('Attach Exitoso ' . $newPathFile . '---' . $file, __METHOD__);
                 }
             }
@@ -224,5 +225,7 @@ CONST FIRE_METHOD='triggerUpload';
             $this->{self::FIRE_METHOD}();
         }
     }
+    
+    
     
 }

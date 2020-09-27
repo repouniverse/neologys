@@ -10,6 +10,7 @@ use common\controllers\base\baseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;
+use common\helpers\timeHelper;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -73,26 +74,17 @@ class ConvocadosController extends baseController
        // $alumno=$model->alumno;
         $persona=$model->persona;
         $identidad=$persona->identidad;
-        $current_expediente=$model->currentExpediente();
-        $eventos=$current_expediente->plan->populateEventosToCalendar();
-       // var_dump($eventos);die();
-       
-      
-     
-     
-     
-       
-        $eventos=$current_expediente->plan->populateEventosToCalendar();
-        $eventos=$current_expediente->putColorEventsCalendar($eventos);
         
-       /* $eventos=[
-                    [
-                'title' => m::t('labels','eet'),
-              'start' =>date('Y-m-d H:i:s'),
-                'end' =>$model::CarbonNow()->addMinutes(30)->format('Y-m-d H:i:s'),
-                'color' => '#e9f72057',
-                     ] 
-            ];*/
+        /*Puede ser que haya legado al final cuidado*/
+        $current_expediente=$model->currentExpediente();
+        if(!is_null($current_expediente)){
+           $eventos=$current_expediente->plan->populateEventosToCalendar();
+           $eventos=$current_expediente->putColorEventsCalendar($eventos);  
+        }else{
+           $eventos=[];  
+        }
+       
+       
         return $this->render('view', [
             'current_expediente'=>$current_expediente,
             'eventos'=>$eventos,
@@ -629,19 +621,20 @@ class ConvocadosController extends baseController
       
       $model = $this->findModel($id);
       
+      if(!h::request()->isAjax)
        $model->createExpedientes($model->currentStage());
-       if($model->hasCompletedStage($model->currentStage())){
+       /*if($model->hasCompletedStage($model->currentStage())){
         $mensaje=m::t('labels','Congratulations, you have completed the stage {etapa}',['etapa'=> InterEtapas::findOne($model->rawCurrentStage())->descripcion]);  
           h::session()->setFlash('success',$mensaje);
         return  $this->redirect([h::user()->resolveUrlAfterLogin()]);
          //return   $this->render('complete_stage',['model'=>$model]);
-       }
+       }*/
        //var_dump($model->currentStage());die();
       $current_expediente=$model->currentExpediente();
        $persona=$model->persona;
         $identidad=$persona->identidad;
-        $eventos=$current_expediente->plan->populateEventosToCalendar();
-        $eventos=$current_expediente->putColorEventsCalendar($eventos);
+        $eventos=$current_expediente->plan->populateEventosToCalendar($identidad->code());
+        //$eventos=$current_expediente->putColorEventsCalendar($eventos);
        // var_dump($current_expediente->id);
        //print_r($eventos);die();
       return $this->render('calendar_postulante',['eventos'=>$eventos,'persona'=>$persona,'identidad'=>$identidad,'model'=>$model,'current_expediente'=>$current_expediente]);
@@ -667,10 +660,11 @@ class ConvocadosController extends baseController
         if(!\common\helpers\timeHelper::IsFormatMysqlDateTime($fecha)) {
              $error=true; $datos['error']=m::t('errors','La fecha {fecha} suministrada no tiene el formato adecuado ',['fecha'=>$fecha]);
          }
-          
+         
+         
         if(!$error) { //BUSCAR LA PERSONA ID
-            /*de donde sacamos a la persona? de los departamenteos */
-            $nombre= $model->plan->eval->trabajador->fullName();
+           
+            
             $attributes=[
                 'universidad_id'=>$model->universidad_id,
                 'facultad_id'=>$model->facultad->id,
@@ -680,16 +674,32 @@ class ConvocadosController extends baseController
                 'persona_id'=>$model->depa->persona->id,
                 'expediente_id'=>$model->id,
                 'modo_id'=>$model->modo_id,
+                'codigo'=>$model->convocado->postulante->code(),
                 'convocado_id'=>$model->convocado->id,
+                'user_id'=>h::userId(),
                 'codperiodo'=>\common\helpers\h::periodos()->currentPeriod,
                 
             ];
+            
+            
+            
+            
+             /*de donde sacamos a la persona? de los departamenteos */
+            $nombre= $model->plan->eval->trabajador->fullName();
            // var_dump($fecha,$model::_FDATETIME,$model::SwichtFormatDate($fecha,$model::_FDATETIME,true));die();
          yii::error('creando la cita'.date('Y-m-d H:i:s'));
             $entre=New \frontend\modules\inter\models\InterEntrevistas();
            $entre->setScenario($entre::SCENARIO_BASICO);
            $entre->attributes=$attributes;
            
+           if(!$entre->isInJourney()){
+               $datos=['error'=>m::t('labels',
+                       'Fuera de horario')
+                       ];
+              yii::error('va a retorna r');
+               RETURN $datos;
+           }
+           yii::error('paso');
               if($entre->save()){
                  yii::error('grabo'.date('Y-m-d H:i:s'));
                if(h::gsetting('sta','notificacitasmail')){
@@ -761,6 +771,69 @@ class ConvocadosController extends baseController
         ]);
          
   }
-  
+ 
+  public function actionAdmitirPostulante($id){
+      $model=$this->findModel($id);
+      if(h::request()->isAjax){
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+         if($model->admitirPostulante()){
+             return ['success'=>m::t('labels','Applicant has been entered into the {programa}',['programa'=>'INTERNACIONAL'])];
+         }else{
+             $error=$model->getFirstError();
+             $model->clearErrors();
+            return ['error'=>m::t('labels',$error)];         
+         }
+      }
+    }
+
+
+
+public function actionRutas(){
+    
+}
+
+public function actionReprogramaCita(){
+if(h::request()->isAjax){
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+     $id=h::request()->get('idcita');
+     $model= \frontend\modules\inter\models\InterEntrevistas::findOne($id);
+     if(!$model->IamOwnerThisDateId())
+     return   ['error'=>m::t('errors','No puede modificar otras citas')];
+     $fechaInicio=h::request()->get('finicio');
+     $fechaTermino=h::request()->get('ftermino');
+     //var_dump($fechaInicio,$fechaTermino);die();
+     //yii::error('fecha inicio '.$fechaInicio);
+      //yii::error('fecha termino '.$fechaTermino);
+     if(is_null($fechaTermino)){
+         $verifiFtem=true;
+     }else{
+         $verifiFtem=timeHelper::IsFormatMysqlDateTime($fechaTermino);
+     }
+     //VAR_DUMP(timeHelper::IsFormatMysqlDateTime($fechaInicio) ,$verifiFtem);DIE();
+     if (timeHelper::IsFormatMysqlDateTime($fechaInicio) && 
+         $verifiFtem) {
+         
+      /*Verificando que haya intentado sacarlo fuera de horario*/
+      $model->fechaprog=$model::SwichtFormatDate($fechaInicio,'datetime',true);
+     // var_dump($model->fechaprog);die();
+      if(!$model->isInJourney()){
+          $model->activo=false; $model->save();
+           return ['warning'=>m::t('labels','La cita se ha eliminado')];
+      }  
+         
+    if($model->reprograma($fechaInicio, $fechaTermino)){
+         return ['success'=>m::t('labels','Se reprogramó la cita')];
+     }else{
+         return ['error'=>m::t('errors','Hubo problemas: ').$model->getFirstError()]; 
+     }
+} else {
+   return ['error'=>m::t('errors','Problema en el formato de fechas ')]; 
+}
+     
+     //$mensajes=[];
+    }   
+    echo "hi"; 
+ }
+
   
 }

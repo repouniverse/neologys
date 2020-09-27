@@ -2,9 +2,11 @@
 
 namespace frontend\modules\inter\models;
 USE common\models\masters\Universidades;
+
 USE common\models\masters\Facultades;
 use common\helpers\RangeDates; 
  use frontend\modules\inter\models\InterConvocados;
+  use frontend\modules\inter\Module as m;
  use frontend\modules\inter\models\InterHorarios;
 use Yii;
 
@@ -69,9 +71,13 @@ implements \common\interfaces\rangeInterface
                 'convocado_id', 'persona_id',
                  
                  ], 'required'],
-            [['asistio'], 'safe'],
+            [['asistio','codigo','user_id'], 'safe'],
             [['facultad_id', 'etapa_id', 'universidad_id','plan_id', 'modo_id', 'expediente_id', 'convocado_id', 'persona_id', 'duracion', 'flujo_id'], 'integer'],
             [['detalles', 'detalles_secre'], 'string'],
+            
+             [['expediente_id'], 'unique','filter'=>['<>','activo','0'], 'targetAttribute' => ['expediente_id'],'message'=>m::t('labels','Already exists a date for this plan')],
+            
+            
             [['codperiodo', 'finicio', 'ftermino'], 'string', 'max' => 19],
             [['numero', 'codfac'], 'string', 'max' => 8],
             //[['asistio', 'activo', 'masivo'], 'string', 'max' => 1],
@@ -103,7 +109,7 @@ implements \common\interfaces\rangeInterface
             'ftermino' => 'Ftermino',
             'asistio' => 'Asistio',
             'detalles' => 'Detalles',
-            'detalles_secre' => 'Detalles Secre',
+            'detalles_secre' => 'Texto interno',
             'activo' => 'Activo',
             'masivo' => 'Masivo',
             'duracion' => 'Duracion',
@@ -116,10 +122,10 @@ implements \common\interfaces\rangeInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_BASICO] = [
-            'facultad_id', 'universidad_id','asistio',
-            'etapa_id', 'fechaprog', 'codperiodo', 
+            'facultad_id', 'universidad_id','asistio','codigo',
+            'etapa_id', 'fechaprog', 'codperiodo', 'activo',
             'persona_id', 'etapa_id', 'modo_id', 'expediente_id','plan_id',
-            'convocado_id'];
+            'convocado_id','user_id'];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio','justificada'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
         $scenarios[self::SCENARIO_ACTIVO] = ['activo'];
@@ -300,11 +306,94 @@ public function  rangesToWeek(\Carbon\Carbon $carbon,$arrayWhere=null){
    
     public function isInJourney() {
         /*sacando el rango de horarios predefinidos
-es un arraya de registros modelos InterHorarios         */
+es un arraya de registros modelos InterHorarios 
+                 */
+       
+       $MyRange=$this->range();
       $rangoDay= $this->plan->rangoToDay($this->toCarbon('fechaprog'));
-      RETURN $this->isRangeIntoOtherRange(
-                        $this->range(),$rangoDay);
+     yii::error('mi range Cita');
+     yii::error($MyRange->rawInitialDate.'-'.$MyRange->rawFinalDate);
+      //var_dump($rangoDay->ranges);die();
+      if(is_null($rangoDay)) return false;
+       $rangosDelDia=$rangoDay->ranges;
+      if(!$this->isRangeInOtherGroupRanges(
+              $MyRange,
+              $rangosDelDia))return false;
+      
+      
+       return true;
       }
+    
+    public function hasCruceInPlan(){
+        
+      
+    } 
+    
+    
+    public function IamOwnerThisDateId(){
+     return (\common\helpers\h::userId()==$this->user_id);
+       
+    }
+    
+    
+    
+    public function reprograma($fechaInicio, $fechaTermino = null) {
+        // yii::error($this->asistio);
+        //yii::error($this->isVencida());
+        $oldFecha = $this->fechaprog;
+
+        
+        if (!$this->asistio /* && !$this->isVencida()*/) {
+            // if(true){  
+            if (!($fechaInicio instanceof \Carbon\Carbon)) {
+                $CfechaInicio = \Carbon\Carbon::createFromFormat(\common\helpers\timeHelper::formatMysql(), $fechaInicio);
+            } else {
+                $CfechaInicio = $fechaInicio;
+            }
+            if (!is_null($fechaTermino)) {
+                $CfechaTermino = \Carbon\Carbon::createFromFormat(\common\helpers\timeHelper::formatMysql(), $fechaTermino);
+                //$this->duracion = $CfechaTermino->diffInMinutes($CfechaInicio);
+            }
+            //var_dump($CfechaInicio->format($this->formatToCarbon(self::_FDATETIME)));die();
+
+           // $codigotra = $this->taller->psicologoPorDia($CfechaInicio);
+             //Si no encuentra turno ese dia coger el pisocolo por defecto 
+           
+             
+
+            $this->fechaprog = $CfechaInicio->format($this->formatToCarbon(self::_FDATETIME));
+            $this->finicio = $this->fechaprog;
+            //$this->codtra = $codigotra;
+            $this->ftermino = $CfechaInicio->addMinutes($this->duracion)->format($this->formatToCarbon(self::_FDATETIME));
+            $oldScenario = $this->getScenario();
+
+
+
+            $this->setScenario(self::SCENARIO_BASICO);
+            //$this->registraLog($oldFecha);
+            $grabo = $this->save();
+
+            
+            if (!$grabo) {
+                $this->addError('fechaprog', m::t('errors', $this->getFirstError()));
+                return false;
+            }else{
+                //if (h::gsetting('sta', 'notificacitasmail')) {
+                //$this->enviacorreo(false,$oldFecha); //notiifcacion depreprogramcion
+            }
+            
+            $this->setScenario($oldScenario);
+            return $grabo;
+        } else {
+            //if ($this->isVencida())
+                //$this->addError('fechaprog', m::t('errors', 'La cita se encuentra en el pasado, es mejor que cree una nueva'));
+            if ($this->asistio)
+                $this->addError('fechaprog', m::t('errors', 'Esta cita ya tiene asistencia'));
+
+            return false;
+        }
+    }
+
   
   public function dayOfweek(){
       return $this->toCarbon('fechaprog')->dayOfWeek;

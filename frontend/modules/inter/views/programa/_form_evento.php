@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use frontend\modules\inter\helpers\comboHelper;
+use frontend\modules\inter\helpers\ComboHelper;
 use frontend\modules\inter\Module as m;
 //use frontend\modules\sigi\models\SigiUnidades;
 use kartik\date\DatePicker;
@@ -46,7 +46,7 @@ use kartik\date\DatePicker;
     <?= ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> comboHelper::getCboUniversidades(),
+               'data'=> ComboHelper::getCboUniversidades(),
                'campo'=>'universidad_id',
                'idcombodep'=>'intereventos-facultad_id',
                
@@ -66,7 +66,7 @@ use kartik\date\DatePicker;
     <?= ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> ($model->isNewRecord)?[]:comboHelper::getCboFacultades($model->universidad_id),
+               'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->universidad_id),
                'campo'=>'facultad_id',
                'idcombodep'=>'intereventos-carrera_id',
                
@@ -87,7 +87,7 @@ use kartik\date\DatePicker;
  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
      
     <?php
-    $data=($model->isNewRecord)?[]:comboHelper::getCboCarreras($model->facultad_id);
+    $data=($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facultad_id);
    echo  $form->field($model, 'carrera_id')->
             dropDownList($data,
                   ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",

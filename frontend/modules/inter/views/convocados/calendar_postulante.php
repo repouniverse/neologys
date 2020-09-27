@@ -229,18 +229,29 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
       
       
       
-   <div class=" aviso-info ">
-        <?php
+      
+      
+   
+   <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?=m::t('labels','instructions')?></h3>
+            </div>
+            <div class="panel-body">
+                <?php
         echo m::t('labels','Para programar  una cita '
                 . 'arrastra la etiqueta roja donde aparece tu '
                 . 'código, sólo aceptará en los horarios '
                 . 'de color amarillo.'); 
         
         ?>
-    </div>    
-      
-      
-      
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >Tu cita <i style="font-size:18px;color:red"><span class="fa fa-circle"></span></i> 
+                </div>
+                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" >Horarios disponibles <i style="font-size:18px;color:yellow"><span class="fa fa-circle"></span></i> 
+                </div >
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Otras Citas <i style="font-size:18px;color:orange"><span class="fa fa-circle"></span></i> 
+                </div>
+            </div>
+   </div>
       
       
       
@@ -368,6 +379,9 @@ if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'"
                              $.noty.setType(n.options.id, "warning");
                               } 
                               
+                                $.pjax.reload({container: "#estado-label", async:false});
+                                $.pjax.reload({container: "#listado_asistencias", async:false});
+                                $.pjax.reload({container: "#mi-calendario", async:false});
                       
                         },
    cache: true
@@ -377,7 +391,7 @@ if (confirm("'.yii::t('sta.labels','¿Confirmar que desea crear esta Cita ?').'"
       }
                              
                         }else{
-      alert("No puede editar citas que no pertenezcan a este alumno");   
+      alert("No puede editar citas que no pertenezcan a esta persona");   
       }
 }'),
         
