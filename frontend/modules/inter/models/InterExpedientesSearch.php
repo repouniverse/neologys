@@ -115,8 +115,9 @@ class InterExpedientesSearch extends InterExpedientes
         $query->andFilterWhere([
             'plan_id'=>$idsPlanes,
             //'id_expediente'=>$this->idsInAttachments(InterExpedientes::getShortNameClass()),
-           'estado'=>'0' 
-        ]);
+           'estado'=>'0' ,
+            
+        ])->andWhere(['<>','codocu','158']);
 
         
 ///echo $query->createCommand()->rawSql;die();
