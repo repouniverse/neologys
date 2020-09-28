@@ -145,27 +145,42 @@ class User extends UserOriginal {
    public function resolveUrlAfterLogin(){
     yii::error( 'resolviendo afterlogin',__FUNCTION__);
        $url=$this->getUrlDefault();//verifica sus favoritos 
-       yii::error( 'Url favorito',__FUNCTION__);
-       yii::error( $url,__FUNCTION__);
+       //yii::error( 'Url favorito',__FUNCTION__);
+       //yii::error( $url,__FUNCTION__);
        
        if(!is_null($url)){
-           yii::error( 'encontro favorito',__FUNCTION__);
-           yii::error( $url,__FUNCTION__);
+           //yii::error( 'encontro favorito',__FUNCTION__);
+          // yii::error( $url,__FUNCTION__);
           return $url;  
        }else{
-           yii::error( 'No encontro favorito',__FUNCTION__);
+           yii::error('por q aui pasa');
+           //yii::error( 'No encontro favorito',__FUNCTION__);
            $persona=$this->profile->persona;
-          yii::error( $persona,__FUNCTION__);
+          //yii::error( $persona,__FUNCTION__);
            if(is_null($persona))
            return \yii\helpers\Url::home();//Si no al home 
-           yii::error( $persona,__FUNCTION__);
+           //yii::error( $persona,__FUNCTION__);
            $codgrupo=$persona->codgrupo;
-           YII::ERROR($codgrupo,__FUNCTION__);
+           //YII::ERROR($codgrupo,__FUNCTION__);
            $url=$this->getUrlFromRoutes($codgrupo);
-           YII::ERROR($url,__FUNCTION__);
+           //YII::ERROR($url,__FUNCTION__);
+           if($url)$this->putUrlFavorite ($url);
            return ($url)?$url:\yii\helpers\Url::home();
        }
    }
+   
+   
+   public function putUrlFavorite($url){
+      return \common\models\Userfavoritos::firstOrCreateStatic([
+           'user_id'=>$this->identity->id,
+           'url'=>$url,
+           'ishome'=>'1'],null,['user_id'=>$this->identity->id,
+           'url'=>$url]
+       );
+               
+   }
+   
+   
    /*
     * Esta funcion lee el valor de 
     * la ruta  registrada en 

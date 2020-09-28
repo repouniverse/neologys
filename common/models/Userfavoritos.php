@@ -79,4 +79,6 @@ class Userfavoritos extends \common\models\base\modelBase
        //$transac->commit();
         return true;
     }
+    
+    
 }

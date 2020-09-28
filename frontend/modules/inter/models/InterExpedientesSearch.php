@@ -91,11 +91,14 @@ class InterExpedientesSearch extends InterExpedientes
                      'trabajador_id'=>$id_trabajador,
                      'programa_id'=>m::currentPrograma(),
                      ])->column();
-         $idsPlanes= InterPlan::find()->select(['id'])
+       $idsPlanes= InterPlan::find()->select(['id'])
                  ->andWhere([
                      'eval_id'=>$idsEvaluaciones,
                      //'programa_id'=>m::currentPrograma(),
                      ])->column();
+     $idConvo=InterExpedientes::find()->select(['convocado_id'])->
+         andWhere(['codocu'=>'158','estado'=>'1','plan_id'=>$idsPlanes])->column();
+         
        //$idsAttachments=$this->idsInAttachments(InterExpedientes::getShortNameClass());
       
         $query = InterExpedientes::find();
@@ -113,6 +116,7 @@ class InterExpedientesSearch extends InterExpedientes
           
         // grid filtering conditions
         $query->andFilterWhere([
+            'convocado_id'=>$idConvo,
             'plan_id'=>$idsPlanes,
             //'id_expediente'=>$this->idsInAttachments(InterExpedientes::getShortNameClass()),
            'estado'=>'0' ,
