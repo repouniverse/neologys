@@ -488,6 +488,7 @@ class ConvocadosController extends baseController
             if(!is_null($exp=$model->firstExpediente())){
                 yii::error('El expediemte no es nulo');
                 if($exp->aprove()){
+                    $model->createExpedientes($model->currentStage());
 //aprobar le primer expediente la ficha de
                 }else{
                     print_r($exp->getErrors());DIE();
