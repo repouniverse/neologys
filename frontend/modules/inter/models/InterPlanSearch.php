@@ -18,7 +18,7 @@ class InterPlanSearch extends InterPlan
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id'], 'integer'],
-            [['id','descripcion','codocu', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'orden', 'etapa_id', 'ordenetapa'], 'safe'],
+            [['eval_id','id','descripcion','codocu', 'universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'orden', 'etapa_id', 'ordenetapa'], 'safe'],
         ];
     }
 
