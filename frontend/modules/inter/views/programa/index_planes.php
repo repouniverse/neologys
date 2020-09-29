@@ -82,6 +82,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                  
          'descripcion',
          'orden',
+           ['attribute'=>'codesp',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             
+                      //'group'=>true,
+             ], 
+          ['attribute'=>'ap',
+               // 'group'=>true,
+             ],
          ['attribute'=>'descrimodo',
              //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
             
@@ -91,11 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
              
                       //'group'=>true,
              ],
-           ['attribute'=>'codesp',
-             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
-             
-                      //'group'=>true,
-             ], 
+          
             ['attribute'=>'nombredepa',
              //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboDepartamentos(),
              
@@ -110,9 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
          ['attribute'=>'desdocu',
                 //'group'=>true,
              ],
-            ['attribute'=>'ap',
-               // 'group'=>true,
-             ],
+            
          /*['attribute'=>'universidad',
              'value'=>function($model){
                         return $model->universidad->nombre;
