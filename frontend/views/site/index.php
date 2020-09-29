@@ -78,6 +78,7 @@ alumnoAsset::register($this);
 
    
 <?php 
+
 $marcadores=[
       ['latLng'=> [36.7, -4.4], 'name'=> 'UNIVERSIDAD DE MÁLAGA','href' => Url::to(['/maestros/default/update-univer','id'=>3])],
       ['latLng'=> [41.3818, 2.1685], 'name'=> 'ESCUELA SUPERIOR DE RELACIONES PÚBLICAS','weburl' => Url::to(['/maestros/default/update-univer','id'=>2])],

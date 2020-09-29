@@ -65,4 +65,14 @@ return[
     'Regular Use Medications'=>'Uso regular de medicamentos',
     'Insurance Policy'=>'Poliza de seguro',
     'Assistance Phone'=>'Telefono de asistencia',
+    
+    //Universidades
+    'Country Code' => 'Código País',
+    'Country' => 'País',
+    'Name' => 'Nombre',
+    'Acronym' => 'Acrónimo',
+    'Status' => 'Estado',
+    'Detail' => 'Detalle',
+    'Latitude'=> 'Latitud',
+    'Meridian'=> 'Meridiano',    
 ];

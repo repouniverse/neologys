@@ -3,14 +3,14 @@
     use common\models\masters\Personas;
     use common\helpers\ComboHelper;
     use yii\helpers\Html;
-     use yii\helpers\Url;
+    use yii\helpers\Url;
     use yii\widgets\ActiveForm;
     use frontend\modules\maestros\MaestrosModule as m;
     use common\helpers\h;
     use kartik\date\DatePicker;
     use common\models\masters\Ubigeos;
     use common\widgets\selectwidget\selectWidget;
-     use common\widgets\buttonajaxwidget\buttonAjaxWidget;
+    use common\widgets\buttonajaxwidget\buttonAjaxWidget;
      USE yii\widgets\Pjax;
 ?>
 

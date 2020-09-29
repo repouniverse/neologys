@@ -11,6 +11,7 @@ return [
     'University'=>'Universidad',
     'Universities'=>'Universidades',
     'Create University'=>'Crear Universidad',
+    'Update University: {name}'=>'Actualizar Universidad: {name}',
     'Race'=>'Carrera',
     'Mail'=>'Correo',
     'Faculty'=>'Facultad',
@@ -29,4 +30,5 @@ return [
     'Update Teacher: {name}'=>'Actualizar Docente: {name}',
     'Location data'=>'Datos de localización',
     'Aditional data'=>'Datos Adicionales',
+    'Country'=>'País',
 ];

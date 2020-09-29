@@ -3,7 +3,6 @@
 namespace common\models\masters;
 use common\behaviors\FileBehavior;
 use Yii;
-
 /**
  * This is the model class for table "{{%universidades}}".
  *
@@ -13,6 +12,8 @@ use Yii;
  * @property string $acronimo
  * @property string|null $estado
  * @property string|null $detalle
+ * @property float|null $latitud 
+ * @property float|null $meridiano 
  *
  * @property Alumnos[] $alumnos
  * @property Carreras[] $carreras
@@ -57,6 +58,7 @@ class Universidades extends \common\models\base\modelBase
             [['nombre'], 'string', 'max' => 60],
             [['acronimo'], 'string', 'max' => 12],
             [['estado'], 'string', 'max' => 20],
+            [['latitud', 'meridiano'], 'number'], 
         ];
     }
 
@@ -67,11 +69,13 @@ class Universidades extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'codpais' => Yii::t('base_labels', 'Codpais'),
-            'nombre' => Yii::t('base_labels', 'Nombre'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'estado' => Yii::t('base_labels', 'Estado'),
+            'codpais' => Yii::t('base_labels', 'Country Code'),
+            'nombre' => Yii::t('base_labels', 'Name'),
+            'acronimo' => Yii::t('base_labels', 'Acronym'),
+            'estado' => Yii::t('base_labels', 'Status'),
             'detalle' => Yii::t('base_labels', 'Detalle'),
+            'latitud' => Yii::t('base_labels', 'Latitude'),
+            'meridiano' => Yii::t('base_labels', 'Meridian'),
         ];
     }
 
