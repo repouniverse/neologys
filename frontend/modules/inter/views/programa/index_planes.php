@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4><?=h::awe('calendar').h::space(10).Html::encode($this->title) ?></h4>
     <div class="box box-success">
      <div class="box-body">
-    <?php Pjax::begin(['id'=>'planPjax']); ?>
+    <?php Pjax::begin(['id'=>'planPjax','timeout'=>false]); ?>
     <?php // echo $this->render('_search_planes', ['model' => $searchModel]); ?>
 
     .
