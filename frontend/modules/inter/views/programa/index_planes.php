@@ -97,7 +97,14 @@ $this->params['breadcrumbs'][] = $this->title;
              },
                       'group'=>true,
              ],
-                     
+           ['attribute'=>'eval_id',
+             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             'value'=>function($model){
+                // $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
+                        return $model->eval->carrera->acronimo;
+             },
+                      'group'=>true,
+             ],          
          ['attribute'=>'codocu',
              'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboDocuments(),
              'value'=>function($model){
