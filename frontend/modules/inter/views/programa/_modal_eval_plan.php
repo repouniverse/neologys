@@ -17,7 +17,8 @@ use common\widgets\selectwidget\selectWidget;
 <div class="combovalores-form">
 
    <?php $form = ActiveForm::begin(['id'=>'form-pico',
-        'fieldClass'=>'\common\components\MyActiveField']); ?>
+        //'fieldClass'=>'\common\components\MyActiveField'
+        ]); ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         
