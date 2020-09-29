@@ -31,7 +31,7 @@ USE common\widgets\buttonajaxwidget\buttonAjaxWidget;
    <?php $form = ActiveForm::begin(['id'=>'form-pico',
         //'fieldClass'=>'\common\components\MyActiveField'
         ]); 
-   $modelEv=$model->eval;
+   $modelEv= frontend\modules\inter\models\InterEvaluadores::findOne($model->eval_id);
    ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

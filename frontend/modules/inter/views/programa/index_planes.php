@@ -22,10 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     .
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-    <div style='overflow:auto;'>
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-         'summary' => '',
+        // 'summary' => '',
          'tableOptions'=>['class'=>'table table-condensed table-hover table-bordered table-striped'],
         'filterModel' => $searchModel,
         'columns' => [
@@ -82,36 +82,36 @@ $this->params['breadcrumbs'][] = $this->title;
                                  
          'descripcion',
          'orden',
-         ['attribute'=>'modo_id',
-             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
-             'value'=>function($model){
-                        return $model->modo->descripcion;
-             },
-             'group'=>true,
+         ['attribute'=>'descrimodo',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
+            
+             //'group'=>true,
              ],
-          ['attribute'=>'etapa_id',
-             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboEtapas(),
-             'value'=>function($model){
-                 $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
-                        return $etapa->descripcion;
-             },
-                      'group'=>true,
+          ['attribute'=>'descrietapa',
+             
+                      //'group'=>true,
              ],
-           ['attribute'=>'eval_id',
-             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
-             'value'=>function($model){
-                // $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
-                        return $model->eval->carrera->acronimo;
-             },
-                      'group'=>true,
-             ],          
-         ['attribute'=>'codocu',
-             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboDocuments(),
-             'value'=>function($model){
-               //  $etapa= \frontend\modules\inter\models\InterEtapas::findOne($model->etapa_id);
-                        return $model->documento->desdocu;
-             },
-                      'group'=>true,
+           ['attribute'=>'codesp',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             
+                      //'group'=>true,
+             ], 
+            ['attribute'=>'nombredepa',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboDepartamentos(),
+             
+                      //'group'=>true,
+             ], 
+                                        
+           ['attribute'=>'nombrecarrera',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             
+                      //'group'=>true,
+             ], 
+         ['attribute'=>'desdocu',
+                //'group'=>true,
+             ],
+            ['attribute'=>'ap',
+               // 'group'=>true,
              ],
          /*['attribute'=>'universidad',
              'value'=>function($model){
@@ -140,5 +140,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
     </div>
-</div>
+
        

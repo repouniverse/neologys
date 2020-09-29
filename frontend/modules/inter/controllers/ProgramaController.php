@@ -621,7 +621,8 @@ class ProgramaController extends baseController
 
   
   public function actionIndexPlans(){
-       $searchModel = new \frontend\modules\inter\models\InterPlanSearch();
+       $searchModel = new \frontend\modules\inter\models\InterVwPlanesSearch();
+      
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index_planes', [
