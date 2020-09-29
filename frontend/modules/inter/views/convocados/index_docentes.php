@@ -20,7 +20,7 @@
             <?php Pjax::begin(['id'=>'index-con','timeout'=>false]);
             
             $gridColumns=[   
-                               /* [
+                              [
                                     'class' => 'yii\grid\ActionColumn',
                                     'template' => '{update}{view}',
                                     'buttons' => 
@@ -53,7 +53,7 @@
                                                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options);
                                                     }
                                     ]
-                                ],*/
+                                ],
                               /* [
                             'attribute'=>'imagenx',
                             'format'=>'raw',

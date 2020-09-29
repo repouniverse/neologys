@@ -31,6 +31,6 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 
 <div class="form-group">
         
-        <?= Html::submitButton('<span class="glyphicon glyphicon-paperclip"></span>'.'   '.Yii::t('report.messages', 'Adjuntar'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="glyphicon glyphicon-paperclip"></span>'.'   '.Yii::t('base_labels', 'Upload File'), ['class' => 'btn btn-success']) ?>
     </div>
  <?php ActiveForm::end(); ?>
