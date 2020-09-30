@@ -32,7 +32,7 @@ class m200929_173857_view_inter_planes extends viewMigration
      innerJoin('{{%documentos}} s', 'a.codocu=s.codocu')->            
      innerJoin('{{%inter_evaluadores}} c', 'c.id=a.eval_id')-> 
                  innerJoin('{{%inter_programa}} p', 'p.id=a.programa_id')-> 
-      innerJoin('{{%departamentos}} d', 'd.id=a.depa_id')->
+      innerJoin('{{%departamentos}} d', 'd.id=c.depa_id')->
      innerJoin('{{%inter_etapas}} e', 'e.id=a.etapa_id')-> 
     innerJoin('{{%trabajadores}} t', 'c.trabajador_id=t.id')->  
      innerJoin('{{%carreras}} x', 'x.id=c.carrera_id')           

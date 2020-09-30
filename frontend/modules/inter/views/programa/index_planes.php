@@ -79,10 +79,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                     'expandOneOnly' => true
                 ],                   
-                                 
-         'descripcion',
-         'orden',
-           ['attribute'=>'codesp',
+               'desdocu',                  
+        ['attribute'=>'ordenetapa',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             
+                     'group'=>true,
+             ], 
+          ['attribute'=>'orden',
+             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             
+                     //'group'=>true,
+             ], 
+          ['attribute'=>'codesp',
              //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
              
                       //'group'=>true,
@@ -90,10 +98,12 @@ $this->params['breadcrumbs'][] = $this->title;
           ['attribute'=>'ap',
                // 'group'=>true,
              ],
-         ['attribute'=>'descrimodo',
-             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
-            
-             //'group'=>true,
+         ['attribute'=>'modo_id',
+             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboModos(),
+            'value'=>function($model){
+                     return $model->descrimodo;               
+                    },
+             'group'=>true,
              ],
           ['attribute'=>'descrietapa',
              
@@ -106,9 +116,11 @@ $this->params['breadcrumbs'][] = $this->title;
                       //'group'=>true,
              ], 
                                         
-           ['attribute'=>'nombrecarrera',
-             //'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
-             
+           ['attribute'=>'carrera_id',
+             'filter'=> \frontend\modules\inter\helpers\ComboHelper::getCboCarreras(),
+             'value'=>function($model){
+                     return $model->nombrecarrera;               
+                    },
                       //'group'=>true,
              ], 
          ['attribute'=>'desdocu',
