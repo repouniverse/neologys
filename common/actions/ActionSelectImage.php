@@ -49,7 +49,7 @@ class ActionSelectImage extends \yii\base\Action
               }
             
           }else{
-            $allowedExtensions=($isImage==1)?['jpg','png','gif','jpeg']:['doc','docx','pdf','xls','xlsx','csv','txt','ppt','pptx'];  
+            $allowedExtensions=($isImage==1)?['svg','jpg','png','gif','jpeg']:['doc','docx','pdf','xls','xlsx','csv','txt','ppt','pptx'];  
           }
            
             return $this->controller->render('/comunes/attachFile', [

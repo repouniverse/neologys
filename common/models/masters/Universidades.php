@@ -51,7 +51,9 @@ class Universidades extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['nombre', 'acronimo'], 'required'],
+            [['nombre', 'acronimo','codpais'], 'required'],
+            [['latitud', 'meridiano'], 'safe'],
+            //[['latitud', 'meridiano'], 'decimal'],
             [['detalle'], 'string'],
             [['codpais'], 'string', 'max' => 3],
             [['nombre'], 'string', 'max' => 60],
@@ -183,4 +185,14 @@ class Universidades extends \common\models\base\modelBase
     {
         return new UniversidadesQuery(get_called_class());
     }
+    
+    
+    public function renderLogo($dimensiones=[]){
+        if(count($dimensiones)==0)$dimensiones=[150,150];
+        if($this->hasAttachments())
+        return Html::img($this->files[0]->url,['height'=>$dimensiones[0],'width'=>$dimensiones[1]]);
+        return '';
+    }
+    
+    
 }

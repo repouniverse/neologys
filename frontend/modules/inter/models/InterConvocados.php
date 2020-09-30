@@ -722,5 +722,16 @@ public function cancelarPostulante(){
    }
 }
 
+
+/*Como obenter la universidad a la que esta postulando */
+public function targetUniversity(){
+    /*IOmposibe que salga null por ue
+     * en la fincha de datos el tiene 
+     * que llenar la universida con sus opciones 
+     */
+    return $this->getInterOpuniv()->orderBy(['prioridad'=>SORT_ASC])->limit(1)->one();
+}
+
+
  
 }

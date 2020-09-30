@@ -42,7 +42,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">     
                 <?= $form->field($model, 'mail')->
                            label(m::t('labels','Email'))->
-                           textInput(['value'=>$model->alumno->mail,'disabled'=>true])
+                           textInput(['value'=>$model->postulante->mailAddress(),'disabled'=>true])
                 ?>
       
             </div>
@@ -55,7 +55,7 @@
             <div class="col-lg-6 col-md-6 col-sm-3 col-xs-12">
                 <?= $form->field($model, 'alumno_id')->
                            label(m::t('labels','Student'))->
-                           textInput(['value'=>$model->alumno->fullName(false),'disabled'=>true])
+                           textInput(['value'=>$model->postulante->fullName(false),'disabled'=>true])
                 ?>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -128,7 +128,7 @@
                                     'format'=>'raw',
                                     'value'=> function($model)
                                               {
-                                                $codpais= strtolower($model->universidad->codpais);
+                                                $codpais= strtolower($model->univop->codpais);
                                                 return Html::img('@web/img/flags/32/'.$codpais.'.png');
                                               }
                                 ], 

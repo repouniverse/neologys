@@ -683,7 +683,7 @@ die();
      //if(is_null(($alumno=$persona->alumno))){
          if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
              if(!is_null($identidad=$persona->identidad)){
-                // echo $grupo->layout; die();
+                 //echo $grupo->layout; die();
              return $this->render($grupo->layout,['identidad'=>$identidad]);
          }else{
             echo " NO tiene el perfill alumno" ; die();

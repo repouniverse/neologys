@@ -153,7 +153,7 @@
                                     'format'=>'raw',
                                     'value'=> function($model)
                                               {
-                                                $codpais= strtolower($model->universidad->codpais);
+                                                $codpais= $model->univop->codpais;
                                                 return Html::img('@web/img/flags/32/'.$codpais.'.png');
                                               }
                                 ], 

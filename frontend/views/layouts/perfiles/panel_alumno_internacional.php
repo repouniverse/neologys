@@ -2,7 +2,10 @@
 use frontend\views\layouts\perfiles\alumnoAsset;
 use common\helpers\h;
 use conquer\jvectormap\JVectorMapWidget;
+use conquer\jvectormap\JVectorMapAsset;
+
 use yii\helpers\Html;
+use yii\helpers\Url;
 use frontend\modules\inter\Module as m;
 alumnoAsset::register($this);
 ?>
@@ -10,53 +13,54 @@ alumnoAsset::register($this);
  <div class="box box-success">
     <div class="box-body">
       
-      
-        <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <?= \common\widgets\userwidget\userWidget::widget(['size'=>100,
-                                'orientacion'=>'vertical','longName'=>true])  ?>
-         </div>
-         <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <div class="small-box bg-green-gradient">
-            <div class="inner">
-              <h3><?php 
-              $convocatoria=$identidad->currentConvocatoria();
-              $convocatoria->createFirstExpediente();
-              echo $convocatoria->modo->getPlanes()->andWhere(['ordenetapa'=>$convocatoria::STAGE_UPLOADS])->count(); ?></h3>
-
-              <p><?php echo yii::t('base_labels','Files uploaded') ?></p>
-            </div>
-            <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-file"></i></span>
-            </div>
+      <?PHP  
+      $convocatoria=$identidad->currentConvocatoria();
+      $isAdmitido=$convocatoria->isAdmitido();
+       $targetUniversidad=$convocatoria->targetUniversity();
+       $univdestino=$targetUniversidad->univop;
+       ?>
+        
+        <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             
+              <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <?php 
-            //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
-            ?>
+               echo \common\widgets\imagerenderwidget\imageRenderWidget::widget([
             
-          </div>
-         </div>
-         <div  class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-           <div class="small-box bg-yellow-gradient">
-            <div class="inner">
-              <h3><?php 
-              $lleno=$convocatoria->hasFillFicha();
-              echo ($lleno)?"<span class='fa fa-ok'></span>":"<span class='fa file'></span>"?></h3>
-
-              <p><?php 
-              $lleno=$convocatoria->hasFillFicha();
-              echo ($lleno)?yii::t('base_labels','Ficha completa'):yii::t('base_labels','Falta llenar tu Ficha') ?></p>
-            </div>
-            <div class="icon">
-                <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
-            </div>
+                'src'=>$identidad->image($identidad->code()),
+                ]
+                    ); ?>
+              </div>
+             <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                 <?php if(!$isAdmitido) {  ?>
+                 <div style=" padding:7px;text-align:justify;color:#999;">
+                     Bienvenido al panel del postulante. Sigue las instrucciones
+                     que se indican para completar el proceso de admisión.
+                     ¡Te deseamos éxito...!
+                 </div>
+                 <?php  }  ?>
+             </div>
+             
+              <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <?php 
-            //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
-            ?>
+            echo \common\widgets\imagerenderwidget\imageRenderWidget::widget([
             
-          </div>
-         </div>
-       
+                'src'=>\frontend\modules\inter\helpers\FileHelper::urlFlag($univdestino->codpais, 64),
+                ]
+                    );
+               
+             ?>    
+              </div>
+           <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+             <?php if($univdestino->hasAttachments())   
+             echo Html::img($univdestino->files[0]->url,['width'=>200,'height'=>100,]);
+             ?>
+        
+           </div>
+           
+       </div>
+    
+       <!-- CONDICION PARA VER AUN NO ESTA ADMITIDO -->
+      <?php IF(!$isAdmitido){   ?>
     
 
 <?php
@@ -116,11 +120,107 @@ $wizard_config = [
 ];
 ?>
         <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-gray-light">
-            <h4><?=h::awe('forward').yii::t('base_labels','Assessment progress')?></h4>
-<?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>  
+          <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>  
         </div>
       
+<?PHP  } else{ ?>
+      
+      <DIV CLASS="aviso-info">
+          <?=yii::t('base_labels','¡Felicitaciones...!. Has sido admitido en el programa de Internacional {periodo}',['periodo'=>h::periodos()->currentPeriod])?>
+      </DIV>
+      
+      
+      
+   
+     
+<?php 
+$marcadores=[
+     ['latLng'=> [$univdestino->latitud, $univdestino->meridiano],
+         'name'=> $univdestino->nombre,'weburl' => Url::to(['/maestros/default/update-univer','id'=>28])],        
+             
+    
+    ];
+$options=[
+        'backgroundColor'=>'#d9dde2;',
+         'markerStyle'=>[
+      'initial'=>[
+        'fill'=> '#F8E23B',
+        'stroke'=> '#383f47'
+        ],
+      ],
+        'width'=>'600',
+        'height'=>'600',
+          'markers'=>$marcadores,
+       // 'onMarkerClick'=>'{(event){alert("hola")}',
+        ];
 
+$marcadores=\yii\helpers\Json::encode($marcadores);
+$cadena= \yii\helpers\Json::encode($options);
+/*echo JVectorMapWidget::widget([
+    //'id'=>'mapita1',
+    'map'=>'world_mill_en',    
+    'options'=>$options,    
+    'htmlOptions'=>[
+        'id'=>'map1',
+                ],
+]);*/ ?>
+        <div class="map-container">
+                <div id="world-map" class="jvmap-smart">   
+                    <div id="map1">
+                        
+                    </div>
+                </div>
+        </div>
+ <?php 
+JVectorMapAsset::register($this);
+JVectorMapAsset::registerMap('world_mill_en');
+ $this->registerJs ("
+     var markers=".$marcadores.";
+    $(function(){
+    $('#map1').vectorMap({  
+              map:'world_mill_en',
+              backgroundColor:'#d9dde2',
+              markerStyle:{
+                    class:'botonAbre',
+                    initial:{
+                    fill:'#F8E23B',
+                    stroke:'#383f47',
+                    r:10,
+                        },
+                  hover: {
+                    stroke: 'red',                    
+                    cursor: 'pointer',
+                    fill:'orange',
+                        }      
+
+
+                        },
+               markers:markers,         
+
+                  onMarkerClick: function(event, index) {                      
+                      //alert(markers[index].weburl);
+                     // alert('hola');          
+                  
+                   }//fin de onmARCKERcLICK
+            });
+        });
+",\yii\web\View::POS_READY);     ?>       
+        
+        
+        
+        
+        <br>
+      
+      
+      
+      
+      
+      
+        
+        
+    <?PHP  } ?>     
+        
+        <br>
    
 </div>
 </div>

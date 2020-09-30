@@ -132,7 +132,7 @@ class ConvocadosController extends baseController
     {
         
         $model = $this->findModel($id);
-        $modelP=$model->alumno->persona;
+        $modelP=$model->postulante->persona;
      /*
       * Mejora reste codigo, debe ser tartado en un accesFilter
       * no de esta manera por nurencia se ha escrito asi 

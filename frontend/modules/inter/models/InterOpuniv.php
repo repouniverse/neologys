@@ -3,6 +3,7 @@
 namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
+use common\behaviors\FileBehavior;
 use frontend\modules\inter\Module as m;
 use Yii;
 
@@ -28,6 +29,16 @@ class InterOpuniv extends \common\models\base\modelBase
     public static function tableName()
     {
         return '{{%inter_opuniv}}';
+    }
+    
+     public function behaviors() {
+        return [
+           
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+            
+        ];
     }
 
     /**
@@ -110,5 +121,12 @@ class InterOpuniv extends \common\models\base\modelBase
     public static function find()
     {
         return new InterOpunivQuery(get_called_class());
+    }
+    
+    public function renderLogo($dimensiones=[]){
+        if(count($dimensiones)==0)$dimensiones=[150,150];
+        if($this->univop->hasAttachments())
+        return \yii\helpers\Html::img($this->univop->files[0]->url,['height'=>$dimensiones[0],'width'=>$dimensiones[1]]);
+        return '';
     }
 }
