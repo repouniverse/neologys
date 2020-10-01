@@ -20,7 +20,7 @@ alumnoAsset::register($this);
        $targetUniversidad=$convocatoria->targetUniversity();
        if(is_null($targetUniversidad)){
            
-           $univdestino==$convocatoria->universidad; 
+           $univdestino=$convocatoria->universidad; 
        }else{
           $univdestino=$targetUniversidad->univop;
        }
