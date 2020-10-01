@@ -48,7 +48,7 @@ class InterExpedientes extends \common\models\base\modelBase
     const SCE_BASICO='basico';
         
     const SCE_ESTADO='estado';
-     public $booleanFields=['estado','requerido'];  
+     public $booleanFields=['estado','requerido','iscurrent'];  
 
     /**
      * {@inheritdoc}
@@ -77,7 +77,7 @@ class InterExpedientes extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'depa_id', 'programa_id', 'modo_id', 'convocado_id'], 'integer'],
             [['codocu'], 'required'],
             [['detalles', 'textointerno'], 'string'],
-            [['plan_id','orden','etapa_id','secuencia'], 'safe'],
+            [['plan_id','orden','etapa_id','secuencia','iscurrent'], 'safe'],
             [['clase', 'status'], 'string', 'max' => 1],
             [['codocu'], 'string', 'max' => 3],
             [['fpresenta', 'fdocu'], 'string', 'max' => 10],
@@ -233,6 +233,16 @@ class InterExpedientes extends \common\models\base\modelBase
        /// $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
+        
+        /*Si se nhixo efectiva la arpobacion 
+         * actualizar el foco*/
+         
+        if($grabo && $aprobe){
+            $this->updateFocus();
+        }
+        if($grabo && !$aprobe){/*Si desapruebas */
+            $this->updateFocus(true);
+        }
         if($grabo && $this->plan->notificamail){
             yii::error('ENVIANDO CORREO',__FUNCTION__);
              $this->mailAprove();
@@ -332,5 +342,148 @@ public function hasObserves(){
       ->andWhere(['valido'=>'1'])->exists();
 }
  
+public function nextExpediente($onlyAprove=false){
+    /*Primero buscamos el siguiente expediente
+     * dentro de la misma etapa, recuerde que el campos 'orden' 
+     * es el que registra la secuencia de la etapa
+     */
+    
+    
+    if(!$onlyAprove){
+       $expediente= $this->querySameExpedientes()->
+               andWhere(['>','secuencia',$this->secuencia])->
+            andWhere(['orden'=>$this->orden])->
+                   orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])->limit(1)->one();
+      
+         if(!is_null($expediente)){
+             return $expediente;
+         }else{
+             
+           return  $this->querySameExpedientes()->
+                 andWhere(['>','orden',$this->orden])->
+                   orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])
+                   ->limit(1)->one(); 
+         }
+    }else{
+        $expediente= $this->querySameExpedientes()->andWhere(['estado'=>'1'])->
+               andWhere(['>','secuencia',$this->secuencia])->
+                andWhere(['orden'=>$this->orden])->
+                orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])->limit(1)->one();
+         if(!is_null($expediente)){
+             return $expediente;
+         }else{
+           return  $this->querySameExpendientes()->andWhere(['estado'=>'1'])->
+                 andWhere(['>','orden',$this->orden])->
+                   orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])
+                   ->limit(1)->one(); 
+         }
+        
+        
+    }
+               
+}
+
+
+public function previousExpediente($onlyAprove=false){
+    /*Primero buscamos el siguiente expediente
+     * dentro de la misma etapa, recuerde que el campos 'orden' 
+     * es el que registra la secuencia de la etapa
+     */
+    
+    
+    if(!$onlyAprove){
+       $expediente= $this->querySameExpedientes()->
+               andWhere(['<','secuencia',$this->secuencia])->
+            andWhere(['orden'=>$this->orden])->
+                   orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])->limit(1)->one();
+      
+         if(!is_null($expediente)){
+             return $expediente;
+         }else{
+             
+           return  $this->querySameExpedientes()->
+                 andWhere(['<','orden',$this->orden])->
+                   orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])
+                   ->limit(1)->one(); 
+         }
+    }else{
+        $expediente= $this->querySameExpedientes()->andWhere(['estado'=>'1'])->
+               andWhere(['<','secuencia',$this->secuencia])->
+                andWhere(['orden'=>$this->orden])->
+                orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])->limit(1)->one();
+         if(!is_null($expediente)){
+             return $expediente;
+         }else{
+           return  $this->querySameExpendientes()->andWhere(['estado'=>'1'])->
+                 andWhere(['<','orden',$this->orden])->
+                   orderBy(['orden'=>SORT_DESC,'secuencia'=>SORT_DESC])
+                   ->limit(1)->one(); 
+         }
+        
+        
+    }
+               
+}
+
+/*Criterio para 
+ * filtrar los expedientes del postualnte 
+ * actual 
+ */
+private function querySameExpedientes(){
+    return $this->find()->andWhere(['convocado_id'=>$this->convocado_id]);
+}
+
+/*
+ * Esta funcion vetifia si el usuario tiene derechos
+ * de ver este registro, es una regla 
+ * puede verlo sólo el mismo postulante  * 
+ * Ejmplo un postulante no puede ver 
+ * el expediente de otro postulante
+ */
+public function isAccessByPostulante(){
+   return  $this->convocado->postulante->persona->profile->user->id==h::userId();
+}
+
+
+
+/*
+ * Coloca el foco  en el registro  actual 
+ * Cual es el foco? 
+ * Pues EL REGISTRO INMEDIATO POSTERIOR AL ULTIMO REGISTRO APROBADO
+ * Es decir cuando se aprueba un registro,inmediatamente el 
+ * foco pasa al registro siguiente (nextExpediente())
+ */
+
+public function updateFocus($reverse=false){
+    if(!$reverse){
+          if(!is_null($siguiente=$this->nextExpediente())){
+                return $siguiente->setCurrent();
+            }else{
+                return $this->setCurrent();
+            } 
+    }else{
+        if(!is_null($anterior=$this->previousExpediente())){
+                return $anterior->setCurrent();
+            }else{
+                return $this->setCurrent();
+            } 
+    }
+    
+}
+
+
+
+
+
+private function setCurrent(){
+    /*Limpiamos todos los expedientes primero*/
+    self::updateAll(['iscurrent'=>'0'], ['convocado'=>$this->convocado_id]);
+    $this->iscurrent=true;
+    return $this->save();
+}
+
+
+
+
    
 }

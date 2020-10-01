@@ -96,9 +96,10 @@ class InterExpedientesSearch extends InterExpedientes
                      'eval_id'=>$idsEvaluaciones,
                      //'programa_id'=>m::currentPrograma(),
                      ])->column();
-     $idConvo=InterExpedientes::find()->select(['convocado_id'])->
+       
+    /* $idConvo=InterExpedientes::find()->select(['convocado_id'])->
          andWhere(['codocu'=>'158','estado'=>'1','plan_id'=>$idsPlanes])->column();
-         
+       */  
        //$idsAttachments=$this->idsInAttachments(InterExpedientes::getShortNameClass());
       
         $query = InterExpedientes::find();
@@ -116,10 +117,11 @@ class InterExpedientesSearch extends InterExpedientes
           
         // grid filtering conditions
         $query->andFilterWhere([
-            'convocado_id'=>$idConvo,
+           // 'convocado_id'=>$idConvo,
             'plan_id'=>$idsPlanes,
             //'id_expediente'=>$this->idsInAttachments(InterExpedientes::getShortNameClass()),
            'estado'=>'0' ,
+           'iscurrent'=>'1',
             
         ])->andWhere(['<>','codocu','158'])->orderBy(['convocado_id'=>SORT_ASC,'orden'=>SORT_ASC]);
 

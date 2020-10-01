@@ -794,9 +794,7 @@ class ConvocadosController extends baseController
 
 
 
-public function actionRutas(){
-    
-}
+
 
 public function actionReprogramaCita(){
 if(h::request()->isAjax){
@@ -841,5 +839,21 @@ if(h::request()->isAjax){
     echo "hi"; 
  }
 
+ public  function actionRutas(){
+     $modelos= \frontend\modules\inter\models\InterExpedientes::find()->
+        andWhere(['convocado_id'=>1301])->all();
+     foreach($modelos as $modelo){
+          echo $modelo->id.'----<br>';
+         $siguiente=$modelo->previousExpediente();
+        
+         echo (is_null($siguiente))?'null<br>':$siguiente->id.'<br>';
+     }
+     die();
+      $modeloConvocado= \frontend\modules\inter\models\InterConvocados::findOne(1300);
+    //$modelo->convocaPersona($modeloAlumno);
+    var_dump($modeloConvocado->postulante->persona->profile->user->id);
+    die();
+ }
+ 
   
 }

@@ -312,6 +312,13 @@ Datos de sesión y de caché se han actualizado');
 
 
 public function actionRutas(){
+    $modeloConvocado= \common\models\masters\Convocados::findOne(1300);
+    //$modelo->convocaPersona($modeloAlumno);
+    var_dump($modeloConvocado->postulante->persona->profile->user->username);
+    die();
+    
+    
+    
    $model=\common\models\masters\Alumnos::findOne(444);
    $model->registerConvocado(2);
    die();

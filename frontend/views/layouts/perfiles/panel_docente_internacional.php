@@ -18,7 +18,14 @@ alumnoAsset::register($this);
       $convocatoria=$identidad->currentConvocatoria();
        $isAdmitido=$convocatoria->isAdmitido();
        $targetUniversidad=$convocatoria->targetUniversity();
-       $univdestino=$targetUniversidad->univop;
+       if(is_null($targetUniversidad)){
+           
+           $univdestino==$convocatoria->universidad; 
+       }else{
+          $univdestino=$targetUniversidad->univop;
+       }
+           
+       
        ?>
         
         <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
