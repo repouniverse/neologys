@@ -237,11 +237,11 @@ class InterExpedientes extends \common\models\base\modelBase
         /*Si se nhixo efectiva la arpobacion 
          * actualizar el foco*/
          
-        if($grabo && $aprobe){
-            $this->updateFocus();
+        if($grabo && $approbe){
+            //$this->updateFocus();
         }
-        if($grabo && !$aprobe){/*Si desapruebas */
-            $this->updateFocus(true);
+        if($grabo && !$approbe){/*Si desapruebas */
+            //$this->updateFocus(true);
         }
         if($grabo && $this->plan->notificamail){
             yii::error('ENVIANDO CORREO',__FUNCTION__);

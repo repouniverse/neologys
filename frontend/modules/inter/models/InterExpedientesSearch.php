@@ -121,7 +121,7 @@ class InterExpedientesSearch extends InterExpedientes
             'plan_id'=>$idsPlanes,
             //'id_expediente'=>$this->idsInAttachments(InterExpedientes::getShortNameClass()),
            'estado'=>'0' ,
-           'iscurrent'=>'1',
+          // 'iscurrent'=>'1',
             
         ])->andWhere(['<>','codocu','158'])->orderBy(['convocado_id'=>SORT_ASC,'orden'=>SORT_ASC]);
 
