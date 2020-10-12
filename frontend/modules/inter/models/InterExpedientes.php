@@ -233,15 +233,18 @@ class InterExpedientes extends \common\models\base\modelBase
        /// $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
+        $convocado=$this->convocado;
+        $convocado->createExpedientes($convocado->currentStage());
         
         /*Si se nhixo efectiva la arpobacion 
          * actualizar el foco*/
          
         if($grabo && $approbe){
-            //$this->updateFocus();
+            
+            $this->updateFocus();
         }
         if($grabo && !$approbe){/*Si desapruebas */
-            //$this->updateFocus(true);
+            $this->updateFocus(true);
         }
         if($grabo && $this->plan->notificamail){
             yii::error('ENVIANDO CORREO',__FUNCTION__);
@@ -357,12 +360,15 @@ public function nextExpediente($onlyAprove=false){
       
          if(!is_null($expediente)){
              return $expediente;
-         }else{
+         }else{/*sIO NO Lo encuentra en la misma etapa
+          * va a la siguiente, pero antes crea el expediente
+          */
              
-           return  $this->querySameExpedientes()->
+           $siguiente=  $this->querySameExpedientes()->
                  andWhere(['>','orden',$this->orden])->
                    orderBy(['orden'=>SORT_ASC,'secuencia'=>SORT_ASC])
                    ->limit(1)->one(); 
+           
          }
     }else{
         $expediente= $this->querySameExpedientes()->andWhere(['estado'=>'1'])->
@@ -471,19 +477,12 @@ public function updateFocus($reverse=false){
     
 }
 
-
-
-
-
 private function setCurrent(){
     /*Limpiamos todos los expedientes primero*/
     self::updateAll(['iscurrent'=>'0'], ['convocado'=>$this->convocado_id]);
     $this->iscurrent=true;
-    return $this->save();
+    return $this->save();  
 }
-
-
-
 
    
 }

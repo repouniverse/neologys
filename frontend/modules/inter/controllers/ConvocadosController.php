@@ -488,7 +488,7 @@ class ConvocadosController extends baseController
             if(!is_null($exp=$model->firstExpediente())){
                 yii::error('El expediemte no es nulo');
                 if($exp->aprove()){
-                    $model->createExpedientes($model->currentStage());
+                    //$model->createExpedientes($model->currentStage());
 //aprobar le primer expediente la ficha de
                 }else{
                     print_r($exp->getErrors());DIE();
@@ -551,7 +551,7 @@ class ConvocadosController extends baseController
             throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->aprove()){
-                $model->convocado->createExpedientes($model->convocado->currentStage());
+                //$model->convocado->createExpedientes($model->convocado->currentStage());
                   return ['success'=>m::t('labels','File was aprobed')];
               }else{
                   return ['error'=>m::t('labels','There were problems')];
