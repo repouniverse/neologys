@@ -61,7 +61,7 @@
                                     ]
                                 ],
                                 [
-                                    'attribute'=>m::t('labels','Languaje'),
+                                    'attribute'=>m::t('labels','Language'),
                                     'value'=> function($model)
                                               {
                                                 return frontend\modules\inter\helpers\ComboHelper::getIdioma($model->idioma);

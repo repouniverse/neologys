@@ -4,6 +4,7 @@ namespace frontend\modules\inter\models;
 use common\models\masters\Facultades;
 use common\models\masters\Universidades;
 use common\helpers\h;
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -54,14 +55,14 @@ public $booleanFields=['valido'];
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'expediente_id' => Yii::t('base_labels', 'Expediente ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'convocado_id' => Yii::t('base_labels', 'Convocado ID'),
-            'user_id' => Yii::t('base_labels', 'User ID'),
-            'valido' => Yii::t('base_labels', 'Valido'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'id' => m::t('labels', 'ID'),
+            'expediente_id' => m::t('labels', 'Proceedings Id'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'universidad_id' => m::t('labels', 'University'),
+            'convocado_id' => m::t('labels', 'Summoned ID'),
+            'user_id' => m::t('labels', 'User ID'),
+            'valido' => m::t('labels', 'Valid'),
+            'detalles' => m::t('labels', 'Details'),
         ];
     }
 

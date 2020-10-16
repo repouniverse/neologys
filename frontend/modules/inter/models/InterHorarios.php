@@ -78,19 +78,19 @@ implements \common\interfaces\rangeInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'plan_id' => Yii::t('base_labels', 'Plan ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'etapa_id' => Yii::t('base_labels', 'Etapa ID'),
-            'dia' => Yii::t('base_labels', 'Dia'),
-            'hinicio' => Yii::t('base_labels', 'Hinicio'),
-            'hfin' => Yii::t('base_labels', 'Hfin'),
-            'tolerancia' => Yii::t('base_labels', 'Tolerancia'),
-            'activo' => Yii::t('base_labels', 'Activo'),
-            'codtra' => Yii::t('base_labels', 'Codtra'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'skipferiado' => Yii::t('base_labels', 'Skipferiado'),
+            'id' => m::t('labels', 'ID'),
+            'plan_id' => m::t('labels', 'Plan ID'),
+            'programa_id' => m::t('labels', 'Program'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'etapa_id' => m::t('labels', 'Stage'),
+            'dia' => m::t('labels', 'Day'),
+            'hinicio' => m::t('labels', 'Start Time'),
+            'hfin' => m::t('labels', 'End time'),
+            'tolerancia' => m::t('labels', 'Tolerance'),
+            'activo' => m::t('labels', 'Active'),
+            'codtra' => m::t('labels', 'Codtra'),
+            'clase' => m::t('labels', 'Class'),
+            'skipferiado' => m::t('labels', 'Skipferiado'),
         ];
     }
 
@@ -225,11 +225,11 @@ implements \common\interfaces\rangeInterface
       $duracionminima= h::getIfNotPutSetting('sta','duracionMinimaRango',3, SettingType::INTEGER_TYPE);
         $diferenciaenhoras=$this->toCarbon('hfin')->diffInHours($this->toCarbon('hinicio'));
         if( $diferenciaenhoras <  $duracionminima and $diferenciaenhoras >=0){
-             $this->addError('hinicio', m::t('errors','El rango del horario es muy corto o nulo',
+             $this->addError('hinicio', m::t('validaciones','The time range is very short or null',
                     ['campo'=>$this->getAttributeLabel('hinicio')]));
         }
         if( $diferenciaenhoras < 0){
-             $this->addError('hinicio', m::t('errors','Hora inicio mayor que hora fin',
+             $this->addError('hinicio', m::t('validaciones','Start time greater than end time',
                     ['campo'=>$this->getAttributeLabel('hinicio')]));
         }
         

@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use frontend\modules\inter\Module;
 use Yii;
 
 /**
@@ -53,14 +53,14 @@ class InterIdiomasalu extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'convocatoria_id' => Yii::t('app', 'Convocatoria ID'),
-            'programa_id' => Yii::t('app', 'Programa ID'),
-            'modo_id' => Yii::t('app', 'Modo ID'),
-            'idioma' => Yii::t('app', 'Idioma'),
-            'codnivel' => Yii::t('app', 'Codnivel'),
-            'detalle' => Yii::t('app', 'Detalle'),
-            'certificado' => Yii::t('app', 'Certificado'),
+            'id' => m::t('labels', 'ID'),
+            'convocatoria_id' => m::t('labels', 'Announcement Id'),
+            'programa_id' => m::t('labels', 'Program'),
+            'modo_id' => m::t('labels', 'Mode ID'),
+            'idioma' => m::t('labels', 'Language'),
+            'codnivel' => m::t('labels', 'Level Code'),
+            'detalle' => m::t('labels', 'Detail'),
+            'certificado' => m::t('labels', 'Certificate'),
         ];
     }
 

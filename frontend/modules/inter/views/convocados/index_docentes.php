@@ -148,7 +148,7 @@
     'columns' => $gridColumns,
         'batchSize'=>20,
     'dropdownOptions' => [
-        'label' => yii::t('base_labels','Export'),
+        'label' => m::t('base_labels','Export'),
         'class' => 'btn btn-success'
     ]
 ]) . "<hr>\n".GridView::widget(

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\modules\import\models\ImportCargamasiva */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Cargas masivas'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Massive loads'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(m::t('labels', 'Editar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(m::t('verbs', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
        
     </p>
 

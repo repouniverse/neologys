@@ -50,12 +50,12 @@ class Areas extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'coddepa' => Yii::t('base.labels', 'Coddepa'),
-            'nombredepa' => Yii::t('base.labels', 'Nombredepa'),
-            'detalles' => Yii::t('base.labels', 'Detalles'),
-            'correodepa' => Yii::t('base.labels', 'Correodepa'),
-            'webdepa' => Yii::t('base.labels', 'Webdepa'),
-            'codigoper' => Yii::t('base.labels', 'Codigoper'),
+            'coddepa' => Yii::t('base_labels', 'Code Area'),
+            'nombredepa' => Yii::t('base_labels', 'Name Area'),
+            'detalles' => Yii::t('base_labels', 'Details'),
+            'correodepa' => Yii::t('base_labels', 'Mail Area'),
+            'webdepa' => Yii::t('base_labels', 'Web Area'),
+            'codigoper' => Yii::t('base_labels', 'Code Person'),
         ];
     }
 

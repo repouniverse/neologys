@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Sociedades */
 
-$this->title = Yii::t('base.verbs', 'Create Foreing Person');
+$this->title = m::t('labels', 'Create Foreing Person');
 $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Persons'), 'url' => ['index-personas']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

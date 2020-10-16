@@ -32,7 +32,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.yii::t('base_verbs', 'Save'), ['class' => 'btn btn-success']) ?>
        <?php
           //$url= Url::to(['unique-university','id'=>$profile->id,'gridName'=>'check-multiple','idModal'=>'buscarvalor']);
             echo  Html::button(h::awe('toggle-on').h::space(10).yii::t('base_verbs','Switch Multiple'), ['href' => '#', 'title' => yii::t('base_labels','Switch Multiple'),'id'=>'btn-expe', 'class' => 'btn-danger']); 
@@ -48,7 +48,7 @@ echo TabsX::widget([
     'align' => TabsX::ALIGN_LEFT,
     'items' => [
         [
-            'label' => yii::t('base_labels','Perfil'),
+            'label' => yii::t('base_labels','Profile'),
             'content' => $this->render('profileother',['form'=>$form,'model'=>$model,'profile'=>$profile]),
             'active' => true,
              'options' => ['id' => 'myveryryyownID2'],

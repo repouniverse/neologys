@@ -42,7 +42,7 @@ use frontend\modules\inter\models\InterExpedientes;
                               'extension'=> \yii\helpers\Json::encode(array_merge(common\helpers\FileHelper::extDocs(),common\helpers\FileHelper::extImages())),
                              'nombreclase'=> str_replace('\\','_',get_class($model))]);
                         $options = [
-                            'title' => Yii::t('sta.labels', 'Subir Archivo'),
+                            'title' => m::t('labels', 'Upload file'),
                             //'aria-label' => Yii::t('rbac-admin', 'Activate'),
                             //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
                             'data-method' => 'get',

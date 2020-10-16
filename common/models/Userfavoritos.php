@@ -47,11 +47,11 @@ class Userfavoritos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base.names', 'ID'),
-            'user_id' => Yii::t('base.names', 'User ID'),
-            'url' => Yii::t('base.names', 'Url'),
-            'ishome' => Yii::t('base.names', 'Inicio'),
-            'order' => Yii::t('base.names', 'Order'),
+            'id' => Yii::t('base_labels', 'ID'),
+            'user_id' => Yii::t('base_labels', 'User ID'),
+            'url' => Yii::t('base_labels', 'URL'),
+            'ishome' => Yii::t('base_labels', 'Begin'),
+            'order' => Yii::t('base_labels', 'Order'),
         ];
     }
 

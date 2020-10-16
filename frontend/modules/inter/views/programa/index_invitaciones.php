@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ]
                                                       );
                         $options = [
-                            'title' => m::t('labels', 'View'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },

@@ -44,7 +44,7 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
      <?php $tipo=($modelEntrevista->asistio)?'info':'warning';   ?>   
      <?php $mensaje=($modelEntrevista->asistio)?m::t('labels','This person has already been interviewed'):
-             m::t('labels','This person has an interview {numero} scheduled at {fecha}',['numero'=>$modelEntrevista->numero,'fecha'=>$modelEntrevista->fechaprog]);   ?>   
+             m::t('validaciones','This person has an interview {numero} scheduled at {fecha}',['numero'=>$modelEntrevista->numero,'fecha'=>$modelEntrevista->fechaprog]);   ?>   
     <div class=" aviso-<?=$tipo?> ">
         <?php
         echo m::t('labels',$mensaje); 
@@ -70,7 +70,7 @@
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
         
     <div class=" aviso-danger ">
-        <?php echo m::t('errors','This person does not have an interview scheduled yet'); ?>
+        <?php echo m::t('validaciones','This person does not have an interview scheduled yet'); ?>
     </div>
    </div>
     <?php } ?>

@@ -5,7 +5,7 @@ use common\models\masters\Departamentos;
 use common\models\masters\Periodos;
 use common\models\masters\Carreras;
 use common\models\masters\Personas;
-
+use frontend\modules\inter\Module as m;
 namespace frontend\modules\inter\models;
 
 use Yii;
@@ -79,19 +79,19 @@ class InterPlan extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'eval_id' => Yii::t('base_labels', 'Eval ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'Universidad ID'),
+            'facultad_id' => m::t('labels', 'Facultad ID'),
+            'depa_id' => m::t('labels', 'Depa ID'),
+            'eval_id' => m::t('labels', 'Evaluator Id'),
+            'modo_id' => m::t('labels', 'Mode ID'),
+            'programa_id' => m::t('labels', 'Program'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'acronimo' => m::t('labels', 'Acronym'),
+            'descripcion' => m::t('labels', 'Description'),
+            'detalles' => m::t('labels', 'Details'),
         ];
     }
 

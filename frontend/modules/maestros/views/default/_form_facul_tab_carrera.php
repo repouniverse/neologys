@@ -5,10 +5,10 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
-use backend\modules\base\Module as m;
+use frontend\modules\maestros\MaestrosModule as m;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
- USE yii\widgets\Pjax;
- use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 /* @var $form yii\widgets\ActiveForm */

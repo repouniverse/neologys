@@ -5,7 +5,7 @@ namespace frontend\modules\inter\models;
 use yii\base\Model;
 use yii\helpers\Url;
 use common\models\User;
-use frontend\modules\inter\Module;
+use frontend\modules\inter\Module as m;
 class AuthWithQuestionForm extends Model 
 
 {
@@ -46,12 +46,12 @@ class AuthWithQuestionForm extends Model
         
         return [
             //'id' => Yii::t('base_labels', 'ID'),
-            'codigo' => Yii::t('base_labels', 'Code'),
-            'email' => Yii::t('base_labels', 'Email'),
-            'modo_id' => Yii::t('base_labels', 'Modalidad'),
-            'pregunta1' => Yii::t('base_labels', 'First question'),
-             'pregunta2' => Yii::t('base_labels', 'Second question'),
-             'pregunta3' => Yii::t('base_labels', 'Codper'),
+            'codigo' => m::t('base_labels', 'Code'),
+            'email' => m::t('base_labels', 'Email'),
+            'modo_id' => m::t('base_labels', 'Modality'),
+            'pregunta1' => m::t('base_labels', 'First question'),
+             'pregunta2' => m::t('base_labels', 'Second question'),
+             'pregunta3' => m::t('base_labels', 'Third question'),
         ];
         
     }
@@ -110,18 +110,18 @@ class AuthWithQuestionForm extends Model
                 if($this->{$question}==$queryx->scalar()){
                     
                 }else{
-                   $this->addError($question,yii::t('base_labels','Incorrect Answer')); 
+                   $this->addError($question,m::t('validaciones','Incorrect Answer')); 
                 }
             }else{
                 if($this->{$question}==$queryx){
                     
                 }else{
-                  $this->addError($question,yii::t('base_labels','Incorrect Answer'));   
+                  $this->addError($question,m::t('validaciones','Incorrect Answer'));   
                 }
             }
         }        
      }else{
-         $this->addError('codigo',yii::t('base_labels','Code doesn \'t  match'));
+         $this->addError('codigo',m::t('validaciones','Code doesn \'t  match'));
      }     
   }
   
@@ -134,7 +134,7 @@ class AuthWithQuestionForm extends Model
           
           }*/
       }else{
-         $this->addError('codigo',yii::t('base_labels','Code doesn \'t  match'));
+         $this->addError('codigo',m::t('validaciones','Code doesn \'t  match'));
         }
   }
   

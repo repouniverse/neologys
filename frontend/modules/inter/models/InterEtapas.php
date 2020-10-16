@@ -48,12 +48,12 @@ class InterEtapas extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'activo' => Yii::t('base_labels', 'Activo'),
-            'comentarios' => Yii::t('base_labels', 'Comentarios'),
+            'id' => m::t('labels', 'ID'),
+            'programa_id' => m::t('labels', 'Program'),
+            'modo_id' => m::t('labels', 'Mode ID'),
+            'descripcion' => m::t('labels', 'Description'),
+            'activo' => m::t('labels', 'Active'),
+            'comentarios' => m::t('labels', 'Comments'),
         ];
     }
 
@@ -79,14 +79,14 @@ class InterEtapas extends \common\models\base\modelBase
     public static function firstStage($modo_id){
       $stage= static::find()->select('min(orden)')->andWhere(['modo_id'=>$modo_id])->scalar();
         if($stage)return $stage;
-        throw new ServerErrorHttpException(m::t('errors', 'Empty stages for this mode {valor}, please fill stages',['valor'=>$modo_id]));
+        throw new ServerErrorHttpException(m::t('validaciones', 'Empty stages for this mode {valor}, please fill stages',['valor'=>$modo_id]));
     		   
     }
     
     public static function lastStage($modo_id){
       $stage= static::find()->select('max(orden)')->andWhere(['modo_id'=>$modo_id])->scalar();
         if($stage)return $stage;
-        throw new ServerErrorHttpException(m::t('errors', 'Empty stages for this mode {valor}, please fill stages',['valor'=>$modo_id]));
+        throw new ServerErrorHttpException(m::t('validaciones', 'Empty stages for this mode {valor}, please fill stages',['valor'=>$modo_id]));
     	
     }
     

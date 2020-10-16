@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use frontend\modules\inter\helpers\ComboHelper;
+use frontend\modules\inter\Module as m;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -35,7 +36,7 @@ $fieldOptions2 = [
           
  <?= $form->field($model, 'modo_id')->
             dropDownList(ComboHelper::getCboModos(),
-                  ['prompt'=>'--'.yii::t('base_verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -58,7 +59,7 @@ $fieldOptions2 = [
             
             <!-- /.col -->
             <div class="col-xs-4">
-                <?= Html::submitButton(yii::t('base_labels','Verify'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+                <?= Html::submitButton(m::t('verbs','Verify'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->
         </div>

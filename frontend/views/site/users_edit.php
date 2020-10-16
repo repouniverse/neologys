@@ -9,7 +9,7 @@ use mdm\admin\components\Helper;
 /* @var $searchModel mdm\admin\models\searchs\User */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('rbac-admin', 'Usuarios');
+$this->title = Yii::t('base_labels', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
     <div class="box box-success">
         <div class="box-body">
-        <?= Html::a(Yii::t('base.verbs', 'Crear Usuario'), ['/site/create-user'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('base.verbs', 'Create user'), ['/site/create-user'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php $url= Url::to('view-users') ;?>
     <?=
@@ -55,8 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('rbac-admin', 'Activar'),
-                            'aria-label' => Yii::t('rbac-admin', 'Activar'),
+                            'title' => Yii::t('base_labels', 'Activate'),
+                            'aria-label' => Yii::t('base_labels', 'Activate'),
                             //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
                             'data-method' => 'get',
                             'data-pjax' => '0',

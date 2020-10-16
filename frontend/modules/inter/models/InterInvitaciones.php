@@ -170,20 +170,20 @@ public function getEvento()
     
     public function validateDocente($attribute,$params){
         if($this->docenteanfi_id==$this->docenteinv_id)
-        $this->addError ('docenteanfi_id',m::t('errors','Teachers should be differents'));
+        $this->addError ('docenteanfi_id',m::t('validaciones','Teachers should be differents'));
         /*
          * NO puede ser que el que invita no sea de la universidad base
          * 
          */
         if($this->docenteanfi->isExternal())
-         $this->addError ('docenteanfi_id',m::t('errors','Teachers should be local'));
+         $this->addError ('docenteanfi_id',m::t('validaciones','Teachers should be local'));
         
         
     }
     
     public function validateEvento($attribute,$params){
         if($this->evento->universidad->id <> h::currentUniversity())
-         $this->addError ('evento_id',m::t('errors','Event should be local'));
+         $this->addError ('evento_id',m::t('validaciones','Event should be local'));
         
         
     }

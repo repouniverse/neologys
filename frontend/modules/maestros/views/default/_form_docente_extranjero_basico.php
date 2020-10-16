@@ -40,7 +40,7 @@
         </div>
          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=$form->field($model, 'tipodoc')->
-                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a value')."--",])
             ?>
         </div>
         
@@ -117,7 +117,7 @@
         
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=$form->field($model, 'categoria')->
-                      dropDownList(ComboHelper::getCboCategoriaDocente(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                      dropDownList(ComboHelper::getCboCategoriaDocente(),['prompt'=>'--'.m::t('verbs','Choose a value')."--",])
             ?>
         </div>
         

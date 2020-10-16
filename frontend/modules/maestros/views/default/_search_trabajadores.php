@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\TrabajadoresSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -47,8 +47,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'referencia') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('control.errors', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('control.errors', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('verbs', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 use common\helpers\h;
+use frontend\modules\inter\Module as m;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Talleres */
@@ -10,11 +11,11 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterConvocados */
 
-$this->title = Yii::t('base_labels', 'Fill in personal data : {name}', [
+$this->title = m::t('labels', 'Fill in personal data : {name}', [
     'name' => $modelP->fullName(),
 ]);
 //$this->params['breadcrumbs'][] = ['label' => substr($model->programa->descripcion,0,10), 'url' => ['/inter/programa/update', 'id' => $model->programa->id]];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'My panel'), 'url' => [h::user()->resolveUrlAfterLogin()]];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'My panel'), 'url' => [h::user()->resolveUrlAfterLogin()]];
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 ///$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>

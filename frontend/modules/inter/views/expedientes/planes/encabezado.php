@@ -30,7 +30,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
                    
                      ?>
                     <?php if(!$model->estado){ ?>
-                    <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Aprobe'), ['id'=>'btn-exp','class' => 'btn btn-warning']) ?>
+                    <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Aprobed'), ['id'=>'btn-exp','class' => 'btn btn-warning']) ?>
                     <?php }else{ ?> 
                     <i style="font-size:19px;color:green;"><?=h::awe('check-circle')?></i><?= Html::button('<span class="fa fa-minus-circle"></span>   '.m::t('labels', 'Unaprobe'), ['id'=>'btn-exp-dis','class' => 'btn btn-danger']) ?>
                      

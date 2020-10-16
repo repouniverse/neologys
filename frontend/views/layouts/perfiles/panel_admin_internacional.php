@@ -29,7 +29,7 @@ alumnoAsset::register($this);
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            echo Html::a(yii::t('base_labels','Details').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
             ?>
             
           </div>
@@ -43,14 +43,14 @@ alumnoAsset::register($this);
 
               <p><?php 
               $lleno=$convocatoria->hasFillFicha();
-              echo ($lleno)?yii::t('base_labels','Ficha completa'):yii::t('base_labels','Falta llenar tu Ficha') ?></p>
+              echo ($lleno)?yii::t('base_labels','Complete file'):yii::t('base_labels','You need to fill out your file') ?></p>
             </div>
             <div class="icon">
                 <span style="color:white;opacity:0.5;"><i class="fa fa-user"></i></span>
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            echo Html::a(yii::t('base_labels','Details').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
             ?>
             
           </div>

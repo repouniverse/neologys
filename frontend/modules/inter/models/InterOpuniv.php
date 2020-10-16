@@ -65,12 +65,12 @@ class InterOpuniv extends \common\models\base\modelBase
     {
         return [
             'ID' => m::t('labels', 'ID'),
-            'University Id' => m::t('labels', 'Universidad ID'),
-            'Facultaty Id' => m::t('labels', 'Facultad ID'),
-            'Announcement Id' => m::t('labels', 'Convocatoria ID'),
+            'University Id' => m::t('labels', 'University'),
+            'Facultaty Id' => m::t('labels', 'Faculty'),
+            'Announcement Id' => m::t('labels', 'Summoned ID'),
             'UnivOp Id' => m::t('labels', 'Univop ID'),
-            'Priority' => m::t('labels', 'Prioridad'),
-            'Comments' => m::t('labels', 'Comentarios'),
+            'Priority' => m::t('labels', 'Priority'),
+            'Comments' => m::t('labels', 'Comments'),
         ];
     }
 

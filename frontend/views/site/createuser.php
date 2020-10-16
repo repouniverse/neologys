@@ -7,7 +7,7 @@ use mdm\admin\components\UserStatus;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = yii::t('base.verbs','Registrar');
+$this->title = yii::t('base_verbs','To Register');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-signup">
     <h3><?= Html::encode($this->title) ?></h3>
 
-    <p><?=yii::t('base_verbs','Por favor llene los siguientes campos para Registrar :')?></p>
+    <p><?=yii::t('base_labels','Please fill out the following fields to Register:')?></p>
 
   
        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->passwordInput() ?>
               
      <?= $form->field($model, 'status')->
-            dropDownList([UserStatus::ACTIVE=>yii::t('base_names','Activo'),UserStatus::INACTIVE=>yii::t('base.names','No activo')] ,
-                    ['prompt'=>'--'.yii::t('base_verbs','--Seleccione un valor')."--",
+            dropDownList([UserStatus::ACTIVE=>yii::t('base_labels','Active'),UserStatus::INACTIVE=>yii::t('base_labels','No activo')] ,
+                    ['prompt'=>'--'.yii::t('base_verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
 
                  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                 <?= Html::submitButton(Yii::t('base_verbs', 'Registrar'), ['id' => 'next-button','class' => 'btn btn-success']) ?>
+                                 <?= Html::submitButton(Yii::t('base_verbs', 'To Register'), ['id' => 'next-button','class' => 'btn btn-success']) ?>
                                 
                 </div>
 

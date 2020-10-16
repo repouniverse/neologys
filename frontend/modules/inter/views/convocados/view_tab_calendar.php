@@ -229,7 +229,7 @@ echo CalendarScheduleWidget::widget([
              //no hacer nada
             }else{
             fechax=date.format("DD/MM/YYYY HH:mm");
-            if (confirm("'.yii::t('sta.labels','¿Confirmar que desea REPROGRAMAR esta cita a la nueva fecha ').'"+ fechax+" ?")) {
+            if (confirm("'.m::t('validaciones','¿Confirm that you want to RESCHEDULE this appointment to the new date').'"+ fechax+" ?")) {
                 
 
                   $.ajax({

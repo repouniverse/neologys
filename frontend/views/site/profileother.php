@@ -126,7 +126,7 @@ $this->title = 'Profile';
 
  <?= $form->field($model, 'status')->
             dropDownList($model->dataComboStatus(),
-                    ['prompt'=>'--'.yii::t('base_verbs','Seleccione un Valor')."--",
+                    ['prompt'=>'--'.yii::t('base_verbs','Choose a value')."--",
                      //'class'=>'probandoSelect2',
                         ]
                     ) ?>

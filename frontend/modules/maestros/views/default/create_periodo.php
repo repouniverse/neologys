@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Periodos */
 
-$this->title = Yii::t('base.labels', 'Create Periodos');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Periodos'), 'url' => ['index-periodo']];
+$this->title = m::t('labels', 'Create Periods');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Periods'), 'url' => ['index-periodo']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="periodos-create">

@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use frontend\modules\inter\Module as m;
 use Yii;
 
 /**
@@ -75,38 +75,38 @@ class InterVwPlanes extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'eval_id' => Yii::t('base_labels', 'Eval ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'acronimo' => Yii::t('base_labels', 'Acronimo'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
-            'orden' => Yii::t('base_labels', 'Secuencia'),
-            'requisito_id' => Yii::t('base_labels', 'Requisito ID'),
-            'etapa' => Yii::t('base_labels', 'Etapa'),
-            'etapa_id' => Yii::t('base_labels', 'Etapa ID'),
-            'ordenetapa' => Yii::t('base_labels', 'Etapa'),
-            'finicio' => Yii::t('base_labels', 'Finicio'),
-            'notificamail' => Yii::t('base_labels', 'Notificamail'),
-            'acromodo' => Yii::t('base_labels', 'Acromodo'),
-            'descrimodo' => Yii::t('base_labels', 'Descrimodo'),
-            'acroeval' => Yii::t('base_labels', 'Acroeval'),
-            'descrieval' => Yii::t('base_labels', 'Descrieval'),
-            'codperiodo' => Yii::t('base_labels', 'Codperiodo'),
-            'descrietapa' => Yii::t('base_labels', 'Descrietapa'),
-            'ap' => Yii::t('base_labels', 'Ap'),
-            'am' => Yii::t('base_labels', 'Am'),
-            'nombres' => Yii::t('base_labels', 'Nombres'),
-            'nombredepa' => Yii::t('base_labels', 'Nombredepa'),
-            'codesp' => Yii::t('base_labels', 'Codesp'),
-            'nombrecarrera' => Yii::t('base_labels', 'Nombrecarrera'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Depa ID'),
+            'eval_id' => m::t('labels', 'Evaluator ID'),
+            'modo_id' => m::t('labels', 'Mode ID'),
+            'programa_id' => m::t('labels', 'Program'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'acronimo' => m::t('labels', 'Acronym'),
+            'descripcion' => m::t('labels', 'Description'),
+            'detalles' => m::t('labels', 'Details'),
+            'orden' => m::t('labels', 'Sequence'),
+            'requisito_id' => m::t('labels', 'Requisito ID'),
+            'etapa' => m::t('labels', 'Stage'),
+            'etapa_id' => m::t('labels', 'Stage ID'),
+            'ordenetapa' => m::t('labels', 'Etapa'),
+            'finicio' => m::t('labels', 'Begin Date'),
+            'notificamail' => m::t('labels', 'Notificamail'),
+            'acromodo' => m::t('labels', 'Acromodo'),
+            'descrimodo' => m::t('labels', 'Descrimodo'),
+            'acroeval' => m::t('labels', 'Acroeval'),
+            'descrieval' => m::t('labels', 'Descrieval'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'descrietapa' => m::t('labels', 'Descrietapa'),
+            'ap' => m::t('labels', 'Last Name'),
+            'am' => m::t('labels', 'Mother Last Name'),
+            'nombres' => m::t('labels', 'Names'),
+            'nombredepa' => m::t('labels', 'Nombredepa'),
+            'codesp' => m::t('labels', 'Codesp'),
+            'nombrecarrera' => m::t('labels', 'Nombrecarrera'),
         ];
     }
 

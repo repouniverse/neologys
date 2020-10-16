@@ -12,6 +12,7 @@ use common\helpers\h;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use frontend\modules\inter\Module as m;
 /**
  * ExpedController implements the CRUD actions for InterExpedientes model.
  */
@@ -138,6 +139,6 @@ class ExpedController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
 }

@@ -138,7 +138,7 @@ class h {
             return yii::$app->settings->get($seccion,$llave);        
         }else{
             if(is_null($valorsino)){
-               throw new \yii\base\Exception(Yii::t('sta.labels', 'Debe especificar un tercer parametro al usar esta funcion'));
+               throw new \yii\base\Exception(Yii::t('base_errors', 'You must specify a third parameter when using this function'));
          
             }else{
               yii::$app->settings->set($seccion,$llave,$valorsino); 
@@ -166,7 +166,7 @@ class h {
     }
     
     public static function getCurrencies(){
-        return ['PEN'=>yii::t('base.names','NEW PERUVIAN SUN'),'USD'=>yii::t('base.names','AMERICAN DOLAR')];
+        return ['PEN'=>yii::t('base_names','NEW PERUVIAN SUN'),'USD'=>yii::t('base_names','AMERICAN DOLAR')];
     }
     
     public static function getFormatShowDate(){
@@ -243,11 +243,11 @@ class h {
     
    public static function getDimensions(){
        return [
-             'E'=> yii::t('base.names','Escalar/Units'),
-           'L'=> yii::t('base.names','Lenght'),
-           'M'=> yii::t('base.names','Mass'),
-           'T'=> yii::t('base.names','Time'),          
-            'V'=> yii::t('base.names','Volume'),
+             'E'=> yii::t('base_names','Escalar/Units'),
+           'L'=> yii::t('base_names','Lenght'),
+           'M'=> yii::t('base_names','Mass'),
+           'T'=> yii::t('base_names','Time'),          
+            'V'=> yii::t('base_names','Volume'),
            
        ];
    } 
@@ -255,10 +255,10 @@ class h {
    /*Devuelve una ray con documetnos de identidad */
   public static function AdocId(){
       return [
-      \BaseHelper::DOC_DNI=>yii::t('base.names','DNI'),
-      \BaseHelper::DOC_PASAPORTE=>yii::t('base.names','PASAPORTE'), 
-            \BaseHelper::DOC_BREVETE=>yii::t('base.names','BREVETE'),  
-                \BaseHelper::DOC_PPT=>yii::t('base.names','PPT'), 
+      \BaseHelper::DOC_DNI=>yii::t('base_names','DNI'),
+      \BaseHelper::DOC_PASAPORTE=>yii::t('base_names','PASSPORT'), 
+            \BaseHelper::DOC_BREVETE=>yii::t('base_names','LICENSE'),  
+                \BaseHelper::DOC_PPT=>yii::t('base_names','PPT'), 
       ];
   }
   

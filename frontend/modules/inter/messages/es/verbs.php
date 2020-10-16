@@ -11,4 +11,7 @@ return [
     'Search'=>'Buscar',
     'Update'=>'Actualizar',
     'Verify'=>'Verificar',
+    'Refresh'=>'Refrescar',
+    'Refresh Stages'=>'Refrescar Etapas',
+    'Reset'=>'Reiniciar',
 ];

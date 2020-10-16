@@ -149,7 +149,7 @@ class ProgramaController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -406,11 +406,11 @@ class ProgramaController extends baseController
   public function actionAjaxConvoca($id){
      $model= \frontend\modules\inter\models\InterModos::findOne($id);
     if(is_null($model))
-     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+     throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
    if(h::request()->isAjax){
        h::response()->format = \yii\web\Response::FORMAT_JSON;
       
-      return ['success'=>m::t('labels','{cantidad} records were incorporated',['cantidad'=> $model->convocaMasivamente()])];
+      return ['success'=>m::t('validaciones','{cantidad} records were incorporated',['cantidad'=> $model->convocaMasivamente()])];
    }
      
   }
@@ -431,7 +431,7 @@ class ProgramaController extends baseController
         
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            h::session()->setFlash('success', m::t('labels','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
+            h::session()->setFlash('success', m::t('validaciones','Stage created in {modo}',['modo'=>$model->modo->descripcion]));
             return $this->redirect(['update', 'id' => $model->id]);
 
 
@@ -531,7 +531,7 @@ class ProgramaController extends baseController
   public function actionViewPlan($id){
     $model= \frontend\modules\inter\models\InterPlan::findOne($id);
     if(is_null($model))
-      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+      throw new NotFoundHttpException(m::t('validaciones', 'Record not found {id}',['id'=>$id]));
      return $this->render('_view_plan',['model'=>$model]);
     
   } 
@@ -540,7 +540,7 @@ class ProgramaController extends baseController
      $this->layout = "install";
        $modelPlan= \frontend\modules\inter\models\InterPlan::findOne($id);
          if(is_null($modelPlan))
-      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+      throw new NotFoundHttpException(m::t('validaciones', 'Record not found {id}',['id'=>$id]));
      
        $model = New \frontend\modules\inter\models\InterHorarios();
         $datos=[];
@@ -636,9 +636,9 @@ class ProgramaController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model= \frontend\modules\inter\models\InterPlan::findOne($id);
     if(is_null($model))
-      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+      throw new NotFoundHttpException(m::t('validaciones', 'Record not found {id}',['id'=>$id]));
       $model->generateRangos();
-       return ['success'=>m::t('labels','Schedules have been generated')];
+       return ['success'=>m::t('validaciones','Schedules have been generated')];
       
     
       }
@@ -673,7 +673,7 @@ class ProgramaController extends baseController
   public function actionEditEvento($id){
   $model= InterEventos::findOne($id);
   if(is_null($model))
-  throw new NotFoundHttpException(Yii::t('base_errors', 'Record not found.'));
+  throw new NotFoundHttpException(m::t('validaciones', 'Record not found'));
    
   //$model = new InterPrograma();
         if (h::request()->isAjax && $model->load(h::request()->post())) {
@@ -712,9 +712,9 @@ class ProgramaController extends baseController
     
     
     if(is_null($docente))
-    throw new BadRequestHttpException(yii::t('base_errors','Teacher not found'));
+    throw new BadRequestHttpException(m::t('validaciones','Teacher not found'));
      if(!$docente->isExternal())
-    throw new BadRequestHttpException(yii::t('base_errors','This teacher is not external'));
+    throw new BadRequestHttpException(m::t('validaciones','This teacher is not external'));
    
      $model=New InterInvitaciones(); 
         $model->docenteinv_id=$docente->id;
@@ -752,7 +752,7 @@ class ProgramaController extends baseController
   $docente=$model->docenteanfi;
   $programa=$this->findModel(m::currentPrograma());
   if(is_null($model))
-  throw new NotFoundHttpException(Yii::t('base_errors', 'Record not found.'));
+  throw new NotFoundHttpException(m::t('validaciones', 'Record not found'));
    
   //$model = new InterPrograma();
         if (h::request()->isAjax && $model->load(h::request()->post())) {

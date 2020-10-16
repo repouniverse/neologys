@@ -80,14 +80,14 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                 <?= $form->field($model, 'finicio')->
-                           label(m::t('labels','Start Date'))->
+                           label(m::t('labels','Begin Date'))->
                            textInput(['disabled'=>true])
                 ?>      
                   
             </div>
              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                 <?= $form->field($model, 'finicio')->
-                           label(m::t('labels','Start Date'))->
+                           label(m::t('labels','Begin Date'))->
                            textInput(['disabled'=>true])
                 ?>      
                   

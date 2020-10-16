@@ -63,19 +63,19 @@ class ImportCargamasivadet extends \common\models\base\modelBase
     {
         return [
             'id' => m::t('labels', 'ID'),
-            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
-            'nombrecampo' => m::t('labels', 'Campo'),
+            'cargamasiva_id' => m::t('labels', 'Bulk Load Id'),
+            'nombrecampo' => m::t('labels', 'Field'),
             'aliascampo' => m::t('labels', 'Alias'),
-            'sizecampo' => m::t('labels', 'Ancho'),
-            'activa' => m::t('labels', 'Activo'),
-            'requerida' => m::t('labels', 'Oblig.'),
-            'tipo' => m::t('labels', 'Tipo Dato'),
-            'esclave' => m::t('labels', 'Clave'),
-            'detalle' => m::t('labels', 'Detalle'),
-            'esforeign' => m::t('labels', 'Relacionado'),
+            'sizecampo' => m::t('labels', 'Width'),
+            'activa' => m::t('labels', 'Active'),
+            'requerida' => m::t('labels', 'Required'),
+            'tipo' => m::t('labels', 'Data Type'),
+            'esclave' => m::t('labels', 'Key'),
+            'detalle' => m::t('labels', 'Detail'),
+            'esforeign' => m::t('labels', 'Related'),
             'parent_id' => m::t('labels', 'Parent ID'),
-            'modelo' => m::t('labels', 'Tabla'),
-            'nveces' => m::t('labels', 'N repetic'),
+            'modelo' => m::t('labels', 'Table'),
+            'nveces' => m::t('labels', 'N repetitions'),
         ];
     }
 

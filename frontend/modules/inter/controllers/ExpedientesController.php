@@ -90,7 +90,7 @@ class ExpedientesController extends baseController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
-           h::session()->setFlash('success', m::t('labels','Data has been recorded'));
+           h::session()->setFlash('success', m::t('validaciones','Data has been recorded'));
         }
         $convocado=$model->convocado;
          $persona=$convocado->persona;
@@ -132,7 +132,7 @@ class ExpedientesController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     public function actionProgramInterview($id){
@@ -194,7 +194,7 @@ class ExpedientesController extends baseController
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {
-            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
             //return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
         
@@ -266,12 +266,12 @@ class ExpedientesController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model= \frontend\modules\inter\models\InterEntrevistas::findOne($id);
           if(is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+            throw new NotFoundHttpException(m::t('validaciones', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->asiste()){
-                  return ['success'=>m::t('labels','File was aprobed')];
+                  return ['success'=>m::t('validaciones','File was aprobed')];
               }else{
-                  return ['error'=>m::t('labels','There were problems').$model->getFirstError()];
+                  return ['error'=>m::t('validaciones','There were problems').$model->getFirstError()];
               }
           }
       }
@@ -282,7 +282,7 @@ class ExpedientesController extends baseController
     $this->layout="install";
     $model= \frontend\modules\inter\models\InterPlan::findOne($id);
     if(is_null($model))
-      throw new NotFoundHttpException(m::t('errors', 'Record not found {id}',['id'=>$id]));
+      throw new NotFoundHttpException(m::t('validaciones', 'Record not found {id}',['id'=>$id]));
      return $this->render('_view_horarios',['model'=>$model]);
     
   }  
@@ -417,7 +417,7 @@ public function actionAjaxSubsanaObs($id){
         $model= \frontend\modules\inter\models\InterObsexpe::findOne($id);
         $model->valido=false;
         $model->save();
-        return ['success'=>m::t('labels','The annotation has been reversed')];
+        return ['success'=>m::t('validaciones','The annotation has been reversed')];
         
     }  
 }

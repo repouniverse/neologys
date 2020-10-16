@@ -76,7 +76,7 @@ if(count($this->nameSpaces)==0)
     }
     return $clase;
 if($clase===null)
-    throw new \yii\base\Exception(Yii::t('base.errors', 'No namespace found in namespaces[] property that matches with the {nombreclase}, please review this propertie ',['{nombreclase}'=>$modelclass]));
+    throw new \yii\base\Exception(Yii::t('base_errors', 'No namespace found in namespaces[] property that matches with the {nombreclase}, please review this propertie',['{nombreclase}'=>$modelclass]));
          
     
 }
@@ -200,24 +200,24 @@ private static function findKeyArrayInPost(){
         if($model instanceof modelBase && !is_null($model)){
            
                 if($model->hasChilds()){
-                    $datos['error']=yii::t('base.errors','The record has Childs Records ');  
+                    $datos['error']=yii::t('base_errors','The record has Childs Records ');  
                 }else{
                       try{ 
                              if($model->delete()<> false){
-                                 $datos['success']=yii::t('base.errors','The record was deleted successfully...!');  
+                                 $datos['success']=yii::t('base_success','The record was deleted successfully...!');  
                             }
                           } catch (Exception $ex) {
-                             $datos['error']=yii::t('base.errors','There are some troubles by deleting this record : {mensaje} ',['mensaje'=>$ex->getMessage()]);  
+                             $datos['error']=yii::t('base_errors','There are some troubles by deleting this record : {mensaje} ',['mensaje'=>$ex->getMessage()]);  
                 
                             }
                 }
               
         }else{
             if(is_null($model)){
-                $datos['error']=yii::t('base.errors','Record not found for delete  for this key: {identidad} ',['identidad'=>$id]);  
+                $datos['error']=yii::t('base_errors','Record not found for delete  for this key: {identidad} ',['identidad'=>$id]);  
              
             }else{
-             $datos['error']=yii::t('base.errors','The class : "{clase}" is not Instance of "baseModel" ',['clase'=>$modelClass]);  
+             $datos['error']=yii::t('base_errors','The class : "{clase}" is not Instance of "baseModel" ',['clase'=>$modelClass]);  
              
             }
              

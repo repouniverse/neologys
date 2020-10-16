@@ -49,9 +49,9 @@ class UsersUniversities extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
+            'universidad_id' => Yii::t('base_labels', 'University'),
             'user_id' => Yii::t('base_labels', 'User ID'),
-            'activo' => Yii::t('base_labels', 'Activo'),
+            'activo' => Yii::t('base_labels', 'Active'),
         ];
     }
 

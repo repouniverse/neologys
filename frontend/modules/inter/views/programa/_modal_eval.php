@@ -57,7 +57,7 @@ use common\widgets\selectwidget\selectWidget;
      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?=$form->field($model, 'carrera_id')->
             dropDownList(ComboHelper::getCboCarreras($model->facultad_id) ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -89,7 +89,7 @@ use common\widgets\selectwidget\selectWidget;
      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?=$form->field($model, 'trabajador_id')->
             dropDownList(($model->isNewRecord)?[]:\common\helpers\ComboHelper::getcboTrabajadores($model->depa_id) ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

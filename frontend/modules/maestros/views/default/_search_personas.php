@@ -80,7 +80,7 @@ use frontend\modules\maestros\MaestrosModule as m;
  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <?=$form->field($model, 'codgrupo')->
             dropDownList(\common\helpers\ComboHelper::getCboGrupoPersonas() ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -89,7 +89,7 @@ use frontend\modules\maestros\MaestrosModule as m;
      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
    <?=$form->field($model, 'tipodoc')->
             dropDownList($model->comboDataField('tipodoc') ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

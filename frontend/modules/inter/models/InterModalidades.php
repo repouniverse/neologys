@@ -55,10 +55,10 @@ class InterModalidades extends \common\models\base\modelBase
     {
         return [
             'id' => m::t('labels', 'ID'),
-            'programa_id' => m::t('labels', 'Programa ID'),
-            'descripcion' => m::t('labels', 'Descripcion'),
-            'detalles' => m::t('labels', 'Detalles'),
-            'textoexterno' => m::t('labels', 'Textoexterno'),
+            'programa_id' => m::t('labels', 'Program'),
+            'descripcion' => m::t('labels', 'Description'),
+            'detalles' => m::t('labels', 'Details'),
+            'textoexterno' => m::t('labels', 'External Text'),
             'slogan' => m::t('labels', 'Slogan'),
             'local' => m::t('labels', 'Local'),
         ];

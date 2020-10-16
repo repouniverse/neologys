@@ -58,17 +58,17 @@ class PersonaEventosInter extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'nombre' => Yii::t('base_labels', 'Nombre'),
+            'persona_id' => Yii::t('base_labels', 'Person ID'),
+            'nombre' => Yii::t('base_labels', 'Name'),
             'web' => Yii::t('base_labels', 'Web'),
-            'finicio' => Yii::t('base_labels', 'Finicio'),
-            'duracion' => Yii::t('base_labels', 'Duracion'),
-            'ciudad' => Yii::t('base_labels', 'Ciudad'),
-            'pais' => Yii::t('base_labels', 'Pais'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
-            'objetivosacad' => Yii::t('base_labels', 'Objetivosacad'),
-            'obetivosinter' => Yii::t('base_labels', 'Obetivosinter'),
-            'tipoexpo' => Yii::t('base_labels', 'Tipoexpo'),
+            'finicio' => Yii::t('base_labels', 'Start date'),
+            'duracion' => Yii::t('base_labels', 'Duration'),
+            'ciudad' => Yii::t('base_labels', 'City'),
+            'pais' => Yii::t('base_labels', 'Country'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
+            'objetivosacad' => Yii::t('base_labels', 'Academic Goals'),
+            'obetivosinter' => Yii::t('base_labels', 'Inter Goals'),
+            'tipoexpo' => Yii::t('base_labels', 'Display Type'),
         ];
     }
 

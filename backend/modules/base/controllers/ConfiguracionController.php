@@ -263,7 +263,7 @@ class ConfiguracionController extends baseController
         if ($model->load(Yii::$app->request->post()) ) {
            
            IF($model->save()){
-                h::session()->setFlash('success',m::t('labels','The record was saved...!'));
+                h::session()->setFlash('success',m::t('validaciones','The record was saved...!'));
             return $this->redirect(['index-campos-valores', 'id' => $model->id]);
           
            }
@@ -291,7 +291,7 @@ class ConfiguracionController extends baseController
             //$model->nombreModelo= \common\helpers\FileHelper::getShortName(h::request()->post()['ModelCombo']['nombreModelo']);
           
             if($model->save()){
-                 h::session()->setFlash('success',m::t('labels','The record was saved...!'));
+                 h::session()->setFlash('success',m::t('validaciones','The record was saved...!'));
             return $this->redirect(['index-campos-valores']);
             }  else{
                 //print_r($model->getErrors());die();

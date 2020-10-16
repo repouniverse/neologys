@@ -175,7 +175,7 @@ class ConvocadosController extends baseController
         //    yii::error('apunto de redireccionar',__FUNCTION__);
         //    if(h::userName()=='admin')
         //    return $this->redirect(['view', 'id' => $model->id]); 
-            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
             return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
  yii::error('a putno de renderizar',__FUNCTION__);
@@ -291,7 +291,7 @@ class ConvocadosController extends baseController
     { 
         $model=Alumnos::findOne($id);
         if (is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
         }
         if (isset($_POST['hasEditable'])) {
         // use Yii's response format to encode output as JSON
@@ -331,7 +331,7 @@ class ConvocadosController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -343,11 +343,11 @@ class ConvocadosController extends baseController
           $model= \frontend\modules\inter\models\InterOpuniv::findOne($id);
             
           if(is_null($model))
-                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                 throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 //var_dump($model::className());die();
           $this->deleteModel($id, $model::className());       
       
-      return ['warning'=>m::t('labels','The record was deleted')];
+      return ['warning'=>m::t('validaciones','The record was deleted')];
             }
      }
    
@@ -436,11 +436,11 @@ class ConvocadosController extends baseController
           $model= \frontend\modules\inter\models\InterIdiomasalu::findOne($id);
             
           if(is_null($model))
-                 throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                 throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 //var_dump($model::className());die();
           $this->deleteModel($id, $model::className());       
       
-      return ['warning'=>m::t('labels','The record was deleted')];
+      return ['warning'=>m::t('validaciones','The record was deleted')];
             }
      }
      
@@ -501,10 +501,10 @@ class ConvocadosController extends baseController
 //yii::error('apunto de redireccionar',__FUNCTION__);
             //if(h::userName()=='admin')
             //return $this->redirect(['view', 'id' => $model->id]); 
-            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
             return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
- yii::error('a putno de renderizar',__FUNCTION__);
+ yii::error('a punto de renderizar',__FUNCTION__);
         return $this->render('ficha_postulante', [
             'model' => $model,
             'modelP'=>$modelP
@@ -548,13 +548,13 @@ class ConvocadosController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model=\frontend\modules\inter\models\InterExpedientes::findOne($id);
           if(is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+            throw new NotFoundHttpException(m::t('validaciones', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->aprove()){
                 $model->convocado->createExpedientes($model->convocado->currentStage());
-                  return ['success'=>m::t('labels','File was aprobed')];
+                  return ['success'=>m::t('validaciones','File was aprobed')];
               }else{
-                  return ['error'=>m::t('labels','There were problems')];
+                  return ['error'=>m::t('validaciones','There were problems')];
               }
           }
       }
@@ -565,12 +565,12 @@ class ConvocadosController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model=\frontend\modules\inter\models\InterExpedientes::findOne($id);
           if(is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+            throw new NotFoundHttpException(m::t('validaciones', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->aprove(false)){
-                  return ['warning'=>m::t('labels','File was disapprobed')];
+                  return ['warning'=>m::t('validaciones','File was disapprobed')];
               }else{
-                  return ['error'=>m::t('labels','There were problems')];
+                  return ['error'=>m::t('validaciones','There were problems')];
               }
           }
       }
@@ -585,12 +585,12 @@ class ConvocadosController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model=\frontend\modules\inter\models\InterModos::findOne($id);
           if(is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+            throw new NotFoundHttpException(m::t('validaciones', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               if($model->refreshStageConvocados()){
-                  return ['warning'=>m::t('labels','Records were updated')];
+                  return ['warning'=>m::t('validaciones','Records were updated')];
               }else{
-                  return ['error'=>m::t('labels','There were problems')];
+                  return ['error'=>m::t('validaciones','There were problems')];
               }
           }
       }
@@ -605,14 +605,14 @@ class ConvocadosController extends baseController
           h::response()->format = \yii\web\Response::FORMAT_JSON;
           $model= \frontend\modules\inter\Module::currentPrograma(true);
           if(is_null($model)){
-            throw new NotFoundHttpException(m::t('labels', 'Record with id {identidad} not found',['identidad'=>$id]));  
+            throw new NotFoundHttpException(m::t('validaciones', 'Record with id {identidad} not found',['identidad'=>$id]));  
           }else{
               //var_dump($model);die();
               foreach($model->modo as $modo){
                   $modo->refreshStageConvocados();
               }
               //if($model->refreshStageConvocados()){
-                  return ['warning'=>m::t('labels','Records were updated')];
+                  return ['warning'=>m::t('validaciones','Records were updated')];
               //}else{
                   //return ['error'=>m::t('labels','There were problems')];
              // }
@@ -658,10 +658,10 @@ class ConvocadosController extends baseController
         $error=false; 
          
       if(is_null($model)) {
-             $error=true; $datos['error']=m::t('errors','No existe el registro Expediente para el id '.$id);
+             $error=true; $datos['error']=m::t('validaciones','There is no File record for the id'.$id);
          }
         if(!\common\helpers\timeHelper::IsFormatMysqlDateTime($fecha)) {
-             $error=true; $datos['error']=m::t('errors','La fecha {fecha} suministrada no tiene el formato adecuado ',['fecha'=>$fecha]);
+             $error=true; $datos['error']=m::t('validaciones','The date {fecha} supplied is not in the proper format',['fecha'=>$fecha]);
          }
          
          
@@ -754,17 +754,17 @@ class ConvocadosController extends baseController
       $model=Docentes::findOne($id);
       //$modo=($model->isExternal())?2:1;
      if(!$model->esConvocable())
-      RETURN ['error'=>m::t('errors','This teacher does not meet the requirements to apply')];
+      RETURN ['error'=>m::t('validaciones','This teacher does not meet the requirements to apply')];
       if($model->registerConvocado())
       RETURN ['success'=>'Se registró el docente'];
-      RETURN ['error'=>m::t('errors','There were problems registering')];
+      RETURN ['error'=>m::t('validaciones','There were problems registering')];
     }
   }
   
   public function actionIndexConvoDocentes(){
       $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne(1);
         if(is_null($modelPrograma))
-            throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
   
         $searchModel = new \frontend\modules\inter\models\InterVwConvocadosDocentesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -783,7 +783,7 @@ class ConvocadosController extends baseController
       if(h::request()->isAjax){
          h::response()->format = \yii\web\Response::FORMAT_JSON;
          if($model->admitirPostulante()){
-             return ['success'=>m::t('labels','Applicant has been entered into the {programa}',['programa'=>'INTERNACIONAL'])];
+             return ['success'=>m::t('validaciones','Applicant has been entered into the {programa}',['programa'=>'INTERNACIONAL'])];
          }else{
              $error=$model->getFirstError();
              $model->clearErrors();
@@ -802,7 +802,7 @@ if(h::request()->isAjax){
      $id=h::request()->get('idcita');
      $model= \frontend\modules\inter\models\InterEntrevistas::findOne($id);
      if(!$model->IamOwnerThisDateId())
-     return   ['error'=>m::t('errors','No puede modificar otras citas')];
+     return   ['error'=>m::t('validaciones','You cannot modify other appointments')];
      $fechaInicio=h::request()->get('finicio');
      $fechaTermino=h::request()->get('ftermino');
      //var_dump($fechaInicio,$fechaTermino);die();
@@ -822,16 +822,16 @@ if(h::request()->isAjax){
      // var_dump($model->fechaprog);die();
       if(!$model->isInJourney()){
           $model->activo=false; $model->save();
-           return ['warning'=>m::t('labels','La cita se ha eliminado')];
+           return ['warning'=>m::t('validaciones','The appointment has been deleted')];
       }  
          
     if($model->reprograma($fechaInicio, $fechaTermino)){
-         return ['success'=>m::t('labels','Se reprogramó la cita')];
+         return ['success'=>m::t('validaciones','Appointment was rescheduled')];
      }else{
-         return ['error'=>m::t('errors','Hubo problemas: ').$model->getFirstError()]; 
+         return ['error'=>m::t('validaciones','There were problems:').$model->getFirstError()]; 
      }
 } else {
-   return ['error'=>m::t('errors','Problema en el formato de fechas ')]; 
+   return ['error'=>m::t('validaciones','Date format problem')]; 
 }
      
      //$mensajes=[];

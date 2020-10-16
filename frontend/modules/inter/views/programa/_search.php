@@ -39,8 +39,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'detalles') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(m::t('base.labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(m::t('base.labels', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('verbs', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

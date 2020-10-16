@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Periodos */
 
 $this->title = $model->nombre;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Universities'), 'url' => ['index-univer']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Universities'), 'url' => ['index-univer']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="box box-success">
     <div class="box-body">
     <p>
-        <?= Html::a(Yii::t('base.labels', 'Edit'), ['update-univer', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(m::t('verbs', 'Edit'), ['update-univer', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         
     </p>
 

@@ -293,7 +293,7 @@ class Mailer extends Correo
             if(is_int($secuencia) && ($secuencia>0) && $secuencia <=self::nOpcionesMail()-1){
               return $this->optionsTransport[$secuencia];   
             }else{
-               throw new InvalidConfigException(yii::t('base.errors','No existe la secuencia de correo introducida')); 
+               throw new InvalidConfigException(yii::t('base_errors','The entered mail sequence does not exist')); 
             }
         }else{
            $cantidad=$this->nOpcionesMail();
@@ -341,7 +341,7 @@ class Mailer extends Correo
                         if($result){
                             $errores[]=['success'=>'Se envió el correo'];
                             }else{
-                             $errores[]=['error'=>yii::t('sta.errors','El correo no se logró enviar')];
+                             $errores[]=['error'=>yii::t('base_errors','The mail could not be sent')];
                              }          
                        } catch (\Swift_TransportException $Ste) {                              
                           $errores[]=['errorMail'=>$Ste->getMessage()];
@@ -354,7 +354,7 @@ class Mailer extends Correo
                         if($result){
                             $errores[]=['success'=>'Se envió el correo '];
                             }else{
-                              $errores[]=['error'=>yii::t('sta.errors','El correo no se logró enviar')];
+                              $errores[]=['error'=>yii::t('base_errors','The mail could not be sent')];
                              }
           
                        } catch (\Swift_TransportException $Ste) {                              
@@ -371,7 +371,7 @@ class Mailer extends Correo
             elseif(count($colerrors)==0 && count($colexitos)> 0 ){
                $mensajes['success']=$colexitos[0];        
             }else{                
-               $mensajes['warning']=yii::t('sta.errors','Hubo errores al enviar el mensaje');  
+               $mensajes['warning']=yii::t('base_errors','There were errors sending the message');  
             }
          
         return $mensajes;
