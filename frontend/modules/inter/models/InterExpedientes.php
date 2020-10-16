@@ -479,7 +479,7 @@ public function updateFocus($reverse=false){
 
 private function setCurrent(){
     /*Limpiamos todos los expedientes primero*/
-    self::updateAll(['iscurrent'=>'0'], ['convocado'=>$this->convocado_id]);
+    self::updateAll(['iscurrent'=>'0'], ['convocado_id'=>$this->convocado_id]);
     $this->iscurrent=true;
     return $this->save();  
 }
