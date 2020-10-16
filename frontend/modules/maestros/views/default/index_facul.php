@@ -4,12 +4,13 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
+use frontend\modules\maestros\MaestrosModule as m;
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\masters\CombovaloresSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = yii::t('base.labels', 'Faculties');
+$this->title = m::t('labels', 'Faculties');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="combovalores-index">
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('<span class="fa fa-file"></span>    '.yii::t('base.verbs', 'Create'), ['create-facul'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-file"></span>    '.m::t('verbs', 'Create'), ['create-facul'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -41,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => yii::t('base.verbs', 'Edit'),                            
+                            'title' => m::t('verbs', 'Edit'),                            
                         ];
                        // return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          
@@ -49,14 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         $options = [
                             'data-pjax'=>'0',
                             //'target'=>'_blank',
-                            'title' => yii::t('base.verbs', 'Edit'),                                
+                            'title' => m::t('verbs', 'Edit'),                                
                         ];
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                       
                     },
                     'delete' => function($url, $model) {
                         $options = [
-                                        'title' =>yii::t('base.verbs', 'Delete'),                            
+                                        'title' =>m::t('verbs', 'Delete'),                            
                                     ];
                         $url = \yii\helpers\Url::toRoute($this->context->id.'/deletemodel-for-ajax');
                               return \yii\helpers\Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-trash"></span>', '#', ['title'=>$url,/*'id'=>$model->codparam,*/'family'=>'holas','id'=>\yii\helpers\Json::encode(['id'=>$model->codfac,'modelito'=> str_replace('@','\\',get_class($model))]),/*'title' => 'Borrar'*/]);

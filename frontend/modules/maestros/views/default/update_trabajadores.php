@@ -1,16 +1,16 @@
 <?php
 use common\helpers\h;
 use yii\helpers\Html;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Trabajadores */
 
-$this->title = Yii::t('base_labels', 'Update Worker: {name}', [
+$this->title = m::t('labels', 'Update Worker: {name}', [
     'name' => $model->codtra.'-'.$model->persona->fullName(),
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Workers'), 'url' => ['index-trabajadores']];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Workers'), 'url' => ['index-trabajadores']];
 //$this->params['breadcrumbs'][] = ['label' => $model->codigoper, 'url' => ['view-persona', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base_errors', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="trabajadores-update">
 

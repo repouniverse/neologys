@@ -635,7 +635,7 @@ class modelBase extends \yii\db\ActiveRecord
             $allowedValues=[self::_FHOUR,self::_FDATE,self::_FDATETIME,self::_FTIME];
             foreach(array_values($this->dateorTimeFields) as $key=>$value){
                 if(!in_array($value,$allowedValues)){
-                    throw new ServerErrorHttpException(Yii::t('base.errors', 'Wrong property {valor}  in field time {campo} Times  ',['valor'=>$value,'campo'=>$key]));
+                    throw new ServerErrorHttpException(Yii::t('base_errors', 'Wrong property {valor}  in field time {campo} Times  ',['valor'=>$value,'campo'=>$key]));
     		                   
                 }
             }
@@ -1254,7 +1254,7 @@ class modelBase extends \yii\db\ActiveRecord
      */
     public function validateBlockedField($attribute, $params){
             if ($this->hasChanged($attribute) ) {
-                $this->addError($attribute,yii::t('base.errors','The field "{namefield}" can\'t be modified, other records depend on it',['namefield'=>$attribute]));
+                $this->addError($attribute,yii::t('base_errors','The field "{namefield}" can\'t be modified, other records depend on it',['namefield'=>$attribute]));
             }
     }
     
@@ -1267,7 +1267,7 @@ class modelBase extends \yii\db\ActiveRecord
         
          if (!in_array($attribute, 
                  array_keys($this->dateorTimeFields))){
-            throw new ServerErrorHttpException(Yii::t('base.errors', 'Wrong property {valor}  in field time {campo} Times  ',['campo'=>$attribute])); 
+            throw new ServerErrorHttpException(Yii::t('base_errors', 'Wrong property {valor}  in field time {campo} Times  ',['campo'=>$attribute])); 
          }
          
          $type=$this->dateorTimeFields[$attribute];
@@ -1310,7 +1310,7 @@ class modelBase extends \yii\db\ActiveRecord
                  [self::_FDATE,self::_FDATETIME,SELF::_FTIME,SELF::_FHOUR ]
                  )
              ){
-            throw new ServerErrorHttpException(Yii::t('base.errors', 'El tipo {tipo}  es inválido, tiene que ser '
+            throw new ServerErrorHttpException(Yii::t('base_errors', 'El tipo {tipo}  es inválido, tiene que ser '
                     . '\'{fdate}\' o \'{fdatetime}\' o \'{fhour}\' o \'{ftime}\'  ',['tipo'=>$type,
                         'fdate'=>self::_FDATE,
                         'fdatetime'=>self::_FDATETIME,
@@ -1580,7 +1580,7 @@ class modelBase extends \yii\db\ActiveRecord
   }
 public function messagesForCategory($category){
      if(array_key_exists($category,$this->_messages))
-             throw new ServerErrorHttpException(Yii::t('base.errors', 'La categoría {cat} solicitada no existe en el array messages',['cat'=>$category]));  
+             throw new ServerErrorHttpException(Yii::t('base_errors', 'The requested category {cat} does not exist in the messages array',['cat'=>$category]));  
      return $this->_messages[$category];
 }
 public function messages(){
@@ -1601,7 +1601,7 @@ public function firstMessage($category=null){
               return $this->_messages[$category][0];  
                return '';
        }else{
-         throw new ServerErrorHttpException(Yii::t('base.errors', 'La categoría {cat} solicitada no existe en el array messages',['cat'=>$category]));  
+         throw new ServerErrorHttpException(Yii::t('base_errors', 'The requested category {cat} does not exist in the messages array',['cat'=>$category]));  
        }
          
    }
@@ -1617,7 +1617,7 @@ public function firstMessage($category=null){
               andWhere(['<>',$attribute,''])->asArray()->all(),$attribute);
           
       }else{
-         throw new ServerErrorHttpException(Yii::t('base.errors', 'El campo {campo} no pertenece a la lista de campos mail ',['campo'=>$attribute]));  
+         throw new ServerErrorHttpException(Yii::t('base_errors', 'The field {field} does not belong to the mail field list',['campo'=>$attribute]));  
       }
   }
   

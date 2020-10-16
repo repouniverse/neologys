@@ -46,10 +46,10 @@ class PersonaIdiomas extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'codnivel' => Yii::t('base_labels', 'Codnivel'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
-            'certificado' => Yii::t('base_labels', 'Certificado'),
+            'persona_id' => Yii::t('base_labels', 'Person ID'),
+            'codnivel' => Yii::t('base_labels', 'Level Code'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
+            'certificado' => Yii::t('base_labels', 'Certificate'),
         ];
     }
 

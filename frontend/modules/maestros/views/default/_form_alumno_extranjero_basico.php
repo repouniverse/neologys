@@ -29,7 +29,7 @@
             <div class="form-group no-margin">
                 <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
                 <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>       
-             <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
+             <?= Html::button('<span class="fa fa-check"></span>   '.m::t('verbs', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
                    
             </div>
         </div>
@@ -102,7 +102,7 @@
         
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <?=$form->field($model, 'tipodoc')->
-                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",])
+                      dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a value')."--",])
             ?>
         </div>
         

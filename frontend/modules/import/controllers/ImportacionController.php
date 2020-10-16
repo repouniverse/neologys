@@ -172,7 +172,7 @@ class ImportacionController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(m::t('m_import', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -385,9 +385,9 @@ public function actionNewCarga(){
             ];
         $errores=[];
         if(ImportCargamasivaUser::firstOrCreateStatic($attributes,'minimo')){
-            $errores['success']=m::t('sta.messages','Se creó la carga exitosamente');
+            $errores['success']=m::t('validaciones','The load was created successfully');
         }else{
-             $errores['error']=ym::t('sta.messages','No se pudo crear la carga');
+             $errores['error']=ym::t('validaciones','Could not create load');
         }
        return $errores;
      }
@@ -469,7 +469,7 @@ public function actionLoadCarga($idcarga){
             return $model;
         }
 
-        throw new NotFoundHttpException(m::t('sta.errors', 'El registro no existe'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The record does not exist'));
     
      
  }
@@ -477,7 +477,7 @@ public function actionLoadCarga($idcarga){
  /*VERIFICA QUE EL ARCHIVO DE CARGA TENGA YA EL ADJUNTO */
  public function  VerifyHasAttachment($carga){
      if (!$carga->hasFileCsv()) { 
-         throw new NotFoundHttpException(m::t('sta.errors', 'No hay archivo adjunto'));
+         throw new NotFoundHttpException(m::t('validaciones', 'There is no attachment'));
         }
  }
  

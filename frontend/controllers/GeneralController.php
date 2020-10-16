@@ -65,7 +65,7 @@ class GeneralController extends  baseController
       if($sesion->has(h::NAME_SESSION_CURRENT_UNIVERSITY))
       $sesion->remove(h::NAME_SESSION_CURRENT_UNIVERSITY);
       $sesion->set(h::NAME_SESSION_CURRENT_UNIVERSITY,$model->id);
-      $sesion->setFlash('success',yii::t('base_labels','University was selected'));
+      $sesion->setFlash('success',yii::t('base_success','University was selected'));
         $this->redirect(\yii\helpers\Url::home());
       //$this->redirect(Url::toRoute(['/'.Yii::$app->user->resolveUrlAfterLogin()]));
   }
@@ -82,9 +82,9 @@ class GeneralController extends  baseController
       if(is_null($model))
         throw new BadRequestHttpException(yii::t('base_errors','Record not found'));
         if(is_null($model->createUser())){
-            return ['error',yii::t('base_labels','There were problems')];
+            return ['error',yii::t('base_errors','There were problems')];
         }else{
-            return ['success',yii::t('base_labels','User was created')];
+            return ['success',yii::t('base_success','User was created')];
         }
       
     }
@@ -200,7 +200,7 @@ class GeneralController extends  baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
     }
 }
   

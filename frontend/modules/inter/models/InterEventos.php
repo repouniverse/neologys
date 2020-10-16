@@ -4,7 +4,7 @@ namespace frontend\modules\inter\models;
 use common\models\masters\Universidades;
 use common\models\masters\Facultades;
 use common\models\masters\Carreras;
-
+use frontend\modules\inter\Module as m;
 
 use Yii;
 
@@ -67,16 +67,16 @@ class InterEventos extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'finicio' => Yii::t('base_labels', 'Finicio'),
-            'ftermino' => Yii::t('base_labels', 'Ftermino'),
-            'web' => Yii::t('base_labels', 'Web'),
-            'numero' => Yii::t('base_labels', 'Numero'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'ciudad' => Yii::t('base_labels', 'Ciudad'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
+            'id' => m::t('labels', 'ID'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'universidad_id' => m::t('labels', 'University'),
+            'finicio' => m::t('labels', 'Begin Date'),
+            'ftermino' => m::t('labels', 'End Date'),
+            'web' => m::t('labels', 'Web'),
+            'numero' => m::t('labels', 'Number'),
+            'descripcion' => m::t('labels', 'Description'),
+            'ciudad' => m::t('labels', 'City'),
+            'detalles' => m::t('labels', 'Details'),
         ];
     }
 

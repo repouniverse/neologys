@@ -5,9 +5,10 @@ use common\helpers\h;
 use common\helpers\ComboHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
- use kartik\date\DatePicker;
- use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
- use common\widgets\inputajaxwidget\inputAjaxWidget;
+use kartik\date\DatePicker;
+use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
+use common\widgets\inputajaxwidget\inputAjaxWidget;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Trabajadores */
 /* @var $form yii\widgets\ActiveForm */
@@ -26,7 +27,7 @@ use yii\widgets\ActiveForm;
     <div class="box-header">
         <div class="col-md-12">
             <div class="form-group no-margin">
-                <?= Html::submitButton(Yii::t('base.verbs', 'Grabar'), ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
              <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
        
             </div>
@@ -42,7 +43,7 @@ use yii\widgets\ActiveForm;
      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
    <?=$form->field($model, 'codgrupo')->
             dropDownList(frontend\modules\inter\helpers\ComboHelper::getCboGrupoPersonas() ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -62,7 +63,7 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
    <?=$form->field($model, 'tipodoc')->
             dropDownList($model->comboDataField('tipodoc') ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -204,7 +205,7 @@ use yii\widgets\ActiveForm;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'distdir')->
             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDistritos($model->provdir),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -214,7 +215,7 @@ use yii\widgets\ActiveForm;
    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'pais')->
             dropDownList(ComboHelper::getCboPaises(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -304,7 +305,7 @@ use yii\widgets\ActiveForm;
  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'distnac')->
             dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboDistritos($model->provdir),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -314,7 +315,7 @@ use yii\widgets\ActiveForm;
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'sexo')->
             dropDownList(ComboHelper::getCboSex(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -324,7 +325,7 @@ use yii\widgets\ActiveForm;
    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
  <?= $form->field($model, 'estcivil')->
             dropDownList(ComboHelper::getCboEstCivil(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

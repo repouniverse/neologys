@@ -48,11 +48,11 @@ class PersonaPublicaciones extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'persona_id' => Yii::t('base_labels', 'Persona ID'),
-            'nombre' => Yii::t('base_labels', 'Nombre'),
+            'persona_id' => Yii::t('base_labels', 'Person ID'),
+            'nombre' => Yii::t('base_labels', 'Name'),
             'editorial' => Yii::t('base_labels', 'Editorial'),
-            'isbn' => Yii::t('base_labels', 'Isbn'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
+            'isbn' => Yii::t('base_labels', 'ISBN'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

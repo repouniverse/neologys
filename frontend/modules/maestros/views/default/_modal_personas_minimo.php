@@ -5,7 +5,8 @@ use common\helpers\h;
 use common\helpers\ComboHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
- use common\widgets\inputajaxwidget\inputAjaxWidget;
+use common\widgets\inputajaxwidget\inputAjaxWidget;
+use frontend\modules\maestros\MaestrosModule as m;
  //use kartik\date\DatePicker;
  //use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 /* @var $this yii\web\View */
@@ -47,7 +48,7 @@ use yii\widgets\ActiveForm;
      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
    <?=$form->field($model, 'codgrupo')->
             dropDownList(frontend\modules\inter\helpers\ComboHelper::getCboGrupoPersonas() ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -65,7 +66,7 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
    <?=$form->field($model, 'tipodoc')->
             dropDownList($model->comboDataField('tipodoc') ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

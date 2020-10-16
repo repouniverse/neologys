@@ -1,13 +1,14 @@
 <?php
 use kartik\detail\DetailView;
 use yii\helpers\Html;
+use frontend\modules\maestros\MaestrosModule as m;
 //use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Trabajadores */
 
-$this->title = yii::t('base.verbs','View {name}',['name'=>$model->fullName(true)]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base.labels', 'Persons'), 'url' => ['index-trabajadores']];
+$this->title = m::t('verbs','View {name}',['name'=>$model->fullName(true)]);
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Persons'), 'url' => ['index-trabajadores']];
 $this->params['breadcrumbs'][] = $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = $model->id;
 <div class="box box-success">
     <div class="box-body">
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Edit'), ['update-trabajadores', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(m::t('verbs', 'Edit'), ['update-trabajadores', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         
     </p>
 
@@ -34,13 +35,13 @@ echo DetailView::widget([
     'hover'=>true,
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
-        'heading'=>yii::t('base.names','Worker' ).'  '. $model->codtra,
+        'heading'=>m::t('labels','Worker' ).'  '. $model->codtra,
         'type'=>DetailView::TYPE_WARNING,
     ],
     'attributes'=>[
         [
         'group'=>true,
-        'label'=>yii::t('base.labels','Personal information'),
+        'label'=>m::t('labels','Personal information'),
         //'rowOptions'=>['class'=>'alert alert-danger'],
         'groupOptions'=>['class'=>'alert alert-warning']
           ],
@@ -55,7 +56,7 @@ echo DetailView::widget([
         
          [
         'group'=>true,
-         'label'=>yii::t('base.labels','Work data'),
+         'label'=>m::t('labels','Work data'),
         //'rowOptions'=>['class'=>'alert alert-danger'],
         'groupOptions'=>['class'=>'alert alert-warning']
         //'groupOptions'=>['class'=>'text-center']

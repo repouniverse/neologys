@@ -30,7 +30,7 @@ use frontend\modules\inter\models\InterExpedientes;
                     if(!h::session()->has('envi_correo') && h::request()->isAjax)
                         h::session()->set('envi_correo',$model->sendEmailUploads());
 ?>
-<div class="alert alert-info"><?=m::t('labels','Has completado la etapa de documentos. En 24 horas recibirás la validación')?></div>
+<div class="alert alert-info"><?=m::t('validaciones','You have completed the documents stage. In 24 hours you will receive the validation')?></div>
 <?php 
                 }
 ?>
@@ -60,7 +60,7 @@ use frontend\modules\inter\models\InterExpedientes;
                              'modelid'=>$model->id,
                              'nombreclase'=> str_replace('\\','_',get_class($model))]);
                         $options = [
-                            'title' => Yii::t('sta.labels', 'Subir Archivo'),
+                            'title' => m::t('labels', 'Upload file'),
                             //'aria-label' => Yii::t('rbac-admin', 'Activate'),
                             //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
                             'data-method' => 'get',
@@ -73,7 +73,7 @@ use frontend\modules\inter\models\InterExpedientes;
                         },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'View'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },

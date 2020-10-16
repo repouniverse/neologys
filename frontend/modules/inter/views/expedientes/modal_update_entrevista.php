@@ -81,7 +81,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         DateTimePicker::classname(), [
          'name' => 'fechaprog',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>m::t('labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),
@@ -97,7 +97,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         DateTimePicker::classname(), [
          'name' => 'finicio',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>m::t('labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),
@@ -113,7 +113,7 @@ use common\widgets\buttonajaxwidget\buttonAjaxWidget;
         DateTimePicker::classname(), [
          'name' => 'ftermino',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>m::t('labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),

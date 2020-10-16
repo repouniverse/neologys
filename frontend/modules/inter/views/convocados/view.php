@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = m::t('labels', 'File');
 <?php
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
-<h4><span class="fa fa-calendar"></span><?='   '.\yii\helpers\Html::encode(yii::t('sta.labels','File')).'-'.$persona->fullName() ?></h4>
+<h4><span class="fa fa-calendar"></span><?='   '.\yii\helpers\Html::encode(m::t('labels','File')).'-'.$persona->fullName() ?></h4>
 <div class="box box-success">
 
 
@@ -48,7 +48,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
        <?php  } else{   ?>         
         
           <div class="aviso-info col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?php echo m::t('labels','Este postulante, ha sido admitido en el programa Internacional');    ?>
+            <?php echo m::t('validaciones','This applicant has been admitted to the International program');    ?>
         </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
            <?= \common\widgets\imagewidget\ImageWidget::widget([
@@ -112,13 +112,13 @@ Pjax::begin(['id'=>'grillaexpedientes','timeout'=>false]);
                         $options = [
                            'data-pjax'=>'0',
                             'target'=>'_blank',
-                            'title' => Yii::t('base.verbs', 'Update'),                            
+                            'title' => m::t('verbs', 'Update'),                            
                         ];
                         return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'View'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },
@@ -131,7 +131,7 @@ Pjax::begin(['id'=>'grillaexpedientes','timeout'=>false]);
                              'extension'=> \yii\helpers\Json::encode(['png','jpg','jpeg','doc','docx','docxx','pdf']),
                              'nombreclase'=> str_replace('\\','_',get_class($model))]);
                         $options = [
-                            'title' => Yii::t('base_labels', 'Manage Files'),
+                            'title' => m::t('labels', 'Manage Files'),
                             //'aria-label' => Yii::t('rbac-admin', 'Activate'),
                             //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
                             'data-method' => 'get',

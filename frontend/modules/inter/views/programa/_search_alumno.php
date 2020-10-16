@@ -1,7 +1,7 @@
 <?php
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
-    use frontend\modules\maestros\MaestrosModule as m;
+    use frontend\modules\inter\Module as m;
     use common\models\masters\Personas;
     use common\helpers\ComboHelper;
     use common\widgets\cbodepwidget\cboDepWidget as ComboDep;

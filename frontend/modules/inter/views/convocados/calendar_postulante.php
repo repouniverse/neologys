@@ -26,11 +26,11 @@ ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\inter\models\InterConvocados */
 
-$this->title = Yii::t('base_labels', 'Fill in personal data : {name}', [
+$this->title = m::t('labels', 'Fill in personal data : {name}', [
     'name' => $model->persona->fullName(),
 ]);
 //$this->params['breadcrumbs'][] = ['label' => substr($model->programa->descripcion,0,10), 'url' => ['/inter/programa/update', 'id' => $model->programa->id]];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'My panel'), 'url' => [h::user()->resolveUrlAfterLogin()]];
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'My panel'), 'url' => [h::user()->resolveUrlAfterLogin()]];
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 ///$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
@@ -60,8 +60,8 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
     <?php if($modelEntrevista= $current_expediente->hasEntrevista()){ ?>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
      <?php $tipo=($modelEntrevista->asistio)?'info':'warning';   ?>   
-     <?php $mensaje=($modelEntrevista->asistio)?m::t('labels','You already passed the interview'):
-             m::t('labels','You have an interview {numero} scheduled at {fecha}',['numero'=>$modelEntrevista->numero,'fecha'=>$modelEntrevista->fechaprog]);   ?>   
+     <?php $mensaje=($modelEntrevista->asistio)?m::t('validaciones','You already passed the interview'):
+             m::t('validaciones','You have an interview {numero} scheduled at {fecha}',['numero'=>$modelEntrevista->numero,'fecha'=>$modelEntrevista->fechaprog]);   ?>   
     <div class=" aviso-<?=$tipo?> ">
         <?php
         echo m::t('labels',$mensaje); 
@@ -82,7 +82,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
         
     <div class=" aviso-danger ">
-        <?php echo m::t('errors','You don\'t have an interview scheduled yet'); ?>
+        <?php echo m::t('validaciones','You don\'t have an interview scheduled yet'); ?>
     </div>
    </div>
     <?php } ?>
@@ -137,7 +137,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
                               $options = [
                             'data-pjax'=>'0',
                             'target'=>'_blank',
-                            'title' => Yii::t('base.verbs', 'Ver'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options);
                       
@@ -234,7 +234,7 @@ echo $this->render('@frontend/modules/inter/views/convocados/_progress_convocado
    
    <div class="panel panel-warning">
             <div class="panel-heading">
-                <h3 class="panel-title"><?=m::t('labels','instructions')?></h3>
+                <h3 class="panel-title"><?=m::t('labels','Instructions')?></h3>
             </div>
             <div class="panel-body">
                 <?php

@@ -51,13 +51,13 @@ class ImportLogcargamasiva extends \yii\db\ActiveRecord
     {
         return [
             'id' => m::t('labels', 'ID'),
-            'cargamasiva_id' => m::t('labels', 'Cargamasiva ID'),
-            'nombrecampo' => m::t('labels', 'Campo'),
-            'mensaje' => m::t('labels', 'Mensaje del error'),
-            'level' => m::t('labels', 'Nivel'),
-            'fecha' => m::t('labels', 'Fecha'),
+            'cargamasiva_id' => m::t('labels', 'Bulk Load Id'),
+            'nombrecampo' => m::t('labels', 'Field'),
+            'mensaje' => m::t('labels', 'Error message'),
+            'level' => m::t('labels', 'Level'),
+            'fecha' => m::t('labels', 'Date'),
             'user_id' => m::t('labels', 'User ID'),
-            'numerolinea' => m::t('labels', 'Número de fila'),
+            'numerolinea' => m::t('labels', 'Row number'),
         ];
     }
 

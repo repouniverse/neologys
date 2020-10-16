@@ -24,7 +24,7 @@ class FileBehavior extends Fileb {
 CONST FIRE_METHOD='triggerUpload';
     public function getFilesByExtension($ext = null) {
         if (is_null($ext))
-            throw new \yii\base\Exception(Yii::t('base.errors', 'The extension parameter is null'));
+            throw new \yii\base\Exception(Yii::t('base_errors', 'The extension parameter is null'));
         if (substr($ext, 0, 1) == '.') {
             $ext = substr($ext, 1);
         }
@@ -156,7 +156,7 @@ CONST FIRE_METHOD='triggerUpload';
                         )
                         ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                         ->setTo($this->email)
-                        ->setSubject(yii::t('base.verbs', 'Request password reset') . '  ' . Yii::$app->name)
+                        ->setSubject(yii::t('base_labels', 'Request password reset') . '  ' . Yii::$app->name)
                         ->send();
     }
 
@@ -185,10 +185,10 @@ CONST FIRE_METHOD='triggerUpload';
             foreach ($files as $file) {
                 $newPathFile = $this->getModule()->getUserDirPath() . basename($file);
                 if (!copy($file, $newPathFile)) {
-                    throw new \Exception(\Yii::t('yii', 'File upload failed.'));
+                    throw new \Exception(\Yii::t('base_errors', 'File upload failed.'));
                 }
                 if (!$this->getModule()->attachFile($newPathFile, $this->owner)) {
-                    throw new \Exception(\Yii::t('yii', 'File upload failed.'));
+                    throw new \Exception(\Yii::t('base_errors', 'File upload failed.'));
                 } else {
                     @unlink($newPathFile);
                     yii::error('Attach Exitoso ' . $newPathFile . '---' . $file, __METHOD__);
@@ -209,7 +209,7 @@ CONST FIRE_METHOD='triggerUpload';
                 //echo get_class($file); die();
                 //echo (is_dir($this->getModule()->getUserDirPath()))?"si":"no"; die();
                 if (!$file->saveAs($this->getModule()->getUserDirPath() . $file->name)) {
-                    throw new \Exception(\Yii::t('yii', 'File upload failed.'));
+                    throw new \Exception(\Yii::t('base_errors', 'File upload failed.'));
                 }
             }
         }
@@ -217,7 +217,7 @@ CONST FIRE_METHOD='triggerUpload';
         $userTempDir = $this->getModule()->getUserDirPath();
         foreach (FileHelper::findFiles($userTempDir) as $file) {
             if (!$this->getModule()->attachFile($file, $this->owner)) {
-                throw new \Exception(\Yii::t('yii', 'File upload failed.'));
+                throw new \Exception(\Yii::t('base_errors', 'File upload failed.'));
             }
         }
         rmdir($userTempDir);

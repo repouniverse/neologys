@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\sta\models\AulasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base_labels', 'Choose University');
+$this->title = Yii::t('base_verbs', 'Choose University');
 
 ?>
 <div class="box box-body">

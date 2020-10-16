@@ -21,7 +21,7 @@ $this->title = m::t('labels', 'Update Inter Programa: {name}', [
 ]);
 $this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Inter Programas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = m::t('labels', 'Update');
+$this->params['breadcrumbs'][] = m::t('verbs', 'Update');
 ?>
 <div class="inter-programa-update">
 
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = m::t('labels', 'Update');
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
-        <?= Html::submitButton('<span class="fa fa-save"></span>    '.yii::t('base.verbs', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>    '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
          <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
         </div>
     </div>
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = m::t('labels', 'Update');
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
      <?= $form->field($model, 'universidad_id')->
             dropDownList(ComboHelper::getCboUniversidades(),
-                  ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

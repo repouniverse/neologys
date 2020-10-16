@@ -190,16 +190,16 @@ class ComboHelper  {
    
    public static function getCboSex(){
          return [
-                'M'=>yii::t('base_labels','MASCULINO'),
-                'F'=>yii::t('base_labels','FEMENINO'),
+                'M'=>yii::t('base_labels','MALE'),
+                'F'=>yii::t('base_labels','FEMALE'),
              //'G'=>yii::t('base_labels','GENERAL'),
                         ];
     }
     
     public static function getCboEstCivil(){
          return [
-                'S'=>yii::t('base_labels','SOLTERO'),
-                'C'=>yii::t('base_labels','CASADO'),
+                'S'=>yii::t('base_labels','SINGLE'),
+                'C'=>yii::t('base_labels','MARRIED'),
              //'G'=>yii::t('base_labels','GENERAL'),
                         ];
     }
@@ -560,7 +560,7 @@ class ComboHelper  {
       
           public function getCboIdiomas(){
   return [
-'es'	=>	yii::t('base_labels','Spanih'),
+'es'	=>	yii::t('base_labels','Spanish'),
 'en'	=>	yii::t('base_labels','English'),
 'fr'	=>	yii::t('base_labels','French'),
 'it'	=>	yii::t('base_labels','Italian'),

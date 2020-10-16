@@ -17,7 +17,7 @@ trait modelBaseTrait {
     private function sizeColumn($attribute)
 	{
             if($attribute===null or !$this->hasAttribute($attribute) )
-                throw new ServerErrorHttpException(Yii::t('models.error', 'Don\'t exists the attribute or constant "{atributo}" in this class {clase} ',['atributo'=>$attribute,'clase'=>static::class]));
+                throw new ServerErrorHttpException(Yii::t('base_errors', 'Don\'t exists the attribute or constant "{atributo}" in this class {clase} ',['atributo'=>$attribute,'clase'=>static::class]));
     		return $this->getTableSchema()->getColumn($attribute)->size;
 	}   
         

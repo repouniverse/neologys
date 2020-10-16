@@ -3,7 +3,7 @@ use common\helpers\h;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
-
+use frontend\modules\maestros\MaestrosModule as m;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
@@ -19,7 +19,7 @@ use common\helpers\ComboHelper;
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
-        <?= Html::submitButton('<span class="fa fa-save"></span>    '.yii::t('base.verbs', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>    '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
          <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
         </div>
     </div>
@@ -36,7 +36,7 @@ use common\helpers\ComboHelper;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <?= $form->field($model, 'modelo')->
             dropDownList(ComboHelper::getCboModels(),
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                         ]
                     ) ?>
@@ -47,7 +47,7 @@ use common\helpers\ComboHelper;
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <?= $form->field($model, 'layout')->
             dropDownList($model->mapFiles(),
-                    ['prompt'=>'--'.yii::t('base.verbs','Choose a value')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                         ]
                     ) ?>

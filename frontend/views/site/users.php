@@ -9,7 +9,7 @@ use mdm\admin\components\Helper;
 /* @var $searchModel mdm\admin\models\searchs\User */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('rbac-admin', 'Users');
+$this->title = Yii::t('base_labels', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
  <h4><?= Html::encode($this->title) ?></h4>
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box-body">
    
     <p>
-        <?= Html::a(Yii::t('base.verbs', 'Crear Usuario'), ['create-user'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('base_labels', 'Create user'), ['create-user'], ['class' => 'btn btn-success']) ?>
     </p>
     
     <?=

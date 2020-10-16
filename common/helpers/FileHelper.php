@@ -177,7 +177,7 @@ class FileHelper extends FileHelperOriginal {
     public static function UrlEmptyFile(){
        $alias=yii::getAlias('@frontend/web/img/nofile.png');
        if(!is_file($alias))
-       throw new \yii\base\Exception(Yii::t('base.errors', 'The  file {archivo} doesn\'t exists ',['archivo'=>$alias])); 
+       throw new \yii\base\Exception(Yii::t('base_errors', 'The  file {archivo} doesn\'t exists ',['archivo'=>$alias])); 
        return self::normalizePath(\yii\helpers\Url::base().'/img/nofile.png',DIRECTORY_SEPARATOR);
        
    }
@@ -186,7 +186,7 @@ class FileHelper extends FileHelperOriginal {
    public static function UrlSomeFile(){
        $alias=yii::getAlias('@frontend/web/img/somefile.png');
        if(!is_file($alias))
-       throw new \yii\base\Exception(Yii::t('base.errors', 'The  file {archivo} doesn\'t exists ',['archivo'=>$alias])); 
+       throw new \yii\base\Exception(Yii::t('base_errors', 'The  file {archivo} doesn\'t exists ',['archivo'=>$alias])); 
        return self::normalizePath(\yii\helpers\Url::base().'/img/somefile.png',DIRECTORY_SEPARATOR);
        
    }

@@ -35,7 +35,7 @@
                         (
                             ComboHelper::getCboModels(),
                             [
-                                'prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
+                                'prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                             ]
                         )
                     ?>

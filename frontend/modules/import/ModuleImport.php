@@ -61,10 +61,9 @@ class ModuleImport extends \yii\base\Module
             'sourceLanguage' => 'en-US',
             'basePath' => '@frontend/modules/import/messages',
             'fileMap' => [
-                'modules/import/m_import' => 'm_import.php',
-                
-               
-                
+                'modules/import/verbs' => 'verbs.php',
+                'modules/import/validaciones' => 'validaciones.php',
+                'modules/import/labels' => 'labels.php',
             ],
         ];
     }

@@ -51,7 +51,7 @@ use frontend\modules\inter\Module as m;
     $data= ComboHelper::getCboModos($model->programa_id);
    echo  $form->field($model, 'modo_id')->
             dropDownList($data,
-                  ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -63,7 +63,7 @@ use frontend\modules\inter\Module as m;
     $data=ComboHelper::getCboAwesome();
    echo  $form->field($model, 'awe')->
             dropDownList($data,
-                  ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
@@ -76,7 +76,7 @@ use frontend\modules\inter\Module as m;
     $data=ComboHelper::getCboCardinales(20);
    echo  $form->field($model, 'orden')->
             dropDownList($data,
-                  ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

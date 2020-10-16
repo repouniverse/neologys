@@ -459,7 +459,7 @@ public function porcAvanceUploads($stage){
             ])->orderBy(['orden'=>SORT_ASC])->join('INNER JOIN','{{%inter_evaluadores}} x', 't.eval_id =x.id')
     ->andWhere(['x.carrera_id' => $this->alumno->carrera_id])->limit(1)->createCommand()->rawSql);*/
    if(is_null($modelPlan)){
-        throw new BadRequestHttpException(yii::t('base_errors','Plan not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+        throw new BadRequestHttpException(m::t('validaciones','Plan not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
          
    }
     
@@ -518,7 +518,7 @@ public function porcAvanceUploads($stage){
  public function validateOpUniv($attribute, $params)
     {
       if($this->getInterOpuniv()->count()==0){
-          $this->addError('motivos',m::t('errors','You must fill Universities to apply'));
+          $this->addError('motivos',m::t('validaciones','You must fill Universities to apply'));
       }
     }
  
@@ -527,7 +527,7 @@ public function porcAvanceUploads($stage){
      $nombre=$this->persona->fullName();
         $mailer = new \common\components\Mailer();
         $message =new  \yii\swiftmailer\Message();
-            $message->setSubject(m::t('labels','Notificación de Carga de documentos'))
+            $message->setSubject(m::t('validaciones','Notification of loading of documents'))
             ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
             ->setTo('jramirez@neotegnia.com')
             ->SetHtmlBody("Buenas Tardes <br>"
@@ -705,7 +705,7 @@ public function admitirPostulante(){
        if($grabo)$this->enviaMailConfirmando();
        return $grabo;
    }else{
-       $this->addError('estado',m::t('errors','This person does not have the complete requirements'));
+       $this->addError('estado',m::t('validaciones','This person does not have the complete requirements'));
        return false;
    }
 }
@@ -717,7 +717,7 @@ public function cancelarPostulante(){
       return $this->save();
       
    }else{
-       $this->addError('estado',m::t('errors','This process cannot be canceled'));
+       $this->addError('estado',m::t('validaciones','This process cannot be canceled'));
        return false;
    }
 }

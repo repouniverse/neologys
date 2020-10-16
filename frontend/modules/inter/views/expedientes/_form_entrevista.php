@@ -57,7 +57,7 @@
         DateTimePicker::classname(), [
          'name' => 'fechaprog',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>yii::t('sta.labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),
@@ -73,7 +73,7 @@
         DateTimePicker::classname(), [
          'name' => 'finicio',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>yii::t('sta.labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),
@@ -89,7 +89,7 @@
         DateTimePicker::classname(), [
          'name' => 'ftermino',
             'language' => h::app()->language,
-            'options' => ['placeholder' =>yii::t('sta.labels', '--Seleccione un valor--')],
+            'options' => ['placeholder' =>m::t('verbs', 'Choose a value')],
     //'convertFormat' => true,
                 'pluginOptions' => [
                 'format' => h::getFormatShowDateTime(),

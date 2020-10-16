@@ -62,7 +62,7 @@ class AuditBehavior extends Behavior
               $model=New Activerecordlog();
                $model=$this->setLogValues($model, $attribute);
               if(!$model->save()){
-                  throw new ServerErrorHttpException(Yii::t('error', 'NO SE PUDO GRABAR  '.serialize($model->geterrors())));
+                  throw new ServerErrorHttpException(Yii::t('base_errors', 'Could not be recorded'.serialize($model->geterrors())));
               }
               unset($model);
           }          

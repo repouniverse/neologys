@@ -25,7 +25,7 @@ alumnoAsset::register($this);
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            echo Html::a(yii::t('base_labels','Details').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
             ?>
             
           </div>
@@ -44,7 +44,7 @@ alumnoAsset::register($this);
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>',Url::to(['/inter/programa']), ['class'=>"small-box-footer"]);
+            echo Html::a(yii::t('base_labels','Details').'<i class="fa fa-arrow-circle-right"></i>',Url::to(['/inter/programa']), ['class'=>"small-box-footer"]);
             ?>
             
           </div>
@@ -63,7 +63,7 @@ alumnoAsset::register($this);
             </div>
             <?php 
             //$url=Url::to(['cantidades-en-riesgo']);
-            echo Html::a(yii::t('base_labels','Detalles').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
+            echo Html::a(yii::t('base_labels','Details').'<i class="fa fa-arrow-circle-right"></i>','trtr', ['class'=>"botonAbre small-box-footer"]);
             ?>
             
           </div>

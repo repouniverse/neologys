@@ -15,7 +15,7 @@ $this->title = Yii::t('base_labels', 'Update Text: {name}', [
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Texts'), 'url' => ['index-tenores']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view-tenor', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('base_verbs', 'Update');
 ?>
 
 <h4><i class="fa fa-edit"></i><?= Html::encode($this->title) ?></h4>
@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
       'encodeLabels'=>false,
     'items' => [
         [
-          'label'=>'<i class="fa fa-home"></i> '.yii::t('sta.labels','Principal'), //$this->context->countDetail() obtiene el contador del detalle
+          'label'=>'<i class="fa fa-home"></i> '.yii::t('base_labels','Main'), //$this->context->countDetail() obtiene el contador del detalle
             'content'=> $this->render('_form_tenores',['model' => $model]),
             'active' => true,
              'options' => ['id' => 'myveryownID3'],
         ],
         [
-          'label'=>'<i class="fa fa-users"></i> '.yii::t('sta.labels','Tutores'), //$this->context->countDetail() obtiene el contador del detalle
+          'label'=>'<i class="fa fa-users"></i> '.yii::t('base_labels','Tutors'), //$this->context->countDetail() obtiene el contador del detalle
             'content'=> $this->render('_segunda',[ 'model' => $model]),
             'active' => false,
              'options' => ['id' => 'myveryownID4'],

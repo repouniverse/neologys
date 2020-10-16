@@ -96,22 +96,22 @@ class InterExpedientes extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'programa_id' => Yii::t('base_labels', 'Programa ID'),
-            'modo_id' => Yii::t('base_labels', 'Modo ID'),
-            'convocado_id' => Yii::t('base_labels', 'Convocado ID'),
-            'clase' => Yii::t('base_labels', 'Clase'),
-            'status' => Yii::t('base_labels', 'Status'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'fpresenta' => Yii::t('base_labels', 'Fpresenta'),
-            'fdocu' => Yii::t('base_labels', 'Fdocu'),
-            'detalles' => Yii::t('base_labels', 'Detalles'),
-            'textointerno' => Yii::t('base_labels', 'Textointerno'),
-            'estado' => Yii::t('base_labels', 'Estado'),
-            'requerido' => Yii::t('base_labels', 'Requerido'),
+            'id' => m::t('labels', 'ID'),
+            'universidad_id' => m::t('labels', 'University'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'depa_id' => m::t('labels', 'Depa ID'),
+            'programa_id' => m::t('labels', 'Program'),
+            'modo_id' => m::t('labels', 'Mode ID'),
+            'convocado_id' => m::t('labels', 'Summoned ID'),
+            'clase' => m::t('labels', 'Class'),
+            'status' => m::t('labels', 'Status'),
+            'codocu' => m::t('labels', 'Document Code'),
+            'fpresenta' => m::t('labels', 'Presentation Date'),
+            'fdocu' => m::t('labels', 'Document Date'),
+            'detalles' => m::t('labels', 'Details'),
+            'textointerno' => m::t('labels', 'Internal Text'),
+            'estado' => m::t('labels', 'Status'),
+            'requerido' => m::t('labels', 'Required'),
         ];
     }
 
@@ -272,7 +272,7 @@ class InterExpedientes extends \common\models\base\modelBase
             if($this->hasObserves()){
                 $icono=h::awe('eye');
                $color='red';
-               $message=m::t('errors','You have a annotation CLICK HERE');
+               $message=m::t('validaciones','You have a annotation CLICK HERE');
                $link=\yii\helpers\Url::to(['/inter/expedientes/modal-view-obs','id'=>$this->id,'idGrilla'=>'s']);
                $options=['class'=>'botonAbre',];
                return '<i style="font-size:20px; color:'.$color.'">'.$icono.'</i>'.\yii\helpers\Html::a($message,$link,$options);
@@ -330,7 +330,7 @@ class InterExpedientes extends \common\models\base\modelBase
 
             $result = $mailer->send($message);
             return true;
-            $mensajes['success'] = m::t('labels','Se envió el correo, confirmando la aprobación del expediente ');
+            $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
         } catch (\Swift_TransportException $Ste) {
             
             $mensajes['error'] = $Ste->getMessage();

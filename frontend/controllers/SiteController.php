@@ -302,8 +302,7 @@ public function actionAuthWithQuestions(){
                h::session()->remove('psico_por_dia');
               //\console\components\Command::execute('cache/flush-all', ['interactive' => false]);
               //\console\components\Command::execute('cache/flush-schema', ['interactive' => false]);
-           $datos['success']=yii::t('base_verbs','
-Datos de sesión y de caché se han actualizado');
+           $datos['success']=yii::t('base_success','Session and cache data has been updated');
            
            h::response()->format = \yii\web\Response::FORMAT_JSON;
            return $datos;
@@ -468,7 +467,7 @@ die();
         if ($identidad->load(Yii::$app->request->post()) && $identidad->save() &&                
                 $model->load(Yii::$app->request->post()) && $model->save()) {
            // var_dump($model->getErrors()   );die();
-            yii::$app->session->setFlash('success',yii::t('base_labels','Data has been recorded'));
+            yii::$app->session->setFlash('success',yii::t('base_success','Data has been recorded'));
             return $this->redirect(['profile', 'id' => $model->user_id]);
         }else{
            // var_dump($model->getErrors()   );die();
@@ -495,7 +494,7 @@ die();
                              'user_id'=>h::userId(),
                                 ]);        
             if($model->save()){
-               return ['success'=>yii::t('base_labels','Route: \'{url}\' was added to favorites ',['url'=>$url])];  
+               return ['success'=>yii::t('base_success','Route: \'{url}\' was added to favorites ',['url'=>$url])];  
            
             }else{
               return ['error'=>yii::t('base_labels','Has errors {mierror}',['mierror'=>$model->getFirstError()])];  
@@ -554,7 +553,7 @@ die();
             if ($user = $model->signup()) {   
                  yii::$app->session->
                setFlash('success',
-            yii::t('base_verbs','The user has been created'));
+            yii::t('base_success','The user has been created'));
 		
                   $this->redirect('manage-users');
             }
@@ -580,7 +579,7 @@ die();
         
          $newIdentity=h::user()->identity->findOne($iduser);
       if(is_null($newIdentity))
-          throw new BadRequestHttpException(yii::t('base.errors','User not found with id '.$iduser));  
+          throw new BadRequestHttpException(yii::t('base_errors','User not found with id '.$iduser));  
            //echo $newIdentity->id;die();
      // h::user()->switchIdentity($newIdentity);
          

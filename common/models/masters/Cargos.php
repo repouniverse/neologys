@@ -45,9 +45,9 @@ class Cargos extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'depa_id' => Yii::t('base_labels', 'Depa ID'),
-            'descargo' => Yii::t('base_labels', 'Descargo'),
-            'detalle' => Yii::t('base_labels', 'Detalle'),
+            'depa_id' => Yii::t('base_labels', 'Id Area'),
+            'descargo' => Yii::t('base_labels', 'Discharge'),
+            'detalle' => Yii::t('base_labels', 'Detail'),
         ];
     }
 

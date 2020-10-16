@@ -95,26 +95,26 @@ implements \common\interfaces\rangeInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'facultad_id' => 'Facultad ID',
-            'etapa_id' => 'Etapa ID',
-            'universidad_id' => 'Universidad ID',
-            'modo_id' => 'Modo ID',
-            'codperiodo' => 'Codperiodo',
-            'expediente_id' => 'Expediente ID',
-            'convocado_id' => 'Convocado ID',
-            'persona_id' => 'Persona ID',
-            'finicio' => 'Finicio',
-            'numero' => 'Numero',
-            'ftermino' => 'Ftermino',
-            'asistio' => 'Asistio',
-            'detalles' => 'Detalles',
-            'detalles_secre' => 'Texto interno',
-            'activo' => 'Activo',
-            'masivo' => 'Masivo',
-            'duracion' => 'Duracion',
-            'codfac' => 'Codfac',
-            'flujo_id' => 'Flujo ID',
+            'id' => m::t('labels', 'ID'),
+            'facultad_id' => m::t('labels', 'Faculty'),
+            'etapa_id' => m::t('labels', 'Stage'),
+            'universidad_id' => m::t('labels', 'University'),
+            'modo_id' => m::t('labels', 'Mode'),
+            'codperiodo' => m::t('labels', 'Period Code'),
+            'expediente_id' => m::t('labels', 'Proceedings'),
+            'convocado_id' => m::t('labels', 'Summoned Id'),
+            'persona_id' => m::t('labels', 'Person Id'),
+            'finicio' => m::t('labels', 'Begin Date'),
+            'numero' => m::t('labels', 'Number'),
+            'ftermino' => m::t('labels', 'End Date'),
+            'asistio' => m::t('labels', 'Attended'),
+            'detalles' => m::t('labels', 'Details'),
+            'detalles_secre' => m::t('labels', 'Additional details'),
+            'activo' => m::t('labels', 'Active'),
+            'masivo' => m::t('labels', 'Massive'),
+            'duracion' => m::t('labels', 'Duration'),
+            'codfac' => m::t('labels', 'codfac'),
+            'flujo_id' => m::t('labels', 'flujo_id'),
         ];
     }
 
@@ -390,7 +390,7 @@ es un arraya de registros modelos InterHorarios
             //if ($this->isVencida())
                 //$this->addError('fechaprog', m::t('errors', 'La cita se encuentra en el pasado, es mejor que cree una nueva'));
             if ($this->asistio)
-                $this->addError('fechaprog', m::t('errors', 'Esta cita ya tiene asistencia'));
+                $this->addError('fechaprog', m::t('validaciones', 'This appointment is already in attendance'));
 
             return false;
         }

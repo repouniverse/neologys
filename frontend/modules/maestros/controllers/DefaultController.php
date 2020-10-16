@@ -131,7 +131,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('bigitems.labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -222,7 +222,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -329,7 +329,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -474,7 +474,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -626,7 +626,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -775,7 +775,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
      
@@ -921,7 +921,7 @@ class DefaultController extends \common\controllers\base\baseController
         if ($model->load(Yii::$app->request->post()) && 
             
                 $model->save() ) {
-             h::session()->setFlash('success',m::t('labels','Data has been completed'));
+             h::session()->setFlash('success',m::t('validaciones','Data has been completed'));
          return $this->redirect('index-trabajadores');
         }else{
            }
@@ -964,7 +964,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
      
@@ -1179,7 +1179,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         
         if ($model->load(h::request()->post()) && $model->save()) {
-            h::session()->setFlash('success',m::t('labels','Student was created'));
+            h::session()->setFlash('success',m::t('validaciones','Student was created'));
             return $this->redirect(['view-alumnos', 'id' => $model->id]);
         }else{
             //print_r($model->getErrors());die();
@@ -1232,7 +1232,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         
         if ($model->load(h::request()->post()) && $model->save()) {
-            h::session()->setFlash('success',m::t('labels','Student was created'));
+            h::session()->setFlash('success',m::t('validaciones','Student was created'));
             return $this->redirect(['view-docentes', 'id' => $model->id]);
         }else{
            // print_r($model->getErrors());die();
@@ -1272,7 +1272,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         if ($model->load(Yii::$app->request->post()) && $modelPersona->load(Yii::$app->request->post()) && $model->save() && $modelPersona->save())
         {
-            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
             return $this->redirect('index-alumnos');
         }
         
@@ -1354,7 +1354,7 @@ class DefaultController extends \common\controllers\base\baseController
         //    yii::error('apunto de redireccionar',__FUNCTION__);
         //    if(h::userName()=='admin')
         //    return $this->redirect(['view', 'id' => $model->id]); 
-            h::session()->setFlash('success',m::t('labels','¡First step has been completed...!'));
+            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
         //    return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
             return $this->redirect('index-docentes');
         }
@@ -1389,9 +1389,9 @@ class DefaultController extends \common\controllers\base\baseController
                 $model= Alumnos::findOne($id);
             
                 if(is_null($model))
-                throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 $this->deleteModel($id, $model::className());
-                return ['warning'=>m::t('labels','The record was deleted')];
+                return ['warning'=>m::t('validaciones','The record was deleted')];
             }
      }
     
@@ -1403,9 +1403,9 @@ class DefaultController extends \common\controllers\base\baseController
                 $model= Docentes::findOne($id);
             
                 if(is_null($model))
-                throw new NotFoundHttpException(m::t('labels', 'The requested page does not exist.'));
+                throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
                 $this->deleteModel($id, $model::className());
-                return ['warning'=>m::t('labels','The record was deleted')];
+                return ['warning'=>m::t('validaciones','The record was deleted')];
             }
     } 
     
@@ -1422,7 +1422,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
        
     protected function findModelDocentes($id)
@@ -1431,7 +1431,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -1567,7 +1567,7 @@ class DefaultController extends \common\controllers\base\baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base.errors', 'The requested gg page does not exist.'));
+        throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
     }
     
     
@@ -1623,7 +1623,7 @@ class DefaultController extends \common\controllers\base\baseController
         if(is_null($model)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
-            echo yii::t('warnings','Record not found');die();
+            echo m::t('validaciones','Record not found');die();
             return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
         }
         //$model->universidad_id=$modelUniversidad->id;
@@ -2036,7 +2036,7 @@ class DefaultController extends \common\controllers\base\baseController
            ])->one())){
                return '';
            }else{
-             $message=m::t('labels','It\'s possible that already exists a person {persona} with  this document number',['persona'=>$model->fullName() ]); 
+             $message=m::t('validaciones','It\'s possible that already exists a person {persona} with  this document number',['persona'=>$model->fullName() ]); 
              return '<div class="alert alert-warning">'.$message.'</div>';
            }
       }
@@ -2115,7 +2115,7 @@ class DefaultController extends \common\controllers\base\baseController
         if(is_null($model)){
             //Si es error buttonSubmitWidget::OP_TERCERA
             //lanza un NOTY msg de error
-            echo yii::t('warnings','Record not found');die();
+            echo m::t('validaciones','Record not found');die();
             return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
         }
         //$model->universidad_id=$modelUniversidad->id;

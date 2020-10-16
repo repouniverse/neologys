@@ -43,12 +43,12 @@ $this->title = '   '.yii::t('base_labels','User Data');
    </div>
     
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-               <?= Html::label(yii::t('base_names','User'),'45545ret',['class' => 'control-label']) ?>
+               <?= Html::label(yii::t('base_labels','User'),'45545ret',['class' => 'control-label']) ?>
                 <?=  Html::input('text', 'username', h::userName(),['disabled'=>'disabled','class' => 'form-control']) ?>
              </diV>
             
              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-               <?= Html::label(yii::t('base_names','Last Access'),'fd5656',['class' => 'control-label']) ?>
+               <?= Html::label(yii::t('base_names','Last access'),'fd5656',['class' => 'control-label']) ?>
                 <?=  Html::input('text', 'username', h::user()->lastLoginForHumans(),['disabled'=>'disabled','class' => 'form-control']) ?>
              </diV>
             

@@ -43,7 +43,7 @@ use yii\widgets\Pjax;
                          },
                          'delete' => function($url, $model) {                        
                         $options = [
-                            'data-confirm' => Yii::t('base_questions', 'Are you sure you want to activate this user?'),
+                            'data-confirm' => Yii::t('base_errors', 'Are you sure you want to activate this user?'),
                             'title' => Yii::t('base_verbs', 'Delete'),                            
                         ];
                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);

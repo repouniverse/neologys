@@ -26,7 +26,7 @@ use kartik\date\DatePicker;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>
@@ -90,7 +90,7 @@ use kartik\date\DatePicker;
     $data=($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facultad_id);
    echo  $form->field($model, 'carrera_id')->
             dropDownList($data,
-                  ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

@@ -29,11 +29,11 @@ use yii\widgets\Pjax;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
           <?= ($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])
                 ?> 
                 <?php //echo  Html::a(m::t('labels', 'Create Foreign Person'), ['create-foreign-person'], ['class' => 'btn btn-warning']) ?>
-            <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register invited Teacher'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
+            <?= Html::button('<span class="fa fa-check"></span>   '.m::t('labels', 'Register invited teacher'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
            
 
             </div>

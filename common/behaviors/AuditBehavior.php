@@ -155,7 +155,7 @@ class AuditBehavior extends Behavior
          try{
                if(!$model->save()){
                       //yii::error($model->getErrors());
-                    throw new ServerErrorHttpException(Yii::t('models.errors', 'NO SE PUDO GRABAR  '.serialize($model->geterrors())));
+                    throw new ServerErrorHttpException(Yii::t('base_errors', 'Could not be recorded'.serialize($model->geterrors())));
                        }else{
                       // yii::error('grabo'); 
                   } 

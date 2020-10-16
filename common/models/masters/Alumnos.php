@@ -363,7 +363,7 @@ implements \common\interfaces\postulantesInterface
   public function validateDocumento($attribute, $params) {
      if(Personas::find()->andWhere(
              ['tipodoc'=>$this->tipodoc,'numerodoc'=>$this->numerodoc])
-             ->exists())$this->addError ('numerodoc',yii::t('base_labels','Document has been registered'));
+             ->exists())$this->addError ('numerodoc',yii::t('base_success','Document has been registered'));
  }
  
  public function code(){

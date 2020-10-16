@@ -33,8 +33,8 @@ class ConfigurationForm extends Model
     public function attributeLabels(): array
     {
         return [
-            'appName' => Yii::t('app', 'Application Name'),
-            'adminEmail' => Yii::t('app', 'Admin Email'),
+            'appName' => Yii::t('base_labels', 'Application Name'),
+            'adminEmail' => Yii::t('base_labels', 'Admin Email'),
         ];
     }
 }

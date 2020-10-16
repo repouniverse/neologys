@@ -1,5 +1,6 @@
 <?php
 use common\helpers\h;
+use frontend\modules\inter\Module as m;
 //use Yii;
 //var_dump($identidad->currentConvocatoria());die();
 
@@ -48,6 +49,6 @@ $wizard_config = [
 ];
 ?>
         <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-gray-light">
-            <h4><?=h::awe('forward').yii::t('base_labels','Assessment progress')?></h4>
+            <h4><?=h::awe('forward').m::t('labels','Assessment progress')?></h4>
 <?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>  
         </div>

@@ -138,6 +138,6 @@ class TenoresController extends baseController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
     }
 }

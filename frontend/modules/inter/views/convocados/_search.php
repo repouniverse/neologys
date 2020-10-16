@@ -23,7 +23,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
        
          <?php
           //$url= Url::to(['unique-university','id'=>$profile->id,'gridName'=>'check-multiple','idModal'=>'buscarvalor']);
-            echo  Html::button(h::awe('refresh').h::space(10).yii::t('base_verbs','Refresh Stages'), ['href' => '#', 'title' => yii::t('base_labels','Refresh'),'id'=>'button_refresh_etapa', 'class' => 'btn-warning']); 
+            echo  Html::button(h::awe('refresh').h::space(10).m::t('verbs','Refresh Stages'), ['href' => '#', 'title' => m::t('verbs','Refresh'),'id'=>'button_refresh_etapa', 'class' => 'btn-warning']); 
            ?> 
           </div>      
     </div>
@@ -125,7 +125,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
             $form->field($model, 'estado')->
                          dropDownList
                          (
-                         \frontend\modules\inter\helpers\ComboHelper::getCboStatusConvocado(), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                         \frontend\modules\inter\helpers\ComboHelper::getCboStatusConvocado(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                          )
         ?>
     </div>
@@ -136,7 +136,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
             $form->field($model, 'current_etapa')->
                          dropDownList
                          (
-                            comboHelper::getCboStages(1), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                            comboHelper::getCboStages(1), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                          )
         ?>
     </div>

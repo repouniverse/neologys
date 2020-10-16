@@ -54,9 +54,9 @@ $fieldOptions2 = [
 
         <?php ActiveForm::end(); ?>
 
-       <?=Html::a(yii::t('base.labels','I forgot my password'),Url::to(['request-password-reset']))?>
+       <?=Html::a(yii::t('base_labels','I forgot my password'),Url::to(['request-password-reset']))?>
         <br>
-        <?=Html::a(yii::t('base.labels','Register'),Url::to(['/inter/default/base-auth']))?>
+        <?=Html::a(yii::t('base_labels','Register'),Url::to(['/inter/default/base-auth']))?>
          
     
         

@@ -50,13 +50,13 @@ class Combovalores extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'nombretabla' => Yii::t('app', 'Nombretabla'),
-            'codcen' => Yii::t('app', 'Codcen'),
-            'codigo' => Yii::t('app', 'Codigo'),
-            'valor' => Yii::t('app', 'Valor'),
-            'valor1' => Yii::t('app', 'Valor1'),
-            'valor2' => Yii::t('app', 'Valor2'),
+            'id' => Yii::t('base_label', 'ID'),
+            'nombretabla' => Yii::t('base_label', 'Table name'),
+            'codcen' => Yii::t('base_label', 'Codcen'),
+            'codigo' => Yii::t('base_label', 'Code'),
+            'valor' => Yii::t('base_label', 'Value'),
+            'valor1' => Yii::t('base_label', 'Value 1'),
+            'valor2' => Yii::t('base_label', 'Value 2'),
         ];
     }
 

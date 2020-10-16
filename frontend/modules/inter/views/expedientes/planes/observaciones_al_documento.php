@@ -29,13 +29,13 @@ Pjax::begin(['id'=>$gridName]); ?>
                 'buttons' => [
                     'update' => function($url, $model)use($gridName) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'Update'),                            
+                            'title' => m::t('verbs', 'Update'),                            
                         ];
                         return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => Yii::t('base.verbs', 'View'),                            
+                            'title' => m::t('verbs', 'View'),                            
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },

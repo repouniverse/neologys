@@ -228,7 +228,7 @@
                                     ]
                                 ],
                                 [
-                                    'attribute'=>m::t('labels','Languaje'),
+                                    'attribute'=>m::t('labels','Language'),
                                     'value'=> function($model)
                                               {
                                                 return frontend\modules\inter\helpers\ComboHelper::getIdioma($model->idioma);
@@ -485,7 +485,7 @@
             ?>
             
              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Aditional data'); ?></p>
+            <p class="text-green"><?php echo h::awe('user').h::space(10). m::t('labels','Additional Data'); ?></p>
             <hr style="border: 1px dashed #4CAF50;">
                </div>
             

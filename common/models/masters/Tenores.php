@@ -56,13 +56,13 @@ class Tenores extends \common\models\base\modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'universidad_id' => Yii::t('base_labels', 'Universidad ID'),
-            'facultad_id' => Yii::t('base_labels', 'Facultad ID'),
-            'codocu' => Yii::t('base_labels', 'Codocu'),
-            'activo' => Yii::t('base_labels', 'Activo'),
-            'idioma' => Yii::t('base_labels', 'Idioma'),
-            'posic' => Yii::t('base_labels', 'Posic'),
-            'texto' => Yii::t('base_labels', 'Texto'),
+            'universidad_id' => Yii::t('base_labels', 'University'),
+            'facultad_id' => Yii::t('base_labels', 'Faculty'),
+            'codocu' => Yii::t('base_labels', 'Document Code'),
+            'activo' => Yii::t('base_labels', 'Active'),
+            'idioma' => Yii::t('base_labels', 'Language'),
+            'posic' => Yii::t('base_labels', 'Position'),
+            'texto' => Yii::t('base_labels', 'Text'),
             'order' => Yii::t('base_labels', 'Order'),
         ];
     }

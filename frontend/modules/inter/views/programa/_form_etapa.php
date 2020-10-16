@@ -26,7 +26,7 @@ use frontend\modules\inter\Module as m;
         <div class="col-md-12">
             <div class="form-group no-margin">
                 
-        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<span class="fa fa-save"></span>   '.m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
             
 
             </div>
@@ -61,7 +61,7 @@ use frontend\modules\inter\Module as m;
     $data=($model->isNewRecord)?[]:comboHelper::getCboModos($model->programa_id);
    echo  $form->field($model, 'modo_id')->
             dropDownList($data,
-                  ['prompt'=>'--'.m::t('base.verbs','Seleccione un valor')."--",
+                  ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]

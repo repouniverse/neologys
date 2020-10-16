@@ -129,7 +129,7 @@ $wizard_config = [
 <?PHP  } else{ ?>
       
       <DIV CLASS="aviso-info">
-          <?=yii::t('base_labels','¡Felicitaciones...!. Has sido admitido en el programa de Internacional {periodo}',['periodo'=>h::periodos()->currentPeriod])?>
+          <?=yii::t('base_labels','Congratulations...!. You have been admitted to the International program {period}',['periodo'=>h::periodos()->currentPeriod])?>
       </DIV>
       
       

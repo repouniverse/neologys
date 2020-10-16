@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use common\helpers\h;
 use kartik\time\TimePicker;
 use common\helpers\ComboHelper;
+use frontend\modules\inter\Module as m;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\Talleres */
@@ -40,11 +41,11 @@ use common\helpers\ComboHelper;
       if($model->isNewRecord){
            echo $form->field($model, 'dia')->
             dropDownList(common\helpers\timeHelper::daysOfWeek() ,
-                    ['prompt'=>'--'.yii::t('base.verbs','Escoja un valor')."--",
+                    ['prompt'=>'--'.m::t('verbs','Choose a value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
                         ]
-                    )->label(yii::t('sta.labels','Día')) ;
+                    )->label(m::t('labels','Day')) ;
       }else{
           echo $form->field($model, 'nombredia')->textInput(['disabled'=>true]);
       }

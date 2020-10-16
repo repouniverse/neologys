@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\inter\models\InterProgramaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ECHO \common\widgets\spinnerWidget\spinnerWidget::widget();
-$this->title = m::t('labels', 'Inter Programas');
+$this->title = m::t('labels', 'Inter Programs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inter-programa-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(m::t('labels', 'Create Inter Programa'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(m::t('labels', 'Create Inter Program'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div style='overflow:auto;'>
     <?= GridView::widget([
@@ -36,20 +36,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
-                            'title' => m::t('base.verbs', 'Update'), 'data-pjax'=>'0'                                
+                            'title' => m::t('verbs', 'Update'), 'data-pjax'=>'0'                                
                         ];
                         return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
-                            'title' => m::t('base.verbs', 'View'), 'data-pjax'=>'0'                           
+                            'title' => m::t('verbs', 'View'), 'data-pjax'=>'0'                           
                         ];
                         return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
                          },
                          'delete' => function($url, $model) {                        
                         $options = [
-                            'data-confirm' => m::t('labels', 'Are you sure you want to activate this user?'),
-                            'title' => m::t('base.verbs', 'Delete'),                            
+                            'data-confirm' => m::t('validaciones', 'Are you sure you want to activate this user?'),
+                            'title' => m::t('verbs', 'Delete'),                            
                         ];
                         return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-remove"></span>', $url, $options/*$options*/);
                          }

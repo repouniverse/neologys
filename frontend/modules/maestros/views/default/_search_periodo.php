@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sta\models\PeriodosSearch */
 /* @var $form yii\widgets\ActiveForm */
@@ -25,8 +25,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'activa') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('base.labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('base.labels', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(m::t('verbs', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

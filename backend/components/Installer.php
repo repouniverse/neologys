@@ -50,26 +50,26 @@ class Installer
      public static function getRutas() {
          return [
              'RBAC'=>[
-        '/admin/permission/index'=>Yii::t('base.labels', 'Permisos'),
+        '/admin/permission/index'=>Yii::t('base.labels', 'Permission'),
        // '/admin/permission/create'=>Yii::t('base.actions', 'Crear Permiso'),
          '/admin/role/index'=>Yii::t('base.labels', 'Roles'),
-        '/admin'=>Yii::t('base.verbs', 'Asignaciones'),
+        '/admin'=>Yii::t('base.labels', 'Assignments'),
                  
-         '/admin/rule/index'=>Yii::t('base.labels', 'Reglas'),
+         '/admin/rule/index'=>Yii::t('base.labels', 'Rules'),
        // '/admin/rule/create'=>Yii::t('base.actions', 'Crear Regla'),
            ],
              'User'=>[
                         //'/admin/user/logout'=>Yii::t('base.actions', 'Salir'),
-                        '/admin/user/signup'=>Yii::t('base.verbs', 'Registrarse'),
+                        '/admin/user/signup'=>Yii::t('base.labels', 'Check in'),
                         //'/admin/user/request-password-reset'=>Yii::t('base.actions', 'Solicitar'),
                         //'/admin/user/reset-password'=>Yii::t('base.actions', 'Reset Pwd'),
-                        '/admin/user/change-password'=>Yii::t('base.verbs', 'Cambiar Pass'),
+                        '/admin/user/change-password'=>Yii::t('base.labels', 'Change Pass'),
                   ],
              
              'Menu'=>[
                         //'/admin/menu/create'=>Yii::t('base.actions', 'Crear Menu'),
                         '/admin/menu/index'=>Yii::t('base.labels', 'Menu'),
-                        '/admin/route/index'=>Yii::t('base.labels', 'Rutas'),
+                        '/admin/route/index'=>Yii::t('base.labels', 'Routes'),
                        // '/admin/route/create'=>Yii::t('base.actions', 'Crear Ruta'),
                        
                   ],
@@ -94,12 +94,12 @@ class Installer
              ],
              
              'Herramientas'=>[
-                        '/import/importacion'=>Yii::t('base.labels', 'Importación'),
+                        '/import/importacion'=>Yii::t('base.labels', 'Import'),
                          //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
                          ],
              
               'Internacional'=>[
-                        '/inter/programa'=>Yii::t('base.labels', 'Programas'),
+                        '/inter/programa'=>Yii::t('base.labels', 'Programs'),
                          //'/maestros/default/index-departamentos'=>Yii::t('base.labels', 'Departaments'),
                          ],
              

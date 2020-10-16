@@ -4,13 +4,7 @@ use common\helpers\h;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-USE yii\grid\GridView;
-
-
-
-
-
-
+use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper;
 use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
@@ -49,7 +43,7 @@ USE common\widgets\buttonajaxwidget\buttonAjaxWidget;
 </div>
     
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">>
-            <?=$form->field($modelEv, 'carrera_id')->label(m::t('labels','Carrera'))->textInput(['value'=>$modelEv->carrera->nombre,'maxlength' => true,'disabled'=>true]) ?>
+            <?=$form->field($modelEv, 'carrera_id')->label(m::t('labels','Race'))->textInput(['value'=>$modelEv->carrera->nombre,'maxlength' => true,'disabled'=>true]) ?>
             
         </div>  
      

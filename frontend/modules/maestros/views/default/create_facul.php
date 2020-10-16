@@ -1,12 +1,12 @@
 <?php
 //use backend\modules\base\Module as m;
 use yii\helpers\Html;
-
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 
-$this->title = yii::t('base.verbs', 'Create');
-$this->params['breadcrumbs'][] = ['label' => yii::t('base.labels', 'Field Settings'), 'url' => ['index-facul']];
+$this->title = m::t('verbs', 'Create');
+$this->params['breadcrumbs'][] = ['label' => m::t('labels', 'Field Settings'), 'url' => ['index-facul']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="combovalores-create">
