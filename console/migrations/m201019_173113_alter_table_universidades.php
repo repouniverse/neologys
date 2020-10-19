@@ -10,7 +10,7 @@ class m201019_173113_alter_table_universidades extends baseMigration
         if(!$this->existsColumn($table,'web'))
            $this->alterColumn ($table, 'web', $this->string(20)->append($this->collateColumn())); 
      
-        
+         
     }
 
     /**
