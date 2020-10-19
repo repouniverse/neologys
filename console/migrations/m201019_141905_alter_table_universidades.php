@@ -6,7 +6,7 @@ class m201019_141905_alter_table_universidades extends baseMigration
     
     public function safeUp()
     {
-        $table=static::NAME_TABLE;
+        $table=static::NAME_TABLE; 
         if(!$this->existsColumn($table,'web'))
            $this->addColumn($table, 'web', $this->string(100)->append($this->collateColumn())); 
      

@@ -28,7 +28,7 @@ class ActiveQueryScopeUniv extends \yii\db\ActiveQuery
    public function complete(){
        return  $this->orWhere(['in',
               'codfac', Universidades::find()->select('id')->asArray()->all()
-               ]);
+               ]); 
    }
     
     
