@@ -1,16 +1,21 @@
 <?php
-use console\migrations\baseMigration;
-class m201019_173113_alter_table_universidades extends baseMigration
+
+use yii\db\Migration;
+
+/**
+ * Class m201019_173113_alter_table_universidades
+ */
+class m201019_173113_alter_table_universidades extends Migration
 {
     const NAME_TABLE='{{%universidades}}';
     
     public function safeUp()
     {
         $table=static::NAME_TABLE; 
-        if(!$this->existsColumn($table,'web'))
-           $this->alterColumn ($table, 'web', $this->string(20)->append($this->collateColumn())); 
+        if(!$this->existsColumn($table,'codfac'))
+           $this->alterColumn ($table, 'codfac', $this->string(20)->append($this->collateColumn())); 
      
-         
+        
     }
 
     /**
@@ -19,8 +24,8 @@ class m201019_173113_alter_table_universidades extends baseMigration
     public function safeDown()
     {
         $table=static::NAME_TABLE;
-        if($this->existsColumn($table,'web'))
-          $this->alterColumn ($table, 'web', $this->string(20)->append($this->collateColumn())); 
+        if($this->existsColumn($table,'codfac'))
+          $this->alterColumn ($table, 'codfac', $this->string(20)->append($this->collateColumn())); 
      
      
     }
