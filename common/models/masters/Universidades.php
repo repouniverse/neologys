@@ -73,7 +73,7 @@ class Universidades extends \common\models\base\modelBase
             'nombre' => Yii::t('base_labels', 'Name'),
             'acronimo' => Yii::t('base_labels', 'Acronym'),
             'estado' => Yii::t('base_labels', 'Status'),
-            'detalle' => Yii::t('base_labels', 'Detail'),
+            'detalle' => Yii::t('base_labels', 'Detail'), 
         ];
     }
 
