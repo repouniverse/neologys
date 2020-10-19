@@ -52,7 +52,7 @@ class Universidades extends \common\models\base\modelBase
     {
         return [
             [['nombre', 'acronimo','codpais'], 'required'],
-            [['latitud', 'meridiano'], 'safe'],
+            [['latitud', 'meridiano','web'], 'safe'], 
             //[['latitud', 'meridiano'], 'decimal'],
             [['detalle'], 'string'],
             [['codpais'], 'string', 'max' => 3],

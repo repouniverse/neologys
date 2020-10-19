@@ -108,6 +108,81 @@ return [
     
     
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'rbac-admin' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@mdm/admin/messages',
+                    'sourceLanguage' => 'en',
+                ],
+                'base_labels' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base_names' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base_verbs' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.labels' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.errors' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base_errors' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'julian' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.names' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.paises' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.success' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.verbs' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'base.warnings' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'import.messages' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/modules/import/messages',
+                ],
+                'sta.labels' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'report.messages' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@root/messages',
+                ],
+                'yii2mod.settings' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/settings/messages',
+                ],
+            ],
+        ],
+        
+        
         
     ],
     'params' => $params,

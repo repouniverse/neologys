@@ -39,7 +39,7 @@ class m200819_050704_create_table_docentes extends baseMigration
             $this->createIndex(uniqid('k_ap'), static::NAME_TABLE, 'ap');
             $this->createIndex(uniqid('k_am'), static::NAME_TABLE, 'am');
             $this->createIndex(uniqid('k_nombres'), static::NAME_TABLE, 'nombres');
-            $this->addForeignKey($this->generateNameFk($table), $table,'facultad_id', static::NAME_TABLE_FACULTADES,'id');
+           // $this->addForeignKey($this->generateNameFk($table), $table,'facultad_id', static::NAME_TABLE_FACULTADES,'id');
             $this->addForeignKey($this->generateNameFk($table), $table,'universidad_id', static::NAME_TABLE_UNIVERSIDADES,'id');                
             $this->addForeignKey($this->generateNameFk($table), $table,'codigoper', static::NAME_TABLE_PERSONAS,'codigoper');
 
