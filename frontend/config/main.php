@@ -55,6 +55,7 @@ return [
             'name' => 'advanced-frontend',
         ],
         'log' => [
+             'flushInterval' => 100, 
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [

@@ -11,6 +11,7 @@ return [
         'log' => [
             'targets' => [
                     [
+                     'flushInterval' => 100,
                     'class' => 'yii\log\DbTarget',
                     'levels' => ['error'/* , 'warning','info','debug' */],
                 ],
