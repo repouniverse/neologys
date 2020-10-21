@@ -619,7 +619,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
      private function isReadyToLoad($verdadero){ 
          
          $estado=$this->activo;
-         var_dump($estado,$this->activo);die();
+         //var_dump($estado,$this->activo);die();
          $isReady=(
             (!$verdadero && ($estado==self::STATUS_ABIERTO)) or 
               !$verdadero && ($estado==self::STATUS_PROBADO) or   
