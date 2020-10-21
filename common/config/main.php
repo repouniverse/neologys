@@ -9,9 +9,10 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'log' => [
+            'flushInterval' => 100,
             'targets' => [
                     [
-                     'flushInterval' => 100,
+                     
                     'class' => 'yii\log\DbTarget',
                     'levels' => ['error'/* , 'warning','info','debug' */],
                 ],
