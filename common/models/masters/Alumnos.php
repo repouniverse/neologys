@@ -93,7 +93,7 @@ implements \common\interfaces\postulantesInterface
             [['codalu', 'codalu1', 'codalu2'], 'string', 'max' => 16],
             [[ 'codesp'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
-            [['codpering', 'codfac'], 'string', 'max' => 10],
+            [['codpering', 'codfac'], 'string', 'max' => 20],
              [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
              [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
             
