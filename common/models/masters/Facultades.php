@@ -44,7 +44,7 @@ class Facultades extends \common\models\base\modelBase
         return [
             [['universidad_id'], 'integer'],
             [['desfac'], 'required'],
-            [['codfac'], 'string', 'max' => 18],
+            [['codfac'], 'string', 'max' => 20],
             [['desfac'], 'string', 'max' => 60],
             [['code1', 'code2'], 'string', 'max' => 2],
             [['code3'], 'string', 'max' => 3],
