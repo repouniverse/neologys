@@ -1,11 +1,10 @@
 <?php
-
 use console\migrations\baseMigration;
 
 /**
- * Class m201019_173113_alter_table_universidades
+ * Class m201021_124641_alter_table_facultades
  */
-class m201019_173113_alter_table_universidades extends baseMigration
+class m201021_124641_alter_table_facultades extends baseMigration
 {
     const NAME_TABLE='{{%facultades}}';
     
@@ -13,7 +12,7 @@ class m201019_173113_alter_table_universidades extends baseMigration
     {
         $table=static::NAME_TABLE; 
         if($this->existsColumn($table,'codfac'))
-           $this->alterColumn ($table, 'codfac', $this->string(20)->append($this->collateColumn())); 
+           $this->alterColumn ($table, 'codfac', 'varchar(20)'); 
      
         
     }
@@ -25,7 +24,7 @@ class m201019_173113_alter_table_universidades extends baseMigration
     {
         $table=static::NAME_TABLE;
         if($this->existsColumn($table,'codfac'))
-          $this->alterColumn ($table, 'codfac', $this->string(20)->append($this->collateColumn())); 
+          $this->alterColumn ($table, 'codfac', 'varchar(20)'); 
      
      
     }
