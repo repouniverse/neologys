@@ -1,11 +1,11 @@
 <?php
 
-use yii\db\Migration;
+use console\migrations\baseMigration;
 
 /**
  * Class m201021_203346_alter_table_alumnos
  */
-class m201021_203346_alter_table_alumnos extends Migration
+class m201021_203346_alter_table_alumnos extends baseMigration
 {
     const NAME_TABLE='{{%alumnos}}';
     public function safeUp()
