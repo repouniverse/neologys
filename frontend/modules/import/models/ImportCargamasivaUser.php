@@ -422,6 +422,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
      public function importar($verdadero=false){
           $timeBegin=microtime(true);   
           set_time_limit(300);
+          ini_set('memory_limit', '-1');
         $interrumpido=false;     
         // $this->flushLogCarga();
         IF(!$verdadero)
