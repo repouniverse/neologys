@@ -40,7 +40,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
    CONST SCE_ALUMNOS='alumnos';
    CONST SCE_CREACION_MINIMA='minima';
    CONST SCE_CREACION_EXTRANJERO='extranjero';
-   
+   CONST SCE_UPDATE_MATRICULA='UPDATE_MATRICULA';
    public $cumple1;
     public $dateorTimeFields = [
         'cumple' => self::_FDATE,
@@ -89,6 +89,9 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             [['ap',  'nombres','tipodoc','numerodoc','codgrupo'], 'required'],
             [['identidad_id','codgrupo','provnac','distnac'], 'safe'],
             [['cumple'], 'validateFechas'],
+            
+            [['id','sexo', 'cumple','estcivil', 'pais', 'domicilio','telmoviles','telfijo'],'safe','on'=>self::SCE_UPDATE_MATRICULA],
+            
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
             [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'sexo','estcivil'], 'safe'],
@@ -169,6 +172,13 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
 
     public function scenarios() {
         $scenarios = parent::scenarios();
+        
+         $scenarios[self::SCE_UPDATE_MATRICULA] = [
+            'id',
+            'sexo', 'cumple',
+            'estcivil', 'pais', 'domicilio','telmoviles','telfijo'
+            ];
+         
         $scenarios[self::SCE_CREACION_BASICA] = [
             'ap', 'am',
             'nombres', 'tipodoc', 'numerodoc','identidad_id','codgrupo'
