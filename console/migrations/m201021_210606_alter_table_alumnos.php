@@ -7,8 +7,19 @@ class m201021_210606_alter_table_alumnos extends baseMigration
     public function safeUp()
     {
         $table=static::NAME_TABLE; 
-        if($this->existsColumn($table,'codfac'))
-           $this->alterColumn ($table, 'codfac', 'varchar(20)'); 
+        if($this->existsColumn($table,'facudest_id')){
+            $this->dropColumn ($table, 'facudest_id');
+             $this->addColumn ($table, 'facudest_id',$this->integer(11));
+        }
+         if($this->existsColumn($table,'carreradest_id')){
+            $this->dropColumn ($table, 'carreradest_id');
+             $this->addColumn ($table, 'carreradest_id',$this->integer(11));
+        }
+         if($this->existsColumn($table,'unidest_id')){
+            $this->dropColumn ($table, 'unidest_id');
+             $this->addColumn ($table, 'unidest_id',$this->integer(11));
+        }
+           
      
         
     }
@@ -18,10 +29,7 @@ class m201021_210606_alter_table_alumnos extends baseMigration
      */
     public function safeDown()
     {
-        $table=static::NAME_TABLE;
-        if($this->existsColumn($table,'codfac'))
-          $this->alterColumn ($table, 'codalu', 'varchar(20)'); 
-     
+        return true;
      
     }
 

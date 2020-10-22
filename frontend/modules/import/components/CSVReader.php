@@ -94,8 +94,8 @@ class CSVReader  extends MyReader{
                   // yii::error('incinaod bucle');             
             while (($line =$this->ReadLineCsv($fp) ) !== FALSE) {  
                 //yii::error($line);  
-                 yii::error('esta es contador -> '.$contador,__METHOD__);  
-                 yii::error('esta es la start -> '.$this->startFromLine,__METHOD__);  
+                 yii::error('esta es contador -> '.$contador/*,__METHOD__*/);  
+                 //yii::error('esta es la start -> '.$this->startFromLine,__METHOD__);  
                   if($contador==$this->startFromLine){
                      // yii::error('coincidio');
                     break;  
@@ -104,8 +104,8 @@ class CSVReader  extends MyReader{
                 }
         }
          //yii::error('esto retorna');  
-   yii::error('Esta es el primer registroa verificar',__METHOD__);
-   yii::error($line,__METHOD__);        
+   //yii::error('Esta es el primer registroa verificar',__METHOD__);
+  // yii::error($line,__METHOD__);        
       return $line;       
    } 
    

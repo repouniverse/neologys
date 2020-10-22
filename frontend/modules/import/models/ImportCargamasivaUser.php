@@ -318,7 +318,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
      $attributes=[
          'cargamasiva_id'=>$this->id,
          'nombrecampo'=> $campo,
-         'mensaje'=>substr($mensaje,0,180),
+         'mensaje'=>substr($mensaje,100,180),
          'level'=>$level,
          'fecha'=>date('Y-m-d H:i:s'),
          'user_id'=>h::userId(),
@@ -422,7 +422,7 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
      public function importar($verdadero=false){
           $timeBegin=microtime(true);   
           set_time_limit(300);
-          ini_set('memory_limit', '-1');
+          //ini_set('memory_limit', '-1');
         $interrumpido=false;     
         // $this->flushLogCarga();
         IF(!$verdadero)
@@ -452,15 +452,16 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
                     //yii::error('Iniciando Buclede datos leidos del CSV desde la linea  Linea => '.$linea,__METHOD__);  
                      yii::error('Iniciando Buclede datos leidos del CSV ',__METHOD__);   
                 foreach ($datos as $fila){ 
-                    yii::error('Esta es la fila a importar ');
-                    yii::error($fila,__METHOD__);
+                    //yii::error('Esta es la fila a importar ');
+                    //yii::error($fila,__METHOD__);
                      //Devuelve el modelo asociado a la importacion
                      //dependiendo si es insercion o actualizacion usa una u otra funcion
                     //yii::error('Esta es la linea => '.$linea,__METHOD__);   
-                     //yii::error($fila,__METHOD__);   
+                     //yii::error($fila,__METHOD__); 
+                     //  
                    // yii::error($fila,__METHOD__);  
                     $model=($cargamasiva->insercion)?$cargamasiva->modelAsocc():$cargamasiva->findModelAsocc($fila);
-                     yii::error('Colocando atributos => '.$linea,__METHOD__); 
+                     yii::error('Linea procesada => '.$linea,__METHOD__); 
                      $model->setAttributes($cargamasiva->AttributesForModel($fila,$filashijas));
                         if($verdadero){
                             try{ 
