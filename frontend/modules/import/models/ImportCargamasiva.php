@@ -308,7 +308,7 @@ public function isDateorTime($tipo,$nombrecampo,$longitud){
      return (((substr(strtoupper($tipo),0,4)=='CHAR')or
                   (substr(strtoupper($tipo),0,5)=='VARCHAR')
                    )&& (in_array($longitud,[10,19])) && 
-                    (in_array($nombrecampo,$this->modelAsocc()->dateTimeFields)));
+                    (in_array($nombrecampo,$this->modelAsocc()->dateorTimeFields)));
  }
  
  
