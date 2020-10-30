@@ -47,7 +47,6 @@ public $status;
         if (!$this->validate()) {
             return null;
         }
-        
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -55,7 +54,6 @@ public $status;
         $user->generateAuthKey();
        // $user->generateEmailVerificationToken();
         return $user->save() && $this->sendEmail($user);
-
     }
 
     /**

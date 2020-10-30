@@ -3,6 +3,7 @@
 namespace common\models\masters;
 use yii\data\ActiveDataProvider;
 USE common\models\User;
+use common\helpers\h;
 use Yii;
 
 /**
@@ -36,7 +37,7 @@ class UsersUniversities extends \common\models\base\modelBase
         return [
             [['universidad_id', 'user_id', 'activo'], 'required'],
             [['universidad_id', 'user_id'], 'integer'],
-           // [['activo'], 'string', 'max' => 1],
+            [['activo'], 'safe'],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -149,12 +150,27 @@ class UsersUniversities extends \common\models\base\modelBase
    public static function filterUniversidades($iduser=null){
       return static::find()->
                select('universidad_id')->
-               andWhere(['user_id'=>is_null($iduser)?h::userId():$iduser,'activa'=>'1'])->column();
+               andWhere(['user_id'=>is_null($iduser)?h::userId():$iduser,'activo'=>'1'])->column();
    }     
         
     public static function revokeAccess($iduser=null){
         return static::updateAll(['activo'=>'0'],['user_id'=>is_null($iduser)?h::userId():$iduser]);
     }
     
+    public static function habilitaUniversity($iduser,$universidad_id){
+        yii::error('invocando');
+        static::firstOrCreateStatic([
+                    'user_id'=>$iduser,
+                     'universidad_id'=>$universidad_id,
+                     'activo'=>true,
+                    ],null,[
+                    'user_id'=>$iduser,
+                     'universidad_id'=>$universidad_id,
+                     //'activo'=>'1',
+                    ]);
+        $registros=static::updateAll(['activo'=>'1'], ['user_id'=>$iduser,'universidad_id'=>$universidad_id]);
+       // var_dump($registros);
+        return true;
+    }
     
 }

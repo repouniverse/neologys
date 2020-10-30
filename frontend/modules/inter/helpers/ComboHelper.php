@@ -38,6 +38,7 @@ class ComboHelper  extends combo{
     
     public static function getCboEtapas($modo_id=null){
       if(is_null($modo_id)){
+          
         $query= \frontend\modules\inter\models\InterEtapas::find();
        
       }else{
@@ -64,7 +65,7 @@ class ComboHelper  extends combo{
       
         return ArrayHelper::map(
                        $query->all(),
-                'id','descripcion');
+                'orden','descripcion');
     }  
     
     public static function getCboStatusConvocado(){

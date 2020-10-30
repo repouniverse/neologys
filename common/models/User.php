@@ -219,7 +219,7 @@ public function scenarios()
     
      public function getProfile($id=null){
       // var_dump($this->id);
-       Profile::firstOrCreateStatic(['user_id'=>(!is_null($id))?$id:$this->id]);
+       //Profile::firstOrCreateStatic(['user_id'=>(!is_null($id))?$id:$this->id]);
        return Profile::find()->where(['user_id'=>(!is_null($id))?$id:$this->id])->one();
        
    }
@@ -263,4 +263,13 @@ public static function dataComboStatus(){
       $this->status=($this->status=='1')?'10':'20';
   }
    */
+public function afterSave($insert, $changedAttributes) {
+    parent::afterSave($insert, $changedAttributes);
+    \common\models\Profile::firstOrCreateStatic(
+            ['user_id'=>$this->id],
+            null,
+           ['user_id'=>$this->id]
+            );
+}
+
 }

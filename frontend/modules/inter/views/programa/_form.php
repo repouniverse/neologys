@@ -45,7 +45,7 @@ use common\widgets\selectwidget\selectWidget;
     <?= ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> ComboHelper::getCboUniversidades(),
+               'data'=> ComboHelper::getcboUniversidadesFiltradas(),
                'campo'=>'universidad_id',
                'idcombodep'=>'interprograma-facultad_id',               
                    'source'=>[\common\models\masters\Facultades::className()=>

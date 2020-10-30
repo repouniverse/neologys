@@ -7,7 +7,7 @@ namespace frontend\modules\inter\models;
  *
  * @see InterVwConvocadosDocentes
  */
-class InterVwConvocadosDocentesQuery extends \yii\db\ActiveQuery
+class InterVwConvocadosDocentesQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

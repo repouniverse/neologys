@@ -44,9 +44,9 @@ class ConvocadosController extends baseController
      */
     public function actionIndex()
     {
-        $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne(1);
+        $modelPrograma= m::currentPrograma(true);
         if(is_null($modelPrograma))
-            throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('base_labels', 'There is not current program'));
   
         $searchModel = new \frontend\modules\inter\models\VwInterConvocadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -764,7 +764,7 @@ class ConvocadosController extends baseController
   }
   
   public function actionIndexConvoDocentes(){
-      $modelPrograma= \frontend\modules\inter\models\InterPrograma::findOne(1);
+      $modelPrograma= m::currentPrograma(false);
         if(is_null($modelPrograma))
             throw new NotFoundHttpException(m::t('validaciones', 'The requested page does not exist.'));
   

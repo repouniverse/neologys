@@ -656,6 +656,8 @@ class modelBase extends \yii\db\ActiveRecord
                 $insert=$this->isNewRecord;
          $this->prepareTimeFields(false);//Convierte los campos fechas y tiempo almacenables en BD
        $this->convertBooleanFields(false);
+       
+       
          // $this->setPrimaryKey($this->prefijo);
          return  parent::beforeSave( $insert);
         }
@@ -839,7 +841,7 @@ class modelBase extends \yii\db\ActiveRecord
                     //$model->oldAttributes=[];
                    // echo $model->getScenario();die();
                        $model->attributes=$attributes;
-                       //print_r($model->attributes);die();
+                      // print_r($model->attributes);die();
                        
                  IF(!$model->save()){
                      //echo "fallo";die();
@@ -859,7 +861,7 @@ class modelBase extends \yii\db\ActiveRecord
              } 
                 
             } else{
-               yii::error('ya  existe');
+               yii::error('ya  existe '.self::getShortNameClass());
                 return false;
             }
             
@@ -900,7 +902,7 @@ class modelBase extends \yii\db\ActiveRecord
              } 
                 
             } else{
-               yii::error('ya  existe');
+                yii::error('ya  existe '.self::getShortNameClass());
                 return false;
             }
         }
@@ -1184,6 +1186,9 @@ class modelBase extends \yii\db\ActiveRecord
    * ='1' en lugar de booleanos 
    */
     private function convertBooleanFields($out=true){//
+       /* if(self::getShortNameClass()=='UsersUniversities'){
+            var_dump($out,$this->attributes);
+       }*/
         if($out){
            foreach ($this->booleanFields as $key=>$nameField){
                //var_dump($this->{$nameField});
@@ -1191,11 +1196,13 @@ class modelBase extends \yii\db\ActiveRecord
             }  
         }else{
             foreach ($this->booleanFields as $key=>$nameField){
-               // if(gettype($this->{$nameField}))
-                
+               // if(gettype($this->{$nameField}))                
             $this->{$nameField}=($this->{$nameField})?'1':'0';
             }  
         }
+      /* if(self::getShortNameClass()=='UsersUniversities'){
+            var_dump($this->attributes);die();
+       }*/
        
     }
     

@@ -311,6 +311,45 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    //$model= NEW \common\models\masters\UsersUniversities();
+    //$model->setAttributes(['universidad_id'=>7,'user_id'=>56,'activo'=>true]);
+    \common\models\masters\UsersUniversities::firstOrCreateStatic(
+            ['universidad_id'=>7,'user_id'=>56,'activo'=>true],
+            null,
+            ['universidad_id'=>7,'user_id'=>56]);
+    //$model->save();
+    DIE();
+    
+    \frontend\modules\inter\models\InterPrograma::createMagicPrograma(
+            4,
+            10,
+            '2020II',
+            '118');
+    die();
+    
+    
+    
+    
+    echo Url::toRoute(['e']); die();
+     echo " Url::home()  :   ".Url::home()."<br>";
+   echo " Url::home('https')  :   ".Url::home('https')."<br>";
+   echo " Url::base()  :   ".Url::base()."<br>";
+   echo " Url::to(['controlador/accion','param2'=>'uno','param2'=>'dos'],true)  :   ".Url::to(['controlador/accion','param1'=>'uno','param2'=>'dos'],true)."<br>";
+   echo " Url::base(true)  :   ".Url::base(true)."<br>";
+   echo " Url::base('https')  :   ".Url::base('https')."<br>";
+   echo " Url::canonical()  :   ".Url::canonical()."<br>";
+   echo " Url::current()  :   ".Url::current()."<br>";
+   echo " Url::previous()  :   ".Url::previous()."<br>";
+   echo " UrlManager::getBaseUrl()  :   ".yii::$app->urlManager->getBaseUrl()."<br>";
+   echo " UrlManager::getHostInfo()  :   ".yii::$app->urlManager->getHostInfo()."<br>";
+   echo " UrlManager::getScriptUrl()  :   ".yii::$app->urlManager->getScriptUrl()."<br>";
+  
+    die();
+    
+    
+    echo \yii\helpers\Url::home().'<br>'; 
+    echo \yii\helpers\Url::toRoute([\yii\helpers\Url::home()]).'<br>';
+   die();
     $modeloConvocado= \common\models\masters\Convocados::findOne(1300);
     //$modelo->convocaPersona($modeloAlumno);
     var_dump($modeloConvocado->postulante->persona->profile->user->username);
@@ -566,9 +605,10 @@ die();
     } 
     
       public function actionViewUsers(){
+          yii::error('view users');
          $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+       yii::error('retornando el rendet',__FUNCTION__);
         return $this->render('users_edit', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
@@ -585,8 +625,8 @@ die();
          
         $profile =$newIdentity->getProfile($iduser);
         
-        if($profile->multiple_universidad)
-            \common\models\masters\UsersUniversities::refreshTableByUser($iduser);
+       // if($profile->multiple_universidad)
+            //\common\models\masters\UsersUniversities::refreshTableByUser($iduser);
         
         
         $profile->setScenario($profile::SCENARIO_INTERLOCUTOR);
@@ -595,24 +635,33 @@ die();
               //var_dump($arrpost);die();
             $profile->persona_id=$arrpost[$profile->getShortNameClass()]['persona_id'];
               $profile->universidad_id=$arrpost[$profile->getShortNameClass()]['universidad_id'];
-            //$profile->codtra=$arrpost[$profile->getShortNameClass()]['codtra'];
+             $profile->idioma=$arrpost[$profile->getShortNameClass()]['idioma'];
+           
+//$profile->codtra=$arrpost[$profile->getShortNameClass()]['codtra'];
             //var_dump(get_class($profile),$profile->validate());die();
             if (h::request()->isAjax) {
                 h::response()->format = \yii\web\Response::FORMAT_JSON;
                 return \yii\widgets\ActiveForm::validate($profile);
              }
            if ($profile->save()) {
+               yii::error('el save');
              $user= \common\models\User::findOne($profile->user_id);
              $user->status=$arrpost['User']['status'];
+               yii::error('el save de user');
              $user->save();
-             if($profile->multiple_universidad){
+             $this->updateUserUniversidades($arrpost[UsersUniversities::getShortNameClass()]);
+         
+            /* if($profile->multiple_universidad){
                 $this->updateUserUniversidades($arrpost[UsersUniversities::getShortNameClass()]);
-             
+              yii::error('update universidades');
              }else{
+                 yii::error('revoke  universidades');
                  UsersUniversities::revokeAccess($profile->user_id);
-             }
+             }*/
+             yii::error('colcoando el flash');
              yii::$app->session->setFlash('success',yii::t('base_labels','Se grabaron los datos '));
-            return $this->redirect(['view-users']);
+           yii::error('redireccionando');
+             return $this->redirect(['view-users']);
            }else{
               //var_dump($profile->getErrors());die(); 
            }
@@ -664,11 +713,11 @@ die();
    if(!is_null(($persona=h::user()->profile->persona))){
      //if(is_null(($alumno=$persona->alumno))){
          if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
-             if(!is_null($identidad=$persona->identidad)){
+       if(!is_null($identidad=$persona->identidad)){
                 // echo $grupo->layout; die();
              return $this->render($grupo->layout,['identidad'=>$identidad]);
          }else{
-            echo " NO tiene el perfill alumno" ; die();
+            return $this->render('index');
          }
          
      }else{
@@ -717,5 +766,49 @@ die();
             return ['success'=>yii::t('base_errors','The initial page was changed')]; 
         }
       }
-  }   
+  } 
+
+ public function actionAgregaUniversidad($id){
+     $this->layout = "install";
+        $modelUser =h::user()->identity->findOne($id);
+        $model=New \common\models\masters\UsersUniversities();
+        $datos=[];
+        
+        if(is_null(  $model)){
+            //Si es error buttonSubmitWidget::OP_TERCERA
+            //lanza un NOTY msg de error
+            return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_TERCERA,'msg'=>$datos];
+        }
+        $model->setAttributes([
+            'user_id'=>$modelUser->id,
+            'activo'=>true,
+                         ]);
+         if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_agrega_universidad', [
+                        'model' => $model,
+                        'id'=>$modelUser->id,
+                        //'eval_id'=> $modelEval->id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  } 
+
+  
 }

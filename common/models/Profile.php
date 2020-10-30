@@ -73,7 +73,8 @@ class Profile extends \common\models\base\modelBase implements \common\interface
     {
         return [
             [['user_id'], 'integer'],
-            [['url','persona_id','universidad_id','multiple_universidad'], 'safe'],
+             //[['idioma'], 'required'],
+            [['url','persona_id','universidad_id','multiple_universidad','idioma'], 'safe'],
 
             // ['codtra', 'unique', 'targetAttribute' => ['user_id','codtra']],
             [['user_id','codtra'], 'unique', 'targetAttribute' =>'codtra' ],
@@ -82,7 +83,7 @@ class Profile extends \common\models\base\modelBase implements \common\interface
             [['names'], 'string', 'max' => 60],
              
              [['names','duration','durationabsolute','url','codtra','recexternos'], 'safe'],
-            [['persona_id','universidad_id'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
+            [['universidad_id'],'required','on'=>self::SCENARIO_INTERLOCUTOR],
             //[['persona_id'],'safe','on'=>self::SCENARIO_INTERLOCUTOR],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -280,13 +281,35 @@ class Profile extends \common\models\base\modelBase implements \common\interface
       return $this->save();
      }
     
- public function beforeSave($insert) {
+/* public function beforeSave($insert) {
      if($insert){
         //$this->resolveUniversity(); 
         $this->resolveMultiple(); 
      }
      return parent::beforeSave($insert);
+ }*/
+ 
+ /*
+  * Se asegura que la univesidad autorizada
+  * sea la misma que la que se esta colocando en el
+  * profile por default, esot para etar estrar creandi 
+  * registros vacios e la tabla 
+  * UsersUniversities
+  */
+ public function afterSave($insert,$changedAttributes) {
+    parent::afterSave($insert,$changedAttributes); 
+     
+     if(!empty($this->universidad_id) )
+     \common\models\masters\UsersUniversities::habilitaUniversity(
+             $this->user_id,
+             $this->universidad_id); 
+     //return false;
+       
+     
  }
+ 
+ 
+ 
  /*
   * Esta funcion se ecnarga de resolver 
   * el campo universidad_id QUE ES LA UNIVERSIDAD BASE DE 

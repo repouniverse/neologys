@@ -5,6 +5,7 @@
  */
 namespace common\helpers;
 use yii;
+use common\models\masters\UsersUniversities;
 use yii\helpers\ArrayHelper;
 
 class ComboHelper  {
@@ -1099,4 +1100,18 @@ class ComboHelper  {
                 'id','ap');
     } 
   
+ public static function getcboUniversidadesFiltradas($userid=null)
+  {
+    if(is_null($userid)) {
+       $userid=h::userId(); 
+    }
+    $idsUniv=UsersUniversities::filterUniversidades($userid);
+    $query= \common\models\masters\Universidades::find()
+            ->andWhere(['id'=>$idsUniv]);
+     
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','nombre');
+  }    
+    
 }

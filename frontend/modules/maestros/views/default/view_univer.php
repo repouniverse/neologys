@@ -30,4 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    
+   <?php 
+   echo $this->renderFile(yii::getAlias('@frontend/views/site/mapa_mundi.php'));
+   
+   ?>
+    
 </div></div></div>

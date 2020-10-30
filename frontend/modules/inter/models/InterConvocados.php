@@ -333,6 +333,7 @@ class InterConvocados extends \common\models\base\modelBase
           return $etapa;
       }
     }else{
+        //var_dump(InterEtapas::firstStage($this->modo->id));
        return InterEtapas::firstStage($this->modo->id);  
     }
     

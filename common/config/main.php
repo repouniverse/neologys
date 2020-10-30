@@ -109,7 +109,7 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',
                 ],
-                'base.success' => [
+                'base_success' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@root/messages',
                 ],

@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'coddepa',
             'nombredepa',
             ['attribute'=>'universidad_id',
+                'filter'=> frontend\modules\inter\helpers\ComboHelper::getcboUniversidades(),
                 'value'=>function($model){
                     return $model->universidad->nombre;
                 }

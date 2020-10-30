@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 
-use backend\modules\base\Module as m;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\Combovalores */
 

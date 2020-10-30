@@ -1,10 +1,10 @@
 <?php
 
 namespace frontend\modules\inter\models;
-
+use common\helpers\h;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\modules\inter\models\VwInterConvocados;
+use frontend\modules\inter\models\InterVwConvocados;
 
 /**
  * InterConvocadosSearch represents the model behind the search form of `frontend\modules\inter\models\InterConvocados`.
@@ -86,4 +86,24 @@ class VwInterConvocadosSearch extends InterVwConvocados
 
         return $dataProvider;
     }
+    
+ public static function filtroGet($nombrecampo){
+     //\yii::error($nombrecampo);
+     //\yii::error(h::request()->get(self::getShortNameClass()));
+     $arrayGet=h::request()->get(self::getShortNameClass());
+     if(!is_null($arrayGet)){
+        $filtro=h::request()->get(self::getShortNameClass())[$nombrecampo];
+           if(is_null($filtro) or $filtro=='')
+           {
+              return null;
+           }else{
+               return $filtro;  
+           } 
+     }else{
+         return null;
+     }
+     
+ }
+    
+    
 }

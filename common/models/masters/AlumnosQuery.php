@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see Alumnos
  */
-class AlumnosQuery extends \yii\db\ActiveQuery
+class AlumnosQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

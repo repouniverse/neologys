@@ -55,7 +55,7 @@ echo TabsX::widget([
         ],
         [
             'label' => yii::t('base_labels','Universities'),
-         'content' => $this->render('_tab_facu',['form'=>$form,'useruniversidades'=>$useruniversidades]),
+         'content' => $this->render('_tab_facu',['form'=>$form,'useruniversidades'=>$useruniversidades,'model'=>$model]),
             'headerOptions' => ['style'=>'font-weight:bold'],
             'options' => ['id' => 'myveryownID1'],
             'active' => false

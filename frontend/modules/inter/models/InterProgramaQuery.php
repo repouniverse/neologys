@@ -7,7 +7,7 @@ namespace frontend\modules\inter\models;
  *
  * @see InterPrograma
  */
-class InterProgramaQuery extends \yii\db\ActiveQuery
+class InterProgramaQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

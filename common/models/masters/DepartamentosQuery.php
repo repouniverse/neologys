@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see Departamentos
  */
-class DepartamentosQuery extends \yii\db\ActiveQuery
+class DepartamentosQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

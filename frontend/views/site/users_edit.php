@@ -31,13 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'email:email',
             //'profile.interlocutor',
-            [
+           /* [
                 'attribute' => 'interlocutor',
                 'value' => function($model) {
                     return $model->profile->interlocutor;
                 },
                 
-            ],
+            ],*/
             [
                 'attribute' => 'status',
                 'value' => function($model) {

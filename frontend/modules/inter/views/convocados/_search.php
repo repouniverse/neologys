@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\modules\inter\helpers\comboHelper;
+use frontend\modules\inter\helpers\ComboHelper;
 use frontend\modules\inter\Module as m;
 USE common\helpers\h;
 
@@ -27,56 +27,31 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
            ?> 
           </div>      
     </div>
-  
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= 
-            $form->field($model, 'codperiodo')->
-                         dropDownList
-                         (
-                         //frontend\modules\inter\helpers\ComboHelper::  
-                         
-                            \frontend\modules\inter\helpers\ComboHelper::getCboPeriodos(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
-                         )
-        ?>
-    </div>
- 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= 
-            $form->field($model, 'modo_id')->
-                         dropDownList
-                         (
-                            comboHelper::getCboModos(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
-                         )
-        ?>
-    </div>
-    
-     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
     <?= ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> common\helpers\ComboHelper::getCboFacultades(),
+               'data'=> common\helpers\ComboHelper::getcboUniversidadesFiltradas(),
+               'campo'=>'universidad_id',
+               'idcombodep'=>'vwinterconvocadossearch-facultad_id',
+               'source'=>[\common\models\masters\Facultades::className()=>
+                                [
+                                  'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'desfac',//columna a mostrar 
+                                        'campofiltro'=>'universidad_id'  
+                                ]
+                                ],
+                            ]
+        )  ?>
+  </div>
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$model,               
+               'form'=>$form,
+               'data'=>  is_null($model::filtroGet('universidad_id'))?[]:ComboHelper::getCboFacultades($model::filtroGet('universidad_id')),
                'campo'=>'facultad_id',
                'idcombodep'=>'vwinterconvocadossearch-carrera_id',
-               /* 'source'=>[ //fuente de donde se sacarn lso datos 
-                    /*Si quiere colocar los datos directamente 
-                     * para llenar el combo aqui , hagalo coloque la matriz de los datos
-                     * aqui:  'id1'=>'valor1', 
-                     *        'id2'=>'valor2,
-                     *         'id3'=>'valor3,
-                     *        ...
-                     * En otro caso 
-                     * de la BD mediante un modelo  
-                     */
-                        /*Docbotellas::className()=>[ //NOmbre del modelo fuente de datos
-                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
-                                        'camporef'=>'descripcion',//columna a mostrar 
-                                        'campofiltro'=>'codenvio'/* //cpolumna 
-                                         * columna que sirve como criterio para filtrar los datos 
-                                         * si no quiere filtrar nada colocwue : false | '' | null
-                                         *
-                        
-                         ]*/
-                   'source'=>[\common\models\masters\Carreras::className()=>
+                'source'=>[\common\models\masters\Carreras::className()=>
                                 [
                                   'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombre',//columna a mostrar 
@@ -84,12 +59,70 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
                                 ]
                                 ],
                             ]
-               
-               
+        )  ?>
+ </div>   
+    
+    
+    
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= 
+            $form->field($model, 'carrera_id')->
+                         dropDownList
+                         (
+                           is_null($model::filtroGet('facultad_id'))?[]:ComboHelper::getCboCarreras($model::filtroGet('facultad_id')), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                         )
+        ?>
+  </div> 
+    
+    
+     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+    <?= ComboDep::widget([
+               'model'=>$model,               
+               'form'=>$form,
+               'data'=> ComboHelper::getCboProgramas(),
+               'campo'=>'programa_id',
+               'idcombodep'=>'vwinterconvocadossearch-modo_id',
+                'source'=>[\frontend\modules\inter\models\InterModos::className()=>
+                                [
+                                        'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'programa_id'  
+                                ]
+                          ],
+                      ])  ?>
+ </div>   
+ 
+   
+    
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+    <?php  echo ComboDep::widget([
+               'model'=>$model,               
+               'form'=>$form,
+               'data'=> is_null($model::filtroGet('programa_id'))?[]:ComboHelper::getCboModos($model::filtroGet('programa_id')),
+               'campo'=>'modo_id',
+               'idcombodep'=>'vwinterconvocadossearch-current_etapa',
+                'source'=>[\frontend\modules\inter\models\InterEtapas::className()=>
+                                [
+                                        'campoclave'=>'orden' , //columna clave del modelo ; se almacena en el value del option del select 
+                                        'camporef'=>'descripcion',//columna a mostrar 
+                                        'campofiltro'=>'modo_id'  
+                                ]
+                                ],
+                            ]
         )  ?>
  </div> 
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= 
+            $form->field($model, 'current_etapa')->
+                         dropDownList
+                         (
+                           is_null($model::filtroGet('modo_id'))?[]: ComboHelper::getCboStages($model::filtroGet('modo_id')), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
+                         )
+        ?>
+</div>
+    
     <?php 
- if(count(h::request()->get()) >0){
+ /*if(count(h::request()->get()) >0){
   if(array_key_exists('VwInterConvocadosSearch', h::request()->get())){
    if(array_key_exists('carrera_id', h::request()->get()['VwInterConvocadosSearch'])){
    $carrera_id=h::request()->get()['VwInterConvocadosSearch']['carrera_id'];
@@ -105,21 +138,13 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
  }else{
   $carrera_id=null;
    $facultad_id=null;     
- }
+ }*/
  ?>
     
     
     
     
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= 
-            $form->field($model, 'carrera_id')->
-                         dropDownList
-                         (
-                            (is_null($carrera_id))?[]:common\helpers\ComboHelper::getCboCarreras($facultad_id), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
-                         )
-        ?>
-    </div>
+  
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= 
             $form->field($model, 'estado')->
@@ -131,15 +156,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     </div>
     
     
-     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= 
-            $form->field($model, 'current_etapa')->
-                         dropDownList
-                         (
-                            comboHelper::getCboStages(1), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
-                         )
-        ?>
-    </div>
+    
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'codigoalumno') ?>
     </div>

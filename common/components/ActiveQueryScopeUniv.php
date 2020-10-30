@@ -16,9 +16,15 @@ class ActiveQueryScopeUniv extends \yii\db\ActiveQuery
     {
       //var_dump(UserFacultades::filterFacultades());die();
        //$this->andWhere([ 'in', 'codfac',['FIM','FIP'] ]);
-      $this->alias('t')->andWhere(['in',
-              't.universidad_id', UsersUniversities::filterUniversidades()
-               ]);
+      $filtros=UsersUniversities::filterUniversidades();
+      //var_dump($filtros);die();
+      if(count($filtros)>0){
+       $this->alias('t')->andWhere(['in',
+              't.universidad_id', $filtros
+               ]);   
+      }
+      
+      
         parent::init();
     }
     // HOLA MODIFICANDO

@@ -55,7 +55,7 @@ implements \common\interfaces\postulantesInterface
     public function rules()
     {
         return [
-            [['codalu', 'ap','nombres','tipodoc','numerodoc'], 'required'],
+            [['codalu', 'ap','nombres','tipodoc','numerodoc','mail','universidad_id', 'facultad_id','carrera_id'], 'required'],
              [['mail','universidad_id', 'facultad_id','carrera_id','hasuser' ], 'safe'],
            
              [['codalu'], 'unique'],
@@ -387,7 +387,8 @@ implements \common\interfaces\postulantesInterface
   
     $external=$this->isExternal();
   
-   if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && $this->esConvocable()){
+   if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && 
+           $this->esConvocable()){
        $model=new \frontend\modules\inter\models\InterConvocados();
           $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
            $model->setAttributes(

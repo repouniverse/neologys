@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see Docentes
  */
-class DocentesQuery extends \yii\db\ActiveQuery
+class DocentesQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

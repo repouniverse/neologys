@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see Tenores
  */
-class TenoresQuery extends \yii\db\ActiveQuery
+class TenoresQuery extends \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

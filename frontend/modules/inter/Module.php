@@ -84,7 +84,9 @@ class Module extends \yii\base\Module
    public static function currentPrograma($isModel=false){
      $periodo= h::periodos()->getCurrentPeriod();
      
-     $model=models\InterPrograma::find()->andWhere(['codperiodo'=>$periodo])->one();
+     $model=models\InterPrograma::find()->andWhere([
+         'universidad_id'=>h::currentUniversity(),
+         'codperiodo'=>$periodo])->one();
   IF(IS_NULL($model))
      throw new BadRequestHttpException(static::t('errors','There is no Current Programa'));
      if($isModel){

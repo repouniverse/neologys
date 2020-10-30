@@ -18,7 +18,7 @@ class DepartamentosSearch extends Departamentos
     {
         return [
             
-            [['coddepa', 'nombredepa'], 'safe'],
+            [['coddepa', 'nombredepa','universidad_id'], 'safe'],
         ];
     }
 
@@ -59,6 +59,7 @@ class DepartamentosSearch extends Departamentos
        
 
         $query->andFilterWhere(['like', 'nombredepa', $this->nombredepa])
+              ->andFilterWhere(['universidad_id'=>$this->universidad_id])
            ;
 
         return $dataProvider;

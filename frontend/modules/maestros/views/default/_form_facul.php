@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = m::t('verbs', 'Update');
             dropDownList(ComboHelper::getCboUniversidades(),
                   ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
-                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                      'disabled'=>'disabled',
                         ]
                     ) ?>
         </div>

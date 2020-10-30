@@ -65,12 +65,19 @@ $this->title = '   '.yii::t('base_labels','User Data');
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                  <?=$form->field($model,'recexternos')->checkBox() ?>
              </diV>
+         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+               <?= $form->field($model, 'idioma')->
+            dropDownList(['es_PE'=>'Español','en_US'=>'Inglés'],
+                  ['prompt'=>'--'.yii::t('base_names','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+         </diV>    
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?= $form->field($model, 'names')->textInput(['autofocus' => true]) ?>
                     </diV>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <?= $form->field($model, 'duration')->textInput(['autofocus' => true]) ?>
-                    </diV>
+           
             
              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?= $form->field($model, 'durationabsolute')->textInput(['autofocus' => true]) ?>

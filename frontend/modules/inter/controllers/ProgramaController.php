@@ -789,4 +789,14 @@ public function actionRutas(){
  $model->createExpedientes($model->currentStage());
 }
   
+
+public function actionTest(){
+    \frontend\modules\inter\models\InterPrograma::createMagicPrograma(
+            4,
+            10,
+            '2020-II',
+            '118');
+    die();
+    
+}
 }

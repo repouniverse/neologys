@@ -98,6 +98,12 @@ return [
            'inter/default/base-auth'
         ]
     ],
-    
+    /*
+     * Para asignarlel leguaje de 
+     * cada usuario según el país
+     */
+    'as beforeRequest' => [
+        'class' => 'common\filters\LanguageFilter',        
+                        ],
     'params' => $params,
 ];

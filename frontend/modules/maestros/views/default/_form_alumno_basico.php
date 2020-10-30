@@ -51,7 +51,7 @@
                     [
                         'model'=>$model,               
                         'form'=>$form,
-                        'data'=> ComboHelper::getCboUniversidades(),
+                        'data'=> ComboHelper::getcboUniversidadesFiltradas(),
                         'campo'=>'universidad_id',
                         'idcombodep'=>'alumnos-facultad_id',               
                         'source'=>[\common\models\masters\Facultades::className()=>
@@ -81,7 +81,7 @@
                                         'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
                                         'camporef'=>'nombre',//columna a mostrar 
                                         'campofiltro'=>'facultad_id' ,
-                                        'additionalFilter'=>['esbase'=>'1']
+                                       // 'additionalFilter'=>['esbase'=>'1']
                                     ]
                                   ],
                     ]

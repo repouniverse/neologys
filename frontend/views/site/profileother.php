@@ -117,7 +117,15 @@ $this->title = 'Profile';
                         ]
                     ) ?>
          </diV>     
-            
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+               <?= $form->field($profile, 'idioma')->
+            dropDownList(['es_PE'=>'Español','en_US'=>'Inglés'],
+                  ['prompt'=>'--'.yii::t('base_names','Choose a Value')."--",
+                    // 'class'=>'probandoSelect2',
+                      //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
+                        ]
+                    ) ?>
+            </diV>  
           
             
               
