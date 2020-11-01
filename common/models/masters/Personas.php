@@ -383,6 +383,8 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                  $id=$user->id;
                  yii::error('El id de usuario '.$id ,__FUNCTION__);
                 $user->profile->linkPerson($this->id);
+                if($idUNI=$this->identidad->universidad_id > 0) //siempre que su identidad tenga asdinagda la universidad 
+                $user->profile->linkUniversity($idUNI);
                 /****LE ASIGNA EL ROL */
                 if(!is_null($role)){
                   $vari= Yii::$app->authManager->assign(

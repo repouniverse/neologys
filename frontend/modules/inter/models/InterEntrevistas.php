@@ -118,6 +118,15 @@ implements \common\interfaces\rangeInterface
         ];
     }
 
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
+    
     
     public function scenarios() {
         $scenarios = parent::scenarios();

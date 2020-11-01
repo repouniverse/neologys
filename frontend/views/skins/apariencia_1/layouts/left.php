@@ -1,3 +1,8 @@
+<?php 
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use common\models\TransaccionForm;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -45,6 +50,12 @@
                 ],
             ]
         )*/ ?>
+        
+        
+        
+        
+        
+        
           <?php $items=\common\components\MenuHelper::getAssignedMenu(yii::$app->user->id
                    ,null/*root*/, 
                     null,false/*refresh*/);?>  
@@ -55,6 +66,23 @@
                 'items' =>$items 
             ]
         ) ?>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <?php
+        $model=New TransaccionForm();
+        $form = ActiveForm::begin(['id' => 'transaccion-form',
+            'action'=>Url::to(['site/resolve-transa']),
+            'method'=>'POST',
+            'enableClientValidation' => false]); ?>
+
+        <?= $form
+            ->field($model, 'transaccion')
+            ->label(false)?>
+       
+        <?php ActiveForm::end(); ?>
+      </div>  
+        
+        
     </section>
 
 </aside>

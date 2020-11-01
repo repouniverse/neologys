@@ -57,7 +57,7 @@ implements \common\interfaces\postulantesInterface
         return [
             [['codalu', 'ap','nombres','tipodoc','numerodoc','mail','universidad_id', 'facultad_id','carrera_id'], 'required'],
              [['mail','universidad_id', 'facultad_id','carrera_id','hasuser' ], 'safe'],
-           
+           [['codalu'], 'validateAccess'],//Verifica si un usuario puede editar o no el registro segun la universidad  
              [['codalu'], 'unique'],
               [['numerodoc'], 'validateDuplicado'],
             /* PARA ESCENARIOBASICO*/
@@ -478,5 +478,15 @@ public function mailAddress() {
 public function campoLink(){
     return 'alumno_id';}
 
-
+public function canCreateOrEdit() {
+    IF(!empty($this->universidad_id))
+    return h::user()->hasAccessInThisUniversity($this->universidad_id);
+    return true;
+}
+  
+  
+ public function validateAccess($attribute, $params) {
+   return true;
+ }   
+    
 }

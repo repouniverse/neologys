@@ -20,5 +20,5 @@ interface postulantesInterface {
       public function mailAddress();
      public function campoCarrera();
       public function campoLink();
-   
+    public function canCreateOrEdit();//Verifica los privilegios de casa usuarios 
 }

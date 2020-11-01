@@ -46,6 +46,14 @@ class InterModos extends \common\models\base\modelBase
         return '{{%inter_modos}}';
     }
 
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

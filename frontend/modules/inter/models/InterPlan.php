@@ -50,7 +50,17 @@ class InterPlan extends \common\models\base\modelBase
     {
         return '{{%inter_plan}}';
     }
-
+ public function behaviors() {
+        return [
+           
+            
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
+    
     /**
      * {@inheritdoc}
      */

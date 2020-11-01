@@ -464,4 +464,17 @@ public function mailAddress() {
 }
 public function campoLink(){
     return 'docente_id';}
+    
+    
+public function canCreateOrEdit() {
+    return h::user()->hasAccessInThisUniversity($this->universidad_id);
 }
+    
+ public function validateAccess($attribute, $params) {
+   if(!$this->canCreateOrEdit())
+    $this->addError ($attribute,yii::t('base_errors','You do not have privileges to modify this record. Verify that you are within the authorized university'));
+   } 
+    
+}
+
+

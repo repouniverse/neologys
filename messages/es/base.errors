@@ -7,5 +7,5 @@
  */
 return [
     'There were problems when recording:{problem}'=>'Hubo problemas al grabar:{problem}',
-    
+    'You do not have privileges to modify this record. Verify that you are within the authorized university'=>'No tiene privilegios para modificar este registro. Verifique que esté dentro de la universidad autorizada',
 ];

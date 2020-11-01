@@ -250,6 +250,22 @@ public function isMultiFacultad(){
 public function getLanguage(){
    return  $this->profile->idioma;
 }
+/*
+ * Esta funcion verifica si el usuario
+ * tiene privilegios en una universidad 
+ * determinada, solo hay que pasar e el Id
+ * mu útil cuando se quiere ver si peude
+ * crear o nodificar cosas como datos maestros
+ * y otras cosas
+ */
+public function hasAccessInThisUniversity($universidad_id){
+    
+    return in_array($universidad_id,
+            \common\models\masters\UsersUniversities::filterUniversidades(h::userId())
+            );
+    
+}
+
 
 
 }

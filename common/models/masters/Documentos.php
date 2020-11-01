@@ -34,6 +34,15 @@ class Documentos extends modelBase
         return '{{%documentos}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

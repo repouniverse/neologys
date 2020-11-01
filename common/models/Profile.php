@@ -280,6 +280,14 @@ class Profile extends \common\models\base\modelBase implements \common\interface
       $this->persona_id=$idPerson;
       return $this->save();
      }
+     
+   public function linkUniversity($idUniversidad){
+      $universidades= masters\Universidades::findOne($idUniversidad);
+      if(is_null($universidades))
+       return false;
+      $this->universidad_id=$idUniversidad;
+      return $this->save();
+     }
     
 /* public function beforeSave($insert) {
      if($insert){

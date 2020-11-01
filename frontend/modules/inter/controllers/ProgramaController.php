@@ -697,7 +697,7 @@ class ProgramaController extends baseController
   public function actionIndexEventos(){
      $searchModel = new InterEventosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+       //echo yii::$app->language; die();
         return $this->render('index_eventos', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

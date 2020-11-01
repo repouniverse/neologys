@@ -31,6 +31,15 @@ class InterIdiomasalu extends \common\models\base\modelBase
         return '{{%inter_idiomasalu}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

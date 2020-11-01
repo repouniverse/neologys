@@ -68,6 +68,15 @@ class Facultades extends \common\models\base\modelBase
         ];
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * Gets query for [[Alumnos]].
      *

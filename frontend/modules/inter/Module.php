@@ -3,6 +3,7 @@
 namespace frontend\modules\inter;
 use common\helpers\h;
 use common\helpers\FileHelper;
+use yii\web\BadRequestHttpException;
 USE yii2mod\settings\models\enumerables\SettingType;
 use yii;
 /**
@@ -13,7 +14,7 @@ class Module extends \yii\base\Module
     
    const CLASE_GENERAL='A'; 
    const STATUS_GENERAL='1'; 
-   const ROL_POSTULANTE='r_interpostulante';
+   const ROL_POSTULANTE='r_inter_postulante';
     /**
      * {@inheritdoc}
      */

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
     use yii\helpers\Url;
+    use yii\web\NotFoundHttpException;
     use yii\helpers\ArrayHelper;
    use common\models\masters\UsersUniversities;
 use frontend\models\AuthWithQuestionForm;
@@ -649,6 +650,7 @@ die();
              $user->status=$arrpost['User']['status'];
                yii::error('el save de user');
              $user->save();
+             if(array_key_exists(UsersUniversities::getShortNameClass(), $arrpost))
              $this->updateUserUniversidades($arrpost[UsersUniversities::getShortNameClass()]);
          
             /* if($profile->multiple_universidad){
@@ -810,5 +812,23 @@ die();
        
   } 
 
-  
+ public function actionResolveTransa(){
+     if(h::request()->isPost){         
+         $posteador=h::request()->post('TransaccionForm',null);
+         if(!is_null($posteador) && array_key_exists('transaccion', $posteador)){
+             if(!is_null($model=\common\models\masters\Transacciones::find()->andWhere(['transaccion'=>$posteador['transaccion']])->one())){
+                 $this->redirect(Url::toRoute([$model->name]));    
+             }else{
+                  throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
+      
+             }
+                 
+         }else{
+              throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
+         }
+     }else{
+          throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
+     }
+     
+ }  
 }

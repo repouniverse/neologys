@@ -60,6 +60,15 @@ class InterEventos extends \common\models\base\modelBase
              [['carrera_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_id' => 'id']],
         ];
     }
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
 
     /**
      * {@inheritdoc}

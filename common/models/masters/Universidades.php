@@ -41,6 +41,9 @@ class Universidades extends \common\models\base\modelBase
             'fileBehavior' => [
                 'class' => FileBehavior::className()
             ],
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
             
         ];
     }
@@ -53,7 +56,7 @@ class Universidades extends \common\models\base\modelBase
         return [
             [['nombre', 'acronimo','codpais'], 'required'],
             [['latitud', 'meridiano','web'], 'safe'], 
-            //[['latitud', 'meridiano'], 'decimal'],
+            [['nombre'], 'validateAccess'],
             [['detalle'], 'string'],
             [['codpais'], 'string', 'max' => 3],
             [['nombre'], 'string', 'max' => 60],
@@ -193,6 +196,15 @@ class Universidades extends \common\models\base\modelBase
         return Html::img($this->files[0]->url,['height'=>$dimensiones[0],'width'=>$dimensiones[1]]);
         return '';
     }
+  
+    public function canCreateOrEdit() {
+    return \common\helpers\h::user()->hasAccessInThisUniversity($this->id);
+}
+    
+ public function validateAccess($attribute, $params) {
+   if(!$this->canCreateOrEdit())
+    $this->addError ($attribute,yii::t('base_errors','You do not have privileges to modify this record. Verify that you are within the authorized university'));
+   } 
     
     
 }

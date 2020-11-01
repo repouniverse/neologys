@@ -27,6 +27,15 @@ class InterEtapas extends \common\models\base\modelBase
         return '{{%inter_etapas}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

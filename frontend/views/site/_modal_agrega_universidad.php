@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
  //use kartik\date\DatePicker;
 
 use common\helpers\h;
-use frontend\modules\inter\helpers\comboHelper;
+use frontend\modules\inter\helpers\ComboHelper;
 //use common\widgets\selectwidget\selectWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sigi\models\SigiUnidades */
@@ -41,7 +41,7 @@ use frontend\modules\inter\helpers\comboHelper;
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
     <?php 
        echo $form->field($model, 'universidad_id')->
-            dropDownList(comboHelper::getCboUniversidades(),
+            dropDownList(ComboHelper::getCboUniversidades(),
                   ['prompt'=>'--'.yii::t('base.verbs','Choose a Value')."--",
                      ]
                     );

@@ -32,9 +32,16 @@ class ActionAuditFilter extends ActionFilter
     }
     
     private function isRouteAuditable($action){
+        //var_dump($uniqueId = $action->getUniqueId());
+        //var_dump($this->owner->id);
+         //var_dump($action->id);
+        //die();
         
-        $route='/'.$this->owner->module->id.'/'.$this->owner->id.'/'.$action->id;
-        yii::error($route);
+       // $route='/'.$this->owner->module->id.'/'.$this->owner->id.'/'.$action->id;
+        //yii::error($route);
+        $route='/'.$action->getUniqueId();
+        //var_dump($route);die();
+        
        return(is_null(Transacciones::findOne(['name'=>$route,'isauditable'=>'1'])))?false:true;  
     }
    

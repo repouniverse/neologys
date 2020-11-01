@@ -25,6 +25,15 @@ class Areas extends \common\models\base\modelBase
     {
         return '{{%departamentos}}';
     }
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+        ];
+    }
+
 
     /**
      * {@inheritdoc}
@@ -77,4 +86,14 @@ class Areas extends \common\models\base\modelBase
     {
         return new AreasQuery(get_called_class());
     }
+    
+private function canCreateOrEdit() {
+    return \common\helpers\h::user()->hasAccessInThisUniversity($this->universidad_id);
+}
+    
+ public function validateAccess($attribute, $params) {
+   if(!$this->canCreateOrEdit())
+    $this->addError ($attribute,yii::t('base_errors','You do not have privileges to modify this record. Verify that you are within the authorized university'));
+   } 
+    
 }

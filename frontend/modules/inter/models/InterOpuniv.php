@@ -37,10 +37,14 @@ class InterOpuniv extends \common\models\base\modelBase
             'fileBehavior' => [
                 'class' => FileBehavior::className()
             ],
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
             
         ];
     }
-
+    
+    
     /**
      * {@inheritdoc}
      */

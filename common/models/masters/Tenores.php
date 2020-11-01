@@ -31,6 +31,15 @@ class Tenores extends \common\models\base\modelBase
         return '{{%tenores}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

@@ -37,6 +37,15 @@ class Departamentos extends \common\models\base\modelBase
         return '{{%departamentos}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

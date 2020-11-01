@@ -24,6 +24,16 @@ class Cargos extends \common\models\base\modelBase
         return '{{%cargos}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

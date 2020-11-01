@@ -42,6 +42,17 @@ class AlumnosInter extends \common\models\base\modelBase
         return '{{%alumnos}}';
     }
 
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+               ],
+            
+        ];
+    }
+
+    
+    
     /**
      * {@inheritdoc}
      */

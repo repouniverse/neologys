@@ -88,8 +88,9 @@ return [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/login/',
-            'site/clear-cache/',
+            ' ', 
+            'site/login',
+            'site/clear-cache',
            // 'site/signup',
              'site/request-password-reset',
             'site/reset-password', 
@@ -103,7 +104,8 @@ return [
      * cada usuario según el país
      */
     'as beforeRequest' => [
-        'class' => 'common\filters\LanguageFilter',        
+        'class' =>'common\filters\LanguageFilter',
+        'class' => 'common\filters\ActionAuditFilter',  
                         ],
     'params' => $params,
 ];

@@ -33,6 +33,15 @@ class InterModalidades extends \common\models\base\modelBase
         return '{{%inter_modalidades}}';
     }
 
+    
+    public function behaviors() {
+        return [
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */

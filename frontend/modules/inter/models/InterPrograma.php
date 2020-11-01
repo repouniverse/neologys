@@ -86,6 +86,17 @@ class InterPrograma extends \common\models\base\modelBase
         ];
     }
 
+     public function behaviors() {
+        return [
+           
+             'auditoriaBehavior' => [ 
+                'class' => '\common\behaviors\AuditBehavior',
+            ],
+            
+        ];
+    }
+    
+    
     /**
      * Gets query for [[InterModos]].
      *
@@ -180,7 +191,7 @@ class InterPrograma extends \common\models\base\modelBase
      * 9) Crear el registro de convocado
      * 10)Crear el expediente
      */
-    public function createMagicPrograma($universidad_id,$facultad_id,$periodo,$codocuinicial){
+    public static function createMagicPrograma($universidad_id,$facultad_id,$periodo,$codocuinicial){
        $iddepa=self::createMagicDepa($universidad_id, $facultad_id);
        yii::error('idepa  '.$iddepa);
        $idcargo=self::createMagicCargo($iddepa);
