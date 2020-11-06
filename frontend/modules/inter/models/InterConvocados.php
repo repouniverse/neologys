@@ -733,6 +733,18 @@ public function targetUniversity(){
     return $this->getInterOpuniv()->orderBy(['prioridad'=>SORT_ASC])->limit(1)->one();
 }
 
-
+/*
+ * Verifica que el postulante es el mismo usuario 
+ * en cuestion
+ */
+public function IsOwner(){
+    try {
+        $idpersona= h::user()->profile->persona->id;
+        return ($this->persona_id==$idpersona)?true:false;
+    } catch (Exception $ex) {
+        return false;
+    }
+   
+}
  
 }

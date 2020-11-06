@@ -341,7 +341,18 @@ class h {
     
   }   
     
-    
+  /*
+   * Esta funcion debe de resolver la 
+   * facultad cuando no s ecuenta con 
+   * informacion del usuario
+   * mejorarala cunado el sistema
+   * se amplioe
+   */
+public static function resolveFaculty(){
+    return 1;
+}
+
+  
 }
 
 

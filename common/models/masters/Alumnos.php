@@ -378,12 +378,13 @@ implements \common\interfaces\postulantesInterface
  public function registerConvocado($idModo=null) {
     /*Buscamos el programa actual*/
     if(is_null($idModo)){
-     $modelModo=$this->resolveModo(true);  
+     $modelModo=$this->resolveModo(true); 
+     if(is_null($modelModo))return null;
     }else{
       $modelModo=InterModos::findOne($idModo);   
     }
      
-     
+     //VAR_DUMP( $modelModo->id);DIE();
   
     $external=$this->isExternal();
   
@@ -453,7 +454,8 @@ implements \common\interfaces\postulantesInterface
     ]);
     $modo=$query->one();
     if(is_null($modo))
-    throw new BadRequestHttpException(yii::t('base_errors','Mode not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
+      return null;
+    //throw new BadRequestHttpException(yii::t('base_errors','Mode not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
     if($isModel){
         return $modo;
     }else{

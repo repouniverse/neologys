@@ -44,6 +44,20 @@ Pjax::begin(['id'=>$idGrilla,'timeout'=>false]); ?>
                 echo Html::a(m::t('labels','Update').'<i class="fa fa-arrow-circle-right"></i>','#', ['id'=>'refresh_'.$model->id,'class'=>"small-box-footer"]);
             ?>            
         </div>
+         <div class="small-box bg-teal-gradient">
+            <div class="inner">
+                <h3><?=m::t('labels','Users')?></h3>
+                <p><?=m::t('labels','Users')?></p>
+            </div>
+            <div class="icon">
+                <span style="color:white;opacity:0.5;"><i class="fa fa-users"></i></span>
+            </div>
+            <?php 
+                $url=Url::to(['generate-users']);
+                echo Html::a(m::t('labels','Generate Users').'<i class="fa fa-arrow-circle-right"></i>','#', ['id'=>'generate_users_'.$model->id,'class'=>"small-box-footer"]);
+            ?>            
+        </div>
+        
         <?php 
             echo buttonAjaxWidget::widget
                  (
@@ -61,6 +75,16 @@ Pjax::begin(['id'=>$idGrilla,'timeout'=>false]); ?>
                         'id'=>'refresh_'.$model->id,
                         'idGrilla'=>'pjax-cantidad'.$model->id,
                         'ruta'=>Url::to(['/inter/convocados/ajax-refresh-etapa-exp','id'=>$model->id]),
+                    ]
+                 ); 
+        ?>
+        <?php 
+            echo buttonAjaxWidget::widget
+                 (
+                    [  
+                        'id'=>'generate_users_'.$model->id,
+                        'idGrilla'=>'pjax-cantidad'.$model->id,
+                        'ruta'=>Url::to(['/inter/programa/generate-users','id'=>$model->programa_id,'idmodo'=>$model->id]),
                     ]
                  ); 
         ?>

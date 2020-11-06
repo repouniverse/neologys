@@ -102,11 +102,7 @@ class Documentos extends modelBase
    }
    
    
-   public function getParametroscentrosdocu(){
-       return $this->hasMany(Parametroscentrosdocu::className(), ['codocu' => 'codocu']);
-       
-   }
-   
+  
    /*Devuelve un data provider de lso parametros de configurtacionb
     * Observe que hace reerencia a la clase Parametroscentrosdocu tabla
     *   'parametrosdocucentros'

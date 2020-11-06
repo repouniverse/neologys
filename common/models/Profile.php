@@ -282,10 +282,15 @@ class Profile extends \common\models\base\modelBase implements \common\interface
      }
      
    public function linkUniversity($idUniversidad){
+       
       $universidades= masters\Universidades::findOne($idUniversidad);
-      if(is_null($universidades))
-       return false;
+      yii::error($universidades);
+      if(is_null($universidades)){
+          return false;
+      }
+       
       $this->universidad_id=$idUniversidad;
+      yii::error('a punto de grabar le progile');
       return $this->save();
      }
     
@@ -306,11 +311,15 @@ class Profile extends \common\models\base\modelBase implements \common\interface
   */
  public function afterSave($insert,$changedAttributes) {
     parent::afterSave($insert,$changedAttributes); 
-     
-     if(!empty($this->universidad_id) )
-     \common\models\masters\UsersUniversities::habilitaUniversity(
+     yii::error('after save profile');
+     if(!empty($this->universidad_id) ){
+          \common\models\masters\UsersUniversities::habilitaUniversity(
              $this->user_id,
              $this->universidad_id); 
+     }else{
+         yii::error('empty tis->universidad_id');
+     }
+    
      //return false;
        
      

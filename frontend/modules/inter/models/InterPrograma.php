@@ -482,4 +482,15 @@ class InterPrograma extends \common\models\base\modelBase
        }
        return $plan->id;
     }
+    
+    /*
+     * Función que genera los usuarios 
+     * de la 
+     */
+    
+   public function generateUsers($idmodo){
+       $modo= InterModos::findOne($idmodo);
+       $modo->generateUsers();
+   } 
+    
 }

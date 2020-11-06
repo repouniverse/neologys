@@ -79,7 +79,7 @@ class SiteController extends  baseController
      */
     public function actionLogin()
     {
-        
+       
         if (!Yii::$app->user->isGuest) {
             
             return $this->goHome();
@@ -312,6 +312,7 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    
     //$model= NEW \common\models\masters\UsersUniversities();
     //$model->setAttributes(['universidad_id'=>7,'user_id'=>56,'activo'=>true]);
     \common\models\masters\UsersUniversities::firstOrCreateStatic(
@@ -556,6 +557,7 @@ die();
          if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
              if(!is_null($identidad=$persona->identidad)){
                 // echo $grupo->layout; die();
+              
              return $this->render($grupo->layout,['identidad'=>$identidad]);
          }else{
             echo " NO tiene el perfill alumno" ; die();

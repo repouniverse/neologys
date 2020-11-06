@@ -2,7 +2,7 @@
 
 namespace common\models\masters;
 use common\models\base\modelBase;
-
+use frontend\modules\inter\Module AS m;
 use common\models\Profile;
 use common\helpers\h;
 use common\helpers\BaseHelper;
@@ -368,8 +368,17 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
      * Crea un usuario con un ROl determinado
      *
      */
-    public function createUser($username,$email,$role=null){ 
+    public function createUser($username=null,$email=null,$role=null){ 
         //$user = new \mdm\admin\models\User();
+        /*En el caso de que no se den los parametros, sacarlos de
+         * de la misma identidad  : Alumno, DOcente, Trabajador
+         */
+        if(is_null($username))
+         $username=$this->identidad->code();
+        if(is_null($email))
+         $email=$this->identidad->mailAddress();
+        
+        
         $user=new \common\models\User();
             $user->username= strtoupper($username);
              $user->email=$email;   
@@ -383,14 +392,18 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                  $id=$user->id;
                  yii::error('El id de usuario '.$id ,__FUNCTION__);
                 $user->profile->linkPerson($this->id);
-                if($idUNI=$this->identidad->universidad_id > 0) //siempre que su identidad tenga asdinagda la universidad 
+                $idUNI=$this->identidad->universidad_id;
+                if($idUNI> 0) //siempre que su identidad tenga asdinagda la universidad 
                 $user->profile->linkUniversity($idUNI);
+                $role=(!is_null($role))?$role: \Yii::$app->authManager->getRole(h::gsetting('general','roleDefault'));
                 /****LE ASIGNA EL ROL */
                 if(!is_null($role)){
                   $vari= Yii::$app->authManager->assign(
                  $role,
                  $user->id); 
                   //var_dump($vari);die();
+                }else{
+                    
                 }
                     
                 

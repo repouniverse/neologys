@@ -64,18 +64,14 @@ class InterExpedientes extends \common\models\base\modelBase
             'fileBehavior' => [
                 'class' => FileBehavior::className()
             ],
-            
-        ];
-    }
-    
-    public function behaviors() {
-        return [
              'auditoriaBehavior' => [ 
                 'class' => '\common\behaviors\AuditBehavior',
             ],
             
         ];
     }
+    
+   
     
     /**
      * {@inheritdoc}

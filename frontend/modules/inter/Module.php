@@ -33,6 +33,7 @@ class Module extends \yii\base\Module
     
     
     private static function putSettingsModule(){
+         h::getIfNotPutSetting('general','roleDefault','r_inter_postulante', SettingType::STRING_TYPE);
         /* h::getIfNotPutSetting('general','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','urlimagesalu','http://desa.itekron.com/fotos/', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','prefiximagesalu','', SettingType::STRING_TYPE);

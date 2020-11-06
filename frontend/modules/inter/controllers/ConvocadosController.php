@@ -455,7 +455,9 @@ class ConvocadosController extends baseController
      }
      
    public function actionFillFicha($id){
+      
         $model = $this->findModel($id);
+        $this->noAutorizado($model);
         $model->setScenario($model::SCENARIO_FICHA);
         $modelP=$model->postulante->persona;
          if($model->postulante->isExternal()){
@@ -745,8 +747,12 @@ class ConvocadosController extends baseController
         h::response()->format = \yii\web\Response::FORMAT_JSON;
       $model=Alumnos::findOne($id);
       //$modo=($model->isExternal())?2:1;
-      $model->registerConvocado();
-      RETURN ['success'=>'Se registró el alumno'];
+      if(!is_null($model->registerConvocado())){
+         RETURN ['success'=>m::t('labels','Student has been registered')]; 
+      }else{
+          return ['error'=>m::t('labels','Mode not found in this program')];
+      }
+      
     }
   }
   
@@ -857,5 +863,9 @@ if(h::request()->isAjax){
     die();
  }
  
+ private function noAutorizado($model){
+     if($model->isOwner())return;
+     return $this->renderFile(yii::getalias('@views/comunes/noautorizado.php'));
+ }
   
 }

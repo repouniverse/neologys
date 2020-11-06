@@ -159,6 +159,8 @@ class UsersUniversities extends \common\models\base\modelBase
     
     public static function habilitaUniversity($iduser,$universidad_id){
         yii::error('invocando');
+            yii::error($universidad_id);
+        
         static::firstOrCreateStatic([
                     'user_id'=>$iduser,
                      'universidad_id'=>$universidad_id,

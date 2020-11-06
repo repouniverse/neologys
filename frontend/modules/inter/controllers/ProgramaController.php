@@ -799,4 +799,23 @@ public function actionTest(){
     die();
     
 }
+
+public function actionGenerateUsers($id){
+    if(h::request()->isAjax){
+       h::response()->format = \yii\web\Response::FORMAT_JSON;  
+     $modoId=h::request()->get('idmodo',null);
+     if(!is_null($modoId) && !is_null(\frontend\modules\inter\models\InterModos::findOne($modoId)) ){
+        $model=$this->findModel($id);
+         $model->generateUsers($modoId);
+         return ['success'=>m::t('labels','Users has been generated')];
+      }else{
+          return ['error'=>m::t('labels','There is not idMode parameter')];
+      }
+      
+     }
+         
+      
+   }
+
+
 }

@@ -1106,9 +1106,13 @@ class ComboHelper  {
        $userid=h::userId(); 
     }
     $idsUniv=UsersUniversities::filterUniversidades($userid);
-    $query= \common\models\masters\Universidades::find()
-            ->andWhere(['id'=>$idsUniv]);
-     
+    
+    if(count($idsUniv)==0){
+      $query= \common\models\masters\Universidades::find();  
+    }else{
+       $query= \common\models\masters\Universidades::find()
+            ->andWhere(['id'=>$idsUniv]); 
+    } 
         return ArrayHelper::map(
                        $query->all(),
                 'id','nombre');

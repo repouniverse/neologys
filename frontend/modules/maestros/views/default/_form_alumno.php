@@ -124,6 +124,7 @@
             <hr style="border: 1px dashed #4CAF50;">
          </div>
         
+        
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <?=$form->field($modelPersona, 'paisresidencia')->
                       dropDownList(ComboHelper::getCboPaises(),['prompt'=>'--'.m::t('verbs','Choose a Value')."--",'', 'disabled'=>true,])

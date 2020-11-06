@@ -11,6 +11,8 @@
 namespace common\components;
 use yii\swiftmailer\Mailer as Correo;
 use common\helpers\h;
+use common\models\masters\Transacciones;
+
 use yii;
 class Mailer extends Correo
 {
@@ -37,15 +39,32 @@ class Mailer extends Correo
      * @var \Swift_Transport|array Swift transport instance or its array configuration.
      */
     private $_transport = [];
+    
+    /*
+     *Esta propiedad determina si se la función enviar correo se 
+     *impilica hacer el trace del correo:
+     * 0) Verificar si esta ruta existe 
+     * 1) Registrar la ruta
+     * 2) Registrar los datos del emnsaje en la tabla settings mail
+     * 
+     */
+    public $isDinamyc=false;
 
     const MAIL_PORT_DEFAULT='25';
     const MAIL_SERVER_DEFAULT='mail.neotegnia.com';
     const MAIL_USER_SERVER_DEFAULT='25';
+    const EVENT_AFTER_SEND='afterSend';
     public function init(){
        // yii::$app->settings->set('section', 'key', 1258.5);
         //yii::error(static::arrayConfig());
         //var_dump(static::arrayConfig());die();
         $this->_transport=$this->optionsTransport[0];
+        //Agregadno el evento AFTERSEND()
+        $this->on(self::EVENT_AFTER_SEND, [$this, 'registerRoute']);
+        //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
+        //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
+        //$this->on(self::EVENT_NEW_USER, [$this, 'notification']);
+
         
         return parent::init();
     }
@@ -378,6 +397,11 @@ class Mailer extends Correo
       }
      
      
+    public function registerRoute(){
+         $route='/'.yii::$app->controller->action->getUniqueId();
+         
+    }
+    
     
       
     }

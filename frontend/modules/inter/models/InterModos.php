@@ -254,4 +254,10 @@ class InterModos extends \common\models\base\modelBase
        return $contador;
    }
    
+   public function generateUsers(){
+       foreach($this->convocados as $convocado){
+           $convocado->persona->createUser();
+       }
+   }
+   
 }
