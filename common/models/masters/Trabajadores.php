@@ -31,6 +31,7 @@ class Trabajadores extends \common\models\base\modelBase
   // public $persona=null;
     public $prefijo='87';
     public $hardFields=['ap','am','nombres','tipodoc','numerodoc'];
+    const SCE_CREACION_BASICA='basico';
     /**
      * {@inheritdoc}
      */
@@ -45,7 +46,7 @@ class Trabajadores extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['ap', 'am', 'nombres','facultad_id','universidad_id'], 'required'],
+            [['ap', 'am', 'nombres','facultad_id','universidad_id','cargo_id'], 'required'],
             [['detalles'], 'string'],
             [['persona_id'], 'integer'],
              [['persona_id','facultad_id','universidad_id','depa_id','cargo_id'], 'safe'],
@@ -57,9 +58,22 @@ class Trabajadores extends \common\models\base\modelBase
             [['correo'], 'string', 'max' => 80],
             [['codigoper', 'codcargo'], 'string', 'max' => 8],
              [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
+              [['cargo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cargos::className(), 'targetAttribute' => ['cargo_id' => 'id']],
         ];
     }
 
+     public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCE_CREACION_BASICA] = [
+           'ap','am','nombres','tipodoc','numerodoc',
+            'universidad_id', 'facultad_id','cargo_id',
+            ];
+        
+       
+        
+       return $scenarios;
+    }
+    
     
     public function behaviors() {
         return [

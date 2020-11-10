@@ -336,7 +336,8 @@ class Mailer extends Correo
       
       
       /*
-       * esta funcion se hizo para superar la valla del Gmail
+       * esta funcion se hizo para superar la valla de cualquier
+       * proveedor de correo GMAIL: Caso particular
        * del maximo 100 direcciones por envio
        * Lo que hace es partir el array de desatinatarios 
        * y enviarlos por partes 

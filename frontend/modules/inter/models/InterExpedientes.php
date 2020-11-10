@@ -321,7 +321,7 @@ class InterExpedientes extends \common\models\base\modelBase
  public function mailAprove(){
   $postulante=$this->convocado->postulante;
  $mailer = new \common\components\Mailer();
-        $message = new \yii\swiftmailer\Message();
+        $message = new \common\components\MessageMail();
         $message->setSubject('APROBACION DE EXPEDIENTE')
                 ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
                 ->setTo($postulante->mail)
@@ -330,7 +330,7 @@ class InterExpedientes extends \common\models\base\modelBase
                         . "La presente es para notificarle que has  "
                         . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
                         . "Te esperamos en la siguiente etapa  ");
-
+        $message->ResolveMessage();
         try {
 
             $result = $mailer->send($message);

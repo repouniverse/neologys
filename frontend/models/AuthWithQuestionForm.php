@@ -76,7 +76,7 @@ class AuthWithQuestionForm extends Model
       // $replyTo=$examen->cita->taller->correo;
         $link= Url::to(['/profile/verify-email-token-auth','id'=>$id,'token'=>$token->token],true);
         $mailer = new \common\components\Mailer();
-        $message =new  \yii\swiftmailer\Message();
+        $message =new \common\components\MessageMail();
             $message->setSubject('Notificacion de Examen')
             ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
             ->setTo($this->email)
@@ -88,6 +88,7 @@ class AuthWithQuestionForm extends Model
            if(!empty($replyTo)){
               $message->setReplyTo($replyTo); 
            }
+           $message->ResolveMessage();
     try {
         
            $result = $mailer->send($message);

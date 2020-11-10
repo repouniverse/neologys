@@ -527,7 +527,7 @@ public function porcAvanceUploads($stage){
  public function sendEmailUploads(){
      $nombre=$this->persona->fullName();
         $mailer = new \common\components\Mailer();
-        $message =new  \yii\swiftmailer\Message();
+        $message =new \common\components\MessageMail();
             $message->setSubject(m::t('validaciones','Notification of loading of documents'))
             ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
             ->setTo('jramirez@neotegnia.com')
@@ -535,7 +535,7 @@ public function porcAvanceUploads($stage){
                     . "El postulante   ".$nombre."  "
                     . " Ha terminado de subir sus documentos "
                     . " ");
-           
+          $message->ResolveMessage(); 
     try {
         
            $result = $mailer->send($message);
@@ -627,7 +627,7 @@ public function beforeSave($insert) {
  
 private function enviaMailConfirmando(){
      $mailer = new \common\components\Mailer();
-        $message =new  \yii\swiftmailer\Message();
+        $message =new \common\components\MessageMail();
             $message->setSubject('Confirmación de Ingreso')
             ->setFrom(['hipogea@hotmail.com'=>'Internacional'])
             ->setTo('hipogea@hotmail.com'/*$this->postulante->mailAddress()*/)           
@@ -641,6 +641,7 @@ private function enviaMailConfirmando(){
            foreach ($this->files as $file){
             $message->attach($file->path);
            }
+           $message->ResolveMessage();
            try {
         
            $result = $mailer->send($message);

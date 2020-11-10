@@ -63,7 +63,7 @@ class Departamentos extends \common\models\base\modelBase
             [['webdepa'], 'string', 'max' => 100],
             [['codigoper'], 'string', 'max' => 8],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
-            [['codigoper'], 'exist', 'skipOnError' => TRUE, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
+           // [['codigoper'], 'exist', 'skipOnError' => false, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
         ];
     }

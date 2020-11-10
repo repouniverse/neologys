@@ -5,6 +5,7 @@ use common\models\masters\Facultades;
 use common\models\masters\Universidades;
 use common\models\masters\Departamentos;
 use common\models\masters\Documentos;
+use yii\helpers\Json;
 use Yii;
 
 
@@ -14,7 +15,8 @@ class MailingModel extends \common\models\base\modelBase
      * {@inheritdoc}
      */
     const SCENARIO_MINIMO='escenario_minimo';
-    
+    public $arrayFields=['parametros'];
+    public $booleanFields=['activo'];
     public static function tableName()
     {
         return '{{%mailing}}';
@@ -29,10 +31,12 @@ class MailingModel extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'ruta'], 'required'],
             [['universidad_id', 'facultad_id', 'order'], 'integer'],
             [['cuerpo', 'copiato', 'texto'], 'string'],
+            [['universidad_id', 'facultad_id', 'ruta','reply','idioma','titulo','remitente','correoremitente','parametros','descripcion'],'safe'],
             [['ruta'], 'string', 'max' => 64],
+             [['titulo'], 'string', 'max' => 60],
             [['transaccion'], 'unique',],
-            [['activo', 'posic'], 'string', 'max' => 1],
-            [['idioma', 'titulo'], 'string', 'max' => 5],
+            //[['activo', 'posic'], 'string', 'max' => 1],
+            [['idioma'], 'string', 'max' => 5],
             [['remitente'], 'string', 'max' => 60],
             [['transaccion'], 'string', 'max' => 6],
             [['transaccion'], 'unique',],
@@ -47,10 +51,8 @@ class MailingModel extends \common\models\base\modelBase
      public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_MINIMO] = ['universidad_id', 
-            'facultad_id','ruta',
+            'facultad_id','ruta','titulo','remitente','reply','titulo',
             ];
-        
-       
        return $scenarios;
     }
     
@@ -118,11 +120,32 @@ class MailingModel extends \common\models\base\modelBase
         return new MailingModelQuery(get_called_class());
     }
     
-    public function beforeSave($insert) {
-       if($insert){
+    public function beforeValidate() {       
+         foreach($this->attributes as $name=>$value){
+            if(in_array($name, $this->arrayFields)){
+                if(is_string($value))$this->{$name}=[$value];
+                $this->{$name}=Json::encode($value);
+            }
+        }
+       RETURN  parent::beforeValidate();
+    }
+    
+    public function beforeSave($insert) {      
+        if($insert){
           $nameTransa=masters\Transacciones::findOne(['name'=>$this->ruta]);
           $this->transaccion=(is_null($nameTransa))?'':$nameTransa; 
        }
        return parent::beforeSave($insert);
     }
+    
+   /* public function afterFind() {
+       
+        foreach($this->attributes as $name=>$value){
+            if(in_array($name, $this->arrayFields)){
+                $this->{$name}=Json::decode($value);
+            }
+        }
+        return  parent::afterFind();
+    }*/
+    
 }

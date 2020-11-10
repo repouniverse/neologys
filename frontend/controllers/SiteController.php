@@ -312,6 +312,64 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    $query=\common\models\CarrerasTest::find()->select(['nombre'])->distinct()
+            ->orderBy(['nombre'=>SORT_ASC]);
+            
+    
+    
+    
+    $model= new \common\models\CarrerasTest();
+    $model->universidad_id= 1;
+    echo $model->universidad->nombre;
+    die();
+    
+    
+    
+    \yii\helpers\Url::to(['/site/test','param'=>9,'param2'=>3]);
+    
+    \common\helpers\h::request()->get('parametro',1);
+    
+    
+    
+    
+    
+    echo date('Y-m-d h:i:s'); die();
+    $mailer = new \common\components\Mailer();
+        $message =new \common\components\MessageMail();
+        $message->ParamTextBody=[
+            '[NOMBRE]'=>'JULIAN RAMIREZ TENORIO',
+            '[EVENTO_PROGRAMADO]'=>'ENTREVISTA',
+        ];
+            $message->setSubject('Tienes una cita programada')
+            ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail')=>'Oficina Tutoría Psicológica UNI'])
+            ->setTo(['hipogea@hotmail.com','neotegnia@gmail.com'])
+           ->setCc('neotegnia@gmail.com')
+           ->setReplyTo('caballitos@gmail.com')      
+            ->SetHtmlBody(" <b>Buenas Tardes</b>  <br>"
+                    . " [NOMBRE]  La presente es para notificarle que tiene "
+                    . "[EVENTO_PROGRAMADO]  una");
+          
+             
+              //echo 'remitente  '.$message->getFrom().'<br>';
+              // echo 'copiato  '.$message->getCc().'<br>';
+              //echo 'reply '.$message->getReplyTo().'<br>';
+         // echo $message->getSwiftMessage()->getBody(); die();
+           $message->ResolveMessage();
+           return $mailer->sendSafe($message); 
+            //echo 'titulo  '.$message->getSubject().'<br>';
+           die();
+                
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //$model= NEW \common\models\masters\UsersUniversities();
     //$model->setAttributes(['universidad_id'=>7,'user_id'=>56,'activo'=>true]);

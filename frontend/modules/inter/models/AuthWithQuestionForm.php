@@ -163,6 +163,7 @@ class AuthWithQuestionForm extends Model
            if(!empty($replyTo)){
               $message->setReplyTo($replyTo); 
            }
+          $message->ResolveMessage();
     try {
         
            $result = $mailer->send($message);
