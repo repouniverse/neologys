@@ -869,10 +869,11 @@ class modelBase extends \yii\db\ActiveRecord
         
         public  function  firstOrCreate($attributes,$scenario=null,$verifyAttributes=null){  
             //print_r($attributes);
+             
             $myAttributesVerify=(is_null($verifyAttributes))?$attributes:$verifyAttributes;
               if(!(self::find()->andWhere($myAttributesVerify)->exists())){
                          //yii::error($myAttributesVerify);       
-
+                        
                 try{
                    // $clase= static::class;
                    // $model=new $clase;
@@ -884,18 +885,22 @@ class modelBase extends \yii\db\ActiveRecord
                        //print_r($model->attributes);die();
                        
                  IF(!$this->save()){
+                    // vAR_DUMP('grabo mail'); DIE(); 
                      //echo "fallo";die();
                     // print_r($model->getErrors());die();
-                      yii::error( $this->attributes,__METHOD__);
-                     yii::error($this->getErrors(),__METHOD__);
+                      //yii::error( $this->attributes,__METHOD__);
+                     //yii::error($this->getErrors(),__METHOD__);
                      // print_r($model->getErrors());die();
                      return false;
+                 }else{
+                  // vAR_DUMP('grabo bien'); DIE();    
                  }
                    // print_r($model->getErrors());die();
                     unset($model);
                     //echo "ok  ----->";
                         return true;
                 } catch (\yii\db\Exception $exception) {
+                  
                     yii::error($exception->getMessage());
                   //  echo "    --->  error  :    ". $exception->getMessage();
                      return false;

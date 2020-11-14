@@ -33,6 +33,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
    
    public $nombrecompleto;
    public $persona;
+   private $_profile=null;
     
    CONST SCE_CREACION_BASICA='basico';
    CONST SCE_INTERMEDIO='intermedio';
@@ -265,7 +266,8 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     }
     
     public function getIdentidad() {
-        if($this->isNewRecord)return null;
+        //if($this->isNewRecord)return null;
+        //var_dump($this->grupo->modelo::className());die();
          return $this->hasOne($this->grupo->modelo::className(), ['persona_id' => 'id']);
     }
     
@@ -360,6 +362,8 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             $this->grupo->
             modelo::UpdateAll(['persona_id'=>$this->id],
                     ['id'=>$this->identidad_id]);
+        }else{
+            
         }
         return parent::afterSave($insert, $changedAttributes);
     }
@@ -392,7 +396,9 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                  $id=$user->id;
                  yii::error('El id de usuario '.$id ,__FUNCTION__);
                 $user->profile->linkPerson($this->id);
-                $idUNI=$this->identidad->universidad_id;
+                /*
+                $idUNI=$this->identidad->universidad_id;*/
+                $idUNI=h::currentUniversity();
                 if($idUNI> 0) //siempre que su identidad tenga asdinagda la universidad 
                 $user->profile->linkUniversity($idUNI);
                 $role=(!is_null($role))?$role: \Yii::$app->authManager->getRole(h::gsetting('general','roleDefault'));
@@ -414,7 +420,9 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     }
     
     public function getProfile(){
+        if(is_null($this->_profile))
         return $this->hasOne(Profile::className(), ['persona_id' => 'id']);
+        return $this->_profile;
     }
 
    
@@ -422,6 +430,18 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
           return $this->toCarbon('cumple')->age; //no hay fecha de nacimiento
         }  
      
-    
+        
+        
+   private function sincronizeFields(){
+        $identidad=$this->identidad;
+       if(!is_null($identidad)){
+           foreach($identidad->camposComunes as $key=>$nameField){
+             $identidad->{$nameField}=$this->{$nameField};  
+           }
+          return $identidad->save();
+       }else{
+           return false;
+       }
+   } 
      
 }

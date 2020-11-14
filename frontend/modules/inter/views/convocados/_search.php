@@ -27,28 +27,14 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
            ?> 
           </div>      
     </div>
+   
    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= ComboDep::widget([
+    <?php
+    $model->facultad_id=$modelPrograma->facultad_id;
+    echo ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> common\helpers\ComboHelper::getcboUniversidadesFiltradas(),
-               'campo'=>'universidad_id',
-               'idcombodep'=>'vwinterconvocadossearch-facultad_id',
-               'source'=>[\common\models\masters\Facultades::className()=>
-                                [
-                                  'campoclave'=>'id' , //columna clave del modelo ; se almacena en el value del option del select 
-                                        'camporef'=>'desfac',//columna a mostrar 
-                                        'campofiltro'=>'universidad_id'  
-                                ]
-                                ],
-                            ]
-        )  ?>
-  </div>
-   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= ComboDep::widget([
-               'model'=>$model,               
-               'form'=>$form,
-               'data'=>  is_null($model::filtroGet('universidad_id'))?[]:ComboHelper::getCboFacultades($model::filtroGet('universidad_id')),
+               'data'=> \common\helpers\ComboHelper::getCboFacultades(),
                'campo'=>'facultad_id',
                'idcombodep'=>'vwinterconvocadossearch-carrera_id',
                 'source'=>[\common\models\masters\Carreras::className()=>
@@ -69,7 +55,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
             $form->field($model, 'carrera_id')->
                          dropDownList
                          (
-                           is_null($model::filtroGet('facultad_id'))?[]:ComboHelper::getCboCarreras($model::filtroGet('facultad_id')), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
+                          ComboHelper::getCboCarreras($model->facultad_id), ['prompt'=>'--'.m::t('base.verbs','Choose a value')."--",]
                          )
         ?>
   </div> 
@@ -98,7 +84,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     <?php  echo ComboDep::widget([
                'model'=>$model,               
                'form'=>$form,
-               'data'=> is_null($model::filtroGet('programa_id'))?[]:ComboHelper::getCboModos($model::filtroGet('programa_id')),
+               'data'=> [],
                'campo'=>'modo_id',
                'idcombodep'=>'vwinterconvocadossearch-current_etapa',
                 'source'=>[\frontend\modules\inter\models\InterEtapas::className()=>
@@ -116,7 +102,7 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
             $form->field($model, 'current_etapa')->
                          dropDownList
                          (
-                           is_null($model::filtroGet('modo_id'))?[]: ComboHelper::getCboStages($model::filtroGet('modo_id')), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
+                           [], ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
                          )
         ?>
 </div>
@@ -156,7 +142,15 @@ use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
     </div>
     
     
-    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= 
+            $form->field($model, 'univorigen_id')->
+                         dropDownList
+                         (
+                           common\helpers\ComboHelper::getcboUniversidadesFiltradas(), ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
+                         )
+        ?>
+</div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?= $form->field($model, 'codigoalumno') ?>
     </div>

@@ -378,7 +378,7 @@ class InterPrograma extends \common\models\base\modelBase
                        ],
                    NULL,
                    $criterio);
-          $etapa= InterPrograma::find()->andWhere($criterio)->one();
+          $etapa= InterEtapas::find()->andWhere($criterio)->one();
        }
        return $etapa->id;
     }

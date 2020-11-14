@@ -47,12 +47,14 @@ class ConvocadosController extends baseController
         $modelPrograma= m::currentPrograma(true);
         if(is_null($modelPrograma))
             throw new NotFoundHttpException(Yii::t('base_labels', 'There is not current program'));
-  
+        
+        
         $searchModel = new \frontend\modules\inter\models\VwInterConvocadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'id'=>$modelPrograma->id,
+            'modelPrograma'=>$modelPrograma,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'modelPrograma'=>$modelPrograma,
@@ -490,9 +492,12 @@ class ConvocadosController extends baseController
             if(!is_null($exp=$model->firstExpediente())){
                 yii::error('El expediemte no es nulo');
                 if($exp->aprove()){
-                    //$model->createExpedientes($model->currentStage());
+                     yii::error('Si aprobo');
+                    yii::error('creando el expediente');
+                   // $model->createExpedientes($model->currentStage());
 //aprobar le primer expediente la ficha de
                 }else{
+                    yii::error('no aprobo');
                     print_r($exp->getErrors());DIE();
                 }
             }else{
@@ -743,17 +748,28 @@ class ConvocadosController extends baseController
   
   
   public function actionAjaxRegisterAlu($id){
+      
     if(h::request()->isAjax){
         h::response()->format = \yii\web\Response::FORMAT_JSON;
+        
       $model=Alumnos::findOne($id);
+     
       //$modo=($model->isExternal())?2:1;
+     
       if(!is_null($model->registerConvocado())){
+          // echo yii::$app->controller->action->id;die();
          RETURN ['success'=>m::t('labels','Student has been registered')]; 
       }else{
+         // echo "wew<br>";
+           //echo yii::$app->controller->action->id;die();
           return ['error'=>m::t('labels','Mode not found in this program')];
       }
       
     }
+  }
+  
+  public function actionAjaxRegisterTest($id){
+      echo "ohla"; die();
   }
   
   public function actionAjaxRegisterDoce($id){

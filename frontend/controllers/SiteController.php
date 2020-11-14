@@ -312,6 +312,41 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+     $mailer = new \common\components\Mailer();
+        $message = new \common\components\MessageMail();
+        $message->setSubject('APROBACION DE EXPEDIENTE')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
+                ->setTo('hipogea@hotmail.com')
+                ->SetHtmlBody("Buenas Tardes    <br>"
+                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
+                        . "La presente es para notificarle que has  "
+                        . "aprobado con éxito. <br> <br>"
+                        . "Te esperamos en la siguiente etapa  ");
+        $message->ResolveMessage();
+        try {
+
+            $result = $mailer->send($message);
+            return true;
+            $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
+        } catch (\Swift_TransportException $Ste) {
+            
+            $mensajes['error'] = $Ste->getMessage();
+        }
+    die();
+    
+    
+    
+    
+    
+    
+    
+    
+   echo "ewew";
+       $model=\common\models\masters\Personas::findOne(6546);
+       
+     var_dump($model->identidad_id,$model->identidad);die();
+   die();
+    
     $query=\common\models\CarrerasTest::find()->select(['nombre'])->distinct()
             ->orderBy(['nombre'=>SORT_ASC]);
             
@@ -608,14 +643,14 @@ die();
     * FUNCION DE PANEL DE BIENVENIDA 
     */
   public function actionWelcome(){
-      //var_dump(yii::$app->viewPath);die();
-      //var_dump(h::user()->profile->persona->identidad);die();
+     
+     //var_dump(h::user()->profile->persona->identidad);die();
    if(!is_null(($persona=h::user()->profile->persona))){
      //if(is_null(($alumno=$persona->alumno))){
-         if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
-             if(!is_null($identidad=$persona->identidad)){
-                // echo $grupo->layout; die();
-              
+       //var_dump($persona->identidad);die();
+       if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+         if(!is_null($identidad=$persona->identidad)){             
+                // echo $grupo->layout; die();              
              return $this->render($grupo->layout,['identidad'=>$identidad]);
          }else{
             echo " NO tiene el perfill alumno" ; die();
@@ -875,20 +910,22 @@ die();
  public function actionResolveTransa(){
      if(h::request()->isPost){         
          $posteador=h::request()->post('TransaccionForm',null);
+         
          if(!is_null($posteador) && array_key_exists('transaccion', $posteador)){
              if(!is_null($model=\common\models\masters\Transacciones::find()->andWhere(['transaccion'=>$posteador['transaccion']])->one())){
                  $this->redirect(Url::toRoute([$model->name]));    
              }else{
                   throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
-      
-             }
-                 
+                   }                 
          }else{
               throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
          }
      }else{
           throw new NotFoundHttpException(Yii::t('base_errors', 'The requested page does not exist.'));
      }
-     
- }  
+   } 
+   
+   
+   
+   
 }

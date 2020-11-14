@@ -102,7 +102,7 @@ implements \common\interfaces\postulantesInterface
              */
              [['unidest_id','facudestd_id','carreradest_id'], 'required','on'=>self::SCE_EXTRANJERO],
             [['universidad_id','facultad_id','carrera_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
-             [['unidest_id','facudest_id','carreradest_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
+            [['unidest_id','facudest_id','carreradest_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
             [['unidest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['unidest_id' => 'id'] ,'on'=>self::SCE_EXTRANJERO],
              [['facudest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facudest_id' => 'id'],'on'=>self::SCE_EXTRANJERO],
              [['carreradest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carreradest_id' => 'id'],'on'=>self::SCE_EXTRANJERO],
@@ -183,6 +183,8 @@ implements \common\interfaces\postulantesInterface
         if($insert){
             $this->refresh();
             $this->createPersonFromThis();
+        }else{
+           $this->sincronizeFields(); //Con la tabla Personas 
         }
         return parent::afterSave($insert, $changedAttributes);
     } 
@@ -334,6 +336,7 @@ implements \common\interfaces\postulantesInterface
   }
   
   public function currentConvocatoria(){
+      //echo $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->createCommand()->rawSql;die();
      return  $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
   }
   
@@ -343,6 +346,7 @@ implements \common\interfaces\postulantesInterface
    * diferente a la universidad actual
    */
  public function isExternal(){
+    // var_dump(h::currentUniversity(),$this->universidad_id);die();
     //return in_array($this->universidad_id, \common\helpers\ComboHelper::getcboIdsUniversidadesInThisCountry());     
     return !(h::currentUniversity()==$this->universidad_id);
  } 
@@ -376,6 +380,7 @@ implements \common\interfaces\postulantesInterface
   * Se regidtra como convadao directamente
   */
  public function registerConvocado($idModo=null) {
+    
     /*Buscamos el programa actual*/
     if(is_null($idModo)){
      $modelModo=$this->resolveModo(true); 
@@ -384,7 +389,7 @@ implements \common\interfaces\postulantesInterface
       $modelModo=InterModos::findOne($idModo);   
     }
      
-     //VAR_DUMP( $modelModo->id);DIE();
+     
   
     $external=$this->isExternal();
   
@@ -410,6 +415,7 @@ implements \common\interfaces\postulantesInterface
                    $model->attributes);
            //var_dump($model->attributes['docente_id']);die();
           // var_dump($attr);die();
+           
           return  $model->firstOrCreate($attr,
                    $model::SCENARIO_CONVOCATORIAMINIMA);
    }
@@ -424,15 +430,20 @@ implements \common\interfaces\postulantesInterface
   //VAR_DUMP($current_universidad,$this->unidest_id,$this->universidad_id);
    /*Si la universidad destino no  es la misma que el usuario que 
     * la crea error no permitir     */
-   if($current_universidad<>$this->unidest_id){
+   /*if($current_universidad<>$this->unidest_id){
      $this->addError ('unidest_id',yii::t('base_errors','This university doesn\'t match'));
      
-   }
+   }*/
     /*Si la universidad origen es la misma que el usuario que 
     * la crea el alumno no es extrno
     */
-   if($current_universidad==$this->universidad_id){
+   /*if($current_universidad==$this->universidad_id){
      $this->addError ('universidad_id',yii::t('base_errors','This university doesn\'t match'));
+     
+   }*/
+   
+   if($this->universidad_id==$this->unidest_id){
+     $this->addError ('universidad_id',yii::t('base_errors','Universities must be different'));
      
    }
    
@@ -446,12 +457,15 @@ implements \common\interfaces\postulantesInterface
   */
  public function resolveModo($isModel=false){
     $programa= \frontend\modules\inter\Module::currentPrograma(true);
+    
     if(is_null($programa))
     throw new BadRequestHttpException(yii::t('base_errors','Program not found , SQL Sentence was {sql}',['sql'=>$query->createCommand()->rawSql]));  
     $query=$programa->getModo()->andWhere([
         'modelofuente'=>'\\'.self::className(),
         'externalpeople'=>($this->isExternal())?'1':'0'
     ]);
+    
+    //echo $query->createCommand()->rawSql;die();
     $modo=$query->one();
     if(is_null($modo))
       return null;
@@ -470,7 +484,7 @@ implements \common\interfaces\postulantesInterface
 }
  
 public function campoCarrera() {
-   RETURN ($this->isExternal())?'carreradest_id':'carrera_id';;
+   RETURN ($this->isExternal())?'carreradest_id':'carrera_id';
 }
 
 public function mailAddress() {

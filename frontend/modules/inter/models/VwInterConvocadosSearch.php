@@ -18,7 +18,7 @@ class VwInterConvocadosSearch extends InterVwConvocados
     {
         return [
             [['id', 'universidad_id', 'facultad_id', 'depa_id', 'modo_id', 'programa_id', 'secuencia', 'alumno_id', 'docente_id', 'persona_id', 'identidad_id'], 'integer'],
-            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2','current_etapa','codigoalumno','facultad_id','carrera_id','estado'], 'safe'],
+            [['ap','am','nombres','codgrupo','tipodoc','numerodoc','codperiodo', 'codocu', 'clase', 'status', 'codalu', 'codigo1', 'codigo2','current_etapa','codigoalumno','facultad_id','carrera_id','estado','univorigen_id'], 'safe'],
         ];
     }
 
@@ -59,7 +59,8 @@ class VwInterConvocadosSearch extends InterVwConvocados
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'universidad_id' => $this->universidad_id,
+            'universidad_id' => h::currentUniversity(),
+            'univorigen_id' => $this->univorigen_id,
             'facultad_id' => $this->facultad_id,
             'depa_id' => $this->depa_id,
             'modo_id' => $this->modo_id,

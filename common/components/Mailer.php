@@ -60,7 +60,8 @@ class Mailer extends Correo
         //var_dump(static::arrayConfig());die();
         $this->_transport=$this->optionsTransport[0];
         //Agregadno el evento AFTERSEND()
-        $this->on(self::EVENT_AFTER_SEND, [$this, 'registerRoute']);
+        //$this->on(self::EVENT_AFTER_SEND, [$this, 'registerRoute']);
+         $this->viewPath='@frontend/mail';
         //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
         //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
         //$this->on(self::EVENT_NEW_USER, [$this, 'notification']);
@@ -398,10 +399,7 @@ class Mailer extends Correo
       }
      
      
-    public function registerRoute(){
-         $route='/'.yii::$app->controller->action->getUniqueId();
-         
-    }
+    
     
     
       

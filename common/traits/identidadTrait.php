@@ -18,6 +18,8 @@ trait identidadTrait
     [
         'ap','am','nombres','tipodoc','numerodoc'
     ];
+    
+    private $_persona=null;
         
     private function queryPerson(){
         return Personas::find()->andWhere([
@@ -37,7 +39,7 @@ trait identidadTrait
         ]);
     }
     private function existsNamesInPerson(){
-        
+        //echo $this->queryPerson()->exists();die();
         return $this->queryPerson()->exists();
     }
     
@@ -106,9 +108,11 @@ trait identidadTrait
    } 
       
     public function getPersona() {
+        if(is_null($this->_persona))
+           return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+        return $this->_persona;
         /* echo  $this->hasOne(Talleresdet::className(), ['id' => 'talleresdet_id'])->createCommand()
           ->getRawSql();die(); */
-        return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
         //echo Personas::find()->andWhere(['id' => 'persona_id','codgrupo'=>$this->obtenerGrupo()])->createCommand()->rawSql;die();
         //return Personas::find()->andWhere(['id' => $this->persona_id,'codgrupo'=>$this->obtenerGrupo()])->one();
     }
@@ -167,18 +171,32 @@ trait identidadTrait
    
    public function validateDuplicado($attribute, $params) {
        //yii::error('validado duplicado');
-       //yii::error(!$this->existsNamesInPerson());
+      // yii::error($this->existsNamesInPerson());
         //yii::error($this->existsDocInPerson());
+        //var_dump(!$this->existsNamesInPerson() && $this->existsDocInPerson());die();
+       if($this->isNewRecord){
        $message='There is a person with the same identity '
             . 'number but the names do not match,Verify '
             . 'that the full names are the same';
-    if(!$this->existsNamesInPerson() && $this->existsDocInPerson())
-    $this->addError('numerodoc',yii::t('base_errors',$message
-            ));
     
+    if(!$this->existsNamesInPerson() && $this->existsDocInPerson())
+        $this->addError('numerodoc',yii::t('base_errors',$message
+            ));
+       }
     
    } 
    
-   
+   public function sincronizeFields(){
+       $persona=$this->persona;
+    if(!is_null($persona)){
+        foreach($this->camposComunes as $key=>$nameField){
+          $persona->{$nameField}=$this->{$nameField};
+      } 
+      return $persona->save();
+    }else{
+        return false;
+    }
+      
+   }
    
 }

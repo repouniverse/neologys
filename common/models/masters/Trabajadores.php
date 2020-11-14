@@ -46,7 +46,9 @@ class Trabajadores extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['ap', 'am', 'nombres','facultad_id','universidad_id','cargo_id'], 'required'],
+            [['ap', 'am', 'nombres','facultad_id',
+                'universidad_id',
+                'cargo_id','tipodoc','numerodoc'], 'required'],
             [['detalles'], 'string'],
             [['persona_id'], 'integer'],
              [['persona_id','facultad_id','universidad_id','depa_id','cargo_id'], 'safe'],

@@ -14,7 +14,9 @@ alumnoAsset::register($this);
     <div class="box-body">
       
       <?PHP  
+      //var_dump($identidad->id,$identidad->currentConvocatoria());die();
       $convocatoria=$identidad->currentConvocatoria();
+   
       $isAdmitido=$convocatoria->isAdmitido();
       $targetUniversidad=$convocatoria->targetUniversity();
         if(is_null($targetUniversidad)){           

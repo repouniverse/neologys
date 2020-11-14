@@ -14,8 +14,8 @@ class m201027_234030_alter_table_programas extends baseMigration
 $table=static::NAME_TABLE;
 if(!$this->existsColumn($table,'numero'))
      $this->addColumn($table, 'numero', $this->string(10)->notNull()->append($this->collateColumn()));  
-   if(!$this->existsColumn($table,'carrera_id'))
-     $this->addColumn($table, 'numero', $this->string(10)->notNull()->append($this->collateColumn()));  
+ if(!$this->existsColumn($table,'carrera_id'))
+     $this->addColumn($table, 'carrera_id', $this->string(10)->notNull()->append($this->collateColumn()));  
    
   
     }

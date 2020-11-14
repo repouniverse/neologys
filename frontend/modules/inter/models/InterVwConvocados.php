@@ -75,6 +75,7 @@ class InterVwConvocados extends \common\models\base\modelBase
             'numerodoc' => m::t('labels', 'Document Number'),
             'codgrupo' => m::t('labels', 'Group'),
             'universidad_id' => m::t('labels', 'University'),
+            'univorigen_id' => m::t('labels', 'Original University'),
             'facultad_id' => m::t('labels', 'Faculty'),
             'depa_id' => m::t('labels', 'Departament'),
             'modo_id' => m::t('labels', 'Mode'),

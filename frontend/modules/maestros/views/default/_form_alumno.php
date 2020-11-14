@@ -141,7 +141,7 @@
                 [
                     'model'=>$modelPersona,               
                     'form'=>$form,
-                    'data'=> ComboHelper::getCboDepartamentos(),
+                    'data'=> ComboHelper::getCboUniversidadesFiltradas(),
                     'campo'=>'depdir',
                     'idcombodep'=>'personas-provdir',
                     'source'=>

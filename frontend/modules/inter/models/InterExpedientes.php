@@ -101,22 +101,22 @@ class InterExpedientes extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
-            'id' => m::t('labels', 'ID'),
-            'universidad_id' => m::t('labels', 'University'),
-            'facultad_id' => m::t('labels', 'Faculty'),
-            'depa_id' => m::t('labels', 'Depa ID'),
-            'programa_id' => m::t('labels', 'Program'),
-            'modo_id' => m::t('labels', 'Mode ID'),
-            'convocado_id' => m::t('labels', 'Summoned ID'),
-            'clase' => m::t('labels', 'Class'),
-            'status' => m::t('labels', 'Status'),
-            'codocu' => m::t('labels', 'Document Code'),
-            'fpresenta' => m::t('labels', 'Presentation Date'),
-            'fdocu' => m::t('labels', 'Document Date'),
-            'detalles' => m::t('labels', 'Details'),
-            'textointerno' => m::t('labels', 'Internal Text'),
-            'estado' => m::t('labels', 'Status'),
-            'requerido' => m::t('labels', 'Required'),
+            'id' => yii::t('base_labels', 'ID'),
+            'universidad_id' => yii::t('base_labels', 'University'),
+            'facultad_id' => yii::t('base_labels', 'Faculty'),
+            'depa_id' => yii::t('base_labels', 'Depa ID'),
+            'programa_id' => yii::t('base_labels', 'Program'),
+            'modo_id' => yii::t('base_labels', 'Mode ID'),
+            'convocado_id' => yii::t('base_labels', 'Summoned ID'),
+            'clase' => yii::t('base_labels', 'Class'),
+            'status' => yii::t('base_labels', 'Status'),
+            'codocu' => yii::t('base_labels', 'Document Code'),
+            'fpresenta' => yii::t('base_labels', 'Presentation Date'),
+            'fdocu' => yii::t('base_labels', 'Document Date'),
+            'detalles' => yii::t('base_labels', 'Details'),
+            'textointerno' => yii::t('base_labels', 'Internal Text'),
+            'estado' => yii::t('base_labels', 'Status'),
+            'requerido' => yii::t('base_labels', 'Required'),
         ];
     }
 
@@ -233,9 +233,6 @@ class InterExpedientes extends \common\models\base\modelBase
     }
     
     public function aprove($approbe=true){
-     
-        //$oldScenario=$this->getScenario();
-       /// $this->setScenario(self::SCE_ESTADO);
         $this->estado=$approbe;
         $grabo=$this->save();
         $convocado=$this->convocado;

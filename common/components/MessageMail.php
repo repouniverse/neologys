@@ -53,6 +53,7 @@ class MessageMail extends Message
     
    public function ResolveMessage(){
      //$route='/'.yii::$app->controller->action->getUniqueId();
+       //var_dump(!$this->ExistsMessageForThisRoute());die();
      $model=$this->classModel;
      //$this->ReplaceParams();
      if(!$this->ExistsMessageForThisRoute()){

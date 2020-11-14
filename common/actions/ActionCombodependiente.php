@@ -53,6 +53,7 @@ class ActionCombodependiente extends \yii\base\Action
                  $query=$modelo::find()->select($campos)->andWhere([
                      $source[$modelo]['campofiltro']=>$valorfiltro
                          ]);
+                // var_DUMP( $query->createCommand()->rawSql);die();
                  if(array_key_exists('additionalFilter', $source[$modelo]))
                    if(is_array($source[$modelo]['additionalFilter'])){
                     //  var_dump();

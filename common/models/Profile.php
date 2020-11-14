@@ -316,6 +316,11 @@ class Profile extends \common\models\base\modelBase implements \common\interface
           \common\models\masters\UsersUniversities::habilitaUniversity(
              $this->user_id,
              $this->universidad_id); 
+     if(h::currentUniversity() <> $this->universidad_id){
+          \common\models\masters\UsersUniversities::habilitaUniversity(
+             $this->user_id,
+             h::currentUniversity());
+     }
      }else{
          yii::error('empty tis->universidad_id');
      }

@@ -16,6 +16,7 @@
 ?>
 <div class="inter-convocados-form">
     <br>
+     <?php $postulante=$model->postulante;  ?>
         <?php 
             $paisResidencia = \common\models\masters\Universidades::findOne($model->universidad_id)->codpais;    //$model->studentPais($model->universidad_id);
             $modelP->paisresidencia = $paisResidencia;
@@ -24,6 +25,7 @@
                         [
                             'id'=>'biForm',
                             'fieldClass'=>'\common\components\MyActiveField',
+                            'action'=>Url::to(['/inter/convocados/fill-ficha','id'=>$model->id]),
                         ]
                     ); 
         ?>
@@ -35,7 +37,7 @@
             </div>
         </div>
         <div class="box-body"> 
-            <?php $postulante=$model->postulante;  ?>
+           
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <?= $form->field($model, 'alumno_id')->
                            label(m::t('labels','Code'))->
@@ -315,9 +317,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <?= $form->field($modelP, 'telmoviles')->textInput(['maxlength' => true]) ?>
             </div>
-              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">    
-                <?= $form->field($modelP, 'pasaporte')->textInput() ?>            
-            </div>     
+                  
             
             
             

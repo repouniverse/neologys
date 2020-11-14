@@ -7,7 +7,7 @@ namespace common\models\masters;
  *
  * @see Carreras
  */
-class CarrerasQuery extends \common\components\ActiveQueryScopeUniv
+class CarrerasQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {

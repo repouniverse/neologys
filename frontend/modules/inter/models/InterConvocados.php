@@ -291,6 +291,7 @@ class InterConvocados extends \common\models\base\modelBase
   
    public function afterSave($insert, $changedAttributes) {
       if($insert){
+         // vAR_DUMP('grabo after save'); DIE(); 
           $this->createFirstExpediente();
       }
        RETURN parent::afterSave($insert, $changedAttributes);
@@ -440,7 +441,9 @@ public function porcAvanceUploads($stage){
   
  public function createFirstExpediente(){
     // YII::ERROR('CREANDO EXPEDIENTE PRIMERO ',__FUNCTION__);
+    
      $postulante=$this->postulante;
+    // var_dump($postulante->attributes,$postulante->campoCarrera());die();
      $externo=$postulante->isExternal();
      $campoCarrera=$postulante->campoCarrera();
      $query=Interplan::find()->alias('t')->
@@ -487,8 +490,13 @@ public function porcAvanceUploads($stage){
      yii::error('itentando crear expediente ');
      $postulante=$this->postulante;
       $campoCarrera=$postulante->campoCarrera();
+      //var_dump($postulante->campoCarrera(),$postulante->isExternal());die();
+       yii::error('es externo '.($postulante->isExternal())?'si':'no');
+        yii::error('Campo carrera '.$campoCarrera);
+        yii::error('carrera carera evaluador '.$modelPlan->eval->carrera->id);
+         yii::error('POSTULANTE CAMPOS carrera '.$postulante->{$campoCarrera});
     if($modelPlan->eval->carrera->id==$postulante->{$campoCarrera}){
-        yii::error('si es de la carera  ');
+        yii::error('si es de la carreaera  ');
         return  InterExpedientes::firstOrCreateStatic([
                         'universidad_id'=>$this->universidad_id,
                        'facultad_id'=>$this->facultad_id,
@@ -509,6 +517,7 @@ public function porcAvanceUploads($stage){
                 ] );
       
     }else{
+        yii::error('No es de la carrera');
        return false; 
       
     }

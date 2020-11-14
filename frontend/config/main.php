@@ -84,6 +84,11 @@ return [
         'import' => [
             'class' => 'frontend\modules\import\ModuleImport',
         ],
+      
+        'regacad' => [
+            'class' => 'frontend\modules\regacad\Module',
+            ],
+        
     ],
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
@@ -105,7 +110,7 @@ return [
      */
     'as beforeRequest' => [
         'class' =>'common\filters\LanguageFilter',
-        'class' => 'common\filters\ActionAuditFilter',  
+       // 'class' => 'common\filters\ActionAuditFilter',  
                         ],
     'params' => $params,
 ];

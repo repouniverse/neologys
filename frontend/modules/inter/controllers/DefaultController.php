@@ -48,6 +48,14 @@ class DefaultController extends Controller
     }
     }
     
+    public function actionRutas(){
+        $array=\common\helpers\ComboHelper::getCboGrupoPersonas();
+        var_dump(array_keys($array));die();
+         \frontend\modules\inter\models\InterPrograma::createMagicPrograma(13,54, '2020-II', '158');
+    DIE();
+    }
+    
+    
     public function actionAditionalAuth(){
        // $this->layout='install';
         $sesion=h::session();

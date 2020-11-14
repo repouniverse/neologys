@@ -61,7 +61,10 @@ public function scenarios()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['email', 'unique'],
+            ['username', 'unique'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            
         ];
     }
 

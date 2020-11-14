@@ -29,7 +29,9 @@
             <div class="form-group no-margin">
                 <?= Html::submitButton(m::t('verbs', 'Save'), ['class' => 'btn btn-success']) ?>
                 <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>       
-             <?= Html::button('<span class="fa fa-check"></span>   '.m::t('verbs', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
+             <?PHP 
+             if(!$model->isNewRecord)
+             ECHO Html::button('<span class="fa fa-check"></span>   '.m::t('verbs', 'Register'), ['id'=>'btn-register','class' => 'btn btn-warning']) ?>
                    
             </div>
         </div>
@@ -56,7 +58,7 @@
                     [
                         'model'=>$model,               
                         'form'=>$form,
-                        'data'=> ComboHelper::getCboUniversidades(),
+                         'data'=> ComboHelper::getCboUniversidadesFiltradas(),
                         'campo'=>'universidad_id',
                         'idcombodep'=>'alumnos-facultad_id',               
                         'source'=>[\common\models\masters\Facultades::className()=>
