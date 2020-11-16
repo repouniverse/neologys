@@ -39,7 +39,8 @@
         "kriss/yii2-calendar-schedule": "^1.0",
         "yiisoft/yii2-jui": "^2.0",
         "kartik-v/yii2-widget-datetimepicker": "dev-master",
-        "2amigos/yii2-ckeditor-widget": "^1.0@dev"
+        "2amigos/yii2-ckeditor-widget": "^1.0@dev",
+        "lysenkobv/yii2-geoip": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -483,6 +483,7 @@ public function porcAvanceUploads($stage){
       RETURN $this->getExpedientes()->andWhere([          
           'orden'=>$stage])
             ->orderBy(['secuencia'=>SORT_ASC])->one();
+      
  }     
  
  private function createExpediente(InterPlan $modelPlan){

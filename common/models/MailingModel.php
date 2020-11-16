@@ -34,12 +34,12 @@ class MailingModel extends \common\models\base\modelBase
             [['universidad_id', 'facultad_id', 'ruta','reply','idioma','titulo','remitente','correoremitente','parametros','descripcion'],'safe'],
             [['ruta'], 'string', 'max' => 64],
              [['titulo'], 'string', 'max' => 60],
-            [['transaccion'], 'unique',],
+            //[['transaccion'], 'unique',],
             //[['activo', 'posic'], 'string', 'max' => 1],
             [['idioma'], 'string', 'max' => 5],
             [['remitente'], 'string', 'max' => 60],
             [['transaccion'], 'string', 'max' => 6],
-            [['transaccion'], 'unique',],
+           // [['transaccion'], 'unique',],
             [['codocu'], 'string', 'max' => 3],
             [['codocu'], 'exist', 'skipOnError' => true, 'targetClass' => Documentos::className(), 'targetAttribute' => ['codocu' => 'codocu']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
@@ -132,8 +132,8 @@ class MailingModel extends \common\models\base\modelBase
     
     public function beforeSave($insert) {      
         if($insert){
-          $nameTransa=masters\Transacciones::findOne(['name'=>$this->ruta]);
-          $this->transaccion=(is_null($nameTransa))?'':$nameTransa; 
+          $modelTransa=masters\Transacciones::findOne(['name'=>$this->ruta]);
+          $this->transaccion=(is_null($modelTransa))?'':$modelTransa->transaccion; 
        }
        return parent::beforeSave($insert);
     }

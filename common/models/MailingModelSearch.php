@@ -49,8 +49,14 @@ class MailingModelSearch extends MailingModel
         ]);
 
         $this->load($params);
+       
+        if (!$this->validate()) {
+           
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
 
-        
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -60,7 +66,7 @@ class MailingModelSearch extends MailingModel
         ]);
 
         $query->andFilterWhere(['like', 'ruta', $this->ruta])
-            ->andFilterWhere(['like', 'activo', $this->activo])
+            //->andFilterWhere(['like', 'activo', $this->activo])
             ->andFilterWhere(['like', 'idioma', $this->idioma])
             ->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'remitente', $this->remitente])
@@ -70,9 +76,9 @@ class MailingModelSearch extends MailingModel
             ->andFilterWhere(['like', 'codocu', $this->codocu])
             ->andFilterWhere(['like', 'posic', $this->posic])
             ->andFilterWhere(['like', 'texto', $this->texto])
-            ->andFilterWhere(['like', 'parametros', $this->parametros])
+            //->andFilterWhere(['like', 'parametros', $this->parametros])
             ->andFilterWhere(['like', 'reply', $this->reply]);
-
+        //ECHO $query->createCommand()->getRawSql(); die();
         return $dataProvider;
     }
 }
