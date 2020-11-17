@@ -7,7 +7,7 @@ namespace frontend\modules\inter\models;
  *
  * @see InterEvaluadores
  */
-class InterEvaluadoresQuery extends \yii\db\ActiveQuery
+class InterEvaluadoresQuery extends  \common\components\ActiveQueryScopeUniv/*\yii\db\ActiveQuery*/
 {
     /*public function active()
     {

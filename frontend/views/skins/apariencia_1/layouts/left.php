@@ -55,7 +55,6 @@ use common\models\TransaccionForm;
         
         
         
-        
           <?php $items=\common\components\MenuHelper::getAssignedMenu(yii::$app->user->id
                    ,null/*root*/, 
                     null,false/*refresh*/);?>  

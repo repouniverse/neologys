@@ -1180,7 +1180,7 @@ class DefaultController extends \common\controllers\base\baseController
         
         if ($model->load(h::request()->post()) && $model->save()) {
             h::session()->setFlash('success',m::t('validaciones','Student was created'));
-            return $this->redirect(['view-alumnos', 'id' => $model->id]);
+            return $this->redirect(['index-alumnos', 'id' => $model->id]);
         }else{
             //print_r($model->getErrors());die();
         }

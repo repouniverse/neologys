@@ -13,7 +13,7 @@ class AdminLteAsset extends BaseAdminLteAsset
     public $sourcePath = __DIR__;
     public $css = [
         'css/AdminLTE.min.css',
-         'css/joder.css',
+        // 'css/joder.css',
         //'css/skins/_all-skins.css'
     ];
     public $js = [

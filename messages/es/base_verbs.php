@@ -6,6 +6,7 @@ return[
     'View'=>'Vista',
     'Delete'=>'Eliminar',
     'Save'=>'Grabar',
+    'Send'=>'Enviar',
     'Enabled'=>'Habilitar',
     
     'Edit'=>'Modificar',

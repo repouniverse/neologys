@@ -255,7 +255,10 @@ class InterModos extends \common\models\base\modelBase
    }
    
    public function generateUsers(){
+       yii::error(__FUNCTION__);
+       yii::error($this->id);
        foreach($this->convocados as $convocado){
+           
            $convocado->persona->createUser();
        }
    }

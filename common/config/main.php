@@ -8,6 +8,8 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'geoip' => ['class' => 'lysenkobv\GeoIP\GeoIP'],
+        
         'log' => [
             'flushInterval' => 100,
             'targets' => [

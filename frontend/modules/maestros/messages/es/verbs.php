@@ -13,4 +13,5 @@ return [
     'View'=>'Ver',
     'View :{name}'=>'Ver :{name}',
     'Register'=>'Registrarse',
+    'Create external student'=>'Crear estudiante externo',
 ];

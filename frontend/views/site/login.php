@@ -6,12 +6,18 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
-
-$this->title = 'Sign In';
+if(Yii::$app->geoip->ip()->isoCode=='PE'){
+  yii::$app->language='es_PE';
+}ELSE{
+   yii::$app->language='en_US'; 
+}
+ // echo $model::className();
+    
+$this->title = yii::t('base_labels','Sign In');
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
 ];
 
 $fieldOptions2 = [
@@ -21,13 +27,16 @@ $fieldOptions2 = [
 ?>
 
 <div class="login-box">
+        
+        <?php echo Yii::$app->geoip->ip()->isoCode;   ?> 
     <div class="login-logo">
+        
         <?=Html::img('@web/img/logo_usmp.png',['width'=>280,'height'=>100])?>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
+        <p class="login-box-msg"><?php echo yii::t('base_labels','Sign in to start your session')?></p>
+        
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
         <?= $form
@@ -41,12 +50,9 @@ $fieldOptions2 = [
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
         <div class="row">
-            <div class="col-xs-8">
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-            </div>
-            <!-- /.col -->
-            <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+           
+            <div class="col-xs-12">
+                <?= Html::submitButton(yii::t('base_labels','Sign in'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->
         </div>
@@ -56,7 +62,7 @@ $fieldOptions2 = [
 
        <?=Html::a(yii::t('base_labels','I forgot my password'),Url::to(['request-password-reset']))?>
         <br>
-        <?=Html::a(yii::t('base_labels','Register'),Url::to(['/inter/default/base-auth']))?>
+        <?php //echo Html::a(yii::t('base_labels','Register'),Url::to(['/inter/default/base-auth']))?>
          
     
         

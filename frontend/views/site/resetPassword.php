@@ -9,6 +9,8 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Reset password';
 $this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <div class="site-reset-password">
     
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="login-box">
     
        <div class="login-box-body">
-    <p>Please choose your new password:</p>
+    <p><?php echo yii::t('base_labels','Please choose your new password:'); ?></p>
 
     <div class="row">
         
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton(yii::t('base_verbs','Save'), ['class' => 'btn btn-primary']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>

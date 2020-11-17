@@ -38,21 +38,21 @@
     </div>
     <?php Pjax::begin(['id'=>'america']); Pjax::end();  ?>
     <div class="box-body">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'codalu')->textInput(['maxlength' => true]) ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
             <?= $form->field($model, 'ap')->textInput() ?>
         </div>
         
        
         
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'nombres')->textInput(['maxlength' => true]) ?>
         </div>
         
-        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">          
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
             <?= ComboDep::widget
                 (
                     [
@@ -73,7 +73,7 @@
             ?>
         </div>
         
-        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">          
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
             <?= ComboDep::widget
                 (
                     [
@@ -94,7 +94,7 @@
             ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
             <?= $form->field($model, 'carrera_id')->
                              dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facultad_id),
                                                                 ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]
@@ -102,20 +102,20 @@
             ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?=$form->field($model, 'tipodoc')->
                       dropDownList(Personas::comboDataField('tipodoc'),['prompt'=>'--'.m::t('verbs','Choose a value')."--",])
             ?>
         </div>
         
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'numerodoc')->textInput(['maxlength' => true]) ?>
         </div>
         
-        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'mail')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">          
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
             <?= ComboDep::widget
                 (
                     [
@@ -136,7 +136,7 @@
             ?>
         </div>
         
-        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">          
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
             <?= ComboDep::widget
                 (
                     [
@@ -157,7 +157,7 @@
             ?>
         </div>
         
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">    
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">    
             <?= $form->field($model, 'carreradest_id')->
                              dropDownList(($model->isNewRecord)?[]:ComboHelper::getCboCarreras($model->facudest_id),
                                                                 ['prompt'=>'--'.m::t('verbs','Choose a value')."--",]

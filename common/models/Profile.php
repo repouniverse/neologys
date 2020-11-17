@@ -281,6 +281,8 @@ class Profile extends \common\models\base\modelBase implements \common\interface
       return $this->save();
      }
      
+     
+     
    public function linkUniversity($idUniversidad){
        
       $universidades= masters\Universidades::findOne($idUniversidad);
@@ -310,25 +312,40 @@ class Profile extends \common\models\base\modelBase implements \common\interface
   * UsersUniversities
   */
  public function afterSave($insert,$changedAttributes) {
-    parent::afterSave($insert,$changedAttributes); 
-     yii::error('after save profile');
-     if(!empty($this->universidad_id) ){
-          \common\models\masters\UsersUniversities::habilitaUniversity(
-             $this->user_id,
-             $this->universidad_id); 
-     if(h::currentUniversity() <> $this->universidad_id){
-          \common\models\masters\UsersUniversities::habilitaUniversity(
-             $this->user_id,
-             h::currentUniversity());
-     }
-     }else{
-         yii::error('empty tis->universidad_id');
-     }
-    
-     //return false;
+    parent::afterSave($insert,$changedAttributes);
+     $this->resolveAccessUniversities();
        
+   }
+   
+   private function habilitaUniversidad($universidad_id){
+        \common\models\masters\UsersUniversities::habilitaUniversity(
+             $this->user_id,
+             $universidad_id);
+   }
+       
+   private function resolveAccessUniversities(){
+      
+     if(!empty($this->universidad_id) ){
+            $this->habilitaUniversidad($this->universidad_id);         
+                    if(h::currentUniversity() <> $this->universidad_id){
+                        $this->habilitaUniversidad(h::currentUniversity());
+                       }
+     try{
+       $targetUni=$this->persona->identidad->universidad_id;
+       $this->habilitaUniversidad($targetUni);
+     } catch (Exception $ex) {
+         yii::error($ex->message,__FUNCTION__);
+     }
      
- }
+    
+     return true;
+     }
+   
+    }
+       
+   
+   
+ 
  
  
  

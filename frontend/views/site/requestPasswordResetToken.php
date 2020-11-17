@@ -6,8 +6,13 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = 'Request password reset';
+if(Yii::$app->geoip->ip()->isoCode=='PE'){
+  yii::$app->language='es_PE';
+}ELSE{
+   yii::$app->language='en_US'; 
+}
+  //echo $model::className();
+$this->title = yii::t('base_labels','Request password reset');
 $this->params['breadcrumbs'][] = $this->title;
 
 $fieldOptions1 = [
@@ -21,7 +26,7 @@ $fieldOptions1 = [
 <div class="login-box">
     
        <div class="login-box-body">
-        <p class="login-box-msg">Please fill out your email. A link to reset password will be sent there.</p>
+        <p class="login-box-msg"><?php echo yii::t('base_labels','Please fill out your email. A link to reset password will be sent there.');  ?></p>
 
         
          <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
@@ -36,7 +41,7 @@ $fieldOptions1 = [
         <div class="row">
            
             <div class="col-xs-4">
-                <?= Html::submitButton('Send', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+                <?= Html::submitButton(yii::t('base_verbs','Send'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->
         </div>

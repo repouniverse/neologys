@@ -1,5 +1,12 @@
 <?php
 return[    
+    //Login
+    'Username'=>'Usuario',
+    'This value cannot be empty'=>'Este campo no puede estar vacío.',
+    'Password'=>'Contraseña',
+    'Please choose your new password:'=>'Por favor escriba la nueva contraseña',
+    'Sign in'=>'Auntenticar',
+    'Sign in to start your session'=>'Ingrese sus credenciales',
     'I forgot my password'=>'Olvidé mi contraseña',
     'Register'=>'Registrarse',
     'User Data'=>'Datos de usuario',
@@ -19,13 +26,15 @@ return[
     'SINGLE'=>'SOLTERO',
     'MARRIED'=>'CASADO',
     
+    
+    
     // Alumnos
     'Id'=>'ID',
     'ID'=>'ID',
     'Code Student'=>'Código Alumno',
     'Code Student 1'=>'Código Alumno 1',
     'Code Student 2'=>'Código Alumno 2',
-    'Last Name'=>'Apellido Paterno',
+    'Last Name'=>'Primer apellido',
     'Mother Last Name'=>'Apellido Materno',
     'Names'=>'Nombres',
     'Entry Period Code'=>'Código Periodo Ingreso',
@@ -39,6 +48,9 @@ return[
     'Birth Place'=>'Lugar Nacimiento',
     'Place Residence'=>'Lugar Residencia',
     'Document Identity'=>'Documento Identidad',
+    'Target race'=>'Carrera destino',
+    'Target faculty'=>'Facultad destino',
+    'Target University'=>'Universidad destino',
     
     // Docentes
     'Faculty'=>'Facultad',
@@ -296,4 +308,7 @@ return[
     'E-mail'=>'Correo Electrónico',
     'Enabled'=>'Habilitado',
     'Activate'=>'Activar',
+    
+    //rESERT PASSWORD 
+    'Please fill out your email. A link to reset password will be sent there.'=>'Por favor ingrese su dirección de correo. Recibirá un link para reestablecer su contraseña.',
 ];

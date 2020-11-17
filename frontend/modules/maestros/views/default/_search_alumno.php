@@ -21,8 +21,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".m::t('verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
-             <?= Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
-             <?= Html::a(m::t('labels', 'Create External Student'), ['create-alumno-ext'], ['class' => 'btn btn-warning']) ?>
+             <?php //echo Html::a(m::t('labels', 'Create Student'), ['create-alumnos'], ['class' => 'btn btn-success']) ?>
+             <?= Html::a(m::t('verbs', 'Create external student'), ['create-alumno-ext'], ['class' => 'btn btn-warning']) ?>
           
         </div>
     </div>

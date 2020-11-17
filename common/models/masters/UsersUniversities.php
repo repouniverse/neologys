@@ -38,6 +38,7 @@ class UsersUniversities extends \common\models\base\modelBase
             [['universidad_id', 'user_id', 'activo'], 'required'],
             [['universidad_id', 'user_id'], 'integer'],
             [['activo'], 'safe'],
+             [['universidad_id','user_id'], 'unique','targetAttribute'=>['universidad_id','user_id']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

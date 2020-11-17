@@ -50,6 +50,8 @@ USE common\widgets\buttonajaxwidget\buttonAjaxWidget;
     
     
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?php  yii::error('___siguiente___');   ?>
+         <?php  yii::error($modelEv->depa_id);   ?>
             <?=$form->field($modelEv, 'depa_id')->label(m::t('labels','Departament'))->textInput(['value'=>$modelEv->depa->nombredepa,'maxlength' => true,'disabled'=>true]) ?>
            
          

@@ -166,6 +166,9 @@ implements \common\interfaces\postulantesInterface
             'mail' => Yii::t('base_labels', 'Mail'),
             'facultad_id' => Yii::t('base_labels', 'Faculty'),
             'carrera_id' => Yii::t('base_labels', 'Race'),
+            'carreradest_id' => Yii::t('base_labels', 'Target race'),
+            'facudest_id' => Yii::t('base_labels', 'Target faculty'),
+            'unidest_id' => Yii::t('base_labels', 'Target University'),
         ];
     }
 
@@ -415,9 +418,9 @@ implements \common\interfaces\postulantesInterface
                    $model->attributes);
            //var_dump($model->attributes['docente_id']);die();
           // var_dump($attr);die();
-           
-          return  $model->firstOrCreate($attr,
+           $insertar=$model->firstOrCreate($attr,
                    $model::SCENARIO_CONVOCATORIAMINIMA);
+           
    }
    
    

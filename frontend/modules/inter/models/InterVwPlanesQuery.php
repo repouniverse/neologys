@@ -7,7 +7,7 @@ namespace frontend\modules\inter\models;
  *
  * @see InterVwPlanes
  */
-class InterVwPlanesQuery extends \yii\db\ActiveQuery
+class InterVwPlanesQuery extends  \common\components\ActiveQueryScopeUniv
 {
     /*public function active()
     {

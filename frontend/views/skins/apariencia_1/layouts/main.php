@@ -82,8 +82,8 @@ elseif($accion=='signup'){
 
     \frontend\views\skins\apariencia_1\AdminLteAsset::register($this);
 
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
-    //$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@frontend/views/skins/apariencia_1/');
+    //$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@frontend/views/skins/apariencia_1/');
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -94,6 +94,25 @@ elseif($accion=='signup'){
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        <?php
+        /*
+         * HOJA DE ESTILO DE ROMMELL
+         */
+        /*$this->registerCssFile("@web/css/internacional.css", [
+    'depends' => [//\yii\bootstrap\BootstrapAsset::className(),
+   \shifrin\noty\NotyAsset::className()
+   ],
+    'media' => 'print',
+        ], 'css-print-theme');
+       */ 
+        $this->registerCssFile("@web/css/internacional_important.css", [
+    'depends' => [ \shifrin\noty\NotyAsset::className()],
+    'media' => 'print',
+        ], 'css-print-theme');
+        /*
+         * fIN DE LA HOJA DE ESTILO DE ROMMEL
+         */
+        ?>
     </head>
      <body class="hold-transition <?= \frontend\views\skins\apariencia_1\AdminLteHelper::skinClass() ?>" sidebar-mini">
 
