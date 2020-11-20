@@ -32,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
          
          [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}{delete}{view}',
+                'template' => '{update}',
                 'buttons' => [
                     'update' => function($url, $model) {                        
                         $options = [
                             'title' => Yii::t('base.verbs', 'Update'),                            
                         ];
-                        return Html::a('<span class="btn btn-info btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                        return Html::a('<span class="btn btn-danger btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
                          },
                           'view' => function($url, $model) {                        
                         $options = [
@@ -61,11 +61,28 @@ $this->params['breadcrumbs'][] = $this->title;
          
          
 
-            'id',
-            'universidad_id',
-            'facultad_id',
-            'ruta',
-            'activo',
+            //'id',
+            //'universidad_id',
+            //'facultad_id',
+             'descripcion',
+             
+            ['attribute'=>'ruta'],
+            [
+                'attribute'=>'activo',
+                'format'=>'raw',
+        
+                'value' => function($model, $key, $index, $widget) {
+
+                   return Html::checkbox('activo[]', $model->activo, [ 'disabled' => true]);
+
+                 },
+                
+                
+        // you may configure additional properties here
+            ],
+              'idioma',
+             'titulo'
+                            
             //'idioma',
             //'titulo',
             //'remitente',

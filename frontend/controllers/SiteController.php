@@ -312,22 +312,67 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+  
+    $attributes=[
+    'universidad_id' => 1,
+    'facultad_id' => 1,
+    'ruta' => '/intei8r/convoctrados/ajax-register-alu-with-mail',
+    'idioma' => 'es_PE',
+    'titulo' => 'Ingreso al programa de movilidad',
+    'correoremitente' => 'neotegnia@gmail.com',
+    'remitente' => 'Departamento Internacional',
+    'copiato' => 'hipogea@hotmail.com',
+    'activo' => true,
+    'parametros' => [
+        'nombre',
+        'codigo',
+        'periodo',
+    ],
+    'reply' => 'juaner45@hotmail.com',
+    'cuerpo' => 'Dear<b>{nomb}',
+     ];
+    $model= new \common\models\MailingModel(['attributes'=>$attributes]);
+    $model->save();
+    die();
+    
+   
+    
      $mailer = new \common\components\Mailer();
-        $message = new \common\components\MessageMail();
-        $message->setSubject('APROBACION DE EXPEDIENTE')
+      $message = new \common\components\MessageMail();  
+      /* $message=Yii::$app->mailer->compose('inter/postulacion_alumnos/admision_alumno',
+               [
+                   'content' => $contenido,
+                   'fullName'=>'HERNANDO DE SOTO',
+                    'entrevistador'=>'JUAN SOTELO',
+                    ]); */
+      $contenido='Estimado alumno <br>{{param1}}</br> <br> Te comunicamos que '
+              . 'debes presentar tu solicitud a <b>{{param2}}</b>';
+        $message->paramTextBody=[
+            '{{param1}}'=>'JULIAN RAMIREZ',
+            '{{param2}}'=>'JORGE ARAMANDO',
+            ];
+        $contenido=$message->replaceParams($contenido);
+        //$message->ReplaceParams();
+        //echo var_dump(get_class_methods($message->getSwiftMessage())); die();
+        
+        $message->setSubject('Mailing Internacional')
+                ->setHtmlBody($contenido)
                 ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
-                ->setTo('hipogea@hotmail.com')
-                ->SetHtmlBody("Buenas Tardes    <br>"
-                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
-                        . "La presente es para notificarle que has  "
-                        . "aprobado con éxito. <br> <br>"
-                        . "Te esperamos en la siguiente etapa  ");
-        $message->ResolveMessage();
+               /* ->setTo(['hipogea@hotmail.com','lbarrientosm@gmail.com',
+                    'otejada.odm@gmail.com','xcruzd@usmp.pe','ppanduro@usmp.pe','sgarcia@usmp.pe','evilam@usmp.pe']);
+               */ ->SetTo('hipogea@hotmail.com');
+        
+        $message->resolveMessage();
+        //var_dump(['A'=>'DD','AB'=>'DSDS'],$message->ParamTextBody);
+       // $cadena=str_replace(array_keys($message->ParamTextBody),array_values($message->ParamTextBody),$message->getSwiftMessage()->getBody());
+        //echo $cadena;
+       // echo $message->getSwiftMessage()->getBody();
+        
         try {
 
-            $result = $mailer->send($message);
+            $result = $message->send();
             return true;
-            $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
+            $mensajes['success'] = yii::t('validaciones','The mail was sent, confirming the approval of the file');
         } catch (\Swift_TransportException $Ste) {
             
             $mensajes['error'] = $Ste->getMessage();
@@ -335,7 +380,20 @@ public function actionRutas(){
     die();
     
     
-    
+      echo " Url::home()  :   ".Url::home()."<br>";
+   echo " Url::home('https')  :   ".Url::home('https')."<br>";
+   echo " Url::base()  :   ".Url::base()."<br>";
+   echo " Url::to(['controlador/accion','param2'=>'uno','param2'=>'dos'],true)  :   ".Url::to(['controlador/accion','param1'=>'uno','param2'=>'dos'],true)."<br>";
+   echo " Url::base(true)  :   ".Url::base(true)."<br>";
+   echo " Url::base('https')  :   ".Url::base('https')."<br>";
+   echo " Url::canonical()  :   ".Url::canonical()."<br>";
+   echo " Url::current()  :   ".Url::current()."<br>";
+   echo " Url::previous()  :   ".Url::previous()."<br>";
+   echo " UrlManager::getBaseUrl()  :   ".yii::$app->urlManager->getBaseUrl()."<br>";
+   echo " UrlManager::getHostInfo()  :   ".yii::$app->urlManager->getHostInfo()."<br>";
+   echo " UrlManager::getScriptUrl()  :   ".yii::$app->urlManager->getScriptUrl()."<br>";
+  
+    die();
     
     
     
@@ -425,21 +483,6 @@ public function actionRutas(){
     
     
     
-    echo Url::toRoute(['e']); die();
-     echo " Url::home()  :   ".Url::home()."<br>";
-   echo " Url::home('https')  :   ".Url::home('https')."<br>";
-   echo " Url::base()  :   ".Url::base()."<br>";
-   echo " Url::to(['controlador/accion','param2'=>'uno','param2'=>'dos'],true)  :   ".Url::to(['controlador/accion','param1'=>'uno','param2'=>'dos'],true)."<br>";
-   echo " Url::base(true)  :   ".Url::base(true)."<br>";
-   echo " Url::base('https')  :   ".Url::base('https')."<br>";
-   echo " Url::canonical()  :   ".Url::canonical()."<br>";
-   echo " Url::current()  :   ".Url::current()."<br>";
-   echo " Url::previous()  :   ".Url::previous()."<br>";
-   echo " UrlManager::getBaseUrl()  :   ".yii::$app->urlManager->getBaseUrl()."<br>";
-   echo " UrlManager::getHostInfo()  :   ".yii::$app->urlManager->getHostInfo()."<br>";
-   echo " UrlManager::getScriptUrl()  :   ".yii::$app->urlManager->getScriptUrl()."<br>";
-  
-    die();
     
     
     echo \yii\helpers\Url::home().'<br>'; 

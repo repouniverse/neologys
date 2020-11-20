@@ -3,8 +3,11 @@
 namespace frontend\modules\inter\controllers;
 USE frontend\modules\inter\models\AuthWithQuestionForm;
 use common\helpers\h;
+use common\models\masters\Alumnos;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 use yii\web\Controller;
 use yii;
 /**
@@ -20,6 +23,30 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
+    
+    /*
+     * Gestiona unalista de alumnos extraneros que 
+     * no han sido convocados */
+     
+     public function actionPreExternalStudents()
+    {
+         $tableConvocados='{{%inter_convocados}}';
+         
+        $provider=new ActiveDataProvider([
+                    'query'=> Alumnos::find()->andWhere([
+                        '<>','universidad_id',h::currentUniversity()
+                            ])->andWhere([
+                                'not in',
+                                'id',(new Query())->
+                                    select('alumno_id')->from($tableConvocados)->
+                                    where(['not', ['alumno_id' => null]])
+                                    ])
+                    /*->andWhere(['unidest_id'=>h::currentUniversity()])*/,
+                   ] ) ;
+    // echo Alumnos::find()->andWhere(['<>','universidad_id',h::currentUniversity()])->andWhere(['not in','id',(new Query())->select('alumno_id')->from($tableConvocados)])->createCommand()->rawSql;die();
+       return  $this->render('enespera',['provider'=>$provider]);
+    }
+    
     
     public function actionBaseAuth(){
         {

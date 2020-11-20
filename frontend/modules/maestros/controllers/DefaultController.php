@@ -1170,7 +1170,7 @@ class DefaultController extends \common\controllers\base\baseController
     {
         $model = new Alumnos();
         $model->setScenario($model::SCE_EXTRANJERO);
-       
+       $model->unidest_id=1;//Borrar esto 
         if (h::request()->isAjax && $model->load(h::request()->post())) {
                 h::response()->format = \yii\web\Response::FORMAT_JSON;
                 return \yii\widgets\ActiveForm::validate($model);

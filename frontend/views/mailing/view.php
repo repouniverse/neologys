@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'codocu',
             'posic',
             'texto:ntext',
-            'parametros:ntext',
+            //'parametros:ntext',
             'reply',
             'order',
         ],

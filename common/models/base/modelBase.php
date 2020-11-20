@@ -1191,7 +1191,7 @@ class modelBase extends \yii\db\ActiveRecord
    * ='1' en lugar de booleanos 
    */
     private function convertBooleanFields($out=true){//
-       /* if(self::getShortNameClass()=='UsersUniversities'){
+        /*if(self::getShortNameClass()=='MailingModel'){
             var_dump($out,$this->attributes);
        }*/
         if($out){

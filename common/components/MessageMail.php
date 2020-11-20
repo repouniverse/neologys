@@ -16,20 +16,31 @@ class MessageMail extends Message
 {
  private $_route=null;
  public $classModel='common\models\MailingModel';
- public $language='es';//Español por defecto
- public $ParamTextBody=[]; 
+ //public $language='es';//Español por defecto
+ public $paramTextBody=[]; 
    
-  public function ReplaceParams(/*$reverse=false*/){
-      //if(!$reverse)
-      $this->setHtmlBody(
-              str_replace(array_keys($this->ParamTextBody),
-              array_values($this->ParamTextBody),$this->getSwiftMessage()->getBody())
-              );
-     /* $this->setHtmlBody(
-              str_replace(array_values($this->ParamTextBody),
-              array_keys($this->ParamTextBody),$this->getSwiftMessage()->getBody())
+  public function replaceParams($cuerpo,$reverse=false){
+      if(!$reverse){
+          //echo "*****************inicio*************";
+          $cadena=str_replace(array_keys($this->paramTextBody),
+              array_values($this->paramTextBody),$cuerpo);
+        /* var_dump($this->getSwiftMessage()->getBody(),
+                  $cadena
+                  );*/
+          //$this->setHtmlBody($cadena);
+          //echo $this->getSwiftMessage()->getBody();
+          //echo "*****************Final*************<br><br>";
+         
+      }else{
+           $cadena=str_replace(array_values($this->paramTextBody),
+              array_keys($this->paramTextBody),$cuerpo);
+      }
+      
+      /*$this->setHtmlBody(
+              str_replace(array_values($this->paramTextBody),
+              array_keys($this->paramTextBody),$this->getSwiftMessage()->getBody())
               );*/
-      return count($this->ParamTextBody);      
+      return $cadena;      
   } 
   public function  getRoute(){
       if(IS_NULL($this->_route))
@@ -42,16 +53,17 @@ class MessageMail extends Message
          'universidad_id'=>h::user()->profile->universidad_id,
          'facultad_id'=>h::resolveFaculty(),
          'ruta'=>$this->route,
-          'idioma'=>$this->language,
+          'idioma'=>yii::$app->language,
           //'activo'=>'1'
      ];
   }
   public function ExistsMessageForThisRoute(){
        $model=$this->classModel;
+       //echo $model::find()->where($this->criteriaExists())->createCommand()->rawSql;die();
        return $model::find()->where($this->criteriaExists())->exists();
   }  
     
-   public function ResolveMessage(){
+   public function resolveMessage(){
      //$route='/'.yii::$app->controller->action->getUniqueId();
        //var_dump(!$this->ExistsMessageForThisRoute());die();
      $model=$this->classModel;
@@ -62,26 +74,48 @@ class MessageMail extends Message
              'correoremitente'=>(is_string($this->getFrom()))?$this->getFrom():array_keys($this->getFrom())[0],
              'remitente'=>(is_string($this->getFrom()))?null: array_values($this->getFrom())[0],
               'copiato'=>$this->convertParams($this->getCc()),
-             'idioma'=>$this->language,
+             'idioma'=>yii::$app->language,
              'activo'=>true,
-             'parametros'=>array_keys($this->ParamTextBody),
+             'parametros'=>array_keys($this->paramTextBody),
              'reply'=>$this->convertParams($this->getReplyTo()),
-             'cuerpo'=>$this->convertParams($this->getSwiftMessage()->getBody())            
+             'cuerpo'=>$this->getSwiftMessage()->getBody(),            
                     ]);
+         
+         yii::error($attributes);
         return $model::firstOrCreateStatic($attributes,
              null,
              $this->criteriaExists());
          
      }else{
-      $current_message=$model::find($this->criteriaExists())->one();       
-       $this->setSubject($current_message->titulo)
+          $current_message=$model::find()->andWhere($this->criteriaExists())->one(); 
+       IF($current_message->activo){
+          $this->paramTextBody=$this->buildArray($current_message->parametros);
+                $this->setSubject($current_message->titulo)
              ->setFrom([$current_message->correoremitente=>$current_message->remitente])
              ->setCc($current_message->copiato)
               ->setReplyTo($current_message->reply)
               ->setHtmlBody($current_message->cuerpo);
-     }
-      $this->ReplaceParams();  
-     return true;
+            }      
+      }
+       return true;
+   }
+   
+   /*ESTA FUNCION se encarga de conciliar los 
+    * parametros encontrados en tablas con los parametros 
+    * originales del código. Puede ser que coincidan totalmente
+    * o parcialmente, según como el usuario lo vaya mdificando
+    * en tablas 
+  
+    * @paramsFromTable array  parametros que se leen de tablas
+    *                        
+    */
+   private  function buildArray($paramsFromTable=[]){
+       $paramsFinal=[];
+       foreach($paramsFromTable as $key=>$value){
+           if(array_key_exists($value,$this->paramTextBody))
+              $paramsFinal[$value]=$this->paramTextBody[$value];
+       }
+      return  $paramsFinal;
    }
    
    private function convertParams($attr)

@@ -24,7 +24,7 @@ return [
     'components' => [
         
          'mailer' =>['class'=>'common\components\Mailer',
-                'viewPath'=>'@frontend/mail',
+                'viewPath'=>'@common/mail',
             ],
         
           'assetManager'=>[

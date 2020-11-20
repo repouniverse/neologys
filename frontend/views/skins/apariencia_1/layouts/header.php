@@ -18,6 +18,7 @@ use common\helpers\h;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
+               <?php if(in_array(h::userId(),[1,105]))require('reloj.php'); ?>
               <?php require('notificaciones.php');   ?>   
                 <?php require('favoritos.php');   ?>   
                 

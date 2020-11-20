@@ -803,9 +803,11 @@ class ConvocadosController extends baseController
   }
  
   public function actionAdmitirPostulante($id){
-      $model=$this->findModel($id);
+     
       if(h::request()->isAjax){
          h::response()->format = \yii\web\Response::FORMAT_JSON;
+          //return ['success'=>'FUNCO']; 
+           $model=$this->findModel($id);
          if($model->admitirPostulante()){
              return ['success'=>m::t('validaciones','Applicant has been entered into the {programa}',['programa'=>'INTERNACIONAL'])];
          }else{
@@ -883,5 +885,41 @@ if(h::request()->isAjax){
      if($model->isOwner())return;
      return $this->renderFile(yii::getalias('@views/comunes/noautorizado.php'));
  }
+ 
+ public function actionAjaxRegisterAluWithMail($id){
+      
+    if(h::request()->isAjax){
+        h::response()->format = \yii\web\Response::FORMAT_JSON; 
+         $model=Alumnos::findOne($id);
+      if(!is_null($model->registerConvocado())){          
+            $message = new \common\components\MessageMail([
+                                'paramTextBody'=>['nombre'=>$model->fullName(),
+                                'codigo'=>$model->codalu,
+                                'periodo'=>h::periodos()->currentPeriod,
+                           ]]);  
+      $originalContent='Dear<b>{nombre}</b>-{codigo}'
+             . ' <br> We inform you that you have become part of our call for the mobility program'
+             . ' <b>{periodo}</b> '
+              . 'We invite you to enter our platform to complete the documentation delivery process.';
+      $message->setSubject(m::t('mail','Entrance to the mobility program'))
+                ->setHtmlBody($originalContent)
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
+                 ->setCc('hipogea@hotmail.com'/*$model->mailAddress()*/)
+                 ->setReplyTo($model->mailAddress())
+              ->SetTo('hipogea@hotmail.com'/*$model->mailAddress()*/)
+                 ->resolveMessage();
+         try {
+               $message->setHtmlBody(m::t('mail',$originalContent,$message->paramTextBody)); 
+                $result = $message->send();
+                  } catch (\Swift_TransportException $Ste) {
+                             $mensajes['error'] = $Ste->getMessage();
+                     }
+            RETURN ['success'=>m::t('labels','Student has been registered')]; 
+        }else{
+         return ['error'=>m::t('errors','Applicant could not be registered').'-'.$model->getFirstError()];
+        }
+    }
+  }
+ 
   
 }

@@ -35,7 +35,7 @@ class MailingModel extends \common\models\base\modelBase
             [['ruta'], 'string', 'max' => 64],
              [['titulo'], 'string', 'max' => 60],
             //[['transaccion'], 'unique',],
-            //[['activo', 'posic'], 'string', 'max' => 1],
+            [['activo'], 'safe'],
             [['idioma'], 'string', 'max' => 5],
             [['remitente'], 'string', 'max' => 60],
             [['transaccion'], 'string', 'max' => 6],
@@ -138,7 +138,7 @@ class MailingModel extends \common\models\base\modelBase
        return parent::beforeSave($insert);
     }
     
-   /* public function afterFind() {
+    public function afterFind() {
        
         foreach($this->attributes as $name=>$value){
             if(in_array($name, $this->arrayFields)){
@@ -146,6 +146,6 @@ class MailingModel extends \common\models\base\modelBase
             }
         }
         return  parent::afterFind();
-    }*/
+    }
     
 }

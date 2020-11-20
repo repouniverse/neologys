@@ -331,8 +331,10 @@ class Profile extends \common\models\base\modelBase implements \common\interface
                         $this->habilitaUniversidad(h::currentUniversity());
                        }
      try{
-       $targetUni=$this->persona->identidad->universidad_id;
-       $this->habilitaUniversidad($targetUni);
+       if(!is_null($persona=$this->persona))
+         if(!is_null($identidad=$this->persona->identidad)) 
+            if(!is_null($targetUni=$identidad->universidad_id))      
+                $this->habilitaUniversidad($targetUni);
      } catch (Exception $ex) {
          yii::error($ex->message,__FUNCTION__);
      }

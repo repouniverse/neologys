@@ -198,6 +198,7 @@ class Universidades extends \common\models\base\modelBase
     }
   
     public function canCreateOrEdit() {
+       if(empty($this->id))return true;
     return \common\helpers\h::user()->hasAccessInThisUniversity($this->id);
 }
     

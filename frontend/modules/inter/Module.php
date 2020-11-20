@@ -15,7 +15,12 @@ class Module extends \yii\base\Module
    const CLASE_GENERAL='A'; 
    const STATUS_GENERAL='1'; 
    const ROL_POSTULANTE='r_inter_postulante';
-    /**
+    
+   
+   public $mail_path='mail';
+   
+   
+   /**
      * {@inheritdoc}
      */
     public $controllerNamespace = 'frontend\modules\inter\controllers';
@@ -59,7 +64,8 @@ class Module extends \yii\base\Module
                 'modules/inter/verbs' => 'verbs.php',
                 'modules/inter/validaciones' => 'validaciones.php',
                 'modules/inter/labels' => 'labels.php',
-               
+                'modules/inter/errors' => 'errors.php',
+               'modules/inter/mail' => 'mail.php',
                 
             ],
         ];

@@ -115,8 +115,13 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?= $form->field($model, 'mail')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
-            <?= ComboDep::widget
+        
+       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?= $form->field($model, 'unidest_id')->textInput(['value'=>$model->targetUniversidad->nombre,'disabled'=>true,'maxlength' => true]) ?>
+        </div>
+        
+       <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> --->         
+            <?php  /*echo ComboDep::widget
                 (
                     [
                         'model'=>$model,               
@@ -132,17 +137,17 @@
                                     ]
                                   ],
                     ]
-               )
+               )*/
             ?>
-        </div>
+       <!--  </div>--->  
         
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">          
-            <?= ComboDep::widget
+            <?PHP echo  ComboDep::widget
                 (
                     [
                         'model'=>$model,               
                         'form'=>$form,
-                        'data'=> ($model->isNewRecord)?[]:ComboHelper::getCboFacultades($model->unidest_id),
+                        'data'=> \frontend\modules\inter\helpers\ComboHelper::getCboFacultades($model->unidest_id),
                         'campo'=>'facudest_id',
                         'idcombodep'=>'alumnos-carreradest_id',               
                         'source'=>[\common\models\masters\Carreras::className()=>

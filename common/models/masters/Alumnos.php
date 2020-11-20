@@ -195,6 +195,11 @@ implements \common\interfaces\postulantesInterface
     public function getUniversidad(){
          return $this->hasOne(Universidades::className(), ['id' => 'universidad_id']);
       }
+      
+     public function getTargetUniversidad(){
+         return $this->hasOne(Universidades::className(), ['id' => 'unidest_id']);
+      } 
+      
     public function getFacultad(){
          return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
       }
@@ -387,16 +392,25 @@ implements \common\interfaces\postulantesInterface
     /*Buscamos el programa actual*/
     if(is_null($idModo)){
      $modelModo=$this->resolveModo(true); 
-     if(is_null($modelModo))return null;
+     if(is_null($modelModo)){
+         $this->addError('codalu',yii::t('base_errors','Could not resolve mode'));
+         return null;
+     }
     }else{
-      $modelModo=InterModos::findOne($idModo);   
+      $modelModo=InterModos::findOne($idModo);  
+      if(is_null($modelModo)){
+          $this->addError('codalu',yii::t('base_errors','Could not resolve mode for id {id}',['id'=>$idModo]));
+      
+          return null;
+      }
     }
      
+    
      
   
     $external=$this->isExternal();
   
-   if(!is_null($modelModo) && $this instanceof $modelModo->modelofuente && 
+   if($this instanceof $modelModo->modelofuente && 
            $this->esConvocable()){
        $model=new \frontend\modules\inter\models\InterConvocados();
           $model->setScenario($model::SCENARIO_CONVOCATORIAMINIMA);
@@ -420,10 +434,52 @@ implements \common\interfaces\postulantesInterface
           // var_dump($attr);die();
            $insertar=$model->firstOrCreate($attr,
                    $model::SCENARIO_CONVOCATORIAMINIMA);
-           
+           return $insertar;
+           //if($insertar)$this->mailNotificaIsUser();
+   }else{
+       if($this instanceof $modelModo->modelofuente){
+          $this->addError('codalu',yii::t('base_errors','The source model class {class} does not correspond',['class'=> $modelModo->modelofuente]));
+         return null;   
+       }
+       if( $this->esConvocable()){
+            $this->addError('codalu',yii::t('base_errors','This student cannot be summoned'));
+            return null;  
+       }
+      
    }
    
    
+   
+   
+ }
+ 
+ 
+ public function mailNotificaIsUser(){
+     $title=yii::t('base_labels','SE HA CREADO UNA CUENTA DE USUARIO');
+     $nombreRemitente=yii::t('base_labels','Departamento Internacional USMP');
+     $direccionRemitente=\common\helpers\h::gsetting('mail', 'userservermail');
+     $bodyHtml="Buenas Tardes    <br>"
+                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
+                        . "La presente es para notificarle que has  "
+                        . "aprobado con éxito. <br> <br>"
+                        . "Te esperamos en la siguiente etapa  ";
+     $to='hipogea@hotmail.com';
+     $cc='hipogea@hotmail.com';
+      $message = (new \common\components\MessageMail())
+            ->setSubject($title)
+                ->setFrom([ $direccionRemitente=> $nombreRemitente])
+                ->setTo($to)->setCc($cc)
+                ->SetHtmlBody($bodyHtml);
+        $message->ResolveMessage();
+        try {
+
+            $result = (new \common\components\Mailer())->send($message);
+            return true;
+            $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
+        } catch (\Swift_TransportException $Ste) {
+            
+            $mensajes['error'] = $Ste->getMessage();
+        }
  }
  
  /*Funcion para validar el alumno extranejero*/

@@ -81,7 +81,7 @@ use common\helpers\ComboHelper;
 
  </div>
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-     <?= $form->field($model, 'parametros')->textarea(['rows' => 6]) ?>
+     <?= $form->field($model, 'parametros')->textarea(['disabled'=>true,'value'=> \yii\helpers\Json::encode($model->parametros),'rows' => 6]) ?>
 
  </div>
      

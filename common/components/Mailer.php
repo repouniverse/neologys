@@ -22,7 +22,8 @@ class Mailer extends Correo
    /**
      * @var string message default class name.
      */
-    public $messageClass = 'yii\swiftmailer\Message';
+    //public $messageClass = 'yii\swiftmailer\Message';
+    public $messageClass = 'common\components\MessageMail';
     /**
      * @var bool whether to enable writing of the SwiftMailer internal logs using Yii log mechanism.
      * If enabled [[Logger]] plugin will be attached to the [[transport]] for this purpose.
@@ -61,7 +62,7 @@ class Mailer extends Correo
         $this->_transport=$this->optionsTransport[0];
         //Agregadno el evento AFTERSEND()
         //$this->on(self::EVENT_AFTER_SEND, [$this, 'registerRoute']);
-         $this->viewPath='@frontend/mail';
+         $this->viewPath='@common/mail';
         //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
         //$this->on(self::EVENT_AFTER_SEND, [$this, 'sendMail']);
         //$this->on(self::EVENT_NEW_USER, [$this, 'notification']);

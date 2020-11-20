@@ -29,4 +29,8 @@ return[
     'Mode not found, SQL sentence was {sql}'=>'No se encontró el modo, la oración SQL era {sql}',
     'Record not found'=>'Registro no encontrado',
     'There were problems'=>'Hubo problemas',
+    'Could not resolve mode for id'=>'No se pudo resolver el modo para el id',
+    'Applicant could not be registered'=>'No se pudo registrar al postulante',
+    'The source model class {class} does not correspond'=>'La clase fuente {class} no corresponde',
+    'This student cannot be summoned'=>'Este estudiante no es convocable',
 ];
