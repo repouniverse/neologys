@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Migration;
-
+use console\migrations\baseMigration;
 /**
  * Class m201116_155814_table_menu_en
  */
