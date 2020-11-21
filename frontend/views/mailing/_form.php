@@ -72,7 +72,7 @@ use common\helpers\ComboHelper;
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php echo $form->field($model, 'cuerpo')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 10],
-        'preset' => 'basic'
+        //'preset' => 'basic'
         ]);
    ?>
  </div>

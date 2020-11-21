@@ -34,8 +34,8 @@ if ($this->db->schema->getTableSchema(static::NAME_TABLE, true) === null) {
     }
     
     
-     $model=New Documentos();
-            static::setData($model);
+     /*$model=New Documentos();
+            static::setData($model);*/
     }
 
     
