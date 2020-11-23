@@ -144,29 +144,31 @@ class User extends UserOriginal {
    }
    
    public function resolveUrlAfterLogin(){
-    yii::error( 'resolviendo afterlogin',__FUNCTION__);
+    //yii::error( 'resolviendo afterlogin',__FUNCTION__);
        $url=$this->getUrlDefault();//verifica sus favoritos 
-       yii::error( 'Url favorito',__FUNCTION__);
-       yii::error( $url,__FUNCTION__);
+       //yii::error( 'Url favorito',__FUNCTION__);
+       //yii::error( $url,__FUNCTION__);
        
        if(!is_null($url)){
-           yii::error( 'encontro favorito',__FUNCTION__);
-           yii::error( $url,__FUNCTION__);
+           //yii::error( 'encontro favorito',__FUNCTION__);
+           //yii::error( $url,__FUNCTION__);
           return $url;  
        }else{
-           yii::error('por q aui pasa');
-           yii::error( 'No encontro favorito',__FUNCTION__);
-           $persona=$this->profile->persona;
-          yii::error( $persona,__FUNCTION__);
-           if(is_null($persona))
-           return '';//Si no al home 
-           yii::error( $persona,__FUNCTION__);
-           $codgrupo=$persona->codgrupo;
-           YII::ERROR($codgrupo,__FUNCTION__);
-           $url=$this->getUrlFromRoutes($codgrupo);
-           YII::ERROR($url,__FUNCTION__);
-           if($url)$this->putUrlFavorite ($url);
-           return ($url)?$url:'';
+           return 'site/welcome';
+           
+           //yii::error('por q aui pasa');
+          // yii::error( 'No encontro favorito',__FUNCTION__);
+           //$persona=$this->profile->persona;
+          //yii::error( $persona,__FUNCTION__);
+           //if(is_null($persona))
+           //return '';//Si no al home 
+           //yii::error( $persona,__FUNCTION__);
+           //$codgrupo=$persona->codgrupo;
+           //YII::ERROR($codgrupo,__FUNCTION__);
+           //$url=$this->getUrlFromRoutes($codgrupo);
+           //YII::ERROR($url,__FUNCTION__);
+           //if($url)$this->putUrlFavorite ($url);
+           //return ($url)?$url:'';
        }
    }
    

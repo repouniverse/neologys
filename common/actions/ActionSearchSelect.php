@@ -46,6 +46,7 @@ class ActionSearchSelect extends \yii\base\Action
               }else{
                   $query=$query->select([$firstField." as id",$secondField.' as text'])->where(['like',$secondField,$filter]);
               }
+              
               yii::error($query->createCommand()->getRawSql());
              $resultados= $query->asArray()->all();            
          }         

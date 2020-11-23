@@ -687,23 +687,27 @@ die();
     */
   public function actionWelcome(){
      
-     //var_dump(h::user()->profile->persona->identidad);die();
+     /*Verificando la identidad del usuario*/
+      
+      /*Si el`profile apunta a la person*/
    if(!is_null(($persona=h::user()->profile->persona))){
-     //if(is_null(($alumno=$persona->alumno))){
-       //var_dump($persona->identidad);die();
-       if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+     if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
          if(!is_null($identidad=$persona->identidad)){             
                 // echo $grupo->layout; die();              
-             return $this->render($grupo->layout,['identidad'=>$identidad]);
-         }else{
-            echo " NO tiene el perfill alumno" ; die();
-         }
+                return $this->render($grupo->layout,['identidad'=>$identidad]);
+                }else{
+               ///Layout para personas sin identidad
+                return $this->render('noidentidad',['persona'=>$persona]); 
+                }
          
-     }else{
-         echo " NO especigico el grupo en l atabla personas " ; die(); 
-     }
+            }else{
+                /*Es un usuario sin referencia a un grupo de personas*/
+                return $this->goHome();
+            }
     }else{
-        echo " NO tiene el perfil persona  " ; die(); 
+        //echo "ewdsdsds"; die();
+        /*Es un usuario sin referencia a persona*/
+       return $this->goHome();
     }
   }  
   
@@ -968,7 +972,7 @@ die();
      }
    } 
    
-   
+  
    
    
 }
