@@ -311,4 +311,8 @@ return[
     
     //rESERT PASSWORD 
     'Please fill out your email. A link to reset password will be sent there.'=>'Por favor ingrese su dirección de correo. Recibirá un link para reestablecer su contraseña.',
+
+    //Asesores
+    'Assesor'=>'Asesor',
+    
 ];
