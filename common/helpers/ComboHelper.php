@@ -6,6 +6,7 @@
 namespace common\helpers;
 use yii;
 use common\models\masters\UsersUniversities;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 class ComboHelper  {
@@ -1117,5 +1118,17 @@ class ComboHelper  {
                        $query->all(),
                 'id','nombre');
   }    
+
+  public static function getCboAsesores(){
+    $asesorQuery = (new Query())->select('id')->from('{{%asesores}}');
+
+        $query=\common\models\masters\Personas::find()->andWhere(['id'=>$asesorQuery]);
+//echo $query->createCommand()->rawSql;die();
+
+         return ArrayHelper::map(
+                       $query->all(),
+                'id','ap');
+
+  }
     
 }

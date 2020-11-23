@@ -15,7 +15,7 @@ return [
      * // change target language to Chinese
         \Yii::$app->language = 'zh-CN';
      */
-     'language' => 'es-PE',
+    'language' => 'es-PE',
     'name'=>'Internacional',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
@@ -88,9 +88,11 @@ return [
         'regacad' => [
             'class' => 'frontend\modules\regacad\Module',
             ],
-        
+        'repositorio' => [
+            'class' => 'frontend\modules\repositorio\Module',
+            ],
     ],
-    'as access' => [
+    /*'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             ' ', 
@@ -103,7 +105,7 @@ return [
            'site/mantenimiento',
            'inter/default/base-auth'
         ]
-    ],
+    ],*/
     /*
      * Para asignarlel leguaje de 
      * cada usuario según el país
