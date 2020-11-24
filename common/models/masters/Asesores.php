@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-
+use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
 use Yii;
 
 /**
@@ -76,6 +76,26 @@ public $booleanFields=['activo'];
     public function getPersona()
     {
         return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
+    
+    
+    public function  getAsesorados(){
+         return $this->hasMany(AsesoresCurso::className(), ['asesor_id' => 'id']);
+    }
+    
+    public function nAlumnosAsesorados(){
+        return $this->getAsesorados()->count();
+    }
+    
+    public function nAsesoradosPorCursoSeccion($curso_id,$codseccion,$carrera_id){
+       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
+            'asesor_id'=>$this->id,
+            'curso_id'=>$curso_id,
+             'seccion'=>$codseccion,
+            'carrera_id'=>$carrera_id,
+        ])->count();        
+       //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
+        
     }
 
 }

@@ -26,6 +26,9 @@ class Carreras extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
+    const ID_CARRERA_COMUNICACIONES=1;
+    const ID_CARRERA_TURISMO=2;
+      const ID_CARRERA_PSICOLOGIA=3;
     public static function tableName()
     {
         return '{{%carreras}}';

@@ -100,5 +100,18 @@ class Matricula extends \common\models\base\modelBase
     {
         return $this->hasOne(AsesoresCurso::className(), ['matricula_id' => 'id']);
     }
+    
+    public static function nMatriculados($codperiodo=null,$curso_id=null,$codseccion=null){
+       if(is_null($codperiodo))
+       $codperiodo=h::periodos()->currenPeriod();
+       $query= static::find()->andWhere(['periodo'=>$codperiodo]);
+       $query->andFilterWhere(['curso_id'=>$curso_id,'seccion'=>$codseccion]);
+       /*if(!is_null($curso_id))
+         $query=$query->andWhere(['curso_id'=>$curso_id]);
+       if(!is_null($codseccion))
+         $query=$query->andWhere(['seccion'=>$codseccion]);*/  
+       //ECHO $query->createCommand()->rawSql;die();
+       return $query->count();
+    }
 
 }

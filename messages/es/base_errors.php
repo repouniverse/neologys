@@ -35,4 +35,5 @@ return[
     'This student cannot be summoned'=>'Este estudiante no es convocable',
     'Your user account "{user}" is not associated with a person'=>'Tu cuenta de usuario "{user}" no está asociada a una persona',
     'Your user account "{user}" has no identity'=>'Tu cuenta de usuario "{user}" no tiene identidad',
+    'This advisor exceeds the maximum number of students {nmaximo} in {escuela}'=>'Este asesor sobrepasa la cantidad maxima {nmaximo} de estudiantes en {escuela}', 
 ];

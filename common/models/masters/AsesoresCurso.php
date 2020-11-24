@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-
+use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
 use Yii;
 
 /**
@@ -31,6 +31,7 @@ class AsesoresCurso extends \common\models\base\modelBase
         return [
             [['matricula_id', 'alumno_id'], 'required'],
             [['matricula_id', 'alumno_id', 'asesor_id'], 'integer'],
+            [['asesor_id'], 'validateCantidadAsesorados'],
             [['activo'], 'string', 'max' => 1],
              [['alumno_id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::className(), 'targetAttribute' => ['alumno_id' => 'id']],
              [['asesor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asesores::className(), 'targetAttribute' => ['asesor_id' => 'id']],
@@ -67,6 +68,11 @@ class AsesoresCurso extends \common\models\base\modelBase
     {
         return $this->hasOne(Matricula::className(), ['id' => 'matricula_id']);
     }
+    
+    public function getAsesor()
+    {
+        return $this->hasOne(Asesores::className(), ['id' => 'asesor_id']);
+    }
 
     /**
      * {@inheritdoc}
@@ -76,4 +82,31 @@ class AsesoresCurso extends \common\models\base\modelBase
     {
         return new AsesoresCursoQuery(get_called_class());
     }
+    
+
+    public function validateCantidadAsesorados($attribute, $params) {
+        $carrera_id=$this->matricula->alumno->carrera_id;
+        $curso_id=$this->matricula->curso_id;
+        $seccion=$this->matricula->seccion;
+        
+        $nasesorados=$this->asesor->nAsesoradosPorCursoSeccion(
+                $curso_id,
+                $seccion,
+                $carrera_id);
+         $nmat= Matricula::nMatriculados(null,$curso_id, $seccion);
+       
+        if($carrera==Carreras::ID_CARRERA_COMUNICACIONES){
+            $namx=$nmat;
+          }else{
+            $namx=floor($nmat/2)+1;
+        }
+        
+        if($nasesorados > $namx){
+            $this->addError('asesor_id',yii::t('base_errors','This advisor exceeds the maximum number of students {nmaximo} in {escuela}',['nmaximo'=>$namx,$this->matricula->alumno->carrera->nombre]));
+        }
+        
+        
+      }
+    
+    
 }

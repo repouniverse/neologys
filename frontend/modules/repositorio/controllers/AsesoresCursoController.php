@@ -7,6 +7,7 @@ use common\models\masters\Alumnos;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
 use common\models\masters\AsesoresCursoSearch;
+use common\filters\ActionIsIdentidadFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,15 @@ class AsesorescursoController extends \common\controllers\base\baseController
     public function behaviors()
     {
         return [
+            'filtroIdentidad'=>[
+               'class' => ActionIsIdentidadFilter::className(), 
+                'only' => [
+                    'modal-asesorcurso',
+                    'create','update'
+                ],
+            ],
+            
+            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -106,6 +116,8 @@ public function actionModalAsesorcurso($id){
 
     public function actionCreate()
     {
+       ECHO  Matricula::nMatriculados('2020II',null,'031652>10NLB');DIE();
+        
 
         $model = new AsesoresCurso();
         $modelalumno=Yii::$app->user->profile->persona->identidad;
