@@ -4,16 +4,18 @@ namespace frontend\modules\repositorio\controllers;
 
 use Yii;
 use common\models\masters\Alumnos;
+use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
 use common\models\masters\AsesoresCursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\helpers\h;
 
 /**
  * AsesorescursoController implements the CRUD actions for AsesoresCurso model.
  */
-class AsesorescursoController extends Controller
+class AsesorescursoController extends \common\controllers\base\baseController
 {
     /**
      * {@inheritdoc}
@@ -63,6 +65,45 @@ class AsesorescursoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+public function actionModalAsesorcurso($id){
+     $this->layout = "install";
+       $modelMatricula=Matricula::findOne($id);
+       if(is_null($modelMatricula))return null;
+        $model = New AsesoresCurso();
+        $model->matricula_id=$id;
+        $model->alumno_id=h::user()->profile->persona->identidad->id;
+        $datos=[];
+                
+              
+        /// $model->facultad_id=$modelFacultad->id;
+        if(h::request()->isPost){
+            //$model->setScenario(Rangos::SCENARIO_HORAS);
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
+            }else{
+                $model->save();
+                
+                  return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
+            }
+        }else{
+            //var_dump($model->attributes);die();
+           return $this->renderAjax('_modal_asesorescurso', [
+                        'model' => $model,
+                        'matricula_id'=> $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+                        //'cantidadLibres'=>$cantidadLibres,
+          
+            ]);  
+        }
+       
+  }
+
+
     public function actionCreate()
     {
 

@@ -7,6 +7,7 @@ use yii\widgets\Pjax;
 use yii\grid\GridView;
 use common\models\masters\Matricula;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\AsesoresCurso */
@@ -35,17 +36,40 @@ use yii\data\ActiveDataProvider;
 	</div>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-	<?php Pjax::begin(); ?>
+	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider(['query'=>Matricula::find()->select(['id','curso_id'])->where(['alumno_id'=>$modelalumno->id])]),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['value'=>function($model){return $model->curso->codcur;}],
-            ['value'=>function($model){return $model->curso->descripcion;}],
-            ['value' => function($model){return $model->asesorcurso->persona->fullName();}],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'header'=>yii::t('base_labels','Code'),
+                'value'=>function($model){return $model->curso->codcur;}],
+            [    'header'=>yii::t('base_labels','Name'),
+                'value'=>function($model){return $model->curso->descripcion;}],
+            [
+                'header'=>yii::t('base_labels','Assigned Assesor'),
+                'value' => function($model){
+            	if(is_null($asesorcurso=$model->asesorCurso)) return null;
+            	return $model->asesorCurso->persona->fullName();
+
+            }],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{add}',
+                'buttons' => [
+                    'add' => function($url, $model) {                        
+                        $options = [
+                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ];        
+                                                    
+                                                $url=Url::to(['/repositorio/asesorescurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
+                        return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs',' Add Assesor'), $url, $options);
+                         
+                         },
+                    ]
+                ],
         ],
     ]); ?>
 
@@ -54,16 +78,6 @@ use yii\data\ActiveDataProvider;
 </div>
    
 
-     <?=$form->field($model, 'asesor_id')->
-                      dropDownList(comboHelper::getCboAsesores(),['prompt'=>'--'.Yii::t('base_verbs','Choose a Value')."--",])
-            ?>
-
-
-    <?= $form->field($model, 'activo')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

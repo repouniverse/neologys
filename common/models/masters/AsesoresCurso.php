@@ -60,7 +60,7 @@ class AsesoresCurso extends \common\models\base\modelBase
 
     public function getPersona()
     {
-        return $this->hasOne(Asesores::className(), ['id' => 'asesor_id']);
+        return $this->hasOne(Personas::className(), ['id' => 'asesor_id']);
     }
 
     public function getMatricula()

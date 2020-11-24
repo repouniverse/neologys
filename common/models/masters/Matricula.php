@@ -98,7 +98,7 @@ class Matricula extends \common\models\base\modelBase
 
     public function getAsesorCurso()
     {
-        return $this->hasOne(AsesoresCurso::className(), ['id' => 'matricula_id']);
+        return $this->hasOne(AsesoresCurso::className(), ['matricula_id' => 'id']);
     }
 
 }
