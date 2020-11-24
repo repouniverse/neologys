@@ -33,4 +33,6 @@ return[
     'Applicant could not be registered'=>'No se pudo registrar al postulante',
     'The source model class {class} does not correspond'=>'La clase fuente {class} no corresponde',
     'This student cannot be summoned'=>'Este estudiante no es convocable',
+    'Your user account "{user}" is not associated with a person'=>'Tu cuenta de usuario "{user}" no está asociada a una persona',
+    'Your user account "{user}" has no identity'=>'Tu cuenta de usuario "{user}" no tiene identidad',
 ];

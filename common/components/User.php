@@ -197,7 +197,9 @@ class User extends UserOriginal {
    
    
    public function hasProfile(){
-       return is_null($this->getProfile())?false:true;
+        $profile=$this->getProfile();    
+       return is_null($profile)?false:$profile;
+       
    } 
    public function getSince(){
       return date('d/m/Y H:i:s',$this->identity->created_at);
@@ -268,6 +270,23 @@ public function hasAccessInThisUniversity($universidad_id){
     
 }
 
+public function isPersona(){
+    if($profile=$this->hasProfile()){ 
+            $persona=$profile->persona;
+         return (is_null($persona))?false:$persona;         
+    }else{
+        return false;
+    }
+    
+}
 
+public function hasIdentidad(){
+    if($persona=$this->isPersona()){ 
+            $identidad=$persona->identidad;
+         return (is_null($identidad))?false:$identidad;         
+    }else{
+        return false;
+    }
+}
 
 }

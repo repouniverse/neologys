@@ -4,6 +4,7 @@ namespace frontend\modules\inter\controllers;
 USE frontend\modules\inter\models\AuthWithQuestionForm;
 use common\helpers\h;
 use common\models\masters\Alumnos;
+use common\filters\ActionIsPersonaFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\data\ActiveDataProvider;
@@ -23,6 +24,18 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
+    
+    public function behaviors()
+        {
+            return [
+                    'isPerson' => [
+                    'class' => ActionIsPersonaFilter::className(),
+                    'only' => ['postulacion'],
+                    
+                             ],
+                        ];
+           }
+    
     
     /*
      * Gestiona unalista de alumnos extraneros que 
@@ -165,5 +178,13 @@ class DefaultController extends Controller
                   // return $this->redirect(['/site/request-password-reset']);
                    
              }
-        }    
+        }
+        
+  public function actionPostulacion(){
+      $identidad=h::user()->profile->persona->identidad;
+      if($identidad->isConvocado())
+       return $this->render('panel_alumno_internacional',['identidad'=>$identidad]);
+       return $this->render('noconvocado',['identidad'=>$identidad]);
+   
+      }
 }

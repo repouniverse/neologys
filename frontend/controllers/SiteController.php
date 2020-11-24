@@ -972,7 +972,13 @@ die();
      }
    } 
    
+  public function  actionNoPerson(){
+      return $this->render('noperson');
+  }
   
+  public function  actionNoIdentity(){
+      return $this->render('noidentidad');
+  }
    
    
 }
