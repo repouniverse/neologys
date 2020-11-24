@@ -1,17 +1,17 @@
 <?php
-
+namespace frontend\modules\repositorio\database\migrations;
 use console\migrations\baseMigration;
 
 /**
  * Class m201121_171330_create_table_asesores
  */
-class m201121_171330_create_table_asesores extends Migration
+class m201121_171330_create_table_asesores extends baseMigration
 {
     /**
      * {@inheritdoc}
      */
 
-    const TABLE='{{%repositorio_asesores}}'
+    const TABLE='{{%repositorio_asesores}}';
     public function safeUp()
     {
 $table=static::TABLE;

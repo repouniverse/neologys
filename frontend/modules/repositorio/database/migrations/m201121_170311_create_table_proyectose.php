@@ -1,13 +1,13 @@
 <?php
-
+namespace frontend\modules\repositorio\database\migrations;
 use console\migrations\baseMigration;
 
 /**
  * Class m201121_170311_create_table_proyectose
  */
-class m201121_170311_create_table_proyectose extends Migration
+class m201121_170311_create_table_proyectose extends baseMigration
 {
-    const TABLE='{{%repositorio_proyectose}}'
+    const TABLE='{{%repositorio_proyectose}}';
     /**
      * {@inheritdoc}
      */

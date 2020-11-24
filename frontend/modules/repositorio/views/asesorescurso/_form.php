@@ -44,7 +44,7 @@ use yii\data\ActiveDataProvider;
             ['class' => 'yii\grid\SerialColumn'],
             ['value'=>function($model){return $model->curso->codcur;}],
             ['value'=>function($model){return $model->curso->descripcion;}],
-            ['value' => function($model){return $model->asesorcurso->persona->fullName()}],
+            ['value' => function($model){return $model->asesorcurso->persona->fullName();}],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
