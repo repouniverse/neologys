@@ -105,10 +105,7 @@ elseif($accion=='signup'){
     'media' => 'print',
         ], 'css-print-theme');
        */ 
-        $this->registerCssFile("http://fcctp.usmp.edu.pe/css/estilos-itcl-important.css", [
-    'depends' => [ \shifrin\noty\NotyAsset::className()],
-    'media' => 'print',
-        ], 'css-print-theme');
+   
         /*
          * fIN DE LA HOJA DE ESTILO DE ROMMEL
          */
