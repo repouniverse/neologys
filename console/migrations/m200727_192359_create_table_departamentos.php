@@ -78,6 +78,7 @@ if(!$this->existsTable($table)){
  
  
  private function getData(){
+     return [];
   $facultades=$this->getFacultades();
   $departamentos=[];
   $registro=[];
