@@ -118,7 +118,7 @@ public function actionModalAsesorcurso($id){
     {
       // ECHO  Matricula::nMatriculados('2020II',null,'031652>10NLB');DIE();
         
-
+     
         $model = new AsesoresCurso();
         $modelalumno=Yii::$app->user->profile->persona->identidad;
 

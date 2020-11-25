@@ -20,7 +20,7 @@ class ActionIsIdentidadFilter extends ActionFilter
     public function beforeAction($action)
     {
         if(!h::user()->hasIdentidad())
-        return $this->owner->redirect(['/site/no-identity']);
+        return $this->owner->redirect(['/site/no-identity'])->send();
         return parent::beforeAction($action);
     }
     
