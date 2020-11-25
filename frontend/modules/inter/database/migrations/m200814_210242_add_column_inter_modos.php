@@ -18,7 +18,7 @@ class m200814_210242_add_column_inter_modos extends baseMigration
 $table=static::NAME_TABLE;
 if(!$this->existsColumn($table,'modelofuente'))
      $this->addColumn($table, 'modelofuente', $this->string(120));  
-   $this->fillData();
+   //$this->fillData();
     
     }
 	
