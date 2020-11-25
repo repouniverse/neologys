@@ -346,6 +346,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
      }
     
      
+     
     /**
      * {@inheritdoc}
      * @return CliproQuery the active query used by this AR class.

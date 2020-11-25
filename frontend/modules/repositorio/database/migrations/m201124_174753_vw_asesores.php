@@ -36,7 +36,7 @@ class m201124_174753_vw_asesores extends viewMigration
      innerJoin('{{%cursos}} c', 'b.curso_id=c.id')->           
     // innerJoin('{{%alumnos}} d', 'd.id=b.alumno_id')-> 
        innerJoin('{{%asesores}} e', 'a.asesor_id=e.id')-> 
-        innerJoin('{{%personas}} f', 'f.id=e.persona_id')
+        innerJoin('{{%docentes}} f', 'f.id=e.docente_id')
                 )->execute();
        
    }

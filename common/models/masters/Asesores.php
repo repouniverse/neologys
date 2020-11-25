@@ -37,7 +37,9 @@ public $booleanFields=['activo'];
         return [
             [['persona_id'], 'integer'],
             [['orcid'], 'string', 'max' => 250],
-            [['activo'],'safe'],           
+            [['activo','docente_id'],'safe'],  
+            [['docente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_id' => 'id']],
+       
         ];
     }
 
@@ -76,6 +78,12 @@ public $booleanFields=['activo'];
     public function getPersona()
     {
         return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
+    
+    
+     public function getDocente()
+    {
+        return $this->hasOne(Docentes::className(), ['id' => 'docente_id']);
     }
     
     
