@@ -31,7 +31,7 @@ class AsesoresCurso extends \common\models\base\modelBase
         return [
             [['matricula_id', 'alumno_id'], 'required'],
             [['matricula_id', 'alumno_id', 'asesor_id'], 'integer'],
-            [['asesor_id'], 'validateCantidadAsesorados'],
+          //  [['asesor_id'], 'validateCantidadAsesorados'],
             [['activo'], 'string', 'max' => 1],
              [['alumno_id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::className(), 'targetAttribute' => ['alumno_id' => 'id']],
              [['asesor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asesores::className(), 'targetAttribute' => ['asesor_id' => 'id']],
@@ -92,6 +92,13 @@ class AsesoresCurso extends \common\models\base\modelBase
         $seccion=$this->matricula->seccion;
         
         //$docente=$this->asesor->persona->identidad;
+        
+        yii::error(DocenteCursoSeccion::find()->andWhere([
+            'seccion'=>$seccion,
+            'docente_id'=>$this->asesor->persona->identidad,
+             'curso_id'=>$curso_id,
+        ])->createCommand()->rawSql);
+        yii::error('revisand o sql ');
         if(DocenteCursoSeccion::find()->andWhere([
             'seccion'=>$seccion,
             'docente_id'=>$this->asesor->persona->identidad,
