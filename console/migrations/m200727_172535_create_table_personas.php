@@ -71,6 +71,7 @@ class m200727_172535_create_table_personas extends baseMigration
                         ]
                    ); 
            // $this->fillData();
+            
         }
     }
 
