@@ -64,7 +64,8 @@ use yii\helpers\Url;
                /* 'header'=>yii::t('base_labels','Section'),
                 'value'=>function($model){return $model->seccion;}*/],
                         
-            [
+            [ 
+                
                 'header'=>yii::t('base_labels','Assigned Assesor'),
                 'value' => function($model){
             	if($model->hasAssesor()) 
