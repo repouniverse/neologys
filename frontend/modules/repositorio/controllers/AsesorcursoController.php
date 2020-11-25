@@ -78,6 +78,9 @@ class AsesorcursoController extends \common\controllers\base\baseController
 public function actionModalAsesorcurso($id){
      $this->layout = "install";
        $modelMatricula=Matricula::findOne($id);
+       
+       \common\helpers\ComboHelper::getCboAsesores($modelMatricula->curso_id,
+               $modelMatricula->seccion);
        if(is_null($modelMatricula))return null;
         $model = New AsesoresCurso();
         $model->matricula_id=$id;
@@ -103,6 +106,7 @@ public function actionModalAsesorcurso($id){
            return $this->renderAjax('_modal_asesorescurso', [
                         'model' => $model,
                         'matricula_id'=> $id,
+               'modelMatricula'=>$modelMatricula,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
                         //'cantidadLibres'=>$cantidadLibres,

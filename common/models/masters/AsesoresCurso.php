@@ -97,7 +97,7 @@ class AsesoresCurso extends \common\models\base\modelBase
             'docente_id'=>$this->asesor->persona->identidad,
              'curso_id'=>$curso_id,
         ])->exists()){
-            $this->addError('asesor_id',yii::t('base_errors','This advisor is not register in course {curso} and seccion {seccion}',['seccion'=>$secion,'curso'=>$this->matricula->curso->descripcion]));
+            $this->addError('asesor_id',yii::t('base_errors','This advisor is not register in course {curso} and seccion {seccion}',['seccion'=>$seccion,'curso'=>$this->matricula->curso->descripcion]));
              return ;
         }
         

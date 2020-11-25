@@ -1119,15 +1119,23 @@ class ComboHelper  {
                 'id','nombre');
   }    
 
-  public static function getCboAsesores(){
-    $asesorQuery = (new Query())->select('id')->from('{{%asesores}}');
-
-        $query=\common\models\masters\Personas::find()->andWhere(['id'=>$asesorQuery]);
+  public static function getCboAsesores($curso_id,$seccion){
+     $camposSelect=new yii\db\Expression("X.id, concat(b.ap,'-',b.am,'-',b.nombres) as nombrecompleto");    
+      $query=(new Query())->select($camposSelect)->
+              from('{{%docente_curso_seccion}} a')-> 
+              innerJoin('{{%docentes}} b','a.docente_id=b.id')->
+              innerJoin('{{%asesores}} x','x.docente_id=b.id')
+              ->andWhere(['curso_id'=>$curso_id,'seccion'=>$seccion]);
+   $filas=$query->all();
+      
+      
 //echo $query->createCommand()->rawSql;die();
-
+          /*print_r(ArrayHelper::map(
+                       $filas,
+                'id','nombrecompleto'));die();*/
          return ArrayHelper::map(
-                       $query->all(),
-                'id','ap');
+                       $filas,
+                'id','nombrecompleto');
 
   }
     

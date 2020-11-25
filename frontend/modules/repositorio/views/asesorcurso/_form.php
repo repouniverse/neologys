@@ -44,7 +44,7 @@ $idsInPlanes= common\models\masters\PlanesEstudio::find()
 
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
-            'query'=>Matricula::find()->select(['id','curso_id'])->
+            'query'=>Matricula::find()->select(['id','curso_id','seccion','periodo'])->
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes]),
                         ]),
             
@@ -55,11 +55,17 @@ $idsInPlanes= common\models\masters\PlanesEstudio::find()
                 'value'=>function($model){return $model->curso->codcur;}],
             [    'header'=>yii::t('base_labels','Name'),
                 'value'=>function($model){return $model->curso->descripcion;}],
+           // 'id',
+            [    
+                'attribute'=>'seccion',
+               /* 'header'=>yii::t('base_labels','Section'),
+                'value'=>function($model){return $model->seccion;}*/],
+                        
             [
                 'header'=>yii::t('base_labels','Assigned Assesor'),
                 'value' => function($model){
-            	if(is_null($asesorcurso=$model->asesorCurso)) return null;
-            	return $model->asesorCurso->persona->fullName();
+            	if(is_null($model->asesorCurso->asesor->docente)) return null;
+            	return $model->asesorCurso->asesor->docente->fullName();
 
             }],
 

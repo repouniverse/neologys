@@ -37,7 +37,7 @@ use backend\modules\base\Module as m;
     
 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
          <?=$form->field($model, 'asesor_id')->
-            dropDownList(ComboHelper::getCboAsesores(),
+            dropDownList(ComboHelper::getCboAsesores($modelMatricula->curso_id,$modelMatricula->seccion),
                     ['prompt'=>'--'.yii::t('base_verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,

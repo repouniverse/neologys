@@ -37,6 +37,7 @@ class Matricula extends \common\models\base\modelBase
             [['curso_id', 'alumno_id', 'seccion','periodo'], 'required'],
             [['curso_id', 'alumno_id'], 'integer'],
             [['seccion'], 'string', 'max' => 12],
+             [['seccion'], 'safe'],
             [['periodo'], 'string', 'max' => 10],
             [['activo'], 'string', 'max' => 1],
         [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
