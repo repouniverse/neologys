@@ -314,5 +314,6 @@ return[
 
     //Asesores
     'Assesor'=>'Asesor',
+    'Assigned Assesor'=>'Asesor asignado',
     
 ];

@@ -31,6 +31,13 @@ class AsesoresCurso extends \common\models\base\modelBase
         return [
             [['matricula_id', 'alumno_id'], 'required'],
             [['matricula_id', 'alumno_id', 'asesor_id'], 'integer'],
+            /*
+             * Agregar restriccion a un nuevo campo codperioso,
+             * se hara mas adelante 25/11/2020
+             */
+             [ 'asesor_id', 'unique', 'targetAttribute' => 
+                 ['matricula_id', 'alumno_id'],'message'=>yii::t('base_errors','You already have an assigned advisor in this course -section, you cannot enter a new one.'),
+              ],
           //  [['asesor_id'], 'validateCantidadAsesorados'],
             [['activo'], 'string', 'max' => 1],
              [['alumno_id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::className(), 'targetAttribute' => ['alumno_id' => 'id']],

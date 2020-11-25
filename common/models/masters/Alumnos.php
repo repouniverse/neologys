@@ -10,6 +10,7 @@ use common\models\masters\Combovalores;
 use frontend\modules\inter\models\InterModos;
 use common\models\masters\Universidades;
 use yii\web\BadRequestHttpException;
+use frontend\modules\repositorio\Module as m;
 use Yii;
 
 /**
@@ -562,6 +563,27 @@ public function canCreateOrEdit() {
   
  public function validateAccess($attribute, $params) {
    return true;
- }   
+ }  
+
+ public function getMatricula(){
+         return $this->hasMany(Matricula::className(), ['alumno_id' => 'id']);
+      }
+ 
+public function cursosQuery(){
+   $idsInPlanes= \common\models\masters\PlanesEstudio::find()
+        ->select(['curso_id'])->andWhere(['tipoproceso'=>'100'])->column();
+  return  $this->getMatricula()->select(['id','curso_id','seccion','periodo'])
+                ->andWhere(['curso_id'=>$idsInPlanes]); 
+} 
+public function cursosMatriculados($codperiodo=null,$isArray=false){
+   //return ($this->cursosQuery()->)
+}
+
+public function hasCursosTalleres($tipoProceso){
+  return $this->cursosQuery()->exists();
+    
+}
+
+
     
 }

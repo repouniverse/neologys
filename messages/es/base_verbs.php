@@ -20,4 +20,5 @@ return[
     'Choose University'=>'Escoja una Universidad',
     'Switch Multiple'=>'Cambiar Multiple',
     'To Register'=>'Registrar',
+    'Add Asesor'=>'Agregar Asesor'
 ];

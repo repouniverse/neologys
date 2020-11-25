@@ -38,14 +38,17 @@ use yii\helpers\Url;
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
 	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
     <?php 
-$idsInPlanes= common\models\masters\PlanesEstudio::find()
-        ->select(['curso_id'])->andWhere(['tipoproceso'=>'100']);
-// echo $this->render('_search', ['model' => $searchModel]); ?>
+//$idsInPlanes= common\models\masters\PlanesEstudio::find()
+        //->select(['curso_id'])->andWhere(['tipoproceso'=>'100'])->column();
+// echo $this->render('_search', ['model' => $searchModel]); 
+//var_dump($idsInPlanes); die();
+/*echo Matricula::find()->select(['id','curso_id','seccion','periodo'])->
+                where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
+?>
 
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
-            'query'=>Matricula::find()->select(['id','curso_id','seccion','periodo'])->
-                where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes]),
+            'query'=>$modelalumno->cursosQuery()->select(['id','curso_id','seccion','periodo']),
                         ]),
             
             'columns' => [
@@ -64,8 +67,9 @@ $idsInPlanes= common\models\masters\PlanesEstudio::find()
             [
                 'header'=>yii::t('base_labels','Assigned Assesor'),
                 'value' => function($model){
-            	if(is_null($model->asesorCurso->asesor->docente)) return null;
+            	if($model->hasAssesor()) 
             	return $model->asesorCurso->asesor->docente->fullName();
+                return '';
 
             }],
 
@@ -75,10 +79,10 @@ $idsInPlanes= common\models\masters\PlanesEstudio::find()
                 'buttons' => [
                     'add' => function($url, $model) {                        
                         $options = [
-                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ];        
-                                                    
-                                                $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
-                        return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs',' Add Assesor'), $url, $options);
+                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
+                                      $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
+                                     if($model->hasAssesor()) return '';
+                                      return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs','Add Assesor'), $url, $options);
                          
                          },
                     ]

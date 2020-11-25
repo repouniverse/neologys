@@ -37,4 +37,5 @@ return[
     'Your user account "{user}" has no identity'=>'Tu cuenta de usuario "{user}" no tiene identidad',
     'This advisor exceeds the maximum number of students {nmaximo} in {escuela}'=>'Este asesor sobrepasa la cantidad maxima {nmaximo} de estudiantes en {escuela}', 
     'This advisor is not register in course {curso} and seccion {seccion}'=>'Este asesor no se encuentra registrado en el curso {curso} y la sección {seccion}',
+    'You already have an assigned advisor in this course -section, you cannot enter a new one.'=>'Ya tienes un asesor asignado en este curso -sección, no puedes ingresar uno nuevo.',
     ];

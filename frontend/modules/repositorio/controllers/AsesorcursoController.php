@@ -79,14 +79,21 @@ public function actionModalAsesorcurso($id){
      $this->layout = "install";
        $modelMatricula=Matricula::findOne($id);
        
-       \common\helpers\ComboHelper::getCboAsesores($modelMatricula->curso_id,
-               $modelMatricula->seccion);
+      /* \common\helpers\ComboHelper::getCboAsesores($modelMatricula->curso_id,
+               $modelMatricula->seccion);*/
+       
+       
+       
        if(is_null($modelMatricula))return null;
         $model = New AsesoresCurso();
         $model->matricula_id=$id;
         $model->alumno_id=h::user()->profile->persona->identidad->id;
         $datos=[];
-                
+        
+        
+        
+
+        
               
         /// $model->facultad_id=$modelFacultad->id;
         if(h::request()->isPost){
@@ -124,24 +131,28 @@ public function actionModalAsesorcurso($id){
      
         $model = new AsesoresCurso();
         $modelalumno=Yii::$app->user->profile->persona->identidad;
-
-        if($modelalumno instanceof Alumnos){
-
-        $model->alumno_id=$modelalumno->id;
-
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS);
+    //var_dump($tienecursos);die();
+      if($modelalumno instanceof Alumnos && $tienecursos ){
+            $model->alumno_id=$modelalumno->id;
+        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        }
+        }*/
 
         return $this->render('create', [
             'model' => $model, 'modelalumno' => $modelalumno
         ]);
-    }else{
+    }elseif($tienecursos===false){
         return $this->render('noesalumno', [
             'model' => $model,
         ]);
+    }else{
+        return $this->render('noesalumno', [
+            'model' => $model,
+        ]); 
     }
+    
+    
     }
 
     /**

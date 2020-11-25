@@ -114,5 +114,9 @@ class Matricula extends \common\models\base\modelBase
        //ECHO $query->createCommand()->rawSql;die();
        return $query->count();
     }
+    
+    public function hasAssesor(){
+       return  AsesoresCurso::find()->andWhere(['matricula_id'=>$this->id])->exists();
+    }
 
 }
