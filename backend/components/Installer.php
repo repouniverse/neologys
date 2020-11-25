@@ -165,6 +165,7 @@ class Installer
             $model->username='admin';
              $model->email='micorreoxyz@hotmail.com';   
              $model->password='123456'; 
+             
              //$model->retypePassword='123456'; 
                $model->status=\mdm\admin\models\User::STATUS_ACTIVE;
              $model->save(); 

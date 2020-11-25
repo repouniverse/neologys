@@ -56,7 +56,7 @@ if(!$this->existsTable($table)){
               'depa_id', static::NAME_TABLE_DEPARTAMENTOS,'id');
           $this->addForeignKey($this->generateNameFk($table), $table,
               'codigoper', static::NAME_TABLE_PERSONAS,'codigoper');
-          $this->fillData();
+          //$this->fillData();
     }
     }
     /**
