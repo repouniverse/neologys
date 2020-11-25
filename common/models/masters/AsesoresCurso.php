@@ -83,11 +83,24 @@ class AsesoresCurso extends \common\models\base\modelBase
         return new AsesoresCursoQuery(get_called_class());
     }
     
-
+    
+    
+    
     public function validateCantidadAsesorados($attribute, $params) {
         $carrera_id=$this->matricula->alumno->carrera_id;
         $curso_id=$this->matricula->curso_id;
         $seccion=$this->matricula->seccion;
+        
+        //$docente=$this->asesor->persona->identidad;
+        if(DocenteCursoSeccion::find()->andWhere([
+            'seccion'=>$seccion,
+            'docente_id'=>$this->asesor->persona->identidad,
+             'curso_id'=>$curso_id,
+        ])->exists()){
+            $this->addError('asesor_id',yii::t('base_errors','This advisor is not register in course {curso} and seccion {seccion}',['seccion'=>$secion,'curso'=>$this->matricula->curso->descripcion]));
+             return ;
+        }
+        
         
         $nasesorados=$this->asesor->nAsesoradosPorCursoSeccion(
                 $curso_id,
@@ -95,11 +108,12 @@ class AsesoresCurso extends \common\models\base\modelBase
                 $carrera_id);
          $nmat= Matricula::nMatriculados(null,$curso_id, $seccion);
        
-        if($carrera==Carreras::ID_CARRERA_COMUNICACIONES){
+        if($carrera_id==Carreras::ID_CARRERA_COMUNICACIONES){
             $namx=$nmat;
           }else{
             $namx=floor($nmat/2)+1;
         }
+        
         
         if($nasesorados > $namx){
             $this->addError('asesor_id',yii::t('base_errors','This advisor exceeds the maximum number of students {nmaximo} in {escuela}',['nmaximo'=>$namx,$this->matricula->alumno->carrera->nombre]));

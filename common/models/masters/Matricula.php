@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models\masters;
-
+use common\helpers\h;
 use Yii;
 
 /**
@@ -103,7 +103,7 @@ class Matricula extends \common\models\base\modelBase
     
     public static function nMatriculados($codperiodo=null,$curso_id=null,$codseccion=null){
        if(is_null($codperiodo))
-       $codperiodo=h::periodos()->currenPeriod();
+       $codperiodo=h::periodos()->getCurrentPeriod();
        $query= static::find()->andWhere(['periodo'=>$codperiodo]);
        $query->andFilterWhere(['curso_id'=>$curso_id,'seccion'=>$codseccion]);
        /*if(!is_null($curso_id))

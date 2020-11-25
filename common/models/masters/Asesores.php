@@ -97,5 +97,10 @@ public $booleanFields=['activo'];
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
+    
+   /* public function getDocenteCursoSeccion(){
+        return $this->hasMany(DocenteCursoSeccion::className(), ['asesor_id' => 'docente_id']);
+   
+    }*/
 
 }

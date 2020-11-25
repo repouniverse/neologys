@@ -36,4 +36,5 @@ return[
     'Your user account "{user}" is not associated with a person'=>'Tu cuenta de usuario "{user}" no está asociada a una persona',
     'Your user account "{user}" has no identity'=>'Tu cuenta de usuario "{user}" no tiene identidad',
     'This advisor exceeds the maximum number of students {nmaximo} in {escuela}'=>'Este asesor sobrepasa la cantidad maxima {nmaximo} de estudiantes en {escuela}', 
-];
+    'This advisor is not register in course {curso} and seccion {seccion}'=>'Este asesor no se encuentra registrado en el curso {curso} y la sección {seccion}',
+    ];

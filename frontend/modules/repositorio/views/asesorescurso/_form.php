@@ -37,11 +37,18 @@ use yii\helpers\Url;
 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
 	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php 
+$idsInPlanes= common\models\masters\PlanesEstudio::find()
+        ->select(['curso_id'])->andWhere(['tipoproceso'=>'100']);
+// echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
-        'dataProvider' => new ActiveDataProvider(['query'=>Matricula::find()->select(['id','curso_id'])->where(['alumno_id'=>$modelalumno->id])]),
-        'columns' => [
+        'dataProvider' => new ActiveDataProvider([
+            'query'=>Matricula::find()->select(['id','curso_id'])->
+                where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes]),
+                        ]),
+            
+            'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'header'=>yii::t('base_labels','Code'),
