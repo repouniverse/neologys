@@ -30,7 +30,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 	 <?= $form->field($modelalumno, 'id')->label(\Yii::t('base_labels','Full Name'))->textInput(['disabled'=>true,'value'=> $modelalumno->fullName()]) ?>
 	 </div>
 	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	 <?= $form->field($modelalumno, 'codalu')->label('Registration number')->textInput(['disabled'=>true]) ?>	
+	 <?= $form->field($modelalumno, 'codalu')->label(\Yii::t('base_labels','Registration number'))->textInput(['disabled'=>true]) ?>	
 	 </div>
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> 
