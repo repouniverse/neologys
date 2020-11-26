@@ -28,7 +28,7 @@ $fieldOptions2 = [
 
 
         
-        <?php echo Yii::$app->geoip->ip()->isoCode;   ?> 
+        <?php //echo Yii::$app->geoip->ip()->isoCode; */  ?> 
     
     <!-- /.login-logo -->
   <div class="hero is-fullheight bg-login">
