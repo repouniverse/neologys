@@ -145,20 +145,28 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 }
             ],
                         
-           
+           [
+              'value'=>function($url, $model)use($cursoMatriculado,$modelalumno) {
+                              return $model->id;  
+                    
+                         }
+                 ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{add}',
                 'buttons' => [
                     'add' => function($url, $model) use($cursoMatriculado,$modelalumno) {  
-                    $tieneAsesor= \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->andWhere([
+                    $tieneAsesor= \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()
+                            ->andWhere([
                                     'asesor_id'=>$model->id,
+                                    
                                    /* 'curso_id'=>$cursoMatriculado->curso_id,
                                     'seccion'=>$cursoMatriculado->seccion,
                                     'carrera_id'=>$modelalumno->carrera->id,
                                     'matricula_id'=>$cursoMatriculado->id, */
                      ])->exists();
+                    
                        /* $options = [
                             'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
                                       $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
