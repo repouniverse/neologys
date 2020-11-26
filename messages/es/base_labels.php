@@ -315,5 +315,5 @@ return[
     //Asesores
     'Assesor'=>'Asesor',
     'Assigned Assesor'=>'Asesor asignado',
-    
+    'To select your advisor, please press the button that appears next to the course'=>'Para seleccionar tu asesor,por favor presiona el botón que aparece junto al curso',
 ];

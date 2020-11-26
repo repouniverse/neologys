@@ -20,5 +20,7 @@ return[
     'Choose University'=>'Escoja una Universidad',
     'Switch Multiple'=>'Cambiar Multiple',
     'To Register'=>'Registrar',
-    'Add Asesor'=>'Agregar Asesor'
+    'Add Asesor'=>'Agregar Asesor',
+    'Select your adviser'=>'Selecciona tu asesor',
+    'View your adviser'=>'Visualiza o edita tu asesor',
 ];

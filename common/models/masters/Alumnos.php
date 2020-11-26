@@ -571,7 +571,7 @@ public function canCreateOrEdit() {
  
 public function cursosQuery(){
    $idsInPlanes= \common\models\masters\PlanesEstudio::find()
-        ->select(['curso_id'])->andWhere(['tipoproceso'=>'100'])->column();
+        ->select(['curso_id'])->andWhere(['tipoproceso'=>m::PROCESO_TALLER_TESIS])->column();
   return  $this->getMatricula()->select(['id','curso_id','seccion','periodo'])
                 ->andWhere(['curso_id'=>$idsInPlanes]); 
 } 

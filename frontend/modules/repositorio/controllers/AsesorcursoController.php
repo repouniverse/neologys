@@ -105,7 +105,7 @@ public function actionModalAsesorcurso($id){
                return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
             }else{
                 $model->save();
-                
+                $this->redirect(Url::to(['/respositorio/asesorcurso/agradecimiento']));
                   return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
             }
         }else{
@@ -140,10 +140,11 @@ public function actionModalAsesorcurso($id){
         }*/
 
         return $this->render('create', [
-            'model' => $model, 'modelalumno' => $modelalumno
+            'model' => $model, 'modelalumno' => $modelalumno,
+            'tienecursos'=>$tienecursos
         ]);
     }elseif($tienecursos===false){
-        return $this->render('noesalumno', [
+        return $this->render('nocursos', [
             'model' => $model,
         ]);
     }else{
