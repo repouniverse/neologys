@@ -317,9 +317,9 @@ return[
     //Asesores
     'Adviser'=>'Asesor',
     'Assigned Adviser'=>'Asesor asignado',
-    'To select your adviser, please press the button that appears next to the Name'=>'Para seleccionar tu asesor,por favor presiona el botón que aparece junto a su nombre',
+    'To select your adviser, please press the button that appears next to the Name'=>'Para seleccionar tu asesor,por favor presiona el botón que aparece junto a su nombre. No podrás seleccionar más de un asesor',
 
         ////Cursos
     'Name course'=>'Nombre de curso',
-    
+    'Registration number'=>'Número de matrícula',
     ];

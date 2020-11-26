@@ -57,7 +57,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
 ?>
             <div class=" alert alert-light col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php if($tienecursos)echo yii::t('base_labels','To select your adviser, please press the button that appears next to the Name')?>
+                <h4><?php if($tienecursos)echo yii::t('base_labels','To select your adviser, please press the button that appears next to the Name')?></h4>
             </div>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
