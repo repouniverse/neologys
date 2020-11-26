@@ -20,9 +20,7 @@ class m201124_203526_alter_table_matricula extends Migration
      */
     public function safeDown()
     {
-        echo "m201124_203526_alter_table_matricula cannot be reverted.\n";
-
-        return false;
+        return true;
     }
 
     /*

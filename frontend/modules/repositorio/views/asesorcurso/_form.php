@@ -109,6 +109,13 @@ use yii\helpers\Url;
 	<?php Pjax::begin(['id'=>'ajaxprofesores']); ?>
        <?php 
        $cursoMatriculado=$modelalumno->cursosQuery()->one();
+      /*ECHO \common\models\masters\DocenteCursoSeccion::find()
+               ->select(['id','curso_id','seccion','docente_id'])->
+               andWhere([
+                   'curso_id'=>$cursoMatriculado->curso_id,
+                  // 'docente_id'=>$cursoMatriculado->docente_id,
+                   'seccion'=>$cursoMatriculado->seccion,
+                   ])->createCommand()->rawSql; DIE();*/
        ?>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -125,10 +132,12 @@ use yii\helpers\Url;
             ['class' => 'yii\grid\SerialColumn'],
           
            // 'id',
+           
             [    
-                'attribute'=>'seccion',
-               /* 'header'=>yii::t('base_labels','Section'),
-                'value'=>function($model){return $model->seccion;}*/],
+                //'attribute'=>'seccion',
+                'header'=>yii::t('base_labels','Adviser'),
+                'value'=>function($model){return $model->docente->fullName();}
+            ],
                         
            
 
