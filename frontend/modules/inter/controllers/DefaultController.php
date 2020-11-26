@@ -180,11 +180,35 @@ class DefaultController extends Controller
              }
         }
         
-  public function actionPostulacion(){
+  /*public function actionPostulacion(){
       $identidad=h::user()->profile->persona->identidad;
       if($identidad->isConvocado())
        return $this->render('panel_alumno_internacional',['identidad'=>$identidad]);
        return $this->render('noconvocado',['identidad'=>$identidad]);
    
-      }
+      }*/
+      
+      /*Verificando la identidad del usuario*/
+  public function actionPostulacion(){    
+      /*Si el`profile apunta a la person*/
+   if(!is_null(($persona=h::user()->profile->persona))){
+     if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
+         if(!is_null($identidad=$persona->identidad)){             
+                // echo $grupo->layout; die();              
+                return $this->render($grupo->layout,['identidad'=>$identidad]);
+                }else{
+               ///Layout para personas sin identidad
+                return $this->render('noidentidad',['persona'=>$persona]); 
+                }
+         
+            }else{
+                /*Es un usuario sin referencia a un grupo de personas*/
+                return $this->goHome();
+            }
+    }else{
+        //echo "ewdsdsds"; die();
+        /*Es un usuario sin referencia a persona*/
+       return $this->goHome();
+    }
+  }
 }

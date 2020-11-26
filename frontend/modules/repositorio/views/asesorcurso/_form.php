@@ -14,7 +14,9 @@ use yii\helpers\Url;
 /* @var $model common\models\masters\AsesoresCurso */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<?php
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
+?>
 <div class="asesores-curso-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -25,10 +27,10 @@ use yii\helpers\Url;
 	 <?= $form->field($modelalumno, 'id')->label(\Yii::t('base_labels','Race'))->textInput(['disabled'=>true,'value'=> $modelalumno->carrera->nombre]) ?>	
 	 </div> 
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">	
-	 <?= $form->field($modelalumno, 'id')->label(\Yii::t('base_labels','Names'))->textInput(['disabled'=>true,'value'=> $modelalumno->fullName()]) ?>
+	 <?= $form->field($modelalumno, 'id')->label(\Yii::t('base_labels','Full Name'))->textInput(['disabled'=>true,'value'=> $modelalumno->fullName()]) ?>
 	 </div>
 	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	 <?= $form->field($modelalumno, 'codalu')->textInput(['disabled'=>true]) ?>	
+	 <?= $form->field($modelalumno, 'codalu')->label('Registration number')->textInput(['disabled'=>true]) ?>	
 	 </div>
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> 
@@ -55,7 +57,7 @@ use yii\helpers\Url;
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
 ?>
             <div class=" alert alert-light col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php if($tienecursos)echo yii::t('base_labels','To select your advisor, please press the button that appears next to the course')?>
+                <?php if($tienecursos)echo yii::t('base_labels','To select your adviser, please press the button that appears next to the Name')?>
             </div>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -63,11 +65,11 @@ use yii\helpers\Url;
                         ]),
             'summary'=>'',
             'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+           
             [
                 'header'=>yii::t('base_labels','Code'),
                 'value'=>function($model){return $model->curso->codcur;}],
-            [    'header'=>yii::t('base_labels','Name'),
+            [    'header'=>yii::t('base_labels','Name course'),
                 'value'=>function($model){return $model->curso->descripcion;}],
            // 'id',
             [    
@@ -75,30 +77,25 @@ use yii\helpers\Url;
                /* 'header'=>yii::t('base_labels','Section'),
                 'value'=>function($model){return $model->seccion;}*/],
                         
-            [ 
+           /* [ 
                 
-                'header'=>yii::t('base_labels','Assigned Assesor'),
+                'header'=>yii::t('base_labels','Assigned Adviser'),
                 'value' => function($model){
             	if($model->hasAssesor()) 
             	return $model->asesorCurso->asesor->docente->fullName();
                 return '';
 
-            }],
+            }],*/
 
-            [
+            /*[
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{add}',
                 'buttons' => [
                     'add' => function($url, $model) {                        
-                        $options = [
-                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
-                                      $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
-                                     if($model->hasAssesor()) return '';
-                                      return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs','Add Assesor'), $url, $options);
-                         
+                        
                          },
                     ]
-                ],
+                ],*/
         ],
     ]); ?>
 
@@ -133,7 +130,7 @@ use yii\helpers\Url;
                      
             'summary'=>'',
             'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+           
           
            // 'id',
            
