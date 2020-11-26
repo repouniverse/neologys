@@ -8,6 +8,7 @@ use yii\grid\GridView;
 use common\models\masters\Matricula;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\AsesoresCurso */
@@ -109,24 +110,27 @@ use yii\helpers\Url;
 	<?php Pjax::begin(['id'=>'ajaxprofesores']); ?>
        <?php 
        $cursoMatriculado=$modelalumno->cursosQuery()->one();
-      /*ECHO \common\models\masters\DocenteCursoSeccion::find()
-               ->select(['id','curso_id','seccion','docente_id'])->
-               andWhere([
-                   'curso_id'=>$cursoMatriculado->curso_id,
-                  // 'docente_id'=>$cursoMatriculado->docente_id,
-                   'seccion'=>$cursoMatriculado->seccion,
-                   ])->createCommand()->rawSql; DIE();*/
+     /* ECHO (new \yii\db\Query())->select(['a.id','a.curso_id','a.seccion','a.docente_id'])->
+              from('{{%docente_curso_seccion}} a')-> 
+              innerJoin('{{%docentes}} b','a.docente_id=b.id')->
+              innerJoin('{{%asesores}} x','x.docente_id=b.id')
+              ->andWhere(['curso_id'=>$cursoMatriculado->curso_id,'seccion'=>$cursoMatriculado->seccion])
+       ->createCommand()->rawSql; DIE();*/
        ?>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
-            'query'=> \common\models\masters\DocenteCursoSeccion::find()
-               ->select(['id','curso_id','seccion','docente_id'])->
-               andWhere([
-                   'curso_id'=>$cursoMatriculado->curso_id,
-                  // 'docente_id'=>$cursoMatriculado->docente_id,
-                   'seccion'=>$cursoMatriculado->seccion,
+            'query'=> common\models\masters\DocenteCursoSeccion::find()
+                ->alias('t')->select(['x.id','t.curso_id','t.seccion','t.docente_id'])->
+              distinct()-> 
+              innerJoin('{{%docentes}} b','t.docente_id=b.id')->
+              innerJoin('{{%asesores}} x','x.docente_id=b.id')
+              ->andWhere([
+                  'curso_id'=>$cursoMatriculado->curso_id,
+                  'seccion'=>$cursoMatriculado->seccion
+                      ]),
+            
                    ]),
-                        ]),
+                     
             'summary'=>'',
             'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -136,7 +140,12 @@ use yii\helpers\Url;
             [    
                 //'attribute'=>'seccion',
                 'header'=>yii::t('base_labels','Adviser'),
-                'value'=>function($model){return $model->docente->fullName();}
+                'value'=>function($model){
+        
+          // return \yii\Helpers\Json::encode($model->attributes);
+        return $model->docente->fullName();
+        
+                }
             ],
                         
            
@@ -145,19 +154,51 @@ use yii\helpers\Url;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{add}',
                 'buttons' => [
-                    'add' => function($url, $model) {                        
-                        $options = [
+                    'add' => function($url, $model) use($cursoMatriculado,$modelalumno) {  
+                    $tieneAsesor= \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->andWhere([
+                                    'asesor_id'=>$model->id,
+                                   /* 'curso_id'=>$cursoMatriculado->curso_id,
+                                    'seccion'=>$cursoMatriculado->seccion,
+                                    'carrera_id'=>$modelalumno->carrera->id,
+                                    'matricula_id'=>$cursoMatriculado->id, */
+                     ])->exists();
+                       /* $options = [
                             'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
                                       $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
                                      
                                       return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs','Add Assesor'), $url, $options);
-                         
+                         */
+                            if($tieneAsesor){
+                                return '<i style="color:green;font-size:18px;"><span class="fa fa-check"></span></i>';          
+                              
+                            }else{
+                             $url = Url::toRoute([$this->context->id.'/ajax-asigna-asesor','id'=>$model->id,'idMat'=>$cursoMatriculado->id]);
+                              return Html::a('<span class="fa fa-plus"></span>Agregar Asesor', '#', ['id'=>$model->id,'title'=>$url,'family'=>'holas','class'=>'btn btn-primary btn-sm']);           
+                               
+                            }
+                          
+                              
+                              
                          },
                     ]
                 ],
         ],
     ]); ?>
 
+      <?php 
+   echo linkAjaxGridWidget::widget([
+           'id'=>'srttrwidgetgruidBancos',
+            'idGrilla'=>'ajaxprofesores',
+       //'otherContainers'=>['grupo-pjax'],
+            'family'=>'holas',
+          'type'=>'POST',
+           'evento'=>'click',
+       'posicion'=>\yii\web\View::POS_END
+            //'foreignskeys'=>[1,2,3],
+        ]); 
+   ?>      
+            
+            
     <?php Pjax::end(); ?>
 </div>
 </div>

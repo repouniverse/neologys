@@ -218,4 +218,37 @@ public function actionModalAsesorcurso($id){
         }
     }
     
+    
+    public function actionAjaxAsignaAsesor($id){
+       if(h::request()->isAjax){
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+           $idMat=h::request()->get('idMat',null);
+           if(is_null($idMat)){
+               return ['error'=>'No paso el id correcto de curso matriculado'];
+           }
+           //var_dump($idMat);die();
+             $modelMatricula=Matricula::findOne($idMat);
+       
+       if(is_null($modelMatricula))return ['error'=>'No paso el id correcto de curso matriculado'];
+       
+$mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
+       if(is_null($mod))return ['error'=>'No paso el id correcto de asesor'];
+       
+       
+       
+       $model = New AsesoresCurso();
+        $model->matricula_id=$modelMatricula->id;
+        $model->asesor_id=$mod->id;
+        $model->alumno_id=h::user()->profile->persona->identidad->id;
+        
+       if( !$model->save()){
+           return ['error'=>$model->getFirstError()];
+       }ELSE{
+           return ['success'=>'Asignaste tu asesor correctamente'];
+       }
+            
+            
+       }
+        
+    }
 }

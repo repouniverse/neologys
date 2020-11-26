@@ -95,13 +95,26 @@ public $booleanFields=['activo'];
         return $this->getAsesorados()->count();
     }
     
-    public static function nAsesoradosPorCursoSeccion($curso_id,$codseccion,$carrera_id){
+    public  function nAsesoradosPorCursoSeccion($curso_id,$codseccion,$carrera_id){
        return  RepoVwAsesoresAsignados::find()->andFilterWhere([
             'asesor_id'=>$this->id,
             'curso_id'=>$curso_id,
              'seccion'=>$codseccion,
             'carrera_id'=>$carrera_id,
         ])->count();        
+       //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
+        
+    }
+    
+    public  function isAsesorFromCursoSeccionCarreraMatricula($curso_id,$codseccion,
+            $carrera_id,$matriculaid){
+       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
+            'asesor_id'=>$this->id,
+            'curso_id'=>$curso_id,
+             'seccion'=>$codseccion,
+            'carrera_id'=>$carrera_id,
+           'matricula_id'=>$matriculaid,
+        ])->exists();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
