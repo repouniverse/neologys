@@ -29,7 +29,7 @@ use yii\helpers\Html;
 <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">             
               <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         <div class="info-box bg-teal-gradient">
-                            <?php echo Html::a('<span class="info-box-icon"><i class="fa fa-globe"></i></span>',Url::to(['/inter/default/postulacion']),['style'=>'color:white;']); ?>
+                            <?php echo Html::a('<span class="info-box-icon"><i class="fa fa-globe"></i></span>',Url::to(['/']),['style'=>'color:white;']); ?>
                             
                                 <div class="info-box-content">
                                         <span class="info-box-text"><?=yii::t('base_labels','International')?></span>
@@ -48,7 +48,7 @@ use yii\helpers\Html;
             
              <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
                      <div class="info-box bg-teal-gradient">
-                            <?php echo Html::a('<span class="info-box-icon"><i class="fa fa-user-circle"></i></span>',Url::to(['/repositorio/asesorescurso/create']),['style'=>'color:white;']); ?>
+                            <?php echo Html::a('<span class="info-box-icon"><i class="fa fa-user-circle"></i></span>',Url::to(['/repositorio/asesorcurso/create']),['style'=>'color:white;']); ?>
                                 <div class="info-box-content">
                                         <span class="info-box-text"><?=yii::t('base_labels','Advisory')?></span>
                                         <br>

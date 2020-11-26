@@ -105,7 +105,7 @@ public function actionModalAsesorcurso($id){
                return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_SEGUNDA,'msg'=>$datos];  
             }else{
                 $model->save();
-                
+                $this->redirect(Url::to(['/respositorio/asesorcurso/agradecimiento']));
                   return ['success'=>\common\widgets\buttonsubmitwidget\buttonSubmitWidget::OP_PRIMERA,'id'=>$model->id];
             }
         }else{
@@ -140,10 +140,11 @@ public function actionModalAsesorcurso($id){
         }*/
 
         return $this->render('create', [
-            'model' => $model, 'modelalumno' => $modelalumno
+            'model' => $model, 'modelalumno' => $modelalumno,
+            'tienecursos'=>$tienecursos
         ]);
     }elseif($tienecursos===false){
-        return $this->render('noesalumno', [
+        return $this->render('nocursos', [
             'model' => $model,
         ]);
     }else{
@@ -217,4 +218,37 @@ public function actionModalAsesorcurso($id){
         }
     }
     
+    
+    public function actionAjaxAsignaAsesor($id){
+       if(h::request()->isAjax){
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+           $idMat=h::request()->get('idMat',null);
+           if(is_null($idMat)){
+               return ['error'=>'No paso el id correcto de curso matriculado'];
+           }
+           //var_dump($idMat);die();
+             $modelMatricula=Matricula::findOne($idMat);
+       
+       if(is_null($modelMatricula))return ['error'=>'No paso el id correcto de curso matriculado'];
+       
+$mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
+       if(is_null($mod))return ['error'=>'No paso el id correcto de asesor'];
+       
+       
+       
+       $model = New AsesoresCurso();
+        $model->matricula_id=$modelMatricula->id;
+        $model->asesor_id=$mod->id;
+        $model->alumno_id=h::user()->profile->persona->identidad->id;
+        
+       if( !$model->save()){
+           return ['error'=>$model->getFirstError()];
+       }ELSE{
+           return ['success'=>'Asignaste tu asesor correctamente'];
+       }
+            
+            
+       }
+        
+    }
 }

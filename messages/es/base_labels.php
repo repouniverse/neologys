@@ -29,6 +29,7 @@ return[
     
     
     // Alumnos
+    'Registration number'=>'Número de matrícula',
     'Id'=>'ID',
     'ID'=>'ID',
     'Code Student'=>'Código Alumno',
@@ -37,13 +38,14 @@ return[
     'Last Name'=>'Primer apellido',
     'Mother Last Name'=>'Apellido Materno',
     'Names'=>'Nombres',
+    'Full Name'=>'Nombres completo',
     'Entry Period Code'=>'Código Periodo Ingreso',
     'Code Faculty'=>'Código Facultad',
     'Document Type'=>'Tipo Doc',
     'Document Number'=>'Núm Doc',
     'Mail'=>'Correo',
     'Reason'=>'Motivo',
-    'Race'=>'Carrera',
+    'Race'=>'Escuela',
     'Country Residence'=>'País Residencia',
     'Birth Place'=>'Lugar Nacimiento',
     'Place Residence'=>'Lugar Residencia',
@@ -313,7 +315,11 @@ return[
     'Please fill out your email. A link to reset password will be sent there.'=>'Por favor ingrese su dirección de correo. Recibirá un link para reestablecer su contraseña.',
 
     //Asesores
-    'Assesor'=>'Asesor',
-    'Assigned Assesor'=>'Asesor asignado',
+    'Adviser'=>'Asesor',
+    'Assigned Adviser'=>'Asesor asignado',
+    'To select your adviser, please press the button that appears next to the Name'=>'Para seleccionar tu asesor,por favor presiona el botón que aparece junto a su nombre',
+
+        ////Cursos
+    'Name course'=>'Nombre de curso',
     
-];
+    ];

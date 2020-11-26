@@ -1,0 +1,105 @@
+/* PERSONALIZADO */
+.bg-login {
+  background-image: url(../img/fondo-login.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.botones {
+  padding: 20px 20px;
+}
+.btn-ingresa {
+  background-color: #910029;
+  color: #ffffff;
+  border-radius: 0px;
+}
+.btn-ingresa:hover {
+  background-color: #670011;
+  color: #ffffff;
+}
+.txt-ingresa::after {
+  content: "";
+  border-bottom: 1px solid rgb(209, 134, 134);
+  width: 70%;
+  display: block;
+  margin: 0% 15%;
+}
+
+.btn-recupera {
+  background-color: #ffffff;
+  border: 2px solid #910029;
+  color: #606060;
+  border-radius: 0px;
+}
+.btn-recupera:hover {
+  color: #910029;
+  border: 2px solid #910029;
+}
+.txt-recupera::after {
+  content: "";
+  border-bottom: 1px solid rgb(158, 158, 158);
+  width: 80%;
+  display: block;
+  margin: 0% 10%;
+}
+.input-login {
+  width: 100%;
+  background-color: #e2e4e4;
+  border-radius: 0px;
+  padding: 22px 10px;
+}
+.box {
+  border-radius: 0px;
+  clip-path: polygon(
+    0 0,
+    60% 0,
+    100% 12%,
+    100% 70%,
+    100% 100%,
+    34% 100%,
+    0 88%,
+    0% 30%
+  );
+  -webkit-clip-path:polygon(
+    0 0,
+    60% 0,
+    100% 12%,
+    100% 70%,
+    100% 100%,
+    34% 100%,
+    0 88%,
+    0% 30%
+  );
+  background-image: url(../images/lineas.svg);
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-position-y: 84%;
+  background-size: 90%;
+  width: 100%;
+  max-width: 420px;
+}
+
+@media (min-width: 321px) and (max-width: 480px) {
+  .botones {
+    padding: 20px 0px;
+  }
+  .txt-ingresa::after {
+    width: 70%;
+    margin: 0% 15%;
+  }
+  .txt-recupera::after {
+    width: 80%;
+    margin: 0% 10%;
+  }
+}
+@media (min-width: 240px) and (max-width: 320px) {
+  .box {
+    width: 98% !important;
+  }
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
