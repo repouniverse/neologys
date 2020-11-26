@@ -145,12 +145,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 }
             ],
                         
-           [
-              'value'=>function($url, $model)use($cursoMatriculado,$modelalumno) {
-                              return $model->id;  
-                    
-                         }
-                 ],
+           
 
             [
                 'class' => 'yii\grid\ActionColumn',
