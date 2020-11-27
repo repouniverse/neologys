@@ -167,7 +167,9 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{add}',
                 'buttons' => [
-                    'add' => function($url, $model) use($cursoMatriculado,$modelalumno) {  
+                    'add' => function($url, $model) use($cursoMatriculado,$modelalumno) { 
+               echo \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->
+               createCommand()->rawSql;
                     $tieneAsesor= \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()
                             ->andWhere([
                                     'asesor_id'=>$model->id,

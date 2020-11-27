@@ -164,11 +164,12 @@ $wizard_config = [
         <div class="row cab_user">
             <div class="col-md-6 centrav">
                 <div class="nom_user">
-                    <i class="fa fa-user" aria-hidden="true"></i> Alberto Perez Rodriguez
+                    <i class="fa fa-user" aria-hidden="true"></i><?= $identidad->fullName() ?>
                 </div>    
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                <img src="../images/logo-inter.svg" width="280px">
+                <?=Html::img("@frontend/web/img/modules/inter/welcome/images/logo-inter.svg",[])?>
+                
             </div>
         </div>
     </div>
@@ -178,18 +179,18 @@ $wizard_config = [
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <table width="100%">
                     <tr>
-                        <td width="120px"><div class="foto_user"><img src="images/ico-user.jpg" class="foto" width="80px"/></div>
-                            <div class="bandera"><img src="images/ico-flag.jpg" ></div>
+                        <td width="120px"><div class="foto_user"><?=Html::img("@web/img/modules/inter/welcome/images/ico-user.jpg",[])?></div>
+                            <div class="bandera"><?=Html::img("@web/img/modules/inter/welcome/images/ico-flag.jpg",[])?></div>
                         </td>
-                        <td width=""> <strong>!FELICITACIONES!</strong><br> Haz sido admitido en el programa de Internacional 2020-II</td>
+                        <td width=""> <strong>!FELICITACIONES!</strong><br> Has sido admitido en el programa de Internacional 2020-II</td>
                     </tr>
                 </table>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 text-right img_uni">
-                <img src="images/unab.jpg" alt="">
+                
             </div>
         </div>
-        <div class="container-fluid cont-welcome" style="background-image:url(images/fondo-welcome-inter.jpg)">
+        <div class="container-fluid cont-welcome" style="background-image:url(<?= yii::getAlias("@web/img/modules/inter/welcome/images/fondo-welcome-inter.jpg")?>)">
             <div class="row tits">
                 <div class="tit-welcome">Internacional</div>
                 <div class="subtit-welcome">Bienvenido al Sistema</div>
