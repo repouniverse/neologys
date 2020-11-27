@@ -113,6 +113,18 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
               innerJoin('{{%asesores}} x','x.docente_id=b.id')
               ->andWhere(['curso_id'=>$cursoMatriculado->curso_id,'seccion'=>$cursoMatriculado->seccion])
        ->createCommand()->rawSql; DIE();*/
+       
+       
+      echo  common\models\masters\DocenteCursoSeccion::find()
+                ->alias('t')->select(['x.id','t.curso_id','t.seccion','t.docente_id'])->
+              distinct()-> 
+              innerJoin('{{%docentes}} b','t.docente_id=b.id')->
+              innerJoin('{{%asesores}} x','x.docente_id=b.id')
+              ->andWhere([
+                  'curso_id'=>$cursoMatriculado->curso_id,
+                  'seccion'=>$cursoMatriculado->seccion
+                      ])->createCommand()->rawSql;
+       
        ?>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -165,6 +177,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                                     'carrera_id'=>$modelalumno->carrera->id,
                                     'matricula_id'=>$cursoMatriculado->id, */
                      ])->exists();
+                    
                     
                        /* $options = [
                             'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
