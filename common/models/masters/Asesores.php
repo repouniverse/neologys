@@ -120,8 +120,8 @@ public $booleanFields=['activo'];
     }
     
      public static function nMaxAsesoradosPorCursoSeccionMatricula($params){
-         $nmat= Matricula::nMatriculados(null,$params[0], $params[1]);         
-           if($carrera_id==Carreras::ID_CARRERA_COMUNICACIONES){
+         $nmat= Matricula::nMatriculados(null,/*curso_id*/$params[0],/*seccion*/ $params[1]);         
+           if(/*carrera_id*/$params[2]==Carreras::ID_CARRERA_COMUNICACIONES){
                     $namx=$nmat;
                 }else{
                         $namx=floor($nmat/2)+1;
