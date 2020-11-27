@@ -112,6 +112,9 @@ class Matricula extends \common\models\base\modelBase
        if(!is_null($codseccion))
          $query=$query->andWhere(['seccion'=>$codseccion]);*/  
       // ECHO $query->createCommand()->rawSql;die();
+       yii::error('SQL DE NUMERO DE MATRICULADOS ',__FUNCTION__);
+       yii::error($query->createCommand()->rawSql,__FUNCTION__);
+        yii::error('CONTANDO HAY '.$query->count(),__FUNCTION__);
        return $query->count();
     }
     
