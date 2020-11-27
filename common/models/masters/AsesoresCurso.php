@@ -110,8 +110,10 @@ class AsesoresCurso extends \common\models\base\modelBase
     public function validateCantidadAsesorados($attribute, $params) {
         
         
-        if($this->isDispose()){
-            $this->addError('asesor_id',yii::t('base_errors','This advisor exceeds the maximum number of students',[]));
+        if(!$this->isDispose()){
+            $nmax=$this->asesor->nMaxAsesoradosPorCursoSeccionMatricula($params);
+            $nstudents=nAsesoradosPorCursoSeccionCarreraMatricula($params);
+            $this->addError('asesor_id',yii::t('base_errors','This advisor has {nstudents} students,but exceeds the maximum number {nmax} of students',['nmax'=>$nmax,'nstudents'=>$nstudents]));
         }
         
         
