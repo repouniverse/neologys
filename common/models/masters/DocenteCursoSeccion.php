@@ -83,4 +83,6 @@ class DocenteCursoSeccion extends \common\models\base\modelBase
     {
         return new DocenteCursoSeccionQuery(get_called_class());
     }
+    
+    
 }
