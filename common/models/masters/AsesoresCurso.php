@@ -111,7 +111,7 @@ class AsesoresCurso extends \common\models\base\modelBase
         
         
         if($this->isDispose()){
-            $this->addError('asesor_id',yii::t('base_errors','This advisor exceeds the maximum number of students',['nmaximo'=>$namx,$this->matricula->alumno->carrera->nombre]));
+            $this->addError('asesor_id',yii::t('base_errors','This advisor exceeds the maximum number of students',['nmaximo'=>$nmax,$this->matricula->alumno->carrera->nombre]));
         }
         
         
