@@ -191,6 +191,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                                 return '<i style="color:green;font-size:18px;"><span class="fa fa-check"></span></i>';          
                               
                             }else{
+                                return  get_class($model);
                              $url = Url::toRoute([$this->context->id.'/ajax-asigna-asesor','id'=>$model->id,'idMat'=>$cursoMatriculado->id]);
                               return Html::a('<span class="fa fa-plus"></span>Agregar Asesor', '#', ['id'=>$model->id,'title'=>$url,'family'=>'holas','class'=>'btn btn-primary btn-sm']);           
                                
