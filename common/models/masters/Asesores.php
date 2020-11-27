@@ -136,5 +136,8 @@ public $booleanFields=['activo'];
          if($nmax>0)return round($nasesorados/$nmax,2);
          return 0;
      }
+     
+     
+     
    
 }

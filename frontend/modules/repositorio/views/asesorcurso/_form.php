@@ -145,7 +145,11 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 }
             ],
                         
-           
+           [
+               'value'=>function ($model){
+                return $model->id;
+               }
+           ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

@@ -92,7 +92,7 @@ return [
             'class' => 'frontend\modules\repositorio\Module',
             ],
     ],
-    /*'as access' => [
+    'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             ' ', 
@@ -105,7 +105,7 @@ return [
            'site/mantenimiento',
            'inter/default/base-auth'
         ]
-    ],*/
+    ],
     /*
      * Para asignarlel leguaje de 
      * cada usuario según el país
