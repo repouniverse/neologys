@@ -109,7 +109,7 @@ class AsesoresCurso extends \common\models\base\modelBase
     
     public function validateCantidadAsesorados($attribute, $params) {
         $nmax=$this->asesor->nMaxAsesoradosPorCursoSeccionMatricula($params);
-            $nstudents=nAsesoradosPorCursoSeccionCarreraMatricula($params);
+            $nstudents=$this->asesor->nAsesoradosPorCursoSeccionCarreraMatricula($params);
              yii::error(' numero asesorados '.$nstudents,__FUNCTION__);
             yii::error(' numero maximo '.$nmax,__FUNCTION__);
             
