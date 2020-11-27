@@ -93,9 +93,10 @@ class AsesoresCurso extends \common\models\base\modelBase
     
     private function prepareParams(){
         return [
-                'carrera_id'=>$this->matricula->alumno->carrera_id,
+               
                 'curso_id'=>$this->matricula->curso_id,
                 'seccion'=>$this->matricula->seccion,
+             'carrera_id'=>$this->matricula->alumno->carrera_id,
                 'matricula_id'=>$this->matricula->id
                ];
     }
