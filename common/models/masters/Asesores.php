@@ -96,37 +96,31 @@ public $booleanFields=['activo'];
         return $this->getAsesorados()->count();
     }
     
-    private function  queryAsesorados($curso_id,$codseccion,
-            $carrera_id,$matricula_id){
+    private function  queryAsesorados($params){
         return RepoVwAsesoresAsignados::find()->andFilterWhere([
             'asesor_id'=>$this->id,
-            'curso_id'=>$curso_id,
-             'seccion'=>$codseccion,
-            'carrera_id'=>$carrera_id,
-            'matricula_id'=>$matriculaid,
+            'curso_id'=>$params[0],
+             'seccion'=>$params[1],
+            'carrera_id'=>$params[2],
+            'matricula_id'=>$params[3],
         ]);
     }
     
     
-    public  function nAsesoradosPorCursoSeccionCarreraMatricula($curso_id,$codseccion,
-            $carrera_id,$matricula_id){
-       return  $this->queryAsesorados($curso_id,$codseccion,
-            $carrera_id,$matricula_id)->count();        
+    public  function nAsesoradosPorCursoSeccionCarreraMatricula($params){
+       return  $this->queryAsesorados($params)->count();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
-    public  function isAsesorFromCursoSeccionCarreraMatricula($curso_id,$codseccion,
-            $carrera_id,$matriculaid){
-       return $this->queryAsesorados($curso_id,$codseccion,
-            $carrera_id,$matricula_id)->exists();        
+    public  function isAsesorFromCursoSeccionCarreraMatricula($params){
+       return $this->queryAsesorados($params)->exists();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
-     public static function nMaxAsesoradosPorCursoSeccionMatricula($curso_id,$seccion,$carrera_id,
-             $matricula_id){
-         $nmat= Matricula::nMatriculados(null,$curso_id, $seccion);         
+     public static function nMaxAsesoradosPorCursoSeccionMatricula($params){
+         $nmat= Matricula::nMatriculados(null,$params[0], $params[1]);         
            if($carrera_id==Carreras::ID_CARRERA_COMUNICACIONES){
                     $namx=$nmat;
                 }else{
@@ -136,15 +130,10 @@ public $booleanFields=['activo'];
        }
     
    
-     public function porcentajeSaturacion($curso_id,$codseccion,
-            $carrera_id,$matricula_id){
+     public function porcentajeSaturacion($params){
          
-             $nasesorados=$this->nAsesoradosPorCursoSeccionCarreraMatricula(
-                            $curso_id,$codseccion,
-                            $carrera_id,$matricula_id);
-             $namx=$this->nMaxAsesoradosPorCursoSeccionMatricula(
-                            $curso_id,$seccion,$carrera_id,
-                             $matricula_id);             
+             $nasesorados=$this->nAsesoradosPorCursoSeccionCarreraMatricula($params);
+             $namx=$this->nMaxAsesoradosPorCursoSeccionMatricula($params);             
          if($nmax>0)return round($nasesorados/$nmax,2)*100;
          return 0;
      }

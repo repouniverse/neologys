@@ -26,7 +26,7 @@ $fieldOptions1 = [
 <div class="login-box">
     
        <div class="login-box-body">
-        <p class="login-box-msg"><?php echo yii::t('base_labels','Please fill out your email. A link to reset password will be sent there.');  ?></p>
+        <p class="login-box-msg"><?php echo yii::t('base_labels','Please fill out your email. <b>If you have a institutional account, yo should use it.</b> A link to reset password will be sent there.');  ?></p>
 
         
          <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>

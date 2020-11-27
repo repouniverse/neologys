@@ -75,9 +75,9 @@ h::gsetting('mail', 'passworduserservermail'),
                  'text' => 'passwordResetToken-text'],
                 ['user' => $user]
             )
-            ->setFrom([h::gsetting('mail', 'userservermail') => Yii::$app->name . ' robot'])
+            ->setFrom([h::gsetting('mail', 'userservermail') => Yii::$app->name . ' '])
             ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
+            ->setSubject(yii::t('base_labels','Password reset for ') . Yii::$app->name)
             ->send();
     }
 }

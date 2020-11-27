@@ -1,6 +1,7 @@
 <?php
 return[    
     //Login
+    'Hello'=>'Hola',
     'Username'=>'Usuario',
     'This value cannot be empty'=>'Este campo no puede estar vacío.',
     'Password'=>'Contraseña',
@@ -312,8 +313,9 @@ return[
     'Activate'=>'Activar',
     
     //rESERT PASSWORD 
-    'Please fill out your email. A link to reset password will be sent there.'=>'Por favor ingrese su dirección de correo. Recibirá un link para reestablecer su contraseña.',
-
+    'Please fill out your email. <b>If you have a institutional account, yo should use it.</b> A link to reset password will be sent there.'=>'Por favor ingrese su dirección de correo. <b>Si tiene una cuenta insitucional deberá usarla.</b> Recibirá un link para reestablecer su contraseña.',
+   'Password reset for '=>'Restablecer contraseña-',
+    'Follow the link below to reset your password:'=>'Presiona el siguiente link para restablecer el password',
     //Asesores
     'Adviser'=>'Asesor',
     'Assigned Adviser'=>'Asesor asignado',

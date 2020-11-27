@@ -16,7 +16,7 @@ return [
         \Yii::$app->language = 'zh-CN';
      */
     'language' => 'es-PE',
-    'name'=>'Internacional',
+    'name'=>'Plataforma FCCTP-USMP',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
