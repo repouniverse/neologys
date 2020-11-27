@@ -390,8 +390,8 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
              $user->email=$email; 
              $pwd=$username; 
              $user->password=  $pwd; 
-             yii::error('password ');
-             yii::error($user->username.'@'.$pwd);
+            // yii::error('password ');
+            // yii::error($user->username.'@'.$pwd);
              //$model->retypePassword='123456'; 
                $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
             if (!$user->save()) {
