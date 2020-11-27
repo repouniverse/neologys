@@ -148,98 +148,60 @@ $wizard_config = [
       
 <?PHP  } else{ ?>
       
-      <DIV CLASS="aviso-info">
-          <?=yii::t('base_labels','Congratulations...!. You have been admitted to the International program {period}',['periodo'=>h::periodos()->currentPeriod])?>
-      </DIV>
-      
-      
-      
-   
-     
-<?php 
-$marcadores=[
-     ['latLng'=> [$univdestino->latitud, $univdestino->meridiano],
-         'name'=> $univdestino->nombre,'weburl' => Url::to(['/maestros/default/update-univer','id'=>28])],        
-             
-    
-    ];
-$options=[
-        'backgroundColor'=>'#d9dde2;',
-         'markerStyle'=>[
-      'initial'=>[
-        'fill'=> '#F8E23B',
-        'stroke'=> '#383f47'
-        ],
-      ],
-        'width'=>'600',
-        'height'=>'600',
-          'markers'=>$marcadores,
-       // 'onMarkerClick'=>'{(event){alert("hola")}',
-        ];
+    <?php $this->registerCssFile($this->registerCssFile(
+            '@frontend/views/layouts/perfiles/css/welcome-inter.css',
+            ['depends' => [yii\bootstrap\BootstrapAsset::className()],
+                'media' => 'print',
+                      ], 'css-print-theme'));
+     ?>
+<!-- NUEVO CSS -->
+<link rel="stylesheet" href="css/welcome-inter.css">
 
-$marcadores=\yii\helpers\Json::encode($marcadores);
-$cadena= \yii\helpers\Json::encode($options);
-/*echo JVectorMapWidget::widget([
-    //'id'=>'mapita1',
-    'map'=>'world_mill_en',    
-    'options'=>$options,    
-    'htmlOptions'=>[
-        'id'=>'map1',
-                ],
-]);*/ ?>
-        <div class="map-container">
-                <div id="world-map" class="jvmap-smart">   
-                    <div id="map1">
-                        
-                    </div>
-                </div>
+
+
+    <!-- Primer contenedor -->
+    <div class="container-fluid">
+        <div class="row cab_user">
+            <div class="col-md-6 centrav">
+                <div class="nom_user">
+                    <i class="fa fa-user" aria-hidden="true"></i> Alberto Perez Rodriguez
+                </div>    
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                <img src="images/logo-inter.svg" width="280px">
+            </div>
         </div>
- <?php 
-JVectorMapAsset::register($this);
-JVectorMapAsset::registerMap('world_mill_en');
- $this->registerJs ("
-     var markers=".$marcadores.";
-    $(function(){
-    $('#map1').vectorMap({  
-              map:'world_mill_en',
-              backgroundColor:'#d9dde2',
-              markerStyle:{
-                    class:'botonAbre',
-                    initial:{
-                    fill:'#F8E23B',
-                    stroke:'#383f47',
-                    r:10,
-                        },
-                  hover: {
-                    stroke: 'red',                    
-                    cursor: 'pointer',
-                    fill:'orange',
-                        }      
-
-
-                        },
-               markers:markers,         
-
-                  onMarkerClick: function(event, index) {                      
-                      //alert(markers[index].weburl);
-                     // alert('hola');          
-                  
-                   }//fin de onmARCKERcLICK
-            });
-        });
-",\yii\web\View::POS_READY);     ?>       
-        
-        
-        
-        
-        <br>
-      
-      
-      
-      
-      
-      
-        
+    </div>
+    <!-- Segundo contenedor -->
+    <div class="container-fluid bg-cl-welcome">
+        <div class="row cab_tit">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <table width="100%">
+                    <tr>
+                        <td width="120px"><div class="foto_user"><img src="images/ico-user.jpg" class="foto" width="80px"/></div>
+                            <div class="bandera"><img src="images/ico-flag.jpg" ></div>
+                        </td>
+                        <td width=""> <strong>!FELICITACIONES!</strong><br> Haz sido admitido en el programa de Internacional 2020-II</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right img_uni">
+                <img src="images/unab.jpg" alt="">
+            </div>
+        </div>
+        <div class="container-fluid cont-welcome" style="background-image:url(images/fondo-welcome-inter.jpg)">
+            <div class="row tits">
+                <div class="tit-welcome">Internacional</div>
+                <div class="subtit-welcome">Bienvenido al Sistema</div>
+                <div class="linea-tit"></div>
+                <div class="botonera">
+                    <a href="#"><div class="enlace-welcome btn-enlace">> Eventos</div></a>
+                    <a href="#"><div class="enlace-welcome btn-enlace">> Invitaciones</div></a>
+                    <a href="#"><div class="enlace-welcome btn-enlace">> Programas</div></a>
+                </div>   
+            </div>
+        </div>
+    </div>
         
     <?PHP  } ?>     
         

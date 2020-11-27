@@ -1,0 +1,115 @@
+
+    .bg-cl-welcome{
+        background-color: #fff;
+    }
+    .nom_user{
+        font-size: 18px;
+        padding: 15px 0px;
+    }
+    .foto_user img{
+        border: 1px solid #ddd;
+    }
+    .img_uni{
+        padding: 10px 0px;
+        text-align: right;
+    }
+    .centrav{
+        align-self: center;
+    }
+    .foto{
+        border-radius: 50%;
+        border: 4px solid #fff;
+        padding: 4px;
+        background-color: #fff;
+        z-index: 999;
+    }
+    .bandera{
+        position: relative;
+        top: -78px;
+        right: -60px;
+        z-index: 999;
+    }
+    .txt_felicita{
+        padding: 5px 30px;
+    }
+    .bandera img{
+        border: 2px solid #fff;
+        width: 29px;
+        height: 15px;
+    }
+    .cab_user{
+        padding: 30px 0px;
+        display: flex;
+    }
+    .cab_tit{
+        padding: 20px 10px;
+    }
+    .ala-der{
+        text-align: right !important;
+    }
+    .ala-center{
+        text-align: center !important;
+    }
+    .cont-welcome{
+        height: 420px;
+        margin-bottom: 20px;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: flex;
+    }
+    .tits{
+        align-self: center;
+    }
+    .tit-welcome{
+        color: #fff;
+        font-size: 42px;
+        text-transform: uppercase;
+        text-align: left;
+        font-weight: bold;
+        padding: 0px 20px;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .subtit-welcome{
+        color: #fff;
+        font-size: 22px;
+        text-align: left;
+        font-weight: 400;
+        padding: 0px 20px;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .linea-tit{
+        position: relative;
+        width: 100px;
+        background-color: white;
+        text-align: left;
+        padding-bottom: 1px;
+        margin: 20px;
+    }
+    .botonera{
+        position: relative;
+        padding: 10px 20px;
+        width: 100%;
+    }
+    .btn-enlace {
+	background-color:transparent;
+	border-radius:6px;
+	border:1px solid #6cb1ff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:16px;
+	padding:10px 22px;
+    margin-right:5px;
+	text-decoration:none;
+    }
+        .btn-enlace:hover {
+        background-color:rgba(255, 255, 255, 0.301);
+    }
+    .btn-enlace:active {
+        position:relative;
+        top:1px;
+    }
