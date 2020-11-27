@@ -168,7 +168,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                                    'b.alumno_id'=>$modelalumno->id,
                                ])->
                               exists();
-                            if($tieneAsesor){
+                            if($tieneAsesor){ 
                                 return '<i style="color:green;font-size:18px;"><span class="fa fa-check"></span></i>';          
                               
                             }else{
