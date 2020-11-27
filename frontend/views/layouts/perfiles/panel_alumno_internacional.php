@@ -149,7 +149,7 @@ $wizard_config = [
 <?PHP  } else{ ?>
       
     <?php $this->registerCssFile($this->registerCssFile(
-            '@frontend/views/layouts/perfiles/css/welcome-inter.css',
+            '/frontend/views/layouts/perfiles/css/welcome-inter.css',
             ['depends' => [yii\bootstrap\BootstrapAsset::className()],
                 'media' => 'print',
                       ], 'css-print-theme'));
@@ -168,7 +168,7 @@ $wizard_config = [
                 </div>    
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                <img src="images/logo-inter.svg" width="280px">
+                <img src="../images/logo-inter.svg" width="280px">
             </div>
         </div>
     </div>
