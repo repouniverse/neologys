@@ -102,7 +102,7 @@ public $booleanFields=['activo'];
             'curso_id'=>$params[0],
              'seccion'=>$params[1],
             'carrera_id'=>$params[2],
-            'matricula_id'=>$params[3],
+           // 'matricula_id'=>$params[3],
         ]);
     }
     
