@@ -110,7 +110,7 @@ public $booleanFields=['activo'];
     public  function nAsesoradosPorCursoSeccionCarreraMatricula($params){
         yii::error('SQL DE asesorados  ',__FUNCTION__);
        yii::error($this->queryAsesorados($params)->createCommand()->rawSql,__FUNCTION__);
-        yii::error('CONTANDO HAY '.$query->count(),__FUNCTION__);
+        yii::error('CONTANDO HAY '.$this->queryAsesorados($params)->count(),__FUNCTION__);
         
        return  $this->queryAsesorados($params)->count();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
