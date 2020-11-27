@@ -111,7 +111,7 @@ class AsesoresCurso extends \common\models\base\modelBase
         
         
         $nmax=$this->asesor->nMaxAsesoradosPorCursoSeccionMatricula($this->prepareParams());
-            $nstudents=$this->asesor->nAsesoradosPorCursoSeccionCarreraMatricula($this->prepareParams());
+        $nstudents=$this->asesor->nAsesoradosPorCursoSeccionCarreraMatricula($this->prepareParams());
              yii::error(' numero asesorados '.$nstudents,__FUNCTION__);
             yii::error(' numero maximo '.$nmax,__FUNCTION__);
             
