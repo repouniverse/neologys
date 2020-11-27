@@ -1001,7 +1001,7 @@ $array3=[
 '1176',
 ];
 
-foreach($array1 as $clave=>$valor){
+foreach($array2 as $clave=>$valor){
   $persona=\common\models\masters\Personas::findOne($valor)->
     createUser(null, null, 'r_alumno_general');  
 }
