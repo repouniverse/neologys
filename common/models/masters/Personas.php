@@ -380,9 +380,9 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
          * de la misma identidad  : Alumno, DOcente, Trabajador
          */
         if(is_null($username))
-         $username=$this->identidad->code();
+         $username=$this->identidad->numerodoc;
         if(is_null($email))
-         $email=$this->identidad->mailAddress();
+         $email= strtolower ($this->identidad->mailAddress());
         
         
         $user=new \common\models\User();
