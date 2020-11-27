@@ -20,6 +20,7 @@ class Asesores extends \common\models\base\modelBase
      */
 
     const SCE_IMPORTACION='importacion_asesores';
+    
 
 public $booleanFields=['activo'];
 
@@ -95,31 +96,36 @@ public $booleanFields=['activo'];
         return $this->getAsesorados()->count();
     }
     
-    public  function nAsesoradosPorCursoSeccion($curso_id,$codseccion,$carrera_id){
-       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
+    private function  queryAsesorados($curso_id,$codseccion,
+            $carrera_id,$matricula_id){
+        return RepoVwAsesoresAsignados::find()->andFilterWhere([
             'asesor_id'=>$this->id,
             'curso_id'=>$curso_id,
              'seccion'=>$codseccion,
             'carrera_id'=>$carrera_id,
-        ])->count();        
+            'matricula_id'=>$matriculaid,
+        ]);
+    }
+    
+    
+    public  function nAsesoradosPorCursoSeccionCarreraMatricula($curso_id,$codseccion,
+            $carrera_id,$matricula_id){
+       return  $this->queryAsesorados($curso_id,$codseccion,
+            $carrera_id,$matricula_id)->count();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
     public  function isAsesorFromCursoSeccionCarreraMatricula($curso_id,$codseccion,
             $carrera_id,$matriculaid){
-       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
-            'asesor_id'=>$this->id,
-            'curso_id'=>$curso_id,
-             'seccion'=>$codseccion,
-            'carrera_id'=>$carrera_id,
-           'matricula_id'=>$matriculaid,
-        ])->exists();        
+       return $this->queryAsesorados($curso_id,$codseccion,
+            $carrera_id,$matricula_id)->exists();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
-     public static function nMaxAsesoradosPorCursoSeccion($curso_id,$seccion,$carrera_id){
+     public static function nMaxAsesoradosPorCursoSeccionMatricula($curso_id,$seccion,$carrera_id,
+             $matricula_id){
          $nmat= Matricula::nMatriculados(null,$curso_id, $seccion);         
            if($carrera_id==Carreras::ID_CARRERA_COMUNICACIONES){
                     $namx=$nmat;
@@ -130,10 +136,16 @@ public $booleanFields=['activo'];
        }
     
    
-     public function porcentajeSaturacion($curso_id,$seccion,$carrera_id){
-         $nmax=static::nMaxAsesoradosPorCursoSeccion($curso_id, $seccion, $carrera_id);
-         $nasesorados=static::nAsesoradosPorCursoSeccion($curso_id, $codseccion, $carrera_id);
-         if($nmax>0)return round($nasesorados/$nmax,2);
+     public function porcentajeSaturacion($curso_id,$codseccion,
+            $carrera_id,$matricula_id){
+         
+             $nasesorados=$this->nAsesoradosPorCursoSeccionCarreraMatricula(
+                            $curso_id,$codseccion,
+                            $carrera_id,$matricula_id);
+             $namx=$this->nMaxAsesoradosPorCursoSeccionMatricula(
+                            $curso_id,$seccion,$carrera_id,
+                             $matricula_id);             
+         if($nmax>0)return round($nasesorados/$nmax,2)*100;
          return 0;
      }
      
