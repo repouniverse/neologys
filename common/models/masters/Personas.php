@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models\masters;
+USE backend\components\Installer;
 use common\models\base\modelBase;
 use frontend\modules\inter\Module AS m;
 use common\models\Profile;
@@ -386,13 +387,19 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
         
         $user=new \common\models\User();
             $user->username= strtoupper($username);
-             $user->email=$email;   
-             $user->password= uniqid(); 
+             $user->email=$email; 
+             $pwd=substr(uniqid(),0,4); 
+             $user->password=  $pwd; 
+             yii::error('password ');
+             yii::error($user->username.'@'.$pwd);
              //$model->retypePassword='123456'; 
                $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
             if (!$user->save()) {
+                //var_dump($user->getErrors());DIE();
+                 yii::error(' no grabo el user',__FUNCTION__);
                                 return NULL;
              }else{
+                 yii::error(' si grabo el user',__FUNCTION__);
                  $user->refresh();
                  $id=$user->id;
                  yii::error('El id de usuario '.$id ,__FUNCTION__);
@@ -402,11 +409,13 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                 $idUNI=h::currentUniversity();
                 if($idUNI> 0) //siempre que su identidad tenga asdinagda la universidad 
                 $user->profile->linkUniversity($idUNI);
-                $role=(!is_null($role))?$role: \Yii::$app->authManager->getRole(h::gsetting('general','roleDefault'));
+                 yii::error('resolviendo el roill '.$id ,__FUNCTION__);
+                $role=(!is_null($role))?$role:h::gsetting('general','roleDefault');
+                $rol=\Yii::$app->authManager->getRole($role);
                 /****LE ASIGNA EL ROL */
-                if(!is_null($role)){
+                if(!is_null($rol)){
                   $vari= Yii::$app->authManager->assign(
-                 $role,
+                 $rol,
                  $user->id); 
                   //var_dump($vari);die();
                 }else{
