@@ -111,7 +111,7 @@ class Matricula extends \common\models\base\modelBase
          $query=$query->andWhere(['curso_id'=>$curso_id]);
        if(!is_null($codseccion))
          $query=$query->andWhere(['seccion'=>$codseccion]);*/  
-       //ECHO $query->createCommand()->rawSql;die();
+       ECHO $query->createCommand()->rawSql;die();
        return $query->count();
     }
     
