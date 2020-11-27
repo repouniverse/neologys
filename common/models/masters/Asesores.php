@@ -133,7 +133,7 @@ public $booleanFields=['activo'];
      public function porcentajeSaturacion($params){
          
              $nasesorados=$this->nAsesoradosPorCursoSeccionCarreraMatricula($params);
-             $namx=$this->nMaxAsesoradosPorCursoSeccionMatricula($params);             
+             $nmax=$this->nMaxAsesoradosPorCursoSeccionMatricula($params);             
          if($nmax>0)return round($nasesorados/$nmax,2)*100;
          return 0;
      }
