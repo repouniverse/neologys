@@ -159,13 +159,13 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 'template' => '{add}',
                 'buttons' => [
                     'add' => function($url, $model) use($cursoMatriculado,$modelalumno) { 
-                              $tienAsesor= common\models\masters\AsesoresCurso::find()->alias('t')->
+                              $tieneAsesor= common\models\masters\AsesoresCurso::find()->alias('t')->
                               innerJoin('{{%matricula}} b','t.matricula_id=b.id')->
                                andWhere([
-                                   't.curso_id'=>$model->curso_id,
-                                   'asesor_id'=>$model->id,
-                                   't.seccion'=>$model->seccion,
-                                   't.alumno_id'=>$modelalumno->id,
+                                   'b.curso_id'=>$model->curso_id,
+                                   't.asesor_id'=>$model->id,
+                                   'b.seccion'=>$model->seccion,
+                                   'b.alumno_id'=>$modelalumno->id,
                                ])->
                               exists();
                             if($tieneAsesor){
