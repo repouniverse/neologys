@@ -1246,14 +1246,11 @@ public function actionRutas(){
 '1176',
 
 ];
- $array1=[
-      '2897',
-'3964'];
-foreach($array1 as $clave=>$valor){
-    
+ 
+foreach($array1 as $clave=>$valor){    
   $persona=\common\models\masters\Personas::findOne($valor)->
     createUser(null, null, 'r_alumno_general');  
-  yii::error('se ejecuto hasta '.$clave);
+  yii::error('se ejecuto hasta '.$valor);
 }
     
 die();
