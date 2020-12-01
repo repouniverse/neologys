@@ -126,9 +126,11 @@ public $booleanFields=['activo'];
      public static function nMaxAsesoradosPorCursoSeccionMatricula($params){
          
          $nmat= Matricula::nMatriculados(null,/*curso_id*/$params[0],/*seccion*/ $params[1]);         
-           if(/*carrera_id*/$params[2]==Carreras::ID_CARRERA_COMUNICACIONES){
+           if(/*carrera_id*/$params[2]==Carreras::ID_CARRERA_COMUNICACIONES
+                or in_array($params[0],[65,126])){//Refactorizar 
                     $namx=$nmat;
                 }else{
+                   
                         $namx=floor($nmat/2)+1;
                 }  
        return $namx;

@@ -79,12 +79,7 @@ implements \common\interfaces\postulantesInterface
             [[
            'codalu', 'ap','nombres','tipodoc','numerodoc',
             'universidad_id', 'facultad_id','carrera_id','mail',
-            /*'telpaisorigen',
-            'codcontpaisorigen','polizaseguroint','telefasistencia',
-            'paisresidencia','lugarresidencia',
-            'codresponsable',
-                'domiciliopaisorigen',*/'unidest_id','facudest_id','carreradest_id',
-            ],'required','on'=>self::SCE_EXTRANJERO],
+           ],'required','on'=>self::SCE_EXTRANJERO],
             
              [['unidest_id','facudest_id','carreradest_id'],'safe'],
             
