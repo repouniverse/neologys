@@ -6,11 +6,13 @@ use common\models\masters\Alumnos;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
 use common\models\masters\AsesoresCursoSearch;
+use frontendRepoVwAsesoresAsignadosSearch;
 use common\filters\ActionIsIdentidadFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;
+use frontend\modules\repositorio\models\RepoVwAsesoresAsignadosSearch;
 
 /**
  * AsesorescursoController implements the CRUD actions for AsesoresCurso model.
@@ -253,7 +255,7 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     }
    
    public function actionAdminAsesores(){
-       $searchModel = new AsesoresCursoSearch();
+       $searchModel = new RepoVwAsesoresAsignadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('asesores_index', [

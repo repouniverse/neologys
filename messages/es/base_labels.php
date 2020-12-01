@@ -54,6 +54,7 @@ return[
     'Target race'=>'Carrera destino',
     'Target faculty'=>'Facultad destino',
     'Target University'=>'Universidad destino',
+     'List of students with advisor'=>'Listado de alumnos con asesor',
     
     // Docentes
     'Faculty'=>'Facultad',

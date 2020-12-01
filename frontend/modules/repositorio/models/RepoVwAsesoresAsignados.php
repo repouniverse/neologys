@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\repositorio\models;
+use common\models\masters\Alumnos;
 
 use Yii;
 
@@ -102,7 +103,17 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
         return new RepoVwAsesoresAsignadosQuery(get_called_class());
     }
     
+    public function getAsesor(){
+        
+        return $this->hasOne(\common\models\masters\Asesores::className(), ['id' => 'asesor_id']);
     
+    }
     
+    public function getAlumno(){
+        
+        return $this->hasOne(\common\models\masters\Alumnos::className(), ['id' => 'alumno_id']);
+    
+    }
+     
     
 }

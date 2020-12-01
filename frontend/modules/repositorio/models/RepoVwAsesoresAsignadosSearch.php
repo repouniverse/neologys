@@ -18,7 +18,7 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
     {
         return [
             [['nombre','apasesor'], 'string'],
-            [['nombre','apasesor'], 'safe'],
+            [['nombre','apasesor','seccion','descripcion','codalu'], 'safe'],
         ];
     }
 
@@ -50,22 +50,25 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
 
         $this->load($params);
 
-        if (!$this->validate()) {
+       /* if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
-        }
+        }*/
 
         // grid filtering conditions
-        $query->andFilterWhere([
-           // 'id' => $this->id,
-            'nombre' => $this->matricula_id,
-            'apasesor' => $this->alumno_id,
-            //'asesor_id' => $this->asesor_id,
-        ]);
-
+        $query->andFilterWhere(['like', 'nombre', $this->nombre])->
+               andFilterWhere(['like', 'seccion', $this->seccion])->
+                andFilterWhere(['like', 'descripcion', $this->descripcion])->
+                 andFilterWhere(['like', 'codalu', $this->codalu])->
+               andFilterWhere(['like', 'apasesor', $this->apasesor])
+                ;
+        \yii::error($query->createCommand()->rawSql);
        // $query->andFilterWhere(['like', 'activo', $this->activo]);
 
         return $dataProvider;
     }
+    
+    
+    
 }

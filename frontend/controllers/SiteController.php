@@ -312,6 +312,7 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    
     die();
   $array1=[
 '1271',
