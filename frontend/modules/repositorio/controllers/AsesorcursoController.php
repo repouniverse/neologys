@@ -251,4 +251,17 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
        }
         
     }
+   
+   public function actionAdminAsesores(){
+       $searchModel = new AsesoresCursoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('asesores_index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+       
+   }
+    
+    
 }
