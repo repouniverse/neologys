@@ -17,7 +17,7 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
     public function rules()
     {
         return [
-            //[['nombre','apasesor'], 'string'],
+            [['nombre','apasesor'], 'string'],
             [['nombre','apasesor'], 'safe'],
         ];
     }
