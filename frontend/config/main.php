@@ -77,6 +77,14 @@ return [
         */
     ],
     'modules' => [
+        
+        
+        'acad' => [
+            'class' => 'frontend\modules\acad\Module',
+            
+        ],
+        
+        
         'maestros' => [
             'class' => 'frontend\modules\maestros\MaestrosModule',
         ],
