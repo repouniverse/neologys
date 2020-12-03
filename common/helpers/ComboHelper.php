@@ -527,9 +527,11 @@ class ComboHelper  {
             'id','nombredepa');
       } 
     
-   public static function getCboPeriodos(){
+   public static function getCboPeriodos($codperiodoRef=null){
         return ArrayHelper::map(
-                        \common\models\masters\Periodos::find()->all(),
+                        \common\models\masters\Periodos::find()
+                ->andFilterWhere(['>=','codperiodo',$codperiodoRef])
+                ->all(),
                 'codperiodo','periodo');
     }  
     

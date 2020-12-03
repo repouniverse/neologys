@@ -91,6 +91,7 @@ return [
                 'frontend\modules\report\database\migrations',
                 'frontend\modules\regacad\database\migrations',
                 'frontend\modules\repositorio\database\migrations',
+                'frontend\modules\acad\database\migrations',
                // 'backend\modules\base\database\migrations',
                 
                 ],
