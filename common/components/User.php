@@ -154,7 +154,7 @@ class User extends UserOriginal {
            //yii::error( $url,__FUNCTION__);
           return $url;  
        }else{
-           return 'site/welcome';
+           return '/site/welcome';
            
            //yii::error('por q aui pasa');
           // yii::error( 'No encontro favorito',__FUNCTION__);

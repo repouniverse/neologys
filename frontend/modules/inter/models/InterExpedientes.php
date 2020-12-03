@@ -237,7 +237,7 @@ class InterExpedientes extends \common\models\base\modelBase
         $grabo=$this->save();
         $convocado=$this->convocado;
         $convocado->createExpedientes($convocado->currentStage());
-        
+        yii::error('alcaran');
         /*Si se nhixo efectiva la arpobacion 
          * actualizar el foco*/
          

@@ -20,6 +20,7 @@ class Asesores extends \common\models\base\modelBase
      */
 
     const SCE_IMPORTACION='importacion_asesores';
+    
 
 public $booleanFields=['activo'];
 
@@ -95,46 +96,56 @@ public $booleanFields=['activo'];
         return $this->getAsesorados()->count();
     }
     
-    public  function nAsesoradosPorCursoSeccion($curso_id,$codseccion,$carrera_id){
-       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
+    private function  queryAsesorados($params){
+        return RepoVwAsesoresAsignados::find()->andFilterWhere([
             'asesor_id'=>$this->id,
-            'curso_id'=>$curso_id,
-             'seccion'=>$codseccion,
-            'carrera_id'=>$carrera_id,
-        ])->count();        
+            'curso_id'=>$params[0],
+             'seccion'=>$params[1],
+            'carrera_id'=>$params[2],
+           // 'matricula_id'=>$params[3],
+        ]);
+    }
+    
+    
+    public  function nAsesoradosPorCursoSeccionCarreraMatricula($params){
+        yii::error('SQL DE asesorados  ',__FUNCTION__);
+       yii::error($this->queryAsesorados($params)->createCommand()->rawSql,__FUNCTION__);
+        yii::error('CONTANDO HAY '.$this->queryAsesorados($params)->count(),__FUNCTION__);
+        
+       return  $this->queryAsesorados($params)->count();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
-    public  function isAsesorFromCursoSeccionCarreraMatricula($curso_id,$codseccion,
-            $carrera_id,$matriculaid){
-       return  RepoVwAsesoresAsignados::find()->andFilterWhere([
-            'asesor_id'=>$this->id,
-            'curso_id'=>$curso_id,
-             'seccion'=>$codseccion,
-            'carrera_id'=>$carrera_id,
-           'matricula_id'=>$matriculaid,
-        ])->exists();        
+    public  function isAsesorFromCursoSeccionCarreraMatricula($params){
+       return $this->queryAsesorados($params)->exists();        
        //return Matricula::nMatriculados($codperiodo, $curso_id, $codseccion);
         
     }
     
-     public static function nMaxAsesoradosPorCursoSeccion($curso_id,$seccion,$carrera_id){
-         $nmat= Matricula::nMatriculados(null,$curso_id, $seccion);         
-           if($carrera_id==Carreras::ID_CARRERA_COMUNICACIONES){
+     public static function nMaxAsesoradosPorCursoSeccionMatricula($params){
+         
+         $nmat= Matricula::nMatriculados(null,/*curso_id*/$params[0],/*seccion*/ $params[1]);         
+           if(/*carrera_id*/$params[2]==Carreras::ID_CARRERA_COMUNICACIONES
+                or in_array($params[0],[65,126])){//Refactorizar 
                     $namx=$nmat;
                 }else{
+                   
                         $namx=floor($nmat/2)+1;
                 }  
        return $namx;
        }
     
    
-     public function porcentajeSaturacion($curso_id,$seccion,$carrera_id){
-         $nmax=static::nMaxAsesoradosPorCursoSeccion($curso_id, $seccion, $carrera_id);
-         $nasesorados=static::nAsesoradosPorCursoSeccion($curso_id, $codseccion, $carrera_id);
-         if($nmax>0)return round($nasesorados/$nmax,2);
+     public function porcentajeSaturacion($params){
+         
+             $nasesorados=$this->nAsesoradosPorCursoSeccionCarreraMatricula($params);
+             $nmax=$this->nMaxAsesoradosPorCursoSeccionMatricula($params);             
+         if($nmax>0)return round($nasesorados/$nmax,2)*100;
          return 0;
      }
+     
+     
+     
    
 }

@@ -30,7 +30,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 	 <?= $form->field($modelalumno, 'id')->label(\Yii::t('base_labels','Full Name'))->textInput(['disabled'=>true,'value'=> $modelalumno->fullName()]) ?>
 	 </div>
 	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	 <?= $form->field($modelalumno, 'codalu')->label('Registration number')->textInput(['disabled'=>true]) ?>	
+	 <?= $form->field($modelalumno, 'codalu')->label(\Yii::t('base_labels','Registration number'))->textInput(['disabled'=>true]) ?>	
 	 </div>
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> 
@@ -57,7 +57,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
 ?>
             <div class=" alert alert-light col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php if($tienecursos)echo yii::t('base_labels','To select your adviser, please press the button that appears next to the Name')?>
+                <h4><?php if($tienecursos)echo yii::t('base_labels','To select your adviser, please press the button that appears next to the Name')?></h4>
             </div>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -113,6 +113,9 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
               innerJoin('{{%asesores}} x','x.docente_id=b.id')
               ->andWhere(['curso_id'=>$cursoMatriculado->curso_id,'seccion'=>$cursoMatriculado->seccion])
        ->createCommand()->rawSql; DIE();*/
+       
+      
+       
        ?>
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
@@ -145,30 +148,31 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 }
             ],
                         
-           
+           [
+               'value'=>function ($model){
+                return $model->id;
+               }
+           ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{add}',
                 'buttons' => [
-                    'add' => function($url, $model) use($cursoMatriculado,$modelalumno) {  
-                    $tieneAsesor= \frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->andWhere([
-                                    'asesor_id'=>$model->id,
-                                   /* 'curso_id'=>$cursoMatriculado->curso_id,
-                                    'seccion'=>$cursoMatriculado->seccion,
-                                    'carrera_id'=>$modelalumno->carrera->id,
-                                    'matricula_id'=>$cursoMatriculado->id, */
-                     ])->exists();
-                       /* $options = [
-                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0', 'class'=>'botonAbre btn btn-primary btn-sm' ]; 
-                                      $url=Url::to(['/repositorio/asesorcurso/modal-asesorcurso','id'=>$model->id,'gridName'=>'mi_grilla','idModal'=>'buscarvalor']);
-                                     
-                                      return Html::a('<span class="glyphicon glyphicon-plus"></span>'.yii::t('base_verbs','Add Assesor'), $url, $options);
-                         */
-                            if($tieneAsesor){
+                    'add' => function($url, $model) use($cursoMatriculado,$modelalumno) { 
+                              $tieneAsesor= common\models\masters\AsesoresCurso::find()->alias('t')->
+                              innerJoin('{{%matricula}} b','t.matricula_id=b.id')->
+                               andWhere([
+                                   'b.curso_id'=>$model->curso_id,
+                                   't.asesor_id'=>$model->id,
+                                   'b.seccion'=>$model->seccion,
+                                   'b.alumno_id'=>$modelalumno->id,
+                               ])->
+                              exists();
+                            if($tieneAsesor){ 
                                 return '<i style="color:green;font-size:18px;"><span class="fa fa-check"></span></i>';          
                               
                             }else{
+                                //return  get_class($model);
                              $url = Url::toRoute([$this->context->id.'/ajax-asigna-asesor','id'=>$model->id,'idMat'=>$cursoMatriculado->id]);
                               return Html::a('<span class="fa fa-plus"></span>Agregar Asesor', '#', ['id'=>$model->id,'title'=>$url,'family'=>'holas','class'=>'btn btn-primary btn-sm']);           
                                
