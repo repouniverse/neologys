@@ -133,18 +133,17 @@ public function actionModalAsesorcurso($id){
      
         $model = new AsesoresCurso();
         $modelalumno=Yii::$app->user->profile->persona->identidad;
-        $tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS);
+       
     //var_dump($tienecursos);die();
-      if($modelalumno instanceof Alumnos && $tienecursos ){
-            $model->alumno_id=$modelalumno->id;
-        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }*/
-
+      if($modelalumno instanceof Alumnos ){
+          if($tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS)){
+             $model->alumno_id=$modelalumno->id;        
         return $this->render('create', [
             'model' => $model, 'modelalumno' => $modelalumno,
             'tienecursos'=>$tienecursos
-        ]);
+        ]); 
+          }
+            
     }elseif($tienecursos===false){
         return $this->render('nocursos', [
             'model' => $model,
