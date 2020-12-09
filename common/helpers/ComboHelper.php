@@ -1140,5 +1140,17 @@ class ComboHelper  {
                 'id','nombrecompleto');
 
   }
-    
+   
+   public static function getCboPlanes($codperiodo=null){
+     $query= \common\models\masters\Planes::find()->
+             select(['id','descripcion'])->
+             andFilterWhere(['codperiodo'=>$codperiodo]);
+       
+       $filas=$query->all();
+         return ArrayHelper::map(
+                       $filas,
+                'id','descripcion');
+
+  }
+  
 }

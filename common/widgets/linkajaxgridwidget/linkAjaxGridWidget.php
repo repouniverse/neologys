@@ -116,6 +116,7 @@ $.ajax({
                           if ( !(typeof json['success']==='undefined' )) {
                         $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-ok\'></span>      '+ json['success']);
                               $.noty.setType(n.options.id, 'success');  
+                              
                                $.pjax.reload({container: '#".$this->idGrilla."', async: false});
                                 ".$cadUx."  
                              } 

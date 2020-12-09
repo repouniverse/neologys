@@ -9,6 +9,11 @@ use frontend\modules\acad\models\AcadSyllabus;
 use frontend\modules\acad\models\AcadSyllabusSearch;
 use common\controllers\base\baseController;
 use common\models\masters\Cursos;
+use common\models\masters\DocentesSearch;
+use common\models\masters\Docentes;
+use common\models\masters\PlanesEstudio;
+use frontend\modules\acad\models\AcadVwSyllabusCursoDoceSearch;
+use common\models\masters\Planes;
 use yii\web\NotFoundHttpException;
 //use yii\base\Model;
 use yii\filters\VerbFilter;
@@ -66,17 +71,41 @@ class SyllabusController extends baseController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($plan_id,$docente_id)
     {
+       if (is_null(Planes::findOne($plan_id)) or is_null(Docentes::findOne($docente_id)))
+         return 'Valores invalidos';        
         $model = new AcadSyllabus();
+        $model->setScenario($model::SCE_CREACION_BASICA);
+        $model->setAttributes([
+            'plan_id'=>$plan_id,
+            'docente_owner_id'=>$docente_id,
+           ]);
+        $model->setAttributes(['curso_id'=>$model->plan->curso_id,
+                        'codperiodo'=>$model->plan->plan->codperiodo,
+                        'formula_id'=>1,
+            ]);
+        
+       $otroModelo= $model::find()->andWhere([
+            'plan_id'=>$plan_id,
+            'docente_owner_id'=>$docente_id,
+           ])->one();
+       
+       if(!is_null($otroModelo)){
+           return $this->redirect(['update', 'id' => $otroModelo->id]); 
+       }elseif($model->save()){
+           $model->refresh();
+           return $this->redirect(['update', 'id' => $model->id]);
+       }else{
+          echo $model->getFirstError();die(); 
+       }
+        
+        
+            
+        
+        
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -88,6 +117,10 @@ class SyllabusController extends baseController
      */
     public function actionUpdate($id)
     {
+        
+        
+        
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -165,5 +198,168 @@ class SyllabusController extends baseController
        }
         
      }
+   
+    public function actionPlanes(){
+        $searchModel = new \frontend\modules\acad\models\AcadVwPlanesEstudioSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index_planes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    } 
+    
+      public function actionModalCreaDocente($id){        
+         $this->layout = "install";
+        $modelPlan = \common\models\masters\PlanesEstudio::findOne($id);
+        if(is_null($modelPlan))return '';
+        
+        $model=New \frontend\modules\acad\models\AcadRespoSyllabus([
+            'plan_estudio_id'=>$id
+        ]);
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_docente_responsable', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+       
+    }
+    
+    
+     public function actionModalEditaDocente($id){        
+        
+        $model= \frontend\modules\acad\models\AcadRespoSyllabus::findOne($id);
+        if(is_null($model))return '';
+       
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_docente_responsable', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+       
+    }
+    
+    public function actionIndexDocentes(){
+        $searchModel = new DocentesSearch();
+        $dataProvider = $searchModel->
+           search(Yii::$app->request->queryParams);
+        return $this->render(
+                             'index_docente', 
+                             [
+                              'searchModel' => $searchModel,
+                              'dataProvider' => $dataProvider,
+                             ]
+                            ); 
+    }
+    
+    public function actionManageDocente($id){
+        $model= \common\models\masters\Docentes::findOne($id);
+        if(is_null($model))
+  
+        $searchModel = new \frontend\modules\acad\models\AcadVwPlanesEstudioSearch();
+       // VAR_DUMP(Yii::$app->request->queryParams);DIE();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       // VAR_DUMP($dataProvider->query->createCommand()->rawSql);DIE();
+        return $this->render('manage_docente', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model'=>$model
+        ]);
+        
+        
+    }
+    
+   public function actionAjaxAsignaCurso(){
+       if(h::request()->isAjax){
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+           $plan_id=h::request()->get('plan_id');
+           $docente_id=h::request()->get('docente_id');
+           $plan=\common\models\masters\PlanesEstudio::findOne($plan_id);
+           $docente=\common\models\masters\Docentes::findOne($docente_id);
+           if(is_null($docente) or is_null($plan))
+             return ['error'=>yii::t('base_errors','Record not found')];  
+           $model=New \frontend\modules\acad\models\AcadRespoSyllabus([
+               'docente_id'=>$docente_id,
+               'plan_estudio_id'=>$plan_id,
+           ]);
+          if($model->save()){
+              return ['success'=>yii::t('base_errors','Course has been added')];
+          }else{
+              return ['error'=>yii::t('base_errors',$model->getFirstError())];
+          }
+           
+       }
+   }
+   
+   public function actionIndexCursosAsignados(){
+        $searchModel = new AcadVwSyllabusCursoDoceSearch();
+        $dataProvider = $searchModel->
+           search(Yii::$app->request->queryParams);
+        return $this->render(
+                             'index_cursos_asignados', 
+                             [
+                              'searchModel' => $searchModel,
+                              'dataProvider' => $dataProvider,
+                             ]
+                            ); 
+    }
+    
+    
+    public function actionModalCrearUnidad($id){
+        $this->layout='install';
+        if(is_null(AcadSyllabus::findOne($id)))return 'no hay registro';        
+        $model= new \frontend\modules\acad\models\AcadSyllabusUnidades([
+            'syllabus_id'=>$id
+        ]);
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_unidad', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+    }
+   
+    
+    
     
 }

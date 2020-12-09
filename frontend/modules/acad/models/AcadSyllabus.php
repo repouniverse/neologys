@@ -35,6 +35,8 @@ use Yii;
  */
 class AcadSyllabus extends \common\models\base\modelBase
 {
+    
+    const SCE_CREACION_BASICA='basico';
     /**
      * {@inheritdoc}
      */
@@ -52,6 +54,7 @@ class AcadSyllabus extends \common\models\base\modelBase
             [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id'], 'required'],
             [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id'], 'integer'],
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
+           [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
@@ -84,6 +87,14 @@ class AcadSyllabus extends \common\models\base\modelBase
         ];
     }
 
+    
+     public function scenarios()
+    {
+        $scenarios = parent::scenarios(); 
+        $scenarios[self::SCE_CREACION_BASICA] = ['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id'];
+       return $scenarios;
+    }
+    
     /**
      * Gets query for [[AcadContenidoSyllabi]].
      *
@@ -152,4 +163,7 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return new AcadSyllabusQuery(get_called_class());
     }
+    
+    
+    
 }

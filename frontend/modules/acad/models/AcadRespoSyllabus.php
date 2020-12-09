@@ -33,6 +33,7 @@ class AcadRespoSyllabus extends \common\models\base\modelBase
         return [
             [['docente_id', 'plan_estudio_id'], 'required'],
             [['docente_id', 'plan_estudio_id'], 'integer'],
+             [['docente_id', 'plan_estudio_id'],'unique', 'targetAttribute' => ['docente_id', 'plan_estudio_id']],
             [['docente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_id' => 'id']],
             [['plan_estudio_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_estudio_id' => 'id']],
         ];
@@ -77,5 +78,9 @@ class AcadRespoSyllabus extends \common\models\base\modelBase
     public static function find()
     {
         return new AcadRespoSyllabusQuery(get_called_class());
+    }
+    
+    public function SyllabusExists(){
+        return AcadSyllabus::find()->andWhere(['plan_id'=>$this->docente_id,'docente_owner_id'=>$this->plan_estudio_id])->exists();
     }
 }

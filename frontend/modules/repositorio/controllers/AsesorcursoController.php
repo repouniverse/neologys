@@ -142,12 +142,12 @@ public function actionModalAsesorcurso($id){
             'model' => $model, 'modelalumno' => $modelalumno,
             'tienecursos'=>$tienecursos
         ]); 
+          }else{
+               return $this->render('nocursos', [
+               'model' => $model,
+                 ]); 
           }
             
-    }elseif($tienecursos===false){
-        return $this->render('nocursos', [
-            'model' => $model,
-        ]);
     }else{
         return $this->render('noesalumno', [
             'model' => $model,

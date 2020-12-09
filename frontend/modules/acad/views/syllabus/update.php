@@ -27,13 +27,13 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                         'items' =>
                         [
                             [
-                                'label'=>'<i class="fa fa-home"></i> '.m::t('labels','Main'),
+                                'label'=>'<i class="fa fa-home"></i> '.yii::t('base_labels','Main'),
                                 'content'=> $this->render('_form',['model' => $model]),
                                 'active' => true,
                                 'options' => ['id' => 'myvnID3'],
                             ],
                             [
-                                'label'=>'<i class="'.h::awe('users').'"></i> '.m::t('labels','Types'),
+                                'label'=>'<i class="'.h::awe('users').'"></i> '.yii::t('base_labels','Types'),
                                 'content'=> $this->render('_aprobaciones',['model' => $model]),
                                 'active' => false,
                                 'options' => ['id' => 'movrwnID4'],
