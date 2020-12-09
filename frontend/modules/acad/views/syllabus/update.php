@@ -13,10 +13,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Acad Syllabi
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
-<div class="acad-syllabus-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
+    <h4><?= Html::encode($this->title) ?></h4>
+<div class="box box-body">
     <?php echo TabsX::widget
                   (
                     [

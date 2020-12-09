@@ -39,7 +39,7 @@ $mizona='pajaxn_ui_segu';
             'template' => '{link}',
                'buttons' => [
                         'link' => function ($url,$model) {
-                              $url =Url::to(['/acad/syllabus/create','plan_id'=>$model->planEstudio->plan->id,'docente_id'=>$model->docente_id]);
+                              $url =Url::to(['/acad/syllabus/create','plan_id'=>$model->planEstudio->id,'docente_id'=>$model->docente_id]);
                               $options=['data-pjax'=>'0','class'=>'btn btn-info btn-sm'];
                                return Html::a('<span class=" glyphicon glyphicon-edit"></span>', $url, $options);
                              },

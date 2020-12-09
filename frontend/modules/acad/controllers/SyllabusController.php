@@ -23,6 +23,7 @@ use yii\filters\VerbFilter;
  */
 class SyllabusController extends baseController
 {
+    public $nameSpaces = ['frontend\modules\acad\models'];
     /**
      * {@inheritdoc}
      */
@@ -73,7 +74,7 @@ class SyllabusController extends baseController
      */
     public function actionCreate($plan_id,$docente_id)
     {
-       if (is_null(Planes::findOne($plan_id)) or is_null(Docentes::findOne($docente_id)))
+       if (is_null(PlanesEstudio::findOne($plan_id)) or is_null(Docentes::findOne($docente_id)))
          return 'Valores invalidos';        
         $model = new AcadSyllabus();
         $model->setScenario($model::SCE_CREACION_BASICA);
@@ -81,11 +82,12 @@ class SyllabusController extends baseController
             'plan_id'=>$plan_id,
             'docente_owner_id'=>$docente_id,
            ]);
-        $model->setAttributes(['curso_id'=>$model->plan->curso_id,
+        $model->setAttributes([
+                        'curso_id'=>$model->plan->curso_id,
                         'codperiodo'=>$model->plan->plan->codperiodo,
                         'formula_id'=>1,
             ]);
-        
+        //var_dump($model->plan->curso_id);die();
        $otroModelo= $model::find()->andWhere([
             'plan_id'=>$plan_id,
             'docente_owner_id'=>$docente_id,
@@ -116,13 +118,14 @@ class SyllabusController extends baseController
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {
+    { 
+        $model = $this->findModel($id);  
+       
+        /*Lineas para hacer funcional el edit-column*/
+         if ($this->is_editable() && h::request()->isAjax)
+            return $this->editField();
+         /*nada mas */
         
-        
-        
-        
-        $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -281,8 +284,7 @@ class SyllabusController extends baseController
     
     public function actionManageDocente($id){
         $model= \common\models\masters\Docentes::findOne($id);
-        if(is_null($model))
-  
+        if(is_null($model))return 'no hay registro';
         $searchModel = new \frontend\modules\acad\models\AcadVwPlanesEstudioSearch();
        // VAR_DUMP(Yii::$app->request->queryParams);DIE();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -359,7 +361,53 @@ class SyllabusController extends baseController
         }
     }
    
+     public function actionModalEditarUnidad($id){
+        $this->layout='install';
+       $model= \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
+       if(is_null($model))return 'No hay registro';
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_unidad', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+    }
     
-    
-    
+    public function actionModalEditarCompe($id){
+        $this->layout='install';
+       $model= \frontend\modules\acad\models\AcadSyllabusCompetencias::findOne($id);
+       if(is_null($model))return 'No hay registro';
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_compe', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+    }
 }
