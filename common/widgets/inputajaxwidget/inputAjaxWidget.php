@@ -105,13 +105,7 @@ success: function (data) {// success callback function
     
     $cadena2="alert('hola compadre);";
    $this->getView()->registerJs($cadena,$this->posicion);
-  }                       
-   
-   
-   
-
-      
-  
+  }  
  
  
 }

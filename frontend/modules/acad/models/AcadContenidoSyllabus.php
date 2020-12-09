@@ -40,8 +40,10 @@ class AcadContenidoSyllabus extends \common\models\base\modelBase
         return [
             [['syllabus_id', 'n_semana'], 'required'],
             [['syllabus_id', 'n_semana'], 'integer'],
+            [['unidad_id'], 'safe'],
             [['bloque1', 'bloque2', 'bloque3', 'bloque4', 'bloque5', 'bloque6', 'bloque7', 'bloque8', 'bloque9'], 'string'],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
+             [['unidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabusUnidades::className(), 'targetAttribute' => ['unidad_id' => 'id']],
         ];
     }
 
@@ -74,6 +76,11 @@ class AcadContenidoSyllabus extends \common\models\base\modelBase
     public function getSyllabus()
     {
         return $this->hasOne(AcadSyllabus::className(), ['id' => 'syllabus_id']);
+    }
+    
+    public function getSyllabusUnidad()
+    {
+        return $this->hasOne(AcadSyllabusUnidades::className(), ['id' => 'unidadad_id']);
     }
 
     /**

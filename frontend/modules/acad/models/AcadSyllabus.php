@@ -35,6 +35,9 @@ use Yii;
  */
 class AcadSyllabus extends \common\models\base\modelBase
 {
+    
+    const SCE_CREACION_BASICA='basico';
+    const BLOQUE_CAPACIDADES='Capacidades';
     /**
      * {@inheritdoc}
      */
@@ -49,13 +52,15 @@ class AcadSyllabus extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id'], 'required'],
-            [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id'], 'integer'],
+            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'required'],
+            [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'integer'],
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
-            [['codperiodo'], 'string', 'max' => 10],
+           [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
+            [['codperiodo'], 'string', 'max' => 10],   
+            [['n_sesiones_semana'], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
-            [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['curso_id' => 'id']],
+            [['docente_owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_owner_id' => 'id']],
         ];
     }
 
@@ -84,6 +89,14 @@ class AcadSyllabus extends \common\models\base\modelBase
         ];
     }
 
+    
+     public function scenarios()
+    {
+        $scenarios = parent::scenarios(); 
+        $scenarios[self::SCE_CREACION_BASICA] = ['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id'];
+       return $scenarios;
+    }
+    
     /**
      * Gets query for [[AcadContenidoSyllabi]].
      *
@@ -143,7 +156,12 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return $this->hasMany(AcadSyllabusUnidades::className(), ['syllabus_id' => 'id']);
     }
-
+    
+     public function getSyllabusCompetencias()
+    {
+        return $this->hasMany(AcadSyllabusCompetencias::className(), ['syllabus_id' => 'id']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return AcadSyllabusQuery the active query used by this AR class.
@@ -152,4 +170,47 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return new AcadSyllabusQuery(get_called_class());
     }
+    
+    public function afterSave($insert, $changedAttributes) {
+        // yii::error(' disparador lanza ',__FUNCTION__);
+       if($insert){          
+           $this->fillCompetencias();           
+       }else{
+           if(in_array('n_sesiones_semana',array_keys($changedAttributes))){
+               
+           }
+       }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+    
+    private function fillCompetencias(){
+        $arrayDatos=[
+            ['syllabus_id'=>$this->id,'bloque_padre'=>'Competencias','item_bloque'=>'3.1.1','bloque'=>'Genéricas','activo'=>true],
+             ['syllabus_id'=>$this->id,'bloque_padre'=>'Competencias','item_bloque'=>'3.1.2','bloque'=>'Específicas','activo'=>true], 
+           ['syllabus_id'=>$this->id,'bloque_padre'=>'Componentes','item_bloque'=>'3.2.1','bloque'=>self::BLOQUE_CAPACIDADES,'activo'=>true], 
+            ['syllabus_id'=>$this->id,'bloque_padre'=>'Componentes','item_bloque'=>'3.2.2','bloque'=>'Actitudes y valores','activo'=>true], 
+        ];
+        foreach($arrayDatos as $fila){
+            yii::error($fila);
+            AcadSyllabusCompetencias::firstOrCreateStatic($fila);
+        }
+        
+    }
+    
+   public function refreshCapacidades(){
+      $filaACambiar=$this->getSyllabusCompetencias()->andWhere(['bloque'=>self::BLOQUE_CAPACIDADES])->one();
+     
+       if(!is_null($filaACambiar)){
+          if(empty($filaACambiar->contenido_bloque)){
+           $arrayCapacidades=$this->getSyllabusUnidades()->select(['capacidad'])->column();
+            $filaACambiar->contenido_bloque='';
+            foreach($arrayCapacidades as $valorTexto){
+            $filaACambiar->contenido_bloque.=$valorTexto."\n";
+            } 
+         } 
+          return   $filaACambiar->save();
+       }
+       return false;
+   }
+    
 }

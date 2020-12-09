@@ -105,6 +105,12 @@ class PlanesEstudio extends \common\models\base\modelBase
     {
         return $this->hasOne(Facultades::className(), ['id' => 'facultad_id']);
     }
+    
+    public function getPlan()
+    {
+        return $this->hasOne(Planes::className(), ['id' => 'planes_id']);
+    }
+
 
     /**
      * {@inheritdoc}
