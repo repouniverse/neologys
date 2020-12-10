@@ -64,7 +64,7 @@ class AcadSyllabusDocentes extends \common\models\base\modelBase
     
     public function getDocente()
     {
-        return $this->hasOne(Docente::className(), ['id' => 'docente_id']);
+        return $this->hasOne(Docentes::className(), ['id' => 'docente_id']);
     }
 
     /**

@@ -25,47 +25,38 @@ use common\helpers\h;
           <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'myformulario',
-                      'url'=>($model->isNewRecord)?Url::to(['/acad/'.$this->context->id.'/modal-crear-unidad','id'=>$id]):Url::to(['/acad/'.$this->context->id.'/modal-editar-unidad','id'=>$model->id]),
+                      'url'=>Url::to(['/acad/'.$this->context->id.'/modal-edit-content','id'=>$model->id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
-         
-                  
-
             </div>
         </div>
     </div>
      
   
       <div class="box-body">
- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-     <?= $form->field($model, 'descripcion')->textInput() ?>
-  
- </div>
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'n_semana')->textInput() ?>
-  
- </div>  
- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'numero_semanas')->textInput() ?>
-  
- </div> 
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'n_sesiones_semana')->textInput() ?>
-  
- </div> 
-          
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-   <?php echo $form->field($model, 'capacidad')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque1')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 3],
-        'preset' => 'basic'
+        //'preset' => 'basic'
         ]);
    ?>
  </div> 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-     <?= $form->field($model, 'comentarios')->textArea() ?>
-  
+          
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque2')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => ['rows' => 3],
+        //'preset' => 'basic'
+        ]);
+   ?>
  </div> 
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque3')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => ['rows' => 3],
+       // 'preset' => 'basic'
+        ]);
+   ?>
+ </div>
      
     <?php ActiveForm::end(); ?>
 

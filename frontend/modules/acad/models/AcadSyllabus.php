@@ -4,6 +4,7 @@ namespace frontend\modules\acad\models;
 use common\models\masters\Cursos;
 use common\models\masters\Docentes;
 use common\models\masters\PlanesEstudio;
+use common\helpers\h;
 use Yii;
 
 /**
@@ -102,7 +103,7 @@ class AcadSyllabus extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|AcadContenidoSyllabusQuery
      */
-    public function getAcadContenidoSyllabi()
+    public function getAcadContenidoSyllabus()
     {
         return $this->hasMany(AcadContenidoSyllabus::className(), ['syllabus_id' => 'id']);
     }
@@ -211,6 +212,17 @@ class AcadSyllabus extends \common\models\base\modelBase
           return   $filaACambiar->save();
        }
        return false;
+   }
+   
+   /*
+    * Genera el contenido de la sección PROGRAMACION DE CONTENIDOS de
+    * la estructura general del Syllabus, está en función del numero de
+    * de sesiones por semana
+    */
+   public function generateContenidoSyllabus(){
+      foreach($this->acadContenidoSyllabus as $unidad){
+        $unidad->generateContenidoSyllabusByUnidad();          
+      }
    }
     
 }

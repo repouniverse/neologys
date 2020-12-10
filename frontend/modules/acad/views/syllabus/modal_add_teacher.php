@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 
 use common\helpers\h;
 //use frontend\modules\sigi\helpers\comboHelper;
-//use common\widgets\selectwidget\selectWidget;
+use common\widgets\selectwidget\selectWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sigi\models\SigiUnidades */
 /* @var $form yii\widgets\ActiveForm */
@@ -25,7 +25,7 @@ use common\helpers\h;
           <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'myformulario',
-                      'url'=>($model->isNewRecord)?Url::to(['/acad/'.$this->context->id.'/modal-crear-unidad','id'=>$id]):Url::to(['/acad/'.$this->context->id.'/modal-editar-unidad','id'=>$model->id]),
+                      'url'=> Url::to(['/acad/'.$this->context->id.'/modal-add-teacher','id'=>$id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
@@ -39,35 +39,21 @@ use common\helpers\h;
   
       <div class="box-body">
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-     <?= $form->field($model, 'descripcion')->textInput() ?>
-  
- </div>
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'n_semana')->textInput() ?>
-  
- </div>  
- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'numero_semanas')->textInput() ?>
-  
- </div> 
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-     <?= $form->field($model, 'n_sesiones_semana')->textInput() ?>
-  
- </div> 
-          
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-   <?php echo $form->field($model, 'capacidad')->widget(\dosamigos\ckeditor\CKEditor::className(), [
-        'options' => ['rows' => 3],
-        'preset' => 'basic'
-        ]);
-   ?>
- </div> 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-     <?= $form->field($model, 'comentarios')->textArea() ?>
-  
+     <?php 
+  // $necesi=new Parametros;
+    echo selectWidget::widget([
+           // 'id'=>'mipapa',
+            'model'=>$model,
+            'form'=>$form,
+            'campo'=>'docente_id',
+         'ordenCampo'=>2,
+         'addCampos'=>[4,8,9,10,11],
+        ]);  ?>
+
  </div> 
      
     <?php ActiveForm::end(); ?>
 
 </div>
     </div>
+
