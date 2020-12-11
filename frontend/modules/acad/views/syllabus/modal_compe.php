@@ -53,7 +53,7 @@ use common\helpers\h;
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php echo $form->field($model, 'contenido_bloque')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 3],
-        'preset' => 'basic'
+        //'preset' => 'basic'
         ]);
    ?>
  </div> 

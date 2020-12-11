@@ -39,7 +39,7 @@ use frontend\modules\acad\models\AcadContenidoSyllabus;
                'buttons' => [
                      'contenido' => function ($url,$model)use($id_pjax_content){     
                               //return var_dump($model->id);
-                            $url = Url::toRoute(['/acad/syllabus/modal-edit-content','id'=>$model->id,'gridName'=>$id_pjax_content,'idModal'=>'buscarvalor']);
+                            $url = Url::toRoute(['/acad/syllabus/modal-edit-content','id'=>$model->id,'gridName'=>'grid_sumilla','idModal'=>'buscarvalor']);
                              return Html::a('<span class="btn btn-info glyphicon glyphicon-pencil"></span>', $url, ['class'=>'botonAbre']);
                              }, 
                       

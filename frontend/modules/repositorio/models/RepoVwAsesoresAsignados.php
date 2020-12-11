@@ -34,6 +34,15 @@ use Yii;
  */
 class RepoVwAsesoresAsignados extends \common\models\base\modelBase
 {
+    
+    const DOCU_PLAN_INVESTIGACION='156';
+    const DOCU_TRABAJO_INVESTIGACION='157';
+    
+    private $_array_docs=[
+        self::DOCU_PLAN_INVESTIGACION=>'1',
+        self::DOCU_TRABAJO_INVESTIGACION=>'0'
+            ];
+    
     /**
      * {@inheritdoc}
      */
@@ -115,5 +124,39 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
     
     }
      
+    public function generateDocs(){
+        foreach($this->_array_docs as $codocu=>$activo){
+            yii::error($codocu);
+            yii::error($activo);
+            RepositorioAsesoresCursoDocs::firstOrCreateStatic(
+                    ['asesores_curso_id'=>$this->id,
+                        'codocu'=>$codocu.'',
+                        'activo'=>$activo,
+                        ],null,
+                    ['asesores_curso_id'=>$this->id,
+                        'codocu'=>$codocu.'',
+                        //'activo'=>($this->activo)?'1':'0'
+                        ]
+                    );
+        }
+    }
+    
+    
+    public function getRepoAsesoresCursoDocs()
+    {
+        return $this->hasMany(RepositorioAsesoresCursoDocs::className(), ['asesores_curso_id' => 'id']);
+    } 
+    
+    
+    public function listAttachedFiles(){
+        $array_links=[];
+        foreach($this->repoAsesoresCursoDocs as $fila){
+            if($fila->hasAttachments() && $fila->activo)
+            $array_links[$fila->codocu]=$fila->urlFirstFile;
+        }
+        return $array_links;
+    }
+    
+    
     
 }

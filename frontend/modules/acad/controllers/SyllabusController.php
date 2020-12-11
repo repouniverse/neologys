@@ -497,4 +497,41 @@ class SyllabusController extends baseController
         }
     }
     
+    public function actionMakeSyllabusPdf($id){
+        $this->layout="install";
+        $model=$this->findModel($id);
+        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
+        $mpdf=$this->preparePdf($vistaHtml);
+        $mpdf->Output(/*\Mpdf\Output\Destination::FILE*/);
+        //return  $vistaHtml;
+    }
+    
+    
+    
+    
+   private function preparePdf($contenidoHtml) {
+        //  $contenidoHtml = \Pelago\Emogrifier\CssInlinerCssInliner::fromHtml($contenidoHtml)->inlineCss()->render();
+        //->renderBodyContent(); 
+        $mpdf = \frontend\modules\report\Module::getPdf();
+        // $mpdf->SetHeader(['{PAGENO}']);
+       /// $mpdf->margin_header = 1;
+        //$mpdf->margin_footer = 1;
+        //$mpdf->setAutoTopMargin = 'stretch';
+       // $mpdf->setAutoBottomMargin = 'stretch';
+
+        ///$stylesheet = file_get_contents(\yii::getAlias("@frontend/web/css/bootstrap.min.css")); // external css
+        //$stylesheet2 = file_get_contents(\yii::getAlias("@frontend/web/css/reporte.css")); // external css
+        ///$mpdf->WriteHTML($stylesheet, 1);
+        //$mpdf->WriteHTML($stylesheet2,1);
+
+        /*$mpdf->DefHTMLHeaderByName(
+                'Chapter2Header', $this->render("/citas/reportes/cabecera")
+        );*/
+        //$mpdf->DefHTMLFooterByName('pie',$this->render("/citas/reportes/footer"));
+        //$mpdf->SetHTMLHeaderByName('Chapter2Header');
+        // $contenidoHtml = \Pelago\Emogrifier\CssInliner::fromHtml($contenidoHtml)->inlineCss($stylesheet)->render();
+        $mpdf->WriteHTML($contenidoHtml);
+        return $mpdf;
+    }
+    
 }

@@ -207,6 +207,13 @@ public function behaviors()
     {
         return $this->hasMany(InterConvocados::className(), ['docente_id' => 'id']);
     }
+    
+     public function getAsesores()
+    {
+        return $this->hasMany(Asesores::className(), ['docente_id' => 'id']);
+    }
+    
+    
       
   public function currentConvocatoria(){
      return  $this->getConvocatorias()->andWhere(['codperiodo'=>h::periodos()->currentPeriod])->one();
@@ -474,6 +481,19 @@ public function canCreateOrEdit() {
    if(!$this->canCreateOrEdit())
     $this->addError ($attribute,yii::t('base_errors','You do not have privileges to modify this record. Verify that you are within the authorized university'));
    } 
+   
+   
+  public function hasAsesorados(){
+      
+     $idsAsesores=$this->getAsesores()->select(['id'])->column();
+     // var_dump($this->getAsesores()->select(['id'])->createCommand()->rawSql);
+    // var_dump($idsAsesores);die();
+     return AsesoresCurso::find()->andWhere([
+         'asesor_id'=>$idsAsesores,
+     ])->exists();
+  }   
+      
+   
     
 }
 

@@ -85,7 +85,7 @@ class AcadSyllabus extends \common\models\base\modelBase
             'recursos_didac' => Yii::t('base_labels', 'Recursos Didac'),
             'formula_id' => Yii::t('base_labels', 'Formula ID'),
             'fuentes_info' => Yii::t('base_labels', 'Fuentes Info'),
-            'reserva1' => Yii::t('base_labels', 'Reserva1'),
+            'reserva1' => Yii::t('base_labels', 'Evaluation'),
             'reserva2' => Yii::t('base_labels', 'Reserva2'),
         ];
     }

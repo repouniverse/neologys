@@ -30,12 +30,12 @@ class Module extends \yii\base\Module
    
     
     public static function  getPdf(){
-               $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
-            $fontDirs = $defaultConfig['fontDir'];
-            $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
-            $fontData = $defaultFontConfig['fontdata'];
+              // $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+            //$fontDirs = $defaultConfig['fontDir'];
+            //$defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+            ///$fontData = $defaultFontConfig['fontdata'];
 //$mpdf = new \common\components\MyMpdf([/*
-$mpdf = new \Mpdf\Mpdf([/*
+           $mpdf = new \Mpdf\Mpdf([/*
     'fontDir' => array_merge($fontDirs,[
        Yii::getAlias('@fonts')
     ]),
@@ -66,10 +66,10 @@ $mpdf = new \Mpdf\Mpdf([/*
         ];*/
            
                   
-           $mpdf->simpleTables = false;
-                $mpdf->packTableData = true;
+           //$mpdf->simpleTables = false;
+                //$mpdf->packTableData = true;
            //$mpdf->showImageErrors = true;
-           $mpdf->curlAllowUnsafeSslRequests = true; //Permite imagenes de url externas
+           //$mpdf->curlAllowUnsafeSslRequests = true; //Permite imagenes de url externas
          return $mpdf;
     }
     

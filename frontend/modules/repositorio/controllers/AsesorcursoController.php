@@ -3,11 +3,13 @@ namespace frontend\modules\repositorio\controllers;
 
 use Yii;
 use common\models\masters\Alumnos;
+use common\models\masters\Docentes;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
 use common\models\masters\AsesoresCursoSearch;
 use frontendRepoVwAsesoresAsignadosSearch;
 use common\filters\ActionIsIdentidadFilter;
+use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -128,14 +130,9 @@ public function actionModalAsesorcurso($id){
 
     public function actionCreate()
     {
-      // ECHO  Matricula::nMatriculados('2020II',null,'031652>10NLB');DIE();
-        
-     
-        $model = new AsesoresCurso();
+       $model = new AsesoresCurso();
         $modelalumno=Yii::$app->user->profile->persona->identidad;
-       
-    //var_dump($tienecursos);die();
-      if($modelalumno instanceof Alumnos ){
+    if($modelalumno instanceof Alumnos ){
           if($tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS)){
              $model->alumno_id=$modelalumno->id;        
         return $this->render('create', [
@@ -264,5 +261,65 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
        
    }
     
+   
+   public function actionManageFiles()
+    {
+      
+        $modelalumno=Yii::$app->user->profile->persona->identidad;
+        $modelVista=RepoVwAsesoresAsignados::find()->andWhere(['alumno_id'=>$modelalumno->id])->one();
+        $modelVista->generateDocs();
+    if($modelalumno instanceof Alumnos ){
+          if($tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS)){
+             //$model->alumno_id=$modelalumno->id;        
+        return $this->render('filesUpload', [
+             'modelalumno' => $modelalumno,'model'=>$modelVista
+            //'tienecursos'=>$tienecursos
+        ]); 
+          }else{
+               return $this->render('nocursos', [
+               'model' => $model,
+                 ]); 
+          }
+            
+    }else{
+        return $this->render('noesalumno', [
+            'model' => $model,
+        ]); 
+    }
     
+    
+    }
+   
+    
+ public function actionPanelAsesor()
+    {
+      // $model = new AsesoresCurso();
+        $modelDocente=Yii::$app->user->profile->persona->identidad;
+        /*var_dump(Yii::$app->user->profile->persona->id,
+               Yii::$app->user->profile->persona->identidad 
+                );
+        die();*/
+    if($modelDocente instanceof Docentes ){
+          if($tieneAsesorados=$modelDocente->hasAsesorados()){
+                 
+        return $this->render('panel_asesor', [
+             'modelDocente' => $modelDocente,
+            'tieneAsesorados'=>$tieneAsesorados
+        ]); 
+          }else{
+               return $this->render('nocursos', [
+               'model' => $modelDocente,
+                 ]); 
+          }
+            
+    }else{
+        return $this->render('noesalumno', [
+            'model' => $modelDocente,
+        ]); 
+    }
+    
+    
+    }
+   
+
 }

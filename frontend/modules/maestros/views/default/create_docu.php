@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use frontend\modules\maestros\MaestrosModulea as m;
+use frontend\modules\maestros\MaestrosModule as m;
 /* @var $this yii\web\View */
 /* @var $model common\models\Documentos */
 
