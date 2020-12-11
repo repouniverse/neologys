@@ -69,6 +69,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                     'descripcion',
                     'seccion',
                    'codesp',
+                   'codalu',
                     'ap',
                     'nombres',
                 [

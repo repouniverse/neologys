@@ -71,6 +71,7 @@ public function behaviors()
         return [
             [['facultad_id', 'universidad_id', 'persona_id'], 'integer'],
             [['codoce'], 'required'],
+           // [['dsd'],'match','pattern'=>''],
             
               [['correo','carrera_base'], 'safe'],
             

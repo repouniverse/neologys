@@ -267,6 +267,11 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
       
         $modelalumno=Yii::$app->user->profile->persona->identidad;
         $modelVista=RepoVwAsesoresAsignados::find()->andWhere(['alumno_id'=>$modelalumno->id])->one();
+     if(is_null($modelVista)){
+         return $this->render('noesalumno', [
+            'model' => $modelalumno,
+        ]); 
+     }
         $modelVista->generateDocs();
     if($modelalumno instanceof Alumnos ){
           if($tienecursos=$modelalumno->hasCursosTalleres(Yii::$app->controller->module::PROCESO_TALLER_TESIS)){
