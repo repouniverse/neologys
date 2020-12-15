@@ -41,7 +41,20 @@ use common\helpers\h;
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
      <?= $form->field($model, 'descripcion')->textInput() ?>
   
+ </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+     <?= $form->field($model, 'n_semana')->textInput() ?>
+  
+ </div>  
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+     <?= $form->field($model, 'numero_semanas')->textInput() ?>
+  
  </div> 
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+     <?= $form->field($model, 'n_sesiones_semana')->textInput() ?>
+  
+ </div> 
+          
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php echo $form->field($model, 'capacidad')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 3],

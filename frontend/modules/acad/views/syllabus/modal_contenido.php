@@ -25,39 +25,38 @@ use common\helpers\h;
           <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'myformulario',
-                      'url'=>Url::to(['/acad/'.$this->context->id.'/modal-editar-compe','id'=>$id]),
+                      'url'=>Url::to(['/acad/'.$this->context->id.'/modal-edit-content','id'=>$model->id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
-         
-                  
-
             </div>
         </div>
     </div>
      
   
       <div class="box-body">
- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
-     <?= $form->field($model, 'item_bloque')->textInput() ?>
-  
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
-     <?= $form->field($model, 'bloque')->textInput() ?>
-  
- </div> 
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
-     <?= $form->field($model, 'bloque_padre')->textInput() ?>
-  
- </div> 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-   <?php echo $form->field($model, 'contenido_bloque')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque1')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 3],
         //'preset' => 'basic'
         ]);
    ?>
  </div> 
-  
+          
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque2')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => ['rows' => 3],
+        //'preset' => 'basic'
+        ]);
+   ?>
+ </div> 
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <?php echo $form->field($model, 'bloque3')->widget(\dosamigos\ckeditor\CKEditor::className(), [
+        'options' => ['rows' => 3],
+       // 'preset' => 'basic'
+        ]);
+   ?>
+ </div>
      
     <?php ActiveForm::end(); ?>
 

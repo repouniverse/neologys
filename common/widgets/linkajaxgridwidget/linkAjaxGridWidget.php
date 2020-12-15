@@ -79,7 +79,7 @@ class linkAjaxGridWidget extends Widget
      // $mesage=yii::t('base.verbs','Are you Sure to Delete this Record ?');
      $cadUx=(count($this->otherContainers)>0)?"  $.pjax.reload({container: '#".$this->otherContainers[0]."', async: false});  ":"";
    $cadenaJs="$('div[id=\"".$this->idGrilla."\"] [family=\"".$this->family."\"]').on( '".$this->evento."', function() { 
-       //alert(this.value);
+        // alert(this.title);
      var yapaso=false;
      
     if(!yapaso){  
@@ -100,7 +100,8 @@ $.ajax({
                //alert(typeof json['dfdfd']==='undefined');
                         var n = Noty('id');
                         
-                          
+                           $.pjax.reload({container: '#".$this->idGrilla."', async: false});
+                           ".$cadUx."  
                            
                              
 
@@ -116,9 +117,6 @@ $.ajax({
                           if ( !(typeof json['success']==='undefined' )) {
                         $.noty.setText(n.options.id,'<span class=\'glyphicon glyphicon-ok\'></span>      '+ json['success']);
                               $.noty.setType(n.options.id, 'success');  
-                              
-                               $.pjax.reload({container: '#".$this->idGrilla."', async: false});
-                                ".$cadUx."  
                              } 
                             
                             }

@@ -81,6 +81,7 @@ class SyllabusController extends baseController
         $model->setAttributes([
             'plan_id'=>$plan_id,
             'docente_owner_id'=>$docente_id,
+            'formula_id'=>1,//HASTA TENER LA TABLA DE EWDUARDO
            ]);
         $model->setAttributes([
                         'curso_id'=>$model->plan->curso_id,
@@ -410,4 +411,131 @@ class SyllabusController extends baseController
             ]);  
         }
     }
+    
+    public function actionAjaxGenerateContent($id){
+          
+         $model= \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
+        if(h::request()->isAjax){  
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $model->generateContenidoSyllabusByUnidad();
+            return ['success'=>yii::t('base_labels','The content has been generated')];
+        }
+    }
+    
+    public function actionAjaxShowContent(){
+        $this->layout="install";
+        if (h::request()->isAjax) {
+            $id = h::request()->post('expandRowKey');
+           // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
+            
+            
+            
+            
+             return $this->render('_expand_contenido',[
+              'identidad_unidad'=>$id,
+              
+              ]);
+        }
+        
+        
+         
+         
+    }
+    
+     public function actionModalEditContent($id){
+        $this->layout='install';
+       $model= \frontend\modules\acad\models\AcadContenidoSyllabus::findOne($id);
+       if(is_null($model))return 'No hay registro';
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_contenido', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+    }
+    
+     public function actionModalAddTeacher($id){
+        $this->layout='install';
+        if(is_null($modelSyllabus= AcadSyllabus::findOne($id))){
+            return 'No existe registro';
+        }
+       $model= new \frontend\modules\acad\models\AcadSyllabusDocentes([
+           'syllabus_id'=>$modelSyllabus->id,
+       ]);
+       
+       if(is_null($model))return 'No hay registro';
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_add_teacher', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+    }
+    
+    public function actionMakeSyllabusPdf($id){
+        $this->layout="install";
+        $model=$this->findModel($id);
+        
+        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
+        $mpdf=$this->preparePdf($vistaHtml);
+        $mpdf->Output();
+       // return $vistaHtml;
+        
+        //return  $vistaHtml;
+    }
+    
+    
+    
+    
+   private function preparePdf($contenidoHtml) {
+        //  $contenidoHtml = \Pelago\Emogrifier\CssInlinerCssInliner::fromHtml($contenidoHtml)->inlineCss()->render();
+        //->renderBodyContent(); 
+        $mpdf = \frontend\modules\report\Module::getPdf();
+        // $mpdf->SetHeader(['{PAGENO}']);
+       /// $mpdf->margin_header = 1;
+        //$mpdf->margin_footer = 1;
+        //$mpdf->setAutoTopMargin = 'stretch';
+       // $mpdf->setAutoBottomMargin = 'stretch';
+
+        $stylesheet = file_get_contents(\yii::getAlias("@frontend/web/css/documentos.css")); // external css
+        //$stylesheet2 = file_get_contents(\yii::getAlias("@frontend/web/css/reporte.css")); // external css
+       $mpdf->WriteHTML($stylesheet, 1);
+        //$mpdf->WriteHTML($stylesheet2,1);
+
+        /*$mpdf->DefHTMLHeaderByName(
+                'Chapter2Header', $this->render("/citas/reportes/cabecera")
+        );*/
+        //$mpdf->DefHTMLFooterByName('pie',$this->render("/citas/reportes/footer"));
+        //$mpdf->SetHTMLHeaderByName('Chapter2Header');
+        // $contenidoHtml = \Pelago\Emogrifier\CssInliner::fromHtml($contenidoHtml)->inlineCss($stylesheet)->render();
+        $mpdf->WriteHTML($contenidoHtml);
+        return $mpdf;
+    }
+    
 }

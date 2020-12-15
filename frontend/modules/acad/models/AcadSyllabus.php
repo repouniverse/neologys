@@ -4,6 +4,7 @@ namespace frontend\modules\acad\models;
 use common\models\masters\Cursos;
 use common\models\masters\Docentes;
 use common\models\masters\PlanesEstudio;
+use common\helpers\h;
 use Yii;
 
 /**
@@ -57,7 +58,7 @@ class AcadSyllabus extends \common\models\base\modelBase
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   
-            [['n_sesiones_semana'], 'safe'],   
+            [['n_sesiones_semana','formula_txt','n_semanas'], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
             [['docente_owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_owner_id' => 'id']],
@@ -84,7 +85,7 @@ class AcadSyllabus extends \common\models\base\modelBase
             'recursos_didac' => Yii::t('base_labels', 'Recursos Didac'),
             'formula_id' => Yii::t('base_labels', 'Formula ID'),
             'fuentes_info' => Yii::t('base_labels', 'Fuentes Info'),
-            'reserva1' => Yii::t('base_labels', 'Reserva1'),
+            'reserva1' => Yii::t('base_labels', 'Evaluation'),
             'reserva2' => Yii::t('base_labels', 'Reserva2'),
         ];
     }
@@ -102,7 +103,7 @@ class AcadSyllabus extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|AcadContenidoSyllabusQuery
      */
-    public function getAcadContenidoSyllabi()
+    public function getAcadContenidoSyllabus()
     {
         return $this->hasMany(AcadContenidoSyllabus::className(), ['syllabus_id' => 'id']);
     }
@@ -146,7 +147,9 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return $this->hasMany(AcadSyllabusDocentes::className(), ['syllabus_id' => 'id']);
     }
-
+    
+    
+    
     /**
      * Gets query for [[AcadSyllabusUnidades]].
      *
@@ -212,5 +215,41 @@ class AcadSyllabus extends \common\models\base\modelBase
        }
        return false;
    }
+   
+   /*
+    * Genera el contenido de la sección PROGRAMACION DE CONTENIDOS de
+    * la estructura general del Syllabus, está en función del numero de
+    * de sesiones por semana
+    */
+   public function generateContenidoSyllabus(){
+      foreach($this->acadContenidoSyllabus as $unidad){
+        $unidad->generateContenidoSyllabusByUnidad();          
+      }
+   }
+   
+   
+  public function concatNames(){
+      $fullNames='';
+      foreach($this->syllabusDocentes as $docente){
+          $fullNames.=','.$docente->docente->fullName(true);
+      }
+      return substr($fullNames,1);
+  }
+  
+  
+  public function concatPreRequisites(){
+      $fullNames='';
+      //yii::error();
+      $plan=$this->plan;
+      foreach($plan->planesPrereq as $prereq){
+         /* yii::error('la tabla prerequisito es ');
+          yii::error($prereq->tableName());
+          yii::error('El pla_id de prerequisito es  '.$prereq->plan_id);
+           yii::error('Esta jalando el codigo del curso   '.$prereq->plan->codcursocorto);
+          */ //yii::error('El id de prerequisito es  '.$prereq->id);
+          $fullNames.=','.$prereq->codcursocorto;
+      }
+      return substr($fullNames,1);
+  }
     
 }

@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 
 use common\helpers\h;
 //use frontend\modules\sigi\helpers\comboHelper;
-//use common\widgets\selectwidget\selectWidget;
+use common\widgets\selectwidget\selectWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\sigi\models\SigiUnidades */
 /* @var $form yii\widgets\ActiveForm */
@@ -25,7 +25,7 @@ use common\helpers\h;
           <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(
                   ['idModal'=>$idModal,
                     'idForm'=>'myformulario',
-                      'url'=>Url::to(['/acad/'.$this->context->id.'/modal-editar-compe','id'=>$id]),
+                      'url'=> Url::to(['/acad/'.$this->context->id.'/modal-add-teacher','id'=>$id]),
                      'idGrilla'=>$gridName, 
                       ]
                   )?>
@@ -38,28 +38,22 @@ use common\helpers\h;
      
   
       <div class="box-body">
- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
-     <?= $form->field($model, 'item_bloque')->textInput() ?>
-  
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+     <?php 
+  // $necesi=new Parametros;
+    echo selectWidget::widget([
+           // 'id'=>'mipapa',
+            'model'=>$model,
+            'form'=>$form,
+            'campo'=>'docente_id',
+         'ordenCampo'=>2,
+         'addCampos'=>[4,8,9,10,11],
+        ]);  ?>
+
  </div> 
- <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
-     <?= $form->field($model, 'bloque')->textInput() ?>
-  
- </div> 
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
-     <?= $form->field($model, 'bloque_padre')->textInput() ?>
-  
- </div> 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-   <?php echo $form->field($model, 'contenido_bloque')->widget(\dosamigos\ckeditor\CKEditor::className(), [
-        'options' => ['rows' => 3],
-        //'preset' => 'basic'
-        ]);
-   ?>
- </div> 
-  
      
     <?php ActiveForm::end(); ?>
 
 </div>
     </div>
+

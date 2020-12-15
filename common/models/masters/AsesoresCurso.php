@@ -3,6 +3,7 @@
 namespace common\models\masters;
 use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
 use common\helpers\h;
+use frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs;
 use Yii;
 
 /**
@@ -19,6 +20,9 @@ class AsesoresCurso extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
+    
+    
+    
     public static function tableName()
     {
         return '{{%asesores_curso}}';
@@ -123,6 +127,8 @@ class AsesoresCurso extends \common\models\base\modelBase
         
         
       }
+      
+      
     
     
 }
