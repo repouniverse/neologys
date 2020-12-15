@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\tabs\TabsX;
 use common\helpers\h;
 use yii\widgets\ActiveForm;
@@ -23,6 +24,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
        <div class="col-md-12">
             <div class="form-group no-margin">
             <?= Html::submitButton(Yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
+             <?= Html::a(Yii::t('base_labels', 'Preview').h::awe('eye'),Url::to('make-syllabus-pdf') ,['class' => 'btn btn-success']) ?>
             </div>
         </div>
     <?php echo TabsX::widget
