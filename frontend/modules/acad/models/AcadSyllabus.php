@@ -247,7 +247,7 @@ class AcadSyllabus extends \common\models\base\modelBase
           yii::error('El pla_id de prerequisito es  '.$prereq->plan_id);
            yii::error('Esta jalando el codigo del curso   '.$prereq->plan->codcursocorto);
           */ //yii::error('El id de prerequisito es  '.$prereq->id);
-          $fullNames.=','.$prereq->plan->codcursocorto;
+          $fullNames.=','.$prereq->codcursocorto;
       }
       return substr($fullNames,1);
   }
