@@ -124,4 +124,12 @@ class PlanesEstudio extends \common\models\base\modelBase
     public function hoursForWeek(){
        return  $this->hteoria+$this->hpractica;
     }
+    
+    public function getPlanesPrereq()
+    {
+        return $this->hasMany(PlanesPrerequisito::className(), ['plan_id' => 'id']);
+    }
+
+    
+    
 }

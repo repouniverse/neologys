@@ -149,11 +149,7 @@ class AcadSyllabus extends \common\models\base\modelBase
     }
     
     
-    public function getSyllabusPrereq()
-    {
-        return $this->hasMany(\common\models\masters\PlanesPrerequisito::className(), ['plan_id' => 'id']);
-    }
-
+    
     /**
      * Gets query for [[AcadSyllabusUnidades]].
      *
@@ -243,7 +239,14 @@ class AcadSyllabus extends \common\models\base\modelBase
   
   public function concatPreRequisites(){
       $fullNames='';
-      foreach($this->syllabusPrereq as $prereq){
+      //yii::error();
+      $plan=$this->plan;
+      foreach($plan->planesPrereq as $prereq){
+         /* yii::error('la tabla prerequisito es ');
+          yii::error($prereq->tableName());
+          yii::error('El pla_id de prerequisito es  '.$prereq->plan_id);
+           yii::error('Esta jalando el codigo del curso   '.$prereq->plan->codcursocorto);
+          */ //yii::error('El id de prerequisito es  '.$prereq->id);
           $fullNames.=','.$prereq->plan->codcursocorto;
       }
       return substr($fullNames,1);

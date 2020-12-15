@@ -33,6 +33,7 @@ class PlanesPrerequisito extends \common\models\base\modelBase
             [['plan_id', 'codcursocorto'], 'required'],
             [['plan_id'], 'integer'],
             [['codcursocorto'], 'string', 'max' => 25],
+            [['plan_id','codcursocorto','activo'], 'unique'],
             [['activo'], 'string', 'max' => 1],
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
         ];
