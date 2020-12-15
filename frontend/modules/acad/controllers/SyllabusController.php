@@ -81,6 +81,7 @@ class SyllabusController extends baseController
         $model->setAttributes([
             'plan_id'=>$plan_id,
             'docente_owner_id'=>$docente_id,
+            'formula_id'=>1,//HASTA TENER LA TABLA DE EWDUARDO
            ]);
         $model->setAttributes([
                         'curso_id'=>$model->plan->curso_id,
@@ -500,9 +501,12 @@ class SyllabusController extends baseController
     public function actionMakeSyllabusPdf($id){
         $this->layout="install";
         $model=$this->findModel($id);
+        
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
-        $mpdf->Output(/*\Mpdf\Output\Destination::FILE*/);
+        $mpdf->Output();
+       // return $vistaHtml;
+        
         //return  $vistaHtml;
     }
     
@@ -519,9 +523,9 @@ class SyllabusController extends baseController
         //$mpdf->setAutoTopMargin = 'stretch';
        // $mpdf->setAutoBottomMargin = 'stretch';
 
-        ///$stylesheet = file_get_contents(\yii::getAlias("@frontend/web/css/bootstrap.min.css")); // external css
+        $stylesheet = file_get_contents(\yii::getAlias("@frontend/web/css/documentos.css")); // external css
         //$stylesheet2 = file_get_contents(\yii::getAlias("@frontend/web/css/reporte.css")); // external css
-        ///$mpdf->WriteHTML($stylesheet, 1);
+       $mpdf->WriteHTML($stylesheet, 1);
         //$mpdf->WriteHTML($stylesheet2,1);
 
         /*$mpdf->DefHTMLHeaderByName(

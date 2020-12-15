@@ -43,6 +43,7 @@ class Module extends \yii\base\Module
     
     
     public static function cicleInLetters($number){
+         $number+=0;
         if(in_array($number, array_keys(static::$cicles)))
         return ucfirst(mb_strtolower(static::$cicles[$number],'UTF-8'));
         return '';

@@ -58,7 +58,7 @@ class AcadSyllabus extends \common\models\base\modelBase
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   
-            [['n_sesiones_semana'], 'safe'],   
+            [['n_sesiones_semana','formula_txt','n_semanas'], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
             [['docente_owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_owner_id' => 'id']],
@@ -147,6 +147,12 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return $this->hasMany(AcadSyllabusDocentes::className(), ['syllabus_id' => 'id']);
     }
+    
+    
+    public function getSyllabusPrereq()
+    {
+        return $this->hasMany(\common\models\masters\PlanesPrerequisito::className(), ['plan_id' => 'id']);
+    }
 
     /**
      * Gets query for [[AcadSyllabusUnidades]].
@@ -224,5 +230,23 @@ class AcadSyllabus extends \common\models\base\modelBase
         $unidad->generateContenidoSyllabusByUnidad();          
       }
    }
+   
+   
+  public function concatNames(){
+      $fullNames='';
+      foreach($this->syllabusDocentes as $docente){
+          $fullNames.=','.$docente->docente->fullName(true);
+      }
+      return substr($fullNames,1);
+  }
+  
+  
+  public function concatPreRequisites(){
+      $fullNames='';
+      foreach($this->syllabusPrereq as $prereq){
+          $fullNames.=','.$prereq->plan->codcursocorto;
+      }
+      return substr($fullNames,1);
+  }
     
 }

@@ -68,17 +68,18 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                                 'options' => ['id' => 'movrfggfwnrerID4'],
                             ], 
                             [
-                                'label'=>'<i class="'.h::awe('users').'"></i> '.yii::t('base_labels','Sources'),
-                                'content'=> $this->render('update_tab_fuentes',['model' => $model,'form'=>$form]),
-                                'active' => false,
-                                'options' => ['id' => '56ggfwnrerID4'],
-                            ], 
-                            [
                                 'label'=>'<i class="'.h::awe('users').'"></i> '.yii::t('base_labels','Evaluation'),
                                 'content'=> $this->render('update_tab_evaluacion',['model' => $model,'form'=>$form]),
                                 'active' => false,
                                 'options' => ['id' => '56xetrerID4'],
                             ], 
+                            [
+                                'label'=>'<i class="'.h::awe('users').'"></i> '.yii::t('base_labels','Sources'),
+                                'content'=> $this->render('update_tab_fuentes',['model' => $model,'form'=>$form]),
+                                'active' => false,
+                                'options' => ['id' => '56ggfwnrerID4'],
+                            ], 
+                            
                         ],
                     ]
                   );  

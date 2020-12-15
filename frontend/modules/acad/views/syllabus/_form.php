@@ -95,36 +95,18 @@ use frontend\modules\acad\Module as m;
         
     </div>   
     
-    
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+   <?php echo $form->field($model, 'n_semanas')->textInput();?>
+     
+ </div>  
   
- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
     <?= $form->field($model, 'n_sesiones_semana')->textInput([]) ?>
  </div> 
-    
- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-    <button id="boton-contenido" type="button" class="btn btn-success btn-lg">
-         <span class="glyphicon glyphicon-refresh"></span><?=yii::t('base_labels','Generate content')?>
-    </button>
- </div> 
-    
-    
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= $form->field($model, 'formula_id')->textInput() ?>
-</div>
    
-
- <?php
- echo inputAjaxWidget::widget([
-      'ruta'=>Url::to(['ajax-genera-contenido','id'=>$model->id]),
-        'tipo'=>'POST',
-        'id'=>"boton-contenido",//Es el id DOM del que invoca
-        'evento'=>'click',
-        //'isHtml'=>true,
-        'idGrilla'=>'sin_nombre',
-        
- ]);
- ?>
-
+ 
+ 
+ 
 
    
 
