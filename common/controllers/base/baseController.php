@@ -5,6 +5,8 @@ use Yii;
 use common\helpers\h;
 use yii\web\Controller;
 use yii\helpers\Html;
+
+const hola=null;
 /**
  * CliproController implements the CRUD actions for Clipro model.
  */
