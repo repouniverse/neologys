@@ -39,6 +39,25 @@ class AcadSyllabus extends \common\models\base\modelBase
     
     const SCE_CREACION_BASICA='basico';
     const BLOQUE_CAPACIDADES='Capacidades';
+    const CODIGO_DOCUMENTO='500';
+    const ESTADO_CREADO='10';
+    const ESTADO_ANULADO='99';
+    const  APROB_DOCENTE_AREA='Teacher review';
+    const  APROB_ASESOR_UGAI='Advisor';
+     const APROB_CORRECTOR='Style corrector';
+     const APROB_DIRECTOR_ESCUELA='Director academic';
+    const APROB_DOCENTE_OWNER='Owner';
+    public $estados=[
+        self::ESTADO_ANULADO,
+        self::ESTADO_CREADO];
+    
+   public $flujo=[
+        0=>self::APROB_DOCENTE_OWNER,
+        1=>self::APROB_DOCENTE_AREA,
+       2=>self::APROB_ASESOR_UGAI, 
+        3=>self::APROB_CORRECTOR,
+        4=>self::APROB_DIRECTOR_ESCUELA,
+   ];
     /**
      * {@inheritdoc}
      */
@@ -58,7 +77,9 @@ class AcadSyllabus extends \common\models\base\modelBase
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   
-            [['n_sesiones_semana','formula_txt','n_semanas'], 'safe'],   
+            [  ['n_sesiones_semana','formula_txt',
+                'n_semanas','codocu','codestado','descripcion'
+                ], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
             [['docente_owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_owner_id' => 'id']],
@@ -174,10 +195,17 @@ class AcadSyllabus extends \common\models\base\modelBase
         return new AcadSyllabusQuery(get_called_class());
     }
     
+    public function beforeSave($insert){
+        $this->codocu=self::CODIGO_DOCUMENTO;
+        $this->codestado=self::ESTADO_CREADO;
+      return parent::beforeSave($insert);  
+    }
+    
     public function afterSave($insert, $changedAttributes) {
         // yii::error(' disparador lanza ',__FUNCTION__);
        if($insert){          
-           $this->fillCompetencias();           
+           $this->fillCompetencias();
+           $this->generateFlowAprove();
        }else{
            if(in_array('n_sesiones_semana',array_keys($changedAttributes))){
                
@@ -251,5 +279,40 @@ class AcadSyllabus extends \common\models\base\modelBase
       }
       return substr($fullNames,1);
   }
-    
+  
+  /*
+   * Genera un flujo de aprobación*/
+   
+  public function generateFlowAprove(){
+    foreach($this->flujo as $orden=>$valor){
+        $fecha=($orden==0)?self::SwichtFormatDate(
+                self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+                'datetime',true):'';
+        yii::error('adadda');
+        yii::error($fecha);
+        AcadTramiteSyllabus::firstOrCreateStatic(
+              [
+                  'codocu'=>self::CODIGO_DOCUMENTO,
+                    'docu_id'=>$this->id, 
+                    'orden'=>$orden,
+                   'aprobado'=>'0',
+                   'fecha_recibido'=>$fecha,
+                    'user_id'=>$this->user_flujo()[$orden],
+                     'descripcion'=>yii::t('base_labels',$valor),
+                  ],
+              null,
+             [
+               'codocu'=>self::CODIGO_DOCUMENTO,
+               'docu_id'=>$this->id, 
+                'orden'=>$orden,
+                 ]
+             );
+    }
+      
+  }
+   
+  private function user_flujo(){
+      return [0=>124,1=>125,2=>126,3=>127,4=>128];
+  }
+  
 }

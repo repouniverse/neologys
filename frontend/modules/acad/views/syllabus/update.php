@@ -82,6 +82,13 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                                 'options' => ['id' => '56ggfwnrerID4'],
                             ], 
                             
+                            [
+                                'label'=>'<i class="'.h::awe('users').'"></i> '.yii::t('base_labels','Aproves'),
+                                'content'=> $this->render('update_tab_flujo_aprobaciones',['model' => $model,'form'=>$form]),
+                                'active' => false,
+                                'options' => ['id' => '56ggfdfdrerID4'],
+                            ], 
+                            
                         ],
                     ]
                   );  
