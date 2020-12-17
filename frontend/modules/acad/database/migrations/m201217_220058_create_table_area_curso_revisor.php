@@ -18,6 +18,7 @@ if(!$this->existsTable($table)){
                 'curso_area_id'=>$this->integer(11)->notNull(),
                 'docente_revisor_id'=>$this->integer(11)->notNull(),
                 'docente_responsable_id'=>$this->integer(11)->notNull(),
+                'persona_asesor_ugai_id'=>$this->integer(11)->notNull(), 
                 'persona_corrector_id'=>$this->integer(11)->notNull(), 
                 'persona_director_escuela_id'=>$this->integer(11)->notNull(),
                // 'persona_corrector_id'=>$this->integer(11)->notNull(),
@@ -33,6 +34,11 @@ if(!$this->existsTable($table)){
            
            $this->addForeignKey($this->generateNameFk($table), $table,
               'persona_corrector_id', static::NAME_TABLE_PERSONAS,'id');
+           
+           $this->addForeignKey($this->generateNameFk($table), $table,
+              'persona_asesor_ugai_id', static::NAME_TABLE_PERSONAS,'id');
+           
+           
            $this->addForeignKey($this->generateNameFk($table), $table,
               'persona_director_escuela_id', static::NAME_TABLE_PERSONAS,'id');
           /*$this->addForeignKey($this->generateNameFk($table), $table,
