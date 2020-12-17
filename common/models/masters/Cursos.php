@@ -34,6 +34,7 @@ class Cursos extends \common\models\base\modelBase
             [['codcur','descripcion','activo'],'safe','on'=>self::SCE_IMPORTACION],
             [['codcur','descripcion'],'required'],
             [['plan_id'], 'integer'],
+              [['area_id'], 'safe'],
             [['codcur'], 'string', 'max' => 18],
             [['descripcion'], 'string', 'max' => 40],
             [['ciclo'], 'string', 'max' => 2],
@@ -45,7 +46,7 @@ class Cursos extends \common\models\base\modelBase
 
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_IMPORTACION] = [
-           'codcur', 'descripcion','activo'
+           'codcur', 'descripcion','activo','area_id'
             ];
         
         return $scenarios;

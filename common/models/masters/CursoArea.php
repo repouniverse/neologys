@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\acad\models;
+namespace common\models\masters;
 
 use Yii;
 
