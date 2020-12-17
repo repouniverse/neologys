@@ -109,7 +109,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
    }
    
   public function beforeSave($insert) {
+      yii::error('before save');
+      yii::error($this->hasChanged('aprobado'));
+       yii::error($insert);
       if($this->hasChanged('aprobado') && !$insert ){
+          yii::error('afteraprove');
           $this->afterAprove();
       }
       return parent::beforeSave($insert);
@@ -117,13 +121,21 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
   
   private function afterAprove(){
       if($this->aprobado){ 
+           yii::error('aprobado');
           $this->fecha_aprobacion=self::CarbonNow()->format(
                   \common\helpers\timeHelper::formatMysqlDateTime()
                   ); //'2020-12-17 13:23:00'
+          $this->fecha_aprobacion=$this->swichtDate('fecha_aprobacion', true);
+          yii::error($this->fecha_aprobacion);
           $otro=$this->next(); 
           if($otro){
+              yii::error('otro');
+              
               $otro->fecha_recibido=self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
+              $this->fecha_recibido=$this->swichtDate('fecha_recibido', true);
+              yii::error($this->fecha_recibido);
               $otro->save();
+              
           }
           
       }else{
