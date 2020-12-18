@@ -4,6 +4,7 @@ namespace frontend\modules\repositorio\models;
 use common\models\masters\Documentos;
 use common\models\masters\AsesoresCurso;
 use common\behaviors\FileBehavior;
+use common\helpers\timeHelper;
 use Yii;
 
 /**
@@ -25,6 +26,11 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
      * {@inheritdoc}
      */
     public $booleanFields=['activo','publico'];
+     public $dateorTimeFields = [
+        'fpresentacion' => self::_FDATE,
+        /*'finicio' => self::_FDATETIME,
+        'ftermino' => self::_FDATETIME*/
+    ];
     
     public static function tableName()
     {
@@ -41,7 +47,20 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         ];
       }
     
-    
+  public function init(){
+    $this->on(\nemmo\attachments\behaviors\FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
+        /** @var $files \nemmo\attachments\models\File[] */
+        $files = $event->files;
+         //$fechahora=self::CarbonNow();    
+        $this->fpresentacion=self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            );
+        $this->save();
+    });
+    parent::init();
+   }  
 
     /**
      * {@inheritdoc}
