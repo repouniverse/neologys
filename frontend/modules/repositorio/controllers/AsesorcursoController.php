@@ -326,7 +326,7 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     
     }
    
- public function actionAjaxShowCurso(){
+ public function actionAjaxShowDocs(){
       $this->layout="install";
         if (h::request()->isAjax) {
             var_dump(h::request()->post('expandRowKey'));
