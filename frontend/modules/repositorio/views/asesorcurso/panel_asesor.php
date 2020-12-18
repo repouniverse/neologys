@@ -47,9 +47,8 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 	
 	</div>
 
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
-    <?php 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <?php 
     $docus=FormatoDocs::find()->where(['in','codocu',['159','160']])->all();
         foreach($docus as $docu){
            ?>
@@ -62,6 +61,10 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         }   
         
         ?> 
+        </div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
+    
             
         
             
