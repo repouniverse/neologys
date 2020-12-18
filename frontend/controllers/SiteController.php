@@ -312,6 +312,30 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+   $model= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::findOne(4);
+  // $model->fpresentacion='12/12/2020';
+   $fecha= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDate());
+   echo $fecha."<br>";
+   $fecha=\frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::SwichtFormatDate(
+            $fecha
+            ,'date',
+            true
+            );
+   echo $fecha;
+   $model->fpresentacion=$fecha;
+   $model->save();
+   die();
+  
+ 
+   echo \common\models\masters\Alumnos::SwichtFormatDate(
+            $fecha
+            ,'date',
+            true
+            );
+   die();
+    
+    
+    
    $usuarios= \common\models\User::find()->where(['>','id',1987])->all();
    foreach($usuarios as $usuario){
        $usuario->setPassword($usuario->username.'123');

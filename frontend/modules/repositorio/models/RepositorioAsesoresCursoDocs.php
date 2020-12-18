@@ -52,13 +52,9 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         /** @var $files \nemmo\attachments\models\File[] */
         $files = $event->files;
          //$fechahora=self::CarbonNow();
-        yii::error('haciendo seguimiemto al trigger');
-        yii::error( self::CarbonNow()->format(timeHelper::formatMysqlDate()));
-        yii::error( self::SwichtFormatDate(
-            self::CarbonNow()->format(timeHelper::formatMysqlDate())
-            ,'date',
-            true
-            ));
+        //yii::error('haciendo seguimiemto al trigger');
+        //yii::error( self::CarbonNow()->format(timeHelper::formatMysqlDate()));
+        
         $this->fpresentacion=self::SwichtFormatDate(
             self::CarbonNow()->format(timeHelper::formatMysqlDate())
             ,'date',
@@ -80,6 +76,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             [['comentarios'], 'string'],
             [['activo','publico'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
+             [['fpresentacion'], 'safe'],
             [['fpresentacion'], 'string', 'max' => 10],
             [['orcid'], 'string', 'max' => 250],
             [['codocu'], 'exist', 'skipOnError' => true, 'targetClass' => Documentos::className(), 'targetAttribute' => ['codocu' => 'codocu']],
