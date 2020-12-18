@@ -53,7 +53,10 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     $docus=FormatoDocs::find()->where(['in','codocu',['159','160']])->all();
         foreach($docus as $docu){
            ?>
-            <a href="<?=$docu->urlFirstFile?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="<?=$docu->urlFirstFile?>" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-download"></span>
+                   <?=yii::t('base_verbs','Download').' '.strtolower($docu->descripcion)?>
+            </a>
             
          <?PHP 
         }   
