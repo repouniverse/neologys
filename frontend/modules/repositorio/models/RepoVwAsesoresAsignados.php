@@ -37,10 +37,10 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
     
     const DOCU_PLAN_INVESTIGACION='156';
     const DOCU_TRABAJO_INVESTIGACION='157';
-    const DOCU_INFORME_PLAN_INVESTIGACION='158';
-    const DOCU_ACTA_PLAN_INVESTIGACION='159';
-    const DOCU_INFORME_TRABAJO_INVESTIGACION='160';
-    const DOCU_ACTA_TRABAJO_INVESTIGACION='161';
+    const DOCU_INFORME_PLAN_INVESTIGACION='159';
+    const DOCU_ACTA_PLAN_INVESTIGACION='160';
+    const DOCU_INFORME_TRABAJO_INVESTIGACION='161';
+    const DOCU_ACTA_TRABAJO_INVESTIGACION='162';
     
     private $_array_docs=[
         self::DOCU_PLAN_INVESTIGACION=>'1',
@@ -49,6 +49,15 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
         self::DOCU_ACTA_PLAN_INVESTIGACION=>'1',
         self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'1',
         self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'1',
+            ];
+    
+    private $_array_docs_public=[
+        self::DOCU_PLAN_INVESTIGACION=>'1',
+        self::DOCU_TRABAJO_INVESTIGACION=>'1',
+        self::DOCU_INFORME_PLAN_INVESTIGACION=>'0',
+        self::DOCU_ACTA_PLAN_INVESTIGACION=>'0',
+        self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'0',
+        self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'0',
             ];
     
     /**
@@ -140,6 +149,7 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
                     ['asesores_curso_id'=>$this->id,
                         'codocu'=>$codocu.'',
                         'activo'=>$activo,
+                        'publico'=>($this->_array_docs_public[$codocu]=='1')?true:false,
                         ],null,
                     ['asesores_curso_id'=>$this->id,
                         'codocu'=>$codocu.'',

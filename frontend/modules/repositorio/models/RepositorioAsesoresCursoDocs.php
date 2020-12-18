@@ -24,7 +24,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
-    public $booleanFields=['activo'];
+    public $booleanFields=['activo','publico'];
     
     public static function tableName()
     {
@@ -52,7 +52,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             [['asesores_curso_id'], 'required'],
             [['asesores_curso_id'], 'integer'],
             [['comentarios'], 'string'],
-            [['activo'], 'safe'],
+            [['activo','publico'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
             [['fpresentacion'], 'string', 'max' => 10],
             [['orcid'], 'string', 'max' => 250],

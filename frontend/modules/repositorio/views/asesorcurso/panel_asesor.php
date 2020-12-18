@@ -60,7 +60,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->
-                andWhere(['docente_id'=>$modelDocente->id]),
+                andWhere(['docente_id'=>$modelDocente->id,'publico'=>'1']),
                         ]),
             'summary'=>'',
             'columns' => [
