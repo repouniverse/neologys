@@ -341,4 +341,15 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
               ]);
         }
   }
+  
+  public function actionManageAttachments($id){
+    $model=$this->findModel($id);
+    
+    
+    
+    return $this->render('manage_attachments',['model'=>$model]);
+      
+  }
+  
+  
 }
