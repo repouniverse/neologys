@@ -314,7 +314,7 @@ public function actionAuthWithQuestions(){
 public function actionRutas(){
    $usuarios= \common\models\User::find()->where(['>','id',1987])->all();
    foreach($usuarios as $usuario){
-       $usuario->setPassword($usuario->username);
+       $usuario->setPassword($usuario->username.'123');
        $usuario->save();
    }
     
