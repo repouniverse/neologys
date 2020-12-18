@@ -99,7 +99,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> RepositorioAsesoresCursoDocs::find()
-                ->andWhere(['asesores_curso_id'=>$model->id,'activo'=>'1']),
+                ->andWhere(['asesores_curso_id'=>$model->id,'activo'=>'1','publico'=>'1']),
                         ]),
             'summary'=>'',
             'columns' => [
