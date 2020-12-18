@@ -78,7 +78,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                        $links=$model->listAttachedFiles();
                        $cadenaHtml='';
                        foreach($links as $codocu=>$link){
-                          $cadenaHtml.=Html::a($codocu,$link,['data-pjax'=>'0']).'<br>';
+                          $cadenaHtml.=Html::a($codocu,$link,['data-pjax'=>'0','class'=>'btn btn-success']).'<br>';
                        }
                        return $cadenaHtml;
                     },
