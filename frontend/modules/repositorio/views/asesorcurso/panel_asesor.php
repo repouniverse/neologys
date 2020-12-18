@@ -52,7 +52,8 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
     <?php 
     $docus=FormatoDocs::find()->where(['in','codocu',['159','160']])->all();
         foreach($docus as $docu){
-            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $docu->urlFirstFile, ['class'=>'btn btn-danger btn-sm' ]);
+            VAR_DUMP($docu->urlFirstFile);
+            //ECHO Html::a('<span class="glyphicon glyphicon-trash"></span>', $docu->urlFirstFile, ['class'=>'btn btn-danger btn-sm' ]);
           
         }   
         
