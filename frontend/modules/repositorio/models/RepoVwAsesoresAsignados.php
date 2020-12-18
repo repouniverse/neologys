@@ -37,10 +37,18 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
     
     const DOCU_PLAN_INVESTIGACION='156';
     const DOCU_TRABAJO_INVESTIGACION='157';
+    const DOCU_INFORME_PLAN_INVESTIGACION='158';
+    const DOCU_ACTA_PLAN_INVESTIGACION='159';
+    const DOCU_INFORME_TRABAJO_INVESTIGACION='160';
+    const DOCU_ACTA_TRABAJO_INVESTIGACION='161';
     
     private $_array_docs=[
         self::DOCU_PLAN_INVESTIGACION=>'1',
-        self::DOCU_TRABAJO_INVESTIGACION=>'0'
+        self::DOCU_TRABAJO_INVESTIGACION=>'0',
+        self::DOCU_INFORME_PLAN_INVESTIGACION=>'1',
+        self::DOCU_ACTA_PLAN_INVESTIGACION=>'1',
+        self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'1',
+        self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'1',
             ];
     
     /**
