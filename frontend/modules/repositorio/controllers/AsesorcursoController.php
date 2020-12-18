@@ -326,5 +326,18 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     
     }
    
-
+ public function actionAjaxShowCurso(){
+      $this->layout="install";
+        if (h::request()->isAjax) {
+            var_dump(h::request()->post('expandRowKey'));
+            die();
+            $id = h::request()->post('expandRowKey');
+            
+           // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
+           return $this->render('_expand_contenido',[
+              'identidad_unidad'=>$id,
+              
+              ]);
+        }
+  }
 }
