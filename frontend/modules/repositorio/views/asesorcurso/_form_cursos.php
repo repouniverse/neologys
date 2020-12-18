@@ -95,7 +95,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 /*echo Matricula::find()->select(['id','curso_id','seccion','periodo'])->
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
 ?>
-         <?="hola"?>   
+         
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> RepositorioAsesoresCursoDocs::find()
