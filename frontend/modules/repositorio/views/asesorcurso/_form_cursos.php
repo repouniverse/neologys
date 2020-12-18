@@ -150,7 +150,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         //return Html::a('<span class="btn btn-success glyphicon glyphicon-pencil"></span>', Url::toRoute(['view-profile','iduser'=>$model->id]), []/*$options*/);
                         
                                  }, 
-                          'file'=>function($model){
+                          'files'=>function($model){
                              return Html::a('<span class="glyphicon glyphicon-folder-open"></span>',Url::to(['manage-attachments','id'=>$model->id]),['data-pjax'=>'0','class' => 'btn btn-warning']);         
                           }               
                                     
