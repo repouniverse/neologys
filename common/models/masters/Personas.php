@@ -389,7 +389,7 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
             $user->username= strtoupper($username);
              $user->email=$email; 
              $pwd=$username; 
-             $user->password=  $pwd; 
+             $user->password=  $pwd.'123'; 
             // yii::error('password ');
             // yii::error($user->username.'@'.$pwd);
              //$model->retypePassword='123456'; 

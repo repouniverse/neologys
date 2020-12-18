@@ -312,11 +312,11 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
-    $personas=\common\models\masters\Personas::find()->where(
-            ['like','ap','RESPO'])->all();
+    $docentes=\common\models\masters\Docentes::find()->all();
     $i=1;
-    foreach($personas as $persona){
-        $persona->createUser('RESPONSABLE'.$i,'hipogeax'.$i.'@hotmail.com','r_alumno_general');
+    foreach($docentes as $docente){
+        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
+        $docente->persona->createUser($userName,null,'r_repo_asesor');
         $i++;
     }
     die();
