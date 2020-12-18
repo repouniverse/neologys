@@ -312,6 +312,15 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+   $usuarios= \common\models\User::find()->where(['>','id',1987])->all();
+   foreach($usuarios as $usuario){
+       $usuario->setPassword($usuario->username);
+       $usuario->save();
+   }
+    
+   die(); 
+   
+   
     $docentes=\common\models\masters\Docentes::find()->all();
     $i=1;
     foreach($docentes as $docente){
