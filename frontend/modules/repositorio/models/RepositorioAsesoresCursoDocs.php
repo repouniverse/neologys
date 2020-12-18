@@ -26,11 +26,9 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
      * {@inheritdoc}
      */
     public $booleanFields=['activo','publico'];
-     public $dateorTimeFields = [
-        'fpresentacion' => self::_FDATE,
-        /*'finicio' => self::_FDATETIME,
-        'ftermino' => self::_FDATETIME*/
-    ];
+    /* public $dateorTimeFields = [
+      
+    ];*/
     
     public static function tableName()
     {
@@ -64,6 +62,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             ,'date',
             true
             );
+         $this->fpresentacion='hola';
         $this->save();
     });
     parent::init();
