@@ -48,7 +48,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
       }
     
   public function init(){
-    $this->on(\nemmo\attachments\behaviors\FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
+    $this->on(FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
         /** @var $files \nemmo\attachments\models\File[] */
         $files = $event->files;
          //$fechahora=self::CarbonNow();    
