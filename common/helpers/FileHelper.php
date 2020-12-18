@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
 class FileHelper extends FileHelperOriginal {
    
+    
     const NOT_FOUND_MESSAGE='HTTP/1.1 404 Not Found';
     public static function extImages(){
         return ['jpg','bmp','png','jpeg','gif','svg','ico'];
