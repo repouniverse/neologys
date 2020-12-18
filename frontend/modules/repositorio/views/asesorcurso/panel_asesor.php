@@ -106,7 +106,20 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                        }
                        return $cadenaHtml;
                     },
-                ]
+                ],
+                 
+                [
+                    'format'=>'raw',
+                    'value'=>function($model){                       
+                         return Html::a('<span class="glyphicon glyphicon-folder-open"></span>',Url::to(['manage-attachments','id'=>$model->id]),['data-pjax'=>'0','class' => 'btn btn-warning']);         
+                       
+                    },
+                ]            
+                            
+                            
+                            
+                            
+                            
            
               ],
     ]); ?>
