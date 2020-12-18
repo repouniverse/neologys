@@ -51,7 +51,14 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     $this->on(FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
         /** @var $files \nemmo\attachments\models\File[] */
         $files = $event->files;
-         //$fechahora=self::CarbonNow();    
+         //$fechahora=self::CarbonNow();
+        yii::error('haciendo seguimiemto al trigger');
+        yii::error( self::CarbonNow()->format(timeHelper::formatMysqlDate()));
+        yii::error( self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            ));
         $this->fpresentacion=self::SwichtFormatDate(
             self::CarbonNow()->format(timeHelper::formatMysqlDate())
             ,'date',
