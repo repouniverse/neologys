@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Advisor pane
             'query'=> \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::find()->
                 andWhere([
                     'asesores_curso_id'=>$model->id,
-                    //'publico'=>'1'
+                    'activo'=>'1'
                     ]),
                         ]),
             'summary'=>'',
