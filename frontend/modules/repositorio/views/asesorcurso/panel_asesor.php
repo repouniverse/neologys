@@ -19,6 +19,7 @@ use yii\helpers\Url;
 <?php
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
+<div class="box box-succes">
 <div class="box-body">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -128,5 +129,5 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 
 
 </div>
- 
+ </div>
 
