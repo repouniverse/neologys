@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Advisor pane
 //$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
 
-<h4><?=yii::t('base_labels','Advisor panel')?></h4>
+<h4><?=$this->title?></h4>
 <div class="box box-succes">
 <div class="box-body">
 <div class="asesores-curso-form">
