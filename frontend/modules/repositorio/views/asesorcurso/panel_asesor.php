@@ -19,6 +19,7 @@ use yii\helpers\Url;
 <?php
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
+<h4><?=yii::t('base_labels','Advisor panel')?></h4>
 <div class="box box-succes">
 <div class="box-body">
 

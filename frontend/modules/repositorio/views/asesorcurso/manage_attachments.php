@@ -21,6 +21,18 @@ use yii\helpers\Url;
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 $modelAlumno=$model->alumno;
 ?>
+<?php 
+$this->title = Yii::t('base_labels', 'Manage files: {name}', [
+    'name' => $modelAlumno->fullName(),
+]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Advisor panel'), 'url' => ['panel-asesor']];
+//$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
+?>
+
+<h4><?=yii::t('base_labels','Advisor panel')?></h4>
+<div class="box box-succes">
+<div class="box-body">
 <div class="asesores-curso-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -117,6 +129,8 @@ $modelAlumno=$model->alumno;
     <?php ActiveForm::end(); ?>
 
 
+</div>
+</div>  
 </div>
  
 
