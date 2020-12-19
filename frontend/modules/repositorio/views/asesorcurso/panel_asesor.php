@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use common\helpers\comboHelper;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
-//use yii\grid\GridView;
-use kartik\grid\GridView;
+use yii\grid\GridView;
+//use kartik\grid\GridView;
 use common\models\masters\Matricula;
 use common\models\FormatoDocs;
 use yii\data\ActiveDataProvider;
@@ -19,7 +19,7 @@ use yii\helpers\Url;
 <?php
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
-<div class="asesores-curso-form">
+<div class="box-body">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -79,16 +79,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         ]),
             'summary'=>'',
             'columns' => [
-                   [
-                'class' => 'kartik\grid\ExpandRowColumn',
-                'width' => '50px',
-                'value' => function ($model, $key, $index, $column) {
-                            return GridView::ROW_COLLAPSED;
-                                },
-                     'detailUrl' =>Url::toRoute(['/repositorio/asesorcurso/ajax-show-docs']),
-                    //'headerOptions' => ['class' => 'kartik-sheet-style'], 
-                    'expandOneOnly' => true
-            ],  
+                   
                     //'codcur',
                     'descripcion',
                     'seccion',
