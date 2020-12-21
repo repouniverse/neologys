@@ -10,6 +10,7 @@ use yii;
 use yii\helpers\Url;
 use yii\web\User as UserOriginal;
 use Carbon\Carbon;
+use common\models\User as UserModel;
 
 class User extends UserOriginal {
     
@@ -211,7 +212,7 @@ class User extends UserOriginal {
    }  
  
    public  function isActive(){
-    return $this->identity->status == '10';
+    return $this->identity->status == UserModel::STATUS_ACTIVE;
 }
    
 private function setDuration(){

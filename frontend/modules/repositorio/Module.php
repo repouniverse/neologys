@@ -33,6 +33,31 @@ class Module extends \yii\base\Module
         
     }
     
+    // PARA REGISTRAR EL DICCIONARIO
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['modules/repositorio/*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@frontend/modules/repositorio/messages',
+            'fileMap' => [
+                'modules/repositorio/verbs' => 'verbs.php',
+                'modules/repositorio/validaciones' => 'validaciones.php',
+                'modules/repositorio/labels' => 'labels.php',
+                'modules/repositorio/errors' => 'errors.php',
+               'modules/repositorio/mails' => 'mails.php',
+                
+            ],
+        ];
+    }
+
+    //PARA LLAMAR AL DICCIONARIO
+    public static function t($category, $message, $params = [], $language = null)
+    {
+        
+        return Yii::t('modules/repositorio/' . $category, $message, $params, $language);
+    }
+    
     
     
 }

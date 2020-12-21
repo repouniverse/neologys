@@ -325,4 +325,27 @@ return[
         ////Cursos
     'Name course'=>'Nombre de curso',
     'Registration number'=>'Número de matrícula',
+    
+    //SUBIR ARCHIVO DE TRABAJO - ALUMNO 
+    'Manage your files' => 'Maneja tus archivos',
+    
+    //ACAD_SYLLABUS
+    'Update Syllabus'=>'Actualizar Syllabus',
+    'Summary and contents' => 'Resumen y contenido',
+    'Compentencies' => 'Competencias',
+    'Strategies' => 'Estrategias',
+    'Resources' => 'Recursos',
+    'Evaluation' => 'Evaluación',
+    'Sources' => 'Fuentes',
+    'Description' => 'Descripción',
+    'Capacity' => 'Capacidad',
+    'Comments' => 'Comentarios',
+    'Week' => 'Semana',
+    'Week number' => 'Número de semana',
+    'Week numbers' => 'Cantidad de Semanas',
+    'Conceptual contents' => 'Contenidos conceptuales',
+    'Procedural contents' => 'Contenidos procedimentales',
+    'Learning activity' => 'Actividad de aprendizaje',
+    
+    
     ];

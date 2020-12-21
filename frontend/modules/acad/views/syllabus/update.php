@@ -8,23 +8,21 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\acad\models\AcadSyllabus */
 
-$this->title = Yii::t('base_labels', 'Update Acad Syllabus: {name}', [
-    'name' => $model->id,
-]);
+$this->title = Yii::t('base_labels', 'Update Syllabus');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Acad Syllabi'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
 
 
-    <h4><?= Html::encode($this->title) ?></h4>
+    <h4><?= Html::encode($this->title).' : '.$model->id.'  ' ?></h4>
 <div class="box box-body">
   
      <?php $form = ActiveForm::begin(); ?>
        <div class="col-md-12">
             <div class="form-group no-margin">
-            <?= Html::submitButton(Yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
-             <?= Html::a(Yii::t('base_labels', 'Preview').h::awe('eye'),Url::to(['make-syllabus-pdf','id'=>$model->id]) ,['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Save'), ['class' => 'btn btn-success']) ?>
+             <?= Html::a(Yii::t('base_verbs', 'Preview').h::awe('eye'),Url::to(['make-syllabus-pdf','id'=>$model->id]) ,['class' => 'btn btn-success']) ?>
             </div>
         </div>
     <?php echo TabsX::widget
@@ -50,7 +48,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                             ],  
                             
                             [
-                                'label'=>'<i class="fa fa-home"></i> '.yii::t('base_labels','competencies'),
+                                'label'=>'<i class="fa fa-home"></i> '.yii::t('base_labels','Compentencies'),
                                 'content'=> $this->render('update_tab_competencias',['model' => $model,'form'=>$form]),
                                 'active' => false,
                                 'options' => ['id' => 'tr565myvnID3'],

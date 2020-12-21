@@ -49,9 +49,9 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
         return [
             'id' => Yii::t('base_labels', 'ID'),
             'syllabus_id' => Yii::t('base_labels', 'Syllabus ID'),
-            'descripcion' => Yii::t('base_labels', 'Descripcion'),
-            'capacidad' => Yii::t('base_labels', 'Capacidad'),
-            'comentarios' => Yii::t('base_labels', 'Comentarios'),
+            'descripcion' => Yii::t('base_labels', 'Description'),
+            'capacidad' => Yii::t('base_labels', 'Capacity'),
+            'comentarios' => Yii::t('base_labels', 'Comments'),
             'n_semana'=> Yii::t('base_labels', 'Week number'),
             'numero_semanas'=> Yii::t('base_labels', 'Week numbers'),
         ];

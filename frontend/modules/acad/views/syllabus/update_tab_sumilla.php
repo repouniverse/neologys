@@ -38,7 +38,7 @@ use yii\widgets\Pjax;
         $identidad_syllabus=$model->id;
          $id_pjax_sumilla= 'grid_sumilla';
         $url= Url::to(['modal-crear-unidad','id'=>$model->id,'gridName'=>$id_pjax_sumilla,'idModal'=>'buscarvalor']);
-        echo  Html::button(yii::t('base_verbs','Add unit'), ['href' => $url, 'title' => yii::t('base_verbs','Add unit'),'id'=>'btn_unidad', 'class' => 'botonAbre btn btn-success']); 
+        echo  Html::button(yii::t('base_verbs','Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs','Add Unit'),'id'=>'btn_unidad', 'class' => 'botonAbre btn btn-success']); 
         
         
        
