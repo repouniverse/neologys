@@ -177,7 +177,7 @@ $this->registerCssFile("@web/css/documentos.css");
     <div class="pt2 titsil">
         VII. EVALUACIÓN DEL APRENDIZAJE
     </div>
-        <div class="justificacion">POR DEFINIR </div>
+        <div class="justificacion"><?=$model->reserva1?> </div>
         
    
 

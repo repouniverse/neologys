@@ -326,5 +326,29 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     
     }
    
-
+ public function actionAjaxShowDocs(){
+      $this->layout="install";
+        if (h::request()->isAjax) {
+            var_dump($_POST);
+            var_dump(h::request()->post('expandRowKey'));
+            die();
+            $id = h::request()->post('expandRowKey');
+            
+           // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
+           return $this->render('_expand_contenido',[
+              'identidad_unidad'=>$id,
+              
+              ]);
+        }
+  }
+  
+  public function actionManageAttachments($id){
+    $model=$this->findModel($id);
+    $modelVista= RepoVwAsesoresAsignados::findOne(['id'=>$id]);
+    $modelVista->generateDocs();
+    return $this->render('manage_attachments',['model'=>$model]);
+      
+  }
+  
+  
 }

@@ -4,6 +4,7 @@ namespace frontend\modules\repositorio\models;
 use common\models\masters\Documentos;
 use common\models\masters\AsesoresCurso;
 use common\behaviors\FileBehavior;
+use common\helpers\timeHelper;
 use Yii;
 
 /**
@@ -24,7 +25,10 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
-    public $booleanFields=['activo'];
+    public $booleanFields=['activo','publico'];
+    /* public $dateorTimeFields = [
+      
+    ];*/
     
     public static function tableName()
     {
@@ -41,7 +45,28 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         ];
       }
     
-    
+  public function init(){
+    $this->on(FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
+        /** @var $files \nemmo\attachments\models\File[] */
+        $files = $event->files;
+         //$fechahora=self::CarbonNow();
+        yii::error('haciendo seguimiemto al trigger');
+        yii::error( self::CarbonNow()->format(timeHelper::formatMysqlDate()));
+        yii::error( self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            ));
+        $this->fpresentacion=self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            );
+         $this->fpresentacion='hola';
+        $this->save();
+    });
+    parent::init();
+   }  
 
     /**
      * {@inheritdoc}
@@ -52,8 +77,9 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             [['asesores_curso_id'], 'required'],
             [['asesores_curso_id'], 'integer'],
             [['comentarios'], 'string'],
-            [['activo'], 'safe'],
+            [['activo','publico'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
+             [['fpresentacion'], 'safe'],
             [['fpresentacion'], 'string', 'max' => 10],
             [['orcid'], 'string', 'max' => 250],
             [['codocu'], 'exist', 'skipOnError' => true, 'targetClass' => Documentos::className(), 'targetAttribute' => ['codocu' => 'codocu']],

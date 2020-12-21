@@ -313,131 +313,70 @@ public function actionAuthWithQuestions(){
 
 public function actionRutas(){
     
-    
-    
-    
-    
+    $model= \common\models\User::findOne(2008);
+    $model->setPassword('AALEMAN123');
+    $model->save();
     die();
-  $array1=[
-'1271',
-'6367',
-'1930',
-'2711',
-'2589',
-'6148',
-'1110',
-'6147',
-'2215',
-'4032',
-'4892',
-'1071',
-'3493',
-'4996',
-'1730',
-'6467',
-'1812',
-'4673',
-'3928',
-'3900',
-'4733',
-'1417',
-'4433',
-'2601',
-'3330',
-'4744',
-'4553',
-'3705',
-'2781',
-'5415',
-'5407',
-'1141',
-'3334',
-'1665',
-'6020',
-'616',
-'3933',
-'3250',
-'1171',
-'3557',
-'1485',
-'1381',
-'812',
-'6192',
-'4778',
-'2525',
-'4288',
-'5484',
-'3101',
-'1775',
-'4078',
-'4718',
-'3166',
-'5176',
-'1630',
-'432',
-'1152',
-'5673',
-'3938',
-'2950',
-'5823',
-'3311',
-'1575',
-'1876',
-'4438',
-'2245',
-'1835',
-'1960',
-'5370',
-'1731',
-'2335',
-'4498',
-'6197',
-'1904',
-'2831',
-'1814',
-'4312',
-'961',
-'1406',
-'4779',
-'3368',
-'2015',
-'3161',
-'1631',
-'2921',
-'6263',
-'1891',
-'4508',
-'3978',
-'986',
-'2449',
-'6071',
-'317',
-'3585',
-'5709',
-'3899',
-'6472',
-'1371',
-'1173',
-'2020',
-'5580',
-'4715',
-'315',
-'6368',
-'877',
-'2329',
-'2906',
-'1176',
-
-];
- 
-foreach($array1 as $clave=>$valor){    
-  $persona=\common\models\masters\Personas::findOne($valor)->
-    createUser(null, null, 'r_alumno_general');  
-  yii::error('se ejecuto hasta '.$valor);
-}
     
-die();
+    
+    
+    
+   $model= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::findOne(4);
+  // $model->fpresentacion='12/12/2020';
+   $fecha= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDate());
+   echo $fecha."<br>";
+   $fecha=\frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::SwichtFormatDate(
+            $fecha
+            ,'date',
+            true
+            );
+   echo $fecha;
+   $model->fpresentacion=$fecha;
+   $model->save();
+   die();
   
+ 
+   echo \common\models\masters\Alumnos::SwichtFormatDate(
+            $fecha
+            ,'date',
+            true
+            );
+   die();
+    
+    
+    
+   $usuarios= \common\models\User::find()->where(['>','id',1987])->all();
+   foreach($usuarios as $usuario){
+       $usuario->setPassword($usuario->username.'123');
+       $usuario->save();
+   }
+    
+   die(); 
+   
+   
+    $docentes=\common\models\masters\Docentes::find()->all();
+    $i=1;
+    foreach($docentes as $docente){
+        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
+        $docente->persona->createUser($userName,null,'r_repo_asesor');
+        $i++;
+    }
+    die();
+    
+    
+    
+    
+    
+    
+    
+    $model=\frontend\modules\acad\models\AcadTramiteSyllabus::findOne(1);
+    $model->aprobado=true;
+    //var_dump($model->hasChanged('aprobado'));
+    die();
+    echo $model->aprove();
+    die();
+    
+    
     
     
     

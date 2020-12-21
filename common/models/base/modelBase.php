@@ -584,6 +584,7 @@ class modelBase extends \yii\db\ActiveRecord
                                                     'php:'.$this->getGeneralFormat($formatToShow,$typ,$show)
                                                        );
                   //yii::error(' El resultado : '.$resultado);
+            
              return $resultado;
         }
         
