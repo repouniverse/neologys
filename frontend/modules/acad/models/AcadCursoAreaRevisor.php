@@ -137,7 +137,7 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPlan()
+    public function getPlan() 
     {
         return $this->hasOne(Planes::className(), ['id' => 'plan_id']);
     }
