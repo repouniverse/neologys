@@ -4,7 +4,7 @@ namespace frontend\modules\repositorio;
 use common\models\masters\PlanesEstudio;
 use yii\helpers\ArrayHelper;
 /**
- * repositorio module definition class
+ * repositorio module definition class 
  */
 class Module extends \yii\base\Module
 {
