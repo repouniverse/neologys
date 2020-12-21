@@ -18,7 +18,7 @@ if(!$this->existsTable($table)){
         $this->createTable($table, [
                 'id'=>$this->primaryKey(),           
                 'curso_area_id'=>$this->integer(11)->notNull(),
-                'docente_revisor_id'=>$this->integer(11)->notNull(),
+               // 'docente_revisor_id'=>$this->integer(11)->notNull(),
                 'docente_responsable_id'=>$this->integer(11)->notNull(),
                 'persona_asesor_ugai_id'=>$this->integer(11)->notNull(), 
                 'persona_corrector_id'=>$this->integer(11)->notNull(), 
@@ -30,9 +30,9 @@ if(!$this->existsTable($table)){
          $this->addForeignKey($this->generateNameFk($table), $table,
               'curso_area_id', static::NAME_TABLE_CURSO_AREA,'id');
          
-          $this->addForeignKey($this->generateNameFk($table), $table,
+         /* $this->addForeignKey($this->generateNameFk($table), $table,
               'docente_revisor_id', static::NAME_TABLE_DOCENTES,'id');
-           $this->addForeignKey($this->generateNameFk($table), $table,
+          */ $this->addForeignKey($this->generateNameFk($table), $table,
               'docente_responsable_id', static::NAME_TABLE_DOCENTES,'id');
            
            $this->addForeignKey($this->generateNameFk($table), $table,
