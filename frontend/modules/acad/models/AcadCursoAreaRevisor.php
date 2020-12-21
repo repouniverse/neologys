@@ -4,7 +4,7 @@ namespace frontend\modules\acad\models;
 use common\models\masters\Docentes;
 use common\models\masters\Personas;
 use common\models\masters\CursoArea;
-use common\models\masters\Planes;
+use common\models\masters\PlanesEstudio;
 use Yii;
 
 /**
@@ -51,7 +51,7 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
             [['curso_area_id'], 'exist', 'skipOnError' => true, 'targetClass' => CursoArea::className(), 'targetAttribute' => ['curso_area_id' => 'id']],
             [['persona_director_escuela_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_director_escuela_id' => 'id']],
             [['persona_corrector_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_corrector_id' => 'id']],
-            [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Planes::className(), 'targetAttribute' => ['plan_id' => 'id']],
+            [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => \common\models\masters\PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
         ];
     }
 
@@ -139,6 +139,6 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
      */
     public function getPlan() 
     {
-        return $this->hasOne(Planes::className(), ['id' => 'plan_id']);
+        return $this->hasOne(\common\models\masters\PlanesEstudio::className(), ['id' => 'plan_id']);
     }
 }

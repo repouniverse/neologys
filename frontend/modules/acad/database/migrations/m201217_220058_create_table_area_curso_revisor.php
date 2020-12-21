@@ -9,7 +9,7 @@ class m201217_220058_create_table_area_curso_revisor extends baseMigration
     const NAME_TABLE_DOCENTES='{{%docentes}}'; 
      const NAME_TABLE_PERSONAS='{{%personas}}'; 
      
-      const NAME_TABLE_PLANES='{{%planes}}'; 
+      const NAME_TABLE_PLANES='{{%planes_estudio}}'; 
     public function safeUp()
     {
 

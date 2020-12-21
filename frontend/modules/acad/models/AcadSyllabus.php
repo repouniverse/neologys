@@ -297,7 +297,7 @@ class AcadSyllabus extends \common\models\base\modelBase
                     'orden'=>$orden,
                    'aprobado'=>'0',
                    'fecha_recibido'=>$fecha,
-                    'user_id'=>$this->user_flujo()[$orden],
+                    'user_id'=>$this->resolveUserFlujo($orden),
                      'descripcion'=>yii::t('base_labels',$valor),
                   ],
               null,
@@ -311,8 +311,13 @@ class AcadSyllabus extends \common\models\base\modelBase
       
   }
    
-  private function user_flujo(){
-      return [0=>124,1=>125,2=>126,3=>127,4=>128];
+  private function resolveUserFlujo(int $orden){
+      if($orden==0)return Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;
+      $area_curso=$this->plan->curso->area_id;
+      
+      
+      
+      //return [0=>124,1=>125,2=>126,3=>127,4=>128];
   }
   
 }
