@@ -76,7 +76,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
             'query'=> frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->
                 andWhere([
                     'docente_id'=>$modelDocente->id,
-                    'activo'=>'1'
+                    //'activo'=>'1'
                     ]),
                         ]),
             'summary'=>'',

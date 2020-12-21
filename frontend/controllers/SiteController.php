@@ -312,6 +312,14 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    
+    $model= \common\models\User::findOne(2008);
+    $model->setPassword('AALEMAN123');
+    die();
+    
+    
+    
+    
    $model= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::findOne(4);
   // $model->fpresentacion='12/12/2020';
    $fecha= \frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDate());
