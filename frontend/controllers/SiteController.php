@@ -315,6 +315,7 @@ public function actionRutas(){
     
     $model= \common\models\User::findOne(2008);
     $model->setPassword('AALEMAN123');
+    $model->save();
     die();
     
     
