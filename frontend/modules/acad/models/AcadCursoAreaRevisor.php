@@ -43,10 +43,10 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['curso_area_id', 'docente_revisor_id', 'docente_responsable_id', 'persona_asesor_ugai_id', 'persona_corrector_id', 'persona_director_escuela_id', 'plan_id'], 'required'],
-            [['curso_area_id', 'docente_revisor_id', 'docente_responsable_id', 'persona_asesor_ugai_id', 'persona_corrector_id', 'persona_director_escuela_id', 'plan_id'], 'integer'],
+            [['curso_area_id',  'docente_responsable_id', 'persona_asesor_ugai_id', 'persona_corrector_id', 'persona_director_escuela_id', 'plan_id'], 'required'],
+            [['curso_area_id',  'docente_responsable_id', 'persona_asesor_ugai_id', 'persona_corrector_id', 'persona_director_escuela_id', 'plan_id'], 'integer'],
             [['persona_asesor_ugai_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_asesor_ugai_id' => 'id']],
-            [['docente_revisor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_revisor_id' => 'id']],
+            //[['docente_revisor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_revisor_id' => 'id']],
             [['docente_responsable_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_responsable_id' => 'id']],
             [['curso_area_id'], 'exist', 'skipOnError' => true, 'targetClass' => CursoArea::className(), 'targetAttribute' => ['curso_area_id' => 'id']],
             [['persona_director_escuela_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_director_escuela_id' => 'id']],
@@ -63,7 +63,7 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
         return [
             'id' => 'ID',
             'curso_area_id' => 'Curso Area ID',
-            'docente_revisor_id' => 'Docente Revisor ID',
+            //'docente_revisor_id' => 'Docente Revisor ID',
             'docente_responsable_id' => 'Docente Responsable ID',
             'persona_asesor_ugai_id' => 'Persona Asesor Ugai ID',
             'persona_corrector_id' => 'Persona Corrector ID',
