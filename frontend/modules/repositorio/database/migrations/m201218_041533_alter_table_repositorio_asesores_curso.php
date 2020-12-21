@@ -22,9 +22,10 @@ if(!$this->existsColumn($table,'publico'))
      */
     public function safeDown()
     {
-       $table=static::NAME_TABLE; 
+        return true;
+      /* $table=static::NAME_TABLE; 
       if($this->existsColumn($table,'publico'))
-           $this->dropColumn($table,'publico');
+           $this->dropColumn($table,'publico');*/
      
       
     }

@@ -8,6 +8,8 @@ class m201217_220058_create_table_area_curso_revisor extends baseMigration
     const NAME_TABLE_CURSO_AREA='{{%curso_area}}';   
     const NAME_TABLE_DOCENTES='{{%docentes}}'; 
      const NAME_TABLE_PERSONAS='{{%personas}}'; 
+     
+      const NAME_TABLE_PLANES='{{%planes}}'; 
     public function safeUp()
     {
 
@@ -21,6 +23,7 @@ if(!$this->existsTable($table)){
                 'persona_asesor_ugai_id'=>$this->integer(11)->notNull(), 
                 'persona_corrector_id'=>$this->integer(11)->notNull(), 
                 'persona_director_escuela_id'=>$this->integer(11)->notNull(),
+                'plan_id'=>$this->integer(11)->notNull(),
                // 'persona_corrector_id'=>$this->integer(11)->notNull(),
             ], $this->collateTable());
       
@@ -37,6 +40,9 @@ if(!$this->existsTable($table)){
            
            $this->addForeignKey($this->generateNameFk($table), $table,
               'persona_asesor_ugai_id', static::NAME_TABLE_PERSONAS,'id');
+           
+           $this->addForeignKey($this->generateNameFk($table), $table,
+              'plan_id', static::NAME_TABLE_PLANES,'id');
            
            
            $this->addForeignKey($this->generateNameFk($table), $table,
