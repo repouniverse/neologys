@@ -296,6 +296,7 @@ class AcadSyllabus extends \common\models\base\modelBase
                   'codocu'=>self::CODIGO_DOCUMENTO,
                     'docu_id'=>$this->id, 
                     'orden'=>$orden,
+                  'focus'=>($orden==0)?true:false,
                    'aprobado'=>'0',
                    'fecha_recibido'=>$fecha,
                     'user_id'=>$this->resolveUserFlujo($orden),

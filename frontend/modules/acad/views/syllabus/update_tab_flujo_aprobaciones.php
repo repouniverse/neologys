@@ -25,7 +25,7 @@ use yii\widgets\Pjax;
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> frontend\modules\acad\models\AcadTramiteSyllabus::find()->
-                select(['user_id','descripcion','fecha_recibido','fecha_aprobacion'])
+                select(['user_id','descripcion','focus','fecha_recibido','fecha_aprobacion'])
                 ->andWhere(['docu_id'=>$model->id])
         ]),
         //'filterModel' => $searchModel,
@@ -48,7 +48,19 @@ use yii\widgets\Pjax;
                         return '<i style="font-size:20px;color:'.$color.'">'. h::awe('check').'</i>';
                   }
               
-                  ],  
+                  ], 
+             ['attribute'=>'focus',
+                 'format'=>'raw',
+                   'value'=>function($model){
+                        $link=Url::to(['aprobe-syllabus']);
+                         if($model->focus){
+                             return Html::a('<span class="fa fa-check"></span>Aprobar',$link,['data-pjax'=>'0','class'=>'btn btn-success']);
+                         }else{
+                             return '';
+                         }
+                    }
+              
+                 ],
          [
                'attribute'=>'fecha_recibido',
               // 'format'=>'raw',

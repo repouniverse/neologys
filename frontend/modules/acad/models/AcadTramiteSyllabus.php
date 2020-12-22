@@ -27,10 +27,14 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         'fecha_aprobacion' => self::_FDATETIME,
         'fecha_recibido' => self::_FDATETIME,
         ];
+    public $booleanFields=['aprobado','focus'];
+    
     public static function tableName()
     {
         return '{{%acad_tramite_syllabus}}';
     }
+    
+     
 
     /**
      * {@inheritdoc}
@@ -41,9 +45,9 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
             [['codocu', 'docu_id', 'user_id', 'orden', 'aprobado'], 'required'],
             [['docu_id', 'user_id', 'orden'], 'integer'],
             [['motivo','descripcion'], 'string'],
-             [['descripcion','fecha_aprobacion','fecha_recibido'], 'safe'],
+             [['descripcion','fecha_aprobacion','fecha_recibido','focus'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
-            [['aprobado'], 'string', 'max' => 1],
+            //[['aprobado'], 'string', 'max' => 1],
             [['fecha_recibido', 'fecha_aprobacion'], 'string', 'max' => 19],
         ];
     }
@@ -114,12 +118,13 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
    }
    
   public function beforeSave($insert) {
-      yii::error('before save');
-      yii::error($this->hasChanged('aprobado'));
-       yii::error($insert);
+     // yii::error('before save');
+      //yii::error($this->hasChanged('aprobado'));
+       //yii::error($insert);
       if($this->hasChanged('aprobado') && !$insert ){
-          yii::error('afteraprove');
+          //yii::error('afteraprove');
           $this->afterAprove();
+         
       }
       return parent::beforeSave($insert);
   }
@@ -131,11 +136,12 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
                   \common\helpers\timeHelper::formatMysqlDateTime()
                   ); //'2020-12-17 13:23:00'
           $this->fecha_aprobacion=$this->swichtDate('fecha_aprobacion', true);
+          $this->focus=false;
           yii::error($this->fecha_aprobacion);
           $otro=$this->next(); 
           if($otro){
               yii::error('otro');
-              
+              $otro->focus=true;
               $otro->fecha_recibido=self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
               $this->fecha_recibido=$this->swichtDate('fecha_recibido', true);
               yii::error($this->fecha_recibido);
@@ -145,9 +151,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
           
       }else{
           $this->fecha_aprobacion='';
+          $this->focus=true;
           $siguiente=$this->next();
           if($siguiente){
               if(!$siguiente->aprobado){
+                  $siguiente->focus=false;
                   $siguiente->fecha_recibido='';
                   $siguiente->save();
               }
