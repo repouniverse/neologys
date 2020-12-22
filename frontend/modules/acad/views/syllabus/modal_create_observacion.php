@@ -15,9 +15,9 @@ use common\helpers\h;
         <div class="col-md-12">
             <div class="form-group no-margin">
           <?php if($model->isNewRecord){
-                    $url=Url::to(['/acad/'.$this->context->id.'/model-create-observacion','id'=>$id]);
+                    $url=Url::to(['/acad/'.$this->context->id.'/modal-create-observacion','id'=>$id]);
                      } else{
-                      $url=Url::to(['/acad/'.$this->context->id.'/model-edit-observacion','id'=>$model->id]);   
+                      $url=Url::to(['/acad/'.$this->context->id.'/modal-edit-observacion','id'=>$model->id]);   
                      }
               ?>
           <?= \common\widgets\buttonsubmitwidget\buttonSubmitWidget::widget(

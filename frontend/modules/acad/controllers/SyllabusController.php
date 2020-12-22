@@ -547,7 +547,8 @@ class SyllabusController extends baseController
  public function actionModalCreateObservacion($id){
      $this->layout = "install";
         $modelFlujo = \frontend\modules\acad\models\AcadTramiteSyllabus::findOne($id);
-        if(is_null($modelPlan))return '';
+        //var_dump($modelFlujo);die();
+        if(is_null($modelFlujo))return '';
         
         $model=New \frontend\modules\acad\models\AcadObservacionesSyllabus([
             'flujo_syllabus_id'=>$modelFlujo->id,

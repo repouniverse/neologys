@@ -89,6 +89,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         return $this->hasOne(AcadVwSyllabus::className(), ['id' => 'docu_id']);
     }
     
+     public function getObservaciones()
+    {
+        return $this->hasOne(AcadObservacionesSyllabus::className(), ['flujo_syllabus_id' => 'id']);
+    }
+    
     public function next(){
        if($this->isFinal())return false;
        return static::find()->where(['docu_id'=>$this->id])
@@ -168,5 +173,7 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
       $this->save();
   }
   
-  
+  public function hasObservaciones(){
+      return $this->getObservaciones()->exists();
+  }
 }

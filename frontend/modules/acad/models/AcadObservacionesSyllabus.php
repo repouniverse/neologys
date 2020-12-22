@@ -37,6 +37,11 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
             [['flujo_syllabus_id', 'syllabus_id'], 'integer'],
             [['observacion'], 'string'],
             [['seccion'], 'string', 'max' => 40],
+            
+             [['fecha'], 'string', 'max' => 19],
+            
+            [['flujo_syllabus_id', 'syllabus_id'], 'unique','targetAttribute'=>['flujo_syllabus_id', 'syllabus_id']],
+            
             [['fecha'], 'string', 'max' => 19],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
             [['flujo_syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadTramiteSyllabus::className(), 'targetAttribute' => ['flujo_syllabus_id' => 'id']],
@@ -85,5 +90,15 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     public static function find()
     {
         return new AcadObservacionesSyllabusQuery(get_called_class());
+    }
+    
+    public function afterSave($insert, $changedAttributes) {
+        
+        $this->notificaMail();
+        return parent::afterSave($insert, $changedAttributes);
+    }
+    
+    private function notificaMail(){
+        return true;
     }
 }

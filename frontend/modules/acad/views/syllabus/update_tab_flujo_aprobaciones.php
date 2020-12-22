@@ -25,7 +25,7 @@ use yii\widgets\Pjax;
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> frontend\modules\acad\models\AcadTramiteSyllabus::find()->
-                select(['user_id','descripcion','focus','fecha_recibido','fecha_aprobacion'])
+                select(['id','user_id','descripcion','focus','fecha_recibido','fecha_aprobacion'])
                 ->andWhere(['docu_id'=>$model->id])
         ]),
         //'filterModel' => $searchModel,
@@ -52,9 +52,16 @@ use yii\widgets\Pjax;
              ['attribute'=>'focus',
                  'format'=>'raw',
                    'value'=>function($model){
-                        $link=Url::to(['aprobe-syllabus']);
                          if($model->focus){
-                             return Html::a('<span class="fa fa-check"></span>Aprobar',$link,['data-pjax'=>'0','class'=>'btn btn-success']);
+                             $link=Url::to(['aprobe-syllabus']);
+                             $link2=Url::to(['modal-create-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
+                        
+                             $buton1=Html::a('<span class="fa fa-check"></span>Aprobar',$link,['data-pjax'=>'0','class'=>'btn btn-warning']);
+                             $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                             
+                             return $buton1.$buton2;
+                              
+                             
                          }else{
                              return '';
                          }

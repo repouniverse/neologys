@@ -187,6 +187,22 @@ class AcadSyllabus extends \common\models\base\modelBase
         return $this->hasMany(AcadSyllabusCompetencias::className(), ['syllabus_id' => 'id']);
     }
     
+    
+     public function getObservaciones()
+    {
+        return $this->hasMany(AcadObservacionesSyllabus::className(), ['syllabus_id' => 'id']);
+    }
+    
+    public function getFlujos()
+    {
+        return $this->hasMany(AcadTramiteSyllabus::className(), ['docu_id' => 'id']);
+    }
+    
+    public function getFlujosFocus()
+    {
+        return $this->hasMany(AcadTramiteSyllabus::className(), ['docu_id' => 'id'])->andWhere(['focus'=>'1']);
+    }
+    
     /**
      * {@inheritdoc}
      * @return AcadSyllabusQuery the active query used by this AR class.
@@ -339,5 +355,17 @@ class AcadSyllabus extends \common\models\base\modelBase
       return    $user_id; 
      
   }
+  
+  
+  
+  public function hasObservaciones(){
+      if($flujo=$this->getFlujosFocus()->one()){
+           return $flujo->hasObservaciones();
+      }else{
+          return false;
+      }
+     
+  }
+  
   
 }
