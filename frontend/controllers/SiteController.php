@@ -313,6 +313,19 @@ public function actionAuthWithQuestions(){
 
 public function actionRutas(){
     
+     $docentes=\common\models\masters\Docentes::find()->all();
+    $i=1;
+    foreach($docentes as $docente){
+        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
+        $docente->persona->createUser($userName,null,'r_alumno_general');
+        $i++;
+    }
+    die();
+    
+    
+    
+    
+    
     $model= \common\models\User::findOne(2008);
     $model->setPassword('AALEMAN123');
     $model->save();
@@ -354,14 +367,7 @@ public function actionRutas(){
    die(); 
    
    
-    $docentes=\common\models\masters\Docentes::find()->all();
-    $i=1;
-    foreach($docentes as $docente){
-        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
-        $docente->persona->createUser($userName,null,'r_repo_asesor');
-        $i++;
-    }
-    die();
+   
     
     
     

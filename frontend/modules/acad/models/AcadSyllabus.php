@@ -3,6 +3,7 @@
 namespace frontend\modules\acad\models;
 use common\models\masters\Cursos;
 use common\models\masters\Docentes;
+use common\models\masters\Personas;
 use common\models\masters\PlanesEstudio;
 use common\helpers\h;
 use Yii;
@@ -312,12 +313,30 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
    
   private function resolveUserFlujo(int $orden){
-      if($orden==0)return Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;
-      $area_curso=$this->plan->curso->area_id;
-      
-      
-      
-      //return [0=>124,1=>125,2=>126,3=>127,4=>128];
+       $model_revision= AcadCursoAreaRevisor::findOne($this->plan_id); 
+      if($orden==0){
+          //var_dump($this->docente_owner_id);die();
+        $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
+      }elseif($orden==1){
+          //$model_revision->docente_responsable_id;
+          $user_id= Docentes::findOne($model_revision->docente_responsable_id)->persona->profile->user->id;
+      }
+      elseif($orden==2){
+          $user_id= Personas::findOne($model_revision->persona_asesor_ugai_id)->profile->user->id;
+         // $model_revision->persona_asesor_ugai_id;
+      }elseif($orden==3){
+          $user_id= Personas::findOne($model_revision->persona_corrector_id)->profile->user->id;
+        
+          //$model_revision->persona_corrector_id;
+      }elseif($orden==4){
+          $user_id= Personas::findOne($model_revision->persona_director_escuela_id)->profile->user->id;
+        
+          // $model_revision->persona_director_escuela_id;
+      }else{
+          return false;
+      }
+      return    $user_id; 
+     
   }
   
 }
