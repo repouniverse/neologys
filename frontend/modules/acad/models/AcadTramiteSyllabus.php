@@ -80,6 +80,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         return $this->hasOne(AcadSyllabus::className(), ['id' => 'docu_id']);
     }
     
+     public function getSyllabusView()
+    {
+        return $this->hasOne(AcadVwSyllabus::className(), ['id' => 'docu_id']);
+    }
+    
     public function next(){
        if($this->isFinal())return false;
        return static::find()->where(['docu_id'=>$this->id])

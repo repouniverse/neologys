@@ -538,4 +538,11 @@ class SyllabusController extends baseController
         return $mpdf;
     }
     
+ public function actionAprobeSyllabus(){
+     $idUser=h::userId();
+    return  $this->render('aprobe_syllabus',['idUser'=>$idUser]); 
+ }
+ 
+ 
+    
 }
