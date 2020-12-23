@@ -329,9 +329,9 @@ return[
     //SUBIR ARCHIVO DE TRABAJO - ALUMNO 
     'Manage your files' => 'Maneja tus archivos',
     
-    //ACAD_SYLLABUS
+    //ACAD_SYLLABUS 
     'Update Syllabus'=>'Actualizar Syllabus',
-    'Summary and contents' => 'Resumen y contenido',
+    'Summary and contents' => 'Sumilla y contenido',
     'Compentencies' => 'Competencias',
     'Strategies' => 'Estrategias',
     'Resources' => 'Recursos',
