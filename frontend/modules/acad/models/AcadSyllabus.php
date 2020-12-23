@@ -198,10 +198,7 @@ class AcadSyllabus extends \common\models\base\modelBase
         return $this->hasMany(AcadTramiteSyllabus::className(), ['docu_id' => 'id']);
     }
     
-    public function getFlujosFocus()
-    {
-        return $this->hasMany(AcadTramiteSyllabus::className(), ['docu_id' => 'id'])->andWhere(['focus'=>'1']);
-    }
+  
     
     /**
      * {@inheritdoc}
@@ -359,13 +356,12 @@ class AcadSyllabus extends \common\models\base\modelBase
   
   
   public function hasObservaciones(){
-      if($flujo=$this->getFlujosFocus()->one()){
-           return $flujo->hasObservaciones();
-      }else{
-          return false;
-      }
-     
+      
+  return $this->getFlujos()->where(['activo'=>'1'])->exists();
   }
+  
+  
+  
   
   
 }

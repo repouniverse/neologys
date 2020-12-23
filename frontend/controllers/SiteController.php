@@ -312,6 +312,13 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+   $model= \frontend\modules\acad\models\AcadTramiteSyllabus::findOne(49);
+    $model->aprobado=true;
+    $model->save();
+    
+    die();
+    
+    
     
      $docentes=\common\models\masters\Docentes::find()->all();
     $i=1;

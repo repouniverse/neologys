@@ -577,5 +577,25 @@ class SyllabusController extends baseController
        
  }
  
-    
+ public function actionAjaxAprobeFlujo($id){
+     if(h::request()->isAjax){
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+         $modelFlujo= \frontend\modules\acad\models\AcadTramiteSyllabus::findOne($id);
+            if(is_null($modelFlujo)){
+                return ['error'=>yii::t('base_errors','Record not found')];
+            }else{
+                //;
+                if($modelFlujo->aprove()){
+                    return ['success'=>yii::t('base_labels','Document was aprobed')];
+                }else{
+                   return ['error'=>yii::t('base_errors',$modelFlujo->getFirstError())]; 
+                }                
+            }
+     }  
+ }
+ 
+ 
+ 
+ 
+ 
 }

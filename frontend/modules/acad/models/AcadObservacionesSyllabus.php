@@ -22,6 +22,9 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
+    
+    public $booleanFields=['activo'];
+    
     public static function tableName()
     {
         return '{{%acad_observaciones_syllabus}}';
@@ -36,12 +39,10 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
             [['flujo_syllabus_id', 'syllabus_id'], 'required'],
             [['flujo_syllabus_id', 'syllabus_id'], 'integer'],
             [['observacion'], 'string'],
-            [['seccion'], 'string', 'max' => 40],
-            
-             [['fecha'], 'string', 'max' => 19],
-            
+             [['activo'], 'safe'],
+            [['seccion'], 'string', 'max' => 40],            
+             [['fecha'], 'string', 'max' => 19],            
             [['flujo_syllabus_id', 'syllabus_id'], 'unique','targetAttribute'=>['flujo_syllabus_id', 'syllabus_id']],
-            
             [['fecha'], 'string', 'max' => 19],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
             [['flujo_syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadTramiteSyllabus::className(), 'targetAttribute' => ['flujo_syllabus_id' => 'id']],

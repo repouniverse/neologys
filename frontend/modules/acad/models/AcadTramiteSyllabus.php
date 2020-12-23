@@ -89,29 +89,30 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         return $this->hasOne(AcadVwSyllabus::className(), ['id' => 'docu_id']);
     }
     
-     public function getObservaciones()
-    {
-        return $this->hasOne(AcadObservacionesSyllabus::className(), ['flujo_syllabus_id' => 'id']);
-    }
+     
     
     public function next(){
        if($this->isFinal())return false;
-       return static::find()->where(['docu_id'=>$this->id])
+       /*yii::error(static::find()->where(['docu_id'=>$this->docu_id])
+           ->andWhere(['>','orden',$this->orden])->orderBy(['orden'=>SORT_ASC])-> 
+           createCommand()->rawSql);*/
+       
+       return static::find()->where(['docu_id'=>$this->docu_id])
            ->andWhere(['>','orden',$this->orden])->orderBy(['orden'=>SORT_ASC])->one();
        
     }
     public function prev(){
        if($this->isBegin())return false; 
-       return static::find()->where(['docu_id'=>$this->id])
+       return static::find()->where(['docu_id'=>$this->docu_id])
            ->andWhere(['<','orden',$this->orden])->orderBy(['orden'=>SORT_DESC])->one();
     }
     
     public function isFinal(){
-      return ($this->orden=max(array_keys($this->syllabus->flujo)));
+      return ($this->orden==max(array_keys($this->syllabus->flujo)));
     }
     
     public function isBegin(){
-      return ($this->orden=min(array_keys($this->syllabus->flujo)));
+      return ($this->orden==min(array_keys($this->syllabus->flujo)));
     }
     
     
@@ -144,14 +145,18 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
           $this->focus=false;
           yii::error($this->fecha_aprobacion);
           $otro=$this->next(); 
+          yii::error('otro');
+          yii::error($otro);
           if($otro){
-              yii::error('otro');
+              yii::error('otro no es nulo');
               $otro->focus=true;
               $otro->fecha_recibido=self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
-              $this->fecha_recibido=$this->swichtDate('fecha_recibido', true);
-              yii::error($this->fecha_recibido);
+              $otro->fecha_recibido=$otro->swichtDate('fecha_recibido', true);
+              yii::error($otro->fecha_recibido);
               $otro->save();
               
+          }else{
+             yii::error('otro es nulo'); 
           }
           
       }else{
@@ -168,12 +173,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
       }
   }
   
-  public function aprove($reverse=false){
-      $this->aprobado=!$reverse;
+  public function aprove($reverse=false){      
+      $this->aprobado=!$reverse;      
       $this->save();
   }
   
-  public function hasObservaciones(){
-      return $this->getObservaciones()->exists();
-  }
+  
+  
 }
