@@ -500,10 +500,16 @@ class SyllabusController extends baseController
     
     public function actionMakeSyllabusPdf($id){
         $this->layout="install";
-        $model=$this->findModel($id);
-        
+        $model=$this->findModel($id);        
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
+        $mpdf->SetWatermarkImage('http://www.yourdomain.com/images/logo.jpg',
+                1,
+                '',
+                array(160,10)
+                          );
+            $mpdf->showWatermarkImage = true;
+
         $mpdf->Output();
        // return $vistaHtml;
         
@@ -585,6 +591,9 @@ class SyllabusController extends baseController
                 return ['error'=>yii::t('base_errors','Record not found')];
             }else{
                 //;
+                if($modelFlujo->hasObservaciones()){
+                     return ['error'=>yii::t('base_errors','The document has observations')]; 
+                  }
                 if($modelFlujo->aprove()){
                     return ['success'=>yii::t('base_labels','Document was aprobed')];
                 }else{
@@ -594,6 +603,17 @@ class SyllabusController extends baseController
      }  
  }
  
+ 
+ public function actionAjaxMakePdf($id){
+      $this->layout="install";
+        $model=$this->findModel($id);        
+        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
+        $mpdf=$this->preparePdf($vistaHtml);
+        //$mpdf->Output($name, $dest);
+        $ruta=h::gsetting('acad', 'rutaSyllabus');
+        $ruta=\yii::getAlias('@frontend/web/docs/'.$model->codocu.'/');
+        $mpdf->Output($ruta.$model->resolveNameFile(), \Mpdf\Output\Destination::FILE);
+ }
  
  
  
