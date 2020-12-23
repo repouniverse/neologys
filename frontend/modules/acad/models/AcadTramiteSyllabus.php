@@ -27,10 +27,14 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         'fecha_aprobacion' => self::_FDATETIME,
         'fecha_recibido' => self::_FDATETIME,
         ];
+    public $booleanFields=['aprobado','focus'];
+    
     public static function tableName()
     {
         return '{{%acad_tramite_syllabus}}';
     }
+    
+     
 
     /**
      * {@inheritdoc}
@@ -41,9 +45,9 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
             [['codocu', 'docu_id', 'user_id', 'orden', 'aprobado'], 'required'],
             [['docu_id', 'user_id', 'orden'], 'integer'],
             [['motivo','descripcion'], 'string'],
-             [['descripcion','fecha_aprobacion','fecha_recibido'], 'safe'],
+             [['descripcion','fecha_aprobacion','fecha_recibido','focus'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
-            [['aprobado'], 'string', 'max' => 1],
+            //[['aprobado'], 'string', 'max' => 1],
             [['fecha_recibido', 'fecha_aprobacion'], 'string', 'max' => 19],
         ];
     }
@@ -80,24 +84,35 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
         return $this->hasOne(AcadSyllabus::className(), ['id' => 'docu_id']);
     }
     
+     public function getSyllabusView()
+    {
+        return $this->hasOne(AcadVwSyllabus::className(), ['id' => 'docu_id']);
+    }
+    
+     
+    
     public function next(){
        if($this->isFinal())return false;
-       return static::find()->where(['docu_id'=>$this->id])
+       /*yii::error(static::find()->where(['docu_id'=>$this->docu_id])
+           ->andWhere(['>','orden',$this->orden])->orderBy(['orden'=>SORT_ASC])-> 
+           createCommand()->rawSql);*/
+       
+       return static::find()->where(['docu_id'=>$this->docu_id])
            ->andWhere(['>','orden',$this->orden])->orderBy(['orden'=>SORT_ASC])->one();
        
     }
     public function prev(){
        if($this->isBegin())return false; 
-       return static::find()->where(['docu_id'=>$this->id])
+       return static::find()->where(['docu_id'=>$this->docu_id])
            ->andWhere(['<','orden',$this->orden])->orderBy(['orden'=>SORT_DESC])->one();
     }
     
     public function isFinal(){
-      return ($this->orden=max(array_keys($this->syllabus->flujo)));
+      return ($this->orden==max(array_keys($this->syllabus->flujo)));
     }
     
     public function isBegin(){
-      return ($this->orden=min(array_keys($this->syllabus->flujo)));
+      return ($this->orden==min(array_keys($this->syllabus->flujo)));
     }
     
     
@@ -109,12 +124,13 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
    }
    
   public function beforeSave($insert) {
-      yii::error('before save');
-      yii::error($this->hasChanged('aprobado'));
-       yii::error($insert);
+     // yii::error('before save');
+      //yii::error($this->hasChanged('aprobado'));
+       //yii::error($insert);
       if($this->hasChanged('aprobado') && !$insert ){
-          yii::error('afteraprove');
+          //yii::error('afteraprove');
           $this->afterAprove();
+         
       }
       return parent::beforeSave($insert);
   }
@@ -126,23 +142,30 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
                   \common\helpers\timeHelper::formatMysqlDateTime()
                   ); //'2020-12-17 13:23:00'
           $this->fecha_aprobacion=$this->swichtDate('fecha_aprobacion', true);
+          $this->focus=false;
           yii::error($this->fecha_aprobacion);
           $otro=$this->next(); 
+          yii::error('otro');
+          yii::error($otro);
           if($otro){
-              yii::error('otro');
-              
+              yii::error('otro no es nulo');
+              $otro->focus=true;
               $otro->fecha_recibido=self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
-              $this->fecha_recibido=$this->swichtDate('fecha_recibido', true);
-              yii::error($this->fecha_recibido);
+              $otro->fecha_recibido=$otro->swichtDate('fecha_recibido', true);
+              yii::error($otro->fecha_recibido);
               $otro->save();
               
+          }else{
+             yii::error('otro es nulo'); 
           }
           
       }else{
           $this->fecha_aprobacion='';
+          $this->focus=true;
           $siguiente=$this->next();
           if($siguiente){
               if(!$siguiente->aprobado){
+                  $siguiente->focus=false;
                   $siguiente->fecha_recibido='';
                   $siguiente->save();
               }
@@ -150,10 +173,11 @@ class AcadTramiteSyllabus extends \common\models\base\modelBase
       }
   }
   
-  public function aprove($reverse=false){
-      $this->aprobado=!$reverse;
+  public function aprove($reverse=false){      
+      $this->aprobado=!$reverse;      
       $this->save();
   }
+  
   
   
 }
