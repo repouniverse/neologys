@@ -79,7 +79,7 @@ class AcadSyllabus extends \common\models\base\modelBase
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   
             [  ['n_sesiones_semana','formula_txt',
-                'n_semanas','codocu','codestado','descripcion'
+                'n_semanas','codocu','codestado','descripcion','codocu'
                 ], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
@@ -361,7 +361,14 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
   
   
+  public function isAprobed(){
+     return  ($this->getFlujos()->count() >0 && !$this->getFlujos()->andWhere(['aprobado'=>'0'])->exists());
+  }
   
-  
+  public function resolveNameFile(){
+      $timeMark=static::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
+       $timeMark=str_replace('-', '_', $subject);
+      return 'SYLLABUS-'.$this->curso->descripcion.'_'.$timeMark.uniqid();
+  }
   
 }
