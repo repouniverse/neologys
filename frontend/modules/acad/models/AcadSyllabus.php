@@ -338,7 +338,9 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
    
   private function resolveUserFlujo(int $orden){
-       $model_revision= AcadCursoAreaRevisor::findOne($this->plan_id); 
+      if(is_null($model_revision= AcadCursoAreaRevisor::findOne($this->plan_id))){
+          $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
+      } 
       if($orden==0){
           //var_dump($this->docente_owner_id);die();
         $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
