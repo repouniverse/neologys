@@ -1,60 +1,62 @@
 <?php
-
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\acad\models\AcadSyllabusSearch */
-/* @var $form yii\widgets\ActiveForm */
+    use yii\helpers\Html;
+    use yii\widgets\ActiveForm;
+    use frontend\modules\inter\Module as m;
+    use common\models\masters\Personas;
+    use common\helpers\ComboHelper;
+    use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
+    use common\models\masters\Facultades;
+    use common\models\masters\Carreras;
+    use common\helpers\h;
 ?>
 
-<div class="acad-syllabus-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'plan_id') ?>
-
-    <?= $form->field($model, 'codperiodo') ?>
-
-    <?= $form->field($model, 'curso_id') ?>
-
-    <?= $form->field($model, 'n_horasindep') ?>
-
-    <?php // echo $form->field($model, 'docente_owner_id') ?>
-
-    <?php // echo $form->field($model, 'datos_generales') ?>
-
-    <?php // echo $form->field($model, 'sumilla') ?>
-
-    <?php // echo $form->field($model, 'competencias') ?>
-
-    <?php // echo $form->field($model, 'prog_contenidos') ?>
-
-    <?php // echo $form->field($model, 'estrat_metod') ?>
-
-    <?php // echo $form->field($model, 'recursos_didac') ?>
-
-    <?php // echo $form->field($model, 'formula_id') ?>
-
-    <?php // echo $form->field($model, 'fuentes_info') ?>
-
-    <?php // echo $form->field($model, 'reserva1') ?>
-
-    <?php // echo $form->field($model, 'reserva2') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('base_labels', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('base_labels', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+<div class="alumnos-search">
+    <?php $form = ActiveForm::begin(
+                  [
+                  // 'action' => ['index-alumnos'],
+                   'method' => 'get',
+                   'options' => ['data-pjax' => 1],
+                  ]); 
+    ?>
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <div class="form-group">
+            <?= Html::submitButton("<span class='fa fa-search'></span>".yii::t('base_verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+             
+        </div>
     </div>
 
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'ap') ?>        
+    </div>
+    
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'nombres') ?>
+    </div>
+    
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'am') ?>
+    </div>
+   
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'descripcion') ?>        
+    </div>
+    
+   
+    
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'codcursocorto') ?>
+    </div>
+    
+    
+    
+   
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+        <?= $form->field($model, 'carrera_id')->
+                         dropDownList(ComboHelper::getCboCarreras(h::gsetting('general', 'MainFaculty')),
+                                      ['prompt'=>'--'.yii::t('base_verbs','Choose a value')."--",]
+                                     )
+        ?>
+    </div>
     <?php ActiveForm::end(); ?>
-
 </div>

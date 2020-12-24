@@ -20,6 +20,8 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
+    
+    //const FIRST_WEEK=1;
     public static function tableName()
     {
         return '{{%acad_syllabus_unidades}}';
@@ -34,7 +36,7 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
             [['syllabus_id','n_semana','numero_semanas','n_sesiones_semana'], 'required'],
             [['syllabus_id','n_semana','numero_semanas','n_sesiones_semana'], 'integer'],
                [['n_semana','numero_semanas','n_sesiones_semana'], 'safe'],
-            //[['n_semana','numero_semanas'], 'validateOrden'],            
+            [['n_semana'], 'validateOrden'],            
             [['capacidad', 'comentarios'], 'string'],
             [['descripcion'], 'string', 'max' => 80],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
@@ -88,7 +90,7 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
     * de sesiones por semana
     */
    public function generateContenidoSyllabusByUnidad(){
-       $nsemanasCiclo=h::gsetting('acad', 'NSemanasCiclo');
+       $nsemanasCiclo=$this->syllabus->n_semanas;
        $attributes=['syllabus_id'=>$this->syllabus_id,
           // 'n_semana'=>$this->n_semana,
            'unidad_id'=>$this->id,
@@ -96,8 +98,14 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
            'n_horas_trabajo_indep'=>$this->syllabus->n_horasindep/$this->n_sesiones_semana,
            ];
        $semana=1;
-       for ($i = 1; $i <=($nsemanasCiclo%$this->n_sesiones_semana +1)*$this->numero_semanas ; $i++) {
-             
+       yii::error('nsemanas= '. $nsemanasCiclo,__FUNCTION__);
+       yii::error($nsemanasCiclo);
+       $limite=($nsemanasCiclo%$this->n_sesiones_semana +1);
+       yii::error( $limite,__FUNCTION__);
+       $limite*=$this->numero_semanas;
+       yii::error( $limite,__FUNCTION__);
+       for ($i = 1; $i <=$limite ; $i++) {
+            
            
            $attributes['n_sesion']=$i;
             $attributes['n_semana']=$semana;
@@ -111,36 +119,73 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
                            'n_sesion'=>$i,
                        ]
                        );
-              if($i%$this->n_sesiones_semana==0) $semana++; 
+                yii::error('Residuo',__FUNCTION__);
+               yii::error(fmod($i,$this->n_sesiones_semana),__FUNCTION__);
+              if(fmod($i,$this->n_sesiones_semana)==0) $semana++; 
             }
    }
+   
+   
+  
+   
+   public function isBegin(){       
     
-   public function nextUnidad(){
-      return  static::find()->andWhere(['>','n_semana',$this->n_semana])->limit(1)->one();
+      return ($this->n_semana==$this->minWeek() && !$this->isNewRecord);
    }
+   
+   public function isFinal(){
+      $maxSemana=static::find()->select(['max(n_semana)'])->andWhere(['syllabus_id'=>$this->syllabus_id])->scalar();
+     return ($this->n_semana==$maxSemana);
+   }
+   
+   public function nextUnidad(){
+      if($this->isFinal())return false;
+      return  static::find()->andWhere(['>','n_semana',$this->n_semana])->
+              orderBy(['n_semana'=>SORT_ASC])->limit(1)->one();
+   }
+   
+   public  function minWeek(){
+      return  static::find()->select(['min(n_semana)'])->andWhere(['syllabus_id'=>$this->syllabus_id])->scalar();
+   }
+   
+   
+   
+    
+   
    public function previousUnidad(){
-       $nmax=static::find()->select(['max(n_semana)'])->andWhere(['syllabus_id'=>$this->syllabus_id])->scalar();
-       yii::error($nmax);
+       if($this->isBegin() or ($this->n_semana==$this->minWeek()))return false;
+       //$nmax=static::find()->select(['max(n_semana)'])->andWhere(['syllabus_id'=>$this->syllabus_id])->scalar();
+       //yii::error($nmax);
        //yii::error(static::find()->andWhere(['<','n_semana',$this->n_semana])->limit(1)->createCommand()->rawSql);
-      return  static::find()->andWhere(['<','n_semana',$this->n_semana])->limit(1)->one();
+      return  static::find()->andWhere(['<','n_semana',$this->n_semana])->
+              orderBy(['n_semana'=>SORT_DESC])->limit(1)->one();
+   }
+   
+   
+   private function lastWeek(){
+       return $this->n_semana+$this->numero_semanas;       
+   }
+   private function firstWeek(){
+       return $this->n_semana;       
    }
    
    public function validateOrden($attribute,$params){
-       yii::error('validacion',__FUNCTION__);
-       $hayUnidades=$this->syllabus->getSyllabusUnidades()->count();
-       if($hayUnidades==0 && $this->n_semana <> 1)
-       $this->addError('n_semana',yii::t('base_errors','{label} must be 1',['label'=>$this->getAttributeLabel ('n_semana')]));
-       
-       if(!is_null($unidadAnterior=$this->previousUnidad())){
-           yii::error('hay unidad anterior');
-           if($this->n_semana <= $unidadAnterior->n_semana+$unidadAnterior->numero_semanas)
-             $this->addError('n_semana',yii::t('base_errors','This week number has already been taken by the unit {descripcion}',['descripcion'=>$unidadAnterior->descripcion]));
-       
-       }else{
-           yii::error('no hay unidad anterior');
+       if($this->isBegin() && $this->n_semana<>$this->minWeek()){
+          $this->addError('n_semana',yii::t('base_errors','Number week must be {semanamin}',['semanamin'=>$this->minWeek()])); 
+       return;          
        }
-       
+        
+       if(!$this->isBegin()){
+          if($this->n_semana==$this->minWeek()){
+              $this->addError('n_semana',yii::t('base_errors','Number week must be greater than {semanamin}',['semanamin'=>$this->minWeek()]));
+             return;
+          }
+   if($this->n_semana != $this->previousUnidad()->lastWeek() ){
+               //yii::error('tercera   condicion');
+       $this->addError('n_semana',yii::t('base_errors','Number week does not match with previous unit'));
+                return;
+     }
+           }
    }
-   
    
 }
