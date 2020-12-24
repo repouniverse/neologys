@@ -149,7 +149,7 @@ public function behaviors()
         $scenarios = parent::scenarios();
         $scenarios[self::SCE_CREACION_BASICA] = [
            'codoce', 'ap','am','nombres','tipodoc','numerodoc',
-            'universidad_id', 'facultad_id','correo','carrera_base'
+            'universidad_id', 'facultad_id','carrera_base'
             ];
         /*$scenarios[self::SCENARIO_ASISTIO] = ['asistio'];
         $scenarios[self::SCENARIO_PSICO] = ['codtra'];
