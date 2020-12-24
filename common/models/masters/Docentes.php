@@ -236,7 +236,10 @@ public function behaviors()
         {
             $this->refresh();
             $this->createPersonFromThis();
+            
         }
+        
+        $this->sincronizeFields();
         return parent::afterSave($insert, $changedAttributes);
     }
         
