@@ -180,11 +180,14 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
               $this->addError('n_semana',yii::t('base_errors','Number week must be greater than {semanamin}',['semanamin'=>$this->minWeek()]));
              return;
           }
+   if(!$this->isBegin())
    if($this->n_semana != $this->previousUnidad()->lastWeek() ){
                //yii::error('tercera   condicion');
        $this->addError('n_semana',yii::t('base_errors','Number week does not match with previous unit'));
                 return;
      }
+     
+     
            }
    }
    
