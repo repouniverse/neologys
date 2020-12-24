@@ -3,6 +3,7 @@
 namespace common\models\masters;
 USE backend\components\Installer;
 use common\models\base\modelBase;
+use common\helpers\StringHelper;
 use frontend\modules\inter\Module AS m;
 use common\models\Profile;
 use common\helpers\h;

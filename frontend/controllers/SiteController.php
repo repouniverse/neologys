@@ -3,6 +3,7 @@ namespace frontend\controllers;
     use yii\helpers\Url;
     use yii\web\NotFoundHttpException;
     use yii\helpers\ArrayHelper;
+    use common\helpers\StringHelper;
    use common\models\masters\UsersUniversities;
 use frontend\models\AuthWithQuestionForm;
 use frontend\models\ResendVerificationEmailForm;
@@ -312,6 +313,23 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
+    
+     $docentes=\common\models\masters\Docentes::find()->andWhere(['>','id',89])->all();
+    $i=1;
+    foreach($docentes as $docente){
+        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
+        $userName= StringHelper::clearTildes($userName);
+         $userName= str_replace('',' ', $userName);
+        $docente->persona->createUser($userName,null,'r_acad_syllabus_editor');
+        $i++;
+    }
+    die();
+    
+    
+    
+    
+    
+    
    $model= \frontend\modules\acad\models\AcadTramiteSyllabus::findOne(49);
     $model->aprobado=true;
     $model->save();
@@ -320,14 +338,7 @@ public function actionRutas(){
     
     
     
-     $docentes=\common\models\masters\Docentes::find()->all();
-    $i=1;
-    foreach($docentes as $docente){
-        $userName=trim(substr($docente->nombres,0,1).$docente->ap);
-        $docente->persona->createUser($userName,null,'r_alumno_general');
-        $i++;
-    }
-    die();
+    
     
     
     
