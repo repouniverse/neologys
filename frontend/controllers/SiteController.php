@@ -314,7 +314,7 @@ public function actionAuthWithQuestions(){
 
 public function actionRutas(){
     
-    $personas= Personas::find()->andWhere(['>=',6807,'id'])->
+    $personas= \common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
             andWhere(['<=',6844,'id'])->all();
     foreach($personas as $persona){
        /// $persona=$docente->persona;
