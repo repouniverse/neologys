@@ -200,7 +200,7 @@ class ImportacionController extends baseController
          //'Porcentaje de registros Procesados'=>($numeroregistros*100/($carga->total_linea-$carga->firstLineTobegin()+1 )). ' % ',
          'Numero de registros encontrados con errores'=>$nerrores,
          'Numero de registros Totales en el Archivo'=>$carga->total_linea,
-         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.m::t('base.names','Segundos'),
+         'Tiempo transcurrido'=> ((integer)(microtime(true)-$tinicial)).' '.m::t('labels','Segundos'),
          'Numero de errores de carga'=>$nerrores,
      ];
     $resultado=$this->renderAjax('_resultados',[

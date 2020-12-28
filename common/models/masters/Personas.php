@@ -1,8 +1,8 @@
 <?php
-
 namespace common\models\masters;
 USE backend\components\Installer;
 use common\models\base\modelBase;
+use common\helpers\StringHelper;
 use frontend\modules\inter\Module AS m;
 use common\models\Profile;
 use common\helpers\h;
@@ -396,20 +396,20 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
                $user->status=\mdm\admin\models\User::STATUS_ACTIVE;
             if (!$user->save()) {
                 //var_dump($user->getErrors());DIE();
-                 yii::error(' no grabo el user',__FUNCTION__);
+                // yii::error(' no grabo el user',__FUNCTION__);
                                 return NULL;
              }else{
-                 yii::error(' si grabo el user',__FUNCTION__);
+                 //yii::error(' si grabo el user',__FUNCTION__);
                  $user->refresh();
                  $id=$user->id;
-                 yii::error('El id de usuario '.$id ,__FUNCTION__);
+                 //yii::error('El id de usuario '.$id ,__FUNCTION__);
                 $user->profile->linkPerson($this->id);
                 /*
                 $idUNI=$this->identidad->universidad_id;*/
                 $idUNI=h::currentUniversity();
                 if($idUNI> 0) //siempre que su identidad tenga asdinagda la universidad 
                 $user->profile->linkUniversity($idUNI);
-                 yii::error('resolviendo el roill '.$id ,__FUNCTION__);
+                 //yii::error('resolviendo el roill '.$id ,__FUNCTION__);
                 $role=(!is_null($role))?$role:h::gsetting('general','roleDefault');
                 $rol=\Yii::$app->authManager->getRole($role);
                 /****LE ASIGNA EL ROL */

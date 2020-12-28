@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use common\helpers\h;
 use frontend\modules\acad\models\AcadSyllabus;
 use frontend\modules\acad\models\AcadSyllabusSearch;
+use frontend\modules\acad\models\AcadVwSyllabusSearch;
 use common\controllers\base\baseController;
 use common\models\masters\Cursos;
 use common\models\masters\DocentesSearch;
@@ -45,9 +46,8 @@ class SyllabusController extends baseController
      */
     public function actionIndex()
     {
-        $searchModel = new AcadSyllabusSearch();
+        $searchModel = new AcadVwSyllabusSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -500,15 +500,18 @@ class SyllabusController extends baseController
     
     public function actionMakeSyllabusPdf($id){
         $this->layout="install";
-        $model=$this->findModel($id);        
+        $model=$this->findModel($id); 
+        
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
-        $mpdf->SetWatermarkImage('http://www.yourdomain.com/images/logo.jpg',
-                1,
-                '',
-                array(160,10)
+         $mpdf->showWatermarkImage = 1;
+        $mpdf->SetWatermarkImage(
+                \yii::getAlias('@frontend/web/img/modules/acad/marca_agua.png'),
+                0.2,
+                'P',
+                'P'
                           );
-            $mpdf->showWatermarkImage = true;
+           
 
         $mpdf->Output();
        // return $vistaHtml;
@@ -605,16 +608,28 @@ class SyllabusController extends baseController
  
  
  public function actionAjaxMakePdf($id){
-      $this->layout="install";
-        $model=$this->findModel($id);        
+     $this->layout="install";
+     if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+         $model=$this->findModel($id);
+       if(!$model->isAprobed()){
+          return ['error'=>yii::t('base_errors','Document has not been approved yet')]; 
+       }
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
         //$mpdf->Output($name, $dest);
-        $ruta=h::gsetting('acad', 'rutaSyllabus');
-        $ruta=\yii::getAlias('@frontend/web/docs/'.$model->codocu.'/');
-        $mpdf->Output($ruta.$model->resolveNameFile(), \Mpdf\Output\Destination::FILE);
+       // $ruta=h::gsetting('acad', 'rutaSyllabus');
+        $ruta=\yii::getAlias('@frontend/web/docs/500/').$model->resolveNameFile().'.pdf';
+        $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
+        $model->attachFromPath($ruta);
+        unlink($ruta);        
+        return ['success'=>yii::t('base_labels','File saved')];
+     }
+          
  }
  
+ 
+
  
  
  

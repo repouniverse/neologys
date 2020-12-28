@@ -6,6 +6,7 @@ use common\models\masters\Docentes;
 use common\models\masters\Personas;
 use common\models\masters\PlanesEstudio;
 use common\helpers\h;
+use common\behaviors\FileBehavior;
 use Yii;
 
 /**
@@ -66,6 +67,16 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return '{{%acad_syllabus}}';
     }
+    
+    
+     public function behaviors() {
+        return [            
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+               ];
+      }
+    
 
     /**
      * {@inheritdoc}
@@ -73,7 +84,7 @@ class AcadSyllabus extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'required'],
+            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_semanas'], 'required'],
             [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'integer'],
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
@@ -327,7 +338,10 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
    
   private function resolveUserFlujo(int $orden){
-       $model_revision= AcadCursoAreaRevisor::findOne($this->plan_id); 
+      if(is_null($model_revision= AcadCursoAreaRevisor::findOne($this->plan_id))){
+          $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id; 
+          return $user_id;
+      } 
       if($orden==0){
           //var_dump($this->docente_owner_id);die();
         $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
@@ -366,9 +380,11 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
   
   public function resolveNameFile(){
-      $timeMark=static::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
-       $timeMark=str_replace('-', '_', $subject);
-      return 'SYLLABUS-'.$this->curso->descripcion.'_'.$timeMark.uniqid();
+      $nameFile=static::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
+      $nameFile='SYLLABUS_'.$this->curso->descripcion.'_'.$nameFile.uniqid();
+         $nameFile=str_replace( [':',' ','-'],['_','','_'], $nameFile);
+       $nameFile= \common\helpers\StringHelper::clearTildes($nameFile);   
+      return $nameFile;
   }
   
 }
