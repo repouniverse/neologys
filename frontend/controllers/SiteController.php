@@ -315,8 +315,8 @@ public function actionAuthWithQuestions(){
 public function actionRutas(){
     //SASAAS
      yii::error('RUTA',__FUNCTION__);
-    $personas= \common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
-            andWhere(['<=',6844,'id'])->all();
+    $personas= \common\models\masters\Personas::find()->andWhere(['>=','id',6807])->
+            andWhere(['<=','id',6844])->all();
    YII::ERROR(\common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
             andWhere(['<=',6844,'id'])->createCommand()->rawSql,__FUNCTION__);
     foreach($personas as $persona){
