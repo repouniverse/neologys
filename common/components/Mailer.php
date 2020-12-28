@@ -278,7 +278,7 @@ class Mailer extends Correo
               'encryption' => 'ssl',
                     //'SMTPAuth' => true,
               /*Esta line ase agergo apra que funcione en localhost */
-             //'streamOptions'=>['ssl' =>['allow_self_signed' => true,'verify_peer_name' => false, 'verify_peer' => false]], 
+             'streamOptions'=>['ssl' =>['allow_self_signed' => true,'verify_peer_name' => false, 'verify_peer' => false]], 
          ];
             
              }
