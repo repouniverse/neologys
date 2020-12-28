@@ -314,6 +314,19 @@ public function actionAuthWithQuestions(){
 
 public function actionRutas(){
     
+    $personas= Personas::find()->andWhere(['>=',6807,'id'])->
+            andWhere(['<=',6844,'id'])->all();
+    foreach($personas as $persona){
+       /// $persona=$docente->persona;
+        $persona->createUser(str_replace('',' ',$persona->ap),'','r_acad_syllabus_editor');
+      
+    }    
+    die(); 
+    
+    
+    
+    
+    
      $docentes=\common\models\masters\Docentes::find()->andWhere(['>','id',89])->all();
     $i=1;
     foreach($docentes as $docente){
