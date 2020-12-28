@@ -313,10 +313,14 @@ public function actionAuthWithQuestions(){
 
 
 public function actionRutas(){
-    
-    $personas= \common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
-            andWhere(['<=',6844,'id'])->all();
+    //SASAAS
+     yii::error('RUTA',__FUNCTION__);
+    $personas= \common\models\masters\Personas::find()->andWhere(['>=','id',6807])->
+            andWhere(['<=','id',6844])->all();
+   YII::ERROR(\common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
+            andWhere(['<=',6844,'id'])->createCommand()->rawSql,__FUNCTION__);
     foreach($personas as $persona){
+        yii::error('bucle',__FUNCTION__);
        /// $persona=$docente->persona;
         $persona->createUser(str_replace('',' ',$persona->ap),'','r_acad_syllabus_editor');
       
