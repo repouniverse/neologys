@@ -378,7 +378,7 @@ public function UrlImage($path,$internal=true){
      if(is_file($pathFile)){
         $info= pathinfo($pathFile);
         if($ext){
-            return $info['filename'].self::extensionFile($filePath,true);
+            return $info['filename'].self::extensionFile($pathFile,true);
         }else{
             return $info['filename']; 
         }
