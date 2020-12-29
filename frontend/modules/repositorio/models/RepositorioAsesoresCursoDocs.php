@@ -145,7 +145,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     //$documentos=self::find()->andWhere(['codocu'=>$codocu])->all();
       $contador=0;
       yii::error('bucle');
-    foreach (self::find()->andWhere(['codocu'=>$codocu])->each(20) as $documento){
+    foreach (self::find()->andWhere(['codocu'=>$codocu])->all() as $documento){
         if($contador%20==0){
            $zip=New \ZipArchive();  
            $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
