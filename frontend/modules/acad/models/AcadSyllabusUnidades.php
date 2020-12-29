@@ -97,7 +97,7 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
             'n_horas_cumplimiento'=>$this->syllabus->plan->hoursForWeek()/$this->n_sesiones_semana,
            'n_horas_trabajo_indep'=>$this->syllabus->n_horasindep/$this->n_sesiones_semana,
            ];
-       $semana=1;
+       $semana=$this->n_semana;
        yii::error('nsemanas= '. $nsemanasCiclo,__FUNCTION__);
        yii::error($nsemanasCiclo);
        $limite=($nsemanasCiclo%$this->n_sesiones_semana +1);

@@ -130,4 +130,43 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     {
         return new RepositorioAsesoresCursoDocsQuery(get_called_class());
     }
+    
+    
+    /*
+ * Zipea los adjuntos de STADOCUENTOS 
+ * Y LO GUARAD COO AFJUNTO 
+ */
+    
+  public static function zipeaArchivos($codocu){
+    //$ids=array_map('intval',$ids);
+      $pathDirectory=\yii::getAlias('@frontend/web/temp');
+    if(!is_dir($pathDirectory))
+        mkdir ($pathDirectory);
+    //$documentos=self::find()->andWhere(['codocu'=>$codocu])->all();
+      $contador=0;
+      yii::error('bucle');
+    foreach (self::find()->andWhere(['codocu'=>$codocu])->batch(20) as $documento){
+        if($contador%20==0){
+           $zip=New \ZipArchive();  
+           $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
+            $zip->open($rutaTemp, \ZipArchive::CREATE); 
+        }
+        
+       If($documento->countFiles() >0 ){
+           $path=$documento->files[0]->path;
+           yii::error('zipeando');
+           yii::error($documento->files[0]->path);
+            $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
+            //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
+        }
+       if($contador%20==0) 
+       $zip->close();
+       
+       $contador++;
+    }
+    
+    
+  }
+       
+    
 }

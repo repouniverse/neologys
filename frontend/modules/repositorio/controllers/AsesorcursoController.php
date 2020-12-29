@@ -6,10 +6,12 @@ use common\models\masters\Alumnos;
 use common\models\masters\Docentes;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
+
 use common\models\masters\AsesoresCursoSearch;
 use frontendRepoVwAsesoresAsignadosSearch;
 use common\filters\ActionIsIdentidadFilter;
 use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
+use frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -349,6 +351,11 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     return $this->render('manage_attachments',['model'=>$model]);
       
   }
+  
+ public function actionZipear(){
+     $codocu=h::request()->get('codocu');
+     RepositorioAsesoresCursoDocs::zipeaArchivos($codocu);
+ } 
   
   
 }

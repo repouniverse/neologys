@@ -257,13 +257,13 @@ class AcadSyllabus extends \common\models\base\modelBase
       $filaACambiar=$this->getSyllabusCompetencias()->andWhere(['bloque'=>self::BLOQUE_CAPACIDADES])->one();
      
        if(!is_null($filaACambiar)){
-          if(empty($filaACambiar->contenido_bloque)){
+          //if(empty($filaACambiar->contenido_bloque)){
            $arrayCapacidades=$this->getSyllabusUnidades()->select(['capacidad'])->column();
             $filaACambiar->contenido_bloque='';
             foreach($arrayCapacidades as $valorTexto){
             $filaACambiar->contenido_bloque.=$valorTexto."\n";
             } 
-         } 
+         //} 
           return   $filaACambiar->save();
        }
        return false;

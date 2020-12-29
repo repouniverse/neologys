@@ -121,7 +121,7 @@ $this->registerCssFile("@web/css/documentos.css");
                     </tr>
                     
                     <?php foreach( $model->acadContenidoSyllabus as $contenido ){   ?>
-                    
+                     <?php  if($contenido->unidad_id==$unidad->id) {  ?>
                     <tr>
                         <td  class="centrar" >
                             <?=$contenido->n_semana?>
@@ -142,6 +142,7 @@ $this->registerCssFile("@web/css/documentos.css");
                              <?=$contenido->n_horas_trabajo_indep?>
                         </td>
                     </tr>
+                     <?php  }  ?>
                    <?php  ?>
                     <?php  }  ?>
                    <?php  }  ?>

@@ -36,7 +36,7 @@ use frontend\modules\acad\Module as m;
     <?= $form->field($model, 'n_horasindep')->textInput() ?>
 </div>
 
- <?php echo ucfirst(strtolower(m::cicleInLetters(10)));  ?>
+ 
     
  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
     <?= $form->field($model, 'curso_id')->textInput(['value'=>$model->plan->codcursocorto,'disabled'=>true]) ?>
