@@ -158,12 +158,14 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             yii::error('No es mutiplo de 20'); 
         }
         
-       If($documento->countFiles() >0 ){
+       If($documento->hasAttachments() ){
            $path=$documento->files[0]->path;
            yii::error('zipeando');
            yii::error($documento->files[0]->path);
             $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
+        }else{
+            yii::error('No encontro adjuntos'); 
         }
        if($contador%20==0) 
        $zip->close();
