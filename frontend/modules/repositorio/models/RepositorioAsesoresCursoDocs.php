@@ -148,10 +148,14 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
       yii::error(self::find()->andWhere(['codocu'=>$codocu])->createCommand()->rawSql);
      $registros=self::find()->andWhere(['codocu'=>$codocu])->all();
       foreach ( $registros as $documento){
-        if($contador%20==0){
+          yii::error('recorrien do el bucle');
+        if(fmod($contador,20)==0){
+            yii::error('mutiplo de 20');
            $zip=New \ZipArchive();  
            $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
             $zip->open($rutaTemp, \ZipArchive::CREATE); 
+        }else{
+            yii::error('No es mutiplo de 20'); 
         }
         
        If($documento->countFiles() >0 ){
