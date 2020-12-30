@@ -356,7 +356,7 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
      $codocu=h::request()->get('codocu');
       $offset=h::request()->get('offset',1);
       $model=new RepositorioAsesoresCursoDocs();
-     $ruta=$model->zipeaArchivos($codocu,$offset);
+     $ruta=$model->zipeaFiles($codocu,$offset);
      return $this->render('zipear',['ruta'=>$ruta]);
  } 
   

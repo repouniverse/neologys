@@ -142,10 +142,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
       $pathDirectory=\yii::getAlias('@frontend/web/temp');
     if(!is_dir($pathDirectory))
         mkdir ($pathDirectory);
-      $zipGeneral=New \ZipArchive();  
-           $rutaTempGeneral=$pathDirectory.'/'.uniqid().'.zip';
-            $zipGeneral->open($rutaTempGeneral, \ZipArchive::CREATE); 
-    
+      
     
     $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
     $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
@@ -166,6 +163,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
                     } 
          }
           $zip->close();
+        $zip->addFile($rutaTempGeneral, \common\helpers\FileHelper::fileName($path));    
     }
     $zipGeneral->close();
     return $rutaTempGeneral;
@@ -176,5 +174,70 @@ private function prepareNameFile($modelo,$ext){
    // return $docente->fullName().'_'.uniqid().$ext;
     
 }  
+
+
+public function zipeaFiles($codocu,$offset=1){
+      $ruta=\yii::getAlias('@frontend/web/temp/').'_'.uniqid().'/';
+      if (!is_dir($ruta)) mkdir ($ruta);
+        $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
+        $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
+          
+         foreach($docentes as $docente){
+             $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
+             if (!is_dir($rutaDocente))mkdir ($rutaDocente);
+              $registros=self::find()->andWhere(['codocu'=>$codocu])->
+                            orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
+         foreach ( $registros as $documento){
+               If($documento->hasAttachments() ){
+                         $path=$documento->files[0]->path;
+                         $nameF=\common\helpers\FileHelper::fileName($path);
+                         $pathDestino=$rutaDocente.$nameF;
+                         copy($path,$pathDestino);
+                  } 
+            }
+         }
+      
+     $camino=  $this->zipeaCarpetaInformes($ruta);
+     //rmdir($ruta);
+     return $camino;
+  }
+  
+  
+  public function zipeaCarpetaInformes($rutaCarpeta){
+   // $rutaCarpeta=\yii::getAlias('@frontend/web/img_repo/preuba/');
+    $zip=New \ZipArchive();  
+     //$destination=\yii::getAlias('@frontend/web/img_repo/temp/'. uniqid().'.zip');
+    $destination=\yii::getAlias('@frontend/web/temp/dscarga_'. uniqid().'.zip');    
+    if (!$zip->open($destination, \ZipArchive::CREATE)) {
+        return false;
+    }
+    $source = str_replace('\\', '/', realpath($rutaCarpeta));
+    if (is_dir($source) === true)    {
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+            foreach ($files as $file)
+                {
+            $file = str_replace('\\', '/', $file);
+            // Ignore "." and ".." folders
+            if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                continue;
+            $file = realpath($file);
+            if (is_dir($file) === true)
+            {
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            }
+            else if (is_file($file) === true)
+            {
+                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+            }
+        }
+    }
+    else if (is_file($source) === true)
+    {
+        $zip->addFromString(basename($source), file_get_contents($source));
+    }
+   $zip->close();   
+    return $destination;
+  }
+
   
 }
