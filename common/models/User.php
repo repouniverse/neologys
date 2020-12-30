@@ -47,6 +47,8 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
+    
+    
 public function scenarios()
     {
         $scenarios = parent::scenarios();

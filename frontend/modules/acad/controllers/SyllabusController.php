@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use common\helpers\h;
 use frontend\modules\acad\models\AcadSyllabus;
 use frontend\modules\acad\models\AcadSyllabusSearch;
+use frontend\modules\acad\models\AcadVwSyllabusSearch;
 use common\controllers\base\baseController;
 use common\models\masters\Cursos;
 use common\models\masters\DocentesSearch;
@@ -45,9 +46,8 @@ class SyllabusController extends baseController
      */
     public function actionIndex()
     {
-        $searchModel = new AcadSyllabusSearch();
+        $searchModel = new AcadVwSyllabusSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -500,10 +500,19 @@ class SyllabusController extends baseController
     
     public function actionMakeSyllabusPdf($id){
         $this->layout="install";
-        $model=$this->findModel($id);
+        $model=$this->findModel($id); 
         
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
+         $mpdf->showWatermarkImage = 1;
+        $mpdf->SetWatermarkImage(
+                \yii::getAlias('@frontend/web/img/modules/acad/marca_agua.png'),
+                0.2,
+                'P',
+                'P'
+                          );
+           
+
         $mpdf->Output();
        // return $vistaHtml;
         
@@ -538,4 +547,90 @@ class SyllabusController extends baseController
         return $mpdf;
     }
     
+ public function actionAprobeSyllabus(){
+     $idUser=h::userId();
+    return  $this->render('aprobe_syllabus',['idUser'=>$idUser]); 
+ }
+ 
+ 
+ public function actionModalCreateObservacion($id){
+     $this->layout = "install";
+        $modelFlujo = \frontend\modules\acad\models\AcadTramiteSyllabus::findOne($id);
+        //var_dump($modelFlujo);die();
+        if(is_null($modelFlujo))return '';
+        
+        $model=New \frontend\modules\acad\models\AcadObservacionesSyllabus([
+            'flujo_syllabus_id'=>$modelFlujo->id,
+            'syllabus_id'=>$modelFlujo->docu_id,
+            
+        ]);
+       $datos=[];
+        if(h::request()->isPost){
+            $model->load(h::request()->post());
+             h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos=\yii\widgets\ActiveForm::validate($model);
+            if(count($datos)>0){
+               return ['success'=>2,'msg'=>$datos];  
+            }else{
+                $model->save();                
+                return ['success'=>1,'id'=>$model->id];
+            }
+        }else{
+           return $this->renderAjax('modal_create_observacion', [
+                        'model' => $model,
+                        'id' => $id,
+                        'gridName'=>h::request()->get('gridName'),
+                        'idModal'=>h::request()->get('idModal'),
+            ]);  
+        }
+       
+ }
+ 
+ public function actionAjaxAprobeFlujo($id){
+     if(h::request()->isAjax){
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+         $modelFlujo= \frontend\modules\acad\models\AcadTramiteSyllabus::findOne($id);
+            if(is_null($modelFlujo)){
+                return ['error'=>yii::t('base_errors','Record not found')];
+            }else{
+                //;
+                if($modelFlujo->hasObservaciones()){
+                     return ['error'=>yii::t('base_errors','The document has observations')]; 
+                  }
+                if($modelFlujo->aprove()){
+                    return ['success'=>yii::t('base_labels','Document was aprobed')];
+                }else{
+                   return ['error'=>yii::t('base_errors',$modelFlujo->getFirstError())]; 
+                }                
+            }
+     }  
+ }
+ 
+ 
+ public function actionAjaxMakePdf($id){
+     $this->layout="install";
+     if(h::request()->isAjax){
+          h::response()->format = \yii\web\Response::FORMAT_JSON;
+         $model=$this->findModel($id);
+       if(!$model->isAprobed()){
+          return ['error'=>yii::t('base_errors','Document has not been approved yet')]; 
+       }
+        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
+        $mpdf=$this->preparePdf($vistaHtml);
+        //$mpdf->Output($name, $dest);
+       // $ruta=h::gsetting('acad', 'rutaSyllabus');
+        $ruta=\yii::getAlias('@frontend/web/docs/500/').$model->resolveNameFile().'.pdf';
+        $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
+        $model->attachFromPath($ruta);
+        unlink($ruta);        
+        return ['success'=>yii::t('base_labels','File saved')];
+     }
+          
+ }
+ 
+ 
+
+ 
+ 
+ 
 }

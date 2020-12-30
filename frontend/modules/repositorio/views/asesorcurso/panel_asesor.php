@@ -5,7 +5,9 @@ use common\helpers\comboHelper;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
+//use kartik\grid\GridView;
 use common\models\masters\Matricula;
+use common\models\FormatoDocs;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
  use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
@@ -17,7 +19,9 @@ use yii\helpers\Url;
 <?php
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 ?>
-<div class="asesores-curso-form">
+<h4><?=yii::t('base_labels','Advisor panel')?></h4>
+<div class="box box-succes">
+<div class="box-body">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -46,21 +50,34 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 	
 	</div>
 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <?php 
+    $docus=FormatoDocs::find()->where(['in','codocu',['159','160']])->all();
+        foreach($docus as $docu){
+           ?>
+            <a href="<?=$docu->urlFirstFile?>" class="btn btn-danger btn-sm" >
+                <span class="glyphicon glyphicon-download"></span>
+                   <?=yii::t('base_verbs','Download').' '.strtolower($docu->descripcion)?>
+            </a>
+            
+         <?PHP 
+        }   
+        
+        ?> 
+        </div>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
 	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
-    <?php 
-//$idsInPlanes= common\models\masters\PlanesEstudio::find()
-        //->select(['curso_id'])->andWhere(['tipoproceso'=>'100'])->column();
-// echo $this->render('_search', ['model' => $searchModel]); 
-//var_dump($idsInPlanes); die();
-/*echo Matricula::find()->select(['id','curso_id','seccion','periodo'])->
-                where(['alumno_id'=>$modelDocente->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
-?>
+    
+            
+        
             
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> frontend\modules\repositorio\models\RepoVwAsesoresAsignados::find()->
-                andWhere(['docente_id'=>$modelDocente->id]),
+                andWhere([
+                    'docente_id'=>$modelDocente->id,
+                    //'activo'=>'1'
+                    ]),
                         ]),
             'summary'=>'',
             'columns' => [
@@ -78,11 +95,24 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                        $links=$model->listAttachedFiles();
                        $cadenaHtml='';
                        foreach($links as $codocu=>$link){
-                          $cadenaHtml.=Html::a($codocu,$link,['data-pjax'=>'0']).'<br>';
+                          $cadenaHtml.=Html::a($codocu,$link,['data-pjax'=>'0','class'=>'btn btn-success']).'<br>';
                        }
                        return $cadenaHtml;
                     },
-                ]
+                ],
+                 
+                [
+                    'format'=>'raw',
+                    'value'=>function($model){                       
+                         return Html::a('<span class="glyphicon glyphicon-folder-open"></span>',Url::to(['manage-attachments','id'=>$model->id]),['data-pjax'=>'0','class' => 'btn btn-warning']);         
+                       
+                    },
+                ]            
+                            
+                            
+                            
+                            
+                            
            
               ],
     ]); ?>
@@ -100,5 +130,5 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 
 
 </div>
- 
+ </div>
 

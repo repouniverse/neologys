@@ -3,8 +3,10 @@
 namespace frontend\modules\acad\models;
 use common\models\masters\Cursos;
 use common\models\masters\Docentes;
+use common\models\masters\Personas;
 use common\models\masters\PlanesEstudio;
 use common\helpers\h;
+use common\behaviors\FileBehavior;
 use Yii;
 
 /**
@@ -39,6 +41,25 @@ class AcadSyllabus extends \common\models\base\modelBase
     
     const SCE_CREACION_BASICA='basico';
     const BLOQUE_CAPACIDADES='Capacidades';
+    const CODIGO_DOCUMENTO='500';
+    const ESTADO_CREADO='10';
+    const ESTADO_ANULADO='99';
+    const  APROB_DOCENTE_AREA='Teacher review';
+    const  APROB_ASESOR_UGAI='Advisor';
+     const APROB_CORRECTOR='Style corrector';
+     const APROB_DIRECTOR_ESCUELA='Director academic';
+    const APROB_DOCENTE_OWNER='Owner';
+    public $estados=[
+        self::ESTADO_ANULADO,
+        self::ESTADO_CREADO];
+    
+   public $flujo=[
+        0=>self::APROB_DOCENTE_OWNER,
+        1=>self::APROB_DOCENTE_AREA,
+       2=>self::APROB_ASESOR_UGAI, 
+        3=>self::APROB_CORRECTOR,
+        4=>self::APROB_DIRECTOR_ESCUELA,
+   ];
     /**
      * {@inheritdoc}
      */
@@ -46,6 +67,16 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return '{{%acad_syllabus}}';
     }
+    
+    
+     public function behaviors() {
+        return [            
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+               ];
+      }
+    
 
     /**
      * {@inheritdoc}
@@ -53,12 +84,14 @@ class AcadSyllabus extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'required'],
+            [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_semanas'], 'required'],
             [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'integer'],
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   
-            [['n_sesiones_semana','formula_txt','n_semanas'], 'safe'],   
+            [  ['n_sesiones_semana','formula_txt',
+                'n_semanas','codocu','codestado','descripcion','codocu'
+                ], 'safe'],   
             [['plan_id'], 'exist', 'skipOnError' => true, 'targetClass' => PlanesEstudio::className(), 'targetAttribute' => ['plan_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
             [['docente_owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_owner_id' => 'id']],
@@ -165,6 +198,19 @@ class AcadSyllabus extends \common\models\base\modelBase
         return $this->hasMany(AcadSyllabusCompetencias::className(), ['syllabus_id' => 'id']);
     }
     
+    
+     public function getObservaciones()
+    {
+        return $this->hasMany(AcadObservacionesSyllabus::className(), ['syllabus_id' => 'id']);
+    }
+    
+    public function getFlujos()
+    {
+        return $this->hasMany(AcadTramiteSyllabus::className(), ['docu_id' => 'id']);
+    }
+    
+  
+    
     /**
      * {@inheritdoc}
      * @return AcadSyllabusQuery the active query used by this AR class.
@@ -174,10 +220,17 @@ class AcadSyllabus extends \common\models\base\modelBase
         return new AcadSyllabusQuery(get_called_class());
     }
     
+    public function beforeSave($insert){
+        $this->codocu=self::CODIGO_DOCUMENTO;
+        $this->codestado=self::ESTADO_CREADO;
+      return parent::beforeSave($insert);  
+    }
+    
     public function afterSave($insert, $changedAttributes) {
         // yii::error(' disparador lanza ',__FUNCTION__);
        if($insert){          
-           $this->fillCompetencias();           
+           $this->fillCompetencias();
+           $this->generateFlowAprove();
        }else{
            if(in_array('n_sesiones_semana',array_keys($changedAttributes))){
                
@@ -204,13 +257,13 @@ class AcadSyllabus extends \common\models\base\modelBase
       $filaACambiar=$this->getSyllabusCompetencias()->andWhere(['bloque'=>self::BLOQUE_CAPACIDADES])->one();
      
        if(!is_null($filaACambiar)){
-          if(empty($filaACambiar->contenido_bloque)){
+          //if(empty($filaACambiar->contenido_bloque)){
            $arrayCapacidades=$this->getSyllabusUnidades()->select(['capacidad'])->column();
             $filaACambiar->contenido_bloque='';
             foreach($arrayCapacidades as $valorTexto){
             $filaACambiar->contenido_bloque.=$valorTexto."\n";
             } 
-         } 
+         //} 
           return   $filaACambiar->save();
        }
        return false;
@@ -251,5 +304,87 @@ class AcadSyllabus extends \common\models\base\modelBase
       }
       return substr($fullNames,1);
   }
-    
+  
+  /*
+   * Genera un flujo de aprobación*/
+   
+  public function generateFlowAprove(){
+    foreach($this->flujo as $orden=>$valor){
+        $fecha=($orden==0)?self::SwichtFormatDate(
+                self::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+                'datetime',true):'';
+        yii::error('adadda');
+        yii::error($fecha);
+        AcadTramiteSyllabus::firstOrCreateStatic(
+              [
+                  'codocu'=>self::CODIGO_DOCUMENTO,
+                    'docu_id'=>$this->id, 
+                    'orden'=>$orden,
+                  'focus'=>($orden==0)?true:false,
+                   'aprobado'=>'0',
+                   'fecha_recibido'=>$fecha,
+                    'user_id'=>$this->resolveUserFlujo($orden),
+                     'descripcion'=>yii::t('base_labels',$valor),
+                  ],
+              null,
+             [
+               'codocu'=>self::CODIGO_DOCUMENTO,
+               'docu_id'=>$this->id, 
+                'orden'=>$orden,
+                 ]
+             );
+    }
+      
+  }
+   
+  private function resolveUserFlujo(int $orden){
+      if(is_null($model_revision= AcadCursoAreaRevisor::findOne($this->plan_id))){
+          $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id; 
+          return $user_id;
+      } 
+      if($orden==0){
+          //var_dump($this->docente_owner_id);die();
+        $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
+      }elseif($orden==1){
+          //$model_revision->docente_responsable_id;
+          $user_id= Docentes::findOne($model_revision->docente_responsable_id)->persona->profile->user->id;
+      }
+      elseif($orden==2){
+          $user_id= Personas::findOne($model_revision->persona_asesor_ugai_id)->profile->user->id;
+         // $model_revision->persona_asesor_ugai_id;
+      }elseif($orden==3){
+          $user_id= Personas::findOne($model_revision->persona_corrector_id)->profile->user->id;
+        
+          //$model_revision->persona_corrector_id;
+      }elseif($orden==4){
+          $user_id= Personas::findOne($model_revision->persona_director_escuela_id)->profile->user->id;
+        
+          // $model_revision->persona_director_escuela_id;
+      }else{
+          return false;
+      }
+      return    $user_id; 
+     
+  }
+  
+  
+  
+  public function hasObservaciones(){
+      
+  return $this->getFlujos()->where(['activo'=>'1'])->exists();
+  }
+  
+  
+  public function isAprobed(){
+     return  ($this->getFlujos()->count() >0 && !$this->getFlujos()->andWhere(['aprobado'=>'0'])->exists());
+  }
+  
+  public function resolveNameFile(){
+      $nameFile=static::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime());
+      $nameFile='SYLLABUS_'.$this->curso->descripcion.'_'.$nameFile.uniqid();
+         $nameFile=str_replace( [':',' ','-'],['_','','_'], $nameFile);
+       $nameFile= \common\helpers\StringHelper::clearTildes($nameFile);   
+      return $nameFile;
+  }
+  
 }

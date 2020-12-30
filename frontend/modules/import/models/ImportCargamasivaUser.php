@@ -305,6 +305,9 @@ class ImportCargamasivaUser extends \common\models\base\modelBase
      foreach($errores as $campo=>$detalle){
          foreach($detalle as $cla=>$mensaje){
              yii::error('uy  recorreindo los errores');
+             yii::error($mensaje);
+             $mensaje=str_replace('','"',$mensaje);
+             $mensaje=str_replace('','\'',$mensaje);
              if(!($this->insertLogCarga($line, $campo, substr($mensaje,0,80), '0')))
                yii::error('uy fallo');       
          }

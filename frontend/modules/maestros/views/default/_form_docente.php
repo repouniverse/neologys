@@ -202,7 +202,7 @@
         
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <?= $form->field($modelPersona, 'pasaporte')->textInput(['maxlength' => true]) ?>
+            <?php //echo $form->field($modelPersona, 'pasaporte')->textInput(['maxlength' => true]) ?>
         </div> 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($modelPersona, 'gruposangu')->textInput(['maxlength' => true]) ?>

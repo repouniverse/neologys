@@ -4,6 +4,7 @@ namespace frontend\modules\repositorio\models;
 use common\models\masters\Documentos;
 use common\models\masters\AsesoresCurso;
 use common\behaviors\FileBehavior;
+use common\helpers\timeHelper;
 use Yii;
 
 /**
@@ -24,7 +25,10 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
-    public $booleanFields=['activo'];
+    public $booleanFields=['activo','publico'];
+    /* public $dateorTimeFields = [
+      
+    ];*/
     
     public static function tableName()
     {
@@ -41,7 +45,28 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         ];
       }
     
-    
+  public function init(){
+    $this->on(FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
+        /** @var $files \nemmo\attachments\models\File[] */
+        $files = $event->files;
+         //$fechahora=self::CarbonNow();
+        yii::error('haciendo seguimiemto al trigger');
+        yii::error( self::CarbonNow()->format(timeHelper::formatMysqlDate()));
+        yii::error( self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            ));
+        $this->fpresentacion=self::SwichtFormatDate(
+            self::CarbonNow()->format(timeHelper::formatMysqlDate())
+            ,'date',
+            true
+            );
+         $this->fpresentacion='hola';
+        $this->save();
+    });
+    parent::init();
+   }  
 
     /**
      * {@inheritdoc}
@@ -52,8 +77,9 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
             [['asesores_curso_id'], 'required'],
             [['asesores_curso_id'], 'integer'],
             [['comentarios'], 'string'],
-            [['activo'], 'safe'],
+            [['activo','publico'], 'safe'],
             [['codocu'], 'string', 'max' => 3],
+             [['fpresentacion'], 'safe'],
             [['fpresentacion'], 'string', 'max' => 10],
             [['orcid'], 'string', 'max' => 250],
             [['codocu'], 'exist', 'skipOnError' => true, 'targetClass' => Documentos::className(), 'targetAttribute' => ['codocu' => 'codocu']],
@@ -104,4 +130,51 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     {
         return new RepositorioAsesoresCursoDocsQuery(get_called_class());
     }
+    
+    
+    /*
+ * Zipea los adjuntos de STADOCUENTOS 
+ * Y LO GUARAD COO AFJUNTO 
+ */
+    
+  public  function zipeaArchivos($codocu,$offset=1){
+    //$ids=array_map('intval',$ids);
+      $pathDirectory=\yii::getAlias('@frontend/web/temp');
+    if(!is_dir($pathDirectory))
+        mkdir ($pathDirectory);
+      $zipGeneral=New \ZipArchive();  
+           $rutaTempGeneral=$pathDirectory.'/'.uniqid().'.zip';
+            $zipGeneral->open($rutaTempGeneral, \ZipArchive::CREATE); 
+    
+    
+    $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
+    $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
+    foreach($docentes as $docente){
+           $zip=New \ZipArchive();  
+           $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombresasesor.'.zip';
+            $zip->open($rutaTemp, \ZipArchive::CREATE);
+            $registros=self::find()->andWhere(['codocu'=>$codocu])->
+     orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
+         foreach ( $registros as $documento){
+             If($documento->hasAttachments() ){
+           $path=$documento->files[0]->path;
+           $ext=\common\helpers\FileHelper::extensionFile($path, true);
+           //yii::error('zipeando');
+           //yii::error($documento->files[0]->path);
+            $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
+            //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
+                    } 
+         }
+          $zip->close();
+    }
+    $zipGeneral->close();
+    return $rutaTempGeneral;
+  }
+       
+private function prepareNameFile($modelo,$ext){
+    //$docente=$modelo->asesoresCurso->asesor->docente;
+   // return $docente->fullName().'_'.uniqid().$ext;
+    
+}  
+  
 }

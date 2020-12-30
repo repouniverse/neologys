@@ -16,6 +16,9 @@ use yii;
  */
 
 class FileBehavior extends Fileb {
+    
+    const EVENT_AFTER_ATTACH_FILES = 'afterAttachFiles';
+    
     /*
      * Retorna un array de modelos 
      * con la info de archivos adjuntos filtrados por la extension

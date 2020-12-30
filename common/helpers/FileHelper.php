@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
 class FileHelper extends FileHelperOriginal {
    
+    
     const NOT_FOUND_MESSAGE='HTTP/1.1 404 Not Found';
     public static function extImages(){
         return ['jpg','bmp','png','jpeg','gif','svg','ico'];
@@ -369,11 +370,22 @@ public function UrlImage($path,$internal=true){
    * 
    * Reemplza el yii::getAlias('@root) por una cadena vacía ''
    */
-  public static function toPathRelative($absolutePath){
+  public static function toPathRelative($absolutePath,$ext=true){
       return str_replace(yii::getAlias('@root'), '', $absolutePath);
   }
   
-  
+   public static function fileName($pathFile,$ext=true){
+     if(is_file($pathFile)){
+        $info= pathinfo($pathFile);
+        if($ext){
+            return $info['filename'].self::extensionFile($pathFile,true);
+        }else{
+            return $info['filename']; 
+        }
+        
+     }
+     return '';
+ }
   
   
   

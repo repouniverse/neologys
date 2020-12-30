@@ -1,16 +1,9 @@
 <?php
-//use common\widgets\cbodepwidget\cboDepWidget as ComboDep;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
- //use kartik\date\DatePicker;
-
+use yii\widgets\ActiveForm; 
 use common\helpers\h;
-//use frontend\modules\sigi\helpers\comboHelper;
-//use common\widgets\selectwidget\selectWidget;
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\sigi\models\SigiUnidades */
-/* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="sigi-unidades-form">
@@ -35,6 +28,14 @@ use common\helpers\h;
      
   
       <div class="box-body">
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+   <?php echo $form->field($model, 'n_horas_cumplimiento')->textInput();
+   ?>
+  </div>   
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+   <?php echo $form->field($model, 'n_horas_trabajo_indep')->textInput();
+   ?>
+  </div> 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php echo $form->field($model, 'bloque1')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 3],
@@ -42,6 +43,7 @@ use common\helpers\h;
         ]);
    ?>
  </div> 
+           
           
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php echo $form->field($model, 'bloque2')->widget(\dosamigos\ckeditor\CKEditor::className(), [

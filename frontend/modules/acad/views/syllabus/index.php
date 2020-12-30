@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -12,42 +13,54 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="acad-syllabus-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4><?= Html::encode($this->title) ?></h4>
 
-    <p>
-        <?= Html::a(Yii::t('base_labels', 'Create Acad Syllabus'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <div class="box box-succes">
+        <div class="box-body">
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'plan_id',
-            'codperiodo',
-            'curso_id',
-            'n_horasindep',
-            //'docente_owner_id',
-            //'datos_generales:ntext',
-            //'sumilla:ntext',
-            //'competencias:ntext',
-            //'prog_contenidos:ntext',
-            //'estrat_metod:ntext',
-            //'recursos_didac:ntext',
-            //'formula_id',
-            //'fuentes_info:ntext',
-            //'reserva1:ntext',
-            //'reserva2:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            'codcur',
+            'descripcion',
+            'codcursocorto',
+            
+            'carrera_id',
+            'ap',
+            'am',
+            'nombres',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{view}',
+                'buttons' => [
+                    'update' => function($url, $model) { 
+                         $url=Url::to(['update','id'=>$model->id]);
+                        $options = [
+                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0'                                
+                        ];
+                        return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                         },
+                          'view' => function($url, $model) { 
+                           $url=Url::to(['make-syllabus-pdf','id'=>$model->id]);
+                        $options = [
+                            'title' => yii::t('base_verbs', 'View'), 'data-pjax'=>'0'                           
+                        ];
+                        return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
+                         },
+                         
+                    ]
+                ],
+           
         ],
     ]); ?>
 
     <?php Pjax::end(); ?>
-
+    </div>
+       </div>
 </div>

@@ -95,11 +95,14 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 /*echo Matricula::find()->select(['id','curso_id','seccion','periodo'])->
                 where(['alumno_id'=>$modelalumno->id])->andWhere(['curso_id'=>$idsInPlanes])->createCommand()->rawSql;die();*/
 ?>
-            
+         
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> RepositorioAsesoresCursoDocs::find()
-                ->andWhere(['asesores_curso_id'=>$model->id,'activo'=>'1']),
+                ->andWhere([
+                    'asesores_curso_id'=>$model->id,
+                    'activo'=>'1',
+                    'publico'=>'1']),
                         ]),
             'summary'=>'',
             'columns' => [
@@ -147,9 +150,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         //return Html::a('<span class="btn btn-success glyphicon glyphicon-pencil"></span>', Url::toRoute(['view-profile','iduser'=>$model->id]), []/*$options*/);
                         
                                  }, 
-                                         
-                                    
-                                         
+                                      
                          ]
                     
                 ],      

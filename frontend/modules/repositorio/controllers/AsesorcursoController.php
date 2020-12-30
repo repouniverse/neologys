@@ -6,10 +6,12 @@ use common\models\masters\Alumnos;
 use common\models\masters\Docentes;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
+
 use common\models\masters\AsesoresCursoSearch;
 use frontendRepoVwAsesoresAsignadosSearch;
 use common\filters\ActionIsIdentidadFilter;
 use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
+use frontend\modules\repositorio\models\RepositorioAsesoresCursoDocs;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -326,5 +328,37 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     
     }
    
-
+ public function actionAjaxShowDocs(){
+      $this->layout="install";
+        if (h::request()->isAjax) {
+            var_dump($_POST);
+            var_dump(h::request()->post('expandRowKey'));
+            die();
+            $id = h::request()->post('expandRowKey');
+            
+           // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
+           return $this->render('_expand_contenido',[
+              'identidad_unidad'=>$id,
+              
+              ]);
+        }
+  }
+  
+  public function actionManageAttachments($id){
+    $model=$this->findModel($id);
+    $modelVista= RepoVwAsesoresAsignados::findOne(['id'=>$id]);
+    $modelVista->generateDocs();
+    return $this->render('manage_attachments',['model'=>$model]);
+      
+  }
+  
+ public function actionZipear(){
+     $codocu=h::request()->get('codocu');
+      $offset=h::request()->get('offset',1);
+      $model=new RepositorioAsesoresCursoDocs();
+     $ruta=$model->zipeaArchivos($codocu,$offset);
+     return $this->render('zipear',['ruta'=>$ruta]);
+ } 
+  
+  
 }

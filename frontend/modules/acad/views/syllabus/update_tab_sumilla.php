@@ -17,7 +17,11 @@ use yii\widgets\Pjax;
 ?>
 
 <div class="box-body">
-
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+   <?php echo $form->field($model, 'n_semanas')->textInput();?>
+     
+ </div>  
+    
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
    <?php /*echo $form->field($model, 'sumilla')->widget(\dosamigos\ckeditor\CKEditor::className(), [
         'options' => ['rows' => 2],
