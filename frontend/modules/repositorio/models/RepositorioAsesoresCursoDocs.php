@@ -137,44 +137,35 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
  * Y LO GUARAD COO AFJUNTO 
  */
     
-  public static function zipeaArchivos($codocu){
+  public static function zipeaArchivos($codocu,$offset){
     //$ids=array_map('intval',$ids);
       $pathDirectory=\yii::getAlias('@frontend/web/temp');
     if(!is_dir($pathDirectory))
         mkdir ($pathDirectory);
-    //$documentos=self::find()->andWhere(['codocu'=>$codocu])->all();
-      $contador=0;
-      yii::error('bucle');
-      yii::error(self::find()->andWhere(['codocu'=>$codocu])->createCommand()->rawSql);
-     $registros=self::find()->andWhere(['codocu'=>$codocu])->all();
-      foreach ( $registros as $documento){
-          yii::error('recorrien do el bucle');
-        if(fmod($contador,20)==0){
-            yii::error('mutiplo de 20');
+            //yii::error('mutiplo de 20');
            $zip=New \ZipArchive();  
            $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
             $zip->open($rutaTemp, \ZipArchive::CREATE); 
-        }else{
-            yii::error('No es mutiplo de 20'); 
-        }
-        
+    $registros=self::find()->andWhere(['codocu'=>$codocu])->
+     orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
+      foreach ( $registros as $documento){
+          //yii::error('recorrien do el bucle'); 
        If($documento->hasAttachments() ){
            $path=$documento->files[0]->path;
            yii::error('zipeando');
            yii::error($documento->files[0]->path);
-            $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
+            $zip->addFile($path, $this->prepareNameFile()/*\common\helpers\FileHelper::fileName($path)*/); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
         }else{
             yii::error('No encontro adjuntos'); 
         }
-       if($contador%20==0) 
-       $zip->close();
-       
-       $contador++;
     }
-    
-    
+    $zip->close();
   }
        
-    
+private function prepareNameFile(){
+    $docente=$this->asesoresCurso->asesor->docente;
+    return $docente->fullName();
+}  
+  
 }
