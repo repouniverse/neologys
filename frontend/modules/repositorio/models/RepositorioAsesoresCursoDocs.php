@@ -192,11 +192,12 @@ public function zipeaFiles($codocu,$offset=1){
               
          foreach ( $registros as $documento){
                If($documento->hasAttachments() ){
+                   $attach=$documento->files[0];
                   YII::ERROR('SI HAY ATTACHSMNETS');
-                         $path=$documento->files[0]->path;
-                         //$nameF=\common\helpers\FileHelper::fileName($path);
-                         $nameF=$documento->files[0]->name;
-                         $pathDestino=$rutaDocente.$nameF;
+                         $path=$attach->path;
+                         $ext=\common\helpers\FileHelper::extensionFile($path);
+                         $nameF=$attach->name;
+                         $pathDestino=$rutaDocente.$nameF.$ext;
                          yii::error($path);
                           yii::error($pathDestino);
                          copy($path,$pathDestino);
