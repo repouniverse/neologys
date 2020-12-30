@@ -161,6 +161,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         }
     }
     $zip->close();
+    return $rutaTemp;
   }
        
 private function prepareNameFile($modelo){
