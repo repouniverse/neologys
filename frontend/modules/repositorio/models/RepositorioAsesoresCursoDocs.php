@@ -191,6 +191,7 @@ public function zipeaFiles($codocu,$offset=1){
                             orderby(['id'=>SORT_ASC])->limit(50)->createCommand()->rawSql);
          foreach ( $registros as $documento){
                If($documento->hasAttachments() ){
+                  YII::ERROR('SI HAY ATTACHSMNETS');
                          $path=$documento->files[0]->path;
                          $nameF=\common\helpers\FileHelper::fileName($path);
                          $pathDestino=$rutaDocente.$nameF;
