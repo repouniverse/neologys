@@ -325,6 +325,7 @@ return[
         ////Cursos
     'Name course'=>'Nombre de curso',
     'Registration number'=>'Número de matrícula',
+    'Courses' => 'Cursos',
     
     //SUBIR ARCHIVO DE TRABAJO - ALUMNO 
     'Manage your files' => 'Maneja tus archivos',
@@ -346,6 +347,7 @@ return[
     'Conceptual contents' => 'Contenidos conceptuales',
     'Procedural contents' => 'Contenidos procedimentales',
     'Learning activity' => 'Actividad de aprendizaje',
+    'Aproves' => 'Aprobaciones'
     
     
     ];

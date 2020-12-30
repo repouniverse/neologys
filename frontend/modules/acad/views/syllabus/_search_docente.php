@@ -19,8 +19,8 @@ use common\helpers\ComboHelper as combo;
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".yii::t('base_verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
         
-                 <?= Html::a(yii::t('base_labels', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
-              <?= Html::a(yii::t('base_labels', 'Create External Teacher'), ['create-docente-ext'], ['class' => 'btn btn-warning']) ?>
+                 <?= Html::a(yii::t('base_verbs', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
+              <?= Html::a(yii::t('base_verbs', 'Create External Teacher'), ['create-docente-ext'], ['class' => 'btn btn-warning']) ?>
           
     </div>
     
