@@ -8,6 +8,7 @@ return[
     'Save'=>'Grabar',
     'Send'=>'Enviar',
     'Enabled'=>'Habilitar',
+    'Preview'=>'Previsualizar',
     
     'Edit'=>'Modificar',
     'Edit: {name}'=>'Modificar :{name}',
@@ -23,4 +24,11 @@ return[
     'Add Asesor'=>'Agregar Asesor',
     'Select your adviser'=>'Selecciona tu asesor',
     'View your adviser'=>'Visualiza o edita tu asesor',
+    
+    //ACAD SYLALBUS
+    'Add teacher' => 'Agregar Docente',
+    'Add Unit' => 'Agregar Unidad',
+    'Create Teacher' => 'Crear Docente',
+    'Create External Teacher' => 'Crear Docente Externo',
+    'Make Document' => 'Generar Pdf final'
 ];
