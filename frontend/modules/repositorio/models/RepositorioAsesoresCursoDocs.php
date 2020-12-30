@@ -195,7 +195,7 @@ public function zipeaFiles($codocu,$offset=1){
                    $attach=$documento->files[0];
                   YII::ERROR('SI HAY ATTACHSMNETS');
                          $path=$attach->path;
-                         $ext=\common\helpers\FileHelper::extensionFile($filePath, true);
+                         $ext=\common\helpers\FileHelper::extensionFile($path, true);
                          $nameF=$attach->name;
                          $pathDestino=$rutaDocente.$nameF.$ext;
                          yii::error($path);
