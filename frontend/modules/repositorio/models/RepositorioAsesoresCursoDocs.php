@@ -137,7 +137,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
  * Y LO GUARAD COO AFJUNTO 
  */
     
-  public static function zipeaArchivos($codocu,$offset=1){
+  public  function zipeaArchivos($codocu,$offset=1){
     //$ids=array_map('intval',$ids);
       $pathDirectory=\yii::getAlias('@frontend/web/temp');
     if(!is_dir($pathDirectory))

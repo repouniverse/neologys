@@ -355,7 +355,8 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
  public function actionZipear(){
      $codocu=h::request()->get('codocu');
       $offset=h::request()->get('offset',1);
-     RepositorioAsesoresCursoDocs::zipeaArchivos($codocu,$offset);
+      $model=new RepositorioAsesoresCursoDocs();
+     $model->zipeaArchivos($codocu,$offset);
  } 
   
   
