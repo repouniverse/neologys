@@ -154,7 +154,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
            $path=$documento->files[0]->path;
            yii::error('zipeando');
            yii::error($documento->files[0]->path);
-            $zip->addFile($path, $this->prepareNameFile()/*\common\helpers\FileHelper::fileName($path)*/); 
+            $zip->addFile($path, $this->prepareNameFile($documento)/*\common\helpers\FileHelper::fileName($path)*/); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
         }else{
             yii::error('No encontro adjuntos'); 
@@ -163,8 +163,8 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     $zip->close();
   }
        
-private function prepareNameFile(){
-    $docente=$this->asesoresCurso->asesor->docente;
+private function prepareNameFile($modelo){
+    $docente=$modelo->asesoresCurso->asesor->docente;
     return $docente->fullName();
 }  
   
