@@ -186,9 +186,10 @@ public function zipeaFiles($codocu,$offset=1){
              $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
              if (!is_dir($rutaDocente))mkdir ($rutaDocente);
               $registros=self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
-                            orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
+                            orderby(['id'=>SORT_ASC])->limit(50)->all();
               yii::error(self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
                             orderby(['id'=>SORT_ASC])->limit(50)->createCommand()->rawSql);
+              
          foreach ( $registros as $documento){
                If($documento->hasAttachments() ){
                   YII::ERROR('SI HAY ATTACHSMNETS');
