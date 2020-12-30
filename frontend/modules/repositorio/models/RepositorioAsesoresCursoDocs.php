@@ -152,9 +152,10 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
           //yii::error('recorrien do el bucle'); 
        If($documento->hasAttachments() ){
            $path=$documento->files[0]->path;
+           $ext=\common\helpers\FileHelper::extensionFile($path, true);
            yii::error('zipeando');
            yii::error($documento->files[0]->path);
-            $zip->addFile($path, $this->prepareNameFile($documento)/*\common\helpers\FileHelper::fileName($path)*/); 
+            $zip->addFile($path, $this->prepareNameFile($documento,$ext)/*\common\helpers\FileHelper::fileName($path)*/); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
         }else{
             yii::error('No encontro adjuntos'); 
@@ -164,9 +165,9 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     return $rutaTemp;
   }
        
-private function prepareNameFile($modelo){
+private function prepareNameFile($modelo,$ext){
     $docente=$modelo->asesoresCurso->asesor->docente;
-    return $docente->fullName();
+    return $docente->fullName().'_'.uniqid().$ext;
 }  
   
 }
