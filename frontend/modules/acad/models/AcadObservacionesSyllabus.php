@@ -3,6 +3,8 @@
 namespace frontend\modules\acad\models;
 
 use Yii;
+use yii\helpers\Url;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "{{%acad_observaciones_syllabus}}".
@@ -112,9 +114,12 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     
     //FUNCION PARA ENVIAR LA OBSERVACIÓN 
     private function sendObservacion($user,$observacion ){
+        
         $message = new \yii\swiftmailer\Message();
+        $ruta = Url::toRoute(['/acad/syllabus/update','id'=>$this->syllabus_id],true);
         $htmlBody = 'Estimado <b>'.$user->username.'</b>'
-            . ' <br> Se le remite la observación en el Syllabus con id: <b>'.$this->syllabus_id.'</b> '
+            . ' <br> Se le remite la observación en el Syllabus con id: <b>'.$this->syllabus_id.'</b>'
+            . ' <br> Ingrese a la siguiente ruta: <b>'.Html::a($ruta,$ruta,['target'=>'_blank']).'</b>'
             . ' <div style="padding-left:10px;">'
             . ' <br> En la sección: <b>'.$this->seccion.'</b>'
             . ' <br> El documento cuenta con la siguiente observación:'
@@ -122,7 +127,7 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
             . ' </div>'
             . ' <br><b>Se espera la corrección inmediata.<b>'
             . ' <br><br>Atte.'
-            . ' <br>Oficita de Tecnología e Informática.' ;
+            . ' <br>Unidad de Gestión Académica e Innovación.' ;
         yii::error("EL CORREO ES : ");
         yii::error($user->email);
         $mailer = new \common\components\Mailer();

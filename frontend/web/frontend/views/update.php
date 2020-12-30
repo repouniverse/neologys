@@ -46,5 +46,5 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
     ],
 ]);  
 
-</div>
+
 </div>
