@@ -142,31 +142,111 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
       $pathDirectory=\yii::getAlias('@frontend/web/temp');
     if(!is_dir($pathDirectory))
         mkdir ($pathDirectory);
-            //yii::error('mutiplo de 20');
+      
+    
+    $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
+    $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
+    foreach($docentes as $docente){
            $zip=New \ZipArchive();  
-           $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
-            $zip->open($rutaTemp, \ZipArchive::CREATE); 
-    $registros=self::find()->andWhere(['codocu'=>$codocu])->
+           $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombresasesor.'.zip';
+            $zip->open($rutaTemp, \ZipArchive::CREATE);
+            $registros=self::find()->andWhere(['codocu'=>$codocu])->
      orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
-      foreach ( $registros as $documento){
-          //yii::error('recorrien do el bucle'); 
-       If($documento->hasAttachments() ){
+         foreach ( $registros as $documento){
+             If($documento->hasAttachments() ){
            $path=$documento->files[0]->path;
-           yii::error('zipeando');
-           yii::error($documento->files[0]->path);
-            $zip->addFile($path, $this->prepareNameFile($documento)/*\common\helpers\FileHelper::fileName($path)*/); 
+           $ext=\common\helpers\FileHelper::extensionFile($path, true);
+           //yii::error('zipeando');
+           //yii::error($documento->files[0]->path);
+            $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
-        }else{
-            yii::error('No encontro adjuntos'); 
-        }
+                    } 
+         }
+          $zip->close();
+        $zip->addFile($rutaTempGeneral, \common\helpers\FileHelper::fileName($path));    
     }
-    $zip->close();
-    return $rutaTemp;
+    $zipGeneral->close();
+    return $rutaTempGeneral;
   }
        
-private function prepareNameFile($modelo){
-    $docente=$modelo->asesoresCurso->asesor->docente;
-    return $docente->fullName();
+private function prepareNameFile($modelo,$ext){
+    //$docente=$modelo->asesoresCurso->asesor->docente;
+   // return $docente->fullName().'_'.uniqid().$ext;
+    
 }  
+
+
+public function zipeaFiles($codocu,$offset=1){
+      $ruta=\yii::getAlias('@frontend/web/temp/').'_'.uniqid().'/';
+      if (!is_dir($ruta)) mkdir ($ruta);
+        $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
+        $docentes=RepoVwAsesoresAsignados::find()->select(['id','apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
+          
+         foreach($docentes as $docente){
+             $registros=self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
+                            orderby(['id'=>SORT_ASC])->limit(50)->all();
+             if(count($registros)>0){
+               $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
+               if (!is_dir($rutaDocente))mkdir ($rutaDocente);  
+             }
+         foreach ( $registros as $documento){
+               If($documento->hasAttachments() ){
+                   $attach=$documento->files[0];
+                  YII::ERROR('SI HAY ATTACHSMNETS');
+                         $path=$attach->path;
+                         $ext=\common\helpers\FileHelper::extensionFile($path, true);
+                         $nameF=$attach->name;
+                         $pathDestino=$rutaDocente.$nameF.$ext;
+                         yii::error($path);
+                          yii::error($pathDestino);
+                         copy($path,$pathDestino);
+                  } ELSE{
+                      YII::ERROR('NO HAY ATTACHSMNETS');
+                  }
+            }
+         }
+      
+     $camino=  $this->zipeaCarpetaInformes($ruta);
+     \common\helpers\FileHelper::deleteDirectory($ruta);
+     return $camino;
+  }
+  
+  
+  public function zipeaCarpetaInformes($rutaCarpeta){
+   // $rutaCarpeta=\yii::getAlias('@frontend/web/img_repo/preuba/');
+    $zip=New \ZipArchive();  
+     //$destination=\yii::getAlias('@frontend/web/img_repo/temp/'. uniqid().'.zip');
+    $destination=\yii::getAlias('@frontend/web/temp/dscarga_'. uniqid().'.zip');    
+    if (!$zip->open($destination, \ZipArchive::CREATE)) {
+        return false;
+    }
+    $source = str_replace('\\', '/', realpath($rutaCarpeta));
+    if (is_dir($source) === true)    {
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+            foreach ($files as $file)
+                {
+            $file = str_replace('\\', '/', $file);
+            // Ignore "." and ".." folders
+            if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                continue;
+            $file = realpath($file);
+            if (is_dir($file) === true)
+            {
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            }
+            else if (is_file($file) === true)
+            {
+                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+            }
+        }
+    }
+    else if (is_file($source) === true)
+    {
+        $zip->addFromString(basename($source), file_get_contents($source));
+    }
+   $zip->close();   
+    return $destination;
+  }
+
   
 }
