@@ -207,7 +207,7 @@ public function zipeaFiles($codocu,$offset=1){
          }
       
      $camino=  $this->zipeaCarpetaInformes($ruta);
-     rmdir($ruta);
+     \common\helpers\FileHelper::deleteDirectory($ruta);
      return $camino;
   }
   
