@@ -148,7 +148,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     
     
     $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
-    $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombreasesor'])->andWhere(['id'=>$idsDocus]);
+    $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombreasesor'])->andWhere(['id'=>$idsDocus])->all();
     foreach($docentes as $docente){
            $zip=New \ZipArchive();  
            $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombreasesor.'.zip';
