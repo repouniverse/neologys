@@ -394,7 +394,7 @@ public static function deleteDirectory($dir) {
         if($current != '.' && $current != '..') {
             echo 'Se ha borrado el archivo '.$dir.'/'.$current.'<br/>';
             if (!@unlink($dir.'/'.$current)) 
-                deleteDirectory($dir.'/'.$current);
+                static::deleteDirectory($dir.'/'.$current);
         }       
     }
     closedir($dh);
