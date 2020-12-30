@@ -151,7 +151,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->andWhere(['id'=>$idsDocus])->all();
     foreach($docentes as $docente){
            $zip=New \ZipArchive();  
-           $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombreasesor.'.zip';
+           $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombresasesor.'.zip';
             $zip->open($rutaTemp, \ZipArchive::CREATE);
             $registros=self::find()->andWhere(['codocu'=>$codocu])->
      orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
