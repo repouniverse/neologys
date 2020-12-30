@@ -398,7 +398,7 @@ public static function deleteDirectory($dir) {
         }       
     }
     closedir($dh);
-    echo 'Se ha borrado el directorio '.$dir.'<br/>';
+    //echo 'Se ha borrado el directorio '.$dir.'<br/>';
     @rmdir($dir);
 }
 
