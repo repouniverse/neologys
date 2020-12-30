@@ -183,13 +183,12 @@ public function zipeaFiles($codocu,$offset=1){
         $docentes=RepoVwAsesoresAsignados::find()->select(['id','apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
           
          foreach($docentes as $docente){
-             $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
-             if (!is_dir($rutaDocente))mkdir ($rutaDocente);
-              $registros=self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
+             $registros=self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
                             orderby(['id'=>SORT_ASC])->limit(50)->all();
-              yii::error(self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
-                            orderby(['id'=>SORT_ASC])->limit(50)->createCommand()->rawSql);
-              
+             if(count($registros)>0){
+               $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
+               if (!is_dir($rutaDocente))mkdir ($rutaDocente);  
+             }
          foreach ( $registros as $documento){
                If($documento->hasAttachments() ){
                    $attach=$documento->files[0];
@@ -208,7 +207,7 @@ public function zipeaFiles($codocu,$offset=1){
          }
       
      $camino=  $this->zipeaCarpetaInformes($ruta);
-     //rmdir($ruta);
+     rmdir($ruta);
      return $camino;
   }
   
