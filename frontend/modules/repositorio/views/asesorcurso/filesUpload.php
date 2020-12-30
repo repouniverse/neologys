@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use common\helpers\h;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\AsesoresCurso */
-$titulo=Yii::t('base_verbs', 'Manage your files');
+$titulo=Yii::t('base_labels', 'Manage your files');
 $this->title =$titulo ;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Upload files'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

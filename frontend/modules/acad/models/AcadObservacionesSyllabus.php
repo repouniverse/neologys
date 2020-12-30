@@ -94,12 +94,59 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     }
     
     public function afterSave($insert, $changedAttributes) {
-        
+        //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
         $this->notificaMail();
         return parent::afterSave($insert, $changedAttributes);
     }
     
+    
+    //NOTIFICA LA OBSERVACIÓN POR CORREO
     private function notificaMail(){
+        if(!empty($this->getDocOwner())){
+            $this->sendObservacion($this->getDocOwner(),$this->observacion);
+        }
+        //$this->sendObservacion($this->getDocOwner(),$this->observacion);
+        
         return true;
     }
+    
+    //FUNCION PARA ENVIAR LA OBSERVACIÓN 
+    private function sendObservacion($user,$observacion ){
+        $message = new \yii\swiftmailer\Message();
+        $htmlBody = 'Estimado <b>'.$user->username.'</b>'
+            . ' <br> Se le remite la observación en el Syllabus con id: <b>'.$this->syllabus_id.'</b> '
+            . ' <div style="padding-left:10px;">'
+            . ' <br> En la sección: <b>'.$this->seccion.'</b>'
+            . ' <br> El documento cuenta con la siguiente observación:'
+            . ' <br> <b>'.$observacion.'</b>'
+            . ' </div>'
+            . ' <br><b>Se espera la corrección inmediata.<b>'
+            . ' <br><br>Atte.'
+            . ' <br>Oficita de Tecnología e Informática.' ;
+        yii::error("EL CORREO ES : ");
+        yii::error($user->email);
+        $mailer = new \common\components\Mailer();
+        $message->setSubject('PRUEBA')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
+                ->setTo($user->email)
+                ->setHtmlBody($htmlBody);
+
+        try {
+
+            $result = $mailer->send($message);
+            return $result;
+            
+        } catch (\Swift_TransportException $Ste) {
+           
+             yii::error($Ste->getMessage(),__FUNCTION__);
+             // return $result;
+        }
+                  
+    }
+    
+    //GETER DEL DOCENTE OWNER
+    public function getDocOwner(){
+        return $this->syllabus->docenteOwner->persona->profile->user;
+    }
+  
 }
