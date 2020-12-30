@@ -197,7 +197,9 @@ public function zipeaFiles($codocu,$offset=1){
                          yii::error($path);
                           yii::error($pathDestino);
                          copy($path,$pathDestino);
-                  } 
+                  } ELSE{
+                      YII::ERROR('NO HAY ATTACHSMNETS');
+                  }
             }
          }
       
