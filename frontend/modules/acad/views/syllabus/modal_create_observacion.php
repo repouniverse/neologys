@@ -3,10 +3,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm; 
 use common\helpers\h;
+use common\widgets\spinnerWidget\spinnerWidget;
 ?>
 
 <div class="sigi-unidades-form">
-
+    <?php echo spinnerWidget::widget();?>
     <?php $form = ActiveForm::begin([
         'id'=>'myformulario'/*,'enableAjaxValidation'=>true*/
     ]); ?>
