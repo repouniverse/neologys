@@ -130,4 +130,43 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
     {
         return new RepositorioAsesoresCursoDocsQuery(get_called_class());
     }
+    
+    
+    /*
+ * Zipea los adjuntos de STADOCUENTOS 
+ * Y LO GUARAD COO AFJUNTO 
+ */
+    
+  public  function zipeaArchivos($codocu,$offset=1){
+    //$ids=array_map('intval',$ids);
+      $pathDirectory=\yii::getAlias('@frontend/web/temp');
+    if(!is_dir($pathDirectory))
+        mkdir ($pathDirectory);
+            //yii::error('mutiplo de 20');
+           $zip=New \ZipArchive();  
+           $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
+            $zip->open($rutaTemp, \ZipArchive::CREATE); 
+    $registros=self::find()->andWhere(['codocu'=>$codocu])->
+     orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
+      foreach ( $registros as $documento){
+          //yii::error('recorrien do el bucle'); 
+       If($documento->hasAttachments() ){
+           $path=$documento->files[0]->path;
+           yii::error('zipeando');
+           yii::error($documento->files[0]->path);
+            $zip->addFile($path, $this->prepareNameFile($documento)/*\common\helpers\FileHelper::fileName($path)*/); 
+            //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
+        }else{
+            yii::error('No encontro adjuntos'); 
+        }
+    }
+    $zip->close();
+    return $rutaTemp;
+  }
+       
+private function prepareNameFile($modelo){
+    $docente=$modelo->asesoresCurso->asesor->docente;
+    return $docente->fullName();
+}  
+  
 }

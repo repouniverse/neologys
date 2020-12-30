@@ -20,12 +20,14 @@ use yii\widgets\Pjax;
 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
    
        <?php Pjax::begin(['id'=>'grid_flujo_pjax','timeout'=>false]); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php 
+  $userId=h::userId();
+// echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> frontend\modules\acad\models\AcadTramiteSyllabus::find()->
-                select(['id','user_id','aprobado','descripcion','focus','fecha_recibido','fecha_aprobacion'])
+                select(['id','docu_id','user_id','aprobado','descripcion','focus','fecha_recibido','fecha_aprobacion'])
                 ->andWhere(['docu_id'=>$model->id])->orderBy(['orden'=>SORT_ASC])
         ]),
         //'filterModel' => $searchModel,
@@ -53,7 +55,7 @@ use yii\widgets\Pjax;
                   ], 
              ['attribute'=>'focus',
                  'format'=>'raw',
-                   'value'=>function($model){
+                   'value'=>function($model) use($userId){
                          if($model->focus){
                              if($model->hasObservaciones()){
                                 $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
@@ -66,7 +68,17 @@ use yii\widgets\Pjax;
                              $link = Url::toRoute([$this->context->id.'/ajax-aprobe-flujo','id'=>$model->id]);
                               
                              $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
-                             $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                             
+                            // return $model->id;
+                             if($userId==$model->syllabus->docenteOwner->persona->profile->user->id){
+                                 $buton2='';
+                                 
+                             }else{
+                                 
+                                 $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                            
+                             }
+                             
                              
                              return $buton1.$buton2;
                               
