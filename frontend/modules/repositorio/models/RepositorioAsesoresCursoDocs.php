@@ -180,18 +180,20 @@ public function zipeaFiles($codocu,$offset=1){
       $ruta=\yii::getAlias('@frontend/web/temp/').'_'.uniqid().'/';
       if (!is_dir($ruta)) mkdir ($ruta);
         $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
-        $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
+        $docentes=RepoVwAsesoresAsignados::find()->select(['id','apasesor','amasesor','nombresasesor'])->distinct()->andWhere(['id'=>$idsDocus])->all();
           
          foreach($docentes as $docente){
              $rutaDocente=$ruta.'/'.str_replace([' ','Á','É','Í','Ó','Ú'],'_',$docente->apasesor).'_'.$docente->amasesor.'_'.$docente->nombresasesor.'/';
              if (!is_dir($rutaDocente))mkdir ($rutaDocente);
               $registros=self::find()->andWhere(['codocu'=>$codocu])->andWhere(['asesores_curso_id'=>$docente->id])->
-                            orderby(['id'=>SORT_ASC])->offset($offset)->limit(10)->all();
+                            orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
          foreach ( $registros as $documento){
                If($documento->hasAttachments() ){
                          $path=$documento->files[0]->path;
                          $nameF=\common\helpers\FileHelper::fileName($path);
                          $pathDestino=$rutaDocente.$nameF;
+                         yii::error($path);
+                          yii::error($pathDestino);
                          copy($path,$pathDestino);
                   } 
             }
