@@ -142,32 +142,39 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
       $pathDirectory=\yii::getAlias('@frontend/web/temp');
     if(!is_dir($pathDirectory))
         mkdir ($pathDirectory);
-            //yii::error('mutiplo de 20');
+      $zipGeneral=New \ZipArchive();  
+           $rutaTempGeneral=$pathDirectory.'/'.uniqid().'.zip';
+            $zipGeneral->open($rutaTemp, \ZipArchive::CREATE); 
+    
+    
+    $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
+    $docentes=RepoVwAsesoresAsignados::find()->select(['apasesor','amasesor','nombreasesor'])->andWhere(['id'=>$idsDocus]);
+    foreach($docentes as $docente){
            $zip=New \ZipArchive();  
-           $rutaTemp=$pathDirectory.'/'.uniqid().'.zip';
-            $zip->open($rutaTemp, \ZipArchive::CREATE); 
-    $registros=self::find()->andWhere(['codocu'=>$codocu])->
+           $rutaTemp=$pathDirectory.'/'.$docente->apasesor.'_'.$docente->amasesor.'_'.$docente->nombreasesor.'.zip';
+            $zip->open($rutaTemp, \ZipArchive::CREATE);
+            $registros=self::find()->andWhere(['codocu'=>$codocu])->
      orderby(['id'=>SORT_ASC])->offset($offset)->limit(50)->all();
-      foreach ( $registros as $documento){
-          //yii::error('recorrien do el bucle'); 
-       If($documento->hasAttachments() ){
+         foreach ( $registros as $documento){
+             If($documento->hasAttachments() ){
            $path=$documento->files[0]->path;
            $ext=\common\helpers\FileHelper::extensionFile($path, true);
-           yii::error('zipeando');
-           yii::error($documento->files[0]->path);
-            $zip->addFile($path, $this->prepareNameFile($documento,$ext)/*\common\helpers\FileHelper::fileName($path)*/); 
+           //yii::error('zipeando');
+           //yii::error($documento->files[0]->path);
+            $zip->addFile($path, \common\helpers\FileHelper::fileName($path)); 
             //$documento->logAudit(\common\behaviors\AccessDownloadBehavior::ACCESS_DOWNLOAD);
-        }else{
-            yii::error('No encontro adjuntos'); 
-        }
+                    } 
+         }
+          $zip->close();
     }
-    $zip->close();
-    return $rutaTemp;
+    $zipGeneral->close();
+    return $rutaTempGeneral;
   }
        
 private function prepareNameFile($modelo,$ext){
-    $docente=$modelo->asesoresCurso->asesor->docente;
-    return $docente->fullName().'_'.uniqid().$ext;
+    //$docente=$modelo->asesoresCurso->asesor->docente;
+   // return $docente->fullName().'_'.uniqid().$ext;
+    
 }  
   
 }
