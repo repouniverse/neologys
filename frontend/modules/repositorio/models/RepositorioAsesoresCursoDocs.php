@@ -144,7 +144,7 @@ class RepositorioAsesoresCursoDocs extends \common\models\base\modelBase
         mkdir ($pathDirectory);
       $zipGeneral=New \ZipArchive();  
            $rutaTempGeneral=$pathDirectory.'/'.uniqid().'.zip';
-            $zipGeneral->open($rutaTemp, \ZipArchive::CREATE); 
+            $zipGeneral->open($rutaTempGeneral, \ZipArchive::CREATE); 
     
     
     $idsDocus=static::find()->select(['asesores_curso_id'])->andWhere(['codocu'=>$codocu])->column();
