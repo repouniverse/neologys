@@ -41,6 +41,7 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
     const DOCU_ACTA_PLAN_INVESTIGACION='160';
     const DOCU_INFORME_TRABAJO_INVESTIGACION='161';
     const DOCU_ACTA_TRABAJO_INVESTIGACION='162';
+    const DOCU_INFORME_ORIGINALIDAD='164';
     
     private $_array_docs=[
         self::DOCU_PLAN_INVESTIGACION=>'1',
@@ -49,6 +50,7 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
         self::DOCU_ACTA_PLAN_INVESTIGACION=>'1',
         self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'0',
         self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'0',
+        self::DOCU_INFORME_ORIGINALIDAD=>'0',
             ];
     
     
@@ -60,6 +62,7 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
         self::DOCU_ACTA_PLAN_INVESTIGACION=>'1',
         self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'0',
         self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'0',
+        self::DOCU_INFORME_ORIGINALIDAD=>'0'
             ];
     
     

@@ -8,12 +8,12 @@
     use yii\widgets\Pjax;
     use yii\grid\GridView;
     use yii\widgets\ActiveForm;
-      use kartik\tabs\TabsX;
+    use kartik\tabs\TabsX;
     use kartik\date\DatePicker;
-      use common\widgets\inputajaxwidget\inputAjaxWidget;
+    use common\widgets\inputajaxwidget\inputAjaxWidget;
     use frontend\modules\maestros\MaestrosModule as m;
-        use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
-             use common\widgets\buttonajaxwidget\buttonAjaxWidget;
+    use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
+    use common\widgets\buttonajaxwidget\buttonAjaxWidget;
     use common\models\masters\Ubigeos;
 ?>
 
