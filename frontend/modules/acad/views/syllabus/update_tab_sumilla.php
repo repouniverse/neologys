@@ -52,7 +52,7 @@ use yii\widgets\Pjax;
     <?= GridView::widget([
         'dataProvider' => new ActiveDataProvider([
             'query'=> AcadSyllabusUnidades::find()->
-                select(['id','descripcion','capacidad'])->andWhere(['syllabus_id'=>$model->id])
+                select(['id','descripcion','capacidad','syllabus_id'])->andWhere(['syllabus_id'=>$model->id])
         ]),
         //'filterModel' => $searchModel,
         'columns' => [
@@ -87,10 +87,13 @@ use yii\widgets\Pjax;
                               return Html::a('<span class="btn btn-info glyphicon glyphicon-pencil"></span>', $url, ['class'=>'botonAbre']);
                              }, 
                                      
-                    'contenido' => function ($url,$model){                   
+                    'contenido' => function ($url,$model){     
+                            
                             $url = Url::toRoute(['/acad/syllabus/ajax-generate-content','id'=>$model->id]);
-                              return Html::a('<span class="btn btn-info glyphicon glyphicon-equalizer"></span>','javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
-                             }, 
+                              if($model->syllabus->n_semanas>0)
+                            return Html::a('<span class="btn btn-info glyphicon glyphicon-equalizer"></span>','javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                             return '';
+                              }, 
                     ]
                 ],
         ],
