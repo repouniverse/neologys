@@ -48,8 +48,8 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
         self::DOCU_TRABAJO_INVESTIGACION=>'1',//acticvar luego
         self::DOCU_INFORME_PLAN_INVESTIGACION=>'1',
         self::DOCU_ACTA_PLAN_INVESTIGACION=>'1',
-        self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'0',
-        self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'0',
+        self::DOCU_INFORME_TRABAJO_INVESTIGACION=>'1',
+        self::DOCU_ACTA_TRABAJO_INVESTIGACION=>'1',
         self::DOCU_INFORME_ORIGINALIDAD=>'0',
             ];
     
