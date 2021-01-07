@@ -65,6 +65,22 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         
         ?> 
         </div>
+    
+        <div style="margin-top: 10px;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+        <?php 
+    $docus2=FormatoDocs::find()->where(['in','codocu',['161','162']])->all();
+        foreach($docus2 as $docu){
+           ?>
+            <a href="<?=$docu->urlFirstFile?>" class="btn btn-info btn-sm" >
+                <span class="glyphicon glyphicon-download"></span>
+                   <?=yii::t('base_verbs','Download').' '.strtolower($docu->descripcion)?>
+            </a>
+            
+         <?PHP 
+        }   
+        
+        ?> 
+        </div>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
 	<?php Pjax::begin(['id'=>'mi_grilla']); ?>
     
