@@ -73,7 +73,7 @@ use yii\widgets\Pjax;
                              if($userId==$model->syllabus->docenteOwner->persona->profile->user->id){
                                  $buton2='';
                                  
-                             }else{
+                             }elseif($userId==$model->user_id){
                                  
                                  $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
                             

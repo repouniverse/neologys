@@ -121,6 +121,10 @@ class SyllabusController extends baseController
     public function actionUpdate($id)
     { 
         $model = $this->findModel($id);  
+        if(!h::userId()==$model->docenteOwner->persona->profile->user_id){
+          h::session()->setFlash('success','No puede modificar este silabos porque no lo tiene asignado');
+          return $this->redirect(['view', 'id' => $model->id]);
+        }
        
         /*Lineas para hacer funcional el edit-column*/
          if ($this->is_editable() && h::request()->isAjax)
