@@ -58,28 +58,28 @@ use yii\widgets\Pjax;
                    'value'=>function($model) use($userId){
                          if($model->focus){
                              if($model->hasObservaciones()){
-                                $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
+                                $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);}
                          
                              }else{
-                                 $link2=Url::to(['modal-create-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
-                        
+                                 $link2=Url::to(['modal-create-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);                        
                              }
                             // $link=Url::to(['ajax-aprobe-syllabus']);
                              $link = Url::toRoute([$this->context->id.'/ajax-aprobe-flujo','id'=>$model->id]);
-                              
-                             $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
-                             
+                          
                             // return $model->id;
-                             if($userId==$model->syllabus->docenteOwner->persona->profile->user->id){
-                                 $buton2='';
+                      
+                      if($userId==$model->user_id){
+                        $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
+                      }else{
+                        $buton1='';
+
+                      }                        
                                  
-                             }elseif($userId==$model->user_id){
-                                 
-                                 $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
-                            
-                             }
+                           $buton2='';  
                              
-                             
+                             /*
+                             $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                            */
                              return $buton1.$buton2;
                               
                              
