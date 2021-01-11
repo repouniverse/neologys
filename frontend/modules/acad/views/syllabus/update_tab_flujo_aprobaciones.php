@@ -57,6 +57,7 @@ use yii\widgets\Pjax;
                  'format'=>'raw',
                    'value'=>function($model) use($userId){
                     $buton1='';
+                    $buton2='';
                          if($model->focus){
                              if($model->hasObservaciones()){
                                 $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
