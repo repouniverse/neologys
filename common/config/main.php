@@ -167,7 +167,7 @@ return [
             'rules' => [// Rules according to the FileValidator
                 'maxFiles' => 10, // Allow to upload maximum 3 files, default to 3
                // 'mimeTypes' => 'image/png', // Only png images
-                'maxSize' => 1024 * 1024 // 1 MB
+                'maxSize' => 1024 * 1024 * 12 // 1 MB
             ],
             'tableName' => '{{%attachments}}' // Optional, default to 'attach_file'
         ]
