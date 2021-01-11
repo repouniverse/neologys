@@ -59,7 +59,7 @@ use yii\widgets\Pjax;
                          if($model->focus){
                              if($model->hasObservaciones()){
                                 $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
-                              }
+                              
                          
                              }else{
                                  $link2=Url::to(['modal-create-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);                        
@@ -77,6 +77,7 @@ use yii\widgets\Pjax;
                             }                        
                                  
                            $buton2='';  
+                         }
                              
                              /*
                              $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
