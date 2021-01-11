@@ -84,7 +84,7 @@ use yii\widgets\Pjax;
 
                             }                        
                                  
-                           $buton2='';  
+                             
                          }
                              
                              /*
