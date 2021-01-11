@@ -72,7 +72,13 @@ use yii\widgets\Pjax;
                             // return $model->id;
                       
                              if($userId==$model->user_id){
+
+                              if($userId!=$model->syllabus->docenteOwner->persona->profile->user_id){
+                                $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                              }
+
                               $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
+
                                }else{
                              $buton1='';
 
@@ -82,7 +88,7 @@ use yii\widgets\Pjax;
                          }
                              
                              /*
-                             $buton2=Html::a('<span class="fa fa-check"></span>Observar',$link2,['data-pjax'=>'0','class'=>'botonAbre btn btn-success']);
+                             
                             */
                              return $buton1.$buton2;
                               
