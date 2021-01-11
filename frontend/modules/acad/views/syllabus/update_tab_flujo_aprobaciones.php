@@ -58,7 +58,8 @@ use yii\widgets\Pjax;
                    'value'=>function($model) use($userId){
                          if($model->focus){
                              if($model->hasObservaciones()){
-                                $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);}
+                                $link2=Url::to(['modal-edit-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);
+                              }
                          
                              }else{
                                  $link2=Url::to(['modal-create-observacion','id'=>$model->id,'idModal'=>'buscarvalor','gridName'=>'grid_flujo_pjax']);                        
@@ -68,12 +69,12 @@ use yii\widgets\Pjax;
                           
                             // return $model->id;
                       
-                      if($userId==$model->user_id){
-                        $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
-                      }else{
-                        $buton1='';
+                             if($userId==$model->user_id){
+                              $buton1=Html::a('<span class="fa fa-check"></span>Aprobar', '#', ['class'=>'btn btn-success','id'=>$model->id,'title'=>$link,'family'=>'holas']);
+                               }else{
+                             $buton1='';
 
-                      }                        
+                            }                        
                                  
                            $buton2='';  
                              
@@ -83,9 +84,7 @@ use yii\widgets\Pjax;
                              return $buton1.$buton2;
                               
                              
-                         }else{
-                             return '';
-                         }
+                         
                     }
               
                  ],
