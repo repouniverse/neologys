@@ -5,7 +5,9 @@ namespace frontend\modules\acad\models;
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\Html;
-
+use common\helpers\h;
+use frontend\modules\acad\models\AcadTramiteSyllabus as ATS;
+use common\models\User as u;
 /**
  * This is the model class for table "{{%acad_observaciones_syllabus}}".
  *
@@ -104,17 +106,23 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     
     //NOTIFICA LA OBSERVACIÓN POR CORREO
     private function notificaMail(){
-        if(!empty($this->getDocOwner())){
-            $this->sendObservacion($this->getDocOwner(),$this->observacion);
-        }
-        //$this->sendObservacion($this->getDocOwner(),$this->observacion);
-        
+        //CUANDO EL FOCUS SEA DIFERENTE AL RESPONSABLE DE AREA EL CORREO DEBE IR A RESPONSABLE AREA.
+        //CASO CONTRARIO => EL CORREO VA PARA EL DOCENTE OWNER 
+        $userTramiteOrden = 1; //PARA EL ORDEN DEL VALOR DEL USUARIO QUE SE REQUIERE => TEACHER ADVIROS = 1
+        $userId=h::userId(); //USUARIO ACTUAL
+        $idTeacherAdvisor =  $this->getUserTramite($userTramiteOrden)[0]; //ID DEL RESPONSABLE DE ÁREA
+        if($userId != $idTeacherAdvisor ){
+            $this->sendObservacion(u::findOne($idTeacherAdvisor),$this->observacion);
+        }else{
+            if(!empty($this->getDocOwner())){
+                $this->sendObservacion($this->getDocOwner(),$this->observacion);
+            }
+        }    
         return true;
     }
     
     //FUNCION PARA ENVIAR LA OBSERVACIÓN 
     private function sendObservacion($user,$observacion ){
-        
         $message = new \yii\swiftmailer\Message();
         $ruta = Url::toRoute(['/acad/syllabus/update','id'=>$this->syllabus_id],true);
         $htmlBody = 'Estimado <b>'.$user->username.'</b>'
@@ -152,6 +160,12 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     //GETER DEL DOCENTE OWNER
     public function getDocOwner(){
         return $this->syllabus->docenteOwner->persona->profile->user;
+    }
+    //GETTER PARA EL USUARIO DEL ORDEN QUE SE REQUIERA.
+    private function getUserTramite($orden){
+        
+        return ATS::find()->
+                select(['user_id'])->andWhere(['orden'=>$orden,'docu_id'=>$this->syllabus->id])->column();
     }
   
 }
