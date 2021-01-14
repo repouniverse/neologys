@@ -38,7 +38,7 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
                [['n_semana','numero_semanas','n_sesiones_semana'], 'safe'],
             [['n_semana'], 'validateOrden'],            
             [['capacidad', 'comentarios'], 'string'],
-            [['descripcion'], 'string', 'max' => 80],
+            [['descripcion'], 'string', 'max' => 200],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
         ];
     }

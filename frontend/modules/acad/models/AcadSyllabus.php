@@ -85,7 +85,8 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return [
             [['plan_id', 'codperiodo', 'curso_id', 'docente_owner_id', 'formula_id','n_semanas'], 'required'],
-            [['plan_id', 'curso_id', 'n_horasindep', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'integer'],
+            [['n_horasindep'],'double'],
+            [['plan_id', 'curso_id', 'docente_owner_id', 'formula_id','n_sesiones_semana'], 'integer'],
             [['datos_generales', 'sumilla', 'competencias', 'prog_contenidos', 'estrat_metod', 'recursos_didac', 'fuentes_info', 'reserva1', 'reserva2'], 'string'],
            [['docente_owner_id','plan_id'], 'unique','targetAttribute'=>['docente_owner_id','plan_id']],
             [['codperiodo'], 'string', 'max' => 10],   

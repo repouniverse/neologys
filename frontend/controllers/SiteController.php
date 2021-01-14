@@ -313,6 +313,7 @@ public function actionAuthWithQuestions(){
 
 public function actionNewflujos(){
     //CRACION DE FLUJO DE SYLLABUS
+    die();
     
     $syllabus = \frontend\modules\acad\models\AcadSyllabus::find()->all();
     
