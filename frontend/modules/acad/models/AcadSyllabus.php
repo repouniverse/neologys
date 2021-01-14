@@ -180,8 +180,7 @@ class AcadSyllabus extends \common\models\base\modelBase
     {
         return $this->hasMany(AcadSyllabusDocentes::className(), ['syllabus_id' => 'id']);
     }
-    
-    
+   
     
     /**
      * Gets query for [[AcadSyllabusUnidades]].
@@ -315,6 +314,7 @@ class AcadSyllabus extends \common\models\base\modelBase
                 'datetime',true):'';
         yii::error('adadda');
         yii::error($fecha);
+        yii::error($orden);
         AcadTramiteSyllabus::firstOrCreateStatic(
               [
                   'codocu'=>self::CODIGO_DOCUMENTO,
@@ -338,28 +338,45 @@ class AcadSyllabus extends \common\models\base\modelBase
   }
    
   private function resolveUserFlujo(int $orden){
-      if(is_null($model_revision= AcadCursoAreaRevisor::findOne($this->plan_id))){
+      yii::error("plan id");
+      yii::error($this->plan_id);
+
+      $model_revision= AcadCursoAreaRevisor::findByPlanId($this->plan_id);
+      
+      if(is_null($model_revision)){
           $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id; 
+          yii::error("si entra al null");
+          yii::error($user_id);
           return $user_id;
       } 
       if($orden==0){
           //var_dump($this->docente_owner_id);die();
+          //echo $this->docente_owner_id;
+          
         $user_id=Docentes::findOne ($this->docente_owner_id)->persona->profile->user_id;  
       }elseif($orden==1){
           //$model_revision->docente_responsable_id;
+          
+          //echo $model_revision->docente_responsable_id;
           $user_id= Docentes::findOne($model_revision->docente_responsable_id)->persona->profile->user->id;
+          
       }
       elseif($orden==2){
+          
           $user_id= Personas::findOne($model_revision->persona_asesor_ugai_id)->profile->user->id;
-         // $model_revision->persona_asesor_ugai_id;
+          
+         //echo $model_revision->persona_asesor_ugai_id;
       }elseif($orden==3){
+          
           $user_id= Personas::findOne($model_revision->persona_corrector_id)->profile->user->id;
-        
-          //$model_revision->persona_corrector_id;
+         
+          //echo $model_revision->persona_corrector_id;
       }elseif($orden==4){
+          
           $user_id= Personas::findOne($model_revision->persona_director_escuela_id)->profile->user->id;
+          //yii::error("orden 4");
         
-          // $model_revision->persona_director_escuela_id;
+          //echo $model_revision->persona_director_escuela_id;
       }else{
           return false;
       }

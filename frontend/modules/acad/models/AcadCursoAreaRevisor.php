@@ -72,6 +72,11 @@ class AcadCursoAreaRevisor extends \common\models\base\modelBase
         ];
     }
 
+    
+    public static function findByPlanId($plan_id)
+    {
+        return static::findOne(['plan_id' => $plan_id]);
+    }
     /**
      * Gets query for [[PersonaAsesorUgai]].
      *

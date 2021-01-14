@@ -110,7 +110,7 @@ public function behaviors()
             [['tipodoc', 'categoria', 'dispo'], 'string', 'max' => 2],
              [['carrera_base'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['carrera_base' => 'id']],
             [['facultad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facultades::className(), 'targetAttribute' => ['facultad_id' => 'id']],
-            [['codigoper'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['codigoper' => 'codigoper']],
+            [['persona_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['persona_id' => 'id']],
             [['universidad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Universidades::className(), 'targetAttribute' => ['universidad_id' => 'id']],
                 [['universidad_id','facultad_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
              [['unidest_id','facudest_id','carreradest_id'], 'validateExt','on'=>self::SCE_EXTRANJERO],
@@ -202,7 +202,9 @@ public function behaviors()
          return (Combovalores::getValue('personas.tipodoc', $this->tipodoc ));
       } 
    
-      
+    public function getPersona() {
+        return $this->hasOne(Personas::className(), ['id' => 'persona_id']);
+    }
       
       public function getConvocatorias()
     {
@@ -213,6 +215,7 @@ public function behaviors()
     {
         return $this->hasMany(Asesores::className(), ['docente_id' => 'id']);
     }
+    
     
     
       
