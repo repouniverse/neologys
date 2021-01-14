@@ -311,8 +311,26 @@ public function actionAuthWithQuestions(){
         }
     }
 
+public function actionNewflujos(){
+    //CRACION DE FLUJO DE SYLLABUS
+    
+    $syllabus = \frontend\modules\acad\models\AcadSyllabus::find()->all();
+    
+    foreach ($syllabus as $syllabu){
+        /*$id_syllabo = $syllabu->id;
+        $flujos = \frontend\modules\acad\models\AcadTramiteSyllabus::find()->andWhere(['docu_id'=>$id_syllabo])->all();
+        foreach($flujos as $flujo){
+            $flujo->delete();
+        }*/
+        $syllabu->generateFlowAprove();
+    }
+    die();
+}
+
 
 public function actionRutas(){
+
+    
     //SASAAS
      yii::error('RUTA',__FUNCTION__);
     $personas= \common\models\masters\Personas::find()->andWhere(['>=','id',6807])->
