@@ -23,7 +23,10 @@ use frontend\modules\acad\models\AcadContenidoSyllabus;
             'bloque3',
             'n_horas_cumplimiento',
             'n_horas_trabajo_indep',
-            ])->andWhere(['unidad_id'=>$identidad_unidad])
+            ])->andWhere(['unidad_id'=>$identidad_unidad]),
+                'pagination' => [
+                    'pageSize' => 300,
+            ]
         ]);
           // var_dump($dataProvider->getModels()[0]->id);  DIE();
             ?>
