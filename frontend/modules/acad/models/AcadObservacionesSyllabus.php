@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use common\helpers\h;
 use frontend\modules\acad\models\AcadTramiteSyllabus as ATS;
 use common\models\User as u;
+
 /**
  * This is the model class for table "{{%acad_observaciones_syllabus}}".
  *
@@ -26,9 +27,9 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     /**
      * {@inheritdoc}
      */
-    
-    public $booleanFields=['activo'];
-    
+
+    public $booleanFields = ['activo'];
+
     public static function tableName()
     {
         return '{{%acad_observaciones_syllabus}}';
@@ -43,10 +44,10 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
             [['flujo_syllabus_id', 'syllabus_id'], 'required'],
             [['flujo_syllabus_id', 'syllabus_id'], 'integer'],
             [['observacion'], 'string'],
-             [['activo'], 'safe'],
-            [['seccion'], 'string', 'max' => 40],            
-             [['fecha'], 'string', 'max' => 19],            
-            [['flujo_syllabus_id', 'syllabus_id'], 'unique','targetAttribute'=>['flujo_syllabus_id', 'syllabus_id']],
+            [['activo'], 'safe'],
+            [['seccion'], 'string', 'max' => 40],
+            [['fecha'], 'string', 'max' => 19],
+            [['flujo_syllabus_id', 'syllabus_id'], 'unique', 'targetAttribute' => ['flujo_syllabus_id', 'syllabus_id']],
             [['fecha'], 'string', 'max' => 19],
             [['syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadSyllabus::className(), 'targetAttribute' => ['syllabus_id' => 'id']],
             [['flujo_syllabus_id'], 'exist', 'skipOnError' => true, 'targetClass' => AcadTramiteSyllabus::className(), 'targetAttribute' => ['flujo_syllabus_id' => 'id']],
@@ -96,76 +97,79 @@ class AcadObservacionesSyllabus extends \common\models\base\modelBase
     {
         return new AcadObservacionesSyllabusQuery(get_called_class());
     }
-    
-    public function afterSave($insert, $changedAttributes) {
+
+    public function afterSave($insert, $changedAttributes)
+    {
         //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
         $this->notificaMail();
         return parent::afterSave($insert, $changedAttributes);
     }
-    
-    
+
+
     //NOTIFICA LA OBSERVACIÓN POR CORREO
-    private function notificaMail(){
+    private function notificaMail()
+    {
         //CUANDO EL FOCUS SEA DIFERENTE AL RESPONSABLE DE AREA EL CORREO DEBE IR A RESPONSABLE AREA.
         //CASO CONTRARIO => EL CORREO VA PARA EL DOCENTE OWNER 
         $userTramiteOrden = 1; //PARA EL ORDEN DEL VALOR DEL USUARIO QUE SE REQUIERE => TEACHER ADVIROS = 1
-        $userId=h::userId(); //USUARIO ACTUAL
+        $userId = h::userId(); //USUARIO ACTUAL
         $idTeacherAdvisor =  $this->getUserTramite($userTramiteOrden)[0]; //ID DEL RESPONSABLE DE ÁREA
-        if($userId != $idTeacherAdvisor ){
-            $this->sendObservacion(u::findOne($idTeacherAdvisor),$this->observacion);
-        }else{
-            if(!empty($this->getDocOwner())){
-                $this->sendObservacion($this->getDocOwner(),$this->observacion);
+        if ($userId != $idTeacherAdvisor) {
+            $this->sendObservacion(u::findOne($idTeacherAdvisor), $this->observacion);
+        } else {
+            if (!empty($this->getDocOwner())) {
+                $this->sendObservacion($this->getDocOwner(), $this->observacion);
             }
-        }    
+        }
         return true;
     }
-    
+
     //FUNCION PARA ENVIAR LA OBSERVACIÓN 
-    private function sendObservacion($user,$observacion ){
-        $message = new \yii\swiftmailer\Message();
-        $ruta = Url::toRoute(['/acad/syllabus/update','id'=>$this->syllabus_id],true);
-        $htmlBody = 'Estimado <b>'.$user->username.'</b>'
-            . ' <br> Se le remite la observación en el Syllabus con id: <b>'.$this->syllabus_id.'</b>'
-            . ' <br> Ingrese a la siguiente ruta: <b>'.Html::a($ruta,$ruta,['target'=>'_blank']).'</b>'
-            . ' <div style="padding-left:10px;">'
-            . ' <br> En la sección: <b>'.$this->seccion.'</b>'
-            . ' <br> El documento cuenta con la siguiente observación:'
-            . ' <br> <b>'.$observacion.'</b>'
-            . ' </div>'
-            . ' <br><b>Se espera la corrección inmediata.<b>'
-            . ' <br><br>Atte.'
-            . ' <br>Unidad de Gestión Académica e Innovación.' ;
-        yii::error("EL CORREO ES : ");
-        yii::error($user->email);
-        $mailer = new \common\components\Mailer();
-        $message->setSubject('PRUEBA')
+    private function sendObservacion($user, $observacion)
+    {
+        if ($user->email != null) {
+            $message = new \yii\swiftmailer\Message();
+            $ruta = Url::toRoute(['/acad/syllabus/update', 'id' => $this->syllabus_id], true);
+            $htmlBody = 'Estimado <b>' . $user->username . '</b>'
+                . ' <br> Se le remite la observación en el Syllabus con id: <b>' . $this->syllabus_id . '</b>'
+                . ' <br> Ingrese a la siguiente ruta: <b>' . Html::a($ruta, $ruta, ['target' => '_blank']) . '</b>'
+                . ' <div style="padding-left:10px;">'
+                . ' <br> En la sección: <b>' . $this->seccion . '</b>'
+                . ' <br> El documento cuenta con la siguiente observación:'
+                . ' <br> <b>' . $observacion . '</b>'
+                . ' </div>'
+                . ' <br><b>Se espera la corrección inmediata.<b>'
+                . ' <br><br>Atte.'
+                . ' <br>Unidad de Gestión Académica e Innovación.';
+            yii::error("EL CORREO ES : ");
+            yii::error($user->email);
+            $mailer = new \common\components\Mailer();
+            $message->setSubject('PRUEBA')
                 ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
                 ->setTo($user->email)
                 ->setHtmlBody($htmlBody);
 
-        try {
+            try {
 
-            $result = $mailer->send($message);
-            return $result;
-            
-        } catch (\Swift_TransportException $Ste) {
-           
-             yii::error($Ste->getMessage(),__FUNCTION__);
-             // return $result;
+                $result = $mailer->send($message);
+                return $result;
+            } catch (\Swift_TransportException $Ste) {
+
+                yii::error($Ste->getMessage(), __FUNCTION__);
+                // return $result;
+            }
         }
-                  
     }
-    
+
     //GETER DEL DOCENTE OWNER
-    public function getDocOwner(){
+    public function getDocOwner()
+    {
         return $this->syllabus->docenteOwner->persona->profile->user;
     }
     //GETTER PARA EL USUARIO DEL ORDEN QUE SE REQUIERA.
-    private function getUserTramite($orden){
-        
-        return ATS::find()->
-                select(['user_id'])->andWhere(['orden'=>$orden,'docu_id'=>$this->syllabus->id])->column();
+    private function getUserTramite($orden)
+    {
+
+        return ATS::find()->select(['user_id'])->andWhere(['orden' => $orden, 'docu_id' => $this->syllabus->id])->column();
     }
-  
 }

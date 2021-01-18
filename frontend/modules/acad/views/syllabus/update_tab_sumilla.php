@@ -79,7 +79,12 @@ use yii\widgets\Pjax;
                'buttons' => [                    
                     'delete' => function ($url,$model){                   
                             $url = Url::toRoute(['/acad/syllabus/ajax-delete-unidad','id'=>$model->id]);
+                            $syllabus_id = \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($model->id)->syllabus_id;
+                            $id_unidad = \frontend\modules\acad\models\AcadSyllabusUnidades::find()->orderBy('id DESC')->andWhere(['syllabus_id'=>$syllabus_id])->limit(1)->one();
+                            if($id_unidad->id == $model->id )
                               return Html::a('<span class="btn btn-danger glyphicon glyphicon-trash"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
+                            else 
+                                return '';
                              },                    
                         
                      'edit' => function ($url,$model)use($id_pjax_sumilla){                   

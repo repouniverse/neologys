@@ -310,16 +310,24 @@ class SyllabusController extends baseController
            $docente_id=h::request()->get('docente_id');
            $plan=\common\models\masters\PlanesEstudio::findOne($plan_id);
            $docente=\common\models\masters\Docentes::findOne($docente_id);
-           if(is_null($docente) or is_null($plan))
+           yii::error("plan_id");
+           yii::error($plan_id);
+           $syllabus = \frontend\modules\acad\models\AcadRespoSyllabus::findOne(['plan_estudio_id'=>$plan_id]);
+           yii::error("Existe el syllabuS?");
+           yii::error(empty($syllabus));
+           if(is_null($docente) or is_null($plan) )
              return ['error'=>yii::t('base_errors','Record not found')];  
            $model=New \frontend\modules\acad\models\AcadRespoSyllabus([
                'docente_id'=>$docente_id,
                'plan_estudio_id'=>$plan_id,
            ]);
           if($model->save()){
-              return ['success'=>yii::t('base_errors','Course has been added')];
-          }else{
-              return ['error'=>yii::t('base_errors',$model->getFirstError())];
+            return ['success'=>yii::t('base_errors','Course has been added')];
+          }else if(!empty($syllabus)) {
+            return ['error'=>yii::t('base_errors','Este curso ya se encuentra asignado')];
+          }
+          else{
+            return ['error'=>yii::t('base_errors',$model->getFirstError())];
           }
            
        }
@@ -389,6 +397,43 @@ class SyllabusController extends baseController
                         'idModal'=>h::request()->get('idModal'),
             ]);  
         }
+    }
+
+    public function actionAjaxDeleteUnidad($id){
+        $unidad = \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
+        $unidades =  \frontend\modules\acad\models\AcadContenidoSyllabus::findAll(['unidad_id'=>$id]);
+        if(h::request()->isAjax){  
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if( is_null( $unidades)){
+                //$unidad->delete();
+            }else{
+                foreach($unidades as $u){
+                    $u->delete();
+                }
+                $unidad->delete(); 
+            }
+            return ['success'=>yii::t('base_labels','Unidad eliminada con éxito.')];
+        }
+    }
+
+    public function actionAjaxDeleteObservacion($id){
+        $observ = \frontend\modules\acad\models\AcadObservacionesSyllabus::findOne(['flujo_syllabus_id'=>$id]);
+
+        if(h::request()->isAjax){  
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if(is_null($observ)){
+                return ['error'=>yii::t('base_labels','No tiene observaciones registradas.')];
+            }else{
+                $observ->delete();
+                return ['success'=>yii::t('base_labels','Observación eliminada con éxito.')];
+            }
+            
+        }
+
+        
+        
     }
     
     public function actionModalEditarCompe($id){
