@@ -3,7 +3,7 @@
 namespace frontend\modules\buzon\database\migrations;
 use console\migrations\baseMigration;
 
-/**
+/***
  * Class m210119_162146_create_table_buzon_mensaje
  */
 class m210119_162146_create_table_buzon_mensaje extends baseMigration
