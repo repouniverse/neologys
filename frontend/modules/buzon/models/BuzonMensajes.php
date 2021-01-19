@@ -3,7 +3,7 @@
 namespace frontend\modules\buzon\models;
 
 use Yii;
-use common\models\User;
+use common\models\User; 
 use common\models\masters\Departamentos;
 
 /**
