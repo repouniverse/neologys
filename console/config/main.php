@@ -92,6 +92,7 @@ return [
                 'frontend\modules\regacad\database\migrations',
                 'frontend\modules\repositorio\database\migrations',
                 'frontend\modules\acad\database\migrations',
+                'frontend\modules\buzon\database\migrations'
                // 'backend\modules\base\database\migrations',
                 
                 ],

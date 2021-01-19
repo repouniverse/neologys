@@ -41,7 +41,7 @@ class SyllabusController extends baseController
     }
 
     /**
-     * Lists all AcadSyllabus models.
+     * Lists all AcadSyllabus models. 
      * @return mixed
      */
     public function actionIndex()

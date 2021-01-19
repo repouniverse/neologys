@@ -17,8 +17,8 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
     public function rules()
     {
         return [
-            [['nombre','apasesor'], 'string'],
-            [['nombre','apasesor','seccion','descripcion','codalu'], 'safe'],
+            // [['nombres','apasesor'], 'string'],
+            [['ap', 'am', 'nombres', 'apasesor', 'amasesor', 'seccion', 'descripcion', 'codalu', 'nombresasesor', 'codesp'], 'safe'],
         ];
     }
 
@@ -50,25 +50,17 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
 
         $this->load($params);
 
-       /* if (!$this->validate()) {
+        /* if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }*/
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])->
-               andFilterWhere(['like', 'seccion', $this->seccion])->
-                andFilterWhere(['like', 'descripcion', $this->descripcion])->
-                 andFilterWhere(['like', 'codalu', $this->codalu])->
-               andFilterWhere(['like', 'apasesor', $this->apasesor])
-                ;
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])->andFilterWhere(['like', 'seccion', $this->seccion])->andFilterWhere(['like', 'descripcion', $this->descripcion])->andFilterWhere(['like', 'codalu', $this->codalu])->andFilterWhere(['like', 'apasesor', $this->apasesor])->andFilterWhere(['like', 'ap', $this->ap])->andFilterWhere(['like', 'am', $this->am])->andFilterWhere(['like', 'amasesor', $this->amasesor])->andFilterWhere(['like', 'nombresasesor', $this->nombresasesor])->andFilterWhere(['like', 'codesp', $this->codesp]);
         \yii::error($query->createCommand()->rawSql);
-       // $query->andFilterWhere(['like', 'activo', $this->activo]);
+        // $query->andFilterWhere(['like', 'activo', $this->activo]);
 
         return $dataProvider;
     }
-    
-    
-    
 }

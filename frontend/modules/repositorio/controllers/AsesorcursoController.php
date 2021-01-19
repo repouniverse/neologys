@@ -6,7 +6,7 @@ use common\models\masters\Alumnos;
 use common\models\masters\Docentes;
 use common\models\masters\Matricula;
 use common\models\masters\AsesoresCurso;
-
+use common\models\User as u;
 use common\models\masters\AsesoresCursoSearch;
 use frontendRepoVwAsesoresAsignadosSearch;
 use common\filters\ActionIsIdentidadFilter;
@@ -17,6 +17,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;
 use frontend\modules\repositorio\models\RepoVwAsesoresAsignadosSearch;
+
 
 /**
  * AsesorescursoController implements the CRUD actions for AsesoresCurso model.
@@ -327,6 +328,40 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
     
     
     }
+
+    public function actionPanelManagerAsesorCurso()
+    {
+        $searchModel = new RepoVwAsesoresAsignadosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$userId = h::
+        //$model= \common\models\masters\Docentes::findOne($id);
+        
+
+      // $model = new AsesoresCurso();
+        $modelDocente=Yii::$app->user->profile->persona->identidad;
+        /*var_dump(Yii::$app->user->profile->persona->id,
+               Yii::$app->user->profile->persona->identidad 
+                );
+        die();*/
+    if($modelDocente instanceof Docentes ){
+          //if($tieneAsesorados=$modelDocente->hasAsesorados()){
+                 
+            return $this->render('panel_manager_asesor_curso', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $modelDocente
+            ]);
+            
+    }else{
+        return $this->render('noesalumno', [
+            'model' => $modelDocente,
+        ]); 
+    }
+    
+    
+    }
+
+    
    
  public function actionAjaxShowDocs(){
       $this->layout="install";
