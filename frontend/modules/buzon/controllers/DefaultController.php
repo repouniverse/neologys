@@ -7,7 +7,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `buzon` module
  */
-class DefaultController extends Controller
+class DefaultController extends Controller 
 {
     /**
      * Renders the index view for the module
