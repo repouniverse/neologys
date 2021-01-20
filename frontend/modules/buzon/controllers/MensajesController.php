@@ -5,6 +5,7 @@ namespace frontend\modules\buzon\controllers;
 use Yii;
 use frontend\modules\buzon\models\BuzonMensajes;
 use frontend\modules\buzon\models\BuzonMensajesSearch;
+use frontend\modules\buzon\models\BuzonVwMensajes;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -107,6 +108,13 @@ class MensajesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    //PARA LA VISTA DEL ADMINISTRADOR DE MENSAJES
+    public function actionPanelManagerAdmin(){
+        
+    
     }
 
     /**
