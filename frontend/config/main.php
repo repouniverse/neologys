@@ -93,17 +93,14 @@ return [
         'import' => [
             'class' => 'frontend\modules\import\ModuleImport',
         ],
-
         'regacad' => [
             'class' => 'frontend\modules\regacad\Module',
         ],
         'repositorio' => [
             'class' => 'frontend\modules\repositorio\Module',
         ],
-        'modules' => [
-            'buzon' => [
+        'buzon' => [
                 'class' => 'frontend\modules\buzon\Buzon',
-            ],
         ],
     ],
     'as access' => [

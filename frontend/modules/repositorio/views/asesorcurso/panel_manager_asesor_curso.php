@@ -40,13 +40,13 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'options' => ['style' => 'widht : 25%'],
                     'summary' => '',
                     'columns' => [
 
                         //'codcur',
                         'descripcion',
                         'apasesor',
-                        'amasesor',
                         'nombresasesor',
                         'seccion',
                         'codesp',

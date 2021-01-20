@@ -343,7 +343,7 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
                Yii::$app->user->profile->persona->identidad 
                 );
         die();*/
-    if($modelDocente instanceof Docentes ){
+    //if($modelDocente instanceof Docentes ){
           //if($tieneAsesorados=$modelDocente->hasAsesorados()){
                  
             return $this->render('panel_manager_asesor_curso', [
@@ -352,11 +352,11 @@ $mod=\common\models\masters\DocenteCursoSeccion::findOne($id);
                 'model' => $modelDocente
             ]);
             
-    }else{
-        return $this->render('noesalumno', [
-            'model' => $modelDocente,
-        ]); 
-    }
+    //}else{
+    //    return $this->render('noesalumno', [
+    //        'model' => $modelDocente,
+    //    ]); 
+    //}
     
     
     }
