@@ -66,7 +66,7 @@ class MensajesController extends Controller
     public function actionCreate()
     {
         $model = new BuzonMensajes();
-
+        $this->layout= 'install';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

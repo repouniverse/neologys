@@ -1,12 +1,14 @@
+<div class="contenedor-form">
 <?php
 
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
+
 echo Html::img('http://www.fcctp.usmp.edu.pe/fcctpforms/solicitudbuzon2/images/cabecera_solicitud.jpg',
  [
-     'style' => ['width' => '100%', 'margin-top' => '33px']
+     'style' =>  ['width' => '100%', 'margin-top' => '33px', 'margin-left' => '0%']
  ]
 );
 
@@ -23,3 +25,4 @@ $this->params['breadcrumbs'][] = "$this->title";
     ]) ?>
 
 </div>
+
