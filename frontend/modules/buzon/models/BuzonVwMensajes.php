@@ -38,14 +38,15 @@ class BuzonVwMensajes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'user_id', 'departamento_id'], 'integer'],
-            [['user_id', 'departamento_id', 'email', 'nombredepa'], 'required'],
+            [['buzon_mensaje_id','carrera_id', 'user_id', 'departamento_id','trabajador_id',], 'integer'],
+            [['user_id', 'departamento_id', 'email', 'nombredepa','trabajador_id'], 'required'],
             [['mensaje'], 'string'],
             [['fecha_registro'], 'safe'],
-            [['nombres', 'ap', 'am', 'nombredepa'], 'string', 'max' => 40],
+            [['alumno_ap','alumno_am','alumnos_nombres','trabajador_ap','trabajador_am','trabajador_nombres', 'nombredepa'], 'string', 'max' => 40],
             [['codesp'], 'string', 'max' => 8],
             [['numerodoc', 'estado', 'prioridad'], 'string', 'max' => 20],
             [['email'], 'string', 'max' => 255],
+
         ];
     }
 
@@ -55,12 +56,19 @@ class BuzonVwMensajes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base_labels', 'ID'),
+
+            
             'user_id' => Yii::t('base_labels', 'User ID'),
             'departamento_id' => Yii::t('base_labels', 'Departamento ID'),
-            'nombres' => Yii::t('base_labels', 'Nombres'),
-            'ap' => Yii::t('base_labels', 'Ap'),
-            'am' => Yii::t('base_labels', 'Am'),
+            'trabajador_id' => Yii::t('base_labels', 'Trabajador ID'),
+            'carrera_id' => Yii::t('base_labels', 'Carrera ID'),
+            'buzon_mensaje_id' => Yii::t('base_labels', 'Buzon Mensaje ID'),
+            'alumno_nombres' => Yii::t('base_labels', 'Nombres Alumno'),
+            'trabajador_nombres' => Yii::t('base_labels', 'Nombres Profesor'),
+            'alumno_ap' => Yii::t('base_labels', 'alumno Ap'),
+            'alumno_am' => Yii::t('base_labels', 'alumno Am'),
+            'trabajador_ap' => Yii::t('base_labels', 'trabajador Ap'),
+            'trabajador_am' => Yii::t('base_labels', 'trabajador Am'),
             'codesp' => Yii::t('base_labels', 'Codesp'),
             'numerodoc' => Yii::t('base_labels', 'Numerodoc'),
             'email' => Yii::t('base_labels', 'Email'),

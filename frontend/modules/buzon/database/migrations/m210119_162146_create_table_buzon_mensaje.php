@@ -11,6 +11,7 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
     const NAME_TABLE='{{%buzon_mensajes}}';
     const NAME_TABLE_USER='{{%user}}';
     const NAME_TABLE_DEPARTAMENTOS='{{%departamentos}}';
+    const NAME_TABLE_TRABAJADORES='{{%trabajadores}}';
     
     
     public function safeUp()
@@ -23,6 +24,8 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
                 'user_id' => $this->integer(11)->notNull(),
                 //ID DEL DEPARTAMENTO
                 'departamento_id' => $this->integer(11)->notNull(),
+                //ID TRABAJADOR
+                'trabajador_id' => $this->integer(11)->notNull(),
                 //EL MENSAJE ENVIADO POR EL USUARIO
                 'mensaje' => $this->text()->append($this->collateColumn()),
                 //EL ESTADO DEL MENSAJE
@@ -47,6 +50,13 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
                 $table,
                 'departamento_id',
                 static::NAME_TABLE_DEPARTAMENTOS,
+                'id'
+            );
+            $this->addForeignKey(
+                $this->generateNameFk($table),
+                $table,
+                'trabajador_id',
+                static::NAME_TABLE_TRABAJADORES,
                 'id'
             );
         }

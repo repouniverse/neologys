@@ -18,7 +18,27 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
     {
         return [
              
-            [['id','user_id','nombres','departamento_id','ap', 'am','codesp','numerodoc','email', 'nombredepa', 'mensaje','estado','fecha_registro','prioridad'], 'safe'],
+            [[
+            
+            'user_id',
+            'departamento_id',
+            'trabajador_id',             
+            'carrera_id', 
+            'buzon_mensaje_id', 
+            'alumno_nombres',
+            'trabajador_nombres',
+            'alumno_ap',           
+            'alumno_am',        
+            'trabajador_ap',
+            'trabajador_am',                    
+            'codesp',         
+            'numerodoc',                
+            'email',     
+            'nombredepa',              
+            'mensaje',            
+            'estado',   
+            'fecha_registro',                
+            'prioridad',      ], 'safe'],
         ];
     }
 
@@ -62,17 +82,9 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
           
         ]);
         
-        $query->andFilterWhere(['like', 'nombres', $this->nombres])
-            ->andFilterWhere(['like', 'ap', $this->ap])
-            ->andFilterWhere(['like', 'am', $this->am])
-            ->andFilterWhere(['like', 'codesp', $this->codesp])
-            ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'nombredepa', $this->nombredepa])
-            ->andFilterWhere(['like', 'mensaje', $this->mensaje])
-            ->andFilterWhere(['like', 'estado', $this->estado])
-            ->andFilterWhere(['like', 'fecha_registro', $this->fecha_registro])
-            ->andFilterWhere(['like', 'prioridad', $this->prioridad]);
+        $query->andFilterWhere(['like', 'alumno_nombres', $this->alumno_nombres])
+            ->andFilterWhere(['like', 'alumno_ap', $this->alumno_ap])
+            ->andFilterWhere(['like', 'alumno_am', $this->alumno_am]);
 
         return $dataProvider;
     }

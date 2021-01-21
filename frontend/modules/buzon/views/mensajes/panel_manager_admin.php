@@ -50,9 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->nombredepa;
                                      }                                
                         ],
-                        'nombres',
-                        'ap',
-                        'am',
+                        'alumno_nombres',
+                        'alumno_ap',
+                        'alumno_am',
                         'email',
                         'mensaje'
 
