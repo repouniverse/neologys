@@ -157,7 +157,7 @@ class FileHelper extends FileHelperOriginal {
    
    /*
     * Arroja la imagen anonima
-    */
+    */ 
    public static function UrlEmptyImage(){
        $alias=yii::getAlias('@common/web/img/nophoto.png');
        if(!is_file($alias))
