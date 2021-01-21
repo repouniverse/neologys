@@ -4,7 +4,7 @@ namespace frontend\modules\buzon\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\modules\buzon\models\BuzonMensajes;
+use frontend\modules\buzon\models\BuzonVwMensajes;
 
 /**
  * BuzonMensajesSearch represents the model behind the search form of `frontend\modules\buzon\models\BuzonMensajes`.
@@ -17,8 +17,8 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
     public function rules()
     {
         return [
-            [['id', 'user_id', 'departamento_id'], 'integer'],
-            [['mensaje', 'estado', 'prioridad', 'fecha_registro'], 'safe'],
+             
+            [['id','user_id','nombres','departamento_id','ap', 'am','codesp','numerodoc','email', 'nombredepa', 'mensaje','estado','fecha_registro','prioridad'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
      */
     public function search($params)
     {
-        $query = BuzonMensajes::find();
+        $query = BuzonVwMensajes::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +58,20 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
             'departamento_id' => $this->departamento_id,
-            'fecha_registro' => $this->fecha_registro,
+          
         ]);
-
-        $query->andFilterWhere(['like', 'mensaje', $this->mensaje])
+        
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])
+            ->andFilterWhere(['like', 'ap', $this->ap])
+            ->andFilterWhere(['like', 'am', $this->am])
+            ->andFilterWhere(['like', 'codesp', $this->codesp])
+            ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'nombredepa', $this->nombredepa])
+            ->andFilterWhere(['like', 'mensaje', $this->mensaje])
             ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'fecha_registro', $this->fecha_registro])
             ->andFilterWhere(['like', 'prioridad', $this->prioridad]);
 
         return $dataProvider;
