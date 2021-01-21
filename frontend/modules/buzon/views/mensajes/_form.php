@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="contenedor-form">
 <div class="panel-heading">
     <h5>
         <b>CATEGORIA</b>
@@ -32,6 +33,8 @@ use yii\widgets\ActiveForm;
 <div class="categorias-body">
 <p>(<span class="color-rojo">*</span>) Estos campos son obligatorios</p>
 </div>
+</div>
+
 
 <div class="buzon-mensajes-form">
 
@@ -80,6 +83,11 @@ use yii\widgets\ActiveForm;
 
 .color-rojo{
     color: red
+}
+
+.contenedor-form{
+    width: 60%;
+    margin-left: 20% ;
 }
 
 
