@@ -5,6 +5,7 @@ namespace frontend\modules\buzon\controllers;
 use Yii;
 use frontend\modules\buzon\models\BuzonMensajes;
 use frontend\modules\buzon\models\BuzonMensajesSearch;
+use frontend\modules\buzon\models\BuzonVwMensajesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -107,6 +108,20 @@ class MensajesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    //PARA LA VISTA DEL ADMINISTRADOR DE MENSAJES
+    public function actionPanelManagerAdmin()
+    {
+        $searchModel = new BuzonVwMensajesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('panel_manager_admin', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
 
     /**
