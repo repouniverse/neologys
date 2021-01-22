@@ -72,7 +72,8 @@ class MensajesController extends Controller
         
         $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
         $model = new BuzonMensajes();
-    //$this->layout= 'install';
+        //$model::guardarMensaje();
+        //$this->layout= 'install';
         $model->setAttributes([
             'user_id'=>h::userId(),
             'estado'=>self::BUZON_MENSAJE_ESTADO, 

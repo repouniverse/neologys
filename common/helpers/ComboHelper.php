@@ -515,6 +515,7 @@ class ComboHelper  {
                 'id','nombre');
     } 
     
+    
     public static function getCboDepartamentosFacu($idfac=null){
          //$iduser=is_null($iduser)?static::userId():$iduser;  
           $query= \common\models\masters\Departamentos::find();

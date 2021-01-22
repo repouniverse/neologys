@@ -348,6 +348,9 @@ return[
     'Procedural contents' => 'Contenidos procedimentales',
     'Learning activity' => 'Actividad de aprendizaje',
     'Aproves' => 'Aprobaciones'
+
+    //BUZON__MENSAJES_SOLICITUD
+    
     
     
     ];
