@@ -5,6 +5,7 @@ namespace frontend\modules\buzon\models;
 use Yii;
 use common\models\User; 
 use common\models\masters\Departamentos;
+use common\models\masters\Trabajadores;
 
 /**
  * This is the model class for table "{{%buzon_mensajes}}".
@@ -19,6 +20,7 @@ use common\models\masters\Departamentos;
  *
  * @property User $user
  * @property Departamentos $departamento
+ * @property Trabajadores $trabajador
  */
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
@@ -43,6 +45,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
+            [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trabajadores::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
         ];
     }
 
@@ -55,10 +58,12 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             'id' => Yii::t('base_labels', 'ID'),
             'user_id' => Yii::t('base_labels', 'User ID'),
             'departamento_id' => Yii::t('base_labels', 'Departamento ID'),
+            'trabajador_id' => Yii::t('base_labels', 'TRABAJADOR ID'),
             'mensaje' => Yii::t('base_labels', 'Mensaje'),
             'estado' => Yii::t('base_labels', 'Estado'),
             'prioridad' => Yii::t('base_labels', 'Prioridad'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
+            
         ];
     }
 
@@ -80,6 +85,16 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function getDepartamento()
     {
         return $this->hasOne(Departamentos::className(), ['id' => 'departamento_id']);
+    }
+
+    /**
+     * Gets query for [[Trabajador]].
+     *
+     * @return \yii\db\ActiveQuery|TrabajadoresQuery
+     */
+    public function getTrabajador()
+    {
+        return $this->hasOne(Trabajadores::className(), ['id' => 'trabajador_id']);
     }
 
     /**

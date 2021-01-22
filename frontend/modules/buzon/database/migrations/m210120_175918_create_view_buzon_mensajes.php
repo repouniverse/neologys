@@ -20,10 +20,10 @@ class m210120_175918_create_view_buzon_mensajes extends viewMigration
         $comando->createView($vista,
                 (new \yii\db\Query())
         ->select([
-         'bm.id','bm.user_id','bm.departamento_id','a.nombres',
-         'a.ap','a.am','c.codesp','a.numerodoc','u.email',
+         'bm.id as buzon_mensaje_id','bm.user_id','bm.departamento_id','a.nombres as alumno_nombres',
+         'a.ap as alumno_ap','a.am as alumno_am','c.codesp','c.id as carrera_id','a.numerodoc','u.email',
          'd.nombredepa', 'bm.mensaje', 'bm.estado', 'bm.fecha_registro',
-         'bm.prioridad',
+         'bm.prioridad','t.id as trabajador_id','t.nombres as trabajador_nombres','t.ap as trabajador_ap','t.am as trabajador_am'
         ])
         ->from(['bm'=>'{{%buzon_mensajes}}'])->
          innerJoin('{{%departamentos}} d', 'd.id = bm.departamento_id')-> 
@@ -31,7 +31,8 @@ class m210120_175918_create_view_buzon_mensajes extends viewMigration
          innerJoin('{{%profile}} p', 'p.user_id = u.id')-> 
          innerJoin('{{%personas}} pa', 'pa.id = p.persona_id')->
          innerJoin('{{%alumnos}} a', 'a.persona_id = pa.id')->
-         innerJoin('{{%carreras}} c', 'a.carrera_id = c.id')         
+         innerJoin('{{%carreras}} c', 'a.carrera_id = c.id')->
+         innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')       
                 )->execute();
        
    }

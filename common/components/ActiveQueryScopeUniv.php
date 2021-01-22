@@ -14,6 +14,9 @@ class ActiveQueryScopeUniv extends \yii\db\ActiveQuery
 {
   public function init()
     {
+      if(h::UserIsGuest()){
+        return parent::init();
+      }
       //var_dump(UserFacultades::filterFacultades());die();
        //$this->andWhere([ 'in', 'codfac',['FIM','FIP'] ]);
       $filtros=UsersUniversities::filterUniversidades();

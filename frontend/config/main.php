@@ -103,7 +103,7 @@ return [
                 'class' => 'frontend\modules\buzon\Buzon',
         ],
     ],
-    'as access' => [
+    'as access' => [ 
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             ' ',
@@ -114,7 +114,8 @@ return [
             'site/reset-password',
             'site/logout',
             'site/mantenimiento',
-            'inter/default/base-auth'
+            'inter/default/base-auth',
+            'buzon/mensajes/create'
         ]
     ],
     /*
