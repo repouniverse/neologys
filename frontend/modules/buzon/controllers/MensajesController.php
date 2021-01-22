@@ -19,7 +19,6 @@ use yii\base\DynamicModel ;
  */
 class MensajesController extends Controller
 {    
-    const BUZON_MENSAJE_ESTADO = "pendiente";
     const BUZON_MENSAJE_PRIORIDAD = "1";
     /**
      * {@inheritdoc}
@@ -78,7 +77,6 @@ class MensajesController extends Controller
         //$this->layout= 'install';
         $model->setAttributes([
             'user_id'=>h::userId(),
-            'estado'=>self::BUZON_MENSAJE_ESTADO, 
             'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
             'trabajador_id'=>$trabajador_por_definir->id,            
             'fecha_registro'=>null,

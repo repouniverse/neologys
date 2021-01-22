@@ -18,7 +18,7 @@ class BuzonUserNoregSearch extends BuzonUserNoreg
     {
         return [
             [['id'], 'integer'],
-            [['nombre', 'ap', 'am', 'dni', 'email', 'celular'], 'safe'],
+            [['nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'safe'],
         ];
     }
 
@@ -61,10 +61,10 @@ class BuzonUserNoregSearch extends BuzonUserNoreg
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])
             ->andFilterWhere(['like', 'ap', $this->ap])
             ->andFilterWhere(['like', 'am', $this->am])
-            ->andFilterWhere(['like', 'dni', $this->dni])
+            ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'celular', $this->celular]);
 

@@ -21,15 +21,15 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
             $this->createTable($table, [
                 'id' => $this->primaryKey(),
                 //ID DEL USUARIO
-                'user_id' => $this->integer(11)->notNull(),
+                'user_id' => $this->integer(11),
                 //ID DEL DEPARTAMENTO
-                'departamento_id' => $this->integer(11)->notNull(),
+                'departamento_id' => $this->integer(11),
                 //ID TRABAJADOR
                 'trabajador_id' => $this->integer(11),
                 //EL MENSAJE ENVIADO POR EL USUARIO
                 'mensaje' => $this->text()->append($this->collateColumn()),
                 //EL ESTADO DEL MENSAJE
-                'estado'=>$this->char(20), 
+                'estado'=>$this->char(20)->defaultValue('1'), 
                 //LA PRIORIDAD DEL MENSAJE
                 'prioridad'=>$this->char(20),
                 //FECHA EN QUE FUE ENVIADO
@@ -37,13 +37,13 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
 
             ], $this->collateTable());
 
-            $this->addForeignKey(
+            /*$this->addForeignKey(
                 $this->generateNameFk($table),
                 $table,
                 'user_id',
                 static::NAME_TABLE_USER,
                 'id'
-            );
+            );*/
 
             $this->addForeignKey(
                 $this->generateNameFk($table),
@@ -52,13 +52,14 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
                 static::NAME_TABLE_DEPARTAMENTOS,
                 'id'
             );
+            /*
             $this->addForeignKey(
                 $this->generateNameFk($table),
                 $table,
                 'trabajador_id',
                 static::NAME_TABLE_TRABAJADORES,
                 'id'
-            );
+            );*/
         }
     }
 

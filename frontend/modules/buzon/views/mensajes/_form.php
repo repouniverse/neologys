@@ -1,15 +1,11 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
 use yii\widgets\Pjax;
 use common\helpers\h;
 /** */
-
-
-
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */

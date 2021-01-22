@@ -5,7 +5,7 @@ use console\migrations\viewMigration;
 /**
  * Class m210120_175918_create_view_buzon_mensajes
  */
-class m210120_175918_create_view_buzon_mensajes extends viewMigration
+class m210122_230638_create_view_buzon_mensajes extends viewMigration
 {   
     const NAME_VIEW='{{%buzon_vw_mensajes}}'; 
     const NAME_TABLE_SYLLABUS_APROBE='{{%buzon_mensajes}}'; 
@@ -20,10 +20,11 @@ class m210120_175918_create_view_buzon_mensajes extends viewMigration
         $comando->createView($vista,
                 (new \yii\db\Query())
         ->select([
-         'bm.id as buzon_mensaje_id','bm.user_id','bm.departamento_id','a.nombres as alumno_nombres',
+         'bm.id as buzon_mensaje_id','bm.user_id as user_id','bm.departamento_id','a.nombres as alumno_nombres',
          'a.ap as alumno_ap','a.am as alumno_am','c.codesp','c.id as carrera_id','a.numerodoc','u.email',
          'd.nombredepa', 'bm.mensaje', 'bm.estado', 'bm.fecha_registro',
-         'bm.prioridad','t.id as trabajador_id','t.nombres as trabajador_nombres','t.ap as trabajador_ap','t.am as trabajador_am'
+         'bm.prioridad','t.id as trabajador_id','t.nombres as trabajador_nombres',
+         't.ap as trabajador_ap','t.am as trabajador_am'
         ])
         ->from(['bm'=>'{{%buzon_mensajes}}'])->
          innerJoin('{{%departamentos}} d', 'd.id = bm.departamento_id')-> 
@@ -32,8 +33,22 @@ class m210120_175918_create_view_buzon_mensajes extends viewMigration
          innerJoin('{{%personas}} pa', 'pa.id = p.persona_id')->
          innerJoin('{{%alumnos}} a', 'a.persona_id = pa.id')->
          innerJoin('{{%carreras}} c', 'a.carrera_id = c.id')->
-         innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')       
-                )->execute();
+         innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')->
+         union((new \yii\db\Query())
+         ->select([
+          'bm.id as buzon_mensaje_id','u.id as user_id','bm.departamento_id','u.nombres as alumno_nombres',
+          'u.ap as alumno_ap','u.am as alumno_am','c.codesp','c.id as carrera_id','u.numerodoc','u.email',
+          'd.nombredepa', 'bm.mensaje', 'bm.estado', 'bm.fecha_registro',
+          'bm.prioridad','t.id as trabajador_id','t.nombres as trabajador_nombres',
+          't.ap as trabajador_ap','t.am as trabajador_am'
+         ])
+         ->from(['bm'=>'{{%buzon_mensajes}}'])->
+          innerJoin('{{%departamentos}} d', 'd.id = bm.departamento_id')-> 
+          innerJoin('{{%buzon_user_noreg}} u', 'u.bm_id = bm.id')->  
+          innerJoin('{{%carreras}} c', 'u.esc_id = c.id')->
+          innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')
+          )
+          )->execute();
        
    }
 public function safeDown()

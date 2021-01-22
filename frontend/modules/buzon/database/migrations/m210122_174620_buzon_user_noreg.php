@@ -8,6 +8,8 @@ use console\migrations\baseMigration;
 class m210122_174620_buzon_user_noreg extends baseMigration
 {
     const NAME_TABLE='{{%buzon_user_noreg}}';
+    const NAME_TABLE_BUZON='{{%buzon_mensajes}}';
+    const NAME_TABLE_CARRERA='{{%carreras}}';
     
     
     public function safeUp()
@@ -17,13 +19,17 @@ class m210122_174620_buzon_user_noreg extends baseMigration
             $this->createTable($table, [
                 'id' => $this->primaryKey(),
                 //ID DEL USUARIO NO REGISTRADO
-                'nombre' => $this->String(30)->notNull(),
+                'nombres' => $this->String(30)->notNull(),
+                //referencia de buzon
+                'bm_id' => $this->integer(11)->notNull(),
+                //ESCUELA QUE DIRIGE LA CONSULTA
+                'esc_id' => $this->integer(11)->notNull(),
                 //NOMBRE DEL USUARIO NO REGISTRADO
                 'ap' => $this->String(30)->notNull(),
                 //APELLIDO PATERNO
                 'am' => $this->String(30)->notNull(),
                 //APELLIDO MATERNO
-                'dni' => $this->String(30)->notNull(),
+                'numerodoc' => $this->String(30)->notNull(),
                 //DNI DE LA PERSONA NO REGISTRADA
                 'email'=>$this->String(30)->notNull(), 
                 //EMAIL DE LA PERSONA NO REGISTRADA
@@ -31,6 +37,21 @@ class m210122_174620_buzon_user_noreg extends baseMigration
                 
 
             ], $this->collateTable());
+
+            $this->addForeignKey(
+                $this->generateNameFk($table),
+                $table,
+                'bm_id',
+                static::NAME_TABLE_BUZON,
+                'id'
+            );
+            $this->addForeignKey(
+                $this->generateNameFk($table),
+                $table,
+                'esc_id',
+                static::NAME_TABLE_CARRERA,
+                'id'
+            );
 
         }
     }
