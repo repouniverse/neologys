@@ -27,8 +27,8 @@ class BuzonMensajes extends \common\models\base\modelBase
 {   
     
     //DATOS POR DEFECTO EN EL INGRESO DEL SISTEMA
-    /*const BUZON_MENSAJE_ESTADO = "pendiente";
-    const BUZON_MENSAJE_PRIORIDAD = "1";*/
+    const BUZON_MENSAJE_ESTADO = "pendiente";
+    const BUZON_MENSAJE_PRIORIDAD = "1";
     
 
     /**
@@ -114,15 +114,16 @@ class BuzonMensajes extends \common\models\base\modelBase
     }
 
     /*public function guardarMensaje(){
+        //encontrando al trabajador por defecto que sea asignado que es "POR DEFINIR"
         $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
-        $this::firstOrCreateStatic([
-           
+
+        //asignando atributos al modelo
+        $this->setAttributes([
             'user_id'=>h::userId(),
             'estado'=>self::BUZON_MENSAJE_ESTADO, 
             'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
             'trabajador_id'=>$trabajador_por_definir->id,            
             'fecha_registro'=>null,
-            
-        ]);
+           ]);
     }*/
 }

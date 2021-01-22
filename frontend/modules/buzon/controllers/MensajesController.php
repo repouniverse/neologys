@@ -70,9 +70,10 @@ class MensajesController extends Controller
     public function actionCreate()
     {   
         
-        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
+        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'78652132']);
         $model = new BuzonMensajes();
-    //$this->layout= 'install';
+        //$model::guardarMensaje();
+        //$this->layout= 'install';
         $model->setAttributes([
             'user_id'=>h::userId(),
             'estado'=>self::BUZON_MENSAJE_ESTADO, 
