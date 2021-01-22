@@ -205,6 +205,8 @@ class ComboHelper  {
              //'G'=>yii::t('base_labels','GENERAL'),
                         ];
     }
+
+
     
     public static function getCboCategoriaDocente()
     {
@@ -216,6 +218,16 @@ class ComboHelper  {
         ];
     }
     
+    //CONSIGUE LOS ESTADOS 
+    public static function getCboEstado(){
+      return [
+             '1'=>yii::t('base_labels','PENDIENTE'),
+             '2'=>yii::t('base_labels','PROCESO'),
+             '3'=>yii::t('base_labels','ATENDIDO'),
+          //'G'=>yii::t('base_labels','GENERAL'),
+                     ];
+    }
+
      public static function getCboBancos(){
          return ArrayHelper::map(
                         \common\models\masters\Bancos::find()->all(),
@@ -526,6 +538,25 @@ class ComboHelper  {
                         $query->all(),
             'id','nombredepa');
       } 
+  
+      public static function getCboDepartamentosFacuCodepa($idfac=null,$lista){
+        //$lista = ['atributo'=>'lista1','valor'=>'lista2']
+        //$iduser=is_null($iduser)?static::userId():$iduser;  
+         $query= \common\models\masters\Departamentos::find();
+
+         if(!is_null($idfac)){
+             $query->andWhere(['facultad_id'=>$idfac]);
+         }
+
+         if(!is_null($lista)){
+            $query->andWhere(['coddepa' => $lista ]);
+         }
+               
+       return ArrayHelper::map(
+                       $query->all(),
+           'id','nombredepa');
+     } 
+    
     
    public static function getCboPeriodos($codperiodoRef=null){
         return ArrayHelper::map(

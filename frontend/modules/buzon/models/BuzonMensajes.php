@@ -24,6 +24,7 @@ use common\models\masters\Trabajadores;
  */
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
+    public $mensaje_de_respuesta;
     /**
      * {@inheritdoc}
      */
@@ -40,7 +41,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         return [
             [['user_id', 'departamento_id'], 'required'],
             [['user_id', 'departamento_id'], 'integer'],
-            [['mensaje'], 'string'],
+            [['mensaje','mensaje_de_respuesta'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -104,5 +105,13 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public static function find()
     {
         return new BuzonMensajesQuery(get_called_class());
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+        yii::error("quiero ver si se activa esto");
+        yii::error($this->mensaje_de_respuesta);
+        return parent::afterSave($insert, $changedAttributes);
     }
 }
