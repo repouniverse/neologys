@@ -8,7 +8,7 @@ use console\migrations\baseMigration;
 class m210122_174620_buzon_user_noreg extends baseMigration
 {
     const NAME_TABLE='{{%buzon_user_noreg}}';
- 
+    
     
     public function safeUp()
     {

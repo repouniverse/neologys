@@ -23,14 +23,9 @@ use common\helpers\h;
  * @property Departamentos $departamento
  * @property Trabajadores $trabajador
  */
-class BuzonMensajes extends \common\models\base\modelBase
-{   
-    
-    //DATOS POR DEFECTO EN EL INGRESO DEL SISTEMA
-    const BUZON_MENSAJE_ESTADO = "pendiente";
-    const BUZON_MENSAJE_PRIORIDAD = "1";
-    
-
+class BuzonMensajes extends \yii\db\ActiveRecord
+{
+    public $mensaje_de_respuesta;
     /**
      * {@inheritdoc}
      */
@@ -47,7 +42,7 @@ class BuzonMensajes extends \common\models\base\modelBase
         return [
             [['user_id', 'departamento_id'], 'required'],
             [['user_id', 'departamento_id'], 'integer'],
-            [['mensaje'], 'string'],
+            [['mensaje','mensaje_de_respuesta'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -113,17 +108,11 @@ class BuzonMensajes extends \common\models\base\modelBase
         return new BuzonMensajesQuery(get_called_class());
     }
 
-    /*public function guardarMensaje(){
-        //encontrando al trabajador por defecto que sea asignado que es "POR DEFINIR"
-        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
-
-        //asignando atributos al modelo
-        $this->setAttributes([
-            'user_id'=>h::userId(),
-            'estado'=>self::BUZON_MENSAJE_ESTADO, 
-            'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
-            'trabajador_id'=>$trabajador_por_definir->id,            
-            'fecha_registro'=>null,
-           ]);
-    }*/
+    public function afterSave($insert, $changedAttributes)
+    {
+        //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+        yii::error("quiero ver si se activa esto");
+        yii::error($this->mensaje_de_respuesta);
+        return parent::afterSave($insert, $changedAttributes);
+    }
 }

@@ -17,28 +17,29 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
     public function rules()
     {
         return [
-             
+
             [[
-            
-            'user_id',
-            'departamento_id',
-            'trabajador_id',             
-            'carrera_id', 
-            'buzon_mensaje_id', 
-            'alumno_nombres',
-            'trabajador_nombres',
-            'alumno_ap',           
-            'alumno_am',        
-            'trabajador_ap',
-            'trabajador_am',                    
-            'codesp',         
-            'numerodoc',                
-            'email',     
-            'nombredepa',              
-            'mensaje',            
-            'estado',   
-            'fecha_registro',                
-            'prioridad',      ], 'safe'],
+
+                'user_id',
+                'departamento_id',
+                'trabajador_id',
+                'carrera_id',
+                'buzon_mensaje_id',
+                'alumno_nombres',
+                'trabajador_nombres',
+                'alumno_ap',
+                'alumno_am',
+                'trabajador_ap',
+                'trabajador_am',
+                'codesp',
+                'numerodoc',
+                'email',
+                'nombredepa',
+                'mensaje',
+                'estado',
+                'fecha_registro',
+                'prioridad',
+            ], 'safe'],
         ];
     }
 
@@ -78,14 +79,27 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'user_id' => $this->user_id,
             'departamento_id' => $this->departamento_id,
-          
-        ]);
-        
-        $query->andFilterWhere(['like', 'alumno_nombres', $this->alumno_nombres])
-            ->andFilterWhere(['like', 'alumno_ap', $this->alumno_ap])
-            ->andFilterWhere(['like', 'alumno_am', $this->alumno_am]);
+            'trabajador_id' => $this->trabajador_id,
+            'carrera_id' => $this->carrera_id,
 
+        ]);
+
+        $query->andFilterWhere(['like', 'alumno_nombres', $this->alumno_nombres])
+            ->andFilterWhere(['like', 'trabajador_nombres', $this->trabajador_nombres])
+            ->andFilterWhere(['like', 'alumno_ap', $this->alumno_ap])
+            ->andFilterWhere(['like', 'alumno_am', $this->alumno_am])
+            ->andFilterWhere(['like', 'trabajador_ap', $this->trabajador_ap])
+            ->andFilterWhere(['like', 'trabajador_am', $this->trabajador_am])
+            ->andFilterWhere(['like', 'codesp', $this->codesp])
+            ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'nombredepa', $this->nombredepa])
+            ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'fecha_registro', $this->fecha_registro])
+            ->andFilterWhere(['like', 'prioridad', $this->prioridad])
+            ->orderBy(['estado' => SORT_ASC]);
         return $dataProvider;
     }
 }
