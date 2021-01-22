@@ -14,35 +14,6 @@ use common\helpers\h;
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<div class="contenedor-form">
-<div class="panel-heading">
-    <h5>
-        <b>CATEGORIA</b>
-    </h5>
-</div>
-<div class="categorias-body">
-
-</div>
-<div class="panel-heading" style="margin-top: 0;">
-    <h5>
-        <b>MOTIVO</b>
-    </h5>
-</div>
-<div class="categorias-body">
-    <p>Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
-</div>
-<div class="panel-heading" style="margin-top: 0;">
-    <h5>
-        <b>DATOS PERSONALES</b>
-    </h5>
-    
-</div>
-<div class="categorias-body">
-<p>(<span class="color-rojo">*</span>) Estos campos son obligatorios</p>
-</div>
-</div>
-
-
 <div class="buzon-mensajes-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="panel-heading">
@@ -68,9 +39,10 @@ use common\helpers\h;
         <div class="form-group">
                 <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
         </div>
+        
 
         <?php ActiveForm::end(); ?>
-
+        
     </div>
 </div>
 

@@ -7,7 +7,9 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 
 echo Html::img('http://www.fcctp.usmp.edu.pe/fcctpforms/solicitudbuzon2/images/cabecera_solicitud.jpg',
- ['style' => ['width' => '60%', 'margin-top' => '33px', 'margin-left' => '20%']]
+ [
+     'style' =>  ['width' => '100%', 'margin-top' => '33px', 'margin-left' => '0%']
+ ]
 );
 
 //$this->title = Yii::t('app', 'Create Buzon Mensajes');
@@ -23,4 +25,3 @@ $this->params['breadcrumbs'][] = "$this->title";
     ]) ?>
 
 </div>
-
