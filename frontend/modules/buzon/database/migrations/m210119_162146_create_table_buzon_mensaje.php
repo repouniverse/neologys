@@ -25,7 +25,7 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
                 //ID DEL DEPARTAMENTO
                 'departamento_id' => $this->integer(11)->notNull(),
                 //ID TRABAJADOR
-                'trabajador_id' => $this->integer(11)->notNull(),
+                'trabajador_id' => $this->integer(11),
                 //EL MENSAJE ENVIADO POR EL USUARIO
                 'mensaje' => $this->text()->append($this->collateColumn()),
                 //EL ESTADO DEL MENSAJE

@@ -6,6 +6,7 @@ use Yii;
 use common\models\User; 
 use common\models\masters\Departamentos;
 use common\models\masters\Trabajadores;
+use common\helpers\h;
 
 /**
  * This is the model class for table "{{%buzon_mensajes}}".
@@ -22,8 +23,14 @@ use common\models\masters\Trabajadores;
  * @property Departamentos $departamento
  * @property Trabajadores $trabajador
  */
-class BuzonMensajes extends \yii\db\ActiveRecord
-{
+class BuzonMensajes extends \common\models\base\modelBase
+{   
+    
+    //DATOS POR DEFECTO EN EL INGRESO DEL SISTEMA
+    /*const BUZON_MENSAJE_ESTADO = "pendiente";
+    const BUZON_MENSAJE_PRIORIDAD = "1";*/
+    
+
     /**
      * {@inheritdoc}
      */
@@ -105,4 +112,17 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     {
         return new BuzonMensajesQuery(get_called_class());
     }
+
+    /*public function guardarMensaje(){
+        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
+        $this::firstOrCreateStatic([
+           
+            'user_id'=>h::userId(),
+            'estado'=>self::BUZON_MENSAJE_ESTADO, 
+            'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
+            'trabajador_id'=>$trabajador_por_definir->id,            
+            'fecha_registro'=>null,
+            
+        ]);
+    }*/
 }
