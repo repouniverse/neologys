@@ -33,7 +33,7 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
                 'trabajador_am',
                 'codesp',
                 'numerodoc',
-                'email',
+                'mail',
                 'nombredepa',
                 'mensaje',
                 'estado',
@@ -94,7 +94,7 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
             ->andFilterWhere(['like', 'trabajador_am', $this->trabajador_am])
             ->andFilterWhere(['like', 'codesp', $this->codesp])
             ->andFilterWhere(['like', 'numerodoc', $this->numerodoc])
-            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'mail', $this->mail])
             ->andFilterWhere(['like', 'nombredepa', $this->nombredepa])
             ->andFilterWhere(['like', 'estado', $this->estado])
             ->andFilterWhere(['like', 'fecha_registro', $this->fecha_registro])

@@ -35,8 +35,8 @@ class BuzonUserNoreg extends \yii\db\ActiveRecord
         return [
             [['nombres','bm_id','esc_id', 'ap', 'am', 'numerodoc', 'email'], 'required'],
             [['nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string', 'max' => 30],
-            [['bm_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['bm_id' => 'id']],
-            [['esc_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuzonMensajes::className(), 'targetAttribute' => ['esc_id' => 'id']],
+            [['bm_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuzonMensajes::className(), 'targetAttribute' => ['bm_id' => 'id']],
+            [['esc_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carreras::className(), 'targetAttribute' => ['esc_id' => 'id']],
         ];
     }
 

@@ -7,18 +7,20 @@ use frontend\modules\buzon\models\BuzonMensajes;
 use frontend\modules\buzon\models\BuzonMensajesSearch;
 use frontend\modules\buzon\models\BuzonVwMensajes;
 use frontend\modules\buzon\models\BuzonVwMensajesSearch;
-use common\models\masters\Trabajadores;
+use common\models\masters\Personas;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\helpers\h;
-use yii\base\DynamicModel ;
+use yii\base\DynamicModel;
+use common\models\User;
+use frontend\modules\buzon\models\BuzonUserNoreg;
 
 /**
  * MensajesController implements the CRUD actions for BuzonMensajes model.
  */
 class MensajesController extends Controller
-{    
+{
     const BUZON_MENSAJE_PRIORIDAD = "1";
     /**
      * {@inheritdoc}
@@ -69,23 +71,23 @@ class MensajesController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {   
-        
-        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
+    {
+
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
         $model->setAttributes([
-            'user_id'=>h::userId(),
-            'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
-            'trabajador_id'=>$trabajador_por_definir->id,            
-            'fecha_registro'=>null,
-           ]);
+            'user_id' => h::userId(),
+            'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,
+            'trabajador_id' => $trabajador_por_definir->id,
+            'fecha_registro' => null,
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        
+
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -160,18 +162,17 @@ class MensajesController extends Controller
         }
     }
 
-    public function actionModalResponderMensaje($id, $var = null)
+    public function actionModalResponderMensaje($id)
     {
 
-        yii::error($var);
         $this->layout = 'install';
         $model = BuzonMensajes::findOne(['id' => $id]);
         if (is_null($model)) return 'No hay registro';
         $datos = [];
         if (h::request()->isPost) {
-            yii::error($var);
             $model->load(h::request()->post());
-            
+            $userActual = User::findOne(h::userId());
+            $model->trabajador_id = $userActual->profile->persona->id;
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos = \yii\widgets\ActiveForm::validate($model);
             if (count($datos) > 0) {
@@ -181,13 +182,38 @@ class MensajesController extends Controller
                 return ['success' => 1, 'id' => $model->id];
             }
         } else {
-            yii::error($var);
             return $this->renderAjax('modal_responder_mensaje', [
                 'model' => $model,
                 'id' => $id,
                 'gridName' => h::request()->get('gridName'),
                 'idModal' => h::request()->get('idModal'),
             ]);
+        }
+    }
+
+    public function actionAjaxDeleteMensaje($id)
+    {
+        $mensaje = BuzonMensajes::findOne($id);
+        
+        if (h::request()->isAjax) {
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if (is_null($mensaje)) {
+                //$unidad->delete();
+            } else {
+                if ($mensaje->user_id == null) {
+                    $user = BuzonUserNoreg::findOne(['bm_id' => $id]);
+                    $user->delete();
+                }
+                ///////////////////////////////////////
+                //FALTA PONER PARA ELIMINAR CORDI_ACAD 
+                //FALTA ELIMINAR AULA_VIRTUAL 
+                //CUANDO TE DEN EL MODELO PONLO!!! LUIS !!!
+                /////////////////////////////////////////////
+                $mensaje->delete();
+
+                return ['success' => yii::t('base_labels', 'Mensaje eliminado.')];
+            }
         }
     }
 

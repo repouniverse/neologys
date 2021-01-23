@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use common\helpers\h;
 use common\helpers\ComboHelper as combo;
-//SE GUARDA EL VALOR DEL MENSAJE RESPUESTA
+
 
 ?>
 

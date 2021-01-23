@@ -26,7 +26,7 @@ use common\helpers\h;
 
     <?= $form->field($model, 'celular')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'bm_id')->textInput(['value' =>'2','maxlength' => true]) ?>
+    <?= $form->field($model, 'bm_id')->textInput(['value' =>'4','maxlength' => true]) ?>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=
             $form->field($model, 'esc_id')->dropDownList(

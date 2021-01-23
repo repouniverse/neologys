@@ -21,7 +21,7 @@ class m210122_230638_create_view_buzon_mensajes extends viewMigration
                 (new \yii\db\Query())
         ->select([
          'bm.id as buzon_mensaje_id','bm.user_id as user_id','bm.departamento_id','a.nombres as alumno_nombres',
-         'a.ap as alumno_ap','a.am as alumno_am','c.codesp','c.id as carrera_id','a.numerodoc','u.email',
+         'a.ap as alumno_ap','a.am as alumno_am','c.codesp','c.id as carrera_id','a.numerodoc','a.mail',
          'd.nombredepa', 'bm.mensaje', 'bm.estado', 'bm.fecha_registro',
          'bm.prioridad','t.id as trabajador_id','t.nombres as trabajador_nombres',
          't.ap as trabajador_ap','t.am as trabajador_am'
@@ -33,7 +33,7 @@ class m210122_230638_create_view_buzon_mensajes extends viewMigration
          innerJoin('{{%personas}} pa', 'pa.id = p.persona_id')->
          innerJoin('{{%alumnos}} a', 'a.persona_id = pa.id')->
          innerJoin('{{%carreras}} c', 'a.carrera_id = c.id')->
-         innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')->
+         innerJoin('{{%personas}} t', 't.id = bm.trabajador_id')->
          union((new \yii\db\Query())
          ->select([
           'bm.id as buzon_mensaje_id','u.id as user_id','bm.departamento_id','u.nombres as alumno_nombres',
@@ -46,7 +46,7 @@ class m210122_230638_create_view_buzon_mensajes extends viewMigration
           innerJoin('{{%departamentos}} d', 'd.id = bm.departamento_id')-> 
           innerJoin('{{%buzon_user_noreg}} u', 'u.bm_id = bm.id')->  
           innerJoin('{{%carreras}} c', 'u.esc_id = c.id')->
-          innerJoin('{{%trabajadores}} t', 't.id = bm.trabajador_id')
+          innerJoin('{{%personas}} t', 't.id = bm.trabajador_id')
           )
           )->execute();
        

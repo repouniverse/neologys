@@ -69,6 +69,14 @@ use common\helpers\h;
         </div>
 
 
+        <!--
+        ///////////////////////////////////////
+        ///////////////////
+        AQUÍ VOY A PONER LO DE LOS NUEVOS MODELOS Y YA TA UWU.
+        ////////////////////
+        ///////////////////////////////////////
+        -->
+
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h4>Atendido por: </h4>

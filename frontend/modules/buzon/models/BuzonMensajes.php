@@ -5,7 +5,8 @@ namespace frontend\modules\buzon\models;
 use Yii;
 use common\models\User; 
 use common\models\masters\Departamentos;
-use common\models\masters\Trabajadores;
+use common\models\masters\Personas;
+use common\models\masters\Alumnos;
 use common\helpers\h;
 
 /**
@@ -40,14 +41,14 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'departamento_id'], 'required'],
+            [[ 'departamento_id'], 'required'],
             [['user_id', 'departamento_id'], 'integer'],
             [['mensaje','mensaje_de_respuesta'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
-            [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trabajadores::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
+            [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
         ];
     }
 
@@ -94,9 +95,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|TrabajadoresQuery
      */
-    public function getTrabajador()
+    public function getPersona()
     {
-        return $this->hasOne(Trabajadores::className(), ['id' => 'trabajador_id']);
+        return $this->hasOne(Personas::className(), ['id' => 'trabajador_id']);
     }
 
     /**
@@ -110,9 +111,36 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-        //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
-        yii::error("quiero ver si se activa esto");
-        yii::error($this->mensaje_de_respuesta);
+           if($insert){          
+            yii::error("Es una inserccion");
+           }else{
+                yii::error("Es una actualización");
+                //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+                yii::error("quiero ver si se activa esto");
+                yii::error($this->mensaje_de_respuesta);
+                $this->sendEmail();
+           }  
         return parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function sendEmail(){
+        $buzom_msg = BuzonMensajes::findOne($this->id);
+        if(!is_null($buzom_msg)){
+            if($buzom_msg->user_id != null){
+                yii::error($this->user->profile->persona->id);
+                $alumno = Alumnos::findOne($this->user->profile->persona->id);
+                $this->emailTemplate($alumno,$alumno->mail);
+            }else {
+
+                yii::error("ESTA VACIO");
+                $alumno = BuzonUserNoreg::findOne(['bm_id'=>$this->id]);
+                $this->emailTemplate($alumno,$alumno->email);
+            }   
+
+        }
+    }
+
+    private function emailTemplate($user , $email = null){
+        yii::error("SU CORREO ES: ".strtolower($email));
     }
 }
