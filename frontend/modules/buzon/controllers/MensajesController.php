@@ -217,6 +217,7 @@ class MensajesController extends Controller
         }
     }
 
+
     /**
      * Finds the BuzonMensajes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
