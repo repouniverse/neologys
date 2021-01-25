@@ -35,7 +35,7 @@ use common\helpers\h;
     <div class="cerrado" id="contenido">
         <form action="">
 
-        
+        asd
         <div class="col-sm-12 col-md-3">
         <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
         </div>
