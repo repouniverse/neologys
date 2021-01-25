@@ -1,18 +1,16 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
 use yii\widgets\Pjax;
 use common\helpers\h;
 /** */
-
-
-
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */
+
+//=var_dump($model->departamento_id);die();
 ?>
 <div class="buzon-mensajes-form">
     <?php $form = ActiveForm::begin(); ?>
@@ -20,11 +18,21 @@ use common\helpers\h;
         <h5>
             <b>CATEGORIA</b>
         </h5>
-    </div>
+    </div>  
+    
     <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacu(1),
-        ['prompt' =>  yii::t('base_verbs', 'Choose a Value'),]
-    ) ?>
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP','REG-FCCTP'))
+        
+    )?>  
+    
+     <!-- <?= $form->field($model, 'departamento_id')->radioList(
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP'))
+    ) ?>  -->
+
+        
+    <?php
+
+    ?>
     <div class="panel-heading" style="margin-top: 0;">
         <h5>
             <b>MOTIVO</b>
@@ -39,10 +47,9 @@ use common\helpers\h;
         <div class="form-group">
                 <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
         </div>
-        
 
         <?php ActiveForm::end(); ?>
-        
+
     </div>
 </div>
 

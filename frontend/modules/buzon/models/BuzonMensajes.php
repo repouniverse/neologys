@@ -5,7 +5,8 @@ namespace frontend\modules\buzon\models;
 use Yii;
 use common\models\User; 
 use common\models\masters\Departamentos;
-use common\models\masters\Trabajadores;
+use common\models\masters\Personas;
+use common\models\masters\Alumnos;
 use common\helpers\h;
 
 /**
@@ -23,13 +24,16 @@ use common\helpers\h;
  * @property Departamentos $departamento
  * @property Trabajadores $trabajador
  */
-class BuzonMensajes extends \common\models\base\modelBase
-{   
-    
-    //DATOS POR DEFECTO EN EL INGRESO DEL SISTEMA
-    const BUZON_MENSAJE_ESTADO = "pendiente";
-    const BUZON_MENSAJE_PRIORIDAD = "1";
-    
+class BuzonMensajes extends \yii\db\ActiveRecord
+{
+    public $mensaje_de_respuesta;
+    public $esc_id=NULL;
+    public $nombres=NULL;
+    public $ap=NULL;
+    public $am=NULL;
+    public $numerodoc=NULL;
+    public $email=NULL;
+    public $celular=NULL;
 
     /**
      * {@inheritdoc}
@@ -45,14 +49,18 @@ class BuzonMensajes extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['user_id', 'departamento_id'], 'required'],
+
+            [[ 'departamento_id','esc_id','nombres','ap','am' ,'numerodoc','email','celular' ], 'required'],
+            //[['departamento_id'],'validacionajax'],
             [['user_id', 'departamento_id'], 'integer'],
-            [['mensaje'], 'string'],
+            //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
+            [['mensaje','mensaje_de_respuesta','nombres','ap','am' ,'numerodoc','email','celular'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
-            [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trabajadores::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
+            [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
+            
         ];
     }
 
@@ -70,7 +78,13 @@ class BuzonMensajes extends \common\models\base\modelBase
             'estado' => Yii::t('base_labels', 'Estado'),
             'prioridad' => Yii::t('base_labels', 'Prioridad'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
-            
+            'esc_id' => Yii::t('base_labels', 'Escuela'),
+            'nombres' => Yii::t('base_labels', 'Nombres'),
+            'ap' => Yii::t('base_labels', 'Apellido Paterno'),
+            'am' => Yii::t('base_labels', 'Apellido Materno'),
+            'numerodoc' => Yii::t('base_labels', 'Dni'),
+            'email' => Yii::t('base_labels', 'Email'),
+            'celular' => Yii::t('base_labels', 'Celular'),  
         ];
     }
 
@@ -99,9 +113,9 @@ class BuzonMensajes extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|TrabajadoresQuery
      */
-    public function getTrabajador()
+    public function getPersona()
     {
-        return $this->hasOne(Trabajadores::className(), ['id' => 'trabajador_id']);
+        return $this->hasOne(Personas::className(), ['id' => 'trabajador_id']);
     }
 
     /**
@@ -113,17 +127,79 @@ class BuzonMensajes extends \common\models\base\modelBase
         return new BuzonMensajesQuery(get_called_class());
     }
 
-    /*public function guardarMensaje(){
-        //encontrando al trabajador por defecto que sea asignado que es "POR DEFINIR"
-        $trabajador_por_definir = Trabajadores::findOne(['numerodoc'=>'77175855']);
+    public function afterSave($insert, $changedAttributes)
+    {
+           if($insert){          
+            
+            $this->crearUserNoRegistrado();
 
-        //asignando atributos al modelo
-        $this->setAttributes([
-            'user_id'=>h::userId(),
-            'estado'=>self::BUZON_MENSAJE_ESTADO, 
-            'prioridad'=>self::BUZON_MENSAJE_PRIORIDAD,
-            'trabajador_id'=>$trabajador_por_definir->id,            
-            'fecha_registro'=>null,
-           ]);
+           }else{
+                yii::error("Es una actualización");
+                //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+                yii::error("quiero ver si se activa esto");
+                yii::error($this->mensaje_de_respuesta);
+                $this->sendEmail();
+           }  
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function crearUserNoRegistrado(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonUserNoreg::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'esc_id' => $this->esc_id,
+            'nombres' => $this->nombres,
+            'ap' => $this->ap,
+            'am' => $this->am,
+            'numerodoc' => $this->numerodoc,
+            'email' => $this->email,
+            'celular' => $this->celular, 
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+          'esc_id'=>$this->esc_id, 
+            ]
+    
+    );
+
+
+    }
+
+    private function sendEmail(){
+        $buzom_msg = BuzonMensajes::findOne($this->id);
+        if(!is_null($buzom_msg)){
+            if($buzom_msg->user_id != null){
+                yii::error($this->user->profile->persona->id);
+                $alumno = Alumnos::findOne($this->user->profile->persona->id);
+                $this->emailTemplate($alumno,$alumno->mail);
+            }else {
+
+                yii::error("ESTA VACIO");
+                $alumno = BuzonUserNoreg::findOne(['bm_id'=>$this->id]);
+                $this->emailTemplate($alumno,$alumno->email);
+            }   
+
+        }
+    }
+
+    private function emailTemplate($user , $email = null){
+        yii::error("SU CORREO ES: ".strtolower($email));
+    }
+
+    /*public function validacionajax($attribute,$params){
+
+        $departamento_prueba  =  '134';
+        if (134==134) {
+          
+        return true;
+        }else{
+            $this->addError($attribute,"El email no existe");
+            return false;
+        }
+
+
     }*/
 }
