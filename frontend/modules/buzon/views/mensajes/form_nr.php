@@ -78,39 +78,7 @@ use common\helpers\h;
     <!-- Trigger/Open The Modal -->
 <button id="myBtn">Open Modal</button>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h3>Cordinación academica</h3>
-    </div>
-    <div class="modal-body">
-    <input type="button" id="add" value="añadir una nueva fila desde jquery">
-    <input type="button" id="del" value="eliminar la ultima fila desde jquery">
-<p>
-    <table id="tabla" border=1>
-        
-        <tr>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <!-- podemos añadir tantas columnas como deseemos -->
-            <!--<td>tercera columna</td>-->
-        </tr>
-    </table>
-</p>
-    </div>
-    
-  </div>
-
-</div>                
-    
 <?php
-
-
-
 /* AGREGANDO JQUERY */
 $script = <<< JS
     //todo codigo Jquery o javascript stuffer
@@ -147,45 +115,6 @@ window.onclick = function(event) {
   }
 }
     
-
-
-//boton agregar
-$(document).ready(function(){
-        /**
-         * Funcion para añadir una nueva columna en la tabla
-         */
-        $("#add").click(function(){
-            // Obtenemos el numero de filas (td) que tiene la primera columna
-            // (tr) del id "tabla"
-            var tds=$("#tabla tr:first td").length;
-            // Obtenemos el total de columnas (tr) del id "tabla"
-            var trs=$("#tabla tr").length;
-            var nuevaFila="<tr>";
-            for(var i=0;i<tds;i++){
-                // añadimos las columnas
-                nuevaFila+="<td> <input type='text'> </td>";
-            }
-            // Añadimos una columna con el numero total de filas.
-            // Añadimos uno al total, ya que cuando cargamos los valores para la
-            // columna, todavia no esta añadida
-            
-            $("#tabla").append(nuevaFila);
-        });
- 
-        /**
-         * Funcion para eliminar la ultima columna de la tabla.
-         * Si unicamente queda una columna, esta no sera eliminada
-         */
-        $("#del").click(function(){
-            // Obtenemos el total de columnas (tr) del id "tabla"
-            var trs=$("#tabla tr").length;
-            if(trs>1)
-            {
-                // Eliminamos la ultima columna
-                $("#tabla tr:last").remove();
-            }
-        });
-    });
 JS;
 $this->registerJs($script);
     
@@ -193,6 +122,113 @@ $this->registerJs($script);
 
 ?>
 
+<!----------------------------------------------------------- MODAL  -------------------------------------------->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h3>Cordinación academica</h3>
+    </div>
+    <div class="modal-body">
+    <body>
+    <script>
+        function myCreateFunction() {
+
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(0);
+            var fila = table.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+        
+        
+            // CREO UN ELEMENTO DEL TIPO INPUT CON document.createElement("NOMBRE TAG HTML QUE QUIERO CREAR");
+            var input = document.createElement("input");
+            input.type = "text";
+            input.className = "input1";
+            input.setAttribute("onclick", "vaciar_campo(this);");
+            input.style.height = "30px";
+            input.style.width = "150px";
+            input.style.padding = "3px 5px"
+            input.placeholder = "Nombre del docente"
+
+            // Creo un segundo elemento Input
+            var input2 = document.createElement("input");
+            input2.type = "text";
+            input2.className = "ptss";
+            input2.setAttribute("onclick", "vaciar_campo(this);");
+            input2.style.height = "30px";
+            input2.style.width = "150px";
+            input2.style.padding = "3px 5px"
+            input2.placeholder = "Curso"
+
+            //Creo el tercer elemento Input
+            var input3 = document.createElement("input");
+            input3.type = "text";
+            input3.className = "ptss2";
+            input3.setAttribute("onclick", "vaciar_campo(this);");
+            input3.style.height = "30px";
+            input3.style.width = "150px";
+            input3.style.padding = "3px 5px"
+            input3.placeholder = "Sección"
+
+
+            var campo4 = document.createElement("input");
+            campo4.type = "button";
+            campo4.value = "-";
+            campo4.style.width = "30px"
+            campo4.style.background = "#C63865"
+            campo4.ClassName ="btn btn-danger"
+            campo4.onclick = function()
+
+            {
+
+                var fila = this.parentNode.parentNode;
+                var tbody = table.getElementsByTagName("tbody")[0];
+
+                tbody.removeChild(fila);
+
+            }
+
+
+            // CON EL METODO appendChild(); LOS AGREGO A LA CELDA QUE QUIERO
+            cell1.appendChild(input);
+            cell2.appendChild(input2);
+            cell2.appendChild(input3);
+            cell2.appendChild(campo4);
+        }
+
+
+
+        function vaciar_campo(input) {
+
+            input.value = "";
+
+        }
+    </script>
+
+    <button onclick="myCreateFunction()" type="button" class="btn btn-success">
+        Agregar
+    </button>
+    <br>
+    <table id="myTable">
+        <tr>  
+            <input name="urlresp" type="text" id="urlresp" style="padding: 3px 5px; height: 30px; width: 150px;" onFocus="vaciar_campo(this)" value="" placeholder="Nombre del Docente">
+            <input name="ptss" type="text" class="ptss" id="ptss" style="padding: 3px 5px; height: 30px; width: 150px;" onFocus="vaciar_campo(this)" value="" placeholder="Curso">
+            <input name="ptss2" type="text" class="ptss2" id="ptss2" style="padding: 3px 5px; height: 30px; width: 150px;" onFocus="vaciar_campo(this)" value="" placeholder="Sección">
+
+        </tr>
+    </table>
+</body>
+    </div>
+    
+  </div>
+
+</div>  
+
+
+<!--------------------------------------------------------------- MODAL ------------------------------------------------>
 <style>
 .panel-heading {
     color: #333;
@@ -309,6 +345,13 @@ p {
   padding: 2px 16px;
   background-color: #f2f2f2;
   color: black;
+}
+
+
+/*tabla dentro del modal*/
+
+.modal-body{
+   
 }
 </style>
 
