@@ -145,6 +145,10 @@ class MensajesController extends Controller
             
         ]);
     }
+    public function actionModalPrueba(){
+        $this->layout = 'install';
+        return $this->renderAjax('modal_prueba');
+    }
 
 
     /**
