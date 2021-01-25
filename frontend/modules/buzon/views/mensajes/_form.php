@@ -20,13 +20,13 @@ use common\helpers\h;
         </h5>
     </div>  
     
-    <?= $form->field($model, 'departamento_id',/*["enableAjaxValidation"=>true]*/)->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP')),
+    <?= $form->field($model, 'departamento_id')->dropDownList(
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP','REG-FCCTP'))
         
     )?>  
     
      <!-- <?= $form->field($model, 'departamento_id')->radioList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP'))
     ) ?>  -->
 
         

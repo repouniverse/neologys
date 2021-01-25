@@ -6,23 +6,16 @@ use common\helpers\ComboHelper as combo;
 use yii\widgets\Pjax;
 use common\helpers\h;
 
+
 /** */
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */
-/* AGREGANDO JQUERY */
-$script = <<< JS
-    //todo codigo Jquery o javascript stuffer
-    $('#departamento').change(function(){
-        var departamento_elegido = $(this).val();
-        alert(departamento_elegido);
-        
-    });     
-JS;
-    $this->registerJs($script);
-    /* FIN JQUERY */
+
 
 ?>
+
+<!--FORMULARIO-->
 <div class="buzon-mensajes-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -32,7 +25,7 @@ JS;
         </h5>
     </div>
     <!-- DROPDOWN DEL DEPARTAMENTO -->
-    <?= $form->field($model, 'departamento_id'/*["enableAjaxValidation"=>true]*/)->dropDownList(
+    <?= $form->field($model, 'departamento_id')->dropDownList(
         combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP', 'REG-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
@@ -74,17 +67,136 @@ JS;
                 <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email']) ?>
                 <?= $form->field($model, 'celular')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su celular']) ?>
 
+               
 
             </div>
         </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h3>Cordinación academica</h3>
+                </div>
+                <div class="modal-body">
+                    <td><input type="button" id="add" class="btn btn-primary" value="Agregar"></td>
+                    <button id='del' class='btn btn-danger'>Eliminar</button>
+                    <p>
+
+                    <table id="tabla">
+                        <tr>
+                            <td id="Curso">Curso</td>
+                            <td id="cabeza">Seccion</td>
+                            <td id="cabeza">Ciclo</td>
+                        </tr>
+                        <tr>
+
+                            <td><input type="text"> </td>
+                            <td><input type="text"></td>
+                            <!-- podemos añadir tantas columnas como deseemos -->
+                            <td><input type="text"></td>
+
+
+                        </tr>
+                    </table>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
         <BR></BR>
         <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-primary']) ?>
         <?php ActiveForm::end(); ?>
         <br></br>
         <br>
     </div>
+
+    <?php
+
+
+
+    /* AGREGANDO JQUERY */
+    $script = <<< JS
+    //todo codigo Jquery o javascript stuffer
+    $('#departamento').change(function(){
+    var departamento_elegido = $(this).val();
     
-   
+    if(departamento_elegido ==134){
+    modal.style.display = "block";
+    }else if(departamento_elegido ==128){
+    alert('OTI EN MANTENIMIENTO')  
+    }
+
+    });  
+    
+//prueba
+    // Get the modal
+var modal = document.getElementById("myModal");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+//boton agregar
+$(document).ready(function(){
+        /**
+         * Funcion para añadir una nueva columna en la tabla
+         */
+        var c=0;
+        $("#add").click(function(){
+            // Obtenemos el numero de filas (td) que tiene la primera columna
+            // (tr) del id "tabla"
+            
+            var tds=$("#tabla tr:first td").length;
+            // Obtenemos el total de columnas (tr) del id "tabla"
+            var trs=$("#tabla tr").length;
+            var nuevaFila="<tr id='"+c+"'>";
+            c++;
+            for(var i=0;i<tds;i++){
+                // añadimos las columnas
+                nuevaFila+="<td> <input type='text'> </td>";
+            }
+            // Añadimos una columna con el numero total de filas.
+            // Añadimos uno al total, ya que cuando cargamos los valores para la
+            // columna, todavia no esta añadida
+            
+            $("#tabla").append(nuevaFila);
+        });
+ 
+        /**
+         * Funcion para eliminar la ultima columna de la tabla.
+         * Si unicamente queda una columna, esta no sera eliminada
+         */
+        $("#del").click(function(){
+            // Obtenemos el total de columnas (tr) del id "tabla"
+
+            var trs=$("#tabla tr").length;
+            if(trs>1)
+            {
+                // Eliminamos la ultima columna
+                $("#tabla tr:last").remove();
+            }   
+        });
+    });
+JS;
+    $this->registerJs($script);
+
+
+
+    ?>
 
     <style>
         .panel-heading {
@@ -130,5 +242,102 @@ JS;
             width: 60%;
 
             margin-left: 20%;
+        }
+
+
+        /*diseño del modal*/
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            color: red;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            background-color: #f2f2f2;
+            color: black;
+            padding: 0 10px;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #f2f2f2;
+            color: black;
         }
     </style>

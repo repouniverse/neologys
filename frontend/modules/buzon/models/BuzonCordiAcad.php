@@ -15,7 +15,7 @@ use Yii;
  *
  * @property BuzonMensajes $bm
  */
-class BuzonCordiAcad extends \yii\db\ActiveRecord
+class BuzonCordiAcad extends \common\models\base\modelBase
 {
     /**
      * {@inheritdoc}

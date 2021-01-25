@@ -16,7 +16,7 @@ use Yii;
  *
  * @property BuzonMensajes $bm
  */
-class BuzonAulaVirt extends \yii\db\ActiveRecord
+class BuzonAulaVirt extends \common\models\base\modelBase
 {
     /**
      * {@inheritdoc}

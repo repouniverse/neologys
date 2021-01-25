@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserNoRegController implements the CRUD actions for UserNoReg model.
+ * UsernrController implements the CRUD actions for UserNoReg model.
  */
-class UserNoRegController extends Controller
+class UsernrController extends Controller
 {
     /**
      * {@inheritdoc}
