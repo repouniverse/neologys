@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+
 const _PENDIENTE = 1;
 const _PROCESO = 2;
 const _ATENDIDO = 3;
@@ -35,61 +36,70 @@ use common\helpers\h;
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?php
-                echo  Html::label('Estado');
-                if($model->estado == _PENDIENTE) echo  Html::textInput('Estado',"PENDIENTE",['class' => 'form-control','disabled'=>true,]); 
-                if($model->estado == _PROCESO) echo  Html::textInput('Estado',"PROCESO",['class' => 'form-control','disabled'=>true,]); 
-                if($model->estado == _ATENDIDO) echo  Html::textInput('Estado',"ATENDIDO",['class' => 'form-control','disabled'=>true,]); 
+            echo  Html::label('Estado');
+            if ($model->estado == _PENDIENTE) echo  Html::textInput('Estado', "PENDIENTE", ['class' => 'form-control', 'disabled' => true,]);
+            if ($model->estado == _PROCESO) echo  Html::textInput('Estado', "PROCESO", ['class' => 'form-control', 'disabled' => true,]);
+            if ($model->estado == _ATENDIDO) echo  Html::textInput('Estado', "ATENDIDO", ['class' => 'form-control', 'disabled' => true,]);
             ?>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?= $form->field($model, 'fecha_registro')->textInput(['disabled'=>true]) ?>
-        </div>
-        
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'alumno_nombres')->textInput(['disabled'=>true,]) ?>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'alumno_ap')->textInput(['disabled'=>true,]) ?>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'alumno_am')->textInput(['disabled'=>true,]) ?>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'codesp')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'fecha_registro')->textInput(['disabled' => true]) ?>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <?= $form->field($model, 'nombredepa')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'alumno_nombres')->textInput(['disabled' => true,]) ?>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <?= $form->field($model, 'numerodoc')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'alumno_ap')->textInput(['disabled' => true,]) ?>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?= $form->field($model, 'alumno_am')->textInput(['disabled' => true,]) ?>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?= $form->field($model, 'codesp')->textInput(['disabled' => true,]) ?>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?= $form->field($model, 'nombredepa')->textInput(['disabled' => true,]) ?>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?= $form->field($model, 'numerodoc')->textInput(['disabled' => true,]) ?>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $form->field($model, 'mensaje')->textArea(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'mensaje')->textArea(['disabled' => true,]) ?>
         </div>
 
 
-        <!--
-        ///////////////////////////////////////
-        ///////////////////
-        AQUÍ VOY A PONER LO DE LOS NUEVOS MODELOS Y YA TA UWU.
-        ////////////////////
-        ///////////////////////////////////////
-        -->
+        <?php
 
+        if(!is_null($cordi_acad)){
+            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'docente')->textInput(['disabled' => true,]) . "</div>";
+            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'curso')->textInput(['disabled' => true,]) . "</div>";
+            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'seccion')->textInput(['disabled' => true,]) . "</div>";
+        }
+
+        if(!is_null($aula_virtual)){
+            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'docente')->textInput(['disabled' => true,]) . "</div>";
+            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'curso')->textInput(['disabled' => true,]) . "</div>";
+            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'seccion')->textInput(['disabled' => true,]) . "</div>";
+            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'ciclo')->textInput(['disabled' => true,]) . "</div>";
+        }
+
+    
+        ?>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h4>Atendido por: </h4>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'trabajador_nombres')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'trabajador_nombres')->textInput(['disabled' => true,]) ?>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'trabajador_ap')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'trabajador_ap')->textInput(['disabled' => true,]) ?>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <?= $form->field($model, 'trabajador_am')->textInput(['disabled'=>true,]) ?>
+            <?= $form->field($model, 'trabajador_am')->textInput(['disabled' => true,]) ?>
         </div>
 
 

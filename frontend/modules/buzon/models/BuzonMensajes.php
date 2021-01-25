@@ -127,8 +127,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         $buzom_msg = BuzonMensajes::findOne($this->id);
         if(!is_null($buzom_msg)){
             if($buzom_msg->user_id != null){
-                yii::error($this->user->profile->persona->id);
-                $alumno = Alumnos::findOne($this->user->profile->persona->id);
+                yii::error("id usuarioalumno  ".$this->user->profile->persona->id);
+
+                $alumno = Alumnos::findOne(['persona_id'=>$this->user->profile->persona->id]);
                 $this->emailTemplate($alumno,$alumno->mail);
             }else {
 
