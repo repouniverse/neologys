@@ -115,7 +115,7 @@ return [
             'site/logout',
             'site/mantenimiento',
             'inter/default/base-auth',
-            'buzon/mensajes/create'
+            'buzon/mensajes/createnr',
         ]
     ],
     /*

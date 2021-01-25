@@ -27,6 +27,14 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
+    public $esc_id=NULL;
+    public $nombres=NULL;
+    public $ap=NULL;
+    public $am=NULL;
+    public $numerodoc=NULL;
+    public $email=NULL;
+    public $celular=NULL;
+
     /**
      * {@inheritdoc}
      */
@@ -41,14 +49,18 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'departamento_id'], 'required'],
+
+            [[ 'departamento_id','esc_id','nombres','ap','am' ,'numerodoc','email','celular' ], 'required'],
+            //[['departamento_id'],'validacionajax'],
             [['user_id', 'departamento_id'], 'integer'],
-            [['mensaje','mensaje_de_respuesta'], 'string'],
+            //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
+            [['mensaje','mensaje_de_respuesta','nombres','ap','am' ,'numerodoc','email','celular'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
+            
         ];
     }
 
@@ -66,7 +78,13 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             'estado' => Yii::t('base_labels', 'Estado'),
             'prioridad' => Yii::t('base_labels', 'Prioridad'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
-            
+            'esc_id' => Yii::t('base_labels', 'Escuela'),
+            'nombres' => Yii::t('base_labels', 'Nombres'),
+            'ap' => Yii::t('base_labels', 'Apellido Paterno'),
+            'am' => Yii::t('base_labels', 'Apellido Materno'),
+            'numerodoc' => Yii::t('base_labels', 'Dni'),
+            'email' => Yii::t('base_labels', 'Email'),
+            'celular' => Yii::t('base_labels', 'Celular'),  
         ];
     }
 
@@ -112,7 +130,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
            if($insert){          
-            yii::error("Es una inserccion");
+            
+            $this->crearUserNoRegistrado();
+
            }else{
                 yii::error("Es una actualización");
                 //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
@@ -121,6 +141,31 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 $this->sendEmail();
            }  
         return parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function crearUserNoRegistrado(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonUserNoreg::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'esc_id' => $this->esc_id,
+            'nombres' => $this->nombres,
+            'ap' => $this->ap,
+            'am' => $this->am,
+            'numerodoc' => $this->numerodoc,
+            'email' => $this->email,
+            'celular' => $this->celular, 
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+          'esc_id'=>$this->esc_id, 
+            ]
+    
+    );
+
+
     }
 
     private function sendEmail(){
@@ -143,4 +188,18 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     private function emailTemplate($user , $email = null){
         yii::error("SU CORREO ES: ".strtolower($email));
     }
+
+    /*public function validacionajax($attribute,$params){
+
+        $departamento_prueba  =  '134';
+        if (134==134) {
+          
+        return true;
+        }else{
+            $this->addError($attribute,"El email no existe");
+            return false;
+        }
+
+
+    }*/
 }

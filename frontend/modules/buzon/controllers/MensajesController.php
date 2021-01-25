@@ -14,7 +14,10 @@ use yii\filters\VerbFilter;
 use common\helpers\h;
 use yii\base\DynamicModel;
 use common\models\User;
+use frontend\modules\buzon\models\BuzonCordiAcad;
 use frontend\modules\buzon\models\BuzonUserNoreg;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * MensajesController implements the CRUD actions for BuzonMensajes model.
@@ -77,19 +80,69 @@ class MensajesController extends Controller
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
+
         $model->setAttributes([
             'user_id' => h::userId(),
             'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,
             'trabajador_id' => $trabajador_por_definir->id,
             'fecha_registro' => null,
         ]);
-
+        //para las validaciones mediante ajax
+        /*if($model->load(Yii::$app->request->post()) && yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+           }*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionCreatenr()
+    {
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
+        $model = new BuzonMensajes();
+        /*$modelusernr = new BuzonUserNoreg([
+            'bm_id'=> 1,
+            'esc_id' => 1,
+            'nombres' => 'asldk',
+            'ap' => 'ram',
+            'am' => 'mon',
+            'numerodoc' => 12313,
+            'email' => 'iam@gmail.com',
+            'celular' => '995595955',                  
+        ]);*/
+        
+        //$model = new BuzonCordiAcad();
+        
+        $model->setAttributes([
+            'user_id' => null,
+            'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,
+            'trabajador_id' => $trabajador_por_definir->id,
+            'fecha_registro' => null,
+        ]);
+        //$model::guardarMensaje();
+        $this->layout = 'install';
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+
+                yii::error("CON FE 5");
+                return $this->redirect(['index']);
+            
+            //var_dump($modelusernr->bm_id.$modelusernr->ap.$modelusernr->celular.$modelusernr->nombres);die();
+              
+      
+        }
+
+
+        return $this->render('createnr', [
+            'model' => $model,
+            
         ]);
     }
 
@@ -194,7 +247,7 @@ class MensajesController extends Controller
     public function actionAjaxDeleteMensaje($id)
     {
         $mensaje = BuzonMensajes::findOne($id);
-        
+
         if (h::request()->isAjax) {
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             //$unidad->load(h::request()->post());
