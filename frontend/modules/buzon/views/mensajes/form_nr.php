@@ -10,6 +10,18 @@ use common\helpers\h;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
 /* @var $form yii\widgets\ActiveForm */
+/* AGREGANDO JQUERY */
+$script = <<< JS
+    //todo codigo Jquery o javascript stuffer
+    $('#departamento').change(function(){
+        var departamento_elegido = $(this).val();
+        alert(departamento_elegido);
+        
+    });     
+JS;
+    $this->registerJs($script);
+    /* FIN JQUERY */
+
 ?>
 <div class="buzon-mensajes-form">
 
@@ -72,23 +84,7 @@ use common\helpers\h;
         <br>
     </div>
     
-    <!-- AGREGANDO JQUERY -->
-    <?php
-    $script = <<< JS
-    //todo codigo Jquery o javascript stuffer
-    $('#departamento').change(function(){
-        var departamento_elegido = $(this).val();
-        alert(departamento_elegido);
-        
-           
-        
-    });     
-    
-
-    JS;
-    $this->registerJs($script);
-    ?>
-    <!-- FIN JQUERY -->
+   
 
     <style>
         .panel-heading {
