@@ -1,18 +1,18 @@
 <?php
 
-namespace frontend\modules\buzon\controllers;
+namespace frontend\modules\buzon\Controllers;
 
 use Yii;
-use frontend\modules\buzon\models\BuzonUserNoreg;
-use frontend\modules\buzon\models\BuzonUserNoregSearch;
+use frontend\modules\buzon\models\UserNoReg;
+use frontend\modules\buzon\models\UserNoRegSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UsernoregController implements the CRUD actions for BuzonUserNoreg model.
+ * UserNoRegController implements the CRUD actions for UserNoReg model.
  */
-class UsernoregController extends Controller
+class UserNoRegController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Lists all BuzonUserNoreg models.
+     * Lists all UserNoReg models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BuzonUserNoregSearch();
+        $searchModel = new UserNoRegSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Displays a single BuzonUserNoreg model.
+     * Displays a single UserNoReg model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Creates a new BuzonUserNoreg model.
+     * Creates a new UserNoReg model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new BuzonUserNoreg();
+        $model = new UserNoReg();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Updates an existing BuzonUserNoreg model.
+     * Updates an existing UserNoReg model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Deletes an existing BuzonUserNoreg model.
+     * Deletes an existing UserNoReg model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,18 +110,18 @@ class UsernoregController extends Controller
     }
 
     /**
-     * Finds the BuzonUserNoreg model based on its primary key value.
+     * Finds the UserNoReg model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return BuzonUserNoreg the loaded model
+     * @return UserNoReg the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BuzonUserNoreg::findOne($id)) !== null) {
+        if (($model = UserNoReg::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
     }
 }

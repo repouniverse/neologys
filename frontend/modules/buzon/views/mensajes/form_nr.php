@@ -32,7 +32,32 @@ use common\helpers\h;
         ]
     )
     ?>
+    <div class="cerrado" id="contenido">
+        <form action="">
 
+        
+        <div class="col-sm-12 col-md-3">
+        <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
+        </div>
+        <div class="col-sm-12 col-md-3">
+        <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
+        </div>
+        <div class="col-sm-12 col-md-3">
+        <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <button class="btn btn-danger ">Agregar</button><p></p>
+        </div>
+        </form>
+    </div>
+    <style>
+        .cerrado{
+            display: none;
+        }
+        .abierto{
+            display: block;
+        }
+    </style>
     <!-- ESCRIBIR EL MOTIVO -->
     <div class="panel-heading" style="margin-top: 0;">
         <h5>
@@ -58,6 +83,7 @@ use common\helpers\h;
                     combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
                     ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
                 )
+
                 ?>
                 <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
                 <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
@@ -70,8 +96,7 @@ use common\helpers\h;
             </div>
         </div>
         <BR></BR>
-        <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-primary']) ?>
-        <?php ActiveForm::end(); ?>
+        
         <br></br>
         <br>
     </div>
@@ -84,7 +109,8 @@ $script = <<< JS
     //todo codigo Jquery o javascript stuffer
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
-    alert(departamento_elegido);
+        $('#contenido').removeClass('cerrado')
+                        .addClass('abierto')
 
     });  
     
@@ -144,14 +170,13 @@ $this->registerJs($script);
         
         
             // CREO UN ELEMENTO DEL TIPO INPUT CON document.createElement("NOMBRE TAG HTML QUE QUIERO CREAR");
-            var input = document.createElement("input");
-            input.type = "text";
-            input.className = "input1";
-            input.setAttribute("onclick", "vaciar_campo(this);");
-            input.style.height = "30px";
-            input.style.width = "150px";
-            input.style.padding = "3px 5px"
-            input.placeholder = "Nombre del docente"
+            var div1 = document.createElement("div");
+            
+            div1.setAttribute("onclick", "vaciar_campo(this);");
+            div1.style.height = "30px";
+            div1.style.width = "150px";
+            div1.style.padding = "3px 5px";
+            
 
             // Creo un segundo elemento Input
             var input2 = document.createElement("input");
@@ -179,7 +204,7 @@ $this->registerJs($script);
             campo4.value = "-";
             campo4.style.width = "30px"
             campo4.style.background = "#C63865"
-            campo4.ClassName ="btn btn-danger"
+            
             campo4.onclick = function()
 
             {
@@ -193,7 +218,7 @@ $this->registerJs($script);
 
 
             // CON EL METODO appendChild(); LOS AGREGO A LA CELDA QUE QUIERO
-            cell1.appendChild(input);
+            cell1.appendChild(div1);
             cell2.appendChild(input2);
             cell2.appendChild(input3);
             cell2.appendChild(campo4);
@@ -228,7 +253,11 @@ $this->registerJs($script);
 </div>  
 
 
+
 <!--------------------------------------------------------------- MODAL ------------------------------------------------>
+<?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-primary']) ?>
+        <?php ActiveForm::end(); ?>
+
 <style>
 .panel-heading {
     color: #333;

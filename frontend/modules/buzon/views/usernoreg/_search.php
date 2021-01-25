@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\buzon\models\BuzonUserNoregSearch */
+/* @var $model frontend\modules\buzon\models\UserNoRegSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="buzon-user-noreg-search">
+<div class="user-no-reg-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,21 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'nombres') ?>
+    <?= $form->field($model, 'nombre') ?>
 
     <?= $form->field($model, 'ap') ?>
 
     <?= $form->field($model, 'am') ?>
 
-    <?= $form->field($model, 'numerodoc') ?>
+    <?= $form->field($model, 'dni') ?>
 
     <?php // echo $form->field($model, 'email') ?>
 
     <?php // echo $form->field($model, 'celular') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton(Yii::t('base_labels', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('base_labels', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

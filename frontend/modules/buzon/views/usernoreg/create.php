@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\buzon\models\BuzonUserNoreg */
+/* @var $model frontend\modules\buzon\models\UserNoReg */
 
-$this->title = Yii::t('app', 'Create Buzon User Noreg');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Buzon User Noregs'), 'url' => ['index']];
+$this->title = Yii::t('base_labels', 'Create User No Reg');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'User No Regs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="buzon-user-noreg-create">
+<div class="user-no-reg-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
