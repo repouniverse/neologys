@@ -33,7 +33,7 @@ use yii\helpers\Url;
         ]
     )
     ?>
-
+   
     <!-- ESCRIBIR EL MOTIVO -->
     <div class="panel-heading" style="margin-top: 0;">
         <h5>
@@ -85,11 +85,11 @@ use yii\helpers\Url;
         <br></br>
         <br>
     </div>
-    
 
-<?php
+
+    <?php
     /* AGREGANDO JQUERY */
-$script = <<< JS
+    $script = <<< JS
     //todo codigo Jquery o javascript stuffer
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
@@ -101,7 +101,7 @@ JS;
     $this->registerJs($script);
 
 
-?>
+    ?>
 
     <style>
         .panel-heading {

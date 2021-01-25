@@ -36,8 +36,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public $email=NULL;
     public $celular=NULL;
     /**CORDI ACAD */
-    /*public $celular=NULL;
-    public $celular=NULL;
+    /*
+    public $docente_ca=NULL;
+    public $curso_ca=NULL;
     public $celular=NULL;
     public $celular=NULL;
     public $celular=NULL;
