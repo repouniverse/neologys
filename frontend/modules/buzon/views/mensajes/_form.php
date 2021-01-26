@@ -1,10 +1,12 @@
 <?php
 
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
 use yii\widgets\Pjax;
 use common\helpers\h;
+
 /** */
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\buzon\models\BuzonMensajes */
@@ -18,18 +20,89 @@ use common\helpers\h;
         <h5>
             <b>CATEGORIA</b>
         </h5>
-    </div>  
-    
-    <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP','REG-FCCTP'))
-        
-    )?>  
-    
-     <!-- <?= $form->field($model, 'departamento_id')->radioList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP'))
-    ) ?>  -->
+    </div>
 
-        
+    <?= $form->field($model, 'departamento_id')->dropDownList(
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP', 'REG-FCCTP')),
+        [
+            'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
+            'id' => "departamento"
+        ]
+
+    ) ?>
+    <!-- FORM CORDINACION ACADEMICA -->
+    <div class="cerrado" id="formca">
+        <h5 class="text-primary">CORDINACION ACADEMICA</h5>
+        <!-- FORM CORDINACION ACADEMICA -->
+        <?= $form->field($model, 'cordi')->widget(MultipleInput::className(), [
+            'min' => 1,
+            'max' => 4,
+            'columns' => [
+                [
+                    'name'  => 'docente',
+                    'title' => 'Docente',
+
+                ],
+                [
+                    'name'  => 'curso',
+                    'title' => 'Curso',
+
+                ],
+                [
+                    'name'  => 'seccion',
+                    'title' => 'Sección',
+                ]
+            ]
+
+        ])->label(false);
+        ?>
+    </div>
+    <!-- FORM AULA VIRTUAL -->
+    <div class="cerrado" id="formau">
+        <h5 class="text-primary">AULA VIRTUAL</h5>
+        <?= $form->field($model, 'aula')->widget(MultipleInput::className(), [
+            'min' => 1,
+            'max' => 4,
+            'columns' => [
+                [
+                    'name'  => 'docente',
+                    'title' => 'Docente',
+
+                ],
+                [
+                    'name'  => 'curso',
+                    'title' => 'Curso',
+
+                ],
+                [
+                    'name'  => 'seccion',
+                    'title' => 'Sección',
+
+                ],
+                [
+                    'name'  => 'ciclo',
+                    'title' => 'Ciclo',
+
+                ]
+            ],
+
+        ])->label(false);
+        ?>
+    </div>
+
+    <!-- STYLE CERRADO ABIERTO FORMS -->
+    <style>
+        .cerrado {
+            display: none;
+
+        }
+
+        .abierto {
+            display: block;
+        }
+    </style>
+    <!-- END STYLE CERRADO ABIERTO FORMS -->
+
     <?php
 
     ?>
@@ -40,18 +113,42 @@ use common\helpers\h;
     </div>
     <div class="motivos-body">
         <p class="text-secondary">Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
-        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' =>'Ingrese su consulta']) ?>
+        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' => 'Ingrese su consulta']) ?>
     </div>
     <div class="personal-body">
 
         <div class="form-group">
-                <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
 
     </div>
 </div>
+<?php
+/* AGREGANDO JQUERY */
+$script = <<< JS
+    //todo codigo Jquery o javascript stuffer
+    $('#departamento').change(function(){
+    var departamento_elegido = $(this).val();
+        $('#formca').hide();
+        $('#formau').hide();          
+        if(departamento_elegido ==134){
+            //alert('134')
+            $('#formca').show();
+
+        }else if(departamento_elegido ==128){
+            $('#formau').show();
+            //alert('128')
+        }else{
+            //alert('nignguno')
+        }
+    });
+    
+JS;
+$this->registerJs($script);
+
+?>
 
 
 <style>
@@ -87,5 +184,4 @@ use common\helpers\h;
         width: 60%;
         margin-left: 20%;
     }
-    
 </style>
