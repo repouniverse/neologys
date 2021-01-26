@@ -3,7 +3,7 @@
 namespace frontend\modules\buzon\models;
 
 use Yii;
-use common\models\User; 
+use common\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Personas;
 use common\models\masters\Alumnos;
@@ -27,17 +27,18 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
-    /** */
-    public $esc_id=NULL;
-    public $nombres=NULL;
-    public $ap=NULL;
-    public $am=NULL;
-    public $numerodoc=NULL;
-    public $email=NULL;
-    public $celular=NULL;
+    /** aulmno no reg */
+    public $esc_id = NULL;
+    public $nombres = NULL;
+    public $ap = NULL;
+    public $am = NULL;
+    public $numerodoc = NULL;
+    public $email = NULL;
+    public $celular = NULL;
     /**CORDI ACAD */
-    public $cordi=NULL;
-    public $aula=NULL;
+    public $cordi = NULL;
+    /**aula virtual */
+    public $aula = NULL;
 
     /**
      * {@inheritdoc}
@@ -54,18 +55,17 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     {
         return [
 
-            [[ 'departamento_id','esc_id','nombres','ap','am' ,'numerodoc','email','celular' ], 'required'],
+            [['departamento_id', 'esc_id', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular', 'aula'], 'required'],
             //[['departamento_id'],'validacionajax'],
-            [['cordi','aula'],'array'],
             [['user_id', 'departamento_id'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
-            [['mensaje','mensaje_de_respuesta','nombres','ap','am' ,'numerodoc','email','celular'], 'string'],
+            [['mensaje', 'mensaje_de_respuesta', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
-            
+
         ];
     }
 
@@ -89,7 +89,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             'am' => Yii::t('base_labels', 'Apellido Materno'),
             'numerodoc' => Yii::t('base_labels', 'Dni'),
             'email' => Yii::t('base_labels', 'Email'),
-            'celular' => Yii::t('base_labels', 'Celular'),  
+            'celular' => Yii::t('base_labels', 'Celular'),
         ];
     }
 
@@ -134,97 +134,120 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-           if($insert){          
+        if ($insert) {
             
             $this->crearUserNoRegistrado();
-
-           }else{
-                yii::error("Es una actualización");
-                //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
-                yii::error("quiero ver si se activa esto");
-                yii::error($this->mensaje_de_respuesta);
-                $this->sendEmail();
-           }  
+            //$this->crearTablaCordiAcademica();
+            $this->crearTablaAulaVirtual();
+        } else {
+            yii::error("Es una actualización");
+            //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+            yii::error("quiero ver si se activa esto");
+            yii::error($this->mensaje_de_respuesta);
+            $this->sendEmail();
+        }
         return parent::afterSave($insert, $changedAttributes);
     }
 
-    private function crearUserNoRegistrado(){
+    private function crearUserNoRegistrado()
+    {
         //$usernor = new BuzonUserNoreg();
 
         yii::error("CON FE 5");
-        BuzonUserNoreg::firstOrCreateStatic([
-            'bm_id'=> $this->id,
-            'esc_id' => $this->esc_id,
-            'nombres' => $this->nombres,
-            'ap' => $this->ap,
-            'am' => $this->am,
-            'numerodoc' => $this->numerodoc,
-            'email' => $this->email,
-            'celular' => $this->celular, 
-        ],
-        null,
-        [
-          'bm_id'=>$this->id,
-          'esc_id'=>$this->esc_id, 
+        BuzonUserNoreg::firstOrCreateStatic(
+            [
+                'bm_id' => $this->id,
+                'esc_id' => $this->esc_id,
+                'nombres' => $this->nombres,
+                'ap' => $this->ap,
+                'am' => $this->am,
+                'numerodoc' => $this->numerodoc,
+                'email' => $this->email,
+                'celular' => $this->celular,
+            ],
+            null,
+            [
+                'bm_id' => $this->id,
+                'esc_id' => $this->esc_id,
             ]
-    );
+        );
     }
 
-    private function crearTablaCordiAcademica(){
+    private function crearTablaCordiAcademica()
+    {
         //$usernor = new BuzonUserNoreg();
 
-        yii::error("CON FE 5");
-        BuzonCordiAcad::firstOrCreateStatic([
-            'bm_id'=> $this->id,
-            'docente' => $this->esc_id,
-            'curso' => $this->nombres,
-            'seccion' => $this->ap,
-        ],
-        null,
-        [
-          'bm_id'=>$this->id,
-          'esc_id'=>$this->esc_id, 
-            ]
-    );
+        //var_dump($this->cordi);die();
+        yii::error("CON FE 2.2 AULA FUERA");
+        foreach ($this->cordi as $x) {
+            yii::error("CON FE 2.2 AULA DENTRO");
+            BuzonCordiAcad::firstOrCreateStatic(
+                [
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                ],
+                null,
+                [
+                    'bm_id' => $this->id,
+                ]
+            );
+        }
+       
     }
-    private function crearTablaAulaVirtual(){
+    private function crearTablaAulaVirtual()
+    {
         //$usernor = new BuzonUserNoreg();
 
-        yii::error("CON FE 5");
-        BuzonAulaVirt::firstOrCreateStatic([
-            'bm_id'=> $this->id,
-            'docente' => $this->esc_id,
-            'curso' => $this->nombres,
-            'seccion' => $this->ap,
-            'ciclo' => $this->ap,
-        ],
-        null,
-        [
-          'bm_id'=>$this->id,
-            ]
-    );
-    }    
+        yii::error("CON FE 105");
+        foreach ($this->aula as $x){
+            $aulavirtual = new BuzonAulaVirt([
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                    'ciclo' => $x["ciclo"],
+            ]);
+            $aulavirtual->save();  //guarda la tabla
+           /* BuzonAulaVirt::firstOrCreateStatic(
+                [
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                    'ciclo' => $x["ciclo"],
+                ],
+                null,
+                [
+                    'bm_id' => $this->id,
+                ]
+            );*/
+        }
+        
+    }
 
 
-    private function sendEmail(){
+    private function sendEmail()
+    {
         $buzom_msg = BuzonMensajes::findOne($this->id);
-        if(!is_null($buzom_msg)){
-            if($buzom_msg->user_id != null){
+        if (!is_null($buzom_msg)) {
+            if ($buzom_msg->user_id != null) {
                 yii::error($this->user->profile->persona->id);
                 $alumno = Alumnos::findOne($this->user->profile->persona->id);
-                $this->emailTemplate($alumno,$alumno->mail);
-            }else {
+                $this->emailTemplate($alumno, $alumno->mail);
+            } else {
 
                 yii::error("ESTA VACIO");
-                $alumno = BuzonUserNoreg::findOne(['bm_id'=>$this->id]);
-                $this->emailTemplate($alumno,$alumno->email);
-            }   
-
+                $alumno = BuzonUserNoreg::findOne(['bm_id' => $this->id]);
+                $this->emailTemplate($alumno, $alumno->email);
+            }
         }
     }
 
-    private function emailTemplate($user , $email = null){
-        yii::error("SU CORREO ES: ".strtolower($email));
+    private function emailTemplate($user, $email = null)
+    {
+        yii::error("SU CORREO ES: " . strtolower($email));
     }
 
     /*public function validacionajax($attribute,$params){

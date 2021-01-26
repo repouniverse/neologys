@@ -105,18 +105,6 @@ class MensajesController extends Controller
     {
         $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
         $model = new BuzonMensajes();
-        /*$modelusernr = new BuzonUserNoreg([
-            'bm_id'=> 1,
-            'esc_id' => 1,
-            'nombres' => 'asldk',
-            'ap' => 'ram',
-            'am' => 'mon',
-            'numerodoc' => 12313,
-            'email' => 'iam@gmail.com',
-            'celular' => '995595955',                  
-        ]);*/
-        
-        //$model = new BuzonCordiAcad();
         
         $model->setAttributes([
             'user_id' => null,
@@ -129,14 +117,10 @@ class MensajesController extends Controller
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-
                 yii::error("CON FE 5");
                 return $this->redirect(['index']);
             
-            //var_dump($modelusernr->bm_id.$modelusernr->ap.$modelusernr->celular.$modelusernr->nombres);die();
-              
-      
+            //var_dump($modelusernr->bm_id.$modelusernr->ap.$modelusernr->celular.$modelusernr->nombres);die();    
         }
 
 
