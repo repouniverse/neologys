@@ -36,15 +36,8 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public $email=NULL;
     public $celular=NULL;
     /**CORDI ACAD */
-    /*
-    public $docente_ca=NULL;
-    public $curso_ca=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;*/
-
+    public $cordi=NULL;
+    public $aula=NULL;
 
     /**
      * {@inheritdoc}
@@ -63,6 +56,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
             [[ 'departamento_id','esc_id','nombres','ap','am' ,'numerodoc','email','celular' ], 'required'],
             //[['departamento_id'],'validacionajax'],
+            [['cordi','aula'],'array'],
             [['user_id', 'departamento_id'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
             [['mensaje','mensaje_de_respuesta','nombres','ap','am' ,'numerodoc','email','celular'], 'string'],
@@ -175,6 +169,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             ]
     );
     }
+
     private function crearTablaCordiAcademica(){
         //$usernor = new BuzonUserNoreg();
 
