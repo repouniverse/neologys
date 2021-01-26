@@ -21,6 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4> <?= Html::encode($this->title) ?> </h4>
     <div class="box box-success">
         <div class="box-body">
+            <?php
+            /*
+                 $url= Url::toRoute(['/buzon/mensajes/modal-prueba','idModal'=>'buscarvalor']);
+                 echo  Html::button(yii::t('base_verbs','Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs','Add Unit'),'id'=>'btn_unidad', 'class' => 'botonAbre btn btn-success']); 
+                 */
+            ?>
             <?php Pjax::begin(['id' => 'gridTraba']); ?>
             <?php
             $id_pjax_sumilla = 'gridTraba';

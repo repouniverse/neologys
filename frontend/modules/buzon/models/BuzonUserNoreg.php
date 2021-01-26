@@ -11,13 +11,16 @@ use Yii;
  *
  * @property int $id
  * @property string $nombres
+ * @property string $bm_id
+ * @property string $esc_id
  * @property string $ap
  * @property string $am
  * @property string $numerodoc
  * @property string $email
  * @property string|null $celular
  */
-class BuzonUserNoreg extends \yii\db\ActiveRecord
+class BuzonUserNoreg extends \common\models\base\modelBase
+
 {
     /**
      * {@inheritdoc}

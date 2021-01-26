@@ -72,20 +72,20 @@ use common\helpers\h;
 
         <?php
 
-        if(!is_null($cordi_acad)){
+        if (!is_null($cordi_acad)) {
             echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'docente')->textInput(['disabled' => true,]) . "</div>";
             echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'curso')->textInput(['disabled' => true,]) . "</div>";
             echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'seccion')->textInput(['disabled' => true,]) . "</div>";
         }
 
-        if(!is_null($aula_virtual)){
+        if (!is_null($aula_virtual)) {
             echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'docente')->textInput(['disabled' => true,]) . "</div>";
             echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'curso')->textInput(['disabled' => true,]) . "</div>";
             echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'seccion')->textInput(['disabled' => true,]) . "</div>";
             echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'ciclo')->textInput(['disabled' => true,]) . "</div>";
         }
 
-    
+
         ?>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -101,9 +101,6 @@ use common\helpers\h;
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?= $form->field($model, 'trabajador_am')->textInput(['disabled' => true,]) ?>
         </div>
-
-
-        <?php ActiveForm::end(); ?>
 
     </div>
 </div>

@@ -3,7 +3,7 @@
 namespace frontend\modules\buzon\models;
 
 use Yii;
-use common\models\User; 
+use common\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Personas;
 use common\models\masters\Alumnos;
@@ -27,6 +27,14 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
+    public $esc_id = NULL;
+    public $nombres = NULL;
+    public $ap = NULL;
+    public $am = NULL;
+    public $numerodoc = NULL;
+    public $email = NULL;
+    public $celular = NULL;
+
     /**
      * {@inheritdoc}
      */
@@ -41,14 +49,18 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'departamento_id'], 'required'],
-            [['user_id', 'departamento_id'], 'integer'],
-            [['mensaje','mensaje_de_respuesta'], 'string'],
+
+            [['departamento_id'], 'required'],
+            //[['departamento_id'],'validacionajax'],
+            [['user_id', 'departamento_id', 'esc_id'], 'integer'],
+            //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
+            [['mensaje', 'mensaje_de_respuesta', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string'],
             [['fecha_registro'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
+
         ];
     }
 
@@ -66,7 +78,13 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             'estado' => Yii::t('base_labels', 'Estado'),
             'prioridad' => Yii::t('base_labels', 'Prioridad'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
-            
+            'esc_id' => Yii::t('base_labels', 'Escuela'),
+            'nombres' => Yii::t('base_labels', 'Nombres'),
+            'ap' => Yii::t('base_labels', 'Apellido Paterno'),
+            'am' => Yii::t('base_labels', 'Apellido Materno'),
+            'numerodoc' => Yii::t('base_labels', 'Dni'),
+            'email' => Yii::t('base_labels', 'Email'),
+            'celular' => Yii::t('base_labels', 'Celular'),
         ];
     }
 
@@ -111,37 +129,117 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-           if($insert){          
-            yii::error("Es una inserccion");
-           }else{
-                yii::error("Es una actualización");
-                //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
-                yii::error("quiero ver si se activa esto");
-                yii::error($this->mensaje_de_respuesta);
-                $this->sendEmail();
-           }  
+        if ($insert) {
+            yii::error("Es CREACIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON");
+            $this->crearUserNoRegistrado();
+        } else {
+            yii::error("Es una actualización");
+            //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+            yii::error("quiero ver si se activa esto");
+            yii::error($this->mensaje_de_respuesta);
+            $this->sendEmail();
+        }
         return parent::afterSave($insert, $changedAttributes);
     }
 
-    private function sendEmail(){
-        $buzom_msg = BuzonMensajes::findOne($this->id);
-        if(!is_null($buzom_msg)){
-            if($buzom_msg->user_id != null){
-                yii::error("id usuarioalumno  ".$this->user->profile->persona->id);
+    private function crearUserNoRegistrado()
+    {
+        //$usernor = new BuzonUserNoreg();
 
-                $alumno = Alumnos::findOne(['persona_id'=>$this->user->profile->persona->id]);
-                $this->emailTemplate($alumno,$alumno->mail);
-            }else {
+        yii::error("CON FE 5");
+        BuzonUserNoreg::firstOrCreateStatic(
+            [
+                'bm_id' => $this->id,
+                'esc_id' => $this->esc_id,
+                'nombres' => $this->nombres,
+                'ap' => $this->ap,
+                'am' => $this->am,
+                'numerodoc' => $this->numerodoc,
+                'email' => $this->email,
+                'celular' => $this->celular,
+            ],
+            null,
+            [
+                'bm_id' => $this->id,
+                'esc_id' => $this->esc_id,
+            ]
+
+        );
+    }
+
+    private function sendEmail()
+    {
+        $buzom_msg = BuzonMensajes::findOne($this->id);
+        if (!is_null($buzom_msg)) {
+            if ($buzom_msg->user_id != null) {
+                yii::error("id usuarioalumno  " . $this->user->profile->persona->id);
+
+                $alumno = Alumnos::findOne(['persona_id' => $this->user->profile->persona->id]);
+                $this->emailTemplate($alumno, $alumno->mail);
+            } else {
 
                 yii::error("ESTA VACIO");
-                $alumno = BuzonUserNoreg::findOne(['bm_id'=>$this->id]);
-                $this->emailTemplate($alumno,$alumno->email);
-            }   
-
+                $alumno = BuzonUserNoreg::findOne(['bm_id' => $this->id]);
+                $this->emailTemplate($alumno, $alumno->email);
+            }
         }
     }
 
-    private function emailTemplate($user , $email = null){
-        yii::error("SU CORREO ES: ".strtolower($email));
+    private function emailTemplate($user, $email = null)
+    {
+        yii::error("CORRE EL CORREO??!?!?!?!?!?");
+
+
+        if ($email != null) {
+            $message = new \yii\swiftmailer\Message();
+            $htmlBody =
+                  '<div style="background-color : #EAEAEA; color: #000000; font-size: 20px " >'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '<div style="padding-left: 20px; padding-right:20px">'
+                . '<div style="padding: 25px; margin:30px; background-color : #FFFFFF;">'
+                . '<label> Estimado <b>' . $user->ap . ' ' . $user->am . ', ' . $user->nombres .   '</b></label>'
+                . '<br><br>'
+                . '<label> Como respuesta a la consulta hecha al departamento  <b>' . $this->departamento->nombredepa . ':</b> </label> '
+                . '<br><br>'
+                . '<div style="margin-left: 30px; margin-right:30px ;">'
+                . ' <br>' . $this->mensaje_de_respuesta
+                . '</div>'
+                . '<br><br><br>'
+                . '<label> Atentamente Oficina de Tecnología Informática-USMP. </label> '
+                . '</div>'
+                . '</div>'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '</div>';
+            yii::error("EL CORREO ES : ");
+            yii::error($email);
+            $mailer = new \common\components\Mailer();
+            $message->setSubject('PRUEBA')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
+                ->setTo($email)
+                ->setHtmlBody($htmlBody);
+
+            try {
+
+                $result = $mailer->send($message);
+                return $result;
+            } catch (\Swift_TransportException $Ste) {
+
+                yii::error($Ste->getMessage(), __FUNCTION__);
+            }
+        }
     }
+
+    /*public function validacionajax($attribute,$params){
+
+        $departamento_prueba  =  '134';
+        if (134==134) {
+          
+        return true;
+        }else{
+            $this->addError($attribute,"El email no existe");
+            return false;
+        }
+
+
+    }*/
 }
