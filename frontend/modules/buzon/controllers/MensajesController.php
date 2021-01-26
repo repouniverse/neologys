@@ -147,7 +147,13 @@ class MensajesController extends Controller
     }
     public function actionModalPrueba(){
         $this->layout = 'install';
-        return $this->renderAjax('modal_prueba');
+
+        return $this->renderAjax('modal_prueba', [
+            
+            
+            'idModal' => h::request()->get('idModal'),
+            
+        ]);
     }
 
 

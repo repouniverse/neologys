@@ -14,9 +14,13 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-
+<?php
+        $url= Url::toRoute(['/buzon/mensajes/modal-prueba','idModal'=>'buscarvalor']);
+         echo  Html::button(yii::t('base_verbs','Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs','Add Unit'),'id'=>'btn_unidad', 'class' => 'botonAbre btn btn-warning']); 
+    ?>
 <!--FORMULARIO-->
 <div class="buzon-mensajes-form">
+
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="panel-heading">
@@ -33,13 +37,76 @@ use yii\helpers\Url;
         ]
     )
     ?>
-   
-    <!-- ESCRIBIR EL MOTIVO -->
-    <div class="panel-heading" style="margin-top: 0;">
-        <h5>
-            <b>MOTIVO</b>
-        </h5>
+    
+    <!-- FORM CORDINACION ACADEMICA -->
+    <div class="cerrado" id="formca">
+
+            
+
+             CORDINACION ACADEMICA
+             <button id = "agregar">agregar</button>
+             <?php
+             for($i = 0;$i<5; $i++) {
+                ?>
+             <h1>jaja</h1>
+             <?php
+             }
+             ?>
+            
+             <!-- <div class = "d-inline" style = "width: 20%">
+                <?= $form->field($model, 'nombres')->textInput([
+                    'rows' => 10, 
+                    'placeholder' => 'Ingrese su nombre',
+                    'class'=>"d-inline p-2"]) ?>
+            </div>
+            <div class = "d-inline" style = "width: 20%">
+                <?= $form->field($model, 'nombres')->textInput([
+                    'rows' => 10, 
+                    'placeholder' => 'Ingrese su nombre',
+                    'class'=>"d-inline p-2"]) ?>
+            </div> -->
+            
+            
+            
+            
     </div>
+    <!-- FORM AULA VIRTUAL -->
+    <div class="cerrado" id="formau">
+            AULA VIRTUAL
+            
+            <!-- <div class="col-sm-12 col-md-3">
+                <?= $form->field($model, 'nombres')->textInput([
+                    'rows' => 10, 
+                    'placeholder' => 'Ingrese su nombre',
+                    'class'=>"col-sm-12 col-md-3"]) ?>
+                <br>
+            </div>-->
+            
+            
+    </div>
+    <style>
+        .divborder{
+            border: 1px;
+            border-color: coral;
+        }
+        .cerrado {
+            display: none;
+
+        }
+
+        .abierto {
+            display: block;
+        }
+    </style>
+    <!-- ESCRIBIR EL MOTIVO -->
+
+        <br>
+        <div class="panel-heading">
+            <h5>
+                <b>MOTIVO</b>
+            </h5>
+        </div>
+
     <div class="motivos-body">
         <p class="text-secondary">Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
         <!-- OBTENEMOS EL VALOR DEL MOTIVO -->
@@ -52,14 +119,14 @@ use yii\helpers\Url;
         </h5>
     </div>
 
-    <div>
+    <!-- <div>
         <?php
 
         $url = Url::toRoute(['/buzon/mensajes/modal-prueba']);
         echo Html::a('<span class="btn btn-info glyphicon  glyphicon-eye-open"></span>', $url, ['class' => 'botonAbre']);
 
         ?>
-    </div>
+    </div> -->
     <div class="personal-body">
         <div class="form-group">
             <!-- DROPDOWN DE LA CARRERA -->
@@ -68,6 +135,7 @@ use yii\helpers\Url;
                     combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
                     ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
                 )
+
                 ?>
                 <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
                 <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
@@ -80,9 +148,15 @@ use yii\helpers\Url;
             </div>
         </div>
         <BR></BR>
-        <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-primary']) ?>
+        <div class="personal-body">
+
+        <div class="form-group">
+                <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+        </div>
+
         <?php ActiveForm::end(); ?>
-        <br></br>
+
+    </div>
         <br>
     </div>
 
@@ -93,9 +167,21 @@ use yii\helpers\Url;
     //todo codigo Jquery o javascript stuffer
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
-    alert(departamento_elegido);
+        $('#formca').hide();
+        $('#formau').hide();          
+        if(departamento_elegido ==134){
+            //alert('134')
+            $('#formca').show();
 
-    });  
+        }else if(departamento_elegido ==128){
+            $('#formau').show();
+            //alert('128')
+        }else{
+            //alert('nignguno')
+        }
+    });
+    
+    
     
 JS;
     $this->registerJs($script);
