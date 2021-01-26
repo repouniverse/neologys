@@ -76,7 +76,7 @@ class MensajesController extends Controller
     public function actionCreate()
     {
 
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
@@ -103,7 +103,7 @@ class MensajesController extends Controller
 
     public function actionCreatenr()
     {
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
         $model = new BuzonMensajes();
         /*$modelusernr = new BuzonUserNoreg([
             'bm_id'=> 1,
@@ -142,6 +142,14 @@ class MensajesController extends Controller
 
         return $this->render('createnr', [
             'model' => $model,
+            
+        ]);
+    }
+    public function actionModalPrueba(){
+        //$this->layout = 'install';
+        return $this->renderAjax('modal_prueba', [
+            
+            'idModal' => h::request()->get('idModal'),
             
         ]);
     }

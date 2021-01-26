@@ -1,4 +1,5 @@
 <?php
+
 use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -16,87 +17,98 @@ use yii\helpers\Url;
 
 ?>
 <!-- <?php
-    $url= Url::toRoute(['/buzon/mensajes/modal-prueba','idModal'=>'buscarvalor']);
-        echo  Html::button(yii::t('base_verbs','Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs','Add Unit'),'id'=>'btn_unidad', 'class' => 'botonAbre btn btn-warning']); 
-?> -->
+        $url = Url::toRoute(['/buzon/mensajes/modal-prueba', 'idModal' => 'buscarvalor']);
+        echo  Html::button(yii::t('base_verbs', 'Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add Unit'), 'id' => 'btn_unidad', 'class' => 'botonAbre btn btn-warning']);
+        ?> -->
 <!--FORMULARIO-->
 <div class="buzon-mensajes-form">
 
 
-<?php $form = ActiveForm::begin(); ?>
-<div class="panel-heading">
-    <h5>
-        <b>CATEGORIA</b>
-    </h5>
-</div>
-<div>
-<?= $form->field($model, 'departamento_id')->widget(MultipleInput::className(), [
-'max' => 5,
+    <?php $form = ActiveForm::begin(); ?>
+    <div class="panel-heading">
+        <h5>
+            <b>CATEGORIA</b>
+        </h5>
+    </div>
 
-]);
-?>
-</div>
-<!-- DROPDOWN DEL DEPARTAMENTO -->
-<?= $form->field($model, 'departamento_id')->dropDownList(
-    combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP', 'REG-FCCTP')),
-    [
-        'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
-        'id' => "departamento"
-    ]
-)
-?>
 
-<!-- FORM CORDINACION ACADEMICA -->
-<div class="cerrado" id="formca">
+    <!-- DROPDOWN DEL DEPARTAMENTO -->
+    <?= $form->field($model, 'departamento_id')->dropDownList(
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP', 'REG-FCCTP','ECIS-FCCTP')),
+        [
+            'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
+            'id' => "departamento"
+        ]
+    )
+    ?>
 
-        
+    <!-- FORM CORDINACION ACADEMICA -->
+    <div class="cerrado" id="formca">
+        <h5 class="text-primary">CORDINACION ACADEMICA</h5>
+        <!-- FORM CORDINACION ACADEMICA -->
+        <?= $form->field($model, 'cordi')->widget(MultipleInput::className(), [
+            'min' => 1,
+            'max' => 4,
+            'columns' => [
+                [
+                    'name'  => 'docente',
+                    'title' => 'Docente',
+                    
+                ],
+                [
+                    'name'  => 'curso',
+                    'title' => 'Curso',
+                    
+                ],
+                [
+                    'name'  => 'seccion',
+                    'title' => 'Sección',
+                ]
+            ]
 
-            CORDINACION ACADEMICA
-            <button id = "agregar">agregar</button>
-            <?php
-            for($i = 0;$i<5; $i++) {
-            ?>
-            <h1>jaja</h1>
-            <?php
-            }
-            ?>
-        
-            <!-- <div class = "d-inline" style = "width: 20%">
-            <?= $form->field($model, 'nombres')->textInput([
-                'rows' => 10, 
-                'placeholder' => 'Ingrese su nombre',
-                'class'=>"d-inline p-2"]) ?>
-        </div>
-        <div class = "d-inline" style = "width: 20%">
-            <?= $form->field($model, 'nombres')->textInput([
-                'rows' => 10, 
-                'placeholder' => 'Ingrese su nombre',
-                'class'=>"d-inline p-2"]) ?>
-        </div> -->
-        
-        
-        
-        
-</div>
-<!-- FORM AULA VIRTUAL -->
-<div class="cerrado" id="formau">
-        AULA VIRTUAL
-        
-        <!-- <div class="col-sm-12 col-md-3">
-            <?= $form->field($model, 'nombres')->textInput([
-                'rows' => 10, 
-                'placeholder' => 'Ingrese su nombre',
-                'class'=>"col-sm-12 col-md-3"]) ?>
-            <br>
-        </div>-->
-        
-        
+        ])->label(false);
+        ?>
+    </div>
+    <!-- FORM AULA VIRTUAL -->
+    <div class="cerrado" id="formau">
+            <h5 class="text-primary">AULA VIRTUAL</h5>
+        <?= $form->field($model, 'aula')->widget(MultipleInput::className(), [
+            'min' => 1,
+            'max' => 4,
+            'columns' => [
+                [
+                    'name'  => 'docente',
+                    'title' => 'Docente',
+                    
+                ],
+                [
+                    'name'  => 'curso',
+                    'title' => 'Curso',
+                    
+                ],
+                [
+                    'name'  => 'seccion',
+                    'title' => 'Sección',
+                    
+                ],
+                [
+                    'name'  => 'ciclo',
+                    'title' => 'Ciclo',
+                    
+                ]
+            ],
+
+        ])->label(false);
+        ?>
+    </div>
+
 </div>
 <style>
-    .divborder{
+    .divborder {
         border: 1px;
         border-color: coral;
     }
+
     .cerrado {
         display: none;
 
@@ -108,12 +120,12 @@ use yii\helpers\Url;
 </style>
 <!-- ESCRIBIR EL MOTIVO -->
 
-    <br>
-    <div class="panel-heading">
-        <h5>
-            <b>MOTIVO</b>
-        </h5>
-    </div>
+<br>
+<div class="panel-heading">
+    <h5>
+        <b>MOTIVO</b>
+    </h5>
+</div>
 
 <div class="motivos-body">
     <p class="text-secondary">Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
@@ -128,13 +140,13 @@ use yii\helpers\Url;
 </div>
 
 <!-- <div>
-    <?php
+        <?php
 
-    $url = Url::toRoute(['/buzon/mensajes/modal-prueba']);
-    echo Html::a('<span class="btn btn-info glyphicon  glyphicon-eye-open"></span>', $url, ['class' => 'botonAbre']);
+        $url = Url::toRoute(['/buzon/mensajes/modal-prueba']);
+        echo Html::a('<span class="btn btn-info glyphicon  glyphicon-eye-open"></span>', $url, ['class' => 'botonAbre']);
 
-    ?>
-</div> -->
+        ?>
+    </div> -->
 <div class="personal-body">
     <div class="form-group">
         <!-- DROPDOWN DE LA CARRERA -->
@@ -158,13 +170,13 @@ use yii\helpers\Url;
     <BR></BR>
     <div class="personal-body">
 
-    <div class="form-group">
+        <div class="form-group">
             <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
     <br>
 </div>
 
@@ -172,25 +184,25 @@ use yii\helpers\Url;
 <?php
 /* AGREGANDO JQUERY */
 $script = <<< JS
-//todo codigo Jquery o javascript stuffer
-$('#departamento').change(function(){
-var departamento_elegido = $(this).val();
-    $('#formca').hide();
-    $('#formau').hide();          
-    if(departamento_elegido ==134){
-        //alert('134')
-        $('#formca').show();
+    //todo codigo Jquery o javascript stuffer
+    $('#departamento').change(function(){
+    var departamento_elegido = $(this).val();
+        $('#formca').hide();
+        $('#formau').hide();          
+        if(departamento_elegido ==134){
+            //alert('134')
+            $('#formca').show();
 
-    }else if(departamento_elegido ==128){
-        $('#formau').show();
-        //alert('128')
-    }else{
-        //alert('nignguno')
-    }
-});
-
-
-
+        }else if(departamento_elegido ==128){
+            $('#formau').show();
+            //alert('128')
+        }else{
+            //alert('nignguno')
+        }
+    });
+    
+    
+    
 JS;
 $this->registerJs($script);
 
@@ -243,107 +255,5 @@ $this->registerJs($script);
     }
 
 
-    /*diseño del modal*/
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        padding-top: 100px;
-        /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
 
-    /* Modal Content */
-    .modal-content {
-        position: relative;
-        background-color: #fefefe;
-        margin: auto;
-        padding: 0;
-        border: 1px solid #888;
-        width: 50%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -webkit-animation-name: animatetop;
-        -webkit-animation-duration: 0.4s;
-        animation-name: animatetop;
-        animation-duration: 0.4s
-    }
-
-    /* Add Animation */
-    @-webkit-keyframes animatetop {
-        from {
-            top: -300px;
-            opacity: 0
-        }
-
-        to {
-            top: 0;
-            opacity: 1
-        }
-    }
-
-    @keyframes animatetop {
-        from {
-            top: -300px;
-            opacity: 0
-        }
-
-        to {
-            top: 0;
-            opacity: 1
-        }
-    }
-
-    /* The Close Button */
-    .close {
-        color: red;
-        float: right;
-        font-size: 40px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .modal-header {
-        background-color: #f2f2f2;
-        color: black;
-        padding: 0 10px;
-        margin: 0;
-    }
-
-    .modal-body {
-        padding: 2px 16px;
-    }
-
-    .modal-footer {
-        padding: 2px 16px;
-        background-color: #f2f2f2;
-        color: black;
-    }
-
-
-    /*tabla dentro del modal*/
-
-    .boton-eliminar {
-        background-color: "blue";
-
-    }
 </style>

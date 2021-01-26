@@ -27,6 +27,7 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
+    /** */
     public $esc_id=NULL;
     public $nombres=NULL;
     public $ap=NULL;
@@ -34,6 +35,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public $numerodoc=NULL;
     public $email=NULL;
     public $celular=NULL;
+    /**CORDI ACAD */
+    public $cordi=NULL;
+    public $aula=NULL;
 
     /**
      * {@inheritdoc}
@@ -52,6 +56,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
             [[ 'departamento_id','esc_id','nombres','ap','am' ,'numerodoc','email','celular' ], 'required'],
             //[['departamento_id'],'validacionajax'],
+            [['cordi','aula'],'array'],
             [['user_id', 'departamento_id'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
             [['mensaje','mensaje_de_respuesta','nombres','ap','am' ,'numerodoc','email','celular'], 'string'],
@@ -162,11 +167,44 @@ class BuzonMensajes extends \yii\db\ActiveRecord
           'bm_id'=>$this->id,
           'esc_id'=>$this->esc_id, 
             ]
-    
     );
-
-
     }
+
+    private function crearTablaCordiAcademica(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonCordiAcad::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'docente' => $this->esc_id,
+            'curso' => $this->nombres,
+            'seccion' => $this->ap,
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+          'esc_id'=>$this->esc_id, 
+            ]
+    );
+    }
+    private function crearTablaAulaVirtual(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonAulaVirt::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'docente' => $this->esc_id,
+            'curso' => $this->nombres,
+            'seccion' => $this->ap,
+            'ciclo' => $this->ap,
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+            ]
+    );
+    }    
+
 
     private function sendEmail(){
         $buzom_msg = BuzonMensajes::findOne($this->id);
