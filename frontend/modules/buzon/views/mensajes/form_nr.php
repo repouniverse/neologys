@@ -16,6 +16,8 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces&display=swap" rel="stylesheet">
 <!-- <?php
         $url = Url::toRoute(['/buzon/mensajes/modal-prueba', 'idModal' => 'buscarvalor']);
         echo  Html::button(yii::t('base_verbs', 'Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add Unit'), 'id' => 'btn_unidad', 'class' => 'botonAbre btn btn-warning']);
@@ -27,7 +29,7 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
     <div class="panel-heading">
         <h5>
-            <b>CATEGORIA</b>
+            <b class="subtitulo">CATEGORÍA</b>
         </h5>
     </div>
 
@@ -44,7 +46,7 @@ use yii\helpers\Url;
 
     <!-- FORM CORDINACION ACADEMICA -->
     <div class="cerrado" id="formca">
-        <h5 class="text-primary">CORDINACION ACADEMICA</h5>
+        <h5 class="text-primary text-center sub-form">CORDINACIÓN ACADEMICA</h5>
         <!-- FORM CORDINACION ACADEMICA -->
         <?= $form->field($model, 'cordi')->widget(MultipleInput::className(), [
             'min' => 1,
@@ -71,7 +73,7 @@ use yii\helpers\Url;
     </div>
     <!-- FORM AULA VIRTUAL -->
     <div class="cerrado" id="formau">
-            <h5 class="text-primary">AULA VIRTUAL</h5>
+            <h5 class="text-primary text-center sub-form">AULA VIRTUAL</h5>
         <?= $form->field($model, 'aula')->widget(MultipleInput::className(), [
             'min' => 1,
             'max' => 4,
@@ -123,19 +125,19 @@ use yii\helpers\Url;
 <br>
 <div class="panel-heading">
     <h5>
-        <b>MOTIVO</b>
+        <b class="subtitulo">MOTIVO</b>
     </h5>
 </div>
 
 <div class="motivos-body">
-    <p class="text-secondary">Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
+    <p class="text-secondary"><i>NOTA: </i>Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja.</p>
     <!-- OBTENEMOS EL VALOR DEL MOTIVO -->
     <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' => 'Ingrese su consulta']) ?>
 </div>
 <!-- DATOS PERSONALES -->
 <div class="personal-heading">
     <h5>
-        <b>DATOS PERSONALES</b>
+        <b class="subtitulo">DATOS PERSONALES</b>
     </h5>
 </div>
 
@@ -151,27 +153,44 @@ use yii\helpers\Url;
     <div class="form-group">
         <!-- DROPDOWN DE LA CARRERA -->
         <div class="form-group">
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
+
+            </div>
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
+
+            </div>
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'am')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido materno']) ?>
+
+            </div>
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni']) ?>
+
+            </div>
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email']) ?>
+
+            </div>
+            <div class="col-sm-12 col-md-4">
+            <?= $form->field($model, 'celular')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su celular']) ?>
+
+            </div>
+            <div class="col-sm-12" >
             <?= $form->field($model, 'esc_id')->dropDownList(
                 combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
                 ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
-            )
-
-            ?>
-            <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
-            <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
-            <?= $form->field($model, 'am')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido materno']) ?>
-            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni']) ?>
-            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email']) ?>
-            <?= $form->field($model, 'celular')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su celular']) ?>
-
-
+            );
+            ?> 
+            </div>
         </div>
     </div>
-    <BR></BR>
+            </br>
     <div class="personal-body">
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+        <div class="form-group col-sm-12 text-center boton-submit-content">
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -210,50 +229,108 @@ $this->registerJs($script);
 ?>
 
 <style>
-    .panel-heading {
-        color: #333;
-        background-color: #f5f5f5;
+.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
 
-        padding: 10px 15px;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        margin-top: -20px;
-    }
+    padding: 10px 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-top: -20px;
+}
 
-    .categorias-body {
-        padding: 15px;
-        width: 100%;
-        height: 250px;
-        border-left: 1px solid #D0D3D4;
-        border-right: 1px solid #D0D3D4;
-        border-bottom: 1px solid #D0D3D4;
-        border-top: none;
-    }
+.categorias-body {
+    padding: 15px;
+    width: 100%;
+    height: 250px;
+    border-left: 1px solid #D0D3D4;
+    border-right: 1px solid #D0D3D4;
+    border-bottom: 1px solid #D0D3D4;
+    border-top: none;
+}
 
-    .personal-heading {
-        color: #333;
-        background-color: #f5f5f5;
+.personal-heading {
+    color: #333;
+    background-color: #f5f5f5;
 
-        padding: 10px 15px;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        margin-top: -20px;
-    }
+    padding: 10px 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-top: -20px;
+}
 
 
-    .color-rojo {
-        color: red
-    }
+.color-rojo {
+    color: red
+}
 
-    p {
-        padding: 2px;
-    }
+p {
+    padding: 2px;
+}
 
+.contenedor-form {
+    width: 60%;
+    margin-left: 20%;
+}
+.subtitulo{
+    font-size: 20px;
+    font-family: 'Fraunces', serif;
+    text-shadow: 0 0 3px #2F3235;
+}
+.sub-form{
+    font-size: 13px;
+}
+
+.glyphicon {
+    
+    color:white;
+    
+}
+.js-input-plus {
+    
+    background:#0B5296;
+}
+.js-input-plus:hover {
+    
+    background: #093179;
+}
+.js-input-plus:active {
+    
+    background: #093179;
+}
+.js-input-plus:focus {
+    
+    background: #093179;
+}
+
+.boton-submit-content{
+
+padding-bottom: 100px;
+display: flex;
+justify-content: center;
+margin-top: 10px;
+}
+.boton-submit{
+    font-size:20px;
+    width:30%;
+    height:35px;
+
+}
+
+
+@media (max-width: 415px){
     .contenedor-form {
-        width: 60%;
-        margin-left: 20%;
+    width: 100%;
+    margin-left: 0;
+    padding: 0 10px;
     }
+    body{
+        width: 100%;
+    }
+    .boton-submit-content{
 
-
+        padding-bottom: 0;
+    }
+}
 
 </style>

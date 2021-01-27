@@ -76,7 +76,7 @@ class MensajesController extends Controller
     public function actionCreate()
     {
 
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
@@ -103,7 +103,7 @@ class MensajesController extends Controller
 
     public function actionCreatenr()
     {
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '77175855']);
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
         $model = new BuzonMensajes();
         
         $model->setAttributes([
