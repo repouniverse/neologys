@@ -116,6 +116,7 @@ return [
             'site/mantenimiento',
             'inter/default/base-auth',
             'buzon/mensajes/createnr',
+            'buzon/mensajes/modal-prueba',
         ]
     ],
     /*

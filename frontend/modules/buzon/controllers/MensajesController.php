@@ -148,7 +148,6 @@ class MensajesController extends Controller
         ]);
     }
 
-
     /**
      * Updates an existing BuzonMensajes model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -215,7 +214,7 @@ class MensajesController extends Controller
         }
     }
 
-    /*
+    
     public function actionModalPrueba(){
         $this->layout = 'install';
 
@@ -225,7 +224,7 @@ class MensajesController extends Controller
                     'idModal' => h::request()->get('idModal'),
                     
                 ]);
-    }*/
+    }
 
     //PORA MOSTRA EL MODAL DE VER DETALLES DE UN MENSAJE 
     public function actionModalVerMensaje($id)

@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
@@ -12,6 +12,13 @@ use common\helpers\h;
 
 //=var_dump($model->departamento_id);die();
 ?>
+<?php
+$url = Url::toRoute(['/buzon/mensajes/modal-prueba', 'idModal' => 'buscarvalor']);
+echo  Html::button(yii::t('base_verbs', 'Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add Unit'), 'id' => 'btn_unidad', 'class' => 'botonAbre btn btn-success']);
+
+?>
+
+
 <div class="buzon-mensajes-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="panel-heading">
@@ -20,13 +27,13 @@ use common\helpers\h;
         </h5>
     </div>  
     
-    <?= $form->field($model, 'departamento_id',/*["enableAjaxValidation"=>true]*/)->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP')),
+    <?= $form->field($model, 'departamento_id')->dropDownList(
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP','REG-FCCTP'))
         
     )?>  
     
      <!-- <?= $form->field($model, 'departamento_id')->radioList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'),array('OTI-FCCTP','REG-FCCTP'))
     ) ?>  -->
 
         

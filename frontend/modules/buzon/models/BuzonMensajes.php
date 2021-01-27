@@ -27,13 +27,24 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
-    public $esc_id = NULL;
-    public $nombres = NULL;
-    public $ap = NULL;
-    public $am = NULL;
-    public $numerodoc = NULL;
-    public $email = NULL;
-    public $celular = NULL;
+    /** */
+    public $esc_id=NULL;
+    public $nombres=NULL;
+    public $ap=NULL;
+    public $am=NULL;
+    public $numerodoc=NULL;
+    public $email=NULL;
+    public $celular=NULL;
+    /**CORDI ACAD */
+    /*
+    public $docente_ca=NULL;
+    public $curso_ca=NULL;
+    public $celular=NULL;
+    public $celular=NULL;
+    public $celular=NULL;
+    public $celular=NULL;
+    public $celular=NULL;*/
+
 
     /**
      * {@inheritdoc}
@@ -163,9 +174,43 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 'bm_id' => $this->id,
                 'esc_id' => $this->esc_id,
             ]
-
-        );
+    );
     }
+    private function crearTablaCordiAcademica(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonCordiAcad::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'docente' => $this->esc_id,
+            'curso' => $this->nombres,
+            'seccion' => $this->ap,
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+          'esc_id'=>$this->esc_id, 
+            ]
+    );
+    }
+    private function crearTablaAulaVirtual(){
+        //$usernor = new BuzonUserNoreg();
+
+        yii::error("CON FE 5");
+        BuzonAulaVirt::firstOrCreateStatic([
+            'bm_id'=> $this->id,
+            'docente' => $this->esc_id,
+            'curso' => $this->nombres,
+            'seccion' => $this->ap,
+            'ciclo' => $this->ap,
+        ],
+        null,
+        [
+          'bm_id'=>$this->id,
+            ]
+    );
+    }    
+
 
     private function sendEmail()
     {
@@ -229,17 +274,4 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         }
     }
 
-    /*public function validacionajax($attribute,$params){
-
-        $departamento_prueba  =  '134';
-        if (134==134) {
-          
-        return true;
-        }else{
-            $this->addError($attribute,"El email no existe");
-            return false;
-        }
-
-
-    }*/
 }
