@@ -55,16 +55,24 @@ use yii\helpers\Url;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
                     
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
-                    
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ]
             ]
 
@@ -81,22 +89,30 @@ use yii\helpers\Url;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
-                    
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
-                    
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
-                    
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ],
                 [
                     'name'  => 'ciclo',
                     'title' => 'Ciclo',
-                    
+                    'options'=>[
+                        'placeholder' => 'Ciclo'
+                    ]
                 ]
             ],
 
