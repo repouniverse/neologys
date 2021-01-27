@@ -14,10 +14,14 @@ use yii\filters\VerbFilter;
 use common\helpers\h;
 use yii\base\DynamicModel;
 use common\models\User;
+use frontend\modules\buzon\models\BuzonAdministradores;
+use frontend\modules\buzon\models\BuzonAulaVirt;
 use frontend\modules\buzon\models\BuzonCordiAcad;
 use frontend\modules\buzon\models\BuzonUserNoreg;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use common\helpers\timeHelper;
+use \common\models\base\modelBase;
 
 /**
  * MensajesController implements the CRUD actions for BuzonMensajes model.
@@ -25,6 +29,7 @@ use yii\widgets\ActiveForm;
 class MensajesController extends Controller
 {
     const BUZON_MENSAJE_PRIORIDAD = "1";
+    const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
     /**
      * {@inheritdoc}
      */
@@ -76,7 +81,11 @@ class MensajesController extends Controller
     public function actionCreate()
     {
 
+<<<<<<< HEAD
         $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
+=======
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => self::DNI_TRABAJADOR_POR_DEFINIR]);
+>>>>>>> edf4f383235837219654ff563a1f407fbf193667
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
@@ -85,7 +94,7 @@ class MensajesController extends Controller
             'user_id' => h::userId(),
             'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,
             'trabajador_id' => $trabajador_por_definir->id,
-            'fecha_registro' => null,
+            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
         ]);
         //para las validaciones mediante ajax
         /*if($model->load(Yii::$app->request->post()) && yii::$app->request->isAjax){
@@ -103,14 +112,18 @@ class MensajesController extends Controller
 
     public function actionCreatenr()
     {
+<<<<<<< HEAD
         $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
+=======
+        $trabajador_por_definir = Personas::findOne(['numerodoc' => self::DNI_TRABAJADOR_POR_DEFINIR]);
+>>>>>>> edf4f383235837219654ff563a1f407fbf193667
         $model = new BuzonMensajes();
         
         $model->setAttributes([
             'user_id' => null,
             'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,
             'trabajador_id' => $trabajador_por_definir->id,
-            'fecha_registro' => null,
+            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime())
         ]);
         //$model::guardarMensaje();
         $this->layout = 'install';
@@ -186,6 +199,37 @@ class MensajesController extends Controller
         ]);
     }
 
+    public function actionPanelSubmanagerBuzon()
+    {
+        $userActual = User::findOne(h::userId());
+        $administrador = BuzonAdministradores::findOne(['persona_id' => $userActual->profile->persona->id]);
+        if (is_null($administrador)) {
+            return $this->render("admin_no_asignado");
+        } else {
+
+            $searchModel = new BuzonVwMensajesSearch();
+            $searchModel->departamento_id = $administrador->departamento_id;
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render("panel_submanager_buzon", [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+    }
+
+    /*
+    public function actionModalPrueba(){
+        $this->layout = 'install';
+
+                return $this->renderAjax('mod_prueba', [
+                    
+                    'gridName' => h::request()->get('gridName'),
+                    'idModal' => h::request()->get('idModal'),
+                    
+                ]);
+    }*/
+
     //PORA MOSTRA EL MODAL DE VER DETALLES DE UN MENSAJE 
     public function actionModalVerMensaje($id)
     {
@@ -194,12 +238,16 @@ class MensajesController extends Controller
         if (is_null(BuzonMensajes::findOne($id))) {
             return 'no hay registro';
         } else {
-            // $model = BuzonMensajes::findOne(['id' => $id]);
+            $cordi_acad = BuzonCordiAcad::findOne(['bm_id' => $id]);
+            $aula_virtual = BuzonAulaVirt::findOne(['bm_id' => $id]);
+
             if (!is_null($model)) {
                 return $this->renderAjax('modal_ver_mensaje', [
                     'model' => $model,
                     'gridName' => h::request()->get('gridName'),
                     'idModal' => h::request()->get('idModal'),
+                    'cordi_acad' => $cordi_acad,
+                    'aula_virtual' => $aula_virtual
                 ]);
             } else {
                 return 'no hay registro';
@@ -246,21 +294,21 @@ class MensajesController extends Controller
             if (is_null($mensaje)) {
                 //$unidad->delete();
             } else {
+                $cordi_acad = BuzonCordiAcad::findOne(['bm_id' => $id]);
+                $aula_virtual = BuzonAulaVirt::findOne(['bm_id' => $id]);
                 if ($mensaje->user_id == null) {
                     $user = BuzonUserNoreg::findOne(['bm_id' => $id]);
                     $user->delete();
                 }
-                ///////////////////////////////////////
-                //FALTA PONER PARA ELIMINAR CORDI_ACAD 
-                //FALTA ELIMINAR AULA_VIRTUAL 
-                //CUANDO TE DEN EL MODELO PONLO!!! LUIS !!!
-                /////////////////////////////////////////////
+                if(!is_null($cordi_acad)) $cordi_acad->delete();
+                if(!is_null($aula_virtual)) $aula_virtual->delete();
                 $mensaje->delete();
 
                 return ['success' => yii::t('base_labels', 'Mensaje eliminado.')];
             }
         }
     }
+
 
     /**
      * Finds the BuzonMensajes model based on its primary key value.

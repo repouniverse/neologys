@@ -55,12 +55,12 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     {
         return [
 
-            [['departamento_id', 'esc_id', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular', 'aula'], 'required'],
+            [['departamento_id'], 'required'],
             //[['departamento_id'],'validacionajax'],
-            [['user_id', 'departamento_id'], 'integer'],
+            [['user_id', 'departamento_id', 'esc_id'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
             [['mensaje', 'mensaje_de_respuesta', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string'],
-            [['fecha_registro'], 'safe'],
+            [['fecha_registro','aula','cordi', 'esc_id', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
@@ -135,10 +135,19 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         if ($insert) {
+           // var_dump(h::getCoddepaDepartamentosById($this->departamento_id));die();
+            if(!is_null($this->nombres)){
+                $this->crearUserNoRegistrado();
+            }
+            //PREGUNTAR COMO ESTARAN EN LA BASE DE DATOS REAL O CAMBIAR POR ID DE DEPARTAMENTO
+            if(h::getCoddepaDepartamentosById($this->departamento_id)=='OTI-FCCTP'){
+                $this->crearTablaAulaVirtual();
+            }
+            if(h::getCoddepaDepartamentosById($this->departamento_id)=='REG-FCCTP'){
+                $this->crearTablaCordiAcademica();
+            }
+           
             
-            $this->crearUserNoRegistrado();
-            //$this->crearTablaCordiAcademica();
-            $this->crearTablaAulaVirtual();
         } else {
             yii::error("Es una actualización");
             //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
@@ -177,11 +186,18 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     {
         //$usernor = new BuzonUserNoreg();
 
-        //var_dump($this->cordi);die();
+       // var_dump($this->cordi);die();
         yii::error("CON FE 2.2 AULA FUERA");
         foreach ($this->cordi as $x) {
             yii::error("CON FE 2.2 AULA DENTRO");
-            BuzonCordiAcad::firstOrCreateStatic(
+            $cordiacad = new BuzonCordiAcad([
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+            ]);
+            $cordiacad->save();
+            /*BuzonCordiAcad::firstOrCreateStatic(
                 [
                     'bm_id' => $this->id,
                     'docente' => $x["docente"],
@@ -192,7 +208,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 [
                     'bm_id' => $this->id,
                 ]
-            );
+            );*/
         }
        
     }
@@ -233,8 +249,9 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         $buzom_msg = BuzonMensajes::findOne($this->id);
         if (!is_null($buzom_msg)) {
             if ($buzom_msg->user_id != null) {
-                yii::error($this->user->profile->persona->id);
-                $alumno = Alumnos::findOne($this->user->profile->persona->id);
+                yii::error("id usuarioalumno  " . $this->user->profile->persona->id);
+
+                $alumno = Alumnos::findOne(['persona_id' => $this->user->profile->persona->id]);
                 $this->emailTemplate($alumno, $alumno->mail);
             } else {
 
@@ -247,20 +264,45 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
     private function emailTemplate($user, $email = null)
     {
-        yii::error("SU CORREO ES: " . strtolower($email));
-    }
+        yii::error("CORRE EL CORREO??!?!?!?!?!?");
 
-    /*public function validacionajax($attribute,$params){
 
-        $departamento_prueba  =  '134';
-        if (134==134) {
-          
-        return true;
-        }else{
-            $this->addError($attribute,"El email no existe");
-            return false;
+        if ($email != null) {
+            $message = new \yii\swiftmailer\Message();
+            $htmlBody =
+                  '<div style="background-color : #EAEAEA; color: #000000; font-size: 20px " >'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '<div style="padding-left: 20px; padding-right:20px">'
+                . '<div style="padding: 25px; margin:30px; background-color : #FFFFFF;">'
+                . '<label> Estimado <b>' . $user->ap . ' ' . $user->am . ', ' . $user->nombres .   '</b></label>'
+                . '<br><br>'
+                . '<label> Como respuesta a la consulta hecha al departamento  <b>' . $this->departamento->nombredepa . ':</b> </label> '
+                . '<br><br>'
+                . '<div style="margin-left: 30px; margin-right:30px ;">'
+                . ' <br>' . $this->mensaje_de_respuesta
+                . '</div>'
+                . '<br><br><br>'
+                . '<label> Atentamente Oficina de Tecnología Informática-USMP. </label> '
+                . '</div>'
+                . '</div>'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '</div>';
+            yii::error("EL CORREO ES : ");
+            yii::error($email);
+            $mailer = new \common\components\Mailer();
+            $message->setSubject('PRUEBA')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
+                ->setTo($email)
+                ->setHtmlBody($htmlBody);
+
+            try {
+
+                $result = $mailer->send($message);
+                return $result;
+            } catch (\Swift_TransportException $Ste) {
+
+                yii::error($Ste->getMessage(), __FUNCTION__);
+            }
         }
-
-
-    }*/
+    }
 }
