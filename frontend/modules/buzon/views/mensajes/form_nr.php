@@ -26,7 +26,11 @@ use yii\helpers\Url;
 <div class="buzon-mensajes-form">
 
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'enableClientValidation' => true,
+        ]
+    ); ?>
     <div class="panel-heading">
         <h5>
             <b class="subtitulo">CATEGORÍA</b>
@@ -170,23 +174,23 @@ use yii\helpers\Url;
         <!-- DROPDOWN DE LA CARRERA -->
         <div class="form-group">
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre']) ?>
+            <?= $form->field($model, 'nombres')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su nombre','id' => "nombres", 'required'=>true]) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno']) ?>
+            <?= $form->field($model, 'ap')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido paterno','id' => "ap", 'required'=>true]) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'am')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido materno']) ?>
+            <?= $form->field($model, 'am')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su apellido materno','id' => "am", 'required'=>true]) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni']) ?>
+            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni','id' => "dni", 'required'=>true]) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email']) ?>
+            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email','id' => "email", 'required'=>true]) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
@@ -200,13 +204,16 @@ use yii\helpers\Url;
             );
             ?> 
             </div>
+            <div class="">
+                <p>Por favor rellene los campos para poder realizar el envío, si tiene problemas dar click fuera del formulario para habilitar el boton de enviar</p>
+            </div>
         </div>
     </div>
             </br>
     <div class="personal-body">
-
+        
         <div class="form-group col-sm-12 text-center boton-submit-content">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit']) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit ', 'id' => "submit"]) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -235,8 +242,6 @@ $script = <<< JS
             //alert('nignguno')
         }
     });
-    
-    
     
 JS;
 $this->registerJs($script);

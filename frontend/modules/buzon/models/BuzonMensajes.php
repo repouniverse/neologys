@@ -65,7 +65,8 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
-
+            
+            [['celular'], 'number', 'max' => 9 ],
         ];
     }
 
@@ -305,4 +306,6 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             }
         }
     }
+
+    
 }

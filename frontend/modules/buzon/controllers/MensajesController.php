@@ -29,7 +29,7 @@ use \common\models\base\modelBase;
 class MensajesController extends Controller
 {
     const BUZON_MENSAJE_PRIORIDAD = "1";
-    const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
+    const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
     /**
      * {@inheritdoc}
      */
@@ -81,11 +81,7 @@ class MensajesController extends Controller
     public function actionCreate()
     {
 
-<<<<<<< HEAD
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
-=======
         $trabajador_por_definir = Personas::findOne(['numerodoc' => self::DNI_TRABAJADOR_POR_DEFINIR]);
->>>>>>> edf4f383235837219654ff563a1f407fbf193667
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
@@ -112,11 +108,7 @@ class MensajesController extends Controller
 
     public function actionCreatenr()
     {
-<<<<<<< HEAD
-        $trabajador_por_definir = Personas::findOne(['numerodoc' => '78652132']);
-=======
         $trabajador_por_definir = Personas::findOne(['numerodoc' => self::DNI_TRABAJADOR_POR_DEFINIR]);
->>>>>>> edf4f383235837219654ff563a1f407fbf193667
         $model = new BuzonMensajes();
         
         $model->setAttributes([

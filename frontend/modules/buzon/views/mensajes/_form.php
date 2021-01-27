@@ -43,16 +43,24 @@ use common\helpers\h;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
 
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
-
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ]
             ]
 
@@ -69,22 +77,32 @@ use common\helpers\h;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
 
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
 
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
-
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ],
                 [
                     'name'  => 'ciclo',
                     'title' => 'Ciclo',
-
+                    'options'=>[
+                        'placeholder' => 'Ciclo'
+                    ]
                 ]
             ],
 
