@@ -171,7 +171,7 @@ use yii\helpers\Url;
     <div class="personal-body">
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger','id'=>'enviar']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -200,6 +200,7 @@ $script = <<< JS
             //alert('nignguno')
         }
     });
+
     
     
     
