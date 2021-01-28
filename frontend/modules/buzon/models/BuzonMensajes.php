@@ -66,7 +66,6 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
             
-            [['celular'], 'number', 'max' => 9 ],
         ];
     }
 
