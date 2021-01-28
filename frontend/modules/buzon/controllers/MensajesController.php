@@ -99,7 +99,7 @@ class MensajesController extends Controller
             return ActiveForm::validate($model);
            }*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['mensaje-exito-reg']);
         }
 
         return $this->render('create', [
@@ -124,7 +124,7 @@ class MensajesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 yii::error("CON FE 5");
-                return $this->redirect(['index']);
+                return $this->redirect(['mensaje-exito-no-reg']);
             
             //var_dump($modelusernr->bm_id.$modelusernr->ap.$modelusernr->celular.$modelusernr->nombres);die();    
         }
@@ -142,6 +142,15 @@ class MensajesController extends Controller
             'idModal' => h::request()->get('idModal'),
             
         ]);
+    }
+
+    public function actionMensajeExitoReg(){
+        return $this->render('mensaje_exito');
+    }
+
+    public function actionMensajeExitoNoReg(){
+        $this->layout = 'install';
+        return $this->render('mensaje_exito');
     }
 
 
