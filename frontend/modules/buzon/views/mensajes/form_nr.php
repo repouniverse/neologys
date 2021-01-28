@@ -41,7 +41,7 @@ use yii\helpers\Url;
 
     <!-- DROPDOWN DEL DEPARTAMENTO -->
     <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP','GYT-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array(/*'REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP',*/'BIBL-FCCTP',/*'SPSI-FCCTP','AUVI-FCCTP',*/'GYT-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
             'id' => "departamento"

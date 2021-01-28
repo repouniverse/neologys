@@ -25,7 +25,7 @@ use common\helpers\h;
     </div>
 
     <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('GYT-FCCTP','REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP','GYT-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
             'id' => "departamento"
@@ -34,7 +34,8 @@ use common\helpers\h;
     ) ?>
     <!-- FORM CORDINACION ACADEMICA -->
     <div class="cerrado" id="formca">
-        <h5 class="text-primary">CORDINACION ACADEMICA</h5>
+        <h5 class="text-primary text-center sub-form">CORDINACION ACADEMICA</h5>
+        
         <!-- FORM CORDINACION ACADEMICA -->
         <?= $form->field($model, 'cordi')->widget(MultipleInput::className(), [
             'min' => 1,
@@ -69,7 +70,7 @@ use common\helpers\h;
     </div>
     <!-- FORM AULA VIRTUAL -->
     <div class="cerrado" id="formau">
-        <h5 class="text-primary">AULA VIRTUAL</h5>
+        <h5 class="text-primary text-center sub-form">AULA VIRTUAL</h5>
         <?= $form->field($model, 'aula')->widget(MultipleInput::className(), [
             'min' => 1,
             'max' => 4,

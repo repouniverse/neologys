@@ -18,7 +18,7 @@ echo Html::img('http://www.fcctp.usmp.edu.pe/fcctpforms/solicitudbuzon2/images/c
 ?>
 <div class="buzon-mensajes-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <br>
 
     <?= $this->render('form_nr', [
         'model' => $model,
