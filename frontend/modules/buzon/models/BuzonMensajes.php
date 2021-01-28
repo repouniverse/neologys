@@ -154,7 +154,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
             yii::error("quiero ver si se activa esto");
             yii::error($this->mensaje_de_respuesta);
-            if(is_null($this->mensaje_de_respuesta))
+            if($this->mensaje_de_respuesta="")
                 $this->sendEmail();
         }
         return parent::afterSave($insert, $changedAttributes);
@@ -250,8 +250,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     {
         $buzom_msg = BuzonMensajes::findOne($this->id);
         if (!is_null($buzom_msg)) {
-            yii::error("EL CORREO NO ESTÁ VACÍO");
-            /*if ($buzom_msg->user_id != null) {
+            if ($buzom_msg->user_id != null) {
                 yii::error("id usuarioalumno  " . $this->user->profile->persona->id);
 
                 $alumno = Alumnos::findOne(['persona_id' => $this->user->profile->persona->id]);
@@ -261,7 +260,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 yii::error("ESTA VACIO");
                 $alumno = BuzonUserNoreg::findOne(['bm_id' => $this->id]);
                 $this->emailTemplate($alumno, $alumno->email);
-            }*/
+            }
         }
     }
 

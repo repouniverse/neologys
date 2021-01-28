@@ -221,8 +221,8 @@ class MensajesController extends Controller
         if (is_null(BuzonMensajes::findOne($id))) {
             return 'no hay registro';
         } else {
-            $cordi_acad = BuzonCordiAcad::findOne(['bm_id' => $id]);
-            $aula_virtual = BuzonAulaVirt::findOne(['bm_id' => $id]);
+            $cordi_acad = BuzonCordiAcad::findAll(['bm_id' => $id]);
+            $aula_virtual = BuzonAulaVirt::findAll(['bm_id' => $id]);
 
             if (!is_null($model)) {
                 return $this->renderAjax('modal_ver_mensaje', [

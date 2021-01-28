@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'alumno_ap',
                         'alumno_am',
                         'mail',
-                        'fecha',
+                        'fecha_registro',
                         [
                             'attribute' => 'estado',
                             'contentOptions' => function ($model, $key, $index, $column) {
