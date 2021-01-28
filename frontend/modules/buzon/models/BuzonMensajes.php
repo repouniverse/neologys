@@ -276,7 +276,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 . '<div style="background-color : #982222; height: 70px;"></div>'
                 . '<div style="padding-left: 20px; padding-right:20px">'
                 . '<div style="padding: 25px; margin:30px; background-color : #FFFFFF;">'
-                . '<label> Estimado <b>' . $user->ap . ' ' . $user->am . ', ' . $user->nombres .   '</b></label>'
+                . '<label> Estimado <b>' . strtoupper($user->ap) . ' ' . strtoupper($user->am)  . ', ' .strtoupper($user->nombres)  .   '</b></label>'
                 . '<br><br>'
                 . '<label> Como respuesta a la consulta hecha al departamento  <b>' . $this->departamento->nombredepa . ':</b> </label> '
                 . '<br><br>'
@@ -290,7 +290,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 . '<div style="background-color : #982222; height: 70px;"></div>'
                 . '</div>';
             yii::error("EL CORREO ES : ");
-            yii::error($email);
+            yii::error(strtolower($email));
             $mailer = new \common\components\Mailer();
             $message->setSubject('PRUEBA')
                 ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
