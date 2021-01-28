@@ -154,7 +154,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
             yii::error("quiero ver si se activa esto");
             yii::error($this->mensaje_de_respuesta);
-            if($this->mensaje_de_respuesta="")
+            if($this->mensaje_de_respuesta!="")
                 $this->sendEmail();
         }
         return parent::afterSave($insert, $changedAttributes);
