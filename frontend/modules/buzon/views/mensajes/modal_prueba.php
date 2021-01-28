@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
        ABER CARGA PARA MOSTRARLE A LOS GEIS
 
-    </div>
+    </div> 
 </div>
 
 <style>

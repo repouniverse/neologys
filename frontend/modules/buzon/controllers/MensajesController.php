@@ -29,6 +29,7 @@ use \common\models\base\modelBase;
 class MensajesController extends Controller
 {
     const BUZON_MENSAJE_PRIORIDAD = "1";
+    //const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
     const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
     /**
      * {@inheritdoc}
@@ -210,17 +211,7 @@ class MensajesController extends Controller
         }
     }
 
-    /*
-    public function actionModalPrueba(){
-        $this->layout = 'install';
-
-                return $this->renderAjax('mod_prueba', [
-                    
-                    'gridName' => h::request()->get('gridName'),
-                    'idModal' => h::request()->get('idModal'),
-                    
-                ]);
-    }*/
+    
 
     //PORA MOSTRA EL MODAL DE VER DETALLES DE UN MENSAJE 
     public function actionModalVerMensaje($id)
@@ -230,8 +221,8 @@ class MensajesController extends Controller
         if (is_null(BuzonMensajes::findOne($id))) {
             return 'no hay registro';
         } else {
-            $cordi_acad = BuzonCordiAcad::findOne(['bm_id' => $id]);
-            $aula_virtual = BuzonAulaVirt::findOne(['bm_id' => $id]);
+            $cordi_acad = BuzonCordiAcad::findAll(['bm_id' => $id]);
+            $aula_virtual = BuzonAulaVirt::findAll(['bm_id' => $id]);
 
             if (!is_null($model)) {
                 return $this->renderAjax('modal_ver_mensaje', [

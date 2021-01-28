@@ -133,7 +133,7 @@ use common\helpers\h;
     </div>
     <div class="motivos-body">
         <p class="text-secondary"><i>NOTA: </i>Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
-        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' =>'Ingrese su consulta']) ?>
+        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' =>'Ingrese su consulta','required'=>true]) ?>
     </div>
     <div class="personal-body">
 

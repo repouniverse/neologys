@@ -23,6 +23,7 @@ use yii\helpers\Url;
         echo  Html::button(yii::t('base_verbs', 'Add Unit'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add Unit'), 'id' => 'btn_unidad', 'class' => 'botonAbre btn btn-warning']);
         ?> -->
 <!--FORMULARIO-->
+
 <div class="buzon-mensajes-form">
 
 
@@ -152,7 +153,7 @@ use yii\helpers\Url;
 <div class="motivos-body">
     <p class="text-secondary"><i>NOTA: </i>Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja.</p>
     <!-- OBTENEMOS EL VALOR DEL MOTIVO -->
-    <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' => 'Ingrese su consulta']) ?>
+    <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' => 'Ingrese su consulta','required'=>true]) ?>
 </div>
 <!-- DATOS PERSONALES -->
 <div class="personal-heading">
@@ -186,15 +187,15 @@ use yii\helpers\Url;
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni','id' => "dni", 'required'=>true]) ?>
+            <?= $form->field($model, 'numerodoc')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su dni','id' => "dni", 'required'=>true, 'maxlength' => '8', 'minlength'=>'8']) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email','id' => "email", 'required'=>true]) ?>
+            <?= $form->field($model, 'email')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su email','id' => "email", 'required'=>true, 'type'=>'email']) ?>
 
             </div>
             <div class="col-sm-12 col-md-4">
-            <?= $form->field($model, 'celular')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su celular']) ?>
+            <?= $form->field($model, 'celular')->textInput(['rows' => 10, 'placeholder' => 'Ingrese su celular', 'type' => 'text', 'maxlength' => '9', 'minlength'=>'9']) ?>
 
             </div>
             <div class="col-sm-12" >
@@ -204,19 +205,17 @@ use yii\helpers\Url;
             );
             ?> 
             </div>
-            <div class="">
-                <p>Por favor rellene los campos para poder realizar el envío, si tiene problemas dar click fuera del formulario para habilitar el boton de enviar</p>
-            </div>
+            
         </div>
     </div>
             </br>
     <div class="personal-body">
         
         <div class="form-group col-sm-12 text-center boton-submit-content">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit ', 'id' => "submit"]) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit ']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
 
     </div>
     <br>

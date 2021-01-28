@@ -71,18 +71,23 @@ use common\helpers\h;
 
 
         <?php
-
         if (!is_null($cordi_acad)) {
-            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'docente')->textInput(['disabled' => true,]) . "</div>";
-            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'curso')->textInput(['disabled' => true,]) . "</div>";
-            echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi_acad, 'seccion')->textInput(['disabled' => true,]) . "</div>";
+            foreach ($cordi_acad as $index => $cordi) {
+                echo "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>" .Html::label('Curso Nº '.$index ). "</div>";
+                echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi, '[$index]docente')->textInput(['disabled' => true,]) . "</div>";
+                echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi, '[$index]curso')->textInput(['disabled' => true,]) . "</div>";
+                echo "<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>" . $form->field($cordi, '[$index]seccion')->textInput(['disabled' => true,]) . "</div>";
+            }
         }
 
         if (!is_null($aula_virtual)) {
-            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'docente')->textInput(['disabled' => true,]) . "</div>";
-            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'curso')->textInput(['disabled' => true,]) . "</div>";
-            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'seccion')->textInput(['disabled' => true,]) . "</div>";
-            echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula_virtual, 'ciclo')->textInput(['disabled' => true,]) . "</div>";
+            foreach ($aula_virtual as $index => $aula) {
+                echo "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>" .Html::label('Curso Número: '.$index ). "</div>";
+                echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula, '[$index]docente')->textInput(['disabled' => true,]) . "</div>";
+                echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula, '[$index]curso')->textInput(['disabled' => true,]) . "</div>";
+                echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula, '[$index]seccion')->textInput(['disabled' => true,]) . "</div>";
+                echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>" . $form->field($aula, '[$index]ciclo')->textInput(['disabled' => true,]) . "</div>";
+            }
         }
 
 
