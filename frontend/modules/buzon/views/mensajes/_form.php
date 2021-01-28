@@ -209,7 +209,7 @@ $this->registerJs($script);
     .subtitulo{
     font-size: 20px;
     font-family: 'Fraunces', serif;
-    text-shadow: 0 0 3px #2F3235;
+    
 }
 
 .boton-submit-content{
