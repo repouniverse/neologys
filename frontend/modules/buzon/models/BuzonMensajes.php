@@ -27,24 +27,18 @@ use common\helpers\h;
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
     public $mensaje_de_respuesta;
-    /** */
-    public $esc_id=NULL;
-    public $nombres=NULL;
-    public $ap=NULL;
-    public $am=NULL;
-    public $numerodoc=NULL;
-    public $email=NULL;
-    public $celular=NULL;
+    /** aulmno no reg */
+    public $esc_id = NULL;
+    public $nombres = NULL;
+    public $ap = NULL;
+    public $am = NULL;
+    public $numerodoc = NULL;
+    public $email = NULL;
+    public $celular = NULL;
     /**CORDI ACAD */
-    /*
-    public $docente_ca=NULL;
-    public $curso_ca=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;
-    public $celular=NULL;*/
-
+    public $cordi = NULL;
+    /**aula virtual */
+    public $aula = NULL;
 
     /**
      * {@inheritdoc}
@@ -66,7 +60,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             [['user_id', 'departamento_id', 'esc_id'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
             [['mensaje', 'mensaje_de_respuesta', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string'],
-            [['fecha_registro'], 'safe'],
+            [['fecha_registro','aula','cordi', 'esc_id', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'safe'],
             [['estado', 'prioridad'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
@@ -141,8 +135,19 @@ class BuzonMensajes extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         if ($insert) {
-            yii::error("Es CREACIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON");
-            $this->crearUserNoRegistrado();
+           // var_dump(h::getCoddepaDepartamentosById($this->departamento_id));die();
+            if(!is_null($this->nombres)){
+                $this->crearUserNoRegistrado();
+            }
+            //PREGUNTAR COMO ESTARAN EN LA BASE DE DATOS REAL O CAMBIAR POR ID DE DEPARTAMENTO
+            if(h::getCoddepaDepartamentosById($this->departamento_id)=='OTI-FCCTP'){
+                $this->crearTablaAulaVirtual();
+            }
+            if(h::getCoddepaDepartamentosById($this->departamento_id)=='REG-FCCTP'){
+                $this->crearTablaCordiAcademica();
+            }
+           
+            
         } else {
             yii::error("Es una actualización");
             //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
@@ -174,42 +179,69 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 'bm_id' => $this->id,
                 'esc_id' => $this->esc_id,
             ]
-    );
+        );
     }
-    private function crearTablaCordiAcademica(){
+
+    private function crearTablaCordiAcademica()
+    {
         //$usernor = new BuzonUserNoreg();
 
-        yii::error("CON FE 5");
-        BuzonCordiAcad::firstOrCreateStatic([
-            'bm_id'=> $this->id,
-            'docente' => $this->esc_id,
-            'curso' => $this->nombres,
-            'seccion' => $this->ap,
-        ],
-        null,
-        [
-          'bm_id'=>$this->id,
-          'esc_id'=>$this->esc_id, 
-            ]
-    );
+       // var_dump($this->cordi);die();
+        yii::error("CON FE 2.2 AULA FUERA");
+        foreach ($this->cordi as $x) {
+            yii::error("CON FE 2.2 AULA DENTRO");
+            $cordiacad = new BuzonCordiAcad([
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+            ]);
+            $cordiacad->save();
+            /*BuzonCordiAcad::firstOrCreateStatic(
+                [
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                ],
+                null,
+                [
+                    'bm_id' => $this->id,
+                ]
+            );*/
+        }
+       
     }
-    private function crearTablaAulaVirtual(){
+    private function crearTablaAulaVirtual()
+    {
         //$usernor = new BuzonUserNoreg();
 
-        yii::error("CON FE 5");
-        BuzonAulaVirt::firstOrCreateStatic([
-            'bm_id'=> $this->id,
-            'docente' => $this->esc_id,
-            'curso' => $this->nombres,
-            'seccion' => $this->ap,
-            'ciclo' => $this->ap,
-        ],
-        null,
-        [
-          'bm_id'=>$this->id,
-            ]
-    );
-    }    
+        yii::error("CON FE 105");
+        foreach ($this->aula as $x){
+            $aulavirtual = new BuzonAulaVirt([
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                    'ciclo' => $x["ciclo"],
+            ]);
+            $aulavirtual->save();  //guarda la tabla
+           /* BuzonAulaVirt::firstOrCreateStatic(
+                [
+                    'bm_id' => $this->id,
+                    'docente' => $x["docente"],
+                    'curso' => $x["curso"],
+                    'seccion' => $x["seccion"],
+                    'ciclo' => $x["ciclo"],
+                ],
+                null,
+                [
+                    'bm_id' => $this->id,
+                ]
+            );*/
+        }
+        
+    }
 
 
     private function sendEmail()
@@ -273,5 +305,4 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             }
         }
     }
-
 }

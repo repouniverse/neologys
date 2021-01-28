@@ -10,6 +10,8 @@ use yii\helpers\ArrayHelper;
 use common\models\masters\Valoresdefault;
 use common\helpers\FileHelper;
 use mdm\admin\models\User;
+use common\models\masters\Departamentos;
+
 class h {
      const SESION_MALETIN = 'maletin';
      const DATE_FORMAT = 'php:Y-m-d';
@@ -264,6 +266,10 @@ class h {
   
   public static function getNameUserById($id){
      return User::findIdentity($id)->username;
+  }
+
+  public static function getCoddepaDepartamentosById($id){
+      return Departamentos::findOne($id)->coddepa;
   }
    
  public static function obQuery(){
