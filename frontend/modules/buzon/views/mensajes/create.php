@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="buzon-mensajes-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <br>
 
     <?= $this->render('_form', [
         'model' => $model,

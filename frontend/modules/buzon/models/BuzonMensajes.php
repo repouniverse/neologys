@@ -83,7 +83,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('base_labels', 'ID'),
             'user_id' => Yii::t('base_labels', 'User ID'),
-            'departamento_id' => Yii::t('base_labels', 'Departamento ID'),
+            'departamento_id' => Yii::t('base_labels', 'Departamento'),
             'trabajador_id' => Yii::t('base_labels', 'TRABAJADOR ID'),
             'mensaje' => Yii::t('base_labels', 'Mensaje'),
             'estado' => Yii::t('base_labels', 'Estado'),
