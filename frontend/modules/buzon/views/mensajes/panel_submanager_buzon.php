@@ -87,7 +87,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'response' => function ($url2, $model) use ($id_pjax_sumilla) {
                                     $url2 = Url::toRoute(['/buzon/mensajes/modal-responder-mensaje', 'id' => $model->buzon_mensaje_id, 'gridName' => $id_pjax_sumilla, 'idModal' => 'buscarvalor']);
-                                    return Html::a('<span class="btn btn-warning glyphicon glyphicon-envelope"></span>', $url2, ['class' => 'botonAbre']);
+                                    if ($model->estado != _ATENDIDO)
+                                        return Html::a('<span class="btn btn-warning glyphicon glyphicon-envelope"></span>', $url2, ['class' => 'botonAbre']);
+                                    else 
+                                        return '';
                                 },
 
                                 'delete' => function ($url, $model) {
