@@ -12,9 +12,9 @@ echo Html::img('http://www.fcctp.usmp.edu.pe/fcctpforms/solicitudbuzon2/images/c
  ]
 );
 
-//$this->title = Yii::t('app', 'Create Buzon Mensajes');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Buzon Mensajes'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = "$this->title";
+$this->title = Yii::t('app', 'Create Buzon Mensajes');
+//$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Buzon Mensajes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="buzon-mensajes-create">
 

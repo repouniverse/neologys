@@ -26,6 +26,11 @@ use common\helpers\h;
  */
 class BuzonMensajes extends \yii\db\ActiveRecord
 {
+    //codigo de departamentos
+    const CODDEPA_AULA_VIRTUAL = 'AUVI-FCCTP';
+    const CODDEPA_CORDINACION_ACADEMICA = 'COAC-FCCTP';
+
+
     public $mensaje_de_respuesta;
     /** aulmno no reg */
     public $esc_id = NULL;
@@ -141,10 +146,10 @@ class BuzonMensajes extends \yii\db\ActiveRecord
                 $this->crearUserNoRegistrado();
             }
             //PREGUNTAR COMO ESTARAN EN LA BASE DE DATOS REAL O CAMBIAR POR ID DE DEPARTAMENTO
-            if(h::getCoddepaDepartamentosById($this->departamento_id)=='OTI-FCCTP'){
+            if(h::getCoddepaDepartamentosById($this->departamento_id)==self::CODDEPA_AULA_VIRTUAL){
                 $this->crearTablaAulaVirtual();
             }
-            if(h::getCoddepaDepartamentosById($this->departamento_id)=='REG-FCCTP'){
+            if(h::getCoddepaDepartamentosById($this->departamento_id)==self::CODDEPA_CORDINACION_ACADEMICA){
                 $this->crearTablaCordiAcademica();
             }
            

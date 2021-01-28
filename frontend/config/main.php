@@ -117,6 +117,7 @@ return [
             'inter/default/base-auth',
             'buzon/mensajes/createnr',
             'buzon/mensajes/modal-prueba',
+            'buzon/mensajes/mensaje-exito-no-reg'
         ]
     ],
     /*

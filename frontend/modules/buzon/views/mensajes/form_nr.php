@@ -41,7 +41,7 @@ use yii\helpers\Url;
 
     <!-- DROPDOWN DEL DEPARTAMENTO -->
     <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('OTI-FCCTP', 'REG-FCCTP','ECIS-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
             'id' => "departamento"
@@ -212,7 +212,7 @@ use yii\helpers\Url;
     <div class="personal-body">
         
         <div class="form-group col-sm-12 text-center boton-submit-content">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit ']) ?>
+            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger boton-submit ']) ?>
         </div>
 
             <?php ActiveForm::end(); ?>
@@ -226,22 +226,23 @@ use yii\helpers\Url;
 /* AGREGANDO JQUERY */
 $script = <<< JS
     //todo codigo Jquery o javascript stuffer
+    var AULA_VIRTUAL_ID = 158
+    var CORDINACION_ACADEMICA = 155
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
         $('#formca').hide();
         $('#formau').hide();          
-        if(departamento_elegido ==134){
+        if(departamento_elegido ==CORDINACION_ACADEMICA){
             //alert('134')
             $('#formca').show();
 
-        }else if(departamento_elegido ==128){
+        }else if(departamento_elegido ==AULA_VIRTUAL_ID){
             $('#formau').show();
             //alert('128')
         }else{
             //alert('nignguno')
         }
     });
-
     
 JS;
 $this->registerJs($script);
@@ -294,9 +295,9 @@ p {
     margin-left: 20%;
 }
 .subtitulo{
-    font-size: 20px;
-    font-family: 'Fraunces', serif;
-    text-shadow: 0 0 3px #2F3235;
+    font-size: 17px;
+    
+    
 }
 .sub-form{
     font-size: 13px;
