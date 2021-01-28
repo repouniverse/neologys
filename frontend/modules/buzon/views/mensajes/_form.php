@@ -14,13 +14,13 @@ use common\helpers\h;
 
 //=var_dump($model->departamento_id);die();
 ?>
-
+<link href="https://fonts.googleapis.com/css2?family=Fraunces&display=swap" rel="stylesheet">
 
 <div class="buzon-mensajes-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="panel-heading">
         <h5>
-            <b>CATEGORIA</b>
+            <b class="subtitulo">CATEGORIA</b>
         </h5>
     </div>
 
@@ -43,16 +43,24 @@ use common\helpers\h;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
 
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
-
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ]
             ]
 
@@ -69,22 +77,32 @@ use common\helpers\h;
                 [
                     'name'  => 'docente',
                     'title' => 'Docente',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Docente'
+                    ]
 
                 ],
                 [
                     'name'  => 'curso',
                     'title' => 'Curso',
+                    'options'=>[
+                        'placeholder' => 'Nombre del Curso'
+                    ]
 
                 ],
                 [
                     'name'  => 'seccion',
                     'title' => 'Sección',
-
+                    'options'=>[
+                        'placeholder' => 'Sección'
+                    ]
                 ],
                 [
                     'name'  => 'ciclo',
                     'title' => 'Ciclo',
-
+                    'options'=>[
+                        'placeholder' => 'Ciclo'
+                    ]
                 ]
             ],
 
@@ -110,17 +128,17 @@ use common\helpers\h;
     ?>
     <div class="panel-heading" style="margin-top: 0;">
         <h5>
-            <b>MOTIVO</b>
+            <b class="subtitulo">MOTIVO</b>
         </h5>
     </div>
     <div class="motivos-body">
-        <p class="text-secondary">Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
-        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' => 'Ingrese su consulta']) ?>
+        <p class="text-secondary"><i>NOTA: </i>Estimado alumno, este espacio ha sido diseñado para usted. Por favor, ingrese su consulta, duda o queja</p>
+        <?= $form->field($model, 'mensaje')->textarea(['rows' => 10, 'placeholder' =>'Ingrese su consulta','required'=>true]) ?>
     </div>
     <div class="personal-body">
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-danger']) ?>
+        <div class="form-group  text-center boton-submit-content">
+                <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-info boton-submit']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -186,4 +204,39 @@ $this->registerJs($script);
         width: 60%;
         margin-left: 20%;
     }
+
+    /* */
+    .subtitulo{
+    font-size: 20px;
+    font-family: 'Fraunces', serif;
+    text-shadow: 0 0 3px #2F3235;
+}
+
+.boton-submit-content{
+
+padding-bottom: 100px;
+display: flex;
+justify-content: center;
+margin-top: 10px;
+}
+.boton-submit{
+    font-size:20px;
+    width:30%;
+    height:35px;
+
+}
+
+@media (max-width: 415px){
+    .contenedor-form {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 10px;
+    }
+    body{
+        width: 100%;
+    }
+    .boton-submit-content{
+        padding-bottom: 0;
+    }
+}
 </style>

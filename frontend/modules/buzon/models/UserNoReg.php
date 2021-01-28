@@ -33,6 +33,7 @@ class UserNoReg extends \yii\db\ActiveRecord
         return [
             [['nombre', 'ap', 'am', 'dni', 'email'], 'required'],
             [['nombre', 'ap', 'am', 'dni', 'email', 'celular'], 'string', 'max' => 30],
+            
         ];
     }
 

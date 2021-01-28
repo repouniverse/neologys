@@ -57,7 +57,7 @@ class BuzonMensajes extends \yii\db\ActiveRecord
 
             [['departamento_id'], 'required'],
             //[['departamento_id'],'validacionajax'],
-            [['user_id', 'departamento_id', 'esc_id'], 'integer'],
+            [['user_id', 'departamento_id', 'esc_id','celular','numerodoc'], 'integer'],
             //[['celular', 'match','pattern'=>"/[9][0123456789]{8}/", 'message'=>" Número celular invalido"]],
             [['mensaje', 'mensaje_de_respuesta', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'string'],
             [['fecha_registro','aula','cordi', 'esc_id', 'nombres', 'ap', 'am', 'numerodoc', 'email', 'celular'], 'safe'],
@@ -65,7 +65,8 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['departamento_id' => 'id']],
             [['trabajador_id'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['trabajador_id' => 'id']],
-
+            
+            
         ];
     }
 
@@ -305,4 +306,6 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             }
         }
     }
+
+    
 }
