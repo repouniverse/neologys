@@ -25,7 +25,7 @@ use common\helpers\h;
     </div>
 
     <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP')),
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('GYT-FCCTP','REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
             'id' => "departamento"
