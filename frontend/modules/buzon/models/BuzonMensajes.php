@@ -152,8 +152,8 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             if(h::getCoddepaDepartamentosById($this->departamento_id)==self::CODDEPA_CORDINACION_ACADEMICA){
                 $this->crearTablaCordiAcademica();
             }
-           
-            
+            yii::error("ENVÍO DE CORREO DE LA SOLICITUD QUE HICIERON LOS USUARIOS");
+            $this->sendEmailSolicitud();            
         } else {
             yii::error("Es una actualización");
             //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
@@ -312,6 +312,71 @@ class BuzonMensajes extends \yii\db\ActiveRecord
             }
         }
     }
+
+    //SEND MENSAJE
+    private function sendEmailSolicitud()
+    {
+        $buzom_msg = BuzonMensajes::findOne($this->id);
+        if (!is_null($buzom_msg)) {
+            if ($buzom_msg->user_id != null) {
+                yii::error("id usuarioalumno  " . $this->user->profile->persona->id);
+
+                $alumno = Alumnos::findOne(['persona_id' => $this->user->profile->persona->id]);
+                $this->emailTemplateEnvioSolicitud($alumno, $alumno->mail);
+            } else {
+
+                yii::error("ESTA VACIO");
+                $alumno = BuzonUserNoreg::findOne(['bm_id' => $this->id]);
+                $this->emailTemplateEnvioSolicitud($alumno, $alumno->email);
+            }
+        }
+    }
+
+    /**PLANTILLA PARA ENVIO DE MENSAJE CUANDO SE ENVIA LA SOLICITUD DE BUZON MENSAJE*/
+    private function emailTemplateEnvioSolicitud($user, $email = null)
+    {
+        yii::error("CORRE EL CORREO??!?!?!?!?!?");
+
+
+        if ($email != null) {
+            $message = new \yii\swiftmailer\Message();
+            $htmlBody =
+                  '<div style="background-color : #EAEAEA; color: #000000; font-size: 20px " >'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '<div style="padding-left: 20px; padding-right:20px">'
+                . '<div style="padding: 25px; margin:30px; background-color : #FFFFFF;">'
+                . '<label> Estimado <b>' . strtoupper($user->ap) . ' ' . strtoupper($user->am)  . ', ' .strtoupper($user->nombres)  .   '</b></label>'
+                . '<br><br>'
+                . '<label> Solicitud enviada al departamento  <b>' . $this->departamento->nombredepa . ':</b> </label> '
+                . '<br><br>'
+                . '<div style="margin-left: 30px; margin-right:30px ;">'
+                . ' <br>' . $this->mensaje
+                . '</div>'
+                . '<br><br><br>'
+                . '<label> Atentamente Oficina de Tecnología Informática-USMP. </label> '
+                . '</div>'
+                . '</div>'
+                . '<div style="background-color : #982222; height: 70px;"></div>'
+                . '</div>';
+            yii::error("EL CORREO ES : ");
+            yii::error(strtolower($email));
+            $mailer = new \common\components\Mailer();
+            $message->setSubject('PRUEBA')
+                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'POSTMASTER@USMP.PE'])
+                ->setTo($email)
+                ->setHtmlBody($htmlBody);
+
+            try {
+
+                $result = $mailer->send($message);
+                return $result;
+            } catch (\Swift_TransportException $Ste) {
+
+                yii::error($Ste->getMessage(), __FUNCTION__);
+            }
+        }
+    }
+    
 
     
 }
