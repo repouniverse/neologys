@@ -30,7 +30,7 @@ use frontend\modules\buzon\models\BuzonMensajeRespuesta;
  */
 class MensajesController extends Controller
 {
-    const BUZON_MENSAJE_PRIORIDAD = "2";
+    const BUZON_MENSAJE_PRIORIDAD = '1';
     //const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
     const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
     /**
@@ -88,7 +88,7 @@ class MensajesController extends Controller
         $model = new BuzonMensajes();
         //$model::guardarMensaje();
         //$this->layout= 'install';
-
+        
         $model->setAttributes([
             'user_id' => h::userId(),
             'prioridad' => self::BUZON_MENSAJE_PRIORIDAD,

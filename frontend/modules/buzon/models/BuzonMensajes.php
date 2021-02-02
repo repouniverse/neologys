@@ -408,12 +408,14 @@ class BuzonMensajes extends \yii\db\ActiveRecord
         $buzones = BuzonMensajes::find()->all();
         if (!is_null($buzones)) {
             foreach ($buzones as $buzon) {
-                yii::error($buzon->estado);
+               
                 if ($buzon->estado != self::ESTADO_URGENTE && $buzon->estado != self::ESTADO_ATENDIDO) {
                     $date2 = $buzon->fecha_registro;
                     $formatted_dt1 = Carbon::parse($date1);
                     $dif = $formatted_dt1->diffInDays($date2);
+                    
                     if ($dif >= self::DIFF_DAYS) {
+                        yii::error("la diferencia de dias es".$dif );
                         $buzon->estado = self::ESTADO_URGENTE;
                         $buzon->update(false);
                     }

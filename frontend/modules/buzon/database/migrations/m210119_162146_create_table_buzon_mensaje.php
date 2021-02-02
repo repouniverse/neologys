@@ -29,7 +29,7 @@ class m210119_162146_create_table_buzon_mensaje extends baseMigration
                 //EL MENSAJE ENVIADO POR EL USUARIO
                 'mensaje' => $this->text()->append($this->collateColumn()),
                 //EL ESTADO DEL MENSAJE
-                'estado'=>$this->char(20)->defaultValue('1'), 
+                'estado'=>$this->char(20)->defaultValue('2'), 
                 //LA PRIORIDAD DEL MENSAJE
                 'prioridad'=>$this->char(20),
                 //FECHA EN QUE FUE ENVIADO

@@ -85,7 +85,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'alumno_nombres',
                         'alumno_ap',
                         'alumno_am',
-                        'mail',
                         'fecha_registro',
                         [
                             'attribute' => 'estado',
