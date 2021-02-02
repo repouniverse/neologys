@@ -150,8 +150,8 @@ use common\helpers\h;
 /* AGREGANDO JQUERY */
 $script = <<< JS
     //todo codigo Jquery o javascript stuffer
-    var AULA_VIRTUAL_ID = 158
-    var CORDINACION_ACADEMICA = 155
+    var AULA_VIRTUAL_ID = 155
+    var CORDINACION_ACADEMICA = 153
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
         $('#formca').hide();

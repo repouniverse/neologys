@@ -26,7 +26,7 @@ use yii\helpers\Url;
                     [
                         'idModal' => $idModal,
                         'idForm' => 'myformulario',
-                        'url' => Url::to(['/buzon/' . $this->context->id . '/modal-responder-mensaje', 'id' => $model->id]),
+                        'url' => Url::to(['/buzon/' . $this->context->id . '/modal-transferir-mensaje', 'id' => $model->id]),
                         'idGrilla' => $gridName,
                         'title' => 'Enviar'
                     ]
@@ -37,35 +37,18 @@ use yii\helpers\Url;
 
 
     <div class="box-body">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>TRANSFERIR DE DEPARTAMENTO</h4>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?=
-            $form->field($model, 'estado')->dropDownList(
-                combo::getCboEstado(),
+            $form->field($model, 'departamento_id')->dropDownList(
+                combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('GYT-FCCTP', 'TUTO-FCCTP', 'CCOR-FCCTP', 'COAC-FCCTP', 'BIBL-FCCTP', 'SPSI-FCCTP', 'AUVI-FCCTP', 'REG-FCCTP')),
                 ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
             )
             ?>
         </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?php echo $form->field($model, 'fecha_registro')->textInput(['disabled' => true]);
-            ?>
-        </div>
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?php echo $form->field($model, 'mensaje')->textArea(['disabled' => true,'rows' =>4]);
-            ?>
-        </div>
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?php echo $form->field($model, 'mensaje_de_respuesta')->textArea(['rows' =>4,'required'=>true]);
-            ?>
-        </div> 
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?php echo $form->field($model, 'hora_de_respuesta')->textInput(['required'=>true]);
-            ?>
-        </div> 
-
 
         <?php ActiveForm::end(); ?>
 

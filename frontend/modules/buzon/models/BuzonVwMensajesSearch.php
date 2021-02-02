@@ -79,6 +79,7 @@ class BuzonVwMensajesSearch extends BuzonVwMensajes
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'buzon_mensaje_id' => $this->buzon_mensaje_id,
             'user_id' => $this->user_id,
             'departamento_id' => $this->departamento_id,
             'trabajador_id' => $this->trabajador_id,

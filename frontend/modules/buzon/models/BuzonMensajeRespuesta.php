@@ -14,7 +14,7 @@ use Yii;
  *
  * @property BuzonMensajes $bm
  */
-class BuzonMensajeRespuesta extends \yii\db\ActiveRecord
+class BuzonMensajeRespuesta extends \common\models\base\modelBase
 {
     /**
      * {@inheritdoc}
@@ -31,7 +31,8 @@ class BuzonMensajeRespuesta extends \yii\db\ActiveRecord
     {
         return [
             [['bm_id'], 'integer'],
-            [['mensaje_respuesta'], 'string'],
+            [['mensaje_respuesta','hora_respuesta'], 'string'],
+            [['hora_respuesta'], 'string', 'max' => 5],
             [['fecha_respuesta'], 'safe'],
             [['bm_id'], 'exist', 'skipOnError' => true, 'targetClass' => BuzonMensajes::className(), 'targetAttribute' => ['bm_id' => 'id']],
         ];
@@ -39,7 +40,7 @@ class BuzonMensajeRespuesta extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     */
+     */ 
     public function attributeLabels()
     {
         return [
@@ -47,6 +48,7 @@ class BuzonMensajeRespuesta extends \yii\db\ActiveRecord
             'bm_id' => Yii::t('base_labels', 'Bm ID'),
             'mensaje_respuesta' => Yii::t('base_labels', 'Mensaje Respuesta'),
             'fecha_respuesta' => Yii::t('base_labels', 'Fecha Respuesta'),
+            'hora_respuesta' => Yii::t('base_labels', 'Hora Respuesta'),
         ];
     }
 

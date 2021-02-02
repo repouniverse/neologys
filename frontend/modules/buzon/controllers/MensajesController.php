@@ -7,9 +7,10 @@ use frontend\modules\buzon\models\BuzonMensajes;
 use frontend\modules\buzon\models\BuzonMensajesSearch;
 use frontend\modules\buzon\models\BuzonVwMensajes;
 use frontend\modules\buzon\models\BuzonVwMensajesSearch;
+use frontend\modules\buzon\models\BuzonMensajeRespuestaSearch;
 use common\models\masters\Personas;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\web\NotFoundHttpException; 
 use yii\filters\VerbFilter;
 use common\helpers\h;
 use yii\base\DynamicModel;
@@ -22,13 +23,14 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use common\helpers\timeHelper;
 use \common\models\base\modelBase;
+use frontend\modules\buzon\models\BuzonMensajeRespuesta;
 
 /**
  * MensajesController implements the CRUD actions for BuzonMensajes model.
  */
 class MensajesController extends Controller
 {
-    const BUZON_MENSAJE_PRIORIDAD = "1";
+    const BUZON_MENSAJE_PRIORIDAD = "2";
     //const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
     const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
     /**
@@ -192,6 +194,7 @@ class MensajesController extends Controller
     //PARA LA VISTA DEL ADMINISTRADOR DE MENSAJES
     public function actionPanelManagerAdmin()
     {
+        BuzonMensajes::actualizarEstadoUrgente();
         $searchModel = new BuzonVwMensajesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -247,6 +250,23 @@ class MensajesController extends Controller
         }
     }
 
+    public function actionAjaxShowHistorialMensajes()
+    {
+        
+        $this->layout = 'install'; 
+        if (h::request()->isAjax) {
+            $id = h::request()->post('expandRowKey');
+            yii::error("el id es igual a: ".$id);
+           // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe  
+             return $this->render('modal_ver_mensajes_respuesta',[
+              'identidad_unidad'=>$id,
+              
+              ]);
+        }
+    }
+
+    
+
     public function actionModalResponderMensaje($id)
     {
 
@@ -276,6 +296,31 @@ class MensajesController extends Controller
         }
     }
 
+    public function actionModalTransferirMensaje($id){
+        $this->layout = 'install';
+        $model = BuzonMensajes::findOne(['id' => $id]);
+        if (is_null($model)) return 'No hay registro';
+        $datos = [];
+        if (h::request()->isPost) {
+            $model->load(h::request()->post());
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            $datos = \yii\widgets\ActiveForm::validate($model);
+            if (count($datos) > 0) {
+                return ['success' => 2, 'msg' => $datos];
+            } else {
+                $model->save();
+                return ['success' => 1, 'id' => $model->id];
+            }
+        } else {
+            return $this->renderAjax('modal_transferir_mensaje', [
+                'model' => $model,
+                'id' => $id,
+                'gridName' => h::request()->get('gridName'),
+                'idModal' => h::request()->get('idModal'),
+            ]);
+        }
+    }
+
     public function actionAjaxDeleteMensaje($id)
     {
         $mensaje = BuzonMensajes::findOne($id);
@@ -286,17 +331,48 @@ class MensajesController extends Controller
             if (is_null($mensaje)) {
                 //$unidad->delete();
             } else {
-                $cordi_acad = BuzonCordiAcad::findOne(['bm_id' => $id]);
-                $aula_virtual = BuzonAulaVirt::findOne(['bm_id' => $id]);
+                $cordi_acad = BuzonCordiAcad::find(['bm_id' => $id])->all();
+                $aula_virtual = BuzonAulaVirt::find(['bm_id' => $id])->all();
+                $mensaje_resp = BuzonMensajeRespuesta::find(['bm_id' => $id])->all();
                 if ($mensaje->user_id == null) {
                     $user = BuzonUserNoreg::findOne(['bm_id' => $id]);
                     $user->delete();
                 }
-                if(!is_null($cordi_acad)) $cordi_acad->delete();
-                if(!is_null($aula_virtual)) $aula_virtual->delete();
+                if(!is_null($cordi_acad)){
+                    foreach($cordi_acad as $cord){
+                        $cord->delete();
+                    }
+                }
+                if(!is_null($aula_virtual)){
+                    foreach($aula_virtual as $aul){
+                        $aul->delete();
+                    }
+                }
+                if(!is_null($mensaje_resp)){
+                    foreach($mensaje_resp as $msj){
+                        $msj->delete();
+                    }
+                }
                 $mensaje->delete();
 
                 return ['success' => yii::t('base_labels', 'Mensaje eliminado.')];
+            }
+        }
+    }
+
+    //ACTUALIZA LA PRIORIDAD DEL MENSAJE
+    public function actionAjaxUpdateState($id)
+    {
+        $mensaje = BuzonMensajes::findOne($id);
+
+        if (h::request()->isAjax) {
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if (is_null($mensaje)) {
+                //$unidad->delete();
+            } else {
+                $mensaje->priorizarMensaje();
+                return ['success' => yii::t('base_labels', 'Prioridad cambiada a URGENTE.')];
             }
         }
     }

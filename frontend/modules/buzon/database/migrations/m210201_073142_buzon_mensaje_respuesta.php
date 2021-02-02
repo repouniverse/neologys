@@ -25,6 +25,8 @@ class m210201_073142_buzon_mensaje_respuesta extends baseMigration
                 'mensaje_respuesta' => $this->text()->append($this->collateColumn()),                
                 //FECHA EN QUE FUE ENVIADO
                 'fecha_respuesta'=>$this->dateTime(),
+                //FECHA EN QUE FUE ENVIADO
+                'hora_respuesta'=>$this->char(5),
 
             ], $this->collateTable());
 
