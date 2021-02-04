@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\tramdoc\models;
-
+use \common\models\base\modelBase;
 use Yii;
 
 /**
@@ -40,7 +40,7 @@ use Yii;
  * @property string|null $oti_notifica_email_check SI->Envía correctamente email al alumno y a ACA:departamento académico
  * @property string|null $oti_notifica_email_obs Observaciones de envío de emails
  */
-class Matriculareact extends \yii\db\ActiveRecord
+class Matriculareact extends modelBase
 {
     /**
      * {@inheritdoc}
