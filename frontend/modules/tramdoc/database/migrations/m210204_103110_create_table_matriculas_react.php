@@ -31,6 +31,7 @@ class m210204_103110_create_table_matriculas_react extends baseMigration
                 'celular'=>$this->string(60),
                 'telefono'=>$this->string(60),
                 'mensaje' => $this->text()->append($this->collateColumn()),
+                'obs_alumno' => $this->text()->append($this->collateColumn()),
                 'fecha_solicitud'=>$this->dateTime()->notNull(),
                 'fecha_registro'=>$this->dateTime(),
                 //
