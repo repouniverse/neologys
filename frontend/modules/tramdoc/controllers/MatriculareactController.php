@@ -93,6 +93,10 @@ class MatriculareactController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->setAttributes([
+            
+            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

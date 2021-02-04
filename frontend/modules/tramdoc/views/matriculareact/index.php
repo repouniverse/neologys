@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\tramdoc\models\MatriculareactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base_labels', 'Matriculareacts');
+$this->title = Yii::t('base_labels', 'Seguimiento de Reactualización de Matrículas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matriculareact-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('base_labels', 'Create Matriculareact'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -23,18 +23,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+        
+        'columns' => [ 
+            
             //'nro_matr',
+            [
+                'columnKey'=>'id',
+                'class' => 'kartik\grid\ExpandRowColumn',
+                'width' => '50px',
+                
+                'value' => function ($model, $key, $index, $column) {
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail' => function ($model, $key, $index, $column) {                    
+                    // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe  
+                    return $this->render('_expand_content_audit', [
+                        'identidad_unidad' => $model->id,
+                    ]);
+                
+                },
+                'expandOneOnly' => true
+            ],
             'codigo',
             'carrera_id',
             'dni',
             'apellido_paterno',
             'apellido_materno',
             'nombres',
+
             //'email_usmp:email',
             //'email_personal:email',
             //'celular',

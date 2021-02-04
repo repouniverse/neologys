@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 
-$this->title = Yii::t('base_labels', 'Create Matriculareact');
+$this->title = Yii::t('base_labels', 'REGISTRAR SOLICITUD');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Matriculareacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

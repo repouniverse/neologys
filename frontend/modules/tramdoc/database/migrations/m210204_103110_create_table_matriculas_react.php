@@ -36,14 +36,14 @@ class m210204_103110_create_table_matriculas_react extends baseMigration
                 'fecha_registro'=>$this->dateTime(),
                 //
                 'cta_sin_deuda_pendiente_check'=>$this->char(2)->defaultValue('NO')->comment('SI->El alumno NO tiene deuda pendiente'),
-                'cta_sin_deuda_pendiente_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones de deuda pendiente llenado por Cuentas Corrientes'),
+                'cta_sin_deuda_pendiente_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones de deuda pendiente llenado por Cuentas Corrientes')->defaultValue(null),
                 'cta_pago_tramite_check'=>$this->char(2)->defaultValue('NO')->comment('SI->se confirma el pago de derecho de trámite'),
                 'cta_pago_tramite_adjunto'=>$this->string(160),
-                'cta_pago_tramite_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones de pago de derecho de trámite llenado por Cuentas Corrientes'),
+                'cta_pago_tramite_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones de pago de derecho de trámite llenado por Cuentas Corrientes')->defaultValue(null),
                 //
                 'ora_record_notas_check'=>$this->char(2)->defaultValue('NO')->comment('SI->ORA presenta y adjunta record de notas'),
                 'ora_record_notas_adjunto'=>$this->string(160),
-                'ora_record_notas_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones sobre el Record de Notas llenado por ORA->Oficina de Registros Académicos'),
+                'ora_record_notas_obs' => $this->text()->append($this->collateColumn())->comment('Observaciones sobre el Record de Notas llenado por ORA->Oficina de Registros Académicos')->defaultValue(null),
                 //
                 'aca_cursos_aptos_check'=>$this->char(2)->defaultValue('NO')->comment('SI->ACA presenta y adjunta DOC DE CURSOS APTOS'),
                 'aca_cursos_aptos_adjunto'=>$this->string(160),
