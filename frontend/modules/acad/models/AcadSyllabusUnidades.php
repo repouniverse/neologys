@@ -100,7 +100,8 @@ class AcadSyllabusUnidades extends \common\models\base\modelBase
        $semana=$this->n_semana;
        yii::error('nsemanas= '. $nsemanasCiclo,__FUNCTION__);
        yii::error($nsemanasCiclo);
-       $limite=($nsemanasCiclo%$this->n_sesiones_semana +1);
+       $limite=$this->n_sesiones_semana ;
+       yii::error($this->n_sesiones_semana.'= NUMERO DE SESIONES POR SEMANA');
        yii::error( $limite,__FUNCTION__);
        $limite*=$this->numero_semanas;
        yii::error( $limite,__FUNCTION__);
