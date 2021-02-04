@@ -8,6 +8,7 @@ use frontend\modules\tramdoc\models\MatriculareactSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \common\models\base\modelBase;
 
 /**
  * MatriculareactController implements the CRUD actions for Matriculareact model.
@@ -65,6 +66,13 @@ class MatriculareactController extends Controller
     public function actionCreate()
     {
         $model = new Matriculareact();
+
+        $model->setAttributes([
+            
+            'fecha_solicitud' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+        ]);
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

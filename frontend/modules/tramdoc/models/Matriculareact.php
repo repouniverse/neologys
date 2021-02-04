@@ -108,4 +108,16 @@ class Matriculareact extends modelBase
             'oti_notifica_email_obs' => Yii::t('base_labels', 'Oti Notifica Email Obs'),
         ];
     }
+
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            
+        } else{
+            yii::error("Es una actualización");
+            
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
 }

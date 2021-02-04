@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use common\helpers\ComboHelper as combo;
+use yii\widgets\Pjax;
+use common\helpers\h;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
@@ -15,8 +17,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'nro_matr')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'carrera_id')->textInput() ?>
+    <!-- carrera-->
+    <?= $form->field($model, 'carrera_id')->dropDownList(
+                combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
+            );
+    ?> 
 
     <?= $form->field($model, 'dni')->textInput(['maxlength' => true]) ?>
 
@@ -35,12 +41,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'mensaje')->textarea(['rows' => 6]) ?>
+    
 
-    <?= $form->field($model, 'fecha_solicitud')->textInput() ?>
+    <!-- <?= $form->field($model, 'fecha_solicitud')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_registro')->textInput() ?>
+    <?= $form->field($model, 'fecha_registro')->textInput() ?> -->
 
-    <?= $form->field($model, 'cta_sin_deuda_pendiente_check')->textInput(['maxlength' => true]) ?>
+
+    <!-- <?= $form->field($model, 'cta_sin_deuda_pendiente_check')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cta_sin_deuda_pendiente_obs')->textarea(['rows' => 6]) ?>
 
@@ -72,7 +80,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'oti_notifica_email_check')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'oti_notifica_email_obs')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'oti_notifica_email_obs')->textarea(['rows' => 6]) ?> -->
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
