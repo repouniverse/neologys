@@ -102,6 +102,9 @@ return [
         'buzon' => [
                 'class' => 'frontend\modules\buzon\Buzon',
         ],
+        'tramdoc' => [
+            'class' => 'frontend\modules\tramdoc\Tramite',
+        ],
     ],
     'as access' => [ 
         'class' => 'mdm\admin\components\AccessControl',
