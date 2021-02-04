@@ -20,6 +20,7 @@ use Yii;
  * @property string|null $celular
  * @property string|null $telefono
  * @property string|null $mensaje
+ * @property string|null $obs_alumno
  * @property string $fecha_solicitud
  * @property string|null $fecha_registro
  * @property string|null $cta_sin_deuda_pendiente_check SI->El alumno NO tiene deuda pendiente
@@ -59,7 +60,7 @@ class Matriculareact extends modelBase
             [['carrera_id', 'dni', 'apellido_paterno', 'nombres', 'email_personal', 'fecha_solicitud'], 'required'],
             [['carrera_id'], 'integer'],
             [['mensaje', 'cta_sin_deuda_pendiente_obs', 'cta_pago_tramite_obs', 'ora_record_notas_obs', 'aca_cursos_aptos_observaciones', 'ora_cursos_aptos_obs', 'oti_cursos_aptos_obs', 'oti_notifica_email_obs'], 'string'],
-            [['fecha_solicitud', 'fecha_registro'], 'safe'],
+            [['fecha_solicitud', 'fecha_registro','obs_alumno'], 'safe'],
             [['nro_matr', 'codigo', 'apellido_paterno', 'apellido_materno', 'nombres'], 'string', 'max' => 40],
             [['dni'], 'string', 'max' => 20],
             [['email_usmp', 'email_personal', 'celular', 'telefono'], 'string', 'max' => 60],
@@ -87,6 +88,7 @@ class Matriculareact extends modelBase
             'celular' => Yii::t('base_labels', 'Celular'),
             'telefono' => Yii::t('base_labels', 'Telefono'),
             'mensaje' => Yii::t('base_labels', 'Mensaje'),
+            'obs_alumno'=> Yii::t('base_labels', 'Observaciones'),
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
             'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Check'),

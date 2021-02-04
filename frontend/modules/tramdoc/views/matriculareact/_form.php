@@ -14,9 +14,9 @@ use common\helpers\h;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nro_matr')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nro_matr')->textInput(['maxlength' => true,'placeholder' =>"Ingrese número de matricula"]) ?>
 
-    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true,'placeholder' =>"Ingrese su código de alumno"]) ?>
     <!-- carrera-->
     <?= $form->field($model, 'carrera_id')->dropDownList(
                 combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
@@ -24,24 +24,26 @@ use common\helpers\h;
             );
     ?> 
 
-    <?= $form->field($model, 'dni')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'dni')->textInput(['maxlength' => true,'placeholder' =>"Ingrese dni"]) ?>
 
-    <?= $form->field($model, 'apellido_paterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'apellido_paterno')->textInput(['maxlength' => true,'placeholder' =>"Ingrese apellido paterno"]) ?>
 
-    <?= $form->field($model, 'apellido_materno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'apellido_materno')->textInput(['maxlength' => true,'placeholder' =>"Ingrese apellido materno"]) ?>
 
-    <?= $form->field($model, 'nombres')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nombres')->textInput(['maxlength' => true,'placeholder' =>"Ingrese su nombre"]) ?>
 
-    <?= $form->field($model, 'email_usmp')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email_usmp')->textInput(['maxlength' => true,'placeholder' =>"Ingrese email usmp"]) ?>
 
-    <?= $form->field($model, 'email_personal')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email_personal')->textInput(['maxlength' => true,'placeholder' =>"Ingrese email personal"]) ?>
 
-    <?= $form->field($model, 'celular')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'celular')->textInput(['maxlength' => true,'placeholder' =>"Ingrese celular"]) ?>
 
-    <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telefono')->textInput(['maxlength' => true,'placeholder' =>"Ingrese telefono"]) ?>
 
-    <?= $form->field($model, 'mensaje')->textarea(['rows' => 6]) ?>
-    
+    <?= $form->field($model, 'mensaje')->textarea(['rows' => 6,'placeholder' =>"Ingrese mensaje"]) ?>
+
+    <?= $form->field($model, 'obs_alumno')->textarea(['rows' => 6,'placeholder' =>"Ingrese observación"]) ?>
+
 
     <!-- <?= $form->field($model, 'fecha_solicitud')->textInput() ?>
 
