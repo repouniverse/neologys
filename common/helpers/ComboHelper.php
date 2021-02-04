@@ -220,10 +220,11 @@ class ComboHelper  {
     
     //CONSIGUE LOS ESTADOS 
     public static function getCboEstado(){
+      //'1'=>yii::t('base_labels','urgente'),
       return [
-             '1'=>yii::t('base_labels','PENDIENTE'),
-             '2'=>yii::t('base_labels','PROCESO'),
-             '3'=>yii::t('base_labels','ATENDIDO'),
+             '2'=>yii::t('base_labels','PENDIENTE'),
+             '3'=>yii::t('base_labels','PROCESO'),
+             '4'=>yii::t('base_labels','ATENDIDO'),
           //'G'=>yii::t('base_labels','GENERAL'),
                      ];
     }

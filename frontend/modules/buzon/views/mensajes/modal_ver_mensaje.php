@@ -4,9 +4,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-const _PENDIENTE = 1;
-const _PROCESO = 2;
-const _ATENDIDO = 3;
+const _URGENTE = 1;
+const _PENDIENTE = 2;
+const _PROCESO = 3;
+const _ATENDIDO = 4;
 //use kartik\date\DatePicker;
 
 use common\helpers\h;
@@ -37,6 +38,7 @@ use common\helpers\h;
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <?php
             echo  Html::label('Estado');
+            if ($model->estado == _URGENTE) echo  Html::textInput('Estado', "URGENTE", ['class' => 'form-control', 'disabled' => true,]);
             if ($model->estado == _PENDIENTE) echo  Html::textInput('Estado', "PENDIENTE", ['class' => 'form-control', 'disabled' => true,]);
             if ($model->estado == _PROCESO) echo  Html::textInput('Estado', "PROCESO", ['class' => 'form-control', 'disabled' => true,]);
             if ($model->estado == _ATENDIDO) echo  Html::textInput('Estado', "ATENDIDO", ['class' => 'form-control', 'disabled' => true,]);
