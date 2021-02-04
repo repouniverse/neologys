@@ -85,7 +85,7 @@ use common\helpers\h;
     <?= $form->field($model, 'oti_notifica_email_obs')->textarea(['rows' => 6]) ?> -->
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
