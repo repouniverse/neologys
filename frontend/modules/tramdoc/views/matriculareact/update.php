@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 
     <?= $this->render('_form_update', [
         'model' => $model,
+        'trabajador' => $trabajador
     ]) ?>
 
 </div>

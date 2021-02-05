@@ -5,10 +5,14 @@ namespace frontend\modules\tramdoc\controllers;
 use Yii;
 use frontend\modules\tramdoc\models\Matriculareact;
 use frontend\modules\tramdoc\models\MatriculareactSearch;
+use common\models\User;
+use common\helpers\h;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \common\models\base\modelBase;
+use common\models\masters\Personas;
+use common\models\masters\Trabajadores;
 
 /**
  * MatriculareactController implements the CRUD actions for Matriculareact model.
@@ -92,6 +96,10 @@ class MatriculareactController extends Controller
      */
     public function actionUpdate($id)
     {
+        $persona_actual_id = User::findOne(h::userId())->profile->persona->id;
+        $trabajador = Trabajadores::findOne(['persona_id'=>$persona_actual_id]);
+        
+
         $model = $this->findModel($id);
         $model->setAttributes([
             
@@ -104,6 +112,7 @@ class MatriculareactController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'trabajador' => $trabajador,
         ]);
     }
 
