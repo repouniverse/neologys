@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+
+
     <?php Pjax::begin(); ?>
+    <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
