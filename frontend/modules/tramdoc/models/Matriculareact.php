@@ -60,7 +60,7 @@ class Matriculareact extends modelBase
     public function rules()
     {
         return [
-            [['carrera_id', 'dni', 'apellido_paterno', 'nombres', 'email_personal', 'fecha_solicitud'], 'required'],
+            [['carrera_id', 'apellido_paterno', 'nombres',], 'required'],
             [['carrera_id'], 'integer'],
             [['mensaje', 'cta_sin_deuda_pendiente_obs', 'cta_pago_tramite_obs', 'ora_record_notas_obs', 'aca_cursos_aptos_observaciones', 'ora_cursos_aptos_obs', 'oti_cursos_aptos_obs', 'oti_notifica_email_obs'], 'string'],
             [['fecha_solicitud', 'fecha_registro', 'obs_alumno'], 'safe'],
