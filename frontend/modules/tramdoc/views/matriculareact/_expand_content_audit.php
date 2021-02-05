@@ -45,7 +45,7 @@ use frontend\modules\tramdoc\models\TramdocAuditoria;
             'valor_modificado',            
             [
                 'attribute' => 'fecha_modif',
-                'format' =>['date', 'php:'.h::gsetting('timeBD','date')],
+                'format' =>['date', 'php: d-m-Y'],
                 'label'=>'Fecha de Modificación',
             ],
         ],

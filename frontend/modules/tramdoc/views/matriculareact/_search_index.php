@@ -67,7 +67,7 @@ use kartik\datetime\DateTimePicker;
                 // 'readonly'=>true,
                 // 'inline'=>true,
                 'pluginOptions' => [
-                    'format' => 'dd-mm-yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'changeMonth' => true,
                     'changeYear' => true,
                     'yearRange' => "-99:+0",
