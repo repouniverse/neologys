@@ -271,6 +271,10 @@ class h {
   public static function getCoddepaDepartamentosById($id){
       return Departamentos::findOne($id)->coddepa;
   }
+
+  public static function getDepartamendoIdByCoddepa($coddepa){
+    return Departamentos::findOne(['coddepa'=> $coddepa])->id;
+  }
    
  public static function obQuery(){
      return new \yii\db\Query();

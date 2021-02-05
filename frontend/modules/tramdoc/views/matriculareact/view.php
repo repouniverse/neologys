@@ -2,18 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\helpers\h;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 
-$this->title = $model->id;
+$this->title = Yii::t('base_labels', 'Datos Registrados');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('base_labels', 'Matriculareacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="matriculareact-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4><?=h::awe('eye').h::space(10).Html::encode($this->title) ?></h4>
+    <div class="box box-success">
+    <br>
 
     <p>
         <?= Html::a(Yii::t('base_labels', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

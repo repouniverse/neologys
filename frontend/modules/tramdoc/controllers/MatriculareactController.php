@@ -5,10 +5,14 @@ namespace frontend\modules\tramdoc\controllers;
 use Yii;
 use frontend\modules\tramdoc\models\Matriculareact;
 use frontend\modules\tramdoc\models\MatriculareactSearch;
+use common\models\User;
+use common\helpers\h;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \common\models\base\modelBase;
+use common\models\masters\Personas;
+use common\models\masters\Trabajadores;
 
 /**
  * MatriculareactController implements the CRUD actions for Matriculareact model.
@@ -69,8 +73,7 @@ class MatriculareactController extends Controller
 
         $model->setAttributes([
             
-            'fecha_solicitud' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
-            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+            'fecha_registro' => modelBase::CarbonNow()->format('Y-m-d'),
         ]);
 
 
@@ -92,18 +95,21 @@ class MatriculareactController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $model->setAttributes([
-            
-            'fecha_registro' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
-        ]);
+        $persona_actual_id = User::findOne(h::userId())->profile->persona->id;
+        $trabajador = Trabajadores::findOne(['persona_id'=>$persona_actual_id]);
+        
 
+        $model = $this->findModel($id);
+        
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'trabajador' => $trabajador,
         ]);
     }
 

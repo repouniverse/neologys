@@ -1,5 +1,7 @@
 <?php
 
+
+use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\modules\maestros\MaestrosModule as m;
@@ -17,7 +19,7 @@ use kartik\datetime\DateTimePicker;
             'options' => ['data-pjax' => 1],
         ]
     );
-    ?>  
+    ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
@@ -27,9 +29,9 @@ use kartik\datetime\DateTimePicker;
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=
             $form->field($model, 'carrera_id')->dropDownList(
-                    combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
-                    ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
-                )
+                combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
             ?>
         </div>
 
@@ -44,7 +46,7 @@ use kartik\datetime\DateTimePicker;
             $form->field($model, 'codigo')->textInput()
             ?>
         </div>
-        
+
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <?=
             $form->field($model, 'apellido_paterno')->textInput()
@@ -57,21 +59,25 @@ use kartik\datetime\DateTimePicker;
             ?>
         </div>
 
-        <?= $form->field($model, 'fecha_solicitud')->widget(
-        DateTimePicker::className(),[
-            'name' => 'fecha_solicitud',
-            'language'=>h::app()->language,
-            
-            'options'=>['placeholder' =>'--' . Yii::t('base_verbs', 'Choose a value') . "--"],
-            'pluginOptions'=> [
-                'format' => h::getFormatShowDate(),
-                //'todayHighlight'=>false,
-                
-            ],
-            
-        ]
-    ) ?>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <?php  //h::settings()->invalidateCache();  
+            ?>
+            <?= $form->field($model, 'fecha_solicitud')->widget(DatePicker::class, [
+                'language' => h::app()->language,
+                // 'readonly'=>true,
+                // 'inline'=>true,
+                'pluginOptions' => [
+                    'format' => 'dd-mm-yyyy',
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => "-99:+0",
+                ],
 
-       
+                //'dateFormat' => h::getFormatShowDate(),
+                'options' => ['autocomplete'=>'off', 'class' => 'form-control']
+            ]) ?>
+        </div>
+
+
         <?php ActiveForm::end(); ?>
     </div>
