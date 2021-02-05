@@ -46,6 +46,9 @@ use Yii;
  */
 class Matriculareact extends modelBase
 {
+    // public $dateorTimeFields  = [
+    //     'fecha_solicitud' =>self::_FDATETIME
+    // ];
     /**
      * {@inheritdoc}
      */
@@ -119,6 +122,7 @@ class Matriculareact extends modelBase
     {
         if ($insert) {
             yii::error("ATRIBUTOS CAMBIADOS o actualizasdos");
+        
         } else if ($changedAttributes) {
             yii::error("ATRIBUTOS CAMBIADOS");
             yii::error($changedAttributes);

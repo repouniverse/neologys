@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
 use yii\widgets\Pjax;
 use common\helpers\h;
+use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
@@ -43,11 +44,25 @@ use common\helpers\h;
     <?= $form->field($model, 'mensaje')->textarea(['rows' => 6,'placeholder' =>"Ingrese mensaje"]) ?>
 
     <?= $form->field($model, 'obs_alumno')->textarea(['rows' => 6,'placeholder' =>"Ingrese observación"]) ?>
+    
 
+    <?= $form->field($model, 'fecha_solicitud')->widget(
+        DatePicker::className(),[
+            
+            'language'=>h::app()->language,
+            'options'=>['placeholder' =>'--' . Yii::t('base_verbs', 'Choose a value') . "--"],
+            'pluginOptions'=> [
+                'format' => 'yyyy-mm-dd', 
+                'changeMonth'=>true,
+                'changeYear'=>true,
+               'yearRange'=>"-99:+0",
+            ]
+        ]
+    ) 
+    
+    ?>
 
-    <!-- <?= $form->field($model, 'fecha_solicitud')->textInput() ?>
-
-    <?= $form->field($model, 'fecha_registro')->textInput() ?> -->
+   <!-- <?= $form->field($model, 'fecha_registro')->textInput() ?> -->
 
 
     <!-- <?= $form->field($model, 'cta_sin_deuda_pendiente_check')->textInput(['maxlength' => true]) ?>
