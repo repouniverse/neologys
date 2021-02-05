@@ -61,12 +61,14 @@ use kartik\datetime\DateTimePicker;
         DateTimePicker::className(),[
             'name' => 'fecha_solicitud',
             'language'=>h::app()->language,
+            
             'options'=>['placeholder' =>'--' . Yii::t('base_verbs', 'Choose a value') . "--"],
             'pluginOptions'=> [
                 'format' => h::getFormatShowDate(),
                 //'todayHighlight'=>false,
                 
-            ]
+            ],
+            
         ]
     ) ?>
 
