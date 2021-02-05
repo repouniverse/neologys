@@ -13,8 +13,9 @@ $this->title = Yii::t('base_labels', 'Seguimiento de Reactualización de Matríc
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matriculareact-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4><?=h::awe('list').h::space(10).Html::encode($this->title) ?></h4>
+    <div class="box box-success">
+    <br>
 
     <p>
         <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
