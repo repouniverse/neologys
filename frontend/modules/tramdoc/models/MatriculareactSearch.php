@@ -60,7 +60,8 @@ class MatriculareactSearch extends Matriculareact
         $query->andFilterWhere([
             'id' => $this->id,
             'carrera_id' => $this->carrera_id,
-            'fecha_solicitud' => $this->fecha_solicitud,
+
+            
             'fecha_registro' => $this->fecha_registro,
         ]);
 
@@ -91,7 +92,9 @@ class MatriculareactSearch extends Matriculareact
             ->andFilterWhere(['like', 'oti_cursos_aptos_check', $this->oti_cursos_aptos_check])
             ->andFilterWhere(['like', 'oti_cursos_aptos_obs', $this->oti_cursos_aptos_obs])
             ->andFilterWhere(['like', 'oti_notifica_email_check', $this->oti_notifica_email_check])
-            ->andFilterWhere(['like', 'oti_notifica_email_obs', $this->oti_notifica_email_obs]);
+            ->andFilterWhere(['like', 'oti_notifica_email_obs', $this->oti_notifica_email_obs])
+
+            ->andFilterWhere(['like', 'fecha_solicitud', $this->fecha_solicitud]);
 
         return $dataProvider;
     }
