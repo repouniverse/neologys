@@ -60,7 +60,7 @@ class Matriculareact extends modelBase
     public function rules()
     {
         return [
-            [['carrera_id', 'dni', 'apellido_paterno', 'nombres', 'email_personal', 'fecha_solicitud'], 'required'],
+            [['carrera_id', 'apellido_paterno', 'nombres'], 'required'],
             [['carrera_id'], 'integer'],
             [['mensaje', 'cta_sin_deuda_pendiente_obs', 'cta_pago_tramite_obs', 'ora_record_notas_obs', 'aca_cursos_aptos_observaciones', 'ora_cursos_aptos_obs', 'oti_cursos_aptos_obs', 'oti_notifica_email_obs'], 'string'],
             [['fecha_solicitud', 'fecha_registro', 'obs_alumno'], 'safe'],
@@ -79,7 +79,7 @@ class Matriculareact extends modelBase
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'nro_matr' => Yii::t('base_labels', 'Nro Matr'),
+            'nro_matr' => Yii::t('base_labels', 'Nro Matricula'),
             'codigo' => Yii::t('base_labels', 'Codigo'),
             'carrera_id' => Yii::t('base_labels', 'Carrera ID'),
             'dni' => Yii::t('base_labels', 'Dni'),
@@ -94,9 +94,9 @@ class Matriculareact extends modelBase
             'obs_alumno' => Yii::t('base_labels', 'Observaciones'),
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
-            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Check'),
+            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Tiene Deuda Pendiente'),
             'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Obs'),
-            'cta_pago_tramite_check' => Yii::t('base_labels', 'Cta Pago Tramite Check'),
+            'cta_pago_tramite_check' => Yii::t('base_labels', 'Tiene Pago Tramite Pendiente'),
             'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
             'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
             'ora_record_notas_check' => Yii::t('base_labels', 'Ora Record Notas Check'),
