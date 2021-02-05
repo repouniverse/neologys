@@ -46,6 +46,9 @@ use Yii;
  */
 class Matriculareact extends modelBase
 {
+    // public $dateorTimeFields  = [
+    //     'fecha_solicitud' =>self::_FDATETIME
+    // ];
     /**
      * {@inheritdoc}
      */
@@ -95,22 +98,22 @@ class Matriculareact extends modelBase
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
             'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Tiene Deuda Pendiente'),
-            'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Obs'),
+            'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Deuda Pendiente Observaciones'),
             'cta_pago_tramite_check' => Yii::t('base_labels', 'Tiene Pago Tramite Pendiente'),
-            'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
-            'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
-            'ora_record_notas_check' => Yii::t('base_labels', 'Ora Record Notas Check'),
-            'ora_record_notas_adjunto' => Yii::t('base_labels', 'Ora Record Notas Adjunto'),
-            'ora_record_notas_obs' => Yii::t('base_labels', 'Ora Record Notas Obs'),
-            'aca_cursos_aptos_check' => Yii::t('base_labels', 'Aca Cursos Aptos Check'),
-            'aca_cursos_aptos_adjunto' => Yii::t('base_labels', 'Aca Cursos Aptos Adjunto'),
-            'aca_cursos_aptos_observaciones' => Yii::t('base_labels', 'Aca Cursos Aptos Observaciones'),
-            'ora_cursos_aptos_check' => Yii::t('base_labels', 'Ora Cursos Aptos Check'),
-            'ora_cursos_aptos_obs' => Yii::t('base_labels', 'Ora Cursos Aptos Obs'),
-            'oti_cursos_aptos_check' => Yii::t('base_labels', 'Oti Cursos Aptos Check'),
-            'oti_cursos_aptos_obs' => Yii::t('base_labels', 'Oti Cursos Aptos Obs'),
-            'oti_notifica_email_check' => Yii::t('base_labels', 'Oti Notifica Email Check'),
-            'oti_notifica_email_obs' => Yii::t('base_labels', 'Oti Notifica Email Obs'),
+            'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Pago Tramite Adjunto'),
+            'cta_pago_tramite_obs' => Yii::t('base_labels', 'Pago Tramite Pendiente Observaciones'),
+            'ora_record_notas_check' => Yii::t('base_labels', 'Record Notas Check'),
+            'ora_record_notas_adjunto' => Yii::t('base_labels', 'Record Notas Adjunto'),
+            'ora_record_notas_obs' => Yii::t('base_labels', 'Record Notas Obs'),
+            'aca_cursos_aptos_check' => Yii::t('base_labels', 'Cursos Aptos Check'),
+            'aca_cursos_aptos_adjunto' => Yii::t('base_labels', 'Cursos Aptos Adjunto'),
+            'aca_cursos_aptos_observaciones' => Yii::t('base_labels', 'Cursos Aptos Observaciones'),
+            'ora_cursos_aptos_check' => Yii::t('base_labels', 'Cursos Aptos Check'),
+            'ora_cursos_aptos_obs' => Yii::t('base_labels', 'Cursos Aptos Observaciones'),
+            'oti_cursos_aptos_check' => Yii::t('base_labels', 'Cursos Aptos Check'),
+            'oti_cursos_aptos_obs' => Yii::t('base_labels', 'Cursos Aptos Observaciones'),
+            'oti_notifica_email_check' => Yii::t('base_labels', 'Notificación Email Check'),
+            'oti_notifica_email_obs' => Yii::t('base_labels', 'Notificación Email Observaciones'),
         ];
     }
 
@@ -119,6 +122,7 @@ class Matriculareact extends modelBase
     {
         if ($insert) {
             yii::error("ATRIBUTOS CAMBIADOS o actualizasdos");
+        
         } else if ($changedAttributes) {
             yii::error("ATRIBUTOS CAMBIADOS");
             yii::error($changedAttributes);

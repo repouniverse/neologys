@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\data\ActiveDataProvider;
+use common\helpers\h;
 use frontend\modules\tramdoc\models\TramdocAuditoria;
 
 ?>
@@ -33,12 +34,20 @@ use frontend\modules\tramdoc\models\TramdocAuditoria;
 
         //'filterModel' => $searchModel,
         'columns' => [
-            'ap',
-            'am',
+            // 'ap',
+            ['attribute'=>'ap',
+            'label'=>'Ap. Paterno'],
+            ['attribute'=>'am',
+            'label'=>'Ap. Materno'],
+            //'am',
             'nombres',
             'campo_modificado',
-            'valor_modificado',
-            'fecha_modif'
+            'valor_modificado',            
+            [
+                'attribute' => 'fecha_modif',
+                'format' =>['date', 'php:'.h::gsetting('timeBD','date')],
+                'label'=>'Fecha de Modificación',
+            ],
         ],
     ]); ?>
 

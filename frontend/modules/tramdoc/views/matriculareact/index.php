@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\helpers\h;
+use Carbon\Carbon;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\tramdoc\models\MatriculareactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,8 +13,9 @@ $this->title = Yii::t('base_labels', 'Seguimiento de Reactualización de Matríc
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matriculareact-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4><?=h::awe('list').h::space(10).Html::encode($this->title) ?></h4>
+    <div class="box box-success">
+    <br>
 
     <p>
         <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -59,7 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'celular',
             //'telefono',
             //'mensaje:ntext',
-            'fecha_solicitud',
+            [
+                'attribute' => 'fecha_solicitud',
+                'format' =>['date', 'php:d/m/Y'],//.h::gsetting('timeBD','date'
+            ],
             //'fecha_registro',
             'cta_sin_deuda_pendiente_check',
             //'cta_sin_deuda_pendiente_obs:ntext',
