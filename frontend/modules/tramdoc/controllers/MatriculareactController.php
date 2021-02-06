@@ -99,7 +99,7 @@ class MatriculareactController extends Controller
         $trabajador = Trabajadores::findOne(['persona_id'=>$persona_actual_id]);
         
         if(is_null($trabajador)){
-            return $this->render(['_no_es_trabajador']);
+            return $this->render('_no_es_trabajador');
         }
 
         $model = $this->findModel($id);
