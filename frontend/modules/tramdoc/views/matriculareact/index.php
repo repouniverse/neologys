@@ -51,7 +51,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'expandOneOnly' => true
             ],
             'codigo',
-            'carrera_id',
+            [
+                'attribute'=>'carrera_id',
+                'label'=>'Carrera',
+                'value' => function ($model, $key, $index, $column) {
+                    return h::nombreCarrera($model->carrera_id);
+                },
+                
+            ],
+            //'carrera_id',
             'dni',
             'apellido_paterno',
             'apellido_materno',
