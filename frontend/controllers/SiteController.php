@@ -311,6 +311,20 @@ public function actionAuthWithQuestions(){
         }
     }
 
+//para crear nuevosArchivosDeMatriculaReact
+public function actionNewDocsMatriculaReact(){
+    //CRACION DE FLUJO DE SYLLABUS
+    //die();
+    
+    $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->all();
+    
+    foreach ($syllabus as $syllabu){
+        
+        $syllabu->crearDocsReactMat();
+    }
+    die();
+}
+
 public function actionNewflujos(){
     //CRACION DE FLUJO DE SYLLABUS
     die();

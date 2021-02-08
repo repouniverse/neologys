@@ -14,13 +14,16 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
 ?>
 <div class="matriculareact-update">
 
-    <h4><?=h::awe('pencil').h::space(10).Html::encode($this->title) ?></h4>
+    <h4><?= h::awe('pencil') . h::space(10) . Html::encode($this->title) ?></h4>
     <div class="box box-success">
-    <br>
+        <br>
 
-    <?= $this->render('_form_update', [
-        'model' => $model,
-        'trabajador' => $trabajador
-    ]) ?>
+        <?= $this->render('_form_update', [
+            'model' => $model,
+            'trabajador' => $trabajador,
+            'file_pago_tram' => $file_pago_tram,
+            'file_record_notas' => $file_record_notas,
+            'file_cursos_apto' => $file_cursos_apto
+        ]) ?>
 
-</div>
+    </div>
