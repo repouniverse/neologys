@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 use common\helpers\h;
 use Carbon\Carbon;
@@ -29,7 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        
+        'beforeHeader' => [
+            [
+                'columns' => [
+                    ['' => ''],
+                    ['content' => 'Datos de la Solicitud', 'options' => ['colspan' => 7, 'class' => 'text-center']],
+                    ['content' => 'Cuentas Corrientes', 'options' => ['colspan' => 3, 'class' => 'text-center']],
+                    ['content' => 'Reg. Académicos', 'options' => ['colspan' => 2, 'class' => 'text-center']],
+                    ['content' => 'Dpto Académico', 'options' => ['colspan' => 2, 'class' => 'text-center']],
+                    ['content' => 'Reg. Académicos', 'options' => ['colspan' => 1, 'class' => 'text-center']],
+                    ['content' => 'OTI', 'options' => ['colspan' => 2, 'class' => 'text-center']],
+                ],
+            ]
+        ],
         'columns' => [ 
             
             //'nro_matr',
@@ -85,7 +98,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'oti_notifica_email_check:email',
             //'oti_notifica_email_obs:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{view}',
+                'buttons' => [
+                    'update' => function($url, $model) {
+                        $url=Url::to(['update','id'=>$model->id]);
+                        $options = [
+                            'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0'
+                        ];
+                        return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                    },
+                    'view' => function($url, $model) {
+                        $url=Url::to(['view','id'=>$model->id]);
+                        $options = [
+                            'title' => yii::t('base_verbs', 'View'), 'data-pjax'=>'0'
+                        ];
+                        return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
+                    },
+
+                ]
+                ],
         ],
     ]); ?>
 
