@@ -25,6 +25,7 @@ $FILTRO = ["SI"=>"SI","NO"=>"NO","NA"=>"NA"] ;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>" . yii::t('base_verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
