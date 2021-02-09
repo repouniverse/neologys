@@ -11,6 +11,7 @@ use common\models\masters\Valoresdefault;
 use common\helpers\FileHelper;
 use mdm\admin\models\User;
 use common\models\masters\Departamentos;
+use common\models\masters\Carreras;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -362,6 +363,10 @@ public static function resolveFaculty(){
     return 1;
 }
 
+public static function nombreCarrera($codigoEscuela){
+    $escuela = Carreras::findOne($codigoEscuela);
+    return $escuela->nombre;
+}
   
 }
 

@@ -19,7 +19,7 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
 
     <?php
     //DEPARTAMENDO DE CUENTAS CORRIENTES 
-    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('CTAS-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
+    if ( $trabajador->depa_id == h::getDepartamendoIdByCoddepa('CTAS-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
 
         echo $form->field($model, 'cta_sin_deuda_pendiente_check')->dropDownList(
             $items,

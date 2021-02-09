@@ -50,13 +50,13 @@ class MatriculareactController extends Controller
     {
         $searchModel = new MatriculareactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
+ 
     /**
      * Displays a single Matriculareact model.
      * @param integer $id
@@ -117,7 +117,7 @@ class MatriculareactController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
