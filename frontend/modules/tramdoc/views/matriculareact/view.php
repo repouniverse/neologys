@@ -97,8 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'aca_cursos_aptos_check',
                 'aca_cursos_aptos_adjunto',
                 'aca_cursos_aptos_observaciones:ntext',
-                'ora_cursos_aptos_check',
-                'ora_cursos_aptos_obs:ntext',
+
             ],
         ]) ?>
         <br>
