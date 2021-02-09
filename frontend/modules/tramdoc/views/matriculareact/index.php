@@ -35,12 +35,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php Pjax::begin(); ?>
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); 
+        <?php // echo $this->render('_search', ['model' => $searchModel]);
         ?>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
+            'beforeHeader' => [
+                [
+                    'columns' => [
+                        ['' => ''],
+                        ['content' => 'DATOS DE LA SOLICTUD', 'options' => ['colspan' => 7, 'class' => 'text-center']],
+                        ['content' => 'CUENTAS CORRIENTES', 'options' => ['colspan' => 3, 'class' => 'text-center']],
+                        ['content' => 'REG. ACADÉMICOS', 'options' => ['colspan' => 3, 'class' => 'text-center']],
+                        ['content' => 'DPTO ACADÉMICO', 'options' => ['colspan' => 2, 'class' => 'text-center']],
 
+                        ['content' => 'OTI', 'options' => ['colspan' => 2, 'class' => 'text-center']],
+                    ],
+                ]
+            ],
             'columns' => [
 
                 //'nro_matr',
@@ -53,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return GridView::ROW_COLLAPSED;
                     },
                     'detail' => function ($model, $key, $index, $column) {
-                        // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe  
+                        // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
                         return $this->render('_expand_content_audit', [
                             'identidad_unidad' => $model->id,
                         ]);
@@ -88,24 +100,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'cta_sin_deuda_pendiente_check',
                 //'cta_sin_deuda_pendiente_obs:ntext',
                 'cta_pago_tramite_check',
-
                 //'cta_pago_tramite_adjunto',
-                //'cta_pago_tramite_obs:ntext',
-                'ora_record_notas_check',
-                //'ora_record_notas_adjunto',
-                //'ora_record_notas_obs:ntext',
-                'aca_cursos_aptos_check',
-                //'aca_cursos_aptos_adjunto',
-                //'aca_cursos_aptos_observaciones:ntext',
-                'ora_cursos_aptos_check',
-                //'ora_cursos_aptos_obs:ntext',
-                'oti_cursos_aptos_check',
-                //'oti_cursos_aptos_obs:ntext',
-                'oti_notifica_email_check:email',
-                //'oti_notifica_email_obs:ntext',
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'header' => 'Pago Trámite',
+                    'header' => 'Adjunto  de Comprobante de Pago',
                     'template' => '{Pago}',
                     'buttons' => [
                         'Pago' => function ($url, $model) {
@@ -120,9 +118,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                     ],
                 ],
+                //'cta_pago_tramite_obs:ntext',
+                'ora_record_notas_check',
+                //'ora_record_notas_adjunto',
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'header' => 'Record Notas',
+                    'header' => 'Adjunto de Record Notas',
                     'template' => '{Record}',
                     'buttons' => [
                         'Record' => function ($url, $model) {
@@ -137,9 +138,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                     ],
                 ],
+                //'ora_record_notas_obs:ntext',
+
+                'ora_cursos_aptos_check',
+                //'ora_cursos_aptos_obs:ntext',
+
+                'aca_cursos_aptos_check',
+                //'aca_cursos_aptos_adjunto',
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'header' => 'Cursos Aptos',
+                    'header' => 'Adjunto de Cursos Aptos',
                     'template' => '{Cursos}',
                     'buttons' => [
                         'Cursos' => function ($url, $model) {
@@ -154,9 +162,35 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                     ],
                 ],
+                //'aca_cursos_aptos_observaciones:ntext',
+
+                'oti_cursos_aptos_check',
+                //'oti_cursos_aptos_obs:ntext',
+                'oti_notifica_email_check:email',
+                //'oti_notifica_email_obs:ntext',
+
+
+
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'header' => 'Acciones',
+                    'template' => '{update}{view}',
+                    'buttons' => [
+                        'update' => function($url, $model) {
+                            $url=Url::to(['update','id'=>$model->id]);
+                            $options = [
+                                'title' => yii::t('base_verbs', 'Update'), 'data-pjax'=>'0'
+                            ];
+                            return Html::a('<span class="btn btn-success btn-sm glyphicon glyphicon-pencil"></span>', $url, $options/*$options*/);
+                        },
+                        'view' => function($url, $model) {
+                            $url=Url::to(['view','id'=>$model->id]);
+                            $options = [
+                                'title' => yii::t('base_verbs', 'View'), 'data-pjax'=>'0'
+                            ];
+                            return Html::a('<span class="btn btn-warning btn-sm glyphicon glyphicon-search"></span>', $url, $options/*$options*/);
+                        },
+
+                    ]
                 ],
             ],
         ]); ?>
