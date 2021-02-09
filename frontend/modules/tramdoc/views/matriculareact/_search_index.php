@@ -9,6 +9,7 @@ use common\models\masters\Personas;
 use common\helpers\ComboHelper as combo;
 use common\helpers\h;
 use kartik\datetime\DateTimePicker;
+$FILTRO = ["SI"=>"SI","NO"=>"NO","NA"=>"NA"] ;
 ?>
 
 <div class="panel_manager_buzon">
@@ -77,7 +78,39 @@ use kartik\datetime\DateTimePicker;
                 'options' => ['autocomplete'=>'off', 'class' => 'form-control']
             ]) ?>
         </div>
-
+        
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <?=
+            $form->field($model, 'cta_pago_tramite_check')->dropDownList(
+                $FILTRO,
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
+            ?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <?=
+            $form->field($model, 'ora_record_notas_check')->dropDownList(
+                $FILTRO,
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
+            ?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <?=
+            $form->field($model, 'ora_cursos_aptos_check')->dropDownList(
+                $FILTRO,
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
+            ?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <?=
+            $form->field($model, 'oti_cursos_aptos_check')->dropDownList(
+                $FILTRO,
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
+            ?>
+        </div>
 
         <?php ActiveForm::end(); ?>
     </div>
