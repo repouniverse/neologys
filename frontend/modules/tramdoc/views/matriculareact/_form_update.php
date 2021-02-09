@@ -25,7 +25,7 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
             $items,
             ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
         );
-        echo $form->field($model, 'cta_sin_deuda_pendiente_obs')->textarea(['rows' => 6]);
+        echo $form->field($model, 'cta_sin_deuda_pendiente_obs')->textarea(['rows' => 4]);
 
         echo $form->field($model, 'cta_pago_tramite_check')->dropDownList(
             $items,
@@ -34,6 +34,7 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
 
         //aqui va el archivo adjunto 
         echo HTML::label("Pago trámite adjunto");
+        echo "<br>";
 
         $url = Url::toRoute([
             '/finder/selectimage',
@@ -51,18 +52,17 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
             'data-method' => 'get',
             //'data-pjax' => '0',
         ];
-        echo Html::button('<span class="glyphicon glyphicon-paperclip"></span>', ['href' => $url, 'class' => 'botonAbre btn btn-block btn-success']);
+        echo Html::button('<span class="glyphicon glyphicon-paperclip"></span> Adjuntar comprobante de pago', ['href' => $url, 'class' => 'botonAbre btn btn-success']);
         if ($file_pago_tram->hasAttachments()) {
             //$url=$model->urlFirstFile;
-
-            echo Html::a('<span class="glyphicon glyphicon-save"></span>', $file_pago_tram->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning btn-block']);
+            echo Html::a('<span class="glyphicon glyphicon-save"></span> Descargar comprobante de pago', $file_pago_tram->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning']);
         }
 
         echo "<br><br>";
 
         ////////////////////////////
 
-        echo $form->field($model, 'cta_pago_tramite_obs')->textarea(['rows' => 6]);
+        echo $form->field($model, 'cta_pago_tramite_obs')->textarea(['rows' => 4]);
     }
     ?>
 

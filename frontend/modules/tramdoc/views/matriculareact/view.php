@@ -15,11 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="matriculareact-view">
 
     <h4><?=h::awe('eye').h::space(10).Html::encode($this->title) ?></h4>
-    <div class="box box-success">
+    <div class="box box-body">
     <br>
 
     <p>
-        <?= Html::a(Yii::t('base_labels', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('base_labels', 'Actualizar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
         <?= Html::a(Yii::t('base_labels', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -27,8 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
 
+    </p>
+        <style>
+            table.detail-view th {
+                width: 25%;
+            }
+            table.detail-view td {
+                width: 75%;
+            }
+        </style>
+
+    <h4>Datos de la solicitud:</h4>
+    <hr>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -47,24 +59,69 @@ $this->params['breadcrumbs'][] = $this->title;
             'mensaje:ntext',
             'fecha_solicitud',
             'fecha_registro',
-            'cta_sin_deuda_pendiente_check',
-            'cta_sin_deuda_pendiente_obs:ntext',
-            'cta_pago_tramite_check',
-            'cta_pago_tramite_adjunto',
-            'cta_pago_tramite_obs:ntext',
-            'ora_record_notas_check',
-            'ora_record_notas_adjunto',
-            'ora_record_notas_obs:ntext',
-            'aca_cursos_aptos_check',
-            'aca_cursos_aptos_adjunto',
-            'aca_cursos_aptos_observaciones:ntext',
-            'ora_cursos_aptos_check',
-            'ora_cursos_aptos_obs:ntext',
-            'oti_cursos_aptos_check',
-            'oti_cursos_aptos_obs:ntext',
-            'oti_notifica_email_check:email',
-            'oti_notifica_email_obs:ntext',
         ],
     ]) ?>
+
+
+        <br>
+        <h4>1. Seguimiento de Cuentas Corrientes:</h4>
+        <hr>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'cta_sin_deuda_pendiente_check',
+                'cta_sin_deuda_pendiente_obs:ntext',
+                'cta_pago_tramite_check',
+                'cta_pago_tramite_adjunto',
+                'cta_pago_tramite_obs:ntext',
+
+            ],
+        ]) ?>
+        <br>
+        <h4>2. Seguimiento de Registros Académicos:</h4>
+        <hr>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'ora_record_notas_check',
+                'ora_record_notas_adjunto',
+                'ora_record_notas_obs:ntext',
+            ],
+        ]) ?>
+        <br>
+        <h4>3. Seguimiento de Departamento Académico:</h4>
+        <hr>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'aca_cursos_aptos_check',
+                'aca_cursos_aptos_adjunto',
+                'aca_cursos_aptos_observaciones:ntext',
+                'ora_cursos_aptos_check',
+                'ora_cursos_aptos_obs:ntext',
+            ],
+        ]) ?>
+        <br>
+        <h4>4. Seguimiento de Registros Académicos:</h4>
+        <hr>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'ora_cursos_aptos_check',
+                'ora_cursos_aptos_obs:ntext',
+            ],
+        ]) ?>
+        <br>
+        <h4>5. Seguimiento de OTI:</h4>
+        <hr>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'oti_cursos_aptos_check',
+                'oti_cursos_aptos_obs:ntext',
+                'oti_notifica_email_check:email',
+                'oti_notifica_email_obs:ntext',
+            ],
+        ]) ?>
 
 </div>
