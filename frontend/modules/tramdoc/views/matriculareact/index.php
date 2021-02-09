@@ -24,17 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matriculareact-index">
     <h4><?= h::awe('list') . h::space(10) . Html::encode($this->title) ?></h4>
-    <div class="box box-success">
-        <br>
-
-        <p>
-            <?= Html::a(Yii::t('base_labels', 'Registrar Solicitud'), ['create'], ['class' => 'btn btn-success']) ?>
-        </p>
-
-
-
+    <div class="box">
+        <div class="box-body">
         <?php Pjax::begin(); ?>
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
+
         <?php // echo $this->render('_search', ['model' => $searchModel]);
         ?>
 
@@ -196,5 +190,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
 
         <?php Pjax::end(); ?>
-
+        </div>
     </div>
