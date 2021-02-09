@@ -64,7 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'expandOneOnly' => true
             ],
             'codigo',
-            'carrera_id',
+            [
+                'attribute'=>'carrera_id',
+                'label'=>'Carrera',
+                'value' => function ($model, $key, $index, $column) {
+                    return h::nombreCarrera($model->carrera_id);
+                },
+                
+            ],
+            //'carrera_id',
             'dni',
             'apellido_paterno',
             'apellido_materno',
@@ -83,13 +91,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'cta_sin_deuda_pendiente_check',
             //'cta_sin_deuda_pendiente_obs:ntext',
             'cta_pago_tramite_check',
-            'cta_pago_tramite_adjunto',
+            //'cta_pago_tramite_adjunto',
             //'cta_pago_tramite_obs:ntext',
             'ora_record_notas_check',
-            'ora_record_notas_adjunto',
+            //'ora_record_notas_adjunto',
             //'ora_record_notas_obs:ntext',
             'aca_cursos_aptos_check',
-            'aca_cursos_aptos_adjunto',
+            //'aca_cursos_aptos_adjunto',
             //'aca_cursos_aptos_observaciones:ntext',
             'ora_cursos_aptos_check',
             //'ora_cursos_aptos_obs:ntext',

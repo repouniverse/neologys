@@ -2,6 +2,9 @@
 
 namespace frontend\modules\tramdoc\models;
 
+use common\models\masters\Documentos;
+use common\behaviors\FileBehavior;
+use common\helpers\timeHelper;
 use common\helpers\h;
 use \common\models\base\modelBase;
 use common\models\User;
@@ -45,7 +48,18 @@ use Yii;
  * @property string|null $oti_notifica_email_obs Observaciones de envío de emails
  */
 class Matriculareact extends modelBase
+
 {
+    const DOCU_PAGO_TRAMITE_ADJUNTO='211';
+    const DOCU_RECORD_NOTAS_ADJUNTO='213';
+    const DOCU_CURSOS_APTO_ADJUNTO='215';
+
+    private $_array_docs=[
+        self::DOCU_PAGO_TRAMITE_ADJUNTO=>'1',
+        self::DOCU_RECORD_NOTAS_ADJUNTO=>'1',//acticvar luego
+        self::DOCU_CURSOS_APTO_ADJUNTO=>'1',
+            ];
+
     // public $dateorTimeFields  = [
     //     'fecha_solicitud' =>self::_FDATETIME
     // ];
@@ -56,6 +70,9 @@ class Matriculareact extends modelBase
     {
         return '{{%tramdoc_matricula_reacts}}';
     }
+
+    
+
 
     /**
      * {@inheritdoc}
@@ -122,7 +139,7 @@ class Matriculareact extends modelBase
     {
         if ($insert) {
             yii::error("ATRIBUTOS CAMBIADOS o actualizasdos");
-        
+            $this->crearDocsReactMat();
         } else if ($changedAttributes) {
             yii::error("ATRIBUTOS CAMBIADOS");
             yii::error($changedAttributes);
@@ -159,6 +176,20 @@ class Matriculareact extends modelBase
                     }
                 }
             }
+        }
+    }
+
+    public function crearDocsReactMat()
+    {
+        foreach($this->_array_docs as $codocu=>$activo){
+            yii::error($codocu);
+            yii::error($activo);
+            TramdocFiles::firstOrCreateStatic(
+                [
+                    'matr_id' => $this->id,
+                    'docu_id' => $codocu.'',
+                ]
+            );
         }
     }
 }

@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use \common\models\base\modelBase;
 use common\models\masters\Personas;
 use common\models\masters\Trabajadores;
+use frontend\modules\tramdoc\models\TramdocFiles;
 
 /**
  * MatriculareactController implements the CRUD actions for Matriculareact model.
@@ -22,6 +23,13 @@ class MatriculareactController extends Controller
     /**
      * {@inheritdoc}
      */
+    //const DOCU_PAGO_TRAMITE_ADJUNTO='156';
+    //const DOCU_RECORD_NOTAS_ADJUNTO='157';
+    //const DOCU_CURSOS_APTO_ADJUNTO='159';
+    const DOCU_PAGO_TRAMITE_ADJUNTO='211';
+    const DOCU_RECORD_NOTAS_ADJUNTO='213';
+    const DOCU_CURSOS_APTO_ADJUNTO='215';
+
     public function behaviors()
     {
         return [
@@ -42,13 +50,13 @@ class MatriculareactController extends Controller
     {
         $searchModel = new MatriculareactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
+ 
     /**
      * Displays a single Matriculareact model.
      * @param integer $id
@@ -97,7 +105,9 @@ class MatriculareactController extends Controller
     {
         $persona_actual_id = User::findOne(h::userId())->profile->persona->id;
         $trabajador = Trabajadores::findOne(['persona_id'=>$persona_actual_id]);
-        
+        $file_pago_tram =  TramdocFiles::findOne(['matr_id'=>$id, 'docu_id' => self::DOCU_PAGO_TRAMITE_ADJUNTO]);
+        $file_record_notas = TramdocFiles::findOne(['matr_id'=>$id, 'docu_id' => self::DOCU_RECORD_NOTAS_ADJUNTO ]);
+        $file_cursos_apto = TramdocFiles::findOne(['matr_id'=>$id, 'docu_id' =>self::DOCU_CURSOS_APTO_ADJUNTO ]);
         if(is_null($trabajador)){
             return $this->render('_no_es_trabajador');
         }
@@ -107,12 +117,15 @@ class MatriculareactController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
             'trabajador' => $trabajador,
+            'file_pago_tram' => $file_pago_tram,
+            'file_record_notas' => $file_record_notas,
+            'file_cursos_apto' => $file_cursos_apto,
         ]);
     }
 

@@ -106,7 +106,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         ]),
             'summary'=>'',
             'columns' => [
-           
+             
             'codocu',
             
             

@@ -101,7 +101,7 @@ public function actionModalAsesorcurso($id){
         
 
         
-              
+               
         /// $model->facultad_id=$modelFacultad->id;
         if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);
