@@ -23,9 +23,9 @@ class MatriculareactController extends Controller
     /**
      * {@inheritdoc}
      */
-    //const DOCU_PAGO_TRAMITE_ADJUNTO='156';
-    //const DOCU_RECORD_NOTAS_ADJUNTO='157';
-    //const DOCU_CURSOS_APTO_ADJUNTO='159';
+    /*const DOCU_PAGO_TRAMITE_ADJUNTO='156';
+    const DOCU_RECORD_NOTAS_ADJUNTO='157';
+    const DOCU_CURSOS_APTO_ADJUNTO='159';*/
     const DOCU_PAGO_TRAMITE_ADJUNTO='211';
     const DOCU_RECORD_NOTAS_ADJUNTO='213';
     const DOCU_CURSOS_APTO_ADJUNTO='215';
