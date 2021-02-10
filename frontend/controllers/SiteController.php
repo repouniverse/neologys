@@ -345,19 +345,47 @@ public function actionNewflujos(){
 
 public function actionRutas(){
 
-    
-    //SASAAS
+    $arrayAlu = ['72152970',
+    '71463725',
+    '70136149',
+    '72426219',
+    '74906034',
+    '75399937',
+    '76958157',
+    '75478569',
+    '71962220',
+    '72625929',
+    '70266465',
+    '77933464',
+    '71292531',
+    '73485898',
+    '78635201',
+    '74129050',
+    '73887855',
+    '71491826',
+    '71427653',
+    '73084922',
+    '74957726',
+    '70651953'
+    ];
+    //PARA CREAR USUARIOS DE PERSONAS
      yii::error('RUTA',__FUNCTION__);
-    $personas= \common\models\masters\Personas::find()->andWhere(['>=','id',6807])->
-            andWhere(['<=','id',6844])->all();
-   YII::ERROR(\common\models\masters\Personas::find()->andWhere(['>=',6807,'id'])->
-            andWhere(['<=',6844,'id'])->createCommand()->rawSql,__FUNCTION__);
+    $personas= \common\models\masters\Personas::find()->andWhere(['numerodoc'=>$arrayAlu])->all();
     foreach($personas as $persona){
         yii::error('bucle',__FUNCTION__);
        /// $persona=$docente->persona;
-        $persona->createUser(str_replace('',' ',$persona->ap),'','r_acad_syllabus_editor');
+        $persona->createUser($persona->numerodoc,'','r_baseUser');
       
     }    
+    //die(); 
+
+    //PARA CREAR LA CONTRASEÑA DE USUARIOS 
+    $usuarios= \common\models\User::find()->where(['username'=>$arrayAlu])->all();
+    foreach($usuarios as $usuario){
+       $usuario->setPassword($usuario->username);
+       $usuario->save();
+    }
+    
     die(); 
     
     
