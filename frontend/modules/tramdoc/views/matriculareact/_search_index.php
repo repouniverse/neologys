@@ -74,7 +74,6 @@ $FILTRO = ["SI"=>"SI","NO"=>"NO","NA"=>"NA"] ;
                     'changeYear' => true,
                     'yearRange' => "-99:+0",
                 ],
-
                 //'dateFormat' => h::getFormatShowDate(),
                 'options' => ['autocomplete'=>'off', 'class' => 'form-control']
             ]) ?>
