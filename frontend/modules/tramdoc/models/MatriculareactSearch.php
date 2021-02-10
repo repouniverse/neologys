@@ -18,7 +18,7 @@ class MatriculareactSearch extends Matriculareact
     {
         return [
             [['id', 'carrera_id'], 'integer'],
-            [['nro_matr', 'codigo', 'dni', 'apellido_paterno', 'apellido_materno', 'nombres', 'email_usmp', 'email_personal', 'celular', 'telefono', 'mensaje', 'fecha_solicitud', 'fecha_registro', 'cta_sin_deuda_pendiente_check', 'cta_sin_deuda_pendiente_obs', 'cta_pago_tramite_check', 'cta_pago_tramite_adjunto', 'cta_pago_tramite_obs', 'ora_record_notas_check', 'ora_record_notas_adjunto', 'ora_record_notas_obs', 'aca_cursos_aptos_check', 'aca_cursos_aptos_adjunto', 'aca_cursos_aptos_observaciones', 'ora_cursos_aptos_check', 'ora_cursos_aptos_obs', 'oti_cursos_aptos_check', 'oti_cursos_aptos_obs', 'oti_notifica_email_check', 'oti_notifica_email_obs'], 'safe'],
+            [['nro_matr', 'codigo', 'dni', 'apellido_paterno', 'apellido_materno', 'nombres', 'email_usmp', 'email_personal', 'celular', 'telefono', 'mensaje', 'fecha_solicitud', 'fecha_registro', 'cta_sin_deuda_pendiente_check', 'cta_sin_deuda_pendiente_obs', 'cta_pago_tramite_check', 'cta_pago_tramite_adjunto', 'cta_pago_tramite_obs', 'ora_record_notas_check', 'ora_record_notas_adjunto', 'ora_record_notas_obs', 'aca_cursos_aptos_check', 'aca_cursos_aptos_adjunto', 'aca_cursos_aptos_observaciones', 'ora_cursos_aptos_check', 'ora_cursos_aptos_obs', 'oti_cursos_aptos_check', 'oti_cursos_aptos_obs', 'oti_notifica_email_check', 'oti_notifica_email_obs','estado'], 'safe'],
         ];
     }
 
@@ -94,7 +94,8 @@ class MatriculareactSearch extends Matriculareact
             ->andFilterWhere(['like', 'oti_notifica_email_check', $this->oti_notifica_email_check])
             ->andFilterWhere(['like', 'oti_notifica_email_obs', $this->oti_notifica_email_obs])
 
-            ->andFilterWhere(['like', 'fecha_solicitud', $this->fecha_solicitud]);
+            ->andFilterWhere(['like', 'fecha_solicitud', $this->fecha_solicitud])
+            ->andFilterWhere(['like', 'estado', $this->estado]);
 
         return $dataProvider;
     }
