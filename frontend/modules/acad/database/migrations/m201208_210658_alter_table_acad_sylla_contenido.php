@@ -5,7 +5,7 @@ class m201208_210658_alter_table_acad_sylla_contenido  extends baseMigration
 {
     const NAME_TABLE='{{%acad_contenido_syllabus}}';
    
-    /**
+    /** 
      * {@inheritdoc}
      */
     public function safeUp()

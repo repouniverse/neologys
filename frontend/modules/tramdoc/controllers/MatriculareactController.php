@@ -80,10 +80,10 @@ class MatriculareactController extends Controller
         $model = new Matriculareact();
 
         $model->setAttributes([
-            
             'fecha_registro' => modelBase::CarbonNow()->format('Y-m-d'),
+            'estado' => '1'
         ]);
-
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

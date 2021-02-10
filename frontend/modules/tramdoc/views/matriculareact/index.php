@@ -163,7 +163,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'oti_notifica_email_check:email',
                 //'oti_notifica_email_obs:ntext',
 
-
+                [
+                    'attribute' => 'estado',
+                    'label' => 'Estado Trámite',
+                    'value' => function ($model, $key, $index, $column) {
+                        return h::nombreEstado($model->estado);
+                    },
+                    'contentOptions' => function ($model, $key, $index, $column){
+                        if(h::nombreEstado($model->estado) == 'PENDIENTE'){
+                            return ['style'=> 'background-color:orange; color: white'];
+                        }
+                    }
+                ],
+                
 
                 [
                     'class' => 'yii\grid\ActionColumn',

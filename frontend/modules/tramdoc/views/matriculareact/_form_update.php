@@ -8,6 +8,7 @@ use common\helpers\ComboHelper as combo;
 use common\helpers\h;
 
 $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
+$estados = ['1' => 'PENDIENTE', '2' => 'EN-TRAMITE', '3' => 'FINALIZADO']
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
@@ -208,8 +209,12 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
                 $items,
                 ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
             );
-
+            
             echo $form->field($model, 'oti_notifica_email_obs')->textarea(['rows' => 6]);
+            echo $form->field($model, 'estado')->dropDownList(
+                $estados,
+                ['prompt' => '--' . yii::t('base_verbs', 'Eliga un estado') . "--",]
+            );
             ?>
         </div>
     <?php
@@ -220,6 +225,7 @@ $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
             <?= Html::submitButton(Yii::t('base_labels', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
+    
 
     <?php ActiveForm::end(); ?>
 

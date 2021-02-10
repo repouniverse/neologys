@@ -89,6 +89,7 @@ class Matriculareact extends modelBase
             [['email_usmp', 'email_personal', 'celular', 'telefono'], 'string', 'max' => 60],
             [['cta_sin_deuda_pendiente_check', 'cta_pago_tramite_check', 'ora_record_notas_check', 'aca_cursos_aptos_check', 'ora_cursos_aptos_check', 'oti_cursos_aptos_check', 'oti_notifica_email_check'], 'string', 'max' => 2],
             [['cta_pago_tramite_adjunto', 'ora_record_notas_adjunto', 'aca_cursos_aptos_adjunto'], 'string', 'max' => 160],
+            [['estado'], 'string', 'max' => 3],
         ];
     }
 
@@ -131,6 +132,7 @@ class Matriculareact extends modelBase
             'oti_cursos_aptos_obs' => Yii::t('base_labels', 'Observaciones Cursos Aptos  Envío-SAP'),
             'oti_notifica_email_check' => Yii::t('base_labels', 'Notificación Email Alumno'),
             'oti_notifica_email_obs' => Yii::t('base_labels', 'Observaciones sobre Notificación Email '),
+            'estado' => Yii::t('base_labels', 'Estado de los tramites '),
         ];
     }
 
