@@ -8,7 +8,7 @@ use common\helpers\ComboHelper as combo;
 use common\helpers\h;
 
 $items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
-$estados = ['1' => 'PENDIENTE', '2' => 'EN-TRAMITE', '3' => 'FINALIZADO']
+$estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */

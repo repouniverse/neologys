@@ -171,7 +171,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'contentOptions' => function ($model, $key, $index, $column){
                         if(h::nombreEstado($model->estado) == 'PENDIENTE'){
-                            return ['style'=> 'background-color:orange; color: white'];
+                            return ['style'=> 'background-color:#ff3f3a; color: white'];
+                        }
+                        if(h::nombreEstado($model->estado) == 'EN-TRAMITE'){
+                            return ['style'=> 'background-color:#f89828; color: white'];
+                        }
+                        if(h::nombreEstado($model->estado) == 'FINALIZADO'){
+                            return ['style'=> 'background-color:#03cea4; color: white'];
                         }
                     }
                 ],
