@@ -10,6 +10,7 @@ use common\helpers\ComboHelper as combo;
 use common\helpers\h;
 use kartik\datetime\DateTimePicker;
 $FILTRO = ["SI"=>"SI","NO"=>"NO","NA"=>"NA"] ;
+$FILTRO_ESTADO = ["1"=>"PENDIENTE","2"=>"EN-TRAMITE","3"=>"FINALIZADO"] ;
 ?>
 
 <div class="panel_manager_buzon">
@@ -107,6 +108,14 @@ $FILTRO = ["SI"=>"SI","NO"=>"NO","NA"=>"NA"] ;
             <?=
             $form->field($model, 'oti_cursos_aptos_check')->dropDownList(
                 $FILTRO,
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
+            )
+            ?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <?=
+            $form->field($model, 'estado')->dropDownList(
+                $FILTRO_ESTADO,
                 ['prompt' => '--' . yii::t('base_verbs', 'Choose a Value') . "--",]
             )
             ?>
