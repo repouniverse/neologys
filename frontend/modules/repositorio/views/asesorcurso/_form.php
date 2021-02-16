@@ -36,7 +36,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> 
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 <br>
-            </div>
+            </div> 
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                  <?php 
                 echo Html::img($modelalumno->image($modelalumno->codalu),['width'=>180,'height'=>240, 'class'=>"img-thumbnail cuaizquierdo"]);

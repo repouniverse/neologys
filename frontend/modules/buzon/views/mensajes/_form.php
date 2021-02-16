@@ -24,8 +24,8 @@ use common\helpers\h;
         </h5>
     </div>
 
-    <?= $form->field($model, 'departamento_id')->dropDownList(
-        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CCOR-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP','GYT-FCCTP')),
+    <?= $form->field($model, 'departamento_id')->dropDownList(                                      
+        combo::getCboDepartamentosFacuCodepa(h::gsetting('general', 'MainFaculty'), array('REG-FCCTP','TUTO-FCCTP','CTAS-FCCTP','COAC-FCCTP','BIBL-FCCTP','SPSI-FCCTP','AUVI-FCCTP','GYT-FCCTP')),
         [
             'prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",
             'id' => "departamento"
@@ -150,8 +150,8 @@ use common\helpers\h;
 /* AGREGANDO JQUERY */
 $script = <<< JS
     //todo codigo Jquery o javascript stuffer
-    var AULA_VIRTUAL_ID = 155
-    var CORDINACION_ACADEMICA = 153
+    var AULA_VIRTUAL_ID = 159
+    var CORDINACION_ACADEMICA = 156
     $('#departamento').change(function(){
     var departamento_elegido = $(this).val();
         $('#formca').hide();

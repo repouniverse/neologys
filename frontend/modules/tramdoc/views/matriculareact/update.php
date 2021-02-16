@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                     <h5><?= Html::label("Escuela:", null, ["style" => "colordark"]) ?></h5>
                     <h5><?= Html::label("Alumno:", null, ["style" => "colordark"]) ?></h5>
                     <h5><?= Html::label("Dni:", null, ["style" => "color:dark"]) ?></h5>
+                    <h5><?= Html::label("N° Matricula:", null, ["style" => "colordark"]) ?></h5>
+                    <h5><?= Html::label("Codigo:", null, ["style" => "colordark"]) ?></h5>
                     <h5><?= Html::label("Celular:", null, ["style" => "color:dark"]) ?></h5>
                     <h5><?= Html::label("Telefono:", null, ["style" => "color:dark"]) ?></h5>
                     <h5><?= Html::label("Email Usmp:", null, ["style" => "color:dark"]) ?></h5>
@@ -40,6 +42,8 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                     <h5><?= Html::label(h::nombreCarrera($model->carrera_id), null, ["style" => "color:#565656; font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->apellido_paterno . " " . $model->apellido_materno . "," . $model->nombres, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->dni, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
+                    <h5><?= Html::label($model->codigo, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
+                    <h5><?= Html::label($model->nro_matr, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->celular, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->telefono, null, ["style" => "color:#5 65656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->email_usmp, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>

@@ -43,7 +43,7 @@ class AsesoresCurso extends \common\models\base\modelBase
              [ 'asesor_id', 'unique', 'targetAttribute' => 
                  ['matricula_id', 'alumno_id'],'message'=>yii::t('base_errors','You already have an assigned advisor in this course -section, you cannot enter a new one.'),
               ],
-           [['asesor_id'], 'validateCantidadAsesorados'],
+           //[['asesor_id'], 'validateCantidadAsesorados'],
             [['activo'], 'string', 'max' => 1],
              [['alumno_id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::className(), 'targetAttribute' => ['alumno_id' => 'id']],
              [['asesor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Asesores::className(), 'targetAttribute' => ['asesor_id' => 'id']],
