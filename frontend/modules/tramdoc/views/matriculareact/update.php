@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                     <h5><?= Html::label($model->apellido_paterno . " " . $model->apellido_materno . "," . $model->nombres, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->dni, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->celular, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
-                    <h5><?= Html::label($model->telefono, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
+                    <h5><?= Html::label($model->telefono, null, ["style" => "color:#5 65656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->email_usmp, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->email_personal, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                 </div>
