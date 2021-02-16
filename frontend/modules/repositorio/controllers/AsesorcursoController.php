@@ -101,7 +101,7 @@ public function actionModalAsesorcurso($id){
         
 
         
-               
+                
         /// $model->facultad_id=$modelFacultad->id;
         if(h::request()->isPost){
             //$model->setScenario(Rangos::SCENARIO_HORAS);
@@ -224,6 +224,7 @@ public function actionModalAsesorcurso($id){
        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
            $idMat=h::request()->get('idMat',null);
+           //yii::error("Q ES ESTOOO?!?!?!?;: ".$idMat);
            if(is_null($idMat)){
                return ['error'=>'No paso el id correcto de curso matriculado'];
            }
