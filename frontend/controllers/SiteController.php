@@ -314,7 +314,7 @@ public function actionAuthWithQuestions(){
 //para crear nuevosArchivosDeMatriculaReact
 public function actionNewDocsMatriculaReact(){
     //CRACION DE FLUJO DE SYLLABUS
-    //die();
+    die();
     
     $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->andWhere(['>','id',209])->andWhere(['<','id',279])->all();
      
@@ -325,19 +325,6 @@ public function actionNewDocsMatriculaReact(){
     die();
 }
 
-//para crear nuevosArchivosDeMatriculaReact
-public function actionNewDocsMatriculaReact2(){
-    //CRACION DE FLUJO DE SYLLABUS
-    //die();
-    
-    $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->andWhere(['>','id',279])->all();
-    
-    foreach ($syllabus as $syllabu){
-        
-        $syllabu->crearDocsReactMat();
-    }
-    die();
-}
 
 public function actionNewflujos(){
     //CRACION DE FLUJO DE SYLLABUS

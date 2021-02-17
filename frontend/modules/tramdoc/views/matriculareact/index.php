@@ -4,6 +4,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use yii\widgets\Pjax;
 use common\helpers\h;
 use Carbon\Carbon;
@@ -19,6 +20,7 @@ const DOCU_CURSOS_APTO_ADJUNTO = '159';*/
 const DOCU_PAGO_TRAMITE_ADJUNTO='211';
 const DOCU_RECORD_NOTAS_ADJUNTO='213';
 const DOCU_CURSOS_APTO_ADJUNTO='215';
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 $this->title = Yii::t('base_labels', 'Seguimiento de Reactualización de Matrículas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,7 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php Pjax::begin(); ?>
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
 
-        <?php // echo $this->render('_search', ['model' => $searchModel]);
+        <?php 
+            if(sizeof($docsMat)!=0){
+                
+                $url = Url::toRoute(['/tramdoc/matriculareact/ajax-docs-tram']);
+                echo  Html::a(Yii::t('base_labels', 'GENERAR ARCHIVOS'),$url, ['class' => 'btn btn-danger btn-block']);
+                //echo Html::a('<span class="btn btn-danger ">GENERAR ARCHIVOS</span>', 'javascript:void();', ['title' => $url, 'family' => 'holas']);
+            }
         ?>
 
         <?= GridView::widget([
@@ -103,7 +111,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'Pago' => function ($url, $model) {
                             $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_PAGO_TRAMITE_ADJUNTO]);
                             //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
-
+                            if(is_null($archivo)){
+                                return "Sin archivo generado";
+                            }
                             if ($archivo->hasAttachments()) {
                                 return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn']);
                             } else {
@@ -123,7 +133,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'Record' => function ($url, $model) {
                             $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_RECORD_NOTAS_ADJUNTO]);
                             //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
-
+                            if(is_null($archivo)){
+                                return "Sin archivo generado";
+                            }
                             if ($archivo->hasAttachments()) {
                                 return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn']);
                             } else {
@@ -147,7 +159,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'Cursos' => function ($url, $model) {
                             $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_CURSOS_APTO_ADJUNTO]);
                             //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
-
+                            if(is_null($archivo)){
+                                return "Sin archivo generado";
+                            }
                             if ($archivo->hasAttachments()) {
                                 return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn']);
                             } else {
