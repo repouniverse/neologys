@@ -13,14 +13,57 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+        <div class="col-xs-6" style="padding-left: 0;">
+            <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
+        </div>
+        <div class="col-xs-6">
+            <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
+        </div>
+        <hr>
+    </div>
+    
 <div class="matriculareact-form-update">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    
+    <?php
+    //ACTUALIZAR DATOS DEL ALUMNO
+    
+    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
+    ?>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="display: none" id="actAlumno">
+            <?php
+            echo $form->field($model, 'carrera_id')->dropDownList(
+                combo::getCboCarreras(h::gsetting('general', 'MainFaculty')),
+                ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
+            );
 
+            echo $form->field($model, 'nombres')->textInput();
+            echo $form->field($model, 'apellido_paterno')->textInput();
+            echo $form->field($model, 'apellido_materno')->textInput();
+            echo $form->field($model, 'dni')->textInput();
+            echo $form->field($model, 'nro_matr')->textInput();
+            echo $form->field($model, 'codigo')->textInput();
+            echo $form->field($model, 'celular')->textInput();
+            echo $form->field($model, 'telefono')->textInput();
+            echo $form->field($model, 'email_usmp')->textInput();
+            echo $form->field($model, 'email_personal')->textInput();
+           
 
+            ?>
+        </div>
+    <?php
+    }
+    ?>
+    <div class="col-xs-6 ">
+        <h4><?= h::space(10) . Html::encode("Actualizar Seguimiento") ?></h4>
+    </div>
     <?php
     //DEPARTAMENDO DE CUENTAS CORRIENTES 
+
     if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('CTAS-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
     ?>
 
@@ -230,3 +273,26 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$script = <<< JS
+//todo codigo Jquery o javascript stuffer
+
+$('#btnActAlumno').click(function(){
+    var estilo = $('#actAlumno').css("display")
+    console.log(estilo);
+    if( estilo == 'none'){
+        $('#actAlumno').css("display","block")
+    }
+    if( estilo == 'block'){
+        $('#actAlumno').css("display","none")
+    }
+    
+});
+
+JS;
+
+
+$this->registerJs($script);
+?>
+

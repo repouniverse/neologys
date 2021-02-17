@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
                     <h5><?= Html::label($model->codigo, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->nro_matr, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->celular, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
-                    <h5><?= Html::label($model->telefono, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
+                    <h5><?= Html::label($model->telefono, null, ["style" => "color:#5 65656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->email_usmp, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                     <h5><?= Html::label($model->email_personal, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
                 </div>
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = Yii::t('base_labels', 'Update');
             <!-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 ">
             </div> -->
             <div class="col-lg-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-12 d-inline">
-                <h4><?= h::space(10) . Html::encode("Actualizar Seguimiento") ?></h4>
+                
                 <?= $this->render('_form_update', [
                     'model' => $model,
                     'trabajador' => $trabajador,
