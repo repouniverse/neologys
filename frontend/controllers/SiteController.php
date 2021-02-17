@@ -316,7 +316,21 @@ public function actionNewDocsMatriculaReact(){
     //CRACION DE FLUJO DE SYLLABUS
     //die();
     
-    $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->all();
+    $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->andWhere(['>','id',209])->andWhere(['<','id',279])->all();
+    
+    foreach ($syllabus as $syllabu){
+        
+        $syllabu->crearDocsReactMat();
+    }
+    die();
+}
+
+//para crear nuevosArchivosDeMatriculaReact
+public function actionNewDocsMatriculaReact2(){
+    //CRACION DE FLUJO DE SYLLABUS
+    //die();
+    
+    $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->andWhere(['>','id',279])->all();
     
     foreach ($syllabus as $syllabu){
         
@@ -327,9 +341,9 @@ public function actionNewDocsMatriculaReact(){
 
 public function actionNewflujos(){
     //CRACION DE FLUJO DE SYLLABUS
-    die();
     
-    $syllabus = \frontend\modules\acad\models\AcadSyllabus::find()->all();
+    die();
+    $syllabus = \frontend\modules\acad\models\AcadSyllabus::find()->andWhere(['>','id',209])->andWhere(['<','id',279])->all();
     
     foreach ($syllabus as $syllabu){
         /*$id_syllabo = $syllabu->id;
@@ -368,6 +382,7 @@ public function actionRutas(){
     '74957726',
     '70651953'
     ];
+    die(); 
     //PARA CREAR USUARIOS DE PERSONAS
      yii::error('RUTA',__FUNCTION__);
     $personas= \common\models\masters\Personas::find()->andWhere(['numerodoc'=>$arrayAlu])->all();
