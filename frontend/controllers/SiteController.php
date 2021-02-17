@@ -317,7 +317,7 @@ public function actionNewDocsMatriculaReact(){
     //die();
     
     $syllabus = \frontend\modules\tramdoc\models\Matriculareact::find()->andWhere(['>','id',209])->andWhere(['<','id',279])->all();
-    
+     
     foreach ($syllabus as $syllabu){
         
         $syllabu->crearDocsReactMat();
