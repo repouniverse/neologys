@@ -136,7 +136,7 @@ class MatriculareactController extends Controller
         if (h::request()->isAjax) {
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             //$unidad->load(h::request()->post());
-            if (sizeof($docsMat)!=0) {
+            if (sizeof($docsMat)==0) {
                 //return ['success' => yii::t('base_labels', 'No es necesario generar los archivos.')];
                 return $this->redirect(['index']);
             } else {
