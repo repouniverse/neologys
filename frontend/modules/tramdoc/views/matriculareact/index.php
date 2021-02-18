@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'fecha_registro',
                 [
                     'attribute' => 'cta_sin_deuda_pendiente_check',
-                    'label' => 'Habilitado',
+                    'label' => 'Habilitado (Sin deuda pendiente)',
                     'value' => function ($model, $key, $index, $column) {
                         return $model->cta_sin_deuda_pendiente_check;
                     },
