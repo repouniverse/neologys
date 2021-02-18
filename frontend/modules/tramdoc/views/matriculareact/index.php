@@ -99,7 +99,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => ['date', 'php:d/m/Y'], //.h::gsetting('timeBD','date'
                 ],
                 //'fecha_registro',
-                'cta_sin_deuda_pendiente_check',
+                [
+                    'attribute' => 'cta_sin_deuda_pendiente_check',
+                    'label' => 'Habilitado',
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->cta_sin_deuda_pendiente_check;
+                    },
+
+                ],
                 //'cta_sin_deuda_pendiente_obs:ntext',
                 'cta_pago_tramite_check',
                 //'cta_pago_tramite_adjunto',
