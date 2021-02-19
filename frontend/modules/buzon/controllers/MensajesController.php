@@ -31,8 +31,8 @@ use frontend\modules\buzon\models\BuzonMensajeRespuesta;
 class MensajesController extends Controller
 {
     const BUZON_MENSAJE_PRIORIDAD = "1";
-    const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
-    //const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
+    //const DNI_TRABAJADOR_POR_DEFINIR = '78652132';
+    const DNI_TRABAJADOR_POR_DEFINIR = '77175855';
     /**
      * {@inheritdoc}
      */
