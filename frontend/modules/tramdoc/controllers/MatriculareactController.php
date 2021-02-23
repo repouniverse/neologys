@@ -50,10 +50,12 @@ class MatriculareactController extends Controller
     {
         $searchModel = new MatriculareactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $tramdocsMat = TramdocFiles::find()->alias('p')->select(['p.matr_id as id'])->distinct()->asArray()->all();
+        $docsMat = Matriculareact::find()->where(['not in','id',$tramdocsMat])->all();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'docsMat' => $docsMat
         ]);
     }
  
@@ -128,6 +130,24 @@ class MatriculareactController extends Controller
             'file_cursos_apto' => $file_cursos_apto,
         ]);
     }
+    public function actionAjaxDocsTram(){
+        $tramdocsMat = TramdocFiles::find()->alias('p')->select(['p.matr_id as id'])->distinct()->asArray()->all();
+        $docsMat = Matriculareact::find()->where(['not in','id',$tramdocsMat])->all();
+        if (h::request()->isAjax) {
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if (sizeof($docsMat)==0) {
+                //return ['success' => yii::t('base_labels', 'No es necesario generar los archivos.')];
+                return $this->redirect(['index']);
+            } else {
+                foreach($docsMat as $model){
+                    $model->crearDocsReactMat();
+                }
+                return $this->redirect(['index']);
+                //return ['success' => yii::t('base_labels', 'Archivos generados con éxito.')];
+            }
+        }
+    }
 
     /**
      * Deletes an existing Matriculareact model.
@@ -142,6 +162,8 @@ class MatriculareactController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    
 
     /**
      * Finds the Matriculareact model based on its primary key value.

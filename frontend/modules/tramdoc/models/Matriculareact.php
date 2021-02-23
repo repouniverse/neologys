@@ -115,7 +115,7 @@ class Matriculareact extends modelBase
             'obs_alumno' => Yii::t('base_labels', 'Observaciones'),
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha de Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
-            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Presenta Deuda Pendiente'),
+            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Habilitado (Sin deuda pendiente)'),
             'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Observaciones de Deuda Pendiente '),
             'cta_pago_tramite_check' => Yii::t('base_labels', 'Pago de Trámite Realizado'),
             'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Adjunto de Comprobante de Pago'),
