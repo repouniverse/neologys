@@ -8,7 +8,7 @@ use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use yii\widgets\Pjax;
 use common\helpers\h;
 use Carbon\Carbon;
-use frontend\modules\tramdoc\models\TramdocFiles;
+use frontend\modules\tramdoc\models\TramdocFilesReserv;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\tramdoc\models\MatriculareactSearch */
@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '{Pago}',
                     'buttons' => [
                         'Pago' => function ($url, $model) {
-                            $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_COMPROBANTE_PAGO_ADJUNTO]);
+                            $archivo = TramdocFilesReserv::findOne(['matr_reserv_id' => $model->id, 'docu_id' => DOCU_COMPROBANTE_PAGO_ADJUNTO]);
                             //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
                             if(is_null($archivo)){
                                 return "Sin archivo generado";
@@ -141,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '{Solicitud}',
                     'buttons' => [
                         'Solicitud' => function ($url, $model) {
-                            $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_SOLICITUD_REGISTRADA_ADJUNTO]);
+                            $archivo = TramdocFilesReserv::findOne(['matr_reserv_id' => $model->id, 'docu_id' => DOCU_SOLICITUD_REGISTRADA_ADJUNTO]);
                             //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
                             if(is_null($archivo)){
                                 return "Sin archivo generado";
