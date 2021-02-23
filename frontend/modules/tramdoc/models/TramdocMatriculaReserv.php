@@ -1,7 +1,9 @@
 <?php
 
 namespace frontend\modules\tramdoc\models;
-
+use \common\models\base\modelBase;
+use common\models\User;
+use common\helpers\h;
 use Yii;
 
 /**
@@ -36,6 +38,14 @@ use Yii;
  */
 class TramdocMatriculaReserv extends \yii\db\ActiveRecord
 {
+    const DOCU_COMPROBANTE_PAGO_ADJUNTO='211';
+    const DOCU_SOLICITUD_REGISTRADA_ADJUNTO='235';
+
+
+    private $_array_docs=[
+        self::DOCU_COMPROBANTE_PAGO_ADJUNTO=>'1',
+        self::DOCU_SOLICITUD_REGISTRADA_ADJUNTO=>'1',//acticvar luego
+            ];
     /**
      * {@inheritdoc}
      */
@@ -96,6 +106,63 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
             'estado' => Yii::t('base_labels', 'Estado'),
             'estado_obs' => Yii::t('base_labels', 'Estado Obs'),
         ];
+    }
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            yii::error("ATRIBUTOS CAMBIADOS o actualizasdos");
+            $this->crearDocsReactMat();
+        } else if ($changedAttributes) {
+            yii::error("ATRIBUTOS CAMBIADOS");
+            yii::error($changedAttributes);
+            $this->crearAuditoria($changedAttributes);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function crearAuditoria($atributos)
+    {
+
+        foreach ($this as $key => $val) {
+
+            foreach ($atributos as $key2 => $val2) {
+
+                if ($key == $key2) {
+                    if ($val != $val2) {
+                        yii::error("EL VALOR CAMBIADO SERÁ");
+                        yii::error($val);
+                        if ($key != 'fecha_registro') {
+
+                            yii::error("EL DATO A CAMBIAR");
+                            yii::error($key);
+                            $userActual = User::findOne(h::userId());
+                            $var = new TramdocAuditoria([
+                                'matr_id' => $this->id,
+                                'persona_id' => $userActual->profile->persona->id,
+                                'campo_modificado' => $key2,
+                                'valor_modificado' => $val,
+                                'fecha_modif' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+                            ]);
+                            $var->save();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function crearDocsReactMat()
+    {
+        foreach($this->_array_docs as $codocu=>$activo){
+            yii::error($codocu);
+            yii::error($activo);
+            TramdocFiles::firstOrCreateStatic(
+                [
+                    'matr_id' => $this->id,
+                    'docu_id' => $codocu.'',
+                ]
+            );
+        }
     }
 
     /**

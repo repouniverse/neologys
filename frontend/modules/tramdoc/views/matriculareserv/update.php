@@ -53,6 +53,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form_update', [
         'model' => $model,
+        'file_pago_tram' => $file_pago_tram,
+        'file_solicitud' => $file_solicitud,
     ]) ?>
 
 </div>
