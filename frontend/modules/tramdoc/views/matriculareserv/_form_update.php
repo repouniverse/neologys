@@ -7,8 +7,8 @@ use yii\widgets\ActiveForm;
 use common\helpers\ComboHelper as combo;
 use common\helpers\h;
 
-$items = ['SI' => 'SI', 'NO' => 'NO', 'NA' => 'NA'];
-$estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
+$items = ['SI' => 'SI', 'NO' => 'NO', 'N/A' => 'N/A'];
+$estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' => 'NO-PROCEDE']
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
@@ -69,10 +69,10 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?php
-            echo $form->field($model, 'cta_sin_deuda_pendiente_check')->dropDownList(
-                $items,
-                ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
-            );
+                echo $form->field($model, 'cta_sin_deuda_pendiente_check')->dropDownList(
+                    $items,
+                    ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
+                );
             echo $form->field($model, 'cta_sin_deuda_pendiente_obs')->textarea(['rows' => 4]);
 
             echo $form->field($model, 'cta_pago_tramite_check')->dropDownList(
@@ -109,7 +109,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
             echo "<br><br>";
 
             ////////////////////////////
-
+           
             echo $form->field($model, 'cta_pago_tramite_obs')->textarea(['rows' => 4]);
             ?>
         </div>
@@ -125,7 +125,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?php
-            echo $form->field($model, 'ora_record_notas_check')->dropDownList(
+            echo $form->field($model, 'ora_soli_reg_check')->dropDownList(
                 $items,
                 ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
             );
@@ -158,8 +158,13 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO']
 
             echo "<br><br>";
             ////////////////////////////
+            echo $form->field($model, 'estado')->dropDownList(
+                $items,
+                ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
+            );
 
-            echo $form->field($model, 'ora_record_notas_obs')->textarea(['rows' => 4]);
+
+            echo $form->field($model, 'estado_obs')->textarea(['rows' => 4]);
             ?>
         </div>
     <?php

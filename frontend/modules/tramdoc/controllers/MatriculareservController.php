@@ -13,7 +13,7 @@ use common\helpers\h;
 use \common\models\base\modelBase;
 use common\models\masters\Personas;
 use common\models\masters\Trabajadores;
-use frontend\modules\tramdoc\models\TramdocFiles;
+use frontend\modules\tramdoc\models\TramdocFilesReserv;
 
 /**
  * MatriculareservController implements the CRUD actions for TramdocMatriculaReserv model.
@@ -96,8 +96,8 @@ class MatriculareservController extends Controller
     {   
         $persona_actual_id = User::findOne(h::userId())->profile->persona->id;
         $trabajador = Trabajadores::findOne(['persona_id'=>$persona_actual_id]);
-        $file_pago_tram =  TramdocFiles::findOne(['matr_reserv_id'=>$id, 'docu_id' => self::DOCU_COMPROBANTE_PAGO_ADJUNTO]);
-        $file_solicitud = TramdocFiles::findOne(['matr_reserv_id'=>$id, 'docu_id' => self::DOCU_SOLICITUD_REGISTRADA_ADJUNTO ]);
+        $file_pago_tram =  TramdocFilesReserv::findOne(['matr_reserv_id'=>$id, 'docu_id' => self::DOCU_COMPROBANTE_PAGO_ADJUNTO]);
+        $file_solicitud = TramdocFilesReserv::findOne(['matr_reserv_id'=>$id, 'docu_id' => self::DOCU_SOLICITUD_REGISTRADA_ADJUNTO ]);
 
         $model = $this->findModel($id);
 

@@ -95,11 +95,13 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
             'obs_alumno' => Yii::t('base_labels', 'Obs Alumno'),
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
+            //CTA
             'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Check'),
             'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Obs'),
             'cta_pago_tramite_check' => Yii::t('base_labels', 'Cta Pago Tramite Check'),
             'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
             'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
+            //REG ACA
             'ora_soli_reg_check' => Yii::t('base_labels', 'Ora Soli Reg Check'),
             'ora_soli_reg_adjunto' => Yii::t('base_labels', 'Ora Soli Reg Adjunto'),
             'ora_soli_reg_obs' => Yii::t('base_labels', 'Ora Soli Reg Obs'),
@@ -136,8 +138,8 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
                             yii::error("EL DATO A CAMBIAR");
                             yii::error($key);
                             $userActual = User::findOne(h::userId());
-                            $var = new TramdocAuditoria([
-                                'matr_id' => $this->id,
+                            $var = new TramdocAuditoriaReserv([
+                                'matr_reserv_id' => $this->id,
                                 'persona_id' => $userActual->profile->persona->id,
                                 'campo_modificado' => $key2,
                                 'valor_modificado' => $val,
@@ -156,9 +158,9 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
         foreach($this->_array_docs as $codocu=>$activo){
             yii::error($codocu);
             yii::error($activo);
-            TramdocFiles::firstOrCreateStatic(
+            TramdocFilesReserv::firstOrCreateStatic(
                 [
-                    'matr_id' => $this->id,
+                    'matr_reserv_id' => $this->id,
                     'docu_id' => $codocu.'',
                 ]
             );

@@ -50,11 +50,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 <h5><?= Html::label($model->email_personal, null, ["style" => "color:#565656;font-weight:normal"]) ?></h5>
             </div>
         </div>
-
-    <?= $this->render('_form_update', [
-        'model' => $model,
-        'file_pago_tram' => $file_pago_tram,
-        'file_solicitud' => $file_solicitud,
-    ]) ?>
+        <div class="col-lg-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-12 d-inline">
+                <?= $this->render('_form_update', [
+                'model' => $model,
+                'trabajador' => $trabajador,
+                'file_pago_tram' => $file_pago_tram,
+                'file_solicitud' => $file_solicitud,
+            ]) ?>
+        </div>
+    
 
 </div>

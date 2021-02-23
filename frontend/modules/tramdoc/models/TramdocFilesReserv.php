@@ -2,6 +2,8 @@
 
 namespace frontend\modules\tramdoc\models;
 use common\models\masters\Documentos;
+use \common\models\base\modelBase;
+use common\behaviors\FileBehavior;
 use Yii;
 
 /**
@@ -15,7 +17,7 @@ use Yii;
  * @property TramdocMatriculaReserv $matrReserv
  * @property Documentos $docu
  */
-class TramdocFilesReserv extends \yii\db\ActiveRecord
+class TramdocFilesReserv extends modelBase
 {
     /**
      * {@inheritdoc}
@@ -23,6 +25,28 @@ class TramdocFilesReserv extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%tramdoc_files_reserv}}';
+    }
+
+
+    public function behaviors()
+    {
+        return [
+
+            'fileBehavior' => [
+                'class' => FileBehavior::className()
+            ],
+
+        ];
+    }
+
+    public function init()
+    {
+        $this->on(FileBehavior::EVENT_AFTER_ATTACH_FILES, function ($event) {
+            /** @var $files \nemmo\attachments\models\File[] */
+            $files = $event->files;
+            $this->save();
+        });
+        parent::init();
     }
 
     /**
