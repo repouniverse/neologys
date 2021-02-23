@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\modules\tramdoc\models;
-
+use common\models\masters\Documentos;
 use Yii;
 
 /**
