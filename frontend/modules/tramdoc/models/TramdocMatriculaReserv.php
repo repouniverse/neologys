@@ -98,7 +98,7 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
             //CTA
             'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Check'),
             'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Obs'),
-            'cta_pago_tramite_check' => Yii::t('base_labels', 'Cta Pago Tramite Check'),
+            'cta_pago_tramite_check' => Yii::t('base_labels', 'Pago de Trámite Realizado'),
             'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
             'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
             //REG ACA
