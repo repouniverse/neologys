@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\helpers\h;
-use frontend\modules\tramdoc\models\TramdocFiles;
+use frontend\modules\tramdoc\models\TramdocFilesReserv;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'label' => 'Adjunto de Comprobante de Pago',
                     'value' => function ($model) {
-                        $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_PAGO_TRAMITE_ADJUNTO]);
+                        $archivo = TramdocFilesReserv::findOne(['matr_reserv_id' => $model->id, 'docu_id' => DOCU_PAGO_TRAMITE_ADJUNTO]);
                         //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
                         if(is_null($archivo)){
                             return "Sin archivo generado";
@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'label' => 'Adjunto de Record de Notas',
                     'value' => function ($model) {
-                        $archivo = TramdocFiles::findOne(['matr_id' => $model->id, 'docu_id' => DOCU_RECORD_NOTAS_ADJUNTO]);
+                        $archivo = TramdocFilesReserv::findOne(['matr_reserv_id' => $model->id, 'docu_id' => DOCU_RECORD_NOTAS_ADJUNTO]);
                         //return Html::a('<span class="glyphicon glyphicon-save"></span>', $archivo->urlFirstFile, ['data-pjax' => '0']);
                         if(is_null($archivo)){
                             return "Sin archivo generado";
