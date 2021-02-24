@@ -171,6 +171,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         if(h::nombreEstado($model->estado) == 'FINALIZADO'){
                             return ['style'=> 'background-color:#03cea4; color: white'];
                         }
+                        if(h::nombreEstado($model->estado) == 'NO-PROCEDE'){
+                            return ['style'=> 'background-color:gray; color: white'];
+                        }
                     }
                 ],
                 
