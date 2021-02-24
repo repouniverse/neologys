@@ -12,17 +12,24 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
-?>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-        <div class="col-xs-6" style="padding-left: 0;">
-            <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
-        </div>
-        <div class="col-xs-6">
-            <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
-        </div>
-        <hr>
-    </div>
+?>  
+<?php
+    //BOTTON
     
+    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('REG-FCCTP') ) {
+?>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="col-xs-6" style="padding-left: 0;">
+                <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
+            </div>
+            <div class="col-xs-6">
+                <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
+            </div>
+            <hr>
+    </div>
+<?php
+    }
+?>
 <div class="matriculareact-form-update">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -31,7 +38,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
     <?php
     //ACTUALIZAR DATOS DEL ALUMNO
     
-    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
+    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('REG-FCCTP') ) {
     ?>
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="display: none" id="actAlumno">
