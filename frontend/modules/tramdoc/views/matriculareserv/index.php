@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php 
             if(sizeof($docsMat)!=0){
                 
-                $url = Url::toRoute(['/tramdoc/matriculareserv/ajax-docs-tram']);
+                $url = Url::toRoute(['/tramdoc/matriculareserv/ajax-docs-tram-reserv']);
                 echo  Html::a(Yii::t('base_labels', 'GENERAR ARCHIVOS'),$url, ['class' => 'btn btn-danger btn-block']);
                 //echo Html::a('<span class="btn btn-danger ">GENERAR ARCHIVOS</span>', 'javascript:void();', ['title' => $url, 'family' => 'holas']);
             }

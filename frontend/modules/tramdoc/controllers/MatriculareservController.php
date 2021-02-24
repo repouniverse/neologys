@@ -131,7 +131,7 @@ class MatriculareservController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionAjaxDocsTram(){
+    public function actionAjaxDocsTramReserv(){
         $tramdocsMat = TramdocFilesReserv::find()->alias('p')->select(['p.matr_reserv_id as id'])->distinct()->asArray()->all();
         $docsMat = TramdocMatriculaReserv::find()->where(['not in','id',$tramdocsMat])->all();
         if (h::request()->isAjax) {
