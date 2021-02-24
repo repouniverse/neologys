@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 //'nro_matr',
-                /*[
+                [
                     'columnKey' => 'id',
                     'class' => 'kartik\grid\ExpandRowColumn',
                     'width' => '50px',
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                     'expandOneOnly' => true
-                ],*/
+                ],
                 'codigo',
                 [
                     'attribute' => 'carrera_id',
