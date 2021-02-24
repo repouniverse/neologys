@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 use common\helpers\h;
 use Carbon\Carbon;
 use frontend\modules\tramdoc\models\TramdocFilesReserv;
-
+ 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\tramdoc\models\MatriculareactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
 
         <?php 
-           /* if(sizeof($docsMat)!=0){
+            if(sizeof($docsMat)!=0){
                 
-                $url = Url::toRoute(['/tramdoc/matriculareact/ajax-docs-tram']);
+                $url = Url::toRoute(['/tramdoc/matriculareserv/ajax-docs-tram']);
                 echo  Html::a(Yii::t('base_labels', 'GENERAR ARCHIVOS'),$url, ['class' => 'btn btn-danger btn-block']);
                 //echo Html::a('<span class="btn btn-danger ">GENERAR ARCHIVOS</span>', 'javascript:void();', ['title' => $url, 'family' => 'holas']);
-            }*/
+            }
         ?>
 
         <?= GridView::widget([

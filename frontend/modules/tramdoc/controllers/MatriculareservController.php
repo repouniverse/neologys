@@ -47,12 +47,14 @@ class MatriculareservController extends Controller
     {
         $searchModel = new TramdocMatriculaReservSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $tramdocsMat = TramdocFilesReserv::find()->alias('p')->select(['p.matr_reserv_id as id'])->distinct()->asArray()->all();
+        $docsMat = TramdocMatriculaReserv::find()->where(['not in','id',$tramdocsMat])->all();
         
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'docsMat' => $docsMat
         ]);
     }
 
@@ -127,6 +129,25 @@ class MatriculareservController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionAjaxDocsTram(){
+        $tramdocsMat = TramdocFilesReserv::find()->alias('p')->select(['p.matr_reserv_id as id'])->distinct()->asArray()->all();
+        $docsMat = TramdocMatriculaReserv::find()->where(['not in','id',$tramdocsMat])->all();
+        if (h::request()->isAjax) {
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if (sizeof($docsMat)==0) {
+                //return ['success' => yii::t('base_labels', 'No es necesario generar los archivos.')];
+                return $this->redirect(['index']);
+            } else {
+                foreach($docsMat as $model){
+                    $model->crearDocsReactMat();
+                }
+                return $this->redirect(['index']);
+                //return ['success' => yii::t('base_labels', 'Archivos generados con éxito.')];
+            }
+        }
     }
 
     /**
