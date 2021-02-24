@@ -71,6 +71,8 @@ class MatriculareservController extends Controller
         ]);
     }
 
+
+
     /**
      * Creates a new TramdocMatriculaReserv model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -130,6 +132,7 @@ class MatriculareservController extends Controller
 
         return $this->redirect(['index']);
     }
+
 
     public function actionAjaxDocsTramReserv(){
         $tramdocsMat = TramdocFilesReserv::find()->alias('p')->select(['p.matr_reserv_id as id'])->distinct()->asArray()->all();
