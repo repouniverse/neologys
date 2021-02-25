@@ -15,6 +15,7 @@ use common\models\masters\Docentes;
 use common\models\masters\PlanesEstudio;
 use frontend\modules\acad\models\AcadVwSyllabusCursoDoceSearch;
 use common\models\masters\Planes;
+use frontend\modules\acad\models\AcadSyllabusDocentes;
 use yii\web\NotFoundHttpException;
 //use yii\base\Model;
 use yii\filters\VerbFilter;
@@ -433,6 +434,25 @@ class SyllabusController extends baseController
         }
 
         
+        
+    }
+
+
+    public function actionAjaxDeleteDocenteSyllabus($id){
+        
+        $docenteSyllabus =  AcadSyllabusDocentes::findOne(['id'=>$id]);
+
+        if(h::request()->isAjax){  
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if( is_null($docenteSyllabus)){
+                return ['success'=>yii::t('base_labels','No se encontro.')];
+                //$unidad->delete();
+            }else{
+                $docenteSyllabus->delete(); 
+            }
+            return ['success'=>yii::t('base_labels','Se elimino al docente correctamente.')];
+        }
         
     }
     
