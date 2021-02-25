@@ -19,8 +19,9 @@ use frontend\modules\acad\Module as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\acad\models\AcadSyllabus */
 /* @var $form yii\widgets\ActiveForm */
-
 echo \common\widgets\spinnerWidget\spinnerWidget::widget();
+
+
 ?>
 
 <div class="box-body">
@@ -60,7 +61,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         //$identidad_syllabus=$model->id;
         $id_pjax_sumilla= 'grid_sumilla';
         $id_pjax_docentes = 'grid_docentes';
-        $url = Url::to(['modal-add-teacher', 'id' => $model->id, 'gridName' => $id_pjax_docentes, 'idModal' => 'buscarvalor']);
+        $url = Url::to(['modal-add-teacher', 'id' => $model->id, 'gridName' => 'grid_sumilla', 'idModal' => 'buscarvalor']);
         echo  Html::button(yii::t('base_verbs', 'Add teacher'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add teacher'), 'id' => 'btn_teacher', 'class' => 'botonAbre btn btn-success']);
 
 
