@@ -553,13 +553,13 @@ class SyllabusController extends baseController
         
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
-         $mpdf->showWatermarkImage = 1;
+        /* $mpdf->showWatermarkImage = 1;
         $mpdf->SetWatermarkImage(
                 \yii::getAlias('@frontend/web/img/modules/acad/marca_agua.png'),
                 0.2,
                 'P',
                 'P'
-                          );
+                          );*/
            
 
         $mpdf->Output();
@@ -655,27 +655,27 @@ class SyllabusController extends baseController
      }  
  }
  
- 
  public function actionAjaxMakePdf($id){
-     $this->layout="install";
-     if(h::request()->isAjax){
-          h::response()->format = \yii\web\Response::FORMAT_JSON;
-         $model=$this->findModel($id);
-       if(!$model->isAprobed()){
-          return ['error'=>yii::t('base_errors','Document has not been approved yet')]; 
-       }
-        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
-        $mpdf=$this->preparePdf($vistaHtml);
-        //$mpdf->Output($name, $dest);
-       // $ruta=h::gsetting('acad', 'rutaSyllabus');
-        $ruta=\yii::getAlias('@frontend/web/docs/500/').$model->resolveNameFile().'.pdf';
-        $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
-        $model->attachFromPath($ruta);
-        unlink($ruta);        
-        return ['success'=>yii::t('base_labels','File saved')];
-     }
-          
- }
+    $this->layout="install"; 
+    if(h::request()->isAjax){
+         h::response()->format = \yii\web\Response::FORMAT_JSON;
+        $model=$this->findModel($id);
+      if(!$model->isAprobed()){
+         return ['error'=>yii::t('base_errors','Document has not been approved yet')]; 
+      }
+       $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
+       $mpdf=$this->preparePdf($vistaHtml);
+       //$mpdf->Output($name, $dest);
+      // $ruta=h::gsetting('acad', 'rutaSyllabus');
+      
+       $ruta=\yii::getAlias('@frontend/web/docs/500/').$model->resolveNameFile().'.pdf';
+       $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
+       $model->attachFromPath($ruta);
+       unlink($ruta);        
+       return ['success'=>yii::t('base_labels','File saved')];
+    }
+         
+}
  
  
 
