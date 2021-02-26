@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 use common\helpers\h;
 use Carbon\Carbon;
 use frontend\modules\tramdoc\models\TramdocFilesReserv;
-
+ 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\tramdoc\models\MatriculareactSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
 
         <?php 
-           /* if(sizeof($docsMat)!=0){
+            if(sizeof($docsMat)!=0){
                 
-                $url = Url::toRoute(['/tramdoc/matriculareact/ajax-docs-tram']);
+                $url = Url::toRoute(['/tramdoc/matriculareserv/ajax-docs-tram-reserv']);
                 echo  Html::a(Yii::t('base_labels', 'GENERAR ARCHIVOS'),$url, ['class' => 'btn btn-danger btn-block']);
                 //echo Html::a('<span class="btn btn-danger ">GENERAR ARCHIVOS</span>', 'javascript:void();', ['title' => $url, 'family' => 'holas']);
-            }*/
+            }
         ?>
 
         <?= GridView::widget([
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 //'nro_matr',
-                /*[
+                [
                     'columnKey' => 'id',
                     'class' => 'kartik\grid\ExpandRowColumn',
                     'width' => '50px',
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                     'expandOneOnly' => true
-                ],*/
+                ],
                 'codigo',
                 [
                     'attribute' => 'carrera_id',
@@ -170,6 +170,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                         if(h::nombreEstado($model->estado) == 'FINALIZADO'){
                             return ['style'=> 'background-color:#03cea4; color: white'];
+                        }
+                        if(h::nombreEstado($model->estado) == 'NO-PROCEDE'){
+                            return ['style'=> 'background-color:gray; color: white'];
                         }
                     }
                 ],

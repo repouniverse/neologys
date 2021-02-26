@@ -166,7 +166,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
             echo "<br><br>";
             ////////////////////////////
             echo $form->field($model, 'estado')->dropDownList(
-                $items,
+                $estados,
                 ['prompt' => '--' . yii::t('base_verbs', 'Elige un valor') . "--",]
             );
 

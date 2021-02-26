@@ -1,4 +1,5 @@
 <?php
+
 use kartik\editable\Editable;
 use kartik\grid\GridView;
 use yii\helpers\Html;
@@ -18,91 +19,110 @@ use frontend\modules\acad\Module as m;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\acad\models\AcadSyllabus */
 /* @var $form yii\widgets\ActiveForm */
+echo \common\widgets\spinnerWidget\spinnerWidget::widget();
+
+
 ?>
 
 <div class="box-body">
 
-   
-        
-    
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= $form->field($model, 'plan_id')->textInput(['value'=>$model->plan->plan->descripcion,'disabled'=>true]) ?>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= $form->field($model, 'codperiodo')->textInput(['value'=>$model->plan->plan->codperiodo,'disabled'=>true]) ?>
-</div>
 
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
-    <?= $form->field($model, 'n_horasindep')->textInput() ?>
-</div>
 
- 
-    
- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
-    <?= $form->field($model, 'curso_id')->textInput(['value'=>$model->plan->codcursocorto,'disabled'=>true]) ?>
-</div>   
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= $form->field($model, 'curso_id')->textInput(['value'=>$model->plan->curso->descripcion,'disabled'=>true]) ?>
-</div> 
 
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-    <?= $form->field($model, 'docente_owner_id')->textInput(['value'=>$model->docenteOwner->fullName(),'disabled'=>true]) ?>
-</div>
-    
- 
-    
-     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php 
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'plan_id')->textInput(['value' => $model->plan->plan->descripcion, 'disabled' => true]) ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'codperiodo')->textInput(['value' => $model->plan->plan->codperiodo, 'disabled' => true]) ?>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <?= $form->field($model, 'n_horasindep')->textInput() ?>
+    </div>
+
+
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <?= $form->field($model, 'curso_id')->textInput(['value' => $model->plan->codcursocorto, 'disabled' => true]) ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'curso_id')->textInput(['value' => $model->plan->curso->descripcion, 'disabled' => true]) ?>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $form->field($model, 'docente_owner_id')->textInput(['value' => $model->docenteOwner->fullName(), 'disabled' => true]) ?>
+    </div>
+
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php
         //echo $model->id; 
         //$identidad_syllabus=$model->id;
-         $id_pjax_docentes= 'grid_docentes';
-        $url= Url::to(['modal-add-teacher','id'=>$model->id,'gridName'=>$id_pjax_docentes,'idModal'=>'buscarvalor']);
-        echo  Html::button(yii::t('base_verbs','Add teacher'), ['href' => $url, 'title' => yii::t('base_verbs','Add teacher'),'id'=>'btn_teacher', 'class' => 'botonAbre btn btn-success']); 
-        
-        
-       
-        Pjax::begin(['id'=>$id_pjax_docentes,'timeout'=>false]); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        $id_pjax_sumilla= 'grid_sumilla';
+        $id_pjax_docentes = 'grid_docentes';
+        $url = Url::to(['modal-add-teacher', 'id' => $model->id, 'gridName' => 'grid_sumilla', 'idModal' => 'buscarvalor']);
+        echo  Html::button(yii::t('base_verbs', 'Add teacher'), ['href' => $url, 'title' => yii::t('base_verbs', 'Add teacher'), 'id' => 'btn_teacher', 'class' => 'botonAbre btn btn-success']);
 
-    <?= GridView::widget([
-        'dataProvider' => new ActiveDataProvider([
-            'query'=> frontend\modules\acad\models\AcadSyllabusDocentes::find()->
-                select(['id','docente_id','activo'])->andWhere(['syllabus_id'=>$model->id])
-        ]),
-        //'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-               ['attribute'=>'docente_id',
-                   'value'=>function($model){
-                    return $model->docente->fullName();
-                   }
-                   ],
-            ['class' => 'yii\grid\ActionColumn',
-                //'template' => Helper::filterActionColumn(['view', 'activate', 'delete']),
-            'template' => '{edit}{delete}{contenido}',
-               'buttons' => [                    
-                    'delete' => function ($url,$model){                   
-                            $url = Url::toRoute(['/acad/syllabus/ajax-delete-unidad','id'=>$model->id]);
-                              return Html::a('<span class="btn btn-danger glyphicon glyphicon-trash"></span>', 'javascript:void();', ['id'=>$model->id,'title'=>$url,'family'=>'holas']);
-                             }, 
+
+
+        Pjax::begin(['id'=>'grid_sumilla','timeout'=>false]); ?>
+        <?php // echo $this->render('_search', ['model' => $searchModel]); 
+        ?>
+
+        <?= GridView::widget([
+            'dataProvider' => new ActiveDataProvider([
+                'query' => frontend\modules\acad\models\AcadSyllabusDocentes::find()->select(['id', 'docente_id', 'activo'])->andWhere(['syllabus_id' => $model->id])
+            ]),
+            //'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                    'attribute' => 'docente_id',
+                    'value' => function ($model) {
+                        return $model->docente->fullName();
+                    }
+                ],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    //'template' => Helper::filterActionColumn(['view', 'activate', 'delete']),
+                    'template' => '{delete}',
+                    'buttons' => [
+                        'delete' => function ($url, $model) {
+                            $url = Url::toRoute(['/acad/syllabus/ajax-delete-docente-syllabus', 'id' => $model->id]);
+                            //$url = Url::toRoute(['/acad/syllabus/ajax-delete-docente-syllabus', 'id' => $model->id]);
+
+                            return Html::a('<span class="btn btn-danger glyphicon glyphicon-trash"></span>', 'javascript:void();', ['id' => $model->id, 'title' => $url, 'family' => 'holas']);
+                        },
                     ]
                 ],
-        ],
-    ]); ?>
-        
-    <?php Pjax::end(); ?>
+            ],
+        ]); ?>
 
-        
-    </div>   
-    
-   
-  
- 
-   
- 
- 
- 
+        <?php
+        echo linkAjaxGridWidget::widget([
+            'id' => 'widgetgr2u54dgd5',
+            'idGrilla' => 'grid_sumilla',
+            //'otherContainers'=>['pajaxn_ui_segu'],
+            'family' => 'holas',
+            'type' => 'POST',
+            'evento' => 'click',
+            'posicion' => \yii\web\View::POS_END
+            //'foreignskeys'=>[1,2,3],
+        ]);
+        ?>
 
-   
+<?php Pjax::end(); ?>
+    </div>
+
+
+
+
+
+
+
+
+
+
 
 </div>
