@@ -14,14 +14,14 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-        <div class="col-xs-6" style="padding-left: 0;">
-            <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
-        </div>
-        <div class="col-xs-6">
-            <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
-        </div>
-        <hr>
+    <div class="col-xs-6" style="padding-left: 0;">
+        <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
     </div>
+    <div class="col-xs-6">
+        <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
+    </div>
+    <hr>
+</div>
     
 <div class="matriculareact-form-update">
 

@@ -102,7 +102,7 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
             'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
             'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
             //REG ACA
-            'ora_soli_reg_check' => Yii::t('base_labels', 'Ora Soli Reg Check'),
+            'ora_soli_reg_check' => Yii::t('base_labels', 'Solicitud registrada'),
             'ora_soli_reg_adjunto' => Yii::t('base_labels', 'Ora Soli Reg Adjunto'),
             'ora_soli_reg_obs' => Yii::t('base_labels', 'Ora Soli Reg Obs'),
             'estado' => Yii::t('base_labels', 'Estado'),
