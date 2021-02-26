@@ -28,8 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php Pjax::begin(); ?>
         <?php echo $this->render('_search_index', ['model' => $searchModel]); ?>
 
+        
         <?php 
-            if(sizeof($docsMat)!=0){
+            if(sizeof($docsMat)!=0 && $trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')){
                 
                 $url = Url::toRoute(['/tramdoc/matriculareserv/ajax-docs-tram-reserv']);
                 echo  Html::a(Yii::t('base_labels', 'GENERAR ARCHIVOS'),$url, ['class' => 'btn btn-danger btn-block']);
