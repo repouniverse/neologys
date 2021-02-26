@@ -96,17 +96,17 @@ class TramdocMatriculaReserv extends \yii\db\ActiveRecord
             'fecha_solicitud' => Yii::t('base_labels', 'Fecha Solicitud'),
             'fecha_registro' => Yii::t('base_labels', 'Fecha Registro'),
             //CTA
-            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Check'),
-            'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Cta Sin Deuda Pendiente Obs'),
-            'cta_pago_tramite_check' => Yii::t('base_labels', 'Pago de Trámite Realizado'),
-            'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Cta Pago Tramite Adjunto'),
-            'cta_pago_tramite_obs' => Yii::t('base_labels', 'Cta Pago Tramite Obs'),
+            'cta_sin_deuda_pendiente_check' => Yii::t('base_labels', 'Presenta Deuda Pendiente'),
+            'cta_sin_deuda_pendiente_obs' => Yii::t('base_labels', 'Observaciones De Deuda Pendiente '),
+            'cta_pago_tramite_check' => Yii::t('base_labels', 'Pago De Trámite Realizado'),
+            'cta_pago_tramite_adjunto' => Yii::t('base_labels', 'Adjunto De Comprobante De Pago'),
+            'cta_pago_tramite_obs' => Yii::t('base_labels', 'Observaciones Sobre Pago Trámite Pendiente'),
             //REG ACA
-            'ora_soli_reg_check' => Yii::t('base_labels', 'Ora Soli Reg Check'),
+            'ora_soli_reg_check' => Yii::t('base_labels', 'Solicitud Registrada'),
             'ora_soli_reg_adjunto' => Yii::t('base_labels', 'Ora Soli Reg Adjunto'),
-            'ora_soli_reg_obs' => Yii::t('base_labels', 'Ora Soli Reg Obs'),
-            'estado' => Yii::t('base_labels', 'Estado'),
-            'estado_obs' => Yii::t('base_labels', 'Estado Obs'),
+            'ora_soli_reg_obs' => Yii::t('base_labels', 'Observaciones De Solicitud Registrada'),
+            'estado' => Yii::t('base_labels', 'Estado Del Trámie'),
+            'estado_obs' => Yii::t('base_labels', 'Observaciones Del Estado Del Tramite'),
         ];
     }
     public function afterSave($insert, $changedAttributes)
