@@ -58,7 +58,7 @@ $this->registerCssFile("@web/css/documentos.css");
             <td width="40%"> - 1.6.2 Horas de trabajo independiente:</td><td width="2px">:</td><td width="58%"><?php echo $model->n_horasindep?></td>  
         </tr>   
         <tr >
-            <td width="40%">1.7 Prerrequisito(s):</td><td width="2px">:</td><td width="58%"><?=$model->concatPreRequisites()?></td>  
+            <td width="40%">1.7 Pre-requisito(s):</td><td width="2px">:</td><td width="58%"><?=$model->concatPreRequisites()?></td>  
         </tr> 
         <tr >
             <td width="40%">Docentes:</td><td width="2px">:</td><td width="58%"><?=ucwords(mb_strtolower($model->concatNames(),'UTF-8'))?></td>  
