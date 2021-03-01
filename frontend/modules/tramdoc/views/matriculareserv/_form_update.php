@@ -12,16 +12,23 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\tramdoc\models\Matriculareact */
 /* @var $form yii\widgets\ActiveForm */
+?>  
+
+<?php
+if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('REG-FCCTP') ||$trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
+    ?>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="col-xs-6" style="padding-left: 0;">
+                <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
+            </div>
+            <div class="col-xs-6">
+                <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
+            </div>
+            <hr>
+        </div>
+<?php
+}
 ?>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-        <div class="col-xs-6" style="padding-left: 0;">
-            <h4><?= h::space(10) . Html::encode("Actualizar Alumno") ?></h4>
-        </div>
-        <div class="col-xs-6">
-            <input class="btn btn-primary" id="btnActAlumno" type="button" value="Visualizar datos"></input>
-        </div>
-        <hr>
-    </div>
     
 <div class="matriculareact-form-update">
 
@@ -31,7 +38,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
     <?php
     //ACTUALIZAR DATOS DEL ALUMNO
     
-    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP')) {
+    if ($trabajador->depa_id == h::getDepartamendoIdByCoddepa('OTI-FCCTP') || $trabajador->depa_id == h::getDepartamendoIdByCoddepa('REG-FCCTP') ) {
     ?>
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="display: none" id="actAlumno">
@@ -81,7 +88,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
             );
 
             //aqui va el archivo adjunto 
-            echo HTML::label("Pago trámite adjunto");
+            echo HTML::label("Adjunto de comprobante de pago");
             echo "<br>";
 
             $url = Url::toRoute([
@@ -131,7 +138,7 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
             );
 
             //aqui va el archivo adjunto 
-            echo HTML::label("Adjunto de solicitud registrada");
+            echo HTML::label("Adjunto De Solicitud Registrada");
             echo "<br>";
             $url = Url::toRoute([
                 '/finder/selectimage',
@@ -155,8 +162,9 @@ $estados = ['1' => 'PENDIENTE', '2' => 'EN-TRÁMITE', '3' => 'FINALIZADO','4' =>
 
                 echo Html::a('<span class="glyphicon glyphicon-save"></span> Descargar Record de Notas', $file_solicitud->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning']);
             }
-
             echo "<br><br>";
+            echo $form->field($model, 'ora_soli_reg_obs')->textarea(['rows' => 4]);
+           
             ////////////////////////////
             echo $form->field($model, 'estado')->dropDownList(
                 $estados,

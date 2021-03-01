@@ -123,6 +123,8 @@ class Matriculareact extends modelBase
             'ora_record_notas_check' => Yii::t('base_labels', 'Record de Notas Generado'),
             'ora_record_notas_adjunto' => Yii::t('base_labels', 'Adjunto de Record de Notas'),
             'ora_record_notas_obs' => Yii::t('base_labels', 'Observaciones de Record Notas'),
+            
+            'ora_soli_reg_check'=> Yii::t('base_labels', 'Solicitud resgitrada'),
             'aca_cursos_aptos_check' => Yii::t('base_labels', 'Cursos Aptos Generado'),
             'aca_cursos_aptos_adjunto' => Yii::t('base_labels', 'Adjunto de Cursos Aptos'),
             'aca_cursos_aptos_observaciones' => Yii::t('base_labels', 'Cursos Aptos Observaciones'),
