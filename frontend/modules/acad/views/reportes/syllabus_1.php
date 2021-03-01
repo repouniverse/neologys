@@ -12,7 +12,7 @@ $this->registerCssFile("@web/css/documentos.css");
     <div class="centrar"><?=Html::img('@web/img/logo-usmp.svg',['width'=>230,"height"=>100])?></div>
     <br>
     <div class="titsil centrar">
-        SILABO
+        SÍLABO
    
         <br>
         <span>Sílabo adaptado en el marco de la emergencia sanitaria por el COVID-19</span>
@@ -58,7 +58,7 @@ $this->registerCssFile("@web/css/documentos.css");
             <td width="40%"> - 1.6.2 Horas de trabajo independiente:</td><td width="2px">:</td><td width="58%"><?php echo $model->n_horasindep?></td>  
         </tr>   
         <tr >
-            <td width="40%">1.7 Requisito(s):</td><td width="2px">:</td><td width="58%">POR DEFINIR</td>  
+            <td width="40%">1.7 Prerrequisito(s):</td><td width="2px">:</td><td width="58%">POR DEFINIR</td>  
         </tr> 
         <tr >
             <td width="40%">Docentes:</td><td width="2px">:</td><td width="58%"><?=ucwords(mb_strtolower($model->concatNames(),'UTF-8'))?></td>  
