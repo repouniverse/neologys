@@ -66,6 +66,14 @@ class SiteController extends  baseController
      *
      * @return mixed
      */
+    public function actionAsigroles(){
+        if (!Yii::$app->user->isGuest) {
+            
+            return $this->render('asigroles',
+            'model' => $model,
+        ]);
+        }
+    }
     public function actionIndex()
     {
         if(Yii::$app->user->isGuest)
