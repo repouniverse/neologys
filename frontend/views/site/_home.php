@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use common\helpers\h;
+use \frontend\widget\Welcome;
 use common\models\masters\Alumnos;
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\AsesoresCurso */
@@ -36,12 +37,12 @@ $this->title =$titulo ;
 
     ?>
 
-    <?= dmstr\widgets\Welcome::widget(
+    <?= Welcome::widget(
         [
             'options' => ['class' => 'sidebar-menu', 'data-widget' => 'tree'],
             'items' => $items
         ]
-    ) ?>
+        ); ?>
 
 </div>
 </div>
