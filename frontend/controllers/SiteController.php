@@ -864,7 +864,7 @@ die();
    if(!is_null(($persona=h::user()->profile->persona))){
      if(!is_null($grupo=GrupoPersonas::findOne($persona->codgrupo))){
          if(!is_null($identidad=$persona->identidad)){             
-                // echo $grupo->layout; die();              
+                //echo $grupo->layout; die();              
                 return $this->render($grupo->layout,['identidad'=>$identidad]);
                 }else{
                ///Layout para personas sin identidad
@@ -881,6 +881,10 @@ die();
        return $this->goHome();
     }
   }  
+
+  public function actionWelcomeRender(){
+    return $this->render("_home");
+  }
   
   public function actionManageUsers(){
         $searchModel = new UserSearch();
