@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use mdm\admin\models\BizRule;
 use yii\captcha\Captcha;
 use unclead\multipleinput\MultipleInput;
 

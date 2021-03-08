@@ -13,6 +13,8 @@ use mdm\admin\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
+use mdm\admin\models\BizRule;
+use mdm\admin\models\searchs\BizRule as BizRuleSearch;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -373,8 +375,15 @@ public static function nombreEstado($codigoEstado){
     return self::gsetting('tramdoc','estado-tramite'.$codigoEstado);
 }
 
+public static function comboRule(){
+    $roles = BizRule::find()->all();
+    return $roles->_item;
+}
+
   
 }
+
+
 
 
 
