@@ -1,10 +1,11 @@
 <?php
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\modules\maestros\MaestrosModule as m;
 use common\models\masters\Personas;
 use common\helpers\ComboHelper as combo;
-?>
+?> 
 
 <div class="docentes-search">
     <?php $form = ActiveForm::begin(
@@ -18,9 +19,9 @@ use common\helpers\ComboHelper as combo;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
         <div class="form-group">
             <?= Html::submitButton("<span class='fa fa-search'></span>".yii::t('base_verbs', 'Search'), ['class' => 'btn btn-primary']) ?>
-        
-                 <?= Html::a(yii::t('base_verbs', 'Create Teacher'), ['create-docentes'], ['class' => 'btn btn-success']) ?>
-              <?= Html::a(yii::t('base_verbs', 'Create External Teacher'), ['create-docente-ext'], ['class' => 'btn btn-warning']) ?>
+                        <?php $url=Url::to(['/maestros/default/index-docentes']); ?>
+                 <?= Html::a(yii::t('base_verbs', 'Create Teacher'), $url, ['class' => 'btn btn-success']) ?>
+              
           
     </div>
     

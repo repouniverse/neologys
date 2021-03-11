@@ -19,22 +19,11 @@ alumnoAsset::register($this);
       $esPostulanteInternacional=(is_null($convocatoria))?false:true;
       if(!$esPostulanteInternacional){
           ?>
-      
-        <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div  class="bg-gray col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <?php echo yii::t('base_labels','You are not yet summoned to the international process. Contact the interlocutors.')  ?>
-            
-            </div>
-            <div  class="bg-gray   col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              
-            
-            </div>
-            
-        </div>
-         <?php die(); ?>
+        <?php echo $this->render('alumno_sin_convocar')?>
+         <?php  ?>
         <?php }
       
-      
+      else {
       $isAdmitido=$convocatoria->isAdmitido();
       $targetUniversidad=$convocatoria->targetUniversity();
         if(is_null($targetUniversidad)){           
@@ -204,7 +193,7 @@ $wizard_config = [
         </div>
     </div>
         
-    <?PHP  } ?>     
+    <?PHP  }} ?>     
         
         <br>
    
