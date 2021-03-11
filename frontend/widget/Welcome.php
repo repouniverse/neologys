@@ -13,7 +13,7 @@ class Welcome extends \yii\widgets\Menu
     /**
      * @inheritdoc
      */
-    public $linkTemplate = '<a href="{url}" style="color:teal;">{icon}{label}</a>';
+    public $linkTemplate = '<a href="{url}" style="color:#1d3058;">{icon}{label}</a>';
     /**
      * @inheritdoc
      * Styles all labels of items on sidebar by AdminLTE
@@ -86,7 +86,7 @@ class Welcome extends \yii\widgets\Menu
                 <span class="progress-description">
         
                 </span>
-		        <a style="color:white;" href="{url}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Detalles</a>
+		        <a style="color:white;" href="{url}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">OPCIONES <i class="fa fa-chevron-down"></i> </a>
                 
               
           ';
