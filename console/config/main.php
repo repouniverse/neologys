@@ -93,7 +93,9 @@ return [
                 'frontend\modules\repositorio\database\migrations',
                 'frontend\modules\acad\database\migrations',
                 'frontend\modules\buzon\database\migrations',
-                'frontend\modules\tramdoc\database\migrations'
+                'frontend\modules\tramdoc\database\migrations',
+                'frontend\modules\encuesta\database\migrations',
+
                // 'backend\modules\base\database\migrations',
                 
                 ],

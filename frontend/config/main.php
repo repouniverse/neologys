@@ -105,6 +105,9 @@ return [
         'tramdoc' => [
             'class' => 'frontend\modules\tramdoc\Tramite',
         ],
+        'encuesta' => [
+            'class' => 'frontend\modules\encuesta\Encuesta',
+        ],
     ],
     'as access' => [ 
         'class' => 'mdm\admin\components\AccessControl',
