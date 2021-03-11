@@ -94,11 +94,15 @@ class Module extends \yii\base\Module
      $model=models\InterPrograma::find()->andWhere([
          'universidad_id'=>h::currentUniversity(),
          'codperiodo'=>$periodo])->one();
-  IF(IS_NULL($model))
-     throw new BadRequestHttpException(static::t('errors','There is no Current Programa'));
+         
+    if(is_null($model)){
+        throw new BadRequestHttpException(static::t('errors','There is no Current Programa'));
+    }
+     
      if($isModel){
        return $model;
-   }else{
+    }else{
+       
        return $model->id;
    }
      

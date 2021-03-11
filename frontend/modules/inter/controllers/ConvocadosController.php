@@ -794,7 +794,7 @@ class ConvocadosController extends baseController
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index_docentes', [
-            'id'=>$modelPrograma->id,
+            'id'=>$modelPrograma,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'modelPrograma'=>$modelPrograma,
