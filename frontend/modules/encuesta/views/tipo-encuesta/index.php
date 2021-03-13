@@ -7,16 +7,19 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\modules\encuesta\models\EncuestaTipoEncuestaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Encuesta Tipo Encuestas');
+$this->title = Yii::t('app', 'Tipos de Encuesta');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="encuesta-tipo-encuesta-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+   
+    <h4><?= Html::encode($this->title) ?></h4>
+    <div class="box box-success"></div>
+    
+   
     <p>
         <?= Html::a(Yii::t('app', 'Create Encuesta Tipo Encuesta'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

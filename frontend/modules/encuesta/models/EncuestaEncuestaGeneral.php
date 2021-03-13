@@ -56,12 +56,12 @@ class EncuestaEncuestaGeneral extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('base_labels', 'ID'),
-            'titulo_encuesta' => Yii::t('base_labels', 'Titulo Encuesta'),
-            'id_tipo_usuario' => Yii::t('base_labels', 'Id Tipo Usuario'),
-            'id_tipo_encuesta' => Yii::t('base_labels', 'Id Tipo Encuesta'),
+            'titulo_encuesta' => Yii::t('base_labels', 'Titulo de la encuesta'),
+            'id_tipo_usuario' => Yii::t('base_labels', 'Tipo de usuario'),
+            'id_tipo_encuesta' => Yii::t('base_labels', 'Tipo de encuesta'),
             'descripcion' => Yii::t('base_labels', 'Descripcion'),
             'numero_preguntas' => Yii::t('base_labels', 'Numero Preguntas'),
-            'id_dep_encargado' => Yii::t('base_labels', 'Id Dep Encargado'),
+            'id_dep_encargado' => Yii::t('base_labels', 'Departamento Encargado'),
         ];
     }
 

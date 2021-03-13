@@ -630,7 +630,17 @@ class ComboHelper  {
                         \common\models\masters\GrupoPersonas::find()->select(['codgrupo','desgrupo'])->all(),
                'codgrupo','desgrupo');
     } 
-    
+    //FUNCION PARA JALAR LOS TIPO DE ENCUESTA
+    public static function getTipoEncuesta(){
+      $query= \frontend\modules\encuesta\models\EncuestaTipoEncuesta::find();
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','nombre_tipo');
+    } 
+
+  
+
   public static function getCboAwesome(){
       return [
          'glass'=>'glass',

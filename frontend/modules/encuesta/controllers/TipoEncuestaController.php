@@ -42,6 +42,8 @@ class TipoEncuestaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
+       
     }
 
     /**
@@ -73,6 +75,8 @@ class TipoEncuestaController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+
+        
     }
 
     /**

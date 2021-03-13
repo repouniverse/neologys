@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\helpers\ComboHelper as combo;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\encuesta\models\EncuestaEncuestaGeneral */
@@ -14,9 +15,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'titulo_encuesta')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_tipo_usuario')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_tipo_usuario')->dropDownList(
+        combo::getCboGrupoPersonas(),
+        ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
+    ) ?>
 
-    <?= $form->field($model, 'id_tipo_encuesta')->textInput() ?>
+    <?= $form->field($model, 'id_tipo_encuesta')->dropDownList(
+        combo::getTipoEncuesta(),
+         ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
+    ) 
+    ?>
+
+
 
     <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 
