@@ -604,6 +604,14 @@ class ComboHelper  {
 'de'	=>	yii::t('base_labels','German'),
 ];
     }
+
+    public static function getNivelIidioma(){
+        return [
+          '1' => 'BÁSICO',
+          '2' => 'INTERMEDIO',
+          '3' => 'AVANZADO'
+        ];
+    }
     
   public function getIdioma($idioma){
      return self::getCboIdiomas()[$idioma];

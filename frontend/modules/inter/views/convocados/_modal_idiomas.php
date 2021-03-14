@@ -34,7 +34,7 @@ use common\widgets\selectwidget\selectWidget;
                <?=($model->isNewRecord)?'':common\widgets\auditwidget\auditWidget::widget(['model'=>$model])?>
         
      </div>       
-    
+     
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
          <?=$form->field($model, 'idioma')->/*label(m::t('labels','Select Transfer University'))->*/
             dropDownList(ComboHelper::getCboIdiomas(),
@@ -46,7 +46,7 @@ use common\widgets\selectwidget\selectWidget;
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
          <?=$form->field($model, 'codnivel')->/*label(m::t('labels','Priority'))->*/
-            dropDownList($model::comboDataField('codnivel'),
+            dropDownList(ComboHelper::getNivelIidioma(),
                     ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,
