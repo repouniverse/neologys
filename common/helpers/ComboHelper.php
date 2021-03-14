@@ -614,7 +614,7 @@ class ComboHelper  {
     }
 
     public static function getNivelIidioma($idioma){
-      return self::getCboIdiomas()[$idioma];
+      return self::getCboNivelIidioma()[$idioma];
   }
     
   public function getIdioma($idioma){
