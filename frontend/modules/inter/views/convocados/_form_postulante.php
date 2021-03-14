@@ -242,7 +242,7 @@ use common\widgets\selectwidget\selectWidget;
                                 'format'=>'raw',
                                 'value'=> function($model)
                                 {
-                                    return frontend\modules\inter\helpers\ComboHelper::getNivelIidioma('codnivel');
+                                    return frontend\modules\inter\helpers\ComboHelper::getNivelIidioma($model->codnivel);
                                 }
                             ],
 
