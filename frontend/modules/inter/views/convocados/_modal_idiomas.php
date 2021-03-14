@@ -46,7 +46,7 @@ use common\widgets\selectwidget\selectWidget;
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
          <?=$form->field($model, 'codnivel')->/*label(m::t('labels','Priority'))->*/
-            dropDownList(ComboHelper::getNivelIidioma(),
+            dropDownList(ComboHelper::getCboNivelIidioma(),
                     ['prompt'=>'--'.m::t('verbs','Choose a Value')."--",
                     // 'class'=>'probandoSelect2',
                       //'disabled'=>($model->isBlockedField('codpuesto'))?'disabled':null,

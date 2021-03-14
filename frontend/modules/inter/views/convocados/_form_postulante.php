@@ -242,7 +242,7 @@ use common\widgets\selectwidget\selectWidget;
                                 'format'=>'raw',
                                 'value'=> function($model)
                                 {
-                                    return $model->comboValueField('codnivel');
+                                    return frontend\modules\inter\helpers\ComboHelper::getNivelIidioma('codnivel');
                                 }
                             ],
 

@@ -605,13 +605,17 @@ class ComboHelper  {
 ];
     }
 
-    public static function getNivelIidioma(){
+    public static function getCboNivelIidioma(){
         return [
           '1' => 'BÁSICO',
           '2' => 'INTERMEDIO',
           '3' => 'AVANZADO'
         ];
     }
+
+    public static function getNivelIidioma($idioma){
+      return self::getCboIdiomas()[$idioma];
+  }
     
   public function getIdioma($idioma){
      return self::getCboIdiomas()[$idioma];
