@@ -686,7 +686,7 @@ class ConvocadosController extends baseController
                 //'ftermino'=>$model::SwichtFormatDate($fecha,$model::_FDATETIME,true),
                 'etapa_id'=>$model->etapa_id,
                 'plan_id'=>$model->plan_id,
-                'persona_id'=>$model->depa->persona->id,
+                'persona_id'=>$model->plan->eval->trabajador->persona->id,//'persona_id'=>$model->depa->persona->id,
                 'expediente_id'=>$model->id,
                 'modo_id'=>$model->modo_id,
                 'codigo'=>$model->convocado->postulante->code(),
