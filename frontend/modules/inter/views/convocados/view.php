@@ -188,7 +188,9 @@ Pjax::begin(['id'=>'grillaexpedientes','timeout'=>false]);
         ['attribute'=>'Eval',
                     'format'=>'raw',
                     'value'=>function($model){
-                       return '<span class="fa fa-user"></span>'.'   '.$model->plan->eval->trabajador->ap;
+                        if(is_null($model->plan->eval->trabajador))
+                        return '<span class="fa fa-user"></span>'.'   Área sin evaluador';
+                        else return '<span class="fa fa-user"></span>'.'   '.$model->plan->eval->trabajador->ap;
                     },
                'group'=>true,
                  //'contentOptions' => ['style' => 'width:200px;'], 

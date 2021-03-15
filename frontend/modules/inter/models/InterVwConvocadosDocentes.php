@@ -136,7 +136,12 @@ public function getExpedientes()
          $datos1['subtitulo']=Html::a($expediente->documento->desdocu,Url::to(['/inter/expedientes/update','id'=>$expediente->id]),['data-pjax'=>'0','target'=>'_blank']);
          $plan=$expediente->plan;
          $area=m::t('labels','Departament').': '.$plan->eval->depa->nombredepa;
-         $texto=m::t('labels','Aprobe For').': '.$plan->eval->trabajador->fullName();
+         if(is_null($plan->eval->trabajador)){
+            $texto=m::t('labels','Aprobe For').': Aún no cuenta con evaluador.';
+         }else{
+            $texto=m::t('labels','Aprobe For').': '.$plan->eval->trabajador->fullName();
+         }
+         
          $font=($expediente->estado)?'check-circle':'exclamation-triangle';
          $color=($expediente->estado)?'#60a917':'#f39c12';
          $datos1['texto']=$area.'<br>'.$texto.'<br><i style="font-size:32px; color:'.$color.'">'.h::awe($font).'</i>';

@@ -36,6 +36,7 @@ class TipoEncuestaController extends Controller
     public function actionIndex()
     {
         $searchModel = new EncuestaTipoEncuestaSearch();
+        $model = new EncuestaTipoEncuestaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,7 +44,9 @@ class TipoEncuestaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
-       
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view/encuesta-general', 'id' => $model->id]);
+        }
     }
 
     /**
@@ -69,14 +72,16 @@ class TipoEncuestaController extends Controller
         $model = new EncuestaTipoEncuesta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $ruta ='../encuesta-general/create';
+        
+            return $this->redirect($ruta); 
         }
+            
+        
 
         return $this->render('create', [
             'model' => $model,
         ]);
-
-        
     }
 
     /**
