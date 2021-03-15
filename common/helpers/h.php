@@ -373,6 +373,12 @@ public static function nombreEstado($codigoEstado){
     return self::gsetting('tramdoc','estado-tramite'.$codigoEstado);
 }
 
+
+
+
+
+
+
   
 }
 

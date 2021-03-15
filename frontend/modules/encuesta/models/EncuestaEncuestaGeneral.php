@@ -23,7 +23,7 @@ use Yii;
  * @property EncuestaPersonaEncuesta[] $encuestaPersonaEncuestas
  * @property EncuestaPreguntaEncuesta[] $encuestaPreguntaEncuestas
  */
-class EncuestaEncuestaGeneral extends \yii\db\ActiveRecord
+class EncuestaEncuestaGeneral extends \common\models\base\modelBase 
 {
     /**
      * {@inheritdoc}
