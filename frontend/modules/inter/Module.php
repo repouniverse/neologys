@@ -38,7 +38,8 @@ class Module extends \yii\base\Module
     
     
     private static function putSettingsModule(){
-         h::getIfNotPutSetting('general','roleDefault','r_inter_postulante', SettingType::STRING_TYPE);
+         //h::getIfNotPutSetting('general','roleDefault','r_inter_postulante', SettingType::STRING_TYPE);
+         h::getIfNotPutSetting('inter','roleDefault','r_inter_postulante', SettingType::STRING_TYPE);
         /* h::getIfNotPutSetting('general','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','urlimagesalu','http://desa.itekron.com/fotos/', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('general','prefiximagesalu','', SettingType::STRING_TYPE);
@@ -94,11 +95,15 @@ class Module extends \yii\base\Module
      $model=models\InterPrograma::find()->andWhere([
          'universidad_id'=>h::currentUniversity(),
          'codperiodo'=>$periodo])->one();
-  IF(IS_NULL($model))
-     throw new BadRequestHttpException(static::t('errors','There is no Current Programa'));
+         
+    if(is_null($model)){
+        throw new BadRequestHttpException(static::t('errors','There is no Current Programa'));
+    }
+     
      if($isModel){
        return $model;
-   }else{
+    }else{
+       
        return $model->id;
    }
      
