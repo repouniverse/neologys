@@ -70,7 +70,14 @@ class ComboHelper  {
                 all(),
             'coddepa','departamento');
       }
-        
+      public static function getDepartamentos(){
+        //$iduser=is_null($iduser)?static::userId():$iduser;        
+       return ArrayHelper::map(
+                       \common\models\masters\Departamentos::find()->
+               all(),
+           'id','nombredepa');
+     }
+       
        public static function getCboProvincias($depa){
          //$iduser=is_null($iduser)?static::userId():$iduser;        
         return ArrayHelper::map(

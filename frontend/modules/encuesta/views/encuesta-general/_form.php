@@ -13,7 +13,7 @@ use common\helpers\ComboHelper as combo;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'titulo_encuesta')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'titulo_encuesta')->textInput(['maxlength' => true,'placeholder' =>"Ingrese el Titulo de la encuesta"]) ?>
 
     <?= $form->field($model, 'id_tipo_usuario')->dropDownList(
         combo::getCboGrupoPersonas(),
@@ -28,14 +28,17 @@ use common\helpers\ComboHelper as combo;
 
 
 
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true, 'placeholder' =>"Ingrese la descripción de la encuesta"]) ?>
 
-    <?= $form->field($model, 'numero_preguntas')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'numero_preguntas')->textInput(['maxlength' => true, 'placeholder' =>"Ingrese el numero de preguntas"]) ?>
 
-    <?= $form->field($model, 'id_dep_encargado')->textInput() ?>
+    <?= $form->field($model, 'id_dep_encargado')->dropDownList(
+        combo::getDepartamentos(),
+        ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
+    ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Siguiente'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
