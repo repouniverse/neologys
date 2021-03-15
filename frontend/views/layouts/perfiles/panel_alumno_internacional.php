@@ -178,7 +178,7 @@ alumnoAsset::register($this);
                                         <div class="foto_user"><?= Html::img("@web/img/modules/inter/welcome/images/ico-user.jpg", []) ?></div>
                                         <div class="bandera"><?= Html::img("@web/img/modules/inter/welcome/images/ico-flag.jpg", []) ?></div>
                                     </td>
-                                    <td width=""> <strong>!FELICITACIONES!</strong><br> Has sido admitido en el programa de Internacional 2020-II</td>
+                                    <td width=""> <strong>!FELICITACIONES!</strong><br> Has sido admitido en el programa de Internacional 2021-I</td>
                                 </tr>
                             </table>
                         </div>
