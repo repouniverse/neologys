@@ -524,7 +524,7 @@ class ComboHelper  {
   public static function getCboUniversidades(){
       
         return ArrayHelper::map(
-                        \common\models\masters\Universidades::find()->all(),
+                        \common\models\masters\Universidades::find()->andWhere(['detalle'=>'2021'])->all(),
                 'id','nombre');
     } 
     
