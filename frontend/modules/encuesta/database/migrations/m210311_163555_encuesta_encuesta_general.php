@@ -22,10 +22,10 @@ class m210311_163555_encuesta_encuesta_general extends baseMigration
         if (!$this->existsTable($table)) {
             $this->createTable($table, [
                 'id' => $this->primaryKey(),                
-                'titulo_encuesta' => $this->String(30)->notNull(),
+                'titulo_encuesta' => $this->String(120)->notNull(),
                 'id_tipo_usuario' => $this->String(3)->notNull(),
                 'id_tipo_encuesta' => $this->integer(11)->notNull(),
-                'descripcion' => $this->String(30)->notNull(),
+                'descripcion' => $this->String(200)->notNull(),
                 'numero_preguntas' => $this->String(30)->notNull(),
                 'id_dep_encargado' => $this->integer(11)->notNull(),       
 

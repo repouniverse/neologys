@@ -2,12 +2,17 @@
 
 namespace frontend\modules\encuesta\controllers;
 
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
 use Yii;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuesta;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuestaSearch;
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneralSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\helpers\h;
+use common\models\User;
+use common\models\masters\GrupoPersonas;
 
 /**
  * PersonaEncuestaController implements the CRUD actions for EncuestaPersonaEncuesta model.
@@ -35,8 +40,18 @@ class PersonaEncuestaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EncuestaPersonaEncuestaSearch();
+        $searchModel = new EncuestaEncuestaGeneralSearch();
+
+        if (!is_null(($persona = h::user()->profile->persona))) {
+            if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
+                //var_dump(  $grupo->codgrupo);die();
+                $searchModel->id_tipo_usuario = $grupo->codgrupo;
+            }
+        }
+
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -93,6 +108,17 @@ class PersonaEncuestaController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionEncuesta($id){
+        //$model = $this->findModel($id);
+
+        
+
+        return $this->render('encuesta', [
+          //  'model' => $model,
+        ]);
+
     }
 
     /**
