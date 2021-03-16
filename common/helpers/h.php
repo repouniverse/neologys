@@ -13,7 +13,7 @@ use mdm\admin\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
-
+use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 class h {
      const SESION_MALETIN = 'maletin';
      const DATE_FORMAT = 'php:Y-m-d';
@@ -230,6 +230,10 @@ class h {
                         \common\models\Userfavoritos::find()->where(['[[user_id]]'=>$iduser])->all(),
                 'url','alias');
     }
+
+    public static function getTipoPreguntaEncuesta($id){
+        return EncuestaTipoPregunta::findOne(['id'=>$id])->nombre_tipo;
+    }
     
     /*Devuelve valores por defecto de cualquier 
      * modelo siempre que se hayan regsitrado estos valores e
@@ -274,9 +278,24 @@ class h {
       return Departamentos::findOne($id)->coddepa;
   }
 
+  public static function getNombreDepartamentoById($id){
+    return Departamentos::findOne($id)->nombredepa;
+  }
+
   public static function getDepartamendoIdByCoddepa($coddepa){
     return Departamentos::findOne(['coddepa'=> $coddepa])->id;
   }
+
+  public static function getTipoEncuesta($tipo){
+    $tipos = [
+        "CUADRICULA DOBLE" => 'encuesta_cuadricula_doble',
+        'CUADRICULA MULTIPLE' =>  'encuesta_cuadricula_multiple',
+        'FORMULARIO' =>  'encuesta_formulario',
+    ];
+    return $tipos[$tipo];
+  }
+
+
    
  public static function obQuery(){
      return new \yii\db\Query();

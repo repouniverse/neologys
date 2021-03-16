@@ -5,6 +5,7 @@ namespace frontend\modules\encuesta\controllers;
 use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
 use Yii;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuesta;
+use frontend\modules\encuesta\models\EncuestaOpcionesPregunta;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuestaSearch;
 use frontend\modules\encuesta\models\EncuestaEncuestaGeneralSearch;
 use yii\web\Controller;
@@ -13,6 +14,7 @@ use yii\filters\VerbFilter;
 use common\helpers\h;
 use common\models\User;
 use common\models\masters\GrupoPersonas;
+use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
 
 /**
  * PersonaEncuestaController implements the CRUD actions for EncuestaPersonaEncuesta model.
@@ -45,7 +47,7 @@ class PersonaEncuestaController extends Controller
         if (!is_null(($persona = h::user()->profile->persona))) {
             if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
                 //var_dump(  $grupo->codgrupo);die();
-                $searchModel->id_tipo_usuario = $grupo->codgrupo;
+                //$searchModel->id_tipo_usuario = $grupo->codgrupo;
             }
         }
 
@@ -112,11 +114,30 @@ class PersonaEncuestaController extends Controller
 
     public function actionEncuesta($id){
         //$model = $this->findModel($id);
+        $encuesta= EncuestaEncuestaGeneral::findOne(['id'=>$id]);
+        $listaPreguntas = EncuestaPreguntaEncuesta::findAll(['id_encuesta'=>$encuesta->id]);
+        $model = new \yii\base\DynamicModel([
+            'id_pregunta','id_persona_encuesta','respuesta',
+           
+        ]);
+        $model->addRule('respuesta', function ($attribute, $params) use ($model) {
+            $model->addError($attribute, 'Porfavor seleccione su respuesta.');
+        }, [
+            'skipOnEmpty' => false,
+        ]);
+        $model->validate();
 
+
+        if(!is_null($listaPreguntas)){
+            
+        }
+        
         
 
         return $this->render('encuesta', [
-          //  'model' => $model,
+           'encuesta' => $encuesta,
+           'listaPreguntas' => $listaPreguntas,
+           'model' =>  $model
         ]);
 
     }
