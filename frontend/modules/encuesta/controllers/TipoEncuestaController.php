@@ -8,6 +8,7 @@ use frontend\modules\encuesta\models\EncuestaTipoEncuestaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+Use yii\helpers\Url;
 
 /**
  * TipoEncuestaController implements the CRUD actions for EncuestaTipoEncuesta model.
@@ -72,11 +73,10 @@ class TipoEncuestaController extends Controller
         $model = new EncuestaTipoEncuesta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $ruta ='../encuesta-general/create';
-        
-            return $this->redirect($ruta); 
-        }
             
+            return $this->redirect(['encuesta-general/create', 'id_tipo_encuesta' => $model->id]); 
+        }
+
         
 
         return $this->render('create', [

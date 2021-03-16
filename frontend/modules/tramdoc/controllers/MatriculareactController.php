@@ -50,6 +50,7 @@ class MatriculareactController extends Controller
     {
         $searchModel = new MatriculareactSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         $tramdocsMat = TramdocFiles::find()->alias('p')->select(['p.matr_id as id'])->distinct()->asArray()->all();
         $docsMat = Matriculareact::find()->where(['not in','id',$tramdocsMat])->all();
         return $this->render('index', [
