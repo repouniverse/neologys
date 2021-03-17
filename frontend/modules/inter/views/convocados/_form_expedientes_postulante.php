@@ -80,7 +80,18 @@ use frontend\modules\inter\models\InterExpedientes;
                          
                     ]
                 ],
+
          'documento.desdocu',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{Record}',
+                'buttons' => [
+                    'Record' => function ($url, $model) {
+                        return ($model->codocu == 121)?Html::a('Descargar modelo', 'http://sisfcctp.usmp.edu.pe/frontend/web/declaracion_jurada_outgoing.docx', ['target' => '_blank', 'style' => 'font-size:14px']):'';
+                    },
+                ]
+            ],
+
          'clase',
             [ 'attribute'=>'estado',
             'format'=>'raw',

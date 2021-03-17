@@ -525,36 +525,37 @@ public function porcAvanceUploads($stage){
     
     
  }
-   
- public function validateOpUniv($attribute, $params)
+
+    public function validateOpUniv($attribute, $params)
     {
-      if($this->getInterOpuniv()->count()==0){
-          $this->addError('motivos',m::t('validaciones','You must fill Universities to apply'));
-      }
+        if ($this->getInterOpuniv()->count() == 0) {
+            $this->addError('motivos', m::t('validaciones', 'You must fill Universities to apply'));
+        }
     }
- 
-    
- public function sendEmailUploads(){
-     $nombre=$this->persona->fullName();
+
+
+    public function sendEmailUploads()
+    {
+        $nombre = $this->persona->fullName();
+
         $mailer = new \common\components\Mailer();
-        $message =new \common\components\MessageMail();
-            $message->setSubject(m::t('validaciones','Notification of loading of documents'))
-            ->setFrom(['neotegnia@gmail.com'=>'Internacional'])
-            ->setTo('jramirez@neotegnia.com')
-            ->SetHtmlBody("Buenas Tardes <br>"
-                    . "El postulante   ".$nombre."  "
-                    . " Ha terminado de subir sus documentos "
-                    . " ");
-          $message->ResolveMessage(); 
-    try {
-        
-           $result = $mailer->send($message);
-           //$mensajes['success']='Se envió un mensaje al correo que indicaste';
-    } catch (\Swift_TransportException $Ste) {      
-         $mensajes['error']=$Ste->getMessage();
+        $message = new \common\components\MessageMail();
+        $message->setSubject(m::t('validaciones', 'Notification of loading of documents'))
+            ->setFrom(['neotegnia@gmail.com' => 'Internacional'])
+            ->setTo('oti_tutoria@usmp.pe') //antes ->setTo('jramirez@neotegnia.com')
+            ->SetHtmlBody("Hola <br>"
+                . "El postulante   " . $nombre . "  "
+                . " Ha terminado de subir sus documentos "
+                . " ");
+        $message->ResolveMessage();
+        try {
+            $result = $mailer->send($message);
+            //$mensajes['success']='Se envió un mensaje al correo que indicaste';
+        } catch (\Swift_TransportException $Ste) {
+            $mensajes['error'] = $Ste->getMessage();
+        }
+        return $result;
     }
-   return $result; 
- }   
   
  
 public function updateStage(){
