@@ -346,6 +346,52 @@ public function actionNewflujos(){
 
 public function actionRutas(){
 
+/*    $PERSONA=\common\models\masters\Personas::findOne(6569);
+    $carbon= $PERSONA->toCarbon('cumple');*/
+
+    // $carbon=  \Carbon\Carbon::createFromFormat('d/m/Y', '1991-04-24', null);
+/*    var_dump($carbon);
+    die();*/
+
+    $mailer = new \common\components\Mailer();
+    $message = new \common\components\MessageMail();
+    $message=Yii::$app->mailer->compose(
+        'inter/postulacion_alumnos/admision_alumno',
+        [
+            // 'content' => $contenido,
+            'fullName'=>'HERNANDO DE SOTO',
+            // 'entrevistador'=>'JUAN SOTELO',
+        ]);
+
+
+    $message->setSubject('Mailing Internacional')
+        //  ->setHtmlBody($contenido)
+        ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
+        /* ->setTo(['hipogea@hotmail.com','lbarrientosm@gmail.com',
+             'otejada.odm@gmail.com','xcruzd@usmp.pe','ppanduro@usmp.pe','sgarcia@usmp.pe','evilam@usmp.pe']);
+        */ ->SetTo('hipogea@hotmail.com');
+
+    // $message->resolveMessage();
+    //var_dump(['A'=>'DD','AB'=>'DSDS'],$message->ParamTextBody);
+    // $cadena=str_replace(array_keys($message->ParamTextBody),array_values($message->ParamTextBody),$message->getSwiftMessage()->getBody());
+    //echo $cadena;
+    // echo $message->getSwiftMessage()->getBody();
+
+    try {
+
+        $result = $message->send();
+        return true;
+        $mensajes['success'] = yii::t('validaciones','The mail was sent, confirming the approval of the file');
+    } catch (\Swift_TransportException $Ste) {
+
+        $mensajes['error'] = $Ste->getMessage();
+    }
+    print_r($mensajes);
+    die();
+
+
+
+
     $arrayAlu = ['72152970',
     '71463725',
     '70136149',

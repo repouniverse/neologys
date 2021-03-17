@@ -316,17 +316,36 @@ class InterExpedientes extends \common\models\base\modelBase
  } 
  
  public function mailAprove(){
-  $postulante=$this->convocado->postulante;
- $mailer = new \common\components\Mailer();
-        $message = new \common\components\MessageMail();
-        $message->setSubject('APROBACION DE EXPEDIENTE')
-                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
-                ->setTo($postulante->mail)
-                ->SetHtmlBody("Buenas Tardes   " . $postulante->fullName() . " <br>"
-                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"     
-                        . "La presente es para notificarle que has  "
-                        . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
-                        . "Te esperamos en la siguiente etapa  ");
+    $postulante=$this->convocado->postulante;
+    $mailer = new \common\components\Mailer();
+    $message = new \common\components\MessageMail();
+
+     $contenido = "Buenas TardesS {{param1}} <br>"
+         . "La presente es para notificarle que has  "
+         . "aprobado con éxito. <br>{{param2}} <br>"
+         . "Te esperamos en la siguiente etapa  ";
+
+     $message->paramTextBody = [
+         '{{param1}}' => $postulante->fullName(),
+         '{{param2}}' => $this->plan->descripcion,
+     ];
+     $contenido = $message->replaceParams($contenido);
+
+     $message->setSubject('APROBACION DE EXPEDIENTEE')
+         ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Internacional - FCCTP'])
+         ->setTo($postulante->mail)
+         ->SetHtmlBody($contenido);
+
+
+//        $message->setSubject('APROBACION DE EXPEDIENTE')
+//                ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Departamento Internacional'])
+//                ->setTo($postulante->mail)
+//                ->SetHtmlBody("Buenas TardesS" . $postulante->fullName() . " <br>"
+//                        //->SetHtmlBody("Buenas Tardes   ALUMNO XXXX XXX XXXX  <br>"
+//                        . "La presente es para notificarle que has  "
+//                        . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
+//                        . "Te esperamos en la siguiente etapa  ");
+
         $message->ResolveMessage();
         try {
 
