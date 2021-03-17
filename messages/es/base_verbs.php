@@ -30,5 +30,9 @@ return[
     'Add Unit' => 'Agregar Unidad',
     'Create Teacher' => 'Crear Docente',
     'Create External Teacher' => 'Crear Docente Externo',
-    'Make Document' => 'Generar Pdf final'
+    'Make Document' => 'Generar Pdf final',
+
+    //MODULO ENCUESTAS
+    'Choose a poll'=>'Escoja una encuesta',
+    'Choose a question type'=>'Escoja un tipo de pregunta',
 ];

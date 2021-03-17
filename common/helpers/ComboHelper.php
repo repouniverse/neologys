@@ -6,6 +6,8 @@
 namespace common\helpers;
 use yii;
 use common\models\masters\UsersUniversities;
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
+use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
@@ -86,7 +88,24 @@ class ComboHelper  {
                 ->where(['codprov'=>$prov])->all(),
                 'coddist','distrito');
     }
-    
+
+    /*CBO PARA ENCUESTAS ---------------------------*/
+    public static function getCboEncuestas(){
+      //$iduser=is_null($iduser)?static::userId():$iduser;        
+     return ArrayHelper::map(
+                     EncuestaEncuestaGeneral::find()->
+             all(),
+         'id','titulo_encuesta');
+   }
+
+   public static function getCboTipoPregunta(){
+    //$iduser=is_null($iduser)?static::userId():$iduser;        
+   return ArrayHelper::map(
+                   EncuestaTipoPregunta::find()->
+           all(),
+       'id','nombre_tipo');
+ }
+
     /*ESTA FUNCION ES DE PRPISTO GENERAL 
      * RECIBE EL NOBRE DE UNA CLASE 
      * CON EL CAMO CLAVE Y CAMPO REFERENCIA
@@ -104,6 +123,7 @@ class ComboHelper  {
                         $clase::find()->where([$campofiltro=>$valorfiltro])->all(),
                 $campokey,$camporef);
     }
+    /* */
     
     
     

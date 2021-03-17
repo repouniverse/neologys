@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\encuesta\models\EncuestaPreguntaEncuesta */
 
-$this->title = Yii::t('app', 'Create Encuesta Pregunta Encuesta');
+$this->title = Yii::t('app', 'Crear Preguntas Para '.'"'.$titulo_encuesta.'"');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Encuesta Pregunta Encuestas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'numero_preguntas'=>$numero_preguntas,
+        'titulo_encuesta'=> $titulo_encuesta,
     ]) ?>
 
 </div>
