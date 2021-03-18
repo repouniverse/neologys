@@ -87,7 +87,7 @@ use frontend\modules\inter\models\InterExpedientes;
                 'template' => '{Record}',
                 'buttons' => [
                     'Record' => function ($url, $model) {
-                        return ($model->codocu == 121)?Html::a('Descargar modelo', 'http://sisfcctp.usmp.edu.pe/frontend/web/declaracion_jurada_outgoing.docx', ['target' => '_blank', 'style' => 'font-size:14px']):'';
+                        return ($model->codocu == 121)?Html::a('Descargar modelo', 'http://sisfcctp.usmp.edu.pe/frontend/web/declaracion_jurada_outgoing.docx', [ 'data-pjax'=>'0', 'target' => '_blank', 'style' => 'font-size:14px']):'';
                     },
                 ]
             ],
