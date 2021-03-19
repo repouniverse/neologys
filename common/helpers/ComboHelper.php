@@ -98,11 +98,28 @@ class ComboHelper  {
          'id','titulo_encuesta');
    }
 
-   public static function getCboTipoPregunta(){
-    //$iduser=is_null($iduser)?static::userId():$iduser;        
+   public static function getCboTipoPregunta($id_tipo_encuesta){
+    //$iduser=is_null($iduser)?static::userId():$iduser;
+    if($id_tipo_encuesta == 1){
+      return ArrayHelper::map(
+        EncuestaTipoPregunta::find()->where(['id'=>[1,2]])->all()
+      ,
+      'id','nombre_tipo');
+    }if($id_tipo_encuesta == 2){
+      return ArrayHelper::map(
+        EncuestaTipoPregunta::find()->where(['id'=>'3'])->all()
+      ,
+      'id','nombre_tipo');
+    }if($id_tipo_encuesta == 3){
+      return ArrayHelper::map(
+        EncuestaTipoPregunta::find()->where(['id'=>[3,4]])->all()
+      ,
+      'id','nombre_tipo');
+    }
+    
    return ArrayHelper::map(
-                   EncuestaTipoPregunta::find()->
-           all(),
+                   EncuestaTipoPregunta::find()->all()
+           ,
        'id','nombre_tipo');
  }
 

@@ -13,6 +13,7 @@ use mdm\admin\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
+use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -373,8 +374,13 @@ public static function nombreEstado($codigoEstado){
     return self::gsetting('tramdoc','estado-tramite'.$codigoEstado);
 }
 
+/**ENCUESTAS  */
 
-
+public static function getArrayPreguntas($id_encuesta){
+    return ArrayHelper::map(
+            EncuestaPreguntaEncuesta::find(['id_encuesta' => $id_encuesta])->all(),
+            'id','pregunta');
+}
 
 
 

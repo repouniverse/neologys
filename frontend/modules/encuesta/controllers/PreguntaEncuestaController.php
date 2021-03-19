@@ -58,7 +58,7 @@ class PreguntaEncuestaController extends Controller
         ]);
     }
 
-    /**
+    /**haassddww  ccvbbbbbbnnnnnnnnnnmmmmmmmmmmmkll
      * Creates a new EncuestaPreguntaEncuesta model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -68,11 +68,12 @@ class PreguntaEncuestaController extends Controller
         $model = new EncuestaPreguntaEncuesta([
             'id_encuesta' => $id_encuesta,
             'id_tipo_pregunta'=>1,
-            'pregunta'=>"wsasd",
+            'pregunta'=>"prueba",
         ]);
         $model_encuesta = EncuestaEncuestaGeneral::findOne(['id'=>$id_encuesta]);
         $numero_preguntas = $model_encuesta->numero_preguntas;
         $titulo_encuesta = $model_encuesta->titulo_encuesta;
+        $id_tipo_encuesta = $model_encuesta->id_tipo_encuesta;
 
         if ($model->load(Yii::$app->request->post())/*$model->load(Yii::$app->request->post()) && $model->save()*/) {            
              for ($i=0; $i <$numero_preguntas ; $i++) { 
@@ -95,7 +96,8 @@ class PreguntaEncuestaController extends Controller
         return $this->render('create', [
             'model' => $model,
             'numero_preguntas' =>$numero_preguntas,
-            'titulo_encuesta' => $titulo_encuesta
+            'titulo_encuesta' => $titulo_encuesta,
+            'id_tipo_encuesta'=> $id_tipo_encuesta
         ]);
     }
 

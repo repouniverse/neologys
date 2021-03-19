@@ -5,9 +5,12 @@ namespace frontend\modules\encuesta\controllers;
 use Yii;
 use frontend\modules\encuesta\models\EncuestaOpcionesPregunta;
 use frontend\modules\encuesta\models\EncuestaOpcionesPreguntaSearch;
+use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\helpers\h;
 
 /**
  * OpcionesPreguntaController implements the CRUD actions for EncuestaOpcionesPregunta model.
@@ -62,16 +65,50 @@ class OpcionesPreguntaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_encuesta)
     {
         $model = new EncuestaOpcionesPregunta();
+        $model_encuesta = EncuestaEncuestaGeneral::findOne(['id'=>$id_encuesta]);
+        $numero_preguntas = $model_encuesta->numero_preguntas;
+        
+        $model_preguntas = EncuestaPreguntaEncuesta::find()->andWhere(['id_encuesta'=>$id_encuesta])->all();
+        // yii::error('PPPPPP');
+        // foreach ($model_preguntas as $pregunta){
+            
+        //     yii::error('PRUEBA OPCIONES PREGUNTA.. '.$pregunta);
+             
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        // }
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            foreach ($model_preguntas as $i => $pregunta) {
+                # code...
+                $indice = 'array'.($i+1);
+                
+                if($pregunta->id_tipo_pregunta==3){
+                    
+                    foreach ($model->$indice as $index => $array) {
+                        # code...
+                        $opcion = new EncuestaOpcionesPregunta([
+                            'id_pregunta' =>$pregunta->id,
+                            'valor' => $array['valor'],
+                            'descripcion' =>$array['descripcion'],
+                        ]);
+                           
+                        $opcion->save(false);
+                    }
+                    
+                }
+            }
+           // return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'model_preguntas' => $model_preguntas,
+            'numero_preguntas'=> $numero_preguntas,
+
         ]);
     }
 

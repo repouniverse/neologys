@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use unclead\multipleinput\MultipleInput;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\encuesta\models\EncuestaOpcionesPregunta */
@@ -11,17 +12,92 @@ use yii\widgets\ActiveForm;
 <div class="encuesta-opciones-pregunta-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div style="padding: 80px;">
+    <?php
+     
+    foreach ($model_preguntas as $index => $pregunta) {
+        # code...
+    ?>
+    
+        <!-- MULTIPLE INPUT -->
+            
+            <?php 
+            
+            if($pregunta->id_tipo_pregunta ==3){
+            ?>
+                <?php 
+                
+                echo '<strong class="d-inline">PREGUNTA '.($index+1).': </strong><strong class="d-inline text-success text-center">'.$pregunta->pregunta.'</strong>'
+                ?>
+                
+                <!-- <strong class="d-inline">OPCIONES DE PREGUNTA<?php
+                ($index+1)
+                ?>:</strong> -->
+                <?= $form->field($model, 'array'.($index+1))->widget(MultipleInput::className(), [
+                    'min' => 1,
+                    'max' => 5,
+                    'columns' => [
+                        [
+                            'name'  => 'valor',
+                            'title' => 'Opciones De Pregunta '.($index+1),
+                            'options'=>[
+                                'placeholder' => 'Ingrese Opción'
+                            ]
+                            
+                        ],
+                        [
+                            'name'  => 'descripcion',
+                            'title' => 'Descripción De Pregunta '.($index+1),
+                            'options'=>[
+                                'placeholder' => 'Descripción De Opción'
+                            ]
+                        ],
+                        
+                    ]
 
-    <?= $form->field($model, 'id_pregunta')->textInput() ?>
+                    ])->label(false);
+                       
+                ?>                
+                <hr style="border-top: 1px solid #EAEAEA;">
+            <?php
+            
+            }
+            ?>
 
-    <?= $form->field($model, 'valor')->textInput(['maxlength' => true]) ?>
+            <!-- <?php 
+            if($pregunta->id_tipo_pregunta ==4){
+            ?>
+            
+            
+            <?php 
+                echo '<strong class="d-inline">PREGUNTA '.($index+1).':</strong><p class="d-inline text-primary ">'.$pregunta->pregunta.'</p>'
+            ?>
+                      
+            <p class=" text-danger "> PREGUNTA LIBRE</p>
+            <hr>
+            <?php
+            
+            }
+            ?> -->
+        
+        <!-- FIN DEL MULTIPLE INPUT -->
 
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
+    <?php    
+    }
+    ?>
+    
+
+    
+
+    
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        
     </div>
-
-    <?php ActiveForm::end(); ?>
+    </div>
+    <?php 
+    
+    ActiveForm::end(); ?>
 
 </div>

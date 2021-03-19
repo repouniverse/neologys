@@ -14,18 +14,7 @@ use unclead\multipleinput\MultipleInput;
 <div class="encuesta-pregunta-encuesta-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
-    <!-- <?= $form->field($model, 'id_encuesta')->dropDownList(                                      
-        combo::getCboEncuestas(),
-        [
-            'prompt' => '--' . yii::t('base_verbs', 'Choose a poll') . "--",
-            'id' => "encuestas",
-            'onChange' => '     console.log("cambio dentro")'
-        ]
-
-    ) ?>     -->
- 
-
+         
          <?php
           for($i = 0; $i < $numero_preguntas; $i++){
         ?>
@@ -33,7 +22,7 @@ use unclead\multipleinput\MultipleInput;
                 
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <?php echo $form->field($model, 'array_id_tipo_pregunta['.$i.']')->dropDownList(                                      
-                    combo::getCboTipoPregunta(),
+                    combo::getCboTipoPregunta($id_tipo_encuesta),
                     [
                         'prompt' => '-- ' . yii::t('base_verbs', 'Choose a question type').' '.($i+1) . " --",
                         'id' => "tipo_pregunta".$i,
