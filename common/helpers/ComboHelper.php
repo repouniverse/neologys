@@ -100,21 +100,21 @@ class ComboHelper  {
 
    public static function getCboTipoPregunta($id_tipo_encuesta){
     //$iduser=is_null($iduser)?static::userId():$iduser;
-    if($id_tipo_encuesta == 1){
+    if(h::getTipoEncuestaByid($id_tipo_encuesta) == 'CUADRICULA DOBLE'){
       return ArrayHelper::map(
         EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['SI / NO','V / F']])->all()
       ,
       'id','nombre_tipo');
-    }if($id_tipo_encuesta == 2){
+    }if(h::getTipoEncuestaByid($id_tipo_encuesta)== 'CUADRICULA MULTIPLE'){
       return ArrayHelper::map(
         EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['MULTIPLE']])->all()
       ,
       'id','nombre_tipo');
-    }if($id_tipo_encuesta == 3){
+    }if(h::getTipoEncuestaByid($id_tipo_encuesta)== 'FORMULARIO'){
       return ArrayHelper::map(
         EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['MULTIPLE','LIBRE']])->all()
       ,
-      'id','nombre_tipo');
+      'id','nombre_tipo');  
     }
     
    return ArrayHelper::map(
