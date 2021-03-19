@@ -12,9 +12,16 @@ use unclead\multipleinput\MultipleInput;
 
 
 <div class="encuesta-pregunta-encuesta-form">
-
     <?php $form = ActiveForm::begin(); ?>
-         
+    
+    <p class="form-group text-center ">     
+    <h4 class="text-primary text-center " style="text-transform:uppercase;"><?=$titulo_encuesta?></h4>        
+    </p>
+    <div class="text-center text-warning">
+    Cuenta con <?=$numero_preguntas?> preguntas seleccione el tipo de pregunta y escriba la pregunta.
+    </div>
+    <hr style="border-top: 1px solid #EAEAEA;">    
+    <div style="padding-left: 10%;padding-right: 10%">    
          <?php
           for($i = 0; $i < $numero_preguntas; $i++){
         ?>
@@ -36,6 +43,7 @@ use unclead\multipleinput\MultipleInput;
                 </div>
         
             </div>
+            <hr style="border-top: 1px solid #EAEAEA;">
         <?php
         }
         ?>  
@@ -43,10 +51,10 @@ use unclead\multipleinput\MultipleInput;
     
             
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('base_verbs', 'Siguiente'), ['class' => 'btn btn-success']) ?>
+    <div class="form-group text-center " >
+        <?= Html::submitButton(Yii::t('base_verbs', 'Siguiente'), ['class' => 'btn btn-primary']) ?>
     </div>
-
+    </div>
     <?php ActiveForm::end(); ?>
 
 </div>

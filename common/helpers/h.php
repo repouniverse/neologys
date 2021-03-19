@@ -15,6 +15,7 @@ use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
 use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
+use frontend\modules\encuesta\models\EncuestaTipoEncuesta;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -297,7 +298,12 @@ class h {
     return $tipos[$tipo];
   }
 
-
+  public static function getTipoEncuestaByid($id){
+  
+    $tipo_encuesta = EncuestaTipoEncuesta::findOne(['id'=>$id]);
+        
+    return $tipo_encuesta->nombre_tipo;
+  }
    
  public static function obQuery(){
      return new \yii\db\Query();

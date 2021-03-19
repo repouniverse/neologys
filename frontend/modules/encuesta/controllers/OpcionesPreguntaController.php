@@ -70,7 +70,7 @@ class OpcionesPreguntaController extends Controller
         $model = new EncuestaOpcionesPregunta();
         $model_encuesta = EncuestaEncuestaGeneral::findOne(['id'=>$id_encuesta]);
         $numero_preguntas = $model_encuesta->numero_preguntas;
-        
+        $titulo_encuesta = $model_encuesta->titulo_encuesta;
         $model_preguntas = EncuestaPreguntaEncuesta::find()->andWhere(['id_encuesta'=>$id_encuesta])->all();
         // yii::error('PPPPPP');
         // foreach ($model_preguntas as $pregunta){
@@ -86,7 +86,7 @@ class OpcionesPreguntaController extends Controller
                 # code...
                 $indice = 'array'.($i+1);
                 
-                if($pregunta->pregunta == 'MULTIPLE'){
+                if(h::getTipoPreguntaEncuesta($pregunta->id_tipo_pregunta) == 'MULTIPLE'){
                     
                     foreach ($model->$indice as $index => $array) {
                         # code...
@@ -102,13 +102,14 @@ class OpcionesPreguntaController extends Controller
                     
                 }
             }
-           // return $this->redirect(['view', 'id' => $model->id]);
+           return $this->redirect(['persona-encuesta/index']);
         }
 
         return $this->render('create', [
             'model' => $model,
             'model_preguntas' => $model_preguntas,
             'numero_preguntas'=> $numero_preguntas,
+            'titulo_encuesta' => $titulo_encuesta,
 
         ]);
     }
