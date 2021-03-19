@@ -13,7 +13,14 @@ use common\helpers\h;
 <div class="encuesta-opciones-pregunta-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <div style="padding: 80px;">
+    <p class="form-group text-center ">     
+    <h4 class="text-primary text-center" style="text-transform:uppercase;"><?=$titulo_encuesta?></h4>        
+    </p>
+    <div class="text-center">
+    Cuenta con preguntas tipo multiples, selecciona las opciones de las preguntas multiples.
+    </div> 
+    <hr style="border-top: 1px solid #EAEAEA;">  
+    <div style="padding-left: 10%;padding-right: 10%">
     
     <?php
      
@@ -27,17 +34,12 @@ use common\helpers\h;
             
             if( h::getTipoPreguntaEncuesta($pregunta->id_tipo_pregunta) == 'MULTIPLE'){
             ?>
-                <?php 
-                
+                <?php
                 echo '<strong class="d-inline">PREGUNTA '.($index+1).': </strong><strong class="d-inline text-success text-center">'.$pregunta->pregunta.'</strong>'
-                ?>
-                
-                <!-- <strong class="d-inline">OPCIONES DE PREGUNTA<?php
-                ($index+1)
-                ?>:</strong> -->
+                ?>                                
                 <?= $form->field($model, 'array'.($index+1))->widget(MultipleInput::className(), [
                     'min' => 1,
-                    'max' => 5,
+                    'max' => 20,
                     'columns' => [
                         [
                             'name'  => 'valor',
@@ -93,8 +95,8 @@ use common\helpers\h;
 
     
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="form-group text-center">
+        <?= Html::submitButton(Yii::t('app', 'Siguiente'), ['class' => 'btn btn-primary']) ?>
         
     </div>
     </div>

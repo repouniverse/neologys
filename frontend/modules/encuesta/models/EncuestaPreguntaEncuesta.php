@@ -39,7 +39,7 @@ class EncuestaPreguntaEncuesta extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['id_encuesta', 'id_tipo_pregunta', 'pregunta','array'], 'required'],
+            [['id_encuesta', 'id_tipo_pregunta', 'pregunta','array','array_id_tipo_pregunta','array_pregunta'], 'required'],
             [['id_encuesta', 'id_tipo_pregunta'], 'integer'],
             [['pregunta'], 'string', 'max' => 30],            
             ['array_pregunta', 'each', 'rule' => ['string']],

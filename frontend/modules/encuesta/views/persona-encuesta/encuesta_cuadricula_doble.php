@@ -52,7 +52,11 @@ $opcs = ['SI' => 'SI', 'NO' => 'NO']
     <div class="form-group  boton-submit-content">
         <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn-send-respuestas']) ?>
     </div>
-<?php } ?>
+<?php }else{ ?>
+    <div class="encuesta-prediseño">
+        <strong>VISUALIZACIÓN PREDETERMINADA  </strong>
+    </div>
+<?php }?>
 <?php ActiveForm::end(); ?>
 
 <style>
@@ -133,5 +137,13 @@ $opcs = ['SI' => 'SI', 'NO' => 'NO']
 
     .btn-send-respuestas:hover {
         background-color: #9C2646;
+    }
+
+    .encuesta-prediseño{
+        color: black;
+        border-radius: 8px;
+        border: 2px dashed black;
+        padding: 10px;
+        margin: 15px 0px 15px 0px;
     }
 </style>

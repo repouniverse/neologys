@@ -16,6 +16,7 @@ use Yii;
  */
 class EncuestaOpcionesPregunta extends \common\models\base\modelBase 
 {   
+
     public $array1 = [];
     public $array2 = [];
     public $array3 = [];
@@ -63,7 +64,8 @@ class EncuestaOpcionesPregunta extends \common\models\base\modelBase
         return [
             [['id_pregunta', 'valor', 'descripcion'], 'required'],
             [['id_pregunta'], 'integer'],            
-            [['array','array2', 
+            [['array1',
+            'array2',
             'array3' ,
             'array4' ,
             'array5' ,
