@@ -13,23 +13,31 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="encuesta-index ">
+    <div>
+        <div class="encuesta-titulo-franja">
 
-    <div class="text-center encuesta-titulo-index">
-        <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="text-center encuesta-titulo-index">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+
     </div>
 
-    <br><br>
 
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
+    <div class="encuesta_grilla">
+
+   
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-
+        'options' => ['style' => 'widht : 25%'],
+        //'tableOptions' => ['class' => 'table table-condensed table-hover table-bordered table-striped','style' => 'widht : 25%'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+
             'titulo_encuesta',
             [
                 'attribute' => 'id_tipo_encuesta',
@@ -38,7 +46,14 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
                     return EncuestaTipoEncuesta::findOne(['id' => $model->id_tipo_encuesta])->nombre_tipo;
                 },
             ],
-            'descripcion',
+            [
+                'attribute' => 'descripcion',
+                'label' => 'Descripción',
+                'contentOptions' =>  ['style' => 'widht : 25%'],
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->descripcion;
+                },
+            ],
 
             [
                 'attribute' => 'id_dep_encargado',
@@ -66,21 +81,42 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
             ],
         ],
     ]); ?>
+     </div>
 
 
 </div>
 
 <style>
-
-    .encuesta-index{
-        background-color: #E9E9E9;
+    .encuesta-index {
+        background-color: #EBDCE1;
+        min-height: 76vh;
         padding: 20px;
     }
-    .encuesta-titulo-index{
-        padding: 5px;
-        margin: 0px 50px 0px 50px;
-        background-color: #FFFFFF;
-        border-radius: 15px;
+
+
+    .encuesta-titulo-franja {
+        height: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        
+        left: -1px;
+        top: -1px;
+        width: calc(100%);
+        background-color: #910128;
     }
 
+    .encuesta-titulo-index {
+        padding: 5px;
+        background-color: #FFFFFF;
+        border-radius: 0px 0px 8px 8px;
+        border: 0.5px solid #BCBABA;
+    }
+
+    .encuesta_grilla{
+        background-color: white;
+        border-radius: 8px;
+        border: 0.5px solid #BCBABA;
+        padding: 20px;
+        margin-top: 10px;
+    }
 </style>

@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "{{%encuesta_persona_encuesta}}".
  *
- * @property int $id
+ * @property int $id 
  * @property int $id_encuesta
  * @property int $id_persona
  * @property string $fecha
@@ -18,6 +18,9 @@ use Yii;
  */
 class EncuestaPersonaEncuesta extends \common\models\base\modelBase 
 {
+
+
+    public $respuestas = [];
     /**
      * {@inheritdoc}
      */
@@ -34,7 +37,8 @@ class EncuestaPersonaEncuesta extends \common\models\base\modelBase
         return [
             [['id_encuesta', 'id_persona', 'fecha'], 'required'],
             [['id_encuesta', 'id_persona'], 'integer'],
-            [['fecha'], 'string', 'max' => 30],
+            //[['fecha'], 'string', 'max' => 30],
+            [['fecha','respuestas'],'safe'],
             [['id_encuesta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaEncuestaGeneral::className(), 'targetAttribute' => ['id_encuesta' => 'id']],
             [['id_persona'], 'exist', 'skipOnError' => true, 'targetClass' => Personas::className(), 'targetAttribute' => ['id_persona' => 'id']],
         ];
@@ -50,6 +54,7 @@ class EncuestaPersonaEncuesta extends \common\models\base\modelBase
             'id_encuesta' => Yii::t('base_labels', 'Id Encuesta'),
             'id_persona' => Yii::t('base_labels', 'Id Persona'),
             'fecha' => Yii::t('base_labels', 'Fecha'),
+            'respuestas' => Yii::t('base_labels', 'Escriba su Respuesta'),
         ];
     }
 
@@ -83,6 +88,19 @@ class EncuestaPersonaEncuesta extends \common\models\base\modelBase
         return $this->hasMany(EncuestaRespuestaEncuesta::className(), ['id_persona_encuesta' => 'id']);
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        //var_dump("asdasd");die();
+        if ($insert) {
+            
+            $this->arrayRespuestasEncuesta();
+        } else{
+            
+            
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
     /**
      * {@inheritdoc}
      * @return EncuestaPersonaEncuestaQuery the active query used by this AR class.
@@ -90,5 +108,19 @@ class EncuestaPersonaEncuesta extends \common\models\base\modelBase
     public static function find()
     {
         return new EncuestaPersonaEncuestaQuery(get_called_class());
+    }
+
+    private function arrayRespuestasEncuesta(){
+        //var_dump($this->respuestas);die();
+        foreach ($this->respuestas as $key => $value) {
+            
+            
+           $respuesta = new EncuestaRespuestaEncuesta([
+                'id_pregunta' => $key,
+                'id_persona_encuesta' => $this->id,
+                'respuesta' => $value
+            ]);
+            $respuesta->save();  
+        }
     }
 }
