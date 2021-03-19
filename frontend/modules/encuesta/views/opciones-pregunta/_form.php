@@ -24,15 +24,12 @@ use unclead\multipleinput\MultipleInput;
             <?php 
             
             if($pregunta->id_tipo_pregunta ==3){
+                echo $pregunta->id_tipo_pregunta;
+                echo $index+1;
             ?>
-                <?php 
-                
+                <?php
                 echo '<strong class="d-inline">PREGUNTA '.($index+1).': </strong><strong class="d-inline text-success text-center">'.$pregunta->pregunta.'</strong>'
-                ?>
-                
-                <!-- <strong class="d-inline">OPCIONES DE PREGUNTA<?php
-                ($index+1)
-                ?>:</strong> -->
+                ?>                                
                 <?= $form->field($model, 'array'.($index+1))->widget(MultipleInput::className(), [
                     'min' => 1,
                     'max' => 5,
