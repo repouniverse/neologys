@@ -23,6 +23,8 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\masters\GrupoPersonas;
 use mdm\admin\models\searchs\User as UserSearch;
+use mdm\admin\models\BizRule;
+use mdm\admin\models\searchs\BizRule as BizRuleSearch;
 
 /**
  * Site controller
@@ -66,6 +68,17 @@ class SiteController extends  baseController
      *
      * @return mixed
      */
+    
+    public function actionAsigroles(){
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new BizRuleSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        }
+    }
     public function actionIndex()
     {
         if(Yii::$app->user->isGuest)

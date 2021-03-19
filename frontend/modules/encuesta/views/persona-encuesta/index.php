@@ -30,63 +30,76 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
     ?>
     <div class="encuesta_grilla">
 
-   
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'options' => ['style' => 'widht : 25%'],
-        //'tableOptions' => ['class' => 'table table-condensed table-hover table-bordered table-striped','style' => 'widht : 25%'],
-        'columns' => [
 
-            'titulo_encuesta',
-            [
-                'attribute' => 'id_tipo_encuesta',
-                'label' => 'Tipo de encuesta',
-                'value' => function ($model, $key, $index, $column) {
-                    return EncuestaTipoEncuesta::findOne(['id' => $model->id_tipo_encuesta])->nombre_tipo;
-                },
-            ],
-            [
-                'attribute' => 'descripcion',
-                'label' => 'Descripción',
-                'contentOptions' =>  ['style' => 'widht : 25%'],
-                'value' => function ($model, $key, $index, $column) {
-                    return $model->descripcion;
-                },
-            ],
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'options' => ['style' => ''],
+            //'tableOptions' => ['class' => 'table table-condensed table-hover table-bordered table-striped','style' => 'widht : 25%'],
+            'columns' => [
 
-            [
-                'attribute' => 'id_dep_encargado',
-                'label' => 'Departamento encargado',
-                'value' => function ($model, $key, $index, $column) {
-                    return Departamentos::findOne(['id' => $model->id_dep_encargado])->nombredepa;
-                },
-            ],
+                'titulo_encuesta',
+                [
 
-            'numero_preguntas',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{realizar}',
-                'buttons' => [
-                    'realizar' => function ($url, $model) {
-                        $url = Url::to(['encuesta', 'id' => $model->id]);
-                        $options = [
-                            'title' => yii::t('base_verbs', 'Realizar'), 'data-pjax' => '0'
-                        ];
-                        return Html::a('<span class="btn btn-success btn-md glyphicon glyphicon-log-in"></span>', $url, $options/*$options*/);
+                    'attribute' => 'id_tipo_encuesta',
+                    'label' => 'Tipo de encuesta',
+                    'value' => function ($model, $key, $index, $column) {
+                        return EncuestaTipoEncuesta::findOne(['id' => $model->id_tipo_encuesta])->nombre_tipo;
                     },
 
-                ]
+                ],
+                [
+                    'attribute' => 'descripcion',
+                    'label' => 'Descripción',
+
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->descripcion;
+                    },
+                ],
+
+                [
+                    'attribute' => 'id_dep_encargado',
+                    'label' => 'Departamento encargado',
+                    'value' => function ($model, $key, $index, $column) {
+                        return Departamentos::findOne(['id' => $model->id_dep_encargado])->nombredepa;
+                    },
+                ],
+
+                'numero_preguntas',
+
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{realizar}',
+                    'buttons' => [
+                        'realizar' => function ($url, $model) {
+                            $url = Url::to(['encuesta', 'id' => $model->id]);
+                            $options = [
+                                'title' => yii::t('base_verbs', 'Realizar'), 'data-pjax' => '0'
+                            ];
+                            return Html::a('<span class="btn btn-success btn-md glyphicon glyphicon-log-in"></span>', $url, $options/*$options*/);
+                        },
+
+                    ]
+                ],
             ],
-        ],
-    ]); ?>
-     </div>
+        ]); ?>
+    </div>
 
 
 </div>
 
 <style>
+    a {
+        color: #910128;
+    }
+    a:hover,
+    a:active,
+    a:focus {
+        outline: none;
+        text-decoration: none;
+        color: #910128;
+    }
+
     .encuesta-index {
         background-color: #EBDCE1;
         min-height: 76vh;
@@ -98,7 +111,7 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
         height: 10px;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        
+
         left: -1px;
         top: -1px;
         width: calc(100%);
@@ -112,7 +125,7 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
         border: 0.5px solid #BCBABA;
     }
 
-    .encuesta_grilla{
+    .encuesta_grilla {
         background-color: white;
         border-radius: 8px;
         border: 0.5px solid #BCBABA;

@@ -11,42 +11,52 @@ use frontend\modules\encuesta\models\EncuestaTipoEncuesta;
 use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 use frontend\modules\encuesta\models\EncuestaOpcionesPregunta;
 use common\helpers\h;
-$opcs = ['SI' => 'SI' , 'NO' => 'NO']
+
+$opcs = ['SI' => 'SI', 'NO' => 'NO']
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
 <div class="encuesta-pregunta-formulario">
     <div class="grid">
-        <div class="grit-item1"> <p>Item</p> </div>
-        <div class="grit-item1"> <p>Respuesta</p></div>
+        <div class="grit-item1">
+            <p>Item</p>
+        </div>
+        <div class="grit-item1">
+            <p>Respuesta</p>
+        </div>
 
 
-        <?php 
-         $numPregunta = 1;
-        foreach($listaPreguntas as $pregunta){
-            ?>
-            <div class="grit-items"><?= ' '.$numPregunta.'. '. $pregunta->pregunta?></div>
+        <?php
+        $numPregunta = 1;
+        foreach ($listaPreguntas as $pregunta) {
+        ?>
+            <div class="grit-items"><?= ' ' . $numPregunta . '. ' . $pregunta->pregunta ?></div>
             <div class="grit-items-respuesta"><?=
-            $form->field($model, 'respuestas[' . $pregunta->id . ']')->dropDownList(
-                $opcs,
-                ['prompt' => '--' . yii::t('base_verbs', 'Valor') . "--",
-                 'class' => 'opc-combo']
-            )->label(false)
-            ?></div>
-        <?php    
-        $numPregunta = $numPregunta+1;
-        }   
+                                                $form->field($model, 'respuestas[' . $pregunta->id . ']')->dropDownList(
+                                                    $opcs,
+                                                    [
+                                                        'prompt' => '--' . yii::t('base_verbs', 'Valor') . "--",
+                                                        'class' => 'opc-combo'
+                                                    ]
+                                                )->label(false)
+                                                ?></div>
+        <?php
+            $numPregunta = $numPregunta + 1;
+        }
         ?>
     </div>
 </div>
 
 
-<?php
-
-?>
-<div class="form-group  boton-submit-content">
-    <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn-send-respuestas']) ?>
-</div>
+<?php if (!$is_encuestador) { ?>
+    <div class="form-group  boton-submit-content">
+        <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn-send-respuestas']) ?>
+    </div>
+<?php }else{ ?>
+    <div class="encuesta-prediseño">
+        <strong>VISUALIZACIÓN PREDETERMINADA  </strong>
+    </div>
+<?php }?>
 <?php ActiveForm::end(); ?>
 
 <style>
@@ -106,8 +116,8 @@ $opcs = ['SI' => 'SI' , 'NO' => 'NO']
         background-color: #FBEDF0;
     }
 
-    .opc-combo{
-        color: black; 
+    .opc-combo {
+        color: black;
         font-size: 15px;
         border-radius: 8px;
         height: 30px;
@@ -127,5 +137,13 @@ $opcs = ['SI' => 'SI' , 'NO' => 'NO']
 
     .btn-send-respuestas:hover {
         background-color: #9C2646;
+    }
+
+    .encuesta-prediseño{
+        color: black;
+        border-radius: 8px;
+        border: 2px dashed black;
+        padding: 10px;
+        margin: 15px 0px 15px 0px;
     }
 </style>

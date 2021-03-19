@@ -67,7 +67,8 @@ class EncuestaGeneralController extends Controller
         $model = new EncuestaEncuestaGeneral();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+           
+            return $this->redirect(['pregunta-encuesta/create', 'id_encuesta' => $model->id]);
         }
 
         return $this->render('create', [
