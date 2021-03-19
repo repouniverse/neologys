@@ -218,6 +218,22 @@ public function actionModalAsesorcurso($id){
             
         }
     }
+
+    public function actionAjaxDeletePdf($id){
+        $pdf = \nemmo\attachments\models\File::findOne(['id'=>$id]);
+        if(h::request()->isAjax){  
+            h::response()->format = \yii\web\Response::FORMAT_JSON;
+            //$unidad->load(h::request()->post());
+            if( is_null($pdf)){
+                return ['success'=>yii::t('base_labels','No se encontro.')];
+                //$unidad->delete();
+            }else{
+                $pdf->delete(); 
+            }
+            return ['success'=>yii::t('base_labels','Se eliminó el archivo correctamente.')];
+        }
+        
+    }
     
     
     public function actionAjaxAsignaAsesor($id){
