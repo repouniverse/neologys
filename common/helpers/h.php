@@ -15,6 +15,8 @@ use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
 use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
+use mdm\admin\models\BizRule;
+use mdm\admin\models\searchs\BizRule as BizRuleSearch;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -394,6 +396,7 @@ public static function nombreEstado($codigoEstado){
     return self::gsetting('tramdoc','estado-tramite'.$codigoEstado);
 }
 
+
 /**ENCUESTAS  */
 
 public static function getArrayPreguntas($id_encuesta){
@@ -407,6 +410,8 @@ public static function getArrayPreguntas($id_encuesta){
 
   
 }
+
+
 
 
 

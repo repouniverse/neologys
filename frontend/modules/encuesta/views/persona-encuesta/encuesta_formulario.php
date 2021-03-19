@@ -61,9 +61,11 @@ if (!is_null($listaPreguntas)) {
     }
 }
 ?>
-<div class="form-group  boton-submit-content">
-    <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn-send-respuestas']) ?>
-</div>
+<?php if (!$is_encuestador) { ?>
+    <div class="form-group  boton-submit-content">
+        <?= Html::submitButton(Yii::t('base_verbs', 'Send'), ['class' => 'btn-send-respuestas']) ?>
+    </div>
+<?php } ?>
 <?php ActiveForm::end(); ?>
 
 <style>
@@ -117,7 +119,7 @@ if (!is_null($listaPreguntas)) {
         min-width: 1px;
     }
 
-    .input-respuesta{
+    .input-respuesta {
         font-family: Roboto, Arial, sans-serif;
         width: 100%;
         font-size: 17px;
@@ -129,14 +131,15 @@ if (!is_null($listaPreguntas)) {
         border-bottom: 1px solid #202124;
     }
 
-    .input-respuesta:hover{
+    .input-respuesta:hover {
         border: none;
-        border-bottom: 1px solid  #910128;
+        border-bottom: 1px solid #910128;
     }
-    .input-respuesta:focus{
+
+    .input-respuesta:focus {
         outline: none;
         border: none;
-        border-bottom: 1px solid  #910128;
+        border-bottom: 1px solid #910128;
     }
 
 
@@ -151,8 +154,8 @@ if (!is_null($listaPreguntas)) {
         color: white;
         border: none;
     }
-    .btn-send-respuestas:hover{
+
+    .btn-send-respuestas:hover {
         background-color: #9C2646;
     }
-
 </style>

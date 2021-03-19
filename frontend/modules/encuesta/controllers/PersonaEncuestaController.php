@@ -16,6 +16,7 @@ use common\helpers\h;
 use common\models\User;
 use common\models\masters\GrupoPersonas;
 use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
+use common\models\masters\Trabajadores;
 
 /**
  * PersonaEncuestaController implements the CRUD actions for EncuestaPersonaEncuesta model.
@@ -44,19 +45,22 @@ class PersonaEncuestaController extends Controller
     public function actionIndex()
     {
         $searchModel = new EncuestaEncuestaGeneralSearch();
-
-        /*$sql = 'TU CONSULTA';
-
-        $rawData = Yii::app()->db->createCommand($sql)->queryAll();
-
-        $arrayDataProvider = new CArrayDataProvider($rawData);^*/
-
-
+        
         if (!is_null(($persona = h::user()->profile->persona))) {
             if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
                 //var_dump(  $grupo->codgrupo);die();
+                
+                if($grupo->codgrupo == '100' && !is_null($trabjador = Trabajadores::findOne(['persona_id'=>$persona->id]))){
+                    //id_dep_encargado
+                    $searchModel->id_dep_encargado = $trabjador->depa_id;
+                
+                }else{
+
+                
                 $searchModel->id_tipo_usuario = $grupo->codgrupo;
                 $searchModel->id_persona = h::user()->profile->persona->id;
+                }
+
             }
         }
 
@@ -67,6 +71,7 @@ class PersonaEncuestaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
 
@@ -123,6 +128,18 @@ class PersonaEncuestaController extends Controller
 
     public function actionEncuesta($id){
         //$model = $this->findModel($id);
+        $is_encuestador = false;
+
+        if (!is_null(($persona = h::user()->profile->persona))) {
+            if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
+                //var_dump(  $grupo->codgrupo);die();
+                if($grupo->codgrupo == '100' && !is_null($trabjador = Trabajadores::findOne(['persona_id'=>$persona->id]))){
+                    $is_encuestador = true;
+                }
+            }
+        }
+
+
         $encuestado_encuesta = EncuestaPersonaEncuesta::findOne(['id_encuesta'=>$id,'id_persona'=>h::user()->profile->persona->id]);
         if(!is_null($encuestado_encuesta )){
             return $this->render('layout', [
@@ -153,7 +170,8 @@ class PersonaEncuestaController extends Controller
             return $this->render('encuesta', [
                 'encuesta' => $encuesta,
                 'listaPreguntas' => $listaPreguntas,
-                'model' =>  $model
+                'model' =>  $model,
+                'is_encuestador' =>  $is_encuestador
              ]);
         }
 

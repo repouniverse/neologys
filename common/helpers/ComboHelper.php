@@ -72,7 +72,14 @@ class ComboHelper  {
                 all(),
             'coddepa','departamento');
       }
-        
+      public static function getDepartamentos(){
+        //$iduser=is_null($iduser)?static::userId():$iduser;        
+       return ArrayHelper::map(
+                       \common\models\masters\Departamentos::find()->
+               all(),
+           'id','nombredepa');
+     }
+       
        public static function getCboProvincias($depa){
          //$iduser=is_null($iduser)?static::userId():$iduser;        
         return ArrayHelper::map(
@@ -679,7 +686,17 @@ class ComboHelper  {
                         \common\models\masters\GrupoPersonas::find()->select(['codgrupo','desgrupo'])->all(),
                'codgrupo','desgrupo');
     } 
-    
+    //FUNCION PARA JALAR LOS TIPO DE ENCUESTA
+    public static function getTipoEncuesta(){
+      $query= \frontend\modules\encuesta\models\EncuestaTipoEncuesta::find();
+      
+        return ArrayHelper::map(
+                       $query->all(),
+                'id','nombre_tipo');
+    } 
+
+  
+
   public static function getCboAwesome(){
       return [
          'glass'=>'glass',

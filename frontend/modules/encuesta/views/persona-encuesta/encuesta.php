@@ -41,7 +41,7 @@ $this->title = Yii::t('app',  $encuesta->titulo_encuesta);
 
         echo $this->render(
             h::getTipoEncuesta(EncuestaTipoEncuesta::findOne(['id' => $encuesta->id_tipo_encuesta])->nombre_tipo),
-            ['id_encuesta' => $encuesta->id, 'listaPreguntas' => $listaPreguntas,  'model' => $model]
+            ['id_encuesta' => $encuesta->id, 'listaPreguntas' => $listaPreguntas,  'model' => $model, 'is_encuestador' =>  $is_encuestador]
         );
         ?>
 
