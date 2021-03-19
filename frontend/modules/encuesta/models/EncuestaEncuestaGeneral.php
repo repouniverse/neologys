@@ -123,4 +123,6 @@ class EncuestaEncuestaGeneral extends \common\models\base\modelBase
     {
         return new EncuestaEncuestaGeneralQuery(get_called_class());
     }
+
+    
 }

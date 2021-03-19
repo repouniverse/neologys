@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use unclead\multipleinput\MultipleInput;
+use common\helpers\h;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\encuesta\models\EncuestaOpcionesPregunta */
@@ -13,6 +14,7 @@ use unclead\multipleinput\MultipleInput;
 
     <?php $form = ActiveForm::begin(); ?>
     <div style="padding: 80px;">
+    
     <?php
      
     foreach ($model_preguntas as $index => $pregunta) {
@@ -23,9 +25,7 @@ use unclead\multipleinput\MultipleInput;
             
             <?php 
             
-            if($pregunta->id_tipo_pregunta ==3){
-                echo $pregunta->id_tipo_pregunta;
-                echo $index+1;
+            if( h::getTipoPreguntaEncuesta($pregunta->id_tipo_pregunta) == 'MULTIPLE'){
             ?>
                 <?php
                 echo '<strong class="d-inline">PREGUNTA '.($index+1).': </strong><strong class="d-inline text-success text-center">'.$pregunta->pregunta.'</strong>'
@@ -62,7 +62,7 @@ use unclead\multipleinput\MultipleInput;
             ?>
 
             <!-- <?php 
-            if($pregunta->id_tipo_pregunta ==4){
+            if(h::getTipoPreguntaEncuesta($pregunta->id_tipo_pregunta) == 'LIBRE' ){
             ?>
             
             

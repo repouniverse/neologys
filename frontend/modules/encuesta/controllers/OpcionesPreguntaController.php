@@ -84,10 +84,9 @@ class OpcionesPreguntaController extends Controller
             
             foreach ($model_preguntas as $i => $pregunta) {
                 # code...
+                $indice = 'array'.($i+1);
                 
-                
-                if($pregunta->id_tipo_pregunta==3){
-                    $indice = 'array'.($i+1);
+                if($pregunta->pregunta == 'MULTIPLE'){
                     
                     foreach ($model->$indice as $index => $array) {
                         # code...

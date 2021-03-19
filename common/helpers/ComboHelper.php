@@ -102,17 +102,17 @@ class ComboHelper  {
     //$iduser=is_null($iduser)?static::userId():$iduser;
     if($id_tipo_encuesta == 1){
       return ArrayHelper::map(
-        EncuestaTipoPregunta::find()->where(['id'=>[1,2]])->all()
+        EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['SI / NO','V / F']])->all()
       ,
       'id','nombre_tipo');
     }if($id_tipo_encuesta == 2){
       return ArrayHelper::map(
-        EncuestaTipoPregunta::find()->where(['id'=>'3'])->all()
+        EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['MULTIPLE']])->all()
       ,
       'id','nombre_tipo');
     }if($id_tipo_encuesta == 3){
       return ArrayHelper::map(
-        EncuestaTipoPregunta::find()->where(['id'=>[3,4]])->all()
+        EncuestaTipoPregunta::find()->where(['nombre_tipo'=>['MULTIPLE','LIBRE']])->all()
       ,
       'id','nombre_tipo');
     }
