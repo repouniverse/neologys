@@ -63,42 +63,63 @@ class MessageMail extends Message
        return $model::find()->where($this->criteriaExists())->exists();
   }  
     
-   public function resolveMessage(){
-     //$route='/'.yii::$app->controller->action->getUniqueId();
-       //var_dump(!$this->ExistsMessageForThisRoute());die();
-     $model=$this->classModel;
-     //$this->ReplaceParams();
-     if(!$this->ExistsMessageForThisRoute()){
-         $attributes=array_merge($this->criteriaExists(),[
-             'titulo'=>$this->convertParams($this->getSubject()),
-             'correoremitente'=>(is_string($this->getFrom()))?$this->getFrom():array_keys($this->getFrom())[0],
-             'remitente'=>(is_string($this->getFrom()))?null: array_values($this->getFrom())[0],
-              'copiato'=>$this->convertParams($this->getCc()),
-             'idioma'=>yii::$app->language,
-             'activo'=>true,
-             'parametros'=>array_keys($this->paramTextBody),
-             'reply'=>$this->convertParams($this->getReplyTo()),
-             'cuerpo'=>$this->getSwiftMessage()->getBody(),            
-                    ]);
-         
-         yii::error($attributes);
-        return $model::firstOrCreateStatic($attributes,
-             null,
-             $this->criteriaExists());
-         
-     }else{
-          $current_message=$model::find()->andWhere($this->criteriaExists())->one(); 
-       IF($current_message->activo){
-          $this->paramTextBody=$this->buildArray($current_message->parametros);
+    public function resolveMessage() {
+        //$route='/'.yii::$app->controller->action->getUniqueId();
+        //var_dump(!$this->ExistsMessageForThisRoute());die();
+        $model = $this->classModel;
+        //$this->ReplaceParams();
+        if (!$this->ExistsMessageForThisRoute()) {
+            $attributes = array_merge($this->criteriaExists(), [
+                'titulo' => $this->convertParams($this->getSubject()),
+                'correoremitente' => (is_string($this->getFrom())) ? $this->getFrom() : array_keys($this->getFrom())[0],
+                'remitente' => (is_string($this->getFrom())) ? null : array_values($this->getFrom())[0],
+                'copiato' => $this->convertParams($this->getCc()),
+                'idioma' => yii::$app->language,
+                'activo' => true,
+                'parametros' => array_keys($this->paramTextBody),
+                'reply' => $this->convertParams($this->getReplyTo()),
+                'cuerpo' => $this->getSwiftMessage()->getBody(),
+            ]);
+
+            yii::error($attributes);
+            return $model::firstOrCreateStatic($attributes,
+                null,
+                $this->criteriaExists());
+
+        } else {
+            ///echo '<pre>';
+            //var_dump($this->paramTextBody);
+            //echo '</pre>';
+            //die();
+            $current_message = $model::find()->andWhere($this->criteriaExists())->one();
+            if ($current_message->activo) {
+                $contenido = $current_message->cuerpo;
+                /*$this->paramTextBody = [
+                    '{{param1}}' => 'CARLOS',
+                    '{{param2}}' => 'APRO. EXPEDIENTE',
+                ];*/
+                ///$contenido = $current_message->replaceParams($contenido);
+                //$body = $contenido;
+                $this->paramTextBody = $this->buildArray($current_message->parametros);
+
+                //                echo '<pre>';
+                //                var_dump($this->buildArray($current_message->parametros));
+                //                echo '</pre>';
+                //                die();
+
+                $contenido = $this->replaceParams($contenido);
+                //var_dump($contenido);
+                //die();
                 $this->setSubject($current_message->titulo)
-             ->setFrom([$current_message->correoremitente=>$current_message->remitente])
-             ->setCc($current_message->copiato)
-              ->setReplyTo($current_message->reply)
-              ->setHtmlBody($current_message->cuerpo);
-            }      
-      }
-       return true;
-   }
+                    ->setFrom([$current_message->correoremitente => $current_message->remitente])
+                    ->setCc($current_message->copiato)
+                    ->setReplyTo($current_message->reply)
+                    ->setHtmlBody($contenido);
+            }
+        }
+
+        return true;
+    }
    
    /*ESTA FUNCION se encarga de conciliar los 
     * parametros encontrados en tablas con los parametros 
