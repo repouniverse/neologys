@@ -11,6 +11,7 @@ use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
  */
 class EncuestaEncuestaGeneralSearch extends EncuestaEncuestaGeneral
 {
+    public $id_persona = 0;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class EncuestaEncuestaGeneralSearch extends EncuestaEncuestaGeneral
     {
         return [
             [['id', 'id_tipo_encuesta', 'id_dep_encargado'], 'integer'],
-            [['titulo_encuesta', 'id_tipo_usuario', 'descripcion', 'numero_preguntas'], 'safe'],
+            [['titulo_encuesta', 'id_tipo_usuario', 'descripcion', 'numero_preguntas','id_persona'], 'safe'],
         ];
     }
 
@@ -55,6 +56,8 @@ class EncuestaEncuestaGeneralSearch extends EncuestaEncuestaGeneral
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $subquery =  (new \yii\db\Query())->select('id_encuesta')->from('encuesta_persona_encuesta')->where(['id_persona' => $this->id_persona]);
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -66,7 +69,8 @@ class EncuestaEncuestaGeneralSearch extends EncuestaEncuestaGeneral
         $query->andFilterWhere(['like', 'titulo_encuesta', $this->titulo_encuesta])
             ->andFilterWhere(['like', 'id_tipo_usuario', $this->id_tipo_usuario])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'numero_preguntas', $this->numero_preguntas]);
+            ->andFilterWhere(['like', 'numero_preguntas', $this->numero_preguntas])
+            ->andFilterWhere(['not in', 'id', $subquery ]);
 
         return $dataProvider;
     }

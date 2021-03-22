@@ -2,12 +2,21 @@
 
 namespace frontend\modules\encuesta\controllers;
 
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
 use Yii;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuesta;
+use frontend\modules\encuesta\models\EncuestaOpcionesPregunta;
 use frontend\modules\encuesta\models\EncuestaPersonaEncuestaSearch;
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneralSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \common\models\base\modelBase;
+use common\helpers\h;
+use common\models\User;
+use common\models\masters\GrupoPersonas;
+use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
+use common\models\masters\Trabajadores;
 
 /**
  * PersonaEncuestaController implements the CRUD actions for EncuestaPersonaEncuesta model.
@@ -35,12 +44,34 @@ class PersonaEncuestaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new EncuestaPersonaEncuestaSearch();
+        $searchModel = new EncuestaEncuestaGeneralSearch();
+        
+        if (!is_null(($persona = h::user()->profile->persona))) {
+            if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
+                //var_dump(  $grupo->codgrupo);die();
+                
+                if($grupo->codgrupo == '100' && !is_null($trabjador = Trabajadores::findOne(['persona_id'=>$persona->id]))){
+                    //id_dep_encargado
+                    $searchModel->id_dep_encargado = $trabjador->depa_id;
+                
+                }else{
+
+                
+                $searchModel->id_tipo_usuario = $grupo->codgrupo;
+                $searchModel->id_persona = h::user()->profile->persona->id;
+                }
+
+            }
+        }
+
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
 
@@ -93,6 +124,57 @@ class PersonaEncuestaController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionEncuesta($id){
+        //$model = $this->findModel($id);
+        $is_encuestador = false;
+
+        if (!is_null(($persona = h::user()->profile->persona))) {
+            if (!is_null($grupo = GrupoPersonas::findOne($persona->codgrupo))) {
+                //var_dump(  $grupo->codgrupo);die();
+                if($grupo->codgrupo == '100' && !is_null($trabjador = Trabajadores::findOne(['persona_id'=>$persona->id]))){
+                    $is_encuestador = true;
+                }
+            }
+        }
+
+
+        $encuestado_encuesta = EncuestaPersonaEncuesta::findOne(['id_encuesta'=>$id,'id_persona'=>h::user()->profile->persona->id]);
+        if(!is_null($encuestado_encuesta )){
+            return $this->render('layout', [
+                'mensaje' => $mensaje = "USTED YA DESARROLLÓ ESTA ENCUESTA."
+             ]);
+        }
+        $encuesta= EncuestaEncuestaGeneral::findOne(['id'=>$id]);
+        $listaPreguntas = EncuestaPreguntaEncuesta::findAll(['id_encuesta'=>$encuesta->id]);
+        if(sizeof($listaPreguntas)==0){
+            return $this->render('layout', [
+                'mensaje' => $mensaje = "ESTA ENCUESTA SE ENCUESTRA EN DESARROLLO."
+             ]);
+        }
+        $model = new EncuestaPersonaEncuesta();
+        
+        $model->setAttributes([
+            'id_encuesta' => $id,
+            'id_persona' =>  h::user()->profile->persona->id,
+            'fecha' => modelBase::CarbonNow()->format(\common\helpers\timeHelper::formatMysqlDateTime()),
+        ]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            
+            return $this->redirect(['index']);
+        }else{
+            
+            
+            return $this->render('encuesta', [
+                'encuesta' => $encuesta,
+                'listaPreguntas' => $listaPreguntas,
+                'model' =>  $model,
+                'is_encuestador' =>  $is_encuestador
+             ]);
+        }
+
     }
 
     /**

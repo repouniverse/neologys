@@ -18,7 +18,13 @@ use Yii;
  * @property EncuestaRespuestaEncuesta[] $encuestaRespuestaEncuestas
  */
 class EncuestaPreguntaEncuesta extends \common\models\base\modelBase 
-{
+{   
+    /* */
+    public $array_id_tipo_pregunta = [];
+    public $array_pregunta = [];
+    public $array = null;
+
+
     /**
      * {@inheritdoc}
      */
@@ -33,9 +39,11 @@ class EncuestaPreguntaEncuesta extends \common\models\base\modelBase
     public function rules()
     {
         return [
-            [['id_encuesta', 'id_tipo_pregunta', 'pregunta'], 'required'],
+            [['id_encuesta', 'id_tipo_pregunta', 'pregunta','array','array_id_tipo_pregunta','array_pregunta'], 'required'],
             [['id_encuesta', 'id_tipo_pregunta'], 'integer'],
-            [['pregunta'], 'string', 'max' => 30],
+            [['pregunta'], 'string', 'max' => 30],            
+            ['array_pregunta', 'each', 'rule' => ['string']],
+            ['array_id_tipo_pregunta', 'each', 'rule' => ['integer']],
             [['id_tipo_pregunta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaTipoPregunta::className(), 'targetAttribute' => ['id_tipo_pregunta' => 'id']],
             [['id_encuesta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaEncuestaGeneral::className(), 'targetAttribute' => ['id_encuesta' => 'id']],
         ];
@@ -50,7 +58,9 @@ class EncuestaPreguntaEncuesta extends \common\models\base\modelBase
             'id' => Yii::t('base_labels', 'ID'),
             'id_encuesta' => Yii::t('base_labels', 'Id Encuesta'),
             'id_tipo_pregunta' => Yii::t('base_labels', 'Id Tipo Pregunta'),
+            'array_id_tipo_pregunta'=> Yii::t('base_labels', 'Tipo De Pregunta'),
             'pregunta' => Yii::t('base_labels', 'Pregunta'),
+            'array_pregunta'=>Yii::t('base_labels', 'Pregunta'),
         ];
     }
 
@@ -102,4 +112,18 @@ class EncuestaPreguntaEncuesta extends \common\models\base\modelBase
     {
         return new EncuestaPreguntaEncuestaQuery(get_called_class());
     }
+    // public function  ($insert, $changedAttributes)
+    // {
+    //     if ($insert) {
+    //         // var_dump(h::getCoddepaDepartamentosById($this->departamento_id));die();
+    //         var_dump('INSER'.$this->array_pregunta);die();
+    //     } else{
+    //         yii::error("Es una actualización");
+    //         //DESPUES DE GUARDAR LLAMA AL FUNCION DE NOTIFICACIÓN POR CORREO
+    //         var_dump('ELSE'.$this->array_pregunta);die();
+            
+             
+    //     }
+    //     return parent::afterSave($insert, $changedAttributes);
+    // }
 }

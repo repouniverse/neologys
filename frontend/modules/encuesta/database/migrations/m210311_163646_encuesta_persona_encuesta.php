@@ -21,7 +21,7 @@ class m210311_163646_encuesta_persona_encuesta extends baseMigration
                 'id' => $this->primaryKey(),
                 'id_encuesta' => $this->integer(11)->notNull(),
                 'id_persona' => $this->integer(11)->notNull(),
-                'fecha' => $this->String(30)->notNull(),
+                'fecha' =>$this->dateTime(),
 
             ], $this->collateTable());
 

@@ -5,9 +5,11 @@ namespace frontend\modules\encuesta\controllers;
 use Yii;
 use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
 use frontend\modules\encuesta\models\EncuestaPreguntaEncuestaSearch;
+use frontend\modules\encuesta\models\EncuestaEncuestaGeneral;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\helpers\h;
 
 /**
  * PreguntaEncuestaController implements the CRUD actions for EncuestaPreguntaEncuesta model.
@@ -57,21 +59,57 @@ class PreguntaEncuestaController extends Controller
         ]);
     }
 
-    /**
+    /**haassddww  ccvbbbbbbnnnnnnnnnnmmmmmmmmmmmkll
      * Creates a new EncuestaPreguntaEncuesta model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_encuesta)
     {
-        $model = new EncuestaPreguntaEncuesta();
+        $model = new EncuestaPreguntaEncuesta([
+            'id_encuesta' => $id_encuesta,
+            'id_tipo_pregunta'=>1,
+            'pregunta'=>"prueba",
+        ]);
+        $model_encuesta = EncuestaEncuestaGeneral::findOne(['id'=>$id_encuesta]);
+        $numero_preguntas = $model_encuesta->numero_preguntas;
+        $titulo_encuesta = $model_encuesta->titulo_encuesta;
+        $id_tipo_encuesta = $model_encuesta->id_tipo_encuesta;
+        $existe_tipo_pregunta_multiple = false;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())/*$model->load(Yii::$app->request->post()) && $model->save()*/) {            
+             for ($i=0; $i <$numero_preguntas ; $i++) { 
+                 # code...                
+                 $newmodel = new EncuestaPreguntaEncuesta([
+                    'id_encuesta' => $id_encuesta,
+                     'id_tipo_pregunta'=>$model->array_id_tipo_pregunta[$i],
+                     'pregunta'=>$model->array_pregunta[$i],
+                ]);
+                if(h::getTipoPreguntaEncuesta($newmodel->id_tipo_pregunta)=='MULTIPLE' && h::getTipoEncuestaByid($id_tipo_encuesta)=='FORMULARIO'){
+                    $existe_tipo_pregunta_multiple = true;
+                }                 
+
+                 $newmodel->save(false);
+            }
+            
+            if($existe_tipo_pregunta_multiple==true){
+                
+                return $this->redirect(['opciones-pregunta/create','id_encuesta'=>$id_encuesta]);
+            }else{
+                return $this->redirect(['persona-encuesta/index']);
+            }
+                
+            
+            
+            
+            
         }
 
         return $this->render('create', [
             'model' => $model,
+            'numero_preguntas' =>$numero_preguntas,
+            'titulo_encuesta' => $titulo_encuesta,
+            'id_tipo_encuesta'=> $id_tipo_encuesta
         ]);
     }
 

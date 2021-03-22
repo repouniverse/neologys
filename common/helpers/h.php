@@ -13,8 +13,11 @@ use mdm\admin\models\User;
 use common\models\masters\Departamentos;
 use common\models\masters\Carreras;
 use frontend\modules\tramdoc\models\Matriculareact;
+use frontend\modules\encuesta\models\EncuestaTipoPregunta;
+use frontend\modules\encuesta\models\EncuestaPreguntaEncuesta;
 use mdm\admin\models\BizRule;
 use mdm\admin\models\searchs\BizRule as BizRuleSearch;
+use frontend\modules\encuesta\models\EncuestaTipoEncuesta;
 
 class h {
      const SESION_MALETIN = 'maletin';
@@ -232,6 +235,10 @@ class h {
                         \common\models\Userfavoritos::find()->where(['[[user_id]]'=>$iduser])->all(),
                 'url','alias');
     }
+
+    public static function getTipoPreguntaEncuesta($id){
+        return EncuestaTipoPregunta::findOne(['id'=>$id])->nombre_tipo;
+    }
     
     /*Devuelve valores por defecto de cualquier 
      * modelo siempre que se hayan regsitrado estos valores e
@@ -276,8 +283,28 @@ class h {
       return Departamentos::findOne($id)->coddepa;
   }
 
+  public static function getNombreDepartamentoById($id){
+    return Departamentos::findOne($id)->nombredepa;
+  }
+
   public static function getDepartamendoIdByCoddepa($coddepa){
     return Departamentos::findOne(['coddepa'=> $coddepa])->id;
+  }
+
+  public static function getTipoEncuesta($tipo){
+    $tipos = [
+        "CUADRICULA DOBLE" => 'encuesta_cuadricula_doble',
+        'CUADRICULA MULTIPLE' =>  'encuesta_cuadricula_multiple',
+        'FORMULARIO' =>  'encuesta_formulario',
+    ];
+    return $tipos[$tipo];
+  }
+
+  public static function getTipoEncuestaByid($id){
+  
+    $tipo_encuesta = EncuestaTipoEncuesta::findOne(['id'=>$id]);
+        
+    return $tipo_encuesta->nombre_tipo;
   }
    
  public static function obQuery(){
@@ -375,10 +402,17 @@ public static function nombreEstado($codigoEstado){
     return self::gsetting('tramdoc','estado-tramite'.$codigoEstado);
 }
 
-public static function comboRule(){
-    $roles = BizRule::find()->all();
-    return $roles->_item;
+
+/**ENCUESTAS  */
+
+public static function getArrayPreguntas($id_encuesta){
+    return ArrayHelper::map(
+            EncuestaPreguntaEncuesta::find(['id_encuesta' => $id_encuesta])->all(),
+            'id','pregunta');
 }
+
+
+
 
   
 }
