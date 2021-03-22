@@ -41,7 +41,9 @@ class EncuestaEncuestaGeneral extends \common\models\base\modelBase
         return [
             [['titulo_encuesta', 'id_tipo_usuario', 'id_tipo_encuesta', 'descripcion', 'numero_preguntas', 'id_dep_encargado'], 'required'],
             [['id_tipo_encuesta', 'id_dep_encargado'], 'integer'],
-            [['titulo_encuesta', 'descripcion', 'numero_preguntas'], 'string', 'max' => 30],
+            [['titulo_encuesta', 'descripcion'], 'string', 'max' => 350],
+
+            [['numero_preguntas'], 'string', 'max' => 30],
             [['id_tipo_usuario'], 'string', 'max' => 3],
             [['id_tipo_encuesta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaTipoEncuesta::className(), 'targetAttribute' => ['id_tipo_encuesta' => 'id']],
             [['id_dep_encargado'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['id_dep_encargado' => 'id']],

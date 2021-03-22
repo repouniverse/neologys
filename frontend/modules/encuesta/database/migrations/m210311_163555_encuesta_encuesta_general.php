@@ -25,11 +25,7 @@ class m210311_163555_encuesta_encuesta_general extends baseMigration
                 'titulo_encuesta' => $this->String(120)->notNull(),
                 'id_tipo_usuario' => $this->String(3)->notNull(),
                 'id_tipo_encuesta' => $this->integer(11)->notNull(),
-<<<<<<< HEAD
                 'descripcion' => $this->String(400)->notNull(),
-=======
-                'descripcion' => $this->String(200)->notNull(),
->>>>>>> 066132325083732b259b8bb15492721b69cc606d
                 'numero_preguntas' => $this->String(30)->notNull(),
                 'id_dep_encargado' => $this->integer(11)->notNull(),       
 
