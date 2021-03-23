@@ -67,7 +67,7 @@ class EncuestaRespuestaEncuesta extends \common\models\base\modelBase
      *
      * @return \yii\db\ActiveQuery|EncuestaPreguntaEncuestaQuery
      */
-    public function getPregunta()
+    public function getPregunta() 
     {
         return $this->hasOne(EncuestaPreguntaEncuesta::className(), ['id' => 'id_pregunta']);
     }

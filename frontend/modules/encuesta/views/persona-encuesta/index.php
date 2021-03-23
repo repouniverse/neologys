@@ -55,6 +55,8 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
                     'value' => function ($model, $key, $index, $column) {
                         return $model->descripcion;
                     },
+
+                    //'htmlOptions' => array('width' => '225px')
                 ],
 
                 [
