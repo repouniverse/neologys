@@ -94,7 +94,8 @@ class EncuestaOpcionesPregunta extends \common\models\base\modelBase
             'array28',
             'array29',
             'array30'],'each', 'rule' => ['string']],
-            [['valor', 'descripcion'], 'string', 'max' => 30],
+            [['valor'], 'string', 'max' => 100],
+            [['descripcion'], 'string', 'max' => 300],
             [['id_pregunta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaPreguntaEncuesta::className(), 'targetAttribute' => ['id_pregunta' => 'id']],
         ];
     }

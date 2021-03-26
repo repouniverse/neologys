@@ -25,7 +25,7 @@ use yii\helpers\Url;
     ) ?>
   
     <?php $url=Url::to(['/encuesta/tipo-encuesta/create']); ?>
-    <i>Tipo Encuesta personalizada:   </i> <?= Html::a(yii::t('base_verbs', 'Crear Tipo Encuesta'), $url, ['class' => 'btn btn-danger']) ?>
+    
     <?= $form->field($model, 'id_tipo_encuesta')->dropDownList(
         combo::getTipoEncuesta(),
         ['prompt' => '--' . yii::t('base_verbs', 'Choose a value') . "--",]
@@ -38,8 +38,8 @@ use yii\helpers\Url;
  
 
 
-
-    <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true, 'placeholder' =>"Ingrese la descripción de la encuesta"]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 5, 'placeholder' =>'Ingrese la descripción de la encuesta']) ?>
+    
 
     <?= $form->field($model, 'numero_preguntas')->textInput(['maxlength' => true, 'placeholder' =>"Ingrese el numero de preguntas"]) ?>
 
