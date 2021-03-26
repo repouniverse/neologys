@@ -19,8 +19,8 @@ class m210311_163625_encuesta_opciones_pregunta extends baseMigration
             $this->createTable($table, [
                 'id' => $this->primaryKey(),
                 'id_pregunta' => $this->integer(11)->notNull(),
-                'valor' => $this->String(60)->notNull(),
-                'descripcion' => $this->String(120)->notNull(),
+                'valor' => $this->String(100)->notNull(),
+                'descripcion' => $this->String(300)->notNull(),
 
             ], $this->collateTable());
 

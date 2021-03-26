@@ -33,7 +33,7 @@ class EncuestaRespuestaEncuesta extends \common\models\base\modelBase
         return [
             [['id_pregunta', 'id_persona_encuesta', 'respuesta'], 'required'],
             [['id_pregunta', 'id_persona_encuesta'], 'integer'],
-            [['respuesta'], 'string', 'max' => 30],
+            [['respuesta'], 'string', 'max' => 250],
             [['id_persona_encuesta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaPersonaEncuesta::className(), 'targetAttribute' => ['id_persona_encuesta' => 'id']],
             [['id_pregunta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaPreguntaEncuesta::className(), 'targetAttribute' => ['id_pregunta' => 'id']],
         ];
