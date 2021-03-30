@@ -44,26 +44,18 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
                     'attribute' => 'id_tipo_encuesta',
                     'label' => 'Tipo de encuesta',
                     'value' => function ($model, $key, $index, $column) {
-                        return EncuestaTipoEncuesta::findOne(['id' => $model->id_tipo_encuesta])->nombre_tipo;
+
+                        return EncuestaTipoEncuesta::findOne(['id' => $model['id_tipo_encuesta']])->nombre_tipo;
                     },
 
                 ],
-                [
-                    'attribute' => 'descripcion',
-                    'label' => 'Descripción',
-
-                    'value' => function ($model, $key, $index, $column) {
-                        return $model->descripcion;
-                    },
-
-                    //'htmlOptions' => array('width' => '225px')
-                ],
-
+                'descripcion',
+                
                 [
                     'attribute' => 'id_dep_encargado',
                     'label' => 'Departamento encargado',
                     'value' => function ($model, $key, $index, $column) {
-                        return Departamentos::findOne(['id' => $model->id_dep_encargado])->nombredepa;
+                        return Departamentos::findOne(['id' =>$model['id_dep_encargado']])->nombredepa;
                     },
                 ],
 
@@ -74,11 +66,11 @@ $this->title = Yii::t('app', 'Encuestas Disponibles');
                     'template' => '{realizar}',
                     'buttons' => [
                         'realizar' => function ($url, $model) {
-                            $url = Url::to(['encuesta', 'id' => $model->id]);
+                            $url = Url::to(['encuesta', 'id' => $model['id']]);
                             $options = [
                                 'title' => yii::t('base_verbs', 'Realizar'), 'data-pjax' => '0'
                             ];
-                            return Html::a('<span class="btn btn-success btn-md glyphicon glyphicon-log-in"></span>', $url, $options/*$options*/);
+                            return Html::a('<span class="btn btn-success btn-md glyphicon glyphicon-log-in"></span>', $url, $options);
                         },
 
                     ]
