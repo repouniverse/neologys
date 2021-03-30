@@ -19,7 +19,7 @@ class EncuestaEncuestaGeneralSearch extends EncuestaEncuestaGeneral
     {
         return [
             [['id', 'id_tipo_encuesta', 'id_dep_encargado'], 'integer'],
-            [['titulo_encuesta', 'id_tipo_usuario', 'descripcion', 'numero_preguntas','id_persona'], 'safe'],
+            [['titulo_encuesta', 'id_tipo_usuario', 'descripcion', 'numero_preguntas','id_persona','codescuesla','codciclo','codcurso','estado',], 'safe'],
         ];
     }
 

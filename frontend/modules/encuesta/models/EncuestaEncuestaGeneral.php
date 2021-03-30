@@ -16,6 +16,10 @@ use Yii;
  * @property string $descripcion
  * @property string $numero_preguntas
  * @property int $id_dep_encargado
+ * @property string $codescuesla
+ * @property string $codciclo
+ * @property string $codcurso
+ * @property string $estado
  *
  * @property EncuestaTipoEncuesta $tipoEncuesta
  * @property Departamentos $depEncargado
@@ -42,8 +46,7 @@ class EncuestaEncuestaGeneral extends \common\models\base\modelBase
             [['titulo_encuesta', 'id_tipo_usuario', 'id_tipo_encuesta', 'descripcion', 'numero_preguntas', 'id_dep_encargado'], 'required'],
             [['id_tipo_encuesta', 'id_dep_encargado'], 'integer'],
             [['titulo_encuesta', 'descripcion'], 'string', 'max' => 350],
-
-            [['numero_preguntas'], 'string', 'max' => 30],
+            [['numero_preguntas','codescuesla','codciclo','codcurso','estado'], 'string', 'max' => 30],
             [['id_tipo_usuario'], 'string', 'max' => 3],
             [['id_tipo_encuesta'], 'exist', 'skipOnError' => true, 'targetClass' => EncuestaTipoEncuesta::className(), 'targetAttribute' => ['id_tipo_encuesta' => 'id']],
             [['id_dep_encargado'], 'exist', 'skipOnError' => true, 'targetClass' => Departamentos::className(), 'targetAttribute' => ['id_dep_encargado' => 'id']],
@@ -57,6 +60,7 @@ class EncuestaEncuestaGeneral extends \common\models\base\modelBase
     public function attributeLabels()
     {
         return [
+            
             'id' => Yii::t('base_labels', 'ID'),
             'titulo_encuesta' => Yii::t('base_labels', 'Titulo de la encuesta'),
             'id_tipo_usuario' => Yii::t('base_labels', 'Tipo de usuario'),
@@ -64,6 +68,11 @@ class EncuestaEncuestaGeneral extends \common\models\base\modelBase
             'descripcion' => Yii::t('base_labels', 'Descripcion'),
             'numero_preguntas' => Yii::t('base_labels', 'Numero Preguntas'),
             'id_dep_encargado' => Yii::t('base_labels', 'Departamento Encargado'),
+            'codescuesla' => Yii::t('base_labels', 'codescuesla'),
+            'codciclo'=> Yii::t('base_labels', 'codciclo'),
+            'codcurso'=> Yii::t('base_labels', 'codcurso'),
+            'estado'=> Yii::t('base_labels', 'estado'),
+
         ];
     }
 
