@@ -44,19 +44,19 @@ $opcs = ['5' => '5', '4' => '4', '3' => '3', '2' => '2', '1' => '1'];
 
             <div class="grit-items"><?= ' ' . $numPregunta . '. ' . $pregunta->pregunta ?></div>
             <div class="grit-items-respuesta">
-                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '5', 'value' => 'Nunca me paso', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
+                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '5', 'value' => '5', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
             </div>
             <div class="grit-items-respuesta">
-                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '4', 'value' => 'Algunas veces me pasa', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
+                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '4', 'value' => '4', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
             </div>
             <div class="grit-items-respuesta">
-                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '3', 'value' => 'A veces si, a veces no', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
+                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '3', 'value' => '3', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
             </div>
             <div class="grit-items-respuesta">
-                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '2', 'value' => 'Frecuentemente me pasa', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
+                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '2', 'value' => '2', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
             </div>
             <div class="grit-items-respuesta">
-                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '1', 'value' => 'Siempre me pasa', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
+                <?= $form->field($model, 'respuestas[' . $pregunta->id . ']')->radio(['label' => '1', 'value' => '1', 'uncheck' => null, 'class' => "checkradio-pregunta"]) ?>
             </div>
 
 

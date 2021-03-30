@@ -12,7 +12,7 @@ use frontend\modules\encuesta\models\EncuestaTipoPregunta;
 use frontend\modules\encuesta\models\EncuestaOpcionesPregunta;
 use common\helpers\h;
 
-$opcs = ['SI' => 'SI', 'NO' => 'NO']
+$opcs = ['V' => 'V', 'F' => 'F']
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
