@@ -395,7 +395,7 @@ public function actionNewAlumnos(){
         $usuario->setPassword($usuario->username);
         $usuario->save();
         }else{
-            echo "SE TERMINO con 40";
+            echo "SE TERMINO con 70";
             die(); 
         }
         $contador = $contador +1;
