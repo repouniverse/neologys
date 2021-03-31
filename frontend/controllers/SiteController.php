@@ -361,7 +361,7 @@ public function actionNewflujos(){
 }
 
 public function actionNewAlumnos(){
-    set_time_limit(300);
+    set_time_limit(2250);
     $listaAlumnos =  Alumnos::find()
     ->alias('t')
     ->select(['t.id'])->
@@ -389,13 +389,13 @@ public function actionNewAlumnos(){
         //yii::error('bucle',__FUNCTION__);
        /// $persona=$docente->persona;
        //echo $persona->numerodoc;
-       if($contador <=100){
+       if($contador <=1000){
         $persona->createUser($persona->numerodoc,'','r_baseUser');
         $usuario = \common\models\User::findOne(['username'=> $persona->numerodoc]);
         $usuario->setPassword($usuario->username);
         $usuario->save();
         }else{
-            echo "SE TERMINO con 70";
+            yii::error("SE TERMINO CON LOS 1000");
             die(); 
         }
         $contador = $contador +1;
@@ -411,7 +411,7 @@ public function actionNewAlumnos(){
        $usuario->save();
     }*/
 
-    echo "SE TERMINO TODO";
+    yii::error("SE TERMINO CON TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 
 
     
