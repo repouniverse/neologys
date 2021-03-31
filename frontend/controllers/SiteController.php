@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
-    use yii\helpers\Url;
+
+use common\components\User;
+use yii\helpers\Url;
     use yii\web\NotFoundHttpException;
     use yii\helpers\ArrayHelper;
     use common\helpers\StringHelper;
@@ -17,6 +19,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\masters\Alumnos;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -25,6 +28,7 @@ use common\models\masters\GrupoPersonas;
 use mdm\admin\models\searchs\User as UserSearch;
 use mdm\admin\models\BizRule;
 use mdm\admin\models\searchs\BizRule as BizRuleSearch;
+use yii\helpers\VarDumper;
 
 /**
  * Site controller
@@ -356,8 +360,70 @@ public function actionNewflujos(){
     die();
 }
 
+public function actionNewAlumnos(){
+    set_time_limit(180);
+    $listaAlumnos =  Alumnos::find()
+    ->alias('t')
+    ->select(['t.id'])->
+     innerJoin('{{%personas}} p', "p.id=t.persona_id")->
+     innerJoin('{{%profile}} pp',"pp.persona_id=p.id ")->
+     innerJoin('{{%user}} u',"u.id = pp.user_id ");
+
+    $alumno = Alumnos::find()->where(['not in','id',$listaAlumnos])->all();
+
+    $array = [];
+    $contador = 0;
+    foreach($alumno as $a){
+        //if($contador <= 300){
+        array_push($array,$a->numerodoc);
+        //}
+        //$contador = $contador +1;
+    }
+    echo count($array);
+    echo "<br>";
+    //print_r($array);
+    //die();
+    //yii::error('RUTA',__FUNCTION__);
+    $personas= \common\models\masters\Personas::find()->andWhere(['numerodoc'=>$array])->all();
+    foreach($personas as $persona){
+        //yii::error('bucle',__FUNCTION__);
+       /// $persona=$docente->persona;
+       //echo $persona->numerodoc;
+       if($contador <=70){
+        $persona->createUser($persona->numerodoc,'','r_baseUser');
+        $usuario = \common\models\User::findOne(['username'=> $persona->numerodoc]);
+        $usuario->setPassword($usuario->username);
+        $usuario->save();
+        }else{
+            echo "SE TERMINO con 40";
+            die(); 
+        }
+        $contador = $contador +1;
+        yii::error("el contador es: ". $contador);
+        
+    }    
+    //die(); 
+
+    //PARA CREAR LA CONTRASEÑA DE USUARIOS 
+    /*$usuarios= \common\models\User::find()->where(['username'=>$array])->all();
+    foreach($usuarios as $usuario){
+       $usuario->setPassword($usuario->username);
+       $usuario->save();
+    }*/
+
+    echo "SE TERMINO TODO";
+
+
+    
+    
+    
+    //$alumnos = Alumnos::findAll();
+}
+
 
 public function actionRutas(){
+
+
 
 /*    $PERSONA=\common\models\masters\Personas::findOne(6569);
     $carbon= $PERSONA->toCarbon('cumple');*/
