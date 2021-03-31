@@ -389,7 +389,7 @@ public function actionNewAlumnos(){
         //yii::error('bucle',__FUNCTION__);
        /// $persona=$docente->persona;
        //echo $persona->numerodoc;
-       if($contador <=1000){
+       if($contador <=200){
         $persona->createUser($persona->numerodoc,'','r_baseUser');
         $usuario = \common\models\User::findOne(['username'=> $persona->numerodoc]);
         $usuario->setPassword($usuario->username);
