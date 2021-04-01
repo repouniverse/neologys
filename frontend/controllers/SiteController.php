@@ -362,54 +362,19 @@ public function actionNewflujos(){
 
 public function actionNewAlumnos(){
     set_time_limit(2250);
-    $listaAlumnos =  Alumnos::find()
-    ->alias('t')
-    ->select(['t.id'])->
-     innerJoin('{{%personas}} p', "p.id=t.persona_id")->
-     innerJoin('{{%profile}} pp',"pp.persona_id=p.id ")->
-     innerJoin('{{%user}} u',"u.id = pp.user_id ");
-
-    $alumno = Alumnos::find()->where(['not in','id',$listaAlumnos])->all();
-
-    $array = [];
-    $contador = 0;
-    foreach($alumno as $a){
-        //if($contador <= 300){
-        array_push($array,$a->numerodoc);
-        //}
-        //$contador = $contador +1;
-    }
-    echo count($array);
-    echo "<br>";
-    //print_r($array);
-    //die();
-    //yii::error('RUTA',__FUNCTION__);
-    $personas= \common\models\masters\Personas::find()->andWhere(['numerodoc'=>$array])->all();
+    $arrayAlu = ["06807113","72504980","47412767","74982828","70929704","71485820",
+    "75488261","75283692","70450524","76373758","74744037","73012314","07607799",
+    "75322218","76516715","73002782","71231575","73258507","48003255"
+    ];
+    $personas= \common\models\masters\Personas::find()->andWhere(['numerodoc'=>$arrayAlu])->all();
     foreach($personas as $persona){
-        //yii::error('bucle',__FUNCTION__);
-       /// $persona=$docente->persona;
-       //echo $persona->numerodoc;
-       if($contador <=200){
-        $persona->createUser($persona->numerodoc,'','r_baseUser');
+        
         $usuario = \common\models\User::findOne(['username'=> $persona->numerodoc]);
         $usuario->setPassword($usuario->username);
         $usuario->save();
-        }else{
-            yii::error("SE TERMINO CON LOS 1000");
-            die(); 
-        }
-        $contador = $contador +1;
-        yii::error("el contador es: ". $contador);
         
     }    
-    //die(); 
-
-    //PARA CREAR LA CONTRASEÑA DE USUARIOS 
-    /*$usuarios= \common\models\User::find()->where(['username'=>$array])->all();
-    foreach($usuarios as $usuario){
-       $usuario->setPassword($usuario->username);
-       $usuario->save();
-    }*/
+    echo "DSALK JLKDSADA JLKSJLKDSA "; die();
 
     yii::error("SE TERMINO CON TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 
@@ -471,28 +436,9 @@ public function actionRutas(){
 
 
 
-    $arrayAlu = ['72152970',
-    '71463725',
-    '70136149',
-    '72426219',
-    '74906034',
-    '75399937',
-    '76958157',
-    '75478569',
-    '71962220',
-    '72625929',
-    '70266465',
-    '77933464',
-    '71292531',
-    '73485898',
-    '78635201',
-    '74129050',
-    '73887855',
-    '71491826',
-    '71427653',
-    '73084922',
-    '74957726',
-    '70651953'
+    $arrayAlu = ["06807113","72504980","47412767","74982828","70929704","71485820",
+    "75488261","75283692","70450524","76373758","74744037","73012314","07607799",
+    "75322218","76516715","73002782","71231575","73258507","48003255"
     ];
     die(); 
     //PARA CREAR USUARIOS DE PERSONAS
