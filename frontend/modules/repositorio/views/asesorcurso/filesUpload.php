@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="box box-body">
 
     <?= $this->render('_form_cursos', [
-         'modelalumno'=> $modelalumno, 'model'=>$model
+         'modelalumno'=> $modelalumno,// 'model'=>$model
     ]) ?>
 </div>
 </div>

@@ -18,7 +18,7 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
     {
         return [
             // [['nombres','apasesor'], 'string'],
-            [['ap', 'am', 'nombres', 'apasesor', 'amasesor', 'seccion', 'descripcion', 'codalu', 'nombresasesor', 'codesp'], 'safe'],
+            [['ap', 'am', 'nombres', 'apasesor', 'amasesor', 'seccion', 'descripcion', 'codalu', 'nombresasesor', 'codesp', 'periodo'], 'safe'],
         ];
     }
 
@@ -57,14 +57,15 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
         }*/
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'nombres', $this->nombres])->andFilterWhere(['like', 'seccion', $this->seccion])->andFilterWhere(['like', 'descripcion', $this->descripcion])->andFilterWhere(['like', 'codalu', $this->codalu])->andFilterWhere(['like', 'apasesor', $this->apasesor])->andFilterWhere(['like', 'ap', $this->ap])->andFilterWhere(['like', 'am', $this->am])->andFilterWhere(['like', 'amasesor', $this->amasesor])->andFilterWhere(['like', 'nombresasesor', $this->nombresasesor])->andFilterWhere(['like', 'codesp', $this->codesp])
-        ->orderBy([
-            'descripcion' => SORT_ASC,
-            'apasesor' => SORT_ASC,
-            'nombresasesor' => SORT_ASC,
-            'ap' => SORT_ASC,
-            'am' => SORT_ASC,
-            'nombres' => SORT_ASC,
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])->andFilterWhere(['like', 'seccion', $this->seccion])->andFilterWhere(['like', 'descripcion', $this->descripcion])->andFilterWhere(['like', 'codalu', $this->codalu])->andFilterWhere(['like', 'apasesor', $this->apasesor])->andFilterWhere(['like', 'ap', $this->ap])->andFilterWhere(['like', 'am', $this->am])->andFilterWhere(['like', 'amasesor', $this->amasesor])->andFilterWhere(['like', 'nombresasesor', $this->nombresasesor])->andFilterWhere(['like', 'codesp', $this->codesp])->andFilterWhere(['like', 'periodo', $this->periodo])
+            ->orderBy([
+                'descripcion' => SORT_ASC,
+                'apasesor' => SORT_ASC,
+                'nombresasesor' => SORT_ASC,
+                'ap' => SORT_ASC,
+                'am' => SORT_ASC,
+                'nombres' => SORT_ASC,
+                'periodo' => SORT_ASC,
             ])->all();
         \yii::error($query->createCommand()->rawSql);
         // $query->andFilterWhere(['like', 'activo', $this->activo]);

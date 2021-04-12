@@ -12,6 +12,7 @@ class Module extends \yii\base\Module
      * {@inheritdoc}
      */
     const PROCESO_TALLER_TESIS='100';
+    const PERIODO_ACTUAL = '2021-I';
     //const PROCESO_TALLER_TESIS='100';
     public $controllerNamespace = 'frontend\modules\repositorio\controllers';
 

@@ -124,6 +124,7 @@ class RepoVwAsesoresAsignados extends \common\models\base\modelBase
             'orcid' => Yii::t('base_labels', 'Orcid'),
             'nombre' => Yii::t('base_labels', 'Nombre'),
             'codesp' => Yii::t('base_labels', 'Codesp'),
+            'periodo' => Yii::t('base_labels', 'Periodo'),
         ];
     }
 

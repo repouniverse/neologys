@@ -12,9 +12,10 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use common\widgets\linkajaxgridwidget\linkAjaxGridWidget;
 use frontend\modules\repositorio\models\RepoVwAsesoresAsignados;
-$mizona2='pajaxn_ui2';
 
- Pjax::begin(['id'=>$mizona2,'timeout'=>false]); 
+$mizona2 = 'pajaxn_ui2';
+
+Pjax::begin(['id' => $mizona2, 'timeout' => false]);
 /* @var $this yii\web\View */
 /* @var $model common\models\masters\AsesoresCurso */
 /* @var $form yii\widgets\ActiveForm */
@@ -27,12 +28,12 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 <div class="box box-succes">
 
     <div class="box-body">
-    
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow: auto;overflow-y: hidden;">
-                
+
 
 
 
@@ -51,10 +52,11 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         'seccion',
                         'codesp',
                         'codalu',
+                        'periodo',
                         'ap',
                         'am',
                         'nombres',
-                        [
+                         [
                             'format' => 'raw',
                             'value' => function ($model) {
                                 $links = $model->listAttachedFiles();
@@ -75,21 +77,21 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                     ],
                 ]); ?>
             </div>
-            <?php 
-   echo linkAjaxGridWidget::widget([
-           'id'=>'widgetgruidBancos',
-            'idGrilla'=>$mizona2,
-        'otherContainers'=>['pajaxn_ui_segu'],
-            'family'=>'holas2',
-          'type'=>'POST',
-           'evento'=>'click',
-       'posicion'=>\yii\web\View::POS_END
-            //'foreignskeys'=>[1,2,3],
-        ]); 
-   ?>
+            <?php
+            echo linkAjaxGridWidget::widget([
+                'id' => 'widgetgruidBancos',
+                'idGrilla' => $mizona2,
+                'otherContainers' => ['pajaxn_ui_segu'],
+                'family' => 'holas2',
+                'type' => 'POST',
+                'evento' => 'click',
+                'posicion' => \yii\web\View::POS_END
+                //'foreignskeys'=>[1,2,3],
+            ]);
+            ?>
 
 
-    <?php Pjax::end(); ?>
+            <?php Pjax::end(); ?>
 
 
 
