@@ -18,13 +18,15 @@ alumnoAsset::register($this);
         //var_dump($identidad->id,$identidad->currentConvocatoria());die();
         $convocatoria = $identidad->currentConvocatoria();
         $esPostulanteInternacional = (is_null($convocatoria)) ? false : true;
-        var_dump($esPostulanteInternacional);die();
+       
+        
         if (!$esPostulanteInternacional) {
         ?>
             <?php echo $this->render('alumno_sin_convocar') ?>
             <?php  ?>
         <?php } else {
             $isAdmitido = $convocatoria->isAdmitido();
+            var_dump($convocatoria->universidad);die();
             $targetUniversidad = $convocatoria->targetUniversity();
             if (is_null($targetUniversidad)) {
                 $univdestino = $convocatoria->universidad;
@@ -55,7 +57,7 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-                    
+
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
