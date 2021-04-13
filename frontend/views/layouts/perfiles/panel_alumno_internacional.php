@@ -30,8 +30,10 @@ alumnoAsset::register($this);
             $targetUniversidad = $convocatoria->targetUniversity();
             if (is_null($targetUniversidad)) {
                 $univdestino = $convocatoria->universidad;
+                var_dump($targetUniversidad);
             } else {
                 $univdestino = $targetUniversidad->univop;
+                var_dump($targetUniversidad);
             }
         ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
