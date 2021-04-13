@@ -28,13 +28,13 @@ alumnoAsset::register($this);
             $isAdmitido = $convocatoria->isAdmitido();
             
             $targetUniversidad = $convocatoria->targetUniversity();
-            //if (!is_null($targetUniversidad)) {
+            if (is_null($targetUniversidad)) {
                 $univdestino = $convocatoria->universidad;
-                var_dump($targetUniversidad);
-            //} else {
-                //$univdestino = $targetUniversidad->univop;
-                //var_dump($targetUniversidad);
-            //}
+                
+            } else {
+                $univdestino = $targetUniversidad->univop;
+                
+            }
         ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -60,7 +60,7 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-                    var_dump($convocatoria->universidad->codpais);
+                    
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
