@@ -15,9 +15,10 @@ alumnoAsset::register($this);
     <div class="box-body">
 
         <?PHP
-        var_dump($identidad->id,$identidad->currentConvocatoria());die();
+        //var_dump($identidad->id,$identidad->currentConvocatoria());die();
         $convocatoria = $identidad->currentConvocatoria();
         $esPostulanteInternacional = (is_null($convocatoria)) ? false : true;
+        var_dump($esPostulanteInternacional);die();
         if (!$esPostulanteInternacional) {
         ?>
             <?php echo $this->render('alumno_sin_convocar') ?>
