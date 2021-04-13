@@ -54,12 +54,13 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
+                    echo $univdestino->codpais;/*
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
                             'src' => \frontend\modules\inter\helpers\FileHelper::urlFlag($univdestino->codpais, 64),
                         ]
-                    );
+                    );*/
 
                     ?>
                 </div>
