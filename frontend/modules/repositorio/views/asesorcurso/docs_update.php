@@ -47,7 +47,8 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         ->andWhere([
                             'asesores_curso_id' => $model->id,
                             'activo' => '1',
-                            'publico' => '1'
+                            'publico' => '1',
+                            
                         ]),
                 ]),
                 'summary' => '',
@@ -57,6 +58,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
 
 
                     [
+
                         'value' => function ($model) {
                             return $model->documento->desdocu;
                         }

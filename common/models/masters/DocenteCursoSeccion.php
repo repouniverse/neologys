@@ -35,6 +35,7 @@ class DocenteCursoSeccion extends \common\models\base\modelBase
             [['curso_id', 'docente_id'], 'required'],
             [['curso_id', 'docente_id'], 'integer'],
             [['seccion'], 'string', 'max' => 12],
+            [['periodo'], 'string', 'max' => 10],
             [['activo'], 'string', 'max' => 1],
             [['docente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Docentes::className(), 'targetAttribute' => ['docente_id' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cursos::className(), 'targetAttribute' => ['curso_id' => 'id']],
