@@ -38,7 +38,7 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-                    var_dump($convocatoria->universidad->codpais);die();
+                    
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
@@ -58,7 +58,7 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-
+                    var_dump($convocatoria->universidad->codpais);die();
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
