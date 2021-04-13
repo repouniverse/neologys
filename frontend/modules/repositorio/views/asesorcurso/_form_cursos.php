@@ -89,12 +89,7 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                     'codcur',
                     'descripcion',
                     'seccion',
-                    [
-                        'attribute' => 'seccion',
-                    ],
-
-
-
+                    'periodo'
 
                 ],
             ]); ?>
