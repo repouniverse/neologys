@@ -15,7 +15,7 @@ alumnoAsset::register($this);
     <div class="box-body">
 
         <?PHP
-        //var_dump($identidad->id,$identidad->currentConvocatoria());die();
+        var_dump($identidad->id,$identidad->currentConvocatoria());die();
         $convocatoria = $identidad->currentConvocatoria();
         $esPostulanteInternacional = (is_null($convocatoria)) ? false : true;
         if (!$esPostulanteInternacional) {
@@ -54,13 +54,13 @@ alumnoAsset::register($this);
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-                    var_dump( $convocatoria->universidad);/*
+                    
                     echo \common\widgets\imagerenderwidget\imageRenderWidget::widget(
                         [
 
                             'src' => \frontend\modules\inter\helpers\FileHelper::urlFlag($univdestino->codpais, 64),
                         ]
-                    );*/
+                    );
 
                     ?>
                 </div>
