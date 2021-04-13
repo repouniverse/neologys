@@ -26,7 +26,7 @@ alumnoAsset::register($this);
             <?php  ?>
         <?php } else {
             $isAdmitido = $convocatoria->isAdmitido();
-            var_dump($convocatoria->universidad);die();
+            var_dump($convocatoria->universidad->codpais);die();
             $targetUniversidad = $convocatoria->targetUniversity();
             if (is_null($targetUniversidad)) {
                 $univdestino = $convocatoria->universidad;
