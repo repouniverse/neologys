@@ -330,8 +330,9 @@ class AsesorcursoController extends \common\controllers\base\baseController
                     'tieneAsesorados' => $tieneAsesorados
                 ]);
             } else {
-                return $this->render('nocursos', [
+                return $this->render('noasesorados', [
                     'model' => $modelDocente,
+                    
                 ]);
             }
         } else {
