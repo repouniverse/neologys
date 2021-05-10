@@ -71,31 +71,6 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
         <?php 
     $docus2=FormatoDocs::find()->where(['in','codocu',['161','162']])->all();
         foreach($docus2 as $docu){
-            if($docu->codocu == '162'){
-                if ($docu->hasAttachments()) {
-                    $url = Url::toRoute([
-                        '/finder/selectimage',
-                        'isImage' => false,
-                        'idModal' => 'imagemodal',
-                        'idGrilla' => 'mi_grilla',
-                        'modelid' => $docu->id,
-                        'extension' => Json::encode(['docx']),
-                        'nombreclase' => str_replace('\\', '_', get_class($docu))
-                    ]);
-                    $options = [
-                        'title' => Yii::t('base_labels', 'Upload File'),
-                        //'aria-label' => Yii::t('rbac-admin', 'Activate'),
-                        //'data-confirm' => Yii::t('rbac-admin', 'Are you sure you want to activate this user?'),
-                        'data-method' => 'get',
-                        //'data-pjax' => '0',
-                    ];
-                     
-                    echo Html::button('<span class="glyphicon glyphicon-paperclip"></span>', ['href' => $url, 'class' => 'botonAbre btn btn-success']);
-                } else {
-                    //$url=$model->urlFirstFile;
-                     echo Html::a('<span class="glyphicon glyphicon-save"></span>', $docu->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning']);
-                }
-            }
            ?>
             <a href="<?=$docu->urlFirstFile?>" class="btn btn-info btn-sm" >
                 <span class="glyphicon glyphicon-download"></span>
