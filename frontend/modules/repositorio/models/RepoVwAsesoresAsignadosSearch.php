@@ -57,7 +57,7 @@ class RepoVwAsesoresAsignadosSearch extends RepoVwAsesoresAsignados
         }*/
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'nombres', $this->nombres])->andFilterWhere(['like', 'seccion', $this->seccion])->andFilterWhere(['like', 'descripcion', $this->descripcion])->andFilterWhere(['like', 'codalu', $this->codalu])->andFilterWhere(['like', 'apasesor', $this->apasesor])->andFilterWhere(['like', 'ap', $this->ap])->andFilterWhere(['like', 'am', $this->am])->andFilterWhere(['like', 'amasesor', $this->amasesor])->andFilterWhere(['like', 'nombresasesor', $this->nombresasesor])->andFilterWhere(['like', 'codesp', $this->codesp])->andFilterWhere(['like', 'periodo', $this->periodo])
+        $query->andFilterWhere(['like', 'nombres', $this->nombres])->andFilterWhere(['like', 'seccion', $this->seccion])->andFilterWhere(['like', 'descripcion', $this->descripcion])->andFilterWhere(['like', 'codalu', $this->codalu])->andFilterWhere(['like', 'apasesor', $this->apasesor])->andFilterWhere(['like', 'ap', $this->ap])->andFilterWhere(['like', 'am', $this->am])->andFilterWhere(['like', 'amasesor', $this->amasesor])->andFilterWhere(['like', 'nombresasesor', $this->nombresasesor])->andFilterWhere(['like', 'codesp', $this->codesp])->andFilterWhere([ 'periodo' => $this->periodo])
             ->orderBy([
                 'descripcion' => SORT_ASC,
                 'apasesor' => SORT_ASC,

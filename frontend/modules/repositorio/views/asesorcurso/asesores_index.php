@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template'=>'{view}',
                 
                 ],
+            'periodo',
             ['attribute'=>'Asesor',
                 //'header'=>'Asesor',
                 'value'=>function($model){
@@ -60,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      return $model->alumno->fullName(false);
                 }
                 ],
+                
             /*['attribute'=>'apasesor'],*/
             
         ];

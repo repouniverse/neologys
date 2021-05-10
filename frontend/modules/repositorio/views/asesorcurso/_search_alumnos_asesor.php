@@ -25,14 +25,17 @@ use common\helpers\ComboHelper;
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
     <?= $form->field($model, 'descripcion') ?>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
     <?= $form->field($model, 'carrera_id')->dropDownList
                          (
                           ComboHelper::getCboCarreras(1), ['prompt'=>'--'.yii::t('base_verbs','Choose a value')."--",]
                          ) ?>
   </div>
-   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
     <?= $form->field($model, 'codalu') ?>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
+    <?= $form->field($model, 'periodo') ?>
   </div>
 
    
