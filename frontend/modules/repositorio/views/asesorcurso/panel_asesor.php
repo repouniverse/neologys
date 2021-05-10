@@ -90,10 +90,10 @@ echo \common\widgets\spinnerWidget\spinnerWidget::widget();
                         //'data-pjax' => '0',
                     ];
                      
-                   // echo Html::button('<span class="glyphicon glyphicon-paperclip"></span>', ['href' => $url, 'class' => 'botonAbre btn btn-success']);
+                    echo Html::button('<span class="glyphicon glyphicon-paperclip"></span>', ['href' => $url, 'class' => 'botonAbre btn btn-success']);
                 } else {
                     //$url=$model->urlFirstFile;
-                    // echo Html::a('<span class="glyphicon glyphicon-save"></span>', $docu->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning']);
+                     echo Html::a('<span class="glyphicon glyphicon-save"></span>', $docu->urlFirstFile, ['data-pjax' => '0', 'class' => 'btn btn-warning']);
                 }
             }
            ?>
