@@ -131,7 +131,8 @@ class AsesoresCurso extends \common\models\base\modelBase
         //NUM DE ASESORADOS
         $nasesorados = AsesoresCurso::find()->alias('t')->innerJoin('matricula','matricula.id = t.matricula_id')->andWhere([
                 'asesor_id'=>$this->asesor_id,
-                'periodo'=>$this->prepareParams()['periodo']
+                'periodo'=>$this->prepareParams()['periodo'],
+                'seccion'=>$this->prepareParams()['seccion'],
                 ])->count();
 
         //NUM MAX DE ASESORADOS POR ASESOR
