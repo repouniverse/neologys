@@ -348,7 +348,6 @@ class InterExpedientes extends \common\models\base\modelBase
 
         $message->ResolveMessage();
         try {
-
             $result = $mailer->send($message);
             return true;
             $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
