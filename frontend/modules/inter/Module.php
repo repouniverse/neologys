@@ -50,7 +50,9 @@ class Module extends \yii\base\Module
        
         h::getIfNotPutSetting('sta','extensionimagesalu','.jpg', SettingType::STRING_TYPE);
          h::getIfNotPutSetting('sta','urlimagesalu','http:://www.orce.uni.edu.pe/alumnos/', SettingType::STRING_TYPE);
-        */  
+        */
+       // h::getIfNotPutSetting('inter','dep_internacional_id',127);
+
         }
     
     

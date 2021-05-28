@@ -455,68 +455,69 @@ class ConvocadosController extends baseController
            return ['success'=>'hola esto esta ok'];
          }
      }
-     
-   public function actionFillFicha($id){
-      
+
+    public function actionFillFicha($id)
+    {
         $model = $this->findModel($id);
         $this->noAutorizado($model);
         $model->setScenario($model::SCENARIO_FICHA);
-        $modelP=$model->postulante->persona;
-         if($model->postulante->isExternal()){
-           $scenario=$modelP::SCE_CREACION_EXTRANJERO;  
-         }ELSE{
-             $scenario=$modelP::SCE_INTERMEDIO;   
-         }
-        $modelP->setScenario($scenario);        
-        
-       // var_dump($modelP);die();
+        $modelP = $model->postulante->persona;
+        if ($model->postulante->isExternal()) {
+            $scenario = $modelP::SCE_CREACION_EXTRANJERO;
+        } else {
+            $scenario = $modelP::SCE_INTERMEDIO;
+        }
+        $modelP->setScenario($scenario);
+
+        // var_dump($modelP);die();
         if (h::request()->isAjax &&
             $model->load(h::request()->post()) &&
-            $modelP->load(h::request()->post())    
-                ) {
-                  yii::error($modelP->attributes,__FUNCTION__);
-            yii::error('paso el ajzx',__FUNCTION__);
-                h::response()->format = Response::FORMAT_JSON;
-             // yii::error('Los errores',__FUNCTION__);  
-               //yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
-              //yii::error(ActiveForm::validate($model),__FUNCTION__);
-                yii::error(array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP)),__FUNCTION__);
-                return array_merge(ActiveForm::validate($model),ActiveForm::validate($modelP));
+            $modelP->load(h::request()->post())
+        ) {
+            yii::error($modelP->attributes, __FUNCTION__);
+            yii::error('paso el ajzx', __FUNCTION__);
+            h::response()->format = Response::FORMAT_JSON;
+            // yii::error('Los errores',__FUNCTION__);
+            //yii::error(ActiveForm::validateMultiple([$model,$modelP]),__FUNCTION__);
+            //yii::error(ActiveForm::validate($model),__FUNCTION__);
+            yii::error(array_merge(ActiveForm::validate($model), ActiveForm::validate($modelP)), __FUNCTION__);
+            return array_merge(ActiveForm::validate($model), ActiveForm::validate($modelP));
         }
-        yii::error('continuado',__FUNCTION__);
-        if ($model->load(Yii::$app->request->post()) && 
-             $modelP->load(Yii::$app->request->post()) &&
-                $model->save() && $modelP->save()) {
-             yii::error('GRABO AMBOS ',__FUNCTION__);
+        yii::error('continuado', __FUNCTION__);
+        if ($model->load(Yii::$app->request->post()) &&
+            $modelP->load(Yii::$app->request->post()) &&
+            $model->save() && $modelP->save()) {
+            yii::error('GRABO AMBOS ', __FUNCTION__);
             //var_dump(!is_null($exp=$model->firstExpediente()));die();
-            if(!is_null($exp=$model->firstExpediente())){
+            if (!is_null($exp = $model->firstExpediente())) {
                 yii::error('El expediemte no es nulo');
-                if($exp->aprove()){
-                     yii::error('Si aprobo');
+                if ($exp->aprove()) {
+                    yii::error('Si aprobo');
                     yii::error('creando el expediente');
-                   // $model->createExpedientes($model->currentStage());
+                    // $model->createExpedientes($model->currentStage());
 //aprobar le primer expediente la ficha de
-                }else{
+                } else {
                     yii::error('no aprobo');
-                    print_r($exp->getErrors());DIE();
+                    print_r($exp->getErrors());
+                    die();
                 }
-            }else{
-               yii::error('El expediemte  es nulo'); 
+            } else {
+                yii::error('El expediemte  es nulo');
             }
-                
-              //var_dump($model->currentStage());die();
+
+            //var_dump($model->currentStage());die();
 //yii::error('apunto de redireccionar',__FUNCTION__);
             //if(h::userName()=='admin')
             //return $this->redirect(['view', 'id' => $model->id]); 
-            h::session()->setFlash('success',m::t('validaciones','¡First step has been completed...!'));
+            h::session()->setFlash('success', m::t('validaciones', '¡First step has been completed...!'));
             return $this->redirect(Url::to([h::user()->resolveUrlAfterLogin()]));
         }
- yii::error('a punto de renderizar',__FUNCTION__);
+        yii::error('a punto de renderizar', __FUNCTION__);
         return $this->render('ficha_postulante', [
             'model' => $model,
-            'modelP'=>$modelP
-        ]); 
-   }  
+            'modelP' => $modelP
+        ]);
+    }
    
   public function actionUploadsDocs($id){
       $model = $this->findModel($id);

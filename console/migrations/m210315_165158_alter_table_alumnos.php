@@ -5,7 +5,7 @@ use console\migrations\baseMigration;
 /**
  * Class m210315_165158_alter_table_alumnos
  */
-class m210315_165158_alter_table_alumnos extends Migration
+class m210315_165158_alter_table_alumnos extends baseMigration
 {
     const NAME_TABLE='{{%alumnos}}';
     /**

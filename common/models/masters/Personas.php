@@ -88,23 +88,24 @@ class Personas extends modelBase implements \common\interfaces\PersonInterface
     public function rules()
     {
         return [
-            [['ap',  'nombres','tipodoc','numerodoc','codgrupo'], 'required'],
-            [['identidad_id','codgrupo','provnac','distnac'], 'safe'],
+            [['ap', 'nombres', 'tipodoc', 'numerodoc', 'codgrupo'], 'required'],
+            [['identidad_id', 'codgrupo', 'provnac', 'distnac'], 'safe'],
             [['cumple'], 'validateFechas'],
-            
-            [['id','sexo', 'cumple','estcivil', 'pais', 'domicilio','telmoviles','telfijo'],'safe','on'=>self::SCE_UPDATE_MATRICULA],
-            
+
+            [['id', 'sexo', 'cumple', 'estcivil', 'pais', 'domicilio', 'telmoviles', 'telfijo'], 'safe', 'on' => self::SCE_UPDATE_MATRICULA],
+
             [['codigoper'], 'string', 'max' => 8],
             [['ap', 'am', 'nombres'], 'string', 'max' => 40],
-            [['pais','depnac', 'provnac', 'distnac','depdir', 'provdir', 'distdir', 'domicilio','codgrupo', 'sexo','estcivil'], 'safe'],
+            [['pais', 'depnac', 'provnac', 'distnac', 'depdir', 'provdir', 'distdir', 'domicilio', 'codgrupo', 'sexo', 'estcivil'], 'safe'],
             //[['codpuesto'], 'string', 'max' => 3],
             [['domicilio'], 'string', 'max' => 73],
-             [['tipodoc','numerodoc'], 'unique','targetAttribute'=>['tipodoc','numerodoc']],
+            [['tipodoc', 'numerodoc'], 'unique', 'targetAttribute' => ['tipodoc', 'numerodoc']],
             [['telfijo'], 'string', 'max' => 13],
             [['telmoviles', 'referencia'], 'string', 'max' => 30],
-            
-            
-            
+            //IMPLEMENTANDO ESCENARIOS
+            [['cumple','telfijo'], 'required', 'on'=>self::SCE_INTERMEDIO], //TAMBIÉN SE ASIGNA A UN GRUPO DE ESCENARIOS , puede poner cualquier regla
+
+
             /*[[
             'ap', 'am',
             'nombres', 'tipodoc', 

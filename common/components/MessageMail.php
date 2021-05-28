@@ -85,7 +85,6 @@ class MessageMail extends Message
             return $model::firstOrCreateStatic($attributes,
                 null,
                 $this->criteriaExists());
-
         } else {
             ///echo '<pre>';
             //var_dump($this->paramTextBody);
