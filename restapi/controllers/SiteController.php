@@ -32,14 +32,23 @@ class SiteController extends Controller
         $model = new LoginForm();
         if($model->load(\Yii::$app->request->post(), '') && ($token = $model->login())) {
             $profile = User::findByUsername($model->username)->getProfile();
-            $trabajador_carrera_id = Trabajadores::findOne(['persona_id' => $profile->persona_id])->carrera_id;
+            $trabajador = Trabajadores::findOne(['persona_id' => $profile->persona_id]);
+
+            $carrera_id = null;
+            $depa_id = null;
+
+            if($trabajador) {
+                $carrera_id = $trabajador->carrera_id;
+                $depa_id = $trabajador->depa_id;
+            }
 
             return [
                 'token' => $token,
                 'username' => $model->username,
                 'persona_id' => $profile->persona_id,
                 'codgrupo' => $profile->getPersona()->one()->codgrupo,
-                'carrera_id' => $trabajador_carrera_id
+                'carrera_id' => $carrera_id,
+                'depa_id' => $depa_id,
             ];
         }else {
             //return $model
