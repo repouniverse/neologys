@@ -4,20 +4,46 @@
 namespace restapi\controllers;
 
 use common\models\masters\Personas;
+use common\models\masters\Trabajadores;
 use restapi\models\LoginForm;
 use restapi\models\User;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
+use yii\web\Response;
 
 class SiteController extends Controller
 {
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        // add CORS filter
+        $behaviors['corsFilter'] = [
+            'class' => \yii\filters\Cors::class,
+        ];
+
+        return $behaviors;
+    }
+
     public function actionLogin()
     {
         $model = new LoginForm();
         if($model->load(\Yii::$app->request->post(), '') && ($token = $model->login())) {
             $profile = User::findByUsername($model->username)->getProfile();
-            return ['token' => $token, 'username' => $model->username, 'persona_id' => $profile->persona_id, 'codgrupo' => $profile->getPersona()->one()->codgrupo];
+            $trabajador_carrera_id = Trabajadores::findOne(['persona_id' => $profile->persona_id])->carrera_id;
+
+            return [
+                'token' => $token,
+                'username' => $model->username,
+                'persona_id' => $profile->persona_id,
+                'codgrupo' => $profile->getPersona()->one()->codgrupo,
+                'carrera_id' => $trabajador_carrera_id
+            ];
         }else {
-            return $model;
+            //return $model
+            return ['status' => 'without_profile'];
         }
     }
 
