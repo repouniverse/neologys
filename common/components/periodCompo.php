@@ -67,6 +67,13 @@ pero antes loa lancena en cache     */
             }
         }
 
+//        echo "<pre>";
+//        var_dump($this->items);
+//        echo "</pre>";
+//
+//        die();
+
+
         return $this->items;
     }
     
