@@ -6,9 +6,10 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+
 if(Yii::$app->geoip->ip()->isoCode=='PE'){
   yii::$app->language='es_PE';
-}ELSE{
+}else{
    yii::$app->language='en_US'; 
 }
   //echo $model::className();
@@ -21,40 +22,34 @@ $fieldOptions1 = [
 ];
 
 ?>
+
+
 <div class="site-request-password-reset">
-   
-<div class="login-box">
-    
-       <div class="login-box-body">
-        <p class="login-box-msg"><?php echo yii::t('base_labels','Please fill out your email. <b>If you have a institutional account, yo should use it.</b> A link to reset password will be sent there.');  ?></p>
-             <p class="login-box-msg">
-                El módulo del programa internacional para <b>alumnos OUTGOING</b> , estará disponible a partir de marzo del 2021.
-             </p>
+    <div class="login-box">
+        <div class="login-box-body">
+            <p>
+                <?php echo yii::t('base_labels', 'Please fill out your email. <b>If you have a institutional account, yo should use it.</b> A link to reset password will be sent there.'); ?>
+            </p>
 
-        
-         <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
 
-           
-        
-        <?= $form
-            ->field($model, 'email', $fieldOptions1)
-             ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
+            <?= $form
+                ->field($model, 'email', $fieldOptions1)
+                ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
 
-       
-        <div class="row">
-           
-            <div class="col-xs-4">
-                <?= Html::submitButton(yii::t('base_verbs','Send'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+            <div class="row">
+                <div class="col-xs-4">
+                    <?= Html::submitButton(yii::t('base_verbs', 'Send'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+                </div>
             </div>
-            <!-- /.col -->
+            <?php ActiveForm::end(); ?>
+            <hr>
+            <p>
+                En caso tengas algún inconveniente con el acceso luego de estos pasos, puedes realizar una solicitud en el siguiente enlace.
+            </p>
+            <p>
+                <a href="https://fcctp.usmp.edu.pe/mi-tramite/solicitud-acceso" target="_blank" class="btn btn-danger">Ingresar solicitud</a>
+            </p>
         </div>
-
-
-        <?php ActiveForm::end(); ?>
-
-    
-   
-       
-   
+    </div>
 </div>
-</div></div>
