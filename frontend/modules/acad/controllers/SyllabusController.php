@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\acad\controllers;
+use common\models\User;
 use frontend\modules\acad\models\CabeceraAsignacionSyllabus;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -42,7 +43,7 @@ class SyllabusController extends baseController
     }
 
     /**
-     * Lists all AcadSyllabus models. 
+     * Lists all AcadSyllabus models.
      * @return mixed
      */
     public function actionIndex()
@@ -76,7 +77,7 @@ class SyllabusController extends baseController
     public function actionCreate($plan_id,$docente_id)
     {
        if (is_null(PlanesEstudio::findOne($plan_id)) or is_null(Docentes::findOne($docente_id)))
-         return 'Valores invalidos';        
+         return 'Valores invalidos';
         $model = new AcadSyllabus();
         $model->setScenario($model::SCE_CREACION_BASICA);
         $model->setAttributes([
@@ -94,21 +95,21 @@ class SyllabusController extends baseController
             'plan_id'=>$plan_id,
             'docente_owner_id'=>$docente_id,
            ])->one();
-       
+
        if(!is_null($otroModelo)){
-           return $this->redirect(['update', 'id' => $otroModelo->id]); 
+           return $this->redirect(['update', 'id' => $otroModelo->id]);
        }elseif($model->save()){
            $model->refresh();
            return $this->redirect(['update', 'id' => $model->id]);
        }else{
-          echo $model->getFirstError();die(); 
+          echo $model->getFirstError();die();
        }
-        
-        
-            
-        
-        
-        
+
+
+
+
+
+
 
     }
 
@@ -120,18 +121,18 @@ class SyllabusController extends baseController
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    { 
-        $model = $this->findModel($id);  
+    {
+        $model = $this->findModel($id);
         if(!h::userId()==$model->docenteOwner->persona->profile->user_id){
           h::session()->setFlash('success','No puede modificar este silabos porque no lo tiene asignado');
           return $this->redirect(['view', 'id' => $model->id]);
         }
-       
+
         /*Lineas para hacer funcional el edit-column*/
          if ($this->is_editable() && h::request()->isAjax)
             return $this->editField();
          /*nada mas */
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -170,7 +171,7 @@ class SyllabusController extends baseController
 
         throw new NotFoundHttpException(Yii::t('base_labels', 'The requested page does not exist.'));
     }
-    
+
     public function actionSyllabusAsignarDocente(){
        /* echo \frontend\modules\acad\models\AcadRespoSyllabus::find()
          ->alias('t')
@@ -180,13 +181,13 @@ class SyllabusController extends baseController
          die();*/
         $model=new CabeceraAsignacionSyllabus();
         return $this->render('asignar_syllabus_docentes',['model'=>$model]);
-        
+
     }
-    
+
      public function actionAjaxPrueba(){
          $this->layout="install";
        if(h::request()->isAjax){
-         
+
        $dataProvider=new ActiveDataProvider(
         [
           'query'=>(new \yii\db\Query())->
@@ -198,16 +199,16 @@ class SyllabusController extends baseController
             'pagination'=>[
                 'pageSize'=>20,
             ]
-            
+
         ]);
-           
-           
+
+
          RETURN  $this->render('grilla_curso_docente',['dataProvider'=>$dataProvider]);
-           
+
        }
-        
+
      }
-   
+
     public function actionPlanes(){
         $searchModel = new \frontend\modules\acad\models\AcadVwPlanesEstudioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -215,13 +216,13 @@ class SyllabusController extends baseController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    } 
-    
-      public function actionModalCreaDocente($id){        
+    }
+
+      public function actionModalCreaDocente($id){
          $this->layout = "install";
         $modelPlan = \common\models\masters\PlanesEstudio::findOne($id);
         if(is_null($modelPlan))return '';
-        
+
         $model=New \frontend\modules\acad\models\AcadRespoSyllabus([
             'plan_estudio_id'=>$id
         ]);
@@ -231,9 +232,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -242,26 +243,26 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
-       
+
     }
-    
-    
-     public function actionModalEditaDocente($id){        
-        
+
+
+     public function actionModalEditaDocente($id){
+
         $model= \frontend\modules\acad\models\AcadRespoSyllabus::findOne($id);
         if(is_null($model))return '';
-       
+
        $datos=[];
         if(h::request()->isPost){
             $model->load(h::request()->post());
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -270,26 +271,39 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
-       
+
     }
-    
+
     public function actionIndexDocentes(){
         $searchModel = new DocentesSearch();
         $dataProvider = $searchModel->
            search(Yii::$app->request->queryParams);
         return $this->render(
-                             'index_docente', 
+                             'index_docente',
                              [
                               'searchModel' => $searchModel,
                               'dataProvider' => $dataProvider,
                              ]
-                            ); 
+                            );
     }
-    
+
     public function actionManageDocente($id){
+
+/*        $user_id = h::userId();
+        $usuario = User::findOne($user_id);
+        $persona_id = ($usuario->profile->persona->id);*/
+        //die();
+        //$model= \common\models\masters\Docentes::findOne($id);
+
+/*        $model= \common\models\masters\Docentes::find()->where(['persona_id'=>$persona_id])->one();*/
+
+        //var_dump($model);
+        //die();
+
         $model= \common\models\masters\Docentes::findOne($id);
+
         if(is_null($model))return 'no hay registro';
         $searchModel = new \frontend\modules\acad\models\AcadVwPlanesEstudioSearch();
        // VAR_DUMP(Yii::$app->request->queryParams);DIE();
@@ -300,10 +314,10 @@ class SyllabusController extends baseController
             'dataProvider' => $dataProvider,
             'model'=>$model
         ]);
-        
-        
+
+
     }
-    
+
    public function actionAjaxAsignaCurso(){
        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
@@ -317,7 +331,7 @@ class SyllabusController extends baseController
            yii::error("Existe el syllabuS?");
            yii::error(empty($syllabus));
            if(is_null($docente) or is_null($plan) )
-             return ['error'=>yii::t('base_errors','Record not found')];  
+             return ['error'=>yii::t('base_errors','Record not found')];
            $model=New \frontend\modules\acad\models\AcadRespoSyllabus([
                'docente_id'=>$docente_id,
                'plan_estudio_id'=>$plan_id,
@@ -330,27 +344,27 @@ class SyllabusController extends baseController
           else{
             return ['error'=>yii::t('base_errors',$model->getFirstError())];
           }
-           
+
        }
    }
-   
+
    public function actionIndexCursosAsignados(){
         $searchModel = new AcadVwSyllabusCursoDoceSearch();
         $dataProvider = $searchModel->
            search(Yii::$app->request->queryParams);
         return $this->render(
-                             'index_cursos_asignados', 
+                             'index_cursos_asignados',
                              [
                               'searchModel' => $searchModel,
                               'dataProvider' => $dataProvider,
                              ]
-                            ); 
+                            );
     }
-    
-    
+
+
     public function actionModalCrearUnidad($id){
         $this->layout='install';
-        if(is_null(AcadSyllabus::findOne($id)))return 'no hay registro';        
+        if(is_null(AcadSyllabus::findOne($id)))return 'no hay registro';
         $model= new \frontend\modules\acad\models\AcadSyllabusUnidades([
             'syllabus_id'=>$id
         ]);
@@ -360,9 +374,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -371,10 +385,10 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
     }
-   
+
      public function actionModalEditarUnidad($id){
         $this->layout='install';
        $model= \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
@@ -385,9 +399,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -396,14 +410,14 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
     }
 
     public function actionAjaxDeleteUnidad($id){
         $unidad = \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
         $unidades =  \frontend\modules\acad\models\AcadContenidoSyllabus::findAll(['unidad_id'=>$id]);
-        if(h::request()->isAjax){  
+        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             //$unidad->load(h::request()->post());
             if( is_null( $unidades)){
@@ -412,7 +426,7 @@ class SyllabusController extends baseController
                 foreach($unidades as $u){
                     $u->delete();
                 }
-                $unidad->delete(); 
+                $unidad->delete();
             }
             return ['success'=>yii::t('base_labels','Unidad eliminada con éxito.')];
         }
@@ -421,7 +435,7 @@ class SyllabusController extends baseController
     public function actionAjaxDeleteObservacion($id){
         $observ = \frontend\modules\acad\models\AcadObservacionesSyllabus::findOne(['flujo_syllabus_id'=>$id]);
 
-        if(h::request()->isAjax){  
+        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             //$unidad->load(h::request()->post());
             if(is_null($observ)){
@@ -430,32 +444,32 @@ class SyllabusController extends baseController
                 $observ->delete();
                 return ['success'=>yii::t('base_labels','Observación eliminada con éxito.')];
             }
-            
+
         }
 
-        
-        
+
+
     }
 
 
     public function actionAjaxDeleteDocenteSyllabus($id){
-        
+
         $docenteSyllabus =  AcadSyllabusDocentes::findOne(['id'=>$id]);
 
-        if(h::request()->isAjax){  
+        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             //$unidad->load(h::request()->post());
             if( is_null($docenteSyllabus)){
                 return ['success'=>yii::t('base_labels','No se encontro.')];
                 //$unidad->delete();
             }else{
-                $docenteSyllabus->delete(); 
+                $docenteSyllabus->delete();
             }
             return ['success'=>yii::t('base_labels','Se elimino al docente correctamente.')];
         }
-        
+
     }
-    
+
     public function actionModalEditarCompe($id){
         $this->layout='install';
        $model= \frontend\modules\acad\models\AcadSyllabusCompetencias::findOne($id);
@@ -466,9 +480,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -477,40 +491,40 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
     }
-    
+
     public function actionAjaxGenerateContent($id){
-          
+
          $model= \frontend\modules\acad\models\AcadSyllabusUnidades::findOne($id);
-        if(h::request()->isAjax){  
+        if(h::request()->isAjax){
             h::response()->format = \yii\web\Response::FORMAT_JSON;
             $model->generateContenidoSyllabusByUnidad();
             return ['success'=>yii::t('base_labels','The content has been generated')];
         }
     }
-    
+
     public function actionAjaxShowContent(){
         $this->layout="install";
         if (h::request()->isAjax) {
             $id = h::request()->post('expandRowKey');
            // $dataProvider= \frontend\modules\acad\models\AcadContenidoSyllabusSe
-            
-            
-            
-            
+
+
+
+
              return $this->render('_expand_contenido',[
               'identidad_unidad'=>$id,
-              
+
               ]);
         }
-        
-        
-         
-         
+
+
+
+
     }
-    
+
      public function actionModalEditContent($id){
         $this->layout='install';
        $model= \frontend\modules\acad\models\AcadContenidoSyllabus::findOne($id);
@@ -521,9 +535,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -532,10 +546,10 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
     }
-    
+
      public function actionModalAddTeacher($id){
         $this->layout='install';
         if(is_null($modelSyllabus= AcadSyllabus::findOne($id))){
@@ -544,7 +558,7 @@ class SyllabusController extends baseController
        $model= new \frontend\modules\acad\models\AcadSyllabusDocentes([
            'syllabus_id'=>$modelSyllabus->id,
        ]);
-       
+
        if(is_null($model))return 'No hay registro';
        $datos=[];
         if(h::request()->isPost){
@@ -552,9 +566,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -563,14 +577,14 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
     }
-    
+
     public function actionMakeSyllabusPdf($id){
         $this->layout="install";
-        $model=$this->findModel($id); 
-        
+        $model=$this->findModel($id);
+
         $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
         $mpdf=$this->preparePdf($vistaHtml);
         /* $mpdf->showWatermarkImage = 1;
@@ -580,20 +594,20 @@ class SyllabusController extends baseController
                 'P',
                 'P'
                           );*/
-           
+
 
         $mpdf->Output();
        // return $vistaHtml;
-        
+
         //return  $vistaHtml;
     }
-    
-    
-    
-    
+
+
+
+
    private function preparePdf($contenidoHtml) {
         //  $contenidoHtml = \Pelago\Emogrifier\CssInlinerCssInliner::fromHtml($contenidoHtml)->inlineCss()->render();
-        //->renderBodyContent(); 
+        //->renderBodyContent();
         $mpdf = \frontend\modules\report\Module::getPdf();
         // $mpdf->SetHeader(['{PAGENO}']);
        /// $mpdf->margin_header = 1;
@@ -615,23 +629,23 @@ class SyllabusController extends baseController
         $mpdf->WriteHTML($contenidoHtml);
         return $mpdf;
     }
-    
+
  public function actionAprobeSyllabus(){
      $idUser=h::userId();
-    return  $this->render('aprobe_syllabus',['idUser'=>$idUser]); 
+    return  $this->render('aprobe_syllabus',['idUser'=>$idUser]);
  }
- 
- 
+
+
  public function actionModalCreateObservacion($id){
      $this->layout = "install";
         $modelFlujo = \frontend\modules\acad\models\AcadTramiteSyllabus::findOne($id);
         //var_dump($modelFlujo);die();
         if(is_null($modelFlujo))return '';
-        
+
         $model=New \frontend\modules\acad\models\AcadObservacionesSyllabus([
             'flujo_syllabus_id'=>$modelFlujo->id,
             'syllabus_id'=>$modelFlujo->docu_id,
-            
+
         ]);
        $datos=[];
         if(h::request()->isPost){
@@ -639,9 +653,9 @@ class SyllabusController extends baseController
              h::response()->format = \yii\web\Response::FORMAT_JSON;
             $datos=\yii\widgets\ActiveForm::validate($model);
             if(count($datos)>0){
-               return ['success'=>2,'msg'=>$datos];  
+               return ['success'=>2,'msg'=>$datos];
             }else{
-                $model->save();                
+                $model->save();
                 return ['success'=>1,'id'=>$model->id];
             }
         }else{
@@ -650,11 +664,11 @@ class SyllabusController extends baseController
                         'id' => $id,
                         'gridName'=>h::request()->get('gridName'),
                         'idModal'=>h::request()->get('idModal'),
-            ]);  
+            ]);
         }
-       
+
  }
- 
+
  public function actionAjaxAprobeFlujo($id){
      if(h::request()->isAjax){
          h::response()->format = \yii\web\Response::FORMAT_JSON;
@@ -664,42 +678,42 @@ class SyllabusController extends baseController
             }else{
                 //;
                 if($modelFlujo->hasObservaciones()){
-                     return ['error'=>yii::t('base_errors','The document has observations')]; 
+                     return ['error'=>yii::t('base_errors','The document has observations')];
                   }
                 if($modelFlujo->aprove()){
                     return ['success'=>yii::t('base_labels','Document was aprobed')];
                 }else{
-                   return ['error'=>yii::t('base_errors',$modelFlujo->getFirstError())]; 
-                }                
+                   return ['error'=>yii::t('base_errors',$modelFlujo->getFirstError())];
+                }
             }
-     }  
+     }
  }
- 
+
  public function actionAjaxMakePdf($id){
-    $this->layout="install"; 
+    $this->layout="install";
     if(h::request()->isAjax){
          h::response()->format = \yii\web\Response::FORMAT_JSON;
         $model=$this->findModel($id);
       if(!$model->isAprobed()){
-         return ['error'=>yii::t('base_errors','Document has not been approved yet')]; 
+         return ['error'=>yii::t('base_errors','Document has not been approved yet')];
       }
        $vistaHtml=$this->render('/reportes/syllabus',['model'=>$model]);
        $mpdf=$this->preparePdf($vistaHtml);
        //$mpdf->Output($name, $dest);
       // $ruta=h::gsetting('acad', 'rutaSyllabus');
-      
+
        $ruta=\yii::getAlias('@frontend/web/docs/500/').$model->resolveNameFile().'.pdf';
        $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
        $model->attachFromPath($ruta);
-       unlink($ruta);        
+       unlink($ruta);
        return ['success'=>yii::t('base_labels','File saved')];
     }
-         
-}
- 
- 
 
- 
- 
- 
+}
+
+
+
+
+
+
 }
