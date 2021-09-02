@@ -571,6 +571,7 @@ public function porcAvanceUploads($stage){
 //            'depa_id'=>$departamento_id,
 //        ])->createCommand()->rawSql;
 //        die();
+
         return InterEvaluadores::find()->andWhere([
             'carrera_id'=>$carrera_id,
             'programa_id'=>$programa_id,

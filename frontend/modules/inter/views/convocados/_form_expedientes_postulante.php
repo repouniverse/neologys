@@ -29,7 +29,7 @@ if ($porcentajeAvance < 100) {
     </div>
     <?php
 } else { //Si ha subido todos los Uploads
-    $model->sendEmailUploads();
+    //$model->sendEmailUploads(); // test
     if (!h::session()->has('envi_correo') && h::request()->isAjax)
         h::session()->set('envi_correo', $model->sendEmailUploads());
     ?>

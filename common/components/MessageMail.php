@@ -86,7 +86,7 @@ class MessageMail extends Message
                 null,
                 $this->criteriaExists());
         } else {
-            ///echo '<pre>';
+            //echo '<pre>';
             //var_dump($this->paramTextBody);
             //echo '</pre>';
             //die();

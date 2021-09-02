@@ -52,6 +52,7 @@ class ConvocadosController extends baseController
         $searchModel = new \frontend\modules\inter\models\VwInterConvocadosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+
         return $this->render('index', [
             'id'=>$modelPrograma->id,
             'modelPrograma'=>$modelPrograma,

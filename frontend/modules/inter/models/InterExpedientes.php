@@ -252,7 +252,7 @@ class InterExpedientes extends \common\models\base\modelBase
             yii::error('ENVIANDO CORREO',__FUNCTION__);
              $this->mailAprove();
         }
-       
+
         //var_dump($grabo);die();
         ///$this->setScenario($oldScenario);//dejamos las cosas como estaban antes
         return $grabo;
@@ -317,13 +317,18 @@ class InterExpedientes extends \common\models\base\modelBase
  
  public function mailAprove(){
     $postulante=$this->convocado->postulante;
+    //echo "<pre>";
+    //var_dump($postulante);
+    //echo "</pre>";
+    //die();
+
     $mailer = new \common\components\Mailer();
     $message = new \common\components\MessageMail();
 
-     $contenido = "Buenas TardesS {{param1}} <br>"
+     $contenido = "Hola {{param1}} <br>"
          . "La presente es para notificarle que has  "
-         . "aprobado con éxito. <br>{{param2}} <br>"
-         . "Te esperamos en la siguiente etapa  ";
+         . "aprobado con éxito el siguiente requisito: <br>{{param2}} <br>"
+         . "";
 
      $message->paramTextBody = [
          '{{param1}}' => $postulante->fullName(),
@@ -331,7 +336,7 @@ class InterExpedientes extends \common\models\base\modelBase
      ];
      $contenido = $message->replaceParams($contenido);
 
-     $message->setSubject('APROBACION DE EXPEDIENTEE')
+     $message->setSubject('APROBACION DE EXPEDIENTE')
          ->setFrom([\common\helpers\h::gsetting('mail', 'userservermail') => 'Internacional - FCCTP'])
          ->setTo($postulante->mail)
          ->SetHtmlBody($contenido);
@@ -346,10 +351,10 @@ class InterExpedientes extends \common\models\base\modelBase
 //                        . "aprobado con éxito. <br>".$this->plan->descripcion." <br>"
 //                        . "Te esperamos en la siguiente etapa  ");
 
-        $message->ResolveMessage();
+        ///$message->ResolveMessage();
         try {
             $result = $mailer->send($message);
-            return true;
+            //return true;
             $mensajes['success'] = m::t('validaciones','The mail was sent, confirming the approval of the file');
         } catch (\Swift_TransportException $Ste) {
             
