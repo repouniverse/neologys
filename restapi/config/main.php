@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'auth' => 'site/login',
+                'logout' => 'user/logout',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
