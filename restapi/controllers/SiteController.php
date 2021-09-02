@@ -56,4 +56,13 @@ class SiteController extends Controller
         }
     }
 
+    public function actionCreateUserNew()
+    {
+        $params=$_REQUEST;
+        $user = new \common\models\User();
+        $user->attributes = $params;
+        $user->password= '123456 ';
+        $user->save();
+        return $params;
+    }
 }

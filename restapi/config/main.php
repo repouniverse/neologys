@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'auth' => 'site/login',
+                'users/create-new' => 'site/create-user-new',
                 'logout' => 'user/logout',
                 [
                     'class' => 'yii\rest\UrlRule',
